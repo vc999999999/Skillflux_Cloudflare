@@ -5,7 +5,7 @@ import {
   absoluteUrl,
   getDirectoryStats,
   getFeaturedSites,
-  getPopularTags
+  getFilterableTags
 } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
@@ -24,7 +24,7 @@ const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const copy = getPageCopy(lang);
 const stats = getDirectoryStats();
 const featured = getFeaturedSites(8);
-const labels = getPopularTags(9);
+const labels = getFilterableTags(9);
 const canonicalPath = localizePath("/", lang);
 const jsonLd = [
   {

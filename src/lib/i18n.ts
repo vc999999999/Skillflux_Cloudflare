@@ -13,7 +13,6 @@ type PageCopy = {
   nav: {
     homeLabel: string;
     directory: string;
-    recommended: string;
     llms: string;
     pack: string;
     languageLabel: string;
@@ -78,6 +77,7 @@ type PageCopy = {
     searchLabel: string;
     searchPlaceholder: string;
     filterLabel: string;
+    categoryLabel: string;
     all: string;
     countSuffix: string;
     tableHeaders: {
@@ -125,7 +125,6 @@ export const pageCopy: Record<Language, PageCopy> = {
     nav: {
       homeLabel: "SkillFlux 首页",
       directory: "目录",
-      recommended: "推荐",
       llms: "llms.txt",
       pack: "精装包",
       languageLabel: "语言切换"
@@ -164,7 +163,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       featuredNote: "首位是目标清单标注的推荐入口，其余按合集和高价值标识排序。每条都能进入详情页，再跳转原站。",
       labelsEyebrow: "Labels",
       labelsTitle: "按标识快速定位。",
-      labelsNote: "不再分固定分组，直接用推荐、合集、平台、场景和技术标识筛选。",
+      labelsNote: "目录页用三大固定分类做主轴，再用平台、场景和技术标识细分。",
       labelCardKicker: "label",
       labelCardDescription: (tag) => `查看带有「${tag}」标识的 skill 资源。`,
       aiEyebrow: "For Agents",
@@ -190,6 +189,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       searchLabel: "搜索",
       searchPlaceholder: "名称、标签、摘要",
       filterLabel: "按标识筛选",
+      categoryLabel: "按分类筛选",
       all: "全部",
       countSuffix: "条",
       tableHeaders: {
@@ -235,7 +235,6 @@ export const pageCopy: Record<Language, PageCopy> = {
     nav: {
       homeLabel: "SkillFlux home",
       directory: "Directory",
-      recommended: "Recommended",
       llms: "llms.txt",
       pack: "Pack",
       languageLabel: "Language switcher"
@@ -273,8 +272,8 @@ export const pageCopy: Record<Language, PageCopy> = {
       featuredTitle: "Start with the recommended and high-signal entries.",
       featuredNote: "The first entry is the marked recommendation from the source list. The rest are sorted by collection value and practical labels.",
       labelsEyebrow: "Labels",
-      labelsTitle: "Find resources by signal, not rigid categories.",
-      labelsNote: "Use labels for recommendation status, platforms, technical focus, scenarios, and resource type.",
+      labelsTitle: "Browse by category, then refine with labels.",
+      labelsNote: "The directory leads with three fixed categories, then narrows down by platform, scenario, and technical labels.",
       labelCardKicker: "label",
       labelCardDescription: (tag) => `View skill resources tagged "${tag}".`,
       aiEyebrow: "For agents",
@@ -300,6 +299,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       searchLabel: "Search",
       searchPlaceholder: "Name, labels, summary",
       filterLabel: "Filter by label",
+      categoryLabel: "Filter by category",
       all: "All",
       countSuffix: "items",
       tableHeaders: {
@@ -358,6 +358,12 @@ const tagTranslations: Record<string, string> = {
   社媒: "Social"
 };
 
+const categoryTranslations: Record<string, string> = {
+  collection: "Collections",
+  single: "Single skills",
+  repo: "Open source & downloads"
+};
+
 const typeTranslations: Record<string, string> = {
   "skill 合集": "Skill collection",
   "单项 skill": "Single skill",
@@ -397,6 +403,11 @@ export function getAlternateLanguagePath(currentPath: string, targetLang: Langua
 export function translateTag(tag: string, lang: Language): string {
   if (lang === "zh") return tag;
   return tagTranslations[tag] ?? tag;
+}
+
+export function translateCategory(slug: string, zhLabel: string, lang: Language): string {
+  if (lang === "zh") return zhLabel;
+  return categoryTranslations[slug] ?? zhLabel;
 }
 
 export function translateTags(tags: string[], lang: Language): string[] {

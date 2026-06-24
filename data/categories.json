@@ -1,44 +1,26 @@
 [
   {
-    "slug": "registry",
-    "label": "注册表",
-    "shortLabel": "registry",
-    "description": "可搜索、可发现、偏结构化的 MCP 或 skill 注册表。",
+    "slug": "collection",
+    "label": "合集入口",
+    "shortLabel": "collection",
+    "description": "聚合多个 skill 的合集站、市场和平台入口。",
+    "types": ["skill 合集"],
     "priority": 1
   },
   {
-    "slug": "marketplace",
-    "label": "市场",
-    "shortLabel": "marketplace",
-    "description": "带安装、商业化、托管或集成能力的 skill/MCP 市场。",
+    "slug": "single",
+    "label": "单项 skill",
+    "shortLabel": "single",
+    "description": "单个、可直接取用的 skill 条目。",
+    "types": ["单项 skill"],
     "priority": 2
   },
   {
-    "slug": "official",
-    "label": "厂商官方",
-    "shortLabel": "official",
-    "description": "来自协议、平台、工具厂商的官方入口与文档。",
+    "slug": "repo",
+    "label": "开源与下载",
+    "shortLabel": "repo",
+    "description": "开源仓库、npm 包、下载包和官方文档。",
+    "types": ["开源 skill 仓库", "npm skill 包", "skill 下载包", "skill 文档"],
     "priority": 3
-  },
-  {
-    "slug": "open-source",
-    "label": "开源仓库",
-    "shortLabel": "open-source",
-    "description": "GitHub 等平台上的开源实现、清单、模板和工具包。",
-    "priority": 4
-  },
-  {
-    "slug": "ranking",
-    "label": "榜单",
-    "shortLabel": "ranking",
-    "description": "社区整理、榜单式导航、趋势观察和精选清单。",
-    "priority": 5
-  },
-  {
-    "slug": "mcp",
-    "label": "MCP",
-    "shortLabel": "mcp",
-    "description": "面向 MCP server、客户端、目录和安装流程的专门入口。",
-    "priority": 6
   }
 ]

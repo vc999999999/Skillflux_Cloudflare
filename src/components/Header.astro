@@ -19,7 +19,6 @@ const copy = getPageCopy(lang);
     </a>
     <nav class="main-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
       <a href={localizePath("/directory/", lang)}>{copy.nav.directory}</a>
-      <a href={`${localizePath("/directory/", lang)}?label=${encodeURIComponent("推荐")}`}>{copy.nav.recommended}</a>
       <a href="/llms.txt">{copy.nav.llms}</a>
       <a class="nav-pack" href={SITE.packUrl} rel="noopener noreferrer">{copy.nav.pack}</a>
       <div class="language-switcher" aria-label={copy.nav.languageLabel}>

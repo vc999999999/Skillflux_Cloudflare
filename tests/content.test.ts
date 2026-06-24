@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   buildIndexPayload,
+  getCategories,
   getDirectoryStats,
   getFeaturedSites,
+  getFilterableTags,
   getPopularTags,
   getSites,
   renderLlmsFullText,
@@ -90,14 +92,27 @@ describe("SkillFlux catalog", () => {
     }
   });
 
-  it("uses tags as public labels instead of category assignments", () => {
+  it("uses tags as public labels and derives a fixed category per site", () => {
     const catalog = validateCatalog();
     const tags = getPopularTags();
+    const categories = getCategories();
+    const categorySlugs = new Set(categories.map((category) => category.slug));
 
     expect(tags.length).toBeGreaterThanOrEqual(8);
     for (const site of catalog.sites) {
       expect(site.tags.length).toBeGreaterThan(0);
-      expect(Object.hasOwn(site as unknown as Record<string, unknown>, "category")).toBe(false);
+      expect(categorySlugs.has(site.category)).toBe(true);
+    }
+
+    // Category counts must add up to the full catalog (every site lands in exactly one).
+    const totalCategorized = categories.reduce((sum, category) => sum + category.count, 0);
+    expect(totalCategorized).toBe(catalog.sites.length);
+  });
+
+  it("excludes no-op universal tags from filterable labels", () => {
+    const total = getSites().length;
+    for (const label of getFilterableTags()) {
+      expect(label.count).toBeLessThan(total);
     }
   });
 

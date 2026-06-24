@@ -1,11 +1,12 @@
 ---
 import type { Site } from "../lib/content";
-import { getPopularTags } from "../lib/content";
+import { getCategories, getFilterableTags } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
   getPageCopy,
   getSiteCopy,
   localizePath,
+  translateCategory,
   translateTag,
   type Language
 } from "../lib/i18n";
@@ -21,7 +22,8 @@ type Props = {
 const { sites, showControls = false, heading, compact = false, lang = DEFAULT_LANGUAGE } = Astro.props;
 const copy = getPageCopy(lang);
 const resolvedHeading = heading ?? (lang === "zh" ? "资源目录" : "Resource directory");
-const labels = getPopularTags(18);
+const categories = getCategories();
+const labels = getFilterableTags(18);
 ---
 
 <section
@@ -38,15 +40,24 @@ const labels = getPopularTags(18);
   </div>
 
   {showControls && (
-    <div class="directory-controls" aria-label={copy.resource.filterLabel}>
+    <div class="directory-controls">
       <label class="search-box">
         <span>{copy.resource.searchLabel}</span>
         <input type="search" data-directory-search placeholder={copy.resource.searchPlaceholder} autocomplete="off" />
       </label>
-      <div class="filter-buttons" role="group" aria-label={copy.resource.filterLabel}>
-        <button type="button" data-filter="all" aria-pressed="true">{copy.resource.all}</button>
+      <div class="filter-buttons is-primary" role="group" aria-label={copy.resource.categoryLabel}>
+        <button type="button" data-category-filter="all" aria-pressed="true">{copy.resource.all}</button>
+        {categories.map((category) => (
+          <button type="button" data-category-filter={category.slug} aria-pressed="false">
+            {translateCategory(category.slug, category.label, lang)}
+            <small>{category.count}</small>
+          </button>
+        ))}
+      </div>
+      <div class="filter-buttons is-secondary" role="group" aria-label={copy.resource.filterLabel}>
+        <button type="button" data-tag-filter="all" aria-pressed="true">{copy.resource.all}</button>
         {labels.map((label) => (
-          <button type="button" data-filter={label.tag} aria-pressed="false">{translateTag(label.tag, lang)}</button>
+          <button type="button" data-tag-filter={label.tag} aria-pressed="false">{translateTag(label.tag, lang)}</button>
         ))}
       </div>
       <span class="result-count" data-result-count>{sites.length} {copy.resource.countSuffix}</span>
@@ -80,6 +91,7 @@ const labels = getPopularTags(18);
           role="row"
           href={localizePath(`/site/${site.slug}/`, lang)}
           data-site-row
+          data-category={site.category}
           data-labels={site.tags.join("|||")}
           data-search={searchable}
         >
@@ -107,37 +119,59 @@ const labels = getPopularTags(18);
       const directoryRoot = document.querySelector('[data-directory="true"]');
       if (directoryRoot) {
         const input = directoryRoot.querySelector("[data-directory-search]");
-        const buttons = Array.from(directoryRoot.querySelectorAll("[data-filter]"));
+        const categoryButtons = Array.from(directoryRoot.querySelectorAll("[data-category-filter]"));
+        const tagButtons = Array.from(directoryRoot.querySelectorAll("[data-tag-filter]"));
         const rows = Array.from(directoryRoot.querySelectorAll("[data-site-row]"));
         const count = directoryRoot.querySelector("[data-result-count]");
         const countSuffix = directoryRoot.getAttribute("data-count-suffix") || "条";
-        let activeFilter = "all";
+        let activeCategory = "all";
+        let activeTag = "all";
 
         const updateRows = () => {
           const query = (input?.value || "").trim().toLowerCase();
           let visible = 0;
           rows.forEach((row) => {
+            const category = row.getAttribute("data-category") || "";
             const labels = (row.getAttribute("data-labels") || "").split("|||");
             const haystack = row.getAttribute("data-search") || "";
-            const matchesFilter = activeFilter === "all" || labels.includes(activeFilter);
+            const matchesCategory = activeCategory === "all" || category === activeCategory;
+            const matchesTag = activeTag === "all" || labels.includes(activeTag);
             const matchesSearch = !query || haystack.includes(query);
-            const shouldShow = matchesFilter && matchesSearch;
+            const shouldShow = matchesCategory && matchesTag && matchesSearch;
             row.hidden = !shouldShow;
             if (shouldShow) visible += 1;
           });
           if (count) count.textContent = `${visible} ${countSuffix}`;
         };
 
-        const initialLabel = new URLSearchParams(window.location.search).get("label");
-        if (initialLabel && buttons.some((button) => button.getAttribute("data-filter") === initialLabel)) {
-          activeFilter = initialLabel;
-          buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.getAttribute("data-filter") === activeFilter)));
+        const syncPressed = (buttons, attr, active) => {
+          buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.getAttribute(attr) === active)));
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const initialCategory = params.get("category");
+        if (initialCategory && categoryButtons.some((button) => button.getAttribute("data-category-filter") === initialCategory)) {
+          activeCategory = initialCategory;
+          syncPressed(categoryButtons, "data-category-filter", activeCategory);
+        }
+        const initialTag = params.get("label");
+        if (initialTag && tagButtons.some((button) => button.getAttribute("data-tag-filter") === initialTag)) {
+          activeTag = initialTag;
+          syncPressed(tagButtons, "data-tag-filter", activeTag);
         }
 
-        buttons.forEach((button) => {
+        categoryButtons.forEach((button) => {
           button.addEventListener("click", () => {
-            activeFilter = button.getAttribute("data-filter") || "all";
-            buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+            activeCategory = button.getAttribute("data-category-filter") || "all";
+            syncPressed(categoryButtons, "data-category-filter", activeCategory);
+            updateRows();
+          });
+        });
+
+        tagButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            activeTag = button.getAttribute("data-tag-filter") || "all";
+            syncPressed(tagButtons, "data-tag-filter", activeTag);
             updateRows();
           });
         });
