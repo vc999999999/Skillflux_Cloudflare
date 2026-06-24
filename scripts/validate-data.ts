@@ -4,5 +4,5 @@ const catalog = validateCatalog();
 const stats = getDirectoryStats();
 
 console.log(
-  `Validated ${catalog.sites.length} SkillFlux resources across ${catalog.categories.length} categories. Updated ${stats.updatedAt}.`
+  `Validated ${catalog.sites.length} SkillFlux resources across ${stats.labelCount} labels. Updated ${stats.updatedAt}.`
 );

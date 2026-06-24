@@ -34,24 +34,44 @@ with sync_playwright() as p:
     desktop.wait_for_load_state("networkidle")
     expect(desktop.get_by_role("heading", name="技流")).to_be_visible()
     expect(desktop.get_by_role("link", name="浏览目录")).to_be_visible()
+    expect(desktop.locator(".hero-stats")).to_be_visible()
     assert_no_horizontal_overflow(desktop, "home desktop")
     desktop.screenshot(path=str(ARTIFACTS / "skillflux-home-desktop.png"), full_page=True)
+
+    desktop.goto(f"{BASE_URL}/en/")
+    desktop.wait_for_load_state("networkidle")
+    expect(desktop.get_by_role("link", name="Browse directory")).to_be_visible()
+    expect(desktop.locator(".hero-stats .stat-label").filter(has_text="Resources")).to_be_visible()
+    assert_no_horizontal_overflow(desktop, "home english desktop")
+    desktop.screenshot(path=str(ARTIFACTS / "skillflux-home-en-desktop.png"), full_page=True)
 
     desktop.goto(f"{BASE_URL}/directory/")
     desktop.wait_for_load_state("networkidle")
     rows = desktop.locator("[data-site-row]")
     assert rows.count() >= 50, f"expected at least 50 rows, got {rows.count()}"
-    desktop.locator("[data-directory-search]").fill("Zapier")
+    desktop.locator("[data-directory-search]").fill("ModelScope")
     visible_rows = desktop.locator("[data-site-row]:visible").count()
     assert visible_rows >= 1, "directory search should keep matching rows visible"
     assert_no_horizontal_overflow(desktop, "directory desktop")
     desktop.screenshot(path=str(ARTIFACTS / "skillflux-directory-desktop.png"), full_page=True)
 
-    desktop.goto(f"{BASE_URL}/site/official-mcp-registry/")
+    desktop.goto(f"{BASE_URL}/en/directory/")
     desktop.wait_for_load_state("networkidle")
-    expect(desktop.get_by_role("heading", name="Official MCP Registry")).to_be_visible()
+    expect(desktop.get_by_role("heading", name="Directory")).to_be_visible()
+    expect(desktop.get_by_placeholder("Name, labels, summary")).to_be_visible()
+    assert_no_horizontal_overflow(desktop, "directory english desktop")
+
+    desktop.goto(f"{BASE_URL}/site/modelscope-cn-skills/")
+    desktop.wait_for_load_state("networkidle")
+    expect(desktop.get_by_role("heading", name="魔搭 ModelScope Skills")).to_be_visible()
     expect(desktop.get_by_role("link", name="访问原站")).to_be_visible()
     assert_no_horizontal_overflow(desktop, "detail desktop")
+
+    desktop.goto(f"{BASE_URL}/en/site/modelscope-cn-skills/")
+    desktop.wait_for_load_state("networkidle")
+    expect(desktop.get_by_role("link", name="Visit source")).to_be_visible()
+    expect(desktop.get_by_role("heading", name="Overview")).to_be_visible()
+    assert_no_horizontal_overflow(desktop, "detail english desktop")
 
     mobile = browser.new_page(viewport={"width": 390, "height": 900}, is_mobile=True)
     mobile.goto(BASE_URL)
@@ -70,6 +90,6 @@ with sync_playwright() as p:
 
     payload_text = read_utf8("/index.json")
     assert '"schemaVersion": "2026-06-24"' in payload_text
-    assert '"resources": 52' in payload_text
+    assert '"resources": 63' in payload_text
 
     browser.close()

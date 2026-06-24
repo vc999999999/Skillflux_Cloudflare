@@ -1,32 +1,36 @@
 ---
 import type { Site } from "../lib/content";
-import { getCategoryBySlug } from "../lib/content";
+import { DEFAULT_LANGUAGE, getPageCopy, getSiteCopy, localizePath, type Language } from "../lib/i18n";
 
 type Props = {
   site: Site;
   index?: number;
+  lang?: Language;
 };
 
-const { site, index = 0 } = Astro.props;
-const category = getCategoryBySlug(site.category);
+const { site, index = 0, lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+const siteCopy = getSiteCopy(site, lang);
 const number = String(index + 1).padStart(2, "0");
+const visibleTags = siteCopy.tags.slice(0, 3);
+const detailPath = localizePath(`/site/${site.slug}/`, lang);
 ---
 
 <article class="resource-card">
   <div class="resource-card-top">
     <span class="resource-number">{number}</span>
-    {site.featured && <span class="recommend-badge">推荐</span>}
+    {site.recommended && <span class="recommend-badge">{copy.resource.recommended}</span>}
   </div>
-  <h3><a href={`/site/${site.slug}/`}>{site.name}</a></h3>
-  <p class="resource-tagline">{site.tagline}</p>
-  <p class="resource-summary">{site.aiSummary}</p>
+  <h3><a href={detailPath}>{siteCopy.name}</a></h3>
+  <p class="resource-tagline">{siteCopy.tagline}</p>
+  <p class="resource-summary">{siteCopy.aiSummary}</p>
   <div class="resource-meta-line">
-    <span>{category?.label ?? site.category}</span>
-    <span>{site.type}</span>
-    <span>{site.scale}</span>
+    {visibleTags.map((tag) => <span>{tag}</span>)}
+    <span>{siteCopy.type}</span>
+    <span>{siteCopy.scale}</span>
   </div>
   <div class="resource-actions">
-    <a href={`/site/${site.slug}/`}>详情</a>
-    <a href={site.canonicalUrl} rel="noopener noreferrer">外链</a>
+    <a href={detailPath}>{copy.resource.details}</a>
+    <a href={site.canonicalUrl} rel="noopener noreferrer">{copy.resource.external}</a>
   </div>
 </article>

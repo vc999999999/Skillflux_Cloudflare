@@ -1,0 +1,116 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl, getRelatedSites, type Site } from "../lib/content";
+import {
+  DEFAULT_LANGUAGE,
+  getPageCopy,
+  getSiteCopy,
+  localizePath,
+  type Language
+} from "../lib/i18n";
+import ResourceTable from "./ResourceTable.astro";
+
+type Props = {
+  site: Site;
+  lang?: Language;
+};
+
+const { site, lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+const siteCopy = getSiteCopy(site, lang);
+const related = getRelatedSites(site, 4);
+const description = `${siteCopy.tagline} ${siteCopy.summary}`;
+const canonicalPath = localizePath(`/site/${site.slug}/`, lang);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: `${siteCopy.name} - SkillFlux`,
+  url: absoluteUrl(canonicalPath),
+  description,
+  inLanguage: copy.locale,
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url
+  },
+  about: {
+    "@type": "Thing",
+    name: siteCopy.name,
+    url: site.canonicalUrl,
+    description: siteCopy.summary
+  }
+};
+---
+
+<BaseLayout lang={lang} title={siteCopy.name} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <article>
+      <section class="detail-hero">
+        <a class="back-link" href={localizePath("/directory/", lang)}>{copy.detail.back}</a>
+        <div class="detail-hero-grid">
+          <div>
+            <p class="eyebrow"><span></span> {siteCopy.tags[0]}</p>
+            <h1>{siteCopy.name}</h1>
+            <p>{siteCopy.tagline}</p>
+            <div class="detail-badges">
+              {site.recommended && <span>{copy.resource.recommended}</span>}
+              <span>{siteCopy.type}</span>
+              <span>{siteCopy.scale}</span>
+              <span>{site.language.join(" / ")}</span>
+              <span>{site.trustLevel}</span>
+            </div>
+          </div>
+          <aside class="detail-panel">
+            <dl>
+              <div><dt>{copy.detail.labels}</dt><dd>{siteCopy.tags.slice(0, 2).join(" / ")}</dd></div>
+              <div><dt>{copy.detail.pricing}</dt><dd>{site.pricing}</dd></div>
+              <div><dt>{copy.detail.status}</dt><dd>{site.status}</dd></div>
+              <div><dt>{copy.detail.updated}</dt><dd>{site.updatedAt}</dd></div>
+            </dl>
+            <a class="button primary" href={site.canonicalUrl} rel="noopener noreferrer">{copy.detail.visit}</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="detail-grid">
+        <div>
+          <div class="prose-block">
+            <h2>{copy.detail.intro}</h2>
+            <p>{siteCopy.summary}</p>
+          </div>
+          <div class="prose-block">
+            <h2>{copy.detail.aiRead}</h2>
+            <p>{siteCopy.aiSummary}</p>
+          </div>
+          <div class="prose-block">
+            <h2>{copy.detail.sourceLinks}</h2>
+            <ul class="source-list">
+              {site.sourceUrls.map((url) => (
+                <li><a href={url} rel="noopener noreferrer">{new URL(url).hostname}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <aside class="detail-side">
+          <div class="side-box">
+            <h2>{copy.detail.positioning}</h2>
+            <p>{copy.detail.positionText(siteCopy.name, siteCopy.tags.slice(0, 4).join(" / "))}</p>
+          </div>
+          <div class="side-box">
+            <h2>{copy.detail.tags}</h2>
+            <div class="tag-list">
+              {siteCopy.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+          <div class="side-box">
+            <h2>{copy.detail.machine}</h2>
+            <p>{copy.detail.machineText}</p>
+          </div>
+        </aside>
+      </section>
+    </article>
+
+    {related.length > 0 && <ResourceTable sites={related} heading={copy.detail.related} compact={true} lang={lang} />}
+  </main>
+</BaseLayout>

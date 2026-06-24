@@ -1,6 +1,6 @@
 ---
-import SitePage from "../../components/SitePage.astro";
-import { getSites } from "../../lib/content";
+import SitePage from "../../../components/SitePage.astro";
+import { getSites } from "../../../lib/content";
 
 export function getStaticPaths() {
   return getSites().map((site) => ({
@@ -12,4 +12,4 @@ export function getStaticPaths() {
 const { site } = Astro.props;
 ---
 
-<SitePage site={site} lang="zh" />
+<SitePage site={site} lang="en" />

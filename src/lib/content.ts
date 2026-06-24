@@ -1,14 +1,5 @@
-import categoriesData from "../../data/categories.json";
 import sitesData from "../../data/sites.json";
 import { ENDPOINTS, SITE } from "../config";
-
-export type Category = {
-  slug: string;
-  label: string;
-  shortLabel: string;
-  description: string;
-  priority: number;
-};
 
 export type TrustLevel = "high" | "medium" | "emerging";
 export type SiteStatus = "active" | "watching" | "archived";
@@ -20,7 +11,6 @@ export type Site = {
   name: string;
   canonicalUrl: string;
   displayUrl: string;
-  category: string;
   tags: string[];
   language: string[];
   region: string;
@@ -31,6 +21,7 @@ export type Site = {
   summary: string;
   aiSummary: string;
   featured: boolean;
+  recommended: boolean;
   trustLevel: TrustLevel;
   status: SiteStatus;
   sourceUrls: string[];
@@ -38,8 +29,13 @@ export type Site = {
   updatedAt: string;
 };
 
+export type CatalogLabel = {
+  tag: string;
+  count: number;
+};
+
 export type Catalog = {
-  categories: Category[];
+  labels: CatalogLabel[];
   sites: Site[];
 };
 
@@ -53,11 +49,12 @@ type IndexPayload = {
   };
   counts: {
     resources: number;
-    categories: number;
+    labels: number;
     featured: number;
+    recommended: number;
   };
   endpoints: typeof ENDPOINTS;
-  categories: Array<Category & { count: number }>;
+  labels: CatalogLabel[];
   sites: Site[];
 };
 
@@ -90,12 +87,6 @@ function requireBoolean(record: Record<string, unknown>, key: string, context: s
   return value;
 }
 
-function requireNumber(record: Record<string, unknown>, key: string, context: string): number {
-  const value = record[key];
-  assert(typeof value === "number" && Number.isFinite(value), `${context}.${key} must be a finite number`);
-  return value;
-}
-
 function requireStringArray(record: Record<string, unknown>, key: string, context: string): string[] {
   const value = record[key];
   assert(Array.isArray(value), `${context}.${key} must be an array`);
@@ -119,22 +110,10 @@ function requireDate(value: string, context: string): string {
   return value;
 }
 
-function normalizeCategory(raw: unknown, index: number): Category {
-  const context = `categories[${index}]`;
-  assert(isRecord(raw), `${context} must be an object`);
-
-  return {
-    slug: requireString(raw, "slug", context),
-    label: requireString(raw, "label", context),
-    shortLabel: requireString(raw, "shortLabel", context),
-    description: requireString(raw, "description", context),
-    priority: requireNumber(raw, "priority", context)
-  };
-}
-
 function normalizeSite(raw: unknown, index: number): Site {
   const context = `sites[${index}]`;
   assert(isRecord(raw), `${context} must be an object`);
+  assert(!Object.hasOwn(raw, "category"), `${context}.category is no longer supported; use tags instead`);
 
   const pricing = requireString(raw, "pricing", context) as Pricing;
   const trustLevel = requireString(raw, "trustLevel", context) as TrustLevel;
@@ -147,6 +126,7 @@ function normalizeSite(raw: unknown, index: number): Site {
   const sourceUrls = requireStringArray(raw, "sourceUrls", context).map((url, urlIndex) =>
     requireUrl(url, `${context}.sourceUrls[${urlIndex}]`)
   );
+  const tags = requireStringArray(raw, "tags", context);
 
   return {
     id: requireString(raw, "id", context),
@@ -154,8 +134,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     name: requireString(raw, "name", context),
     canonicalUrl,
     displayUrl: requireString(raw, "displayUrl", context),
-    category: requireString(raw, "category", context),
-    tags: requireStringArray(raw, "tags", context),
+    tags,
     language: requireStringArray(raw, "language", context),
     region: requireString(raw, "region", context),
     type: requireString(raw, "type", context),
@@ -165,6 +144,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     summary: requireString(raw, "summary", context),
     aiSummary: requireString(raw, "aiSummary", context),
     featured: requireBoolean(raw, "featured", context),
+    recommended: requireBoolean(raw, "recommended", context),
     trustLevel,
     status,
     sourceUrls,
@@ -173,37 +153,49 @@ function normalizeSite(raw: unknown, index: number): Site {
   };
 }
 
-function compareFeaturedThenName(a: Site, b: Site): number {
+function compareSites(a: Site, b: Site): number {
+  if (a.recommended !== b.recommended) return a.recommended ? -1 : 1;
   if (a.featured !== b.featured) return a.featured ? -1 : 1;
   return a.name.localeCompare(b.name, "zh-CN");
 }
 
+function buildLabels(sites: Site[]): CatalogLabel[] {
+  const counts = new Map<string, number>();
+  for (const site of sites) {
+    for (const tag of site.tags) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    }
+  }
+
+  return [...counts.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "zh-CN"));
+}
+
 export function validateCatalog(): Catalog {
-  const categories = (categoriesData as unknown[]).map(normalizeCategory).sort((a, b) => a.priority - b.priority);
   const sites = (sitesData as unknown[]).map(normalizeSite);
-  const categorySlugs = new Set(categories.map((category) => category.slug));
   const ids = new Set<string>();
   const slugs = new Set<string>();
-
-  for (const category of categories) {
-    assert(!slugs.has(`category:${category.slug}`), `duplicate category slug: ${category.slug}`);
-    slugs.add(`category:${category.slug}`);
-  }
+  const urls = new Set<string>();
 
   for (const site of sites) {
     assert(!ids.has(site.id), `duplicate site id: ${site.id}`);
     assert(!slugs.has(site.slug), `duplicate site slug: ${site.slug}`);
-    assert(categorySlugs.has(site.category), `${site.slug} references unknown category ${site.category}`);
+    assert(!urls.has(site.canonicalUrl), `duplicate site URL: ${site.canonicalUrl}`);
+    assert(site.tags.length > 0, `${site.slug} must have at least one tag`);
     ids.add(site.id);
     slugs.add(site.slug);
+    urls.add(site.canonicalUrl);
   }
 
   assert(sites.length >= 50, "catalog must contain at least 50 sites");
   assert(sites.some((site) => site.featured), "catalog must contain featured sites");
+  assert(sites.some((site) => site.recommended), "catalog must contain a recommended site");
 
+  const sortedSites = [...sites].sort(compareSites);
   cachedCatalog = {
-    categories,
-    sites: [...sites].sort(compareFeaturedThenName)
+    labels: buildLabels(sortedSites),
+    sites: sortedSites
   };
   return cachedCatalog;
 }
@@ -212,8 +204,9 @@ function getCatalog(): Catalog {
   return cachedCatalog ?? validateCatalog();
 }
 
-export function getCategories(): Category[] {
-  return getCatalog().categories;
+export function getPopularTags(limit?: number): CatalogLabel[] {
+  const labels = getCatalog().labels;
+  return typeof limit === "number" ? labels.slice(0, limit) : labels;
 }
 
 export function getSites(): Site[] {
@@ -221,28 +214,26 @@ export function getSites(): Site[] {
 }
 
 export function getFeaturedSites(limit?: number): Site[] {
-  const featured = getSites().filter((site) => site.featured);
+  const featured = getSites().filter((site) => site.featured || site.recommended);
   return typeof limit === "number" ? featured.slice(0, limit) : featured;
-}
-
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return getCategories().find((category) => category.slug === slug);
 }
 
 export function getSiteBySlug(slug: string): Site | undefined {
   return getSites().find((site) => site.slug === slug);
 }
 
-export function getSitesByCategory(slug: string): Site[] {
-  return getSites().filter((site) => site.category === slug);
-}
-
-export function getCategoriesWithCounts(): Array<Category & { count: number }> {
-  const sites = getSites();
-  return getCategories().map((category) => ({
-    ...category,
-    count: sites.filter((site) => site.category === category.slug).length
-  }));
+export function getRelatedSites(site: Site, limit = 4): Site[] {
+  const sourceTags = new Set(site.tags);
+  return getSites()
+    .filter((candidate) => candidate.slug !== site.slug)
+    .map((candidate) => ({
+      candidate,
+      score: candidate.tags.filter((tag) => sourceTags.has(tag)).length
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || compareSites(a.candidate, b.candidate))
+    .slice(0, limit)
+    .map((item) => item.candidate);
 }
 
 export function getDirectoryStats() {
@@ -251,15 +242,16 @@ export function getDirectoryStats() {
 
   return {
     resourceCount: sites.length,
-    categoryCount: getCategories().length,
-    featuredCount: sites.filter((site) => site.featured).length,
+    labelCount: getPopularTags().length,
+    featuredCount: sites.filter((site) => site.featured || site.recommended).length,
+    recommendedCount: sites.filter((site) => site.recommended).length,
     updatedAt
   };
 }
 
 export function buildIndexPayload(generatedAt = new Date().toISOString()): IndexPayload {
   const sites = getSites();
-  const categories = getCategoriesWithCounts();
+  const labels = getPopularTags();
 
   return {
     schemaVersion: SITE.schemaVersion,
@@ -271,11 +263,12 @@ export function buildIndexPayload(generatedAt = new Date().toISOString()): Index
     },
     counts: {
       resources: sites.length,
-      categories: categories.length,
-      featured: sites.filter((site) => site.featured).length
+      labels: labels.length,
+      featured: sites.filter((site) => site.featured || site.recommended).length,
+      recommended: sites.filter((site) => site.recommended).length
     },
     endpoints: ENDPOINTS,
-    categories,
+    labels,
     sites
   };
 }
@@ -287,7 +280,7 @@ export function absoluteUrl(path = "/"): string {
 export function renderLlmsText(generatedAt = new Date().toISOString()): string {
   const stats = getDirectoryStats();
   const featured = getFeaturedSites(12);
-  const categories = getCategoriesWithCounts();
+  const labels = getPopularTags(16);
 
   return [
     "# SkillFlux 技流",
@@ -296,13 +289,14 @@ export function renderLlmsText(generatedAt = new Date().toISOString()): string {
     "",
     `Generated: ${generatedAt}`,
     `Resources: ${stats.resourceCount}`,
+    `Labels: ${stats.labelCount}`,
     `Updated: ${stats.updatedAt}`,
     "",
-    "## Main Categories",
-    ...categories.map((category) => `- ${category.label} (${category.slug}): ${category.description} Count: ${category.count}`),
+    "## Main Labels",
+    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
     "",
     "## Featured Entrypoints",
-    ...featured.map((site) => `- ${site.name}: ${site.tagline} ${absoluteUrl(`/site/${site.slug}/`)}`),
+    ...featured.map((site) => `- ${site.recommended ? "[推荐] " : ""}${site.name}: ${site.tagline} ${absoluteUrl(`/site/${site.slug}/`)}`),
     "",
     "## Machine-readable endpoints",
     ...ENDPOINTS.map((endpoint) => `- ${endpoint.path}: ${endpoint.description}`),
@@ -312,7 +306,7 @@ export function renderLlmsText(generatedAt = new Date().toISOString()): string {
 }
 
 export function renderLlmsFullText(generatedAt = new Date().toISOString()): string {
-  const categories = getCategoriesWithCounts();
+  const labels = getPopularTags();
   const lines = [
     "# SkillFlux 技流完整目录",
     "",
@@ -320,26 +314,28 @@ export function renderLlmsFullText(generatedAt = new Date().toISOString()): stri
     "",
     `Generated: ${generatedAt}`,
     `Schema Version: ${SITE.schemaVersion}`,
+    "",
+    "## 标签",
+    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "",
+    "## 完整资源",
     ""
   ];
 
-  for (const category of categories) {
-    lines.push(`## ${category.label} (${category.slug})`, category.description, "");
-    for (const site of getSitesByCategory(category.slug)) {
-      lines.push(
-        `### ${site.name}`,
-        `URL: ${site.canonicalUrl}`,
-        `Type: ${site.type}`,
-        `Scale: ${site.scale}`,
-        `Language: ${site.language.join(", ")}`,
-        `Tags: ${site.tags.join(", ")}`,
-        `Tagline: ${site.tagline}`,
-        `Summary: ${site.summary}`,
-        `AI Summary: ${site.aiSummary}`,
-        `Updated: ${site.updatedAt}`,
-        ""
-      );
-    }
+  for (const site of getSites()) {
+    lines.push(
+      `### ${site.recommended ? "[推荐] " : ""}${site.name}`,
+      `URL: ${site.canonicalUrl}`,
+      `Type: ${site.type}`,
+      `Scale: ${site.scale}`,
+      `Language: ${site.language.join(", ")}`,
+      `Tags: ${site.tags.join(", ")}`,
+      `Tagline: ${site.tagline}`,
+      `Summary: ${site.summary}`,
+      `AI Summary: ${site.aiSummary}`,
+      `Updated: ${site.updatedAt}`,
+      ""
+    );
   }
 
   return lines.join("\n");

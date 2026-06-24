@@ -3,9 +3,11 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE } from "../config";
 import { absoluteUrl } from "../lib/content";
+import { DEFAULT_LANGUAGE, getAlternateLanguagePath, getPageCopy, type Language } from "../lib/i18n";
 import "../styles/global.css";
 
 type Props = {
+  lang?: Language;
   title?: string;
   description?: string;
   canonicalPath?: string;
@@ -14,41 +16,50 @@ type Props = {
 };
 
 const {
+  lang = DEFAULT_LANGUAGE,
   title,
-  description = SITE.description,
+  description,
   canonicalPath = Astro.url.pathname,
   jsonLd,
   pageClass = ""
 } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | skill/MCP 生态入口`;
+const copy = getPageCopy(lang);
+const pageDescription = description ?? copy.siteDescription;
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${copy.titleSuffix}`;
 const canonical = absoluteUrl(canonicalPath);
 const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const zhAlternate = absoluteUrl(getAlternateLanguagePath(Astro.url.pathname, "zh"));
+const enAlternate = absoluteUrl(getAlternateLanguagePath(Astro.url.pathname, "en"));
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={copy.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={zhAlternate} />
+    <link rel="alternate" hreflang="en" href={enAlternate} />
+    <link rel="alternate" hreflang="x-default" href={zhAlternate} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href={absoluteUrl("/feed.xml")} />
     <link rel="icon" href="/skillflux-mark.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={absoluteUrl("/skillflux-mark.svg")} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={pageDescription} />
     {jsonLdItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
   </head>
   <body class={pageClass}>
-    <Header />
+    <Header lang={lang} currentPath={Astro.url.pathname} />
     <slot />
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

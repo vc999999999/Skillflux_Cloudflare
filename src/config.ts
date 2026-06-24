@@ -1,7 +1,7 @@
 export const SITE = {
   name: "技流 SkillFlux",
   shortName: "SkillFlux",
-  description: "全网 skill/MCP 生态入口，聚合注册表、市场、官方仓库、榜单和机器可读索引。",
+  description: "全网 skill/MCP 生态入口，聚合 skill 合集、市场、仓库、单项能力和机器可读索引。",
   url: process.env.SITE_URL || "https://skillflux.dev",
   locale: "zh-CN",
   author: "SkillFlux",
@@ -11,7 +11,7 @@ export const SITE = {
 } as const;
 
 export const ENDPOINTS = [
-  { path: "/llms.txt", label: "LLM quick map", description: "站点定位、分类、精选入口和数据端点说明。" },
+  { path: "/llms.txt", label: "LLM quick map", description: "站点定位、标识、精选入口和数据端点说明。" },
   { path: "/llms-full.txt", label: "Full text catalog", description: "完整资源清单的纯文本版本。" },
   { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
   { path: "/feed.xml", label: "RSS feed", description: "新增和更新资源订阅流。" }

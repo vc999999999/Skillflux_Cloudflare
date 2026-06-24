@@ -1,0 +1,58 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl, getDirectoryStats, getSites } from "../lib/content";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import ResourceTable from "./ResourceTable.astro";
+
+type Props = {
+  lang?: Language;
+};
+
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+const sites = getSites();
+const stats = getDirectoryStats();
+const canonicalPath = localizePath("/directory/", lang);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: copy.directory.jsonLdName,
+  url: absoluteUrl(canonicalPath),
+  description: copy.directory.jsonLdDescription,
+  inLanguage: copy.locale,
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: sites.length,
+    itemListElement: sites.map((site, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: site.name,
+      url: absoluteUrl(localizePath(`/site/${site.slug}/`, lang))
+    }))
+  }
+};
+---
+
+<BaseLayout lang={lang} title={copy.directory.title} description={copy.directory.description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow"><span></span> {copy.directory.eyebrow}</p>
+        <h1 class="page-title">{copy.directory.heading}</h1>
+        <p class="page-lede">{copy.directory.lede}</p>
+      </div>
+      <aside class="page-meta-panel">
+        <strong>{stats.resourceCount}</strong>
+        <span>{copy.directory.meta(stats.resourceCount, stats.labelCount, stats.updatedAt)}</span>
+      </aside>
+    </section>
+
+    <ResourceTable sites={sites} showControls={true} heading={copy.directory.title} lang={lang} />
+  </main>
+</BaseLayout>

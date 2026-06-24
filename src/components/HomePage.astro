@@ -1,0 +1,146 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  absoluteUrl,
+  getDirectoryStats,
+  getFeaturedSites,
+  getPopularTags
+} from "../lib/content";
+import {
+  DEFAULT_LANGUAGE,
+  getPageCopy,
+  localizePath,
+  translateTag,
+  type Language
+} from "../lib/i18n";
+import ResourceCard from "./ResourceCard.astro";
+
+type Props = {
+  lang?: Language;
+};
+
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+const stats = getDirectoryStats();
+const featured = getFeaturedSites(8);
+const labels = getPopularTags(9);
+const canonicalPath = localizePath("/", lang);
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url: absoluteUrl(canonicalPath),
+    description: copy.siteDescription,
+    inLanguage: copy.locale
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: lang === "zh" ? "SkillFlux featured skill/MCP resources" : "SkillFlux featured skill and MCP resources",
+    itemListElement: featured.map((site, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(localizePath(`/site/${site.slug}/`, lang)),
+      name: site.name
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow"><span></span> {copy.home.eyebrow}</p>
+        <h1>技流<small>SkillFlux</small></h1>
+        <p class="hero-lede">{copy.home.heroLead}</p>
+        <div class="hero-actions">
+          <a class="button primary" href={localizePath("/directory/", lang)}>{copy.home.browseDirectory}</a>
+          <a class="button secondary" href="/llms.txt">{copy.home.readForAi}</a>
+          <a class="button secondary" href="/feed.xml" type="application/rss+xml">{copy.home.rssSubscribe}</a>
+          <a class="button dark" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.packEntry}</a>
+        </div>
+        <div class="hero-stats" aria-label={copy.home.statsLabel}>
+          <div>
+            <span class="stat-kicker">01</span>
+            <strong>{stats.resourceCount}</strong>
+            <span class="stat-label">{copy.home.stats.resources}</span>
+          </div>
+          <div>
+            <span class="stat-kicker">02</span>
+            <strong>{stats.labelCount}</strong>
+            <span class="stat-label">{copy.home.stats.labels}</span>
+          </div>
+          <div>
+            <span class="stat-kicker">03</span>
+            <strong>{stats.featuredCount}</strong>
+            <span class="stat-label">{copy.home.stats.featured}</span>
+          </div>
+          <div>
+            <span class="stat-kicker">04</span>
+            <strong>{stats.updatedAt}</strong>
+            <span class="stat-label">{copy.home.stats.updated}</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label={copy.home.panelAria}>
+        <div class="pack-ledger-header">
+          <span>{copy.home.panelTitle}</span>
+          <strong>{copy.home.panelVersion}</strong>
+        </div>
+        <dl class="ledger-list">
+          <div><dt>{copy.home.ledger.directory}</dt><dd>{stats.resourceCount} {copy.home.ledger.resourcesSuffix}</dd></div>
+          <div><dt>{copy.home.ledger.install}</dt><dd>{copy.home.ledger.installValue}</dd></div>
+          <div><dt>{copy.home.ledger.maintenance}</dt><dd>{copy.home.ledger.maintenanceValue}</dd></div>
+          <div><dt>{copy.home.ledger.adapters}</dt><dd>{copy.home.ledger.adaptersValue}</dd></div>
+        </dl>
+        <div class="pack-actions">
+          <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.viewPack}</a>
+          <a class="button secondary" href={localizePath("/directory/", lang)}>{copy.home.freeDirectory}</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="home-section">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow"><span></span> {copy.home.featuredEyebrow}</p>
+          <h2>{copy.home.featuredTitle}</h2>
+        </div>
+        <p class="section-note">{copy.home.featuredNote}</p>
+      </div>
+      <div class="card-grid">
+        {featured.map((site, index) => <ResourceCard site={site} index={index} lang={lang} />)}
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow"><span></span> {copy.home.labelsEyebrow}</p>
+          <h2>{copy.home.labelsTitle}</h2>
+        </div>
+        <p class="section-note">{copy.home.labelsNote}</p>
+      </div>
+      <div class="category-grid">
+        {labels.map((label) => {
+          const displayTag = translateTag(label.tag, lang);
+          return (
+            <a class="category-card" href={`${localizePath("/directory/", lang)}?label=${encodeURIComponent(label.tag)}`}>
+              <div class="category-card-top">
+                <span class="category-count">{String(label.count).padStart(2, "0")}</span>
+                <span>{copy.home.labelCardKicker}</span>
+              </div>
+              <strong>{displayTag}</strong>
+              <p>{copy.home.labelCardDescription(displayTag)}</p>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
