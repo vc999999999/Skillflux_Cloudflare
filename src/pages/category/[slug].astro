@@ -1,0 +1,62 @@
+---
+import ResourceTable from "../../components/ResourceTable.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../config";
+import {
+  absoluteUrl,
+  getCategories,
+  getCategoriesWithCounts,
+  getSitesByCategory
+} from "../../lib/content";
+
+export function getStaticPaths() {
+  return getCategories().map((category) => ({
+    params: { slug: category.slug },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const sites = getSitesByCategory(category.slug);
+const count = getCategoriesWithCounts().find((item) => item.slug === category.slug)?.count ?? sites.length;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${category.label} - SkillFlux`,
+  url: absoluteUrl(`/category/${category.slug}/`),
+  description: category.description,
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: sites.length,
+    itemListElement: sites.map((site, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: site.name,
+      url: absoluteUrl(`/site/${site.slug}/`)
+    }))
+  }
+};
+---
+
+<BaseLayout title={`${category.label}目录`} description={category.description} canonicalPath={`/category/${category.slug}/`} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow"><span></span> Category / {category.shortLabel}</p>
+        <h1 class="page-title">{category.label}</h1>
+        <p class="page-lede">{category.description}</p>
+      </div>
+      <aside class="page-meta-panel">
+        <strong>{count}</strong>
+        <span>resources in this category</span>
+      </aside>
+    </section>
+
+    <ResourceTable sites={sites} heading={`${category.label}入口`} compact={true} />
+  </main>
+</BaseLayout>

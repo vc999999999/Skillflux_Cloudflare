@@ -1,0 +1,46 @@
+---
+import { ENDPOINTS, SITE } from "../config";
+import { getCategoriesWithCounts } from "../lib/content";
+
+const categories = getCategoriesWithCounts();
+---
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a class="footer-brand" href="/">
+        <span>技流</span>
+        <small>SkillFlux</small>
+      </a>
+      <p>全网 skill/MCP 生态入口。先看目录，再决定装什么。</p>
+    </div>
+    <div>
+      <h2>分类</h2>
+      <ul>
+        {categories.slice(0, 6).map((category) => (
+          <li><a href={`/category/${category.slug}/`}>{category.label} <span>{category.count}</span></a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>给 AI</h2>
+      <ul>
+        {ENDPOINTS.map((endpoint) => (
+          <li><a href={endpoint.path}>{endpoint.path}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>品牌</h2>
+      <ul>
+        <li><a href="/directory/">完整目录</a></li>
+        <li><a href={SITE.packUrl} rel="noopener noreferrer">精装包入口</a></li>
+        <li><a href={SITE.repoUrl} rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>本站仅做导航与简介，内容版权归各集合站所有。</span>
+    <span>© 2026 技流 SkillFlux</span>
+  </div>
+</footer>

@@ -1,0 +1,118 @@
+---
+import type { Site } from "../lib/content";
+import { getCategoriesWithCounts, getCategoryBySlug } from "../lib/content";
+
+type Props = {
+  sites: Site[];
+  showControls?: boolean;
+  heading?: string;
+  compact?: boolean;
+};
+
+const { sites, showControls = false, heading = "资源目录", compact = false } = Astro.props;
+const categories = getCategoriesWithCounts();
+---
+
+<section class:list={["resource-table-shell", compact && "is-compact"]} data-directory={showControls ? "true" : undefined}>
+  <div class="section-heading-row">
+    <div>
+      <p class="eyebrow"><span></span> DIRECTORY</p>
+      <h2>{heading}</h2>
+    </div>
+    <p class="section-note">每条资源包含类型、规模、语言、摘要和 AI 解读。先看详情，再跳转外站。</p>
+  </div>
+
+  {showControls && (
+    <div class="directory-controls" aria-label="目录筛选">
+      <label class="search-box">
+        <span>搜索</span>
+        <input type="search" data-directory-search placeholder="名称、标签、摘要" autocomplete="off" />
+      </label>
+      <div class="filter-buttons" role="group" aria-label="按分类筛选">
+        <button type="button" data-filter="all" aria-pressed="true">全部</button>
+        {categories.map((category) => (
+          <button type="button" data-filter={category.slug} aria-pressed="false">{category.label}</button>
+        ))}
+      </div>
+      <span class="result-count" data-result-count>{sites.length} 条</span>
+    </div>
+  )}
+
+  <div class="resource-table" role="table" aria-label={heading}>
+    <div class="resource-row table-head" role="row">
+      <span>No.</span>
+      <span>集合站</span>
+      <span>类型 / 格式</span>
+      <span>规模</span>
+      <span>AI 解读</span>
+      <span></span>
+    </div>
+    {sites.map((site, index) => {
+      const category = getCategoryBySlug(site.category);
+      const searchable = [site.name, site.tagline, site.summary, site.aiSummary, site.type, site.scale, site.tags.join(" ")].join(" ").toLowerCase();
+      return (
+        <a
+          class="resource-row"
+          role="row"
+          href={`/site/${site.slug}/`}
+          data-site-row
+          data-category={site.category}
+          data-search={searchable}
+        >
+          <span class="resource-number">{String(index + 1).padStart(2, "0")}</span>
+          <span class="resource-name-cell">
+            <strong>{site.name}</strong>
+            {site.featured && <em>推荐</em>}
+            <small>{site.tagline}</small>
+            <code>{site.displayUrl}</code>
+          </span>
+          <span>
+            <strong>{site.type}</strong>
+            <small>{category?.label ?? site.category} · {site.language.join("/")}</small>
+          </span>
+          <span>{site.scale}</span>
+          <span>{site.aiSummary}</span>
+          <span class="row-arrow" aria-hidden="true">↗</span>
+        </a>
+      );
+    })}
+  </div>
+
+  {showControls && (
+    <script is:inline>
+      const directoryRoot = document.querySelector('[data-directory="true"]');
+      if (directoryRoot) {
+        const input = directoryRoot.querySelector("[data-directory-search]");
+        const buttons = Array.from(directoryRoot.querySelectorAll("[data-filter]"));
+        const rows = Array.from(directoryRoot.querySelectorAll("[data-site-row]"));
+        const count = directoryRoot.querySelector("[data-result-count]");
+        let activeFilter = "all";
+
+        const updateRows = () => {
+          const query = (input?.value || "").trim().toLowerCase();
+          let visible = 0;
+          rows.forEach((row) => {
+            const category = row.getAttribute("data-category");
+            const haystack = row.getAttribute("data-search") || "";
+            const matchesFilter = activeFilter === "all" || category === activeFilter;
+            const matchesSearch = !query || haystack.includes(query);
+            const shouldShow = matchesFilter && matchesSearch;
+            row.hidden = !shouldShow;
+            if (shouldShow) visible += 1;
+          });
+          if (count) count.textContent = `${visible} 条`;
+        };
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            activeFilter = button.getAttribute("data-filter") || "all";
+            buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+            updateRows();
+          });
+        });
+
+        input?.addEventListener("input", updateRows);
+      }
+    </script>
+  )}
+</section>

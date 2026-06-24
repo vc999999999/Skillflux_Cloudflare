@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">SkillFlux brand mark</title>
+  <desc id="desc">A black editorial SkillFlux mark with a red square accent.</desc>
+  <rect width="640" height="420" fill="#f3f2ec"/>
+  <rect x="70" y="72" width="500" height="10" fill="#17150f"/>
+  <text x="70" y="222" fill="#17150f" font-family="Arial, sans-serif" font-size="130" font-weight="900">技流</text>
+  <rect x="330" y="168" width="38" height="38" fill="#e0381f"/>
+  <text x="72" y="302" fill="#6f6a5d" font-family="monospace" font-size="32">SKILLFLUX</text>
+  <rect x="70" y="340" width="500" height="2" fill="#17150f"/>
+</svg>

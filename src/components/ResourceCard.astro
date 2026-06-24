@@ -1,0 +1,32 @@
+---
+import type { Site } from "../lib/content";
+import { getCategoryBySlug } from "../lib/content";
+
+type Props = {
+  site: Site;
+  index?: number;
+};
+
+const { site, index = 0 } = Astro.props;
+const category = getCategoryBySlug(site.category);
+const number = String(index + 1).padStart(2, "0");
+---
+
+<article class="resource-card">
+  <div class="resource-card-top">
+    <span class="resource-number">{number}</span>
+    {site.featured && <span class="recommend-badge">推荐</span>}
+  </div>
+  <h3><a href={`/site/${site.slug}/`}>{site.name}</a></h3>
+  <p class="resource-tagline">{site.tagline}</p>
+  <p class="resource-summary">{site.aiSummary}</p>
+  <div class="resource-meta-line">
+    <span>{category?.label ?? site.category}</span>
+    <span>{site.type}</span>
+    <span>{site.scale}</span>
+  </div>
+  <div class="resource-actions">
+    <a href={`/site/${site.slug}/`}>详情</a>
+    <a href={site.canonicalUrl} rel="noopener noreferrer">外链</a>
+  </div>
+</article>

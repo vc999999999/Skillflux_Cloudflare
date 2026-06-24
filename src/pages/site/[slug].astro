@@ -1,0 +1,112 @@
+---
+import ResourceTable from "../../components/ResourceTable.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../config";
+import {
+  absoluteUrl,
+  getCategoryBySlug,
+  getSites,
+  getSitesByCategory
+} from "../../lib/content";
+
+export function getStaticPaths() {
+  return getSites().map((site) => ({
+    params: { slug: site.slug },
+    props: { site }
+  }));
+}
+
+const { site } = Astro.props;
+const category = getCategoryBySlug(site.category);
+const related = getSitesByCategory(site.category).filter((item) => item.slug !== site.slug).slice(0, 4);
+const description = `${site.tagline} ${site.summary}`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: `${site.name} - SkillFlux`,
+  url: absoluteUrl(`/site/${site.slug}/`),
+  description,
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url
+  },
+  about: {
+    "@type": "Thing",
+    name: site.name,
+    url: site.canonicalUrl,
+    description: site.summary
+  }
+};
+---
+
+<BaseLayout title={site.name} description={description} canonicalPath={`/site/${site.slug}/`} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <article>
+      <section class="detail-hero">
+        <a class="back-link" href="/directory/">← 返回目录</a>
+        <div class="detail-hero-grid">
+          <div>
+            <p class="eyebrow"><span></span> {category?.label ?? site.category}</p>
+            <h1>{site.name}</h1>
+            <p>{site.tagline}</p>
+            <div class="detail-badges">
+              <span>{site.type}</span>
+              <span>{site.scale}</span>
+              <span>{site.language.join(" / ")}</span>
+              <span>{site.trustLevel}</span>
+            </div>
+          </div>
+          <aside class="detail-panel">
+            <dl>
+              <div><dt>分类</dt><dd>{category?.label ?? site.category}</dd></div>
+              <div><dt>定价</dt><dd>{site.pricing}</dd></div>
+              <div><dt>状态</dt><dd>{site.status}</dd></div>
+              <div><dt>更新</dt><dd>{site.updatedAt}</dd></div>
+            </dl>
+            <a class="button primary" href={site.canonicalUrl} rel="noopener noreferrer">访问原站</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="detail-grid">
+        <div>
+          <div class="prose-block">
+            <h2>简介</h2>
+            <p>{site.summary}</p>
+          </div>
+          <div class="prose-block">
+            <h2>AI 解读</h2>
+            <p>{site.aiSummary}</p>
+          </div>
+          <div class="prose-block">
+            <h2>来源链接</h2>
+            <ul class="source-list">
+              {site.sourceUrls.map((url) => (
+                <li><a href={url} rel="noopener noreferrer">{new URL(url).hostname}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <aside class="detail-side">
+          <div class="side-box">
+            <h2>资源定位</h2>
+            <p>{site.name} 被 SkillFlux 归入「{category?.label ?? site.category}」，适合根据类型、信任层级和 AI 解读快速判断是否值得深入。</p>
+          </div>
+          <div class="side-box">
+            <h2>标签</h2>
+            <div class="tag-list">
+              {site.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+          <div class="side-box">
+            <h2>机器读取</h2>
+            <p>此条目同步出现在 `/index.json` 和 `/llms-full.txt`，便于搜索工具和 AI agent 直接消费。</p>
+          </div>
+        </aside>
+      </section>
+    </article>
+
+    {related.length > 0 && <ResourceTable sites={related} heading="同类入口" compact={true} />}
+  </main>
+</BaseLayout>
