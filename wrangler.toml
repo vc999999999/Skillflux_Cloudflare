@@ -2,5 +2,13 @@ name = "skillflux"
 compatibility_date = "2026-06-24"
 pages_build_output_dir = "./dist"
 
+[[routes]]
+pattern = "skillflux.cn/*"
+zone_name = "skillflux.cn"
+
+[[routes]]
+pattern = "www.skillflux.cn/*"
+zone_name = "skillflux.cn"
+
 [assets]
 directory = "./dist"
