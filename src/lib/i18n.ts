@@ -45,7 +45,6 @@ type PageCopy = {
       adaptersValue: string;
     };
     viewPack: string;
-    freeDirectory: string;
     featuredEyebrow: string;
     featuredTitle: string;
     featuredNote: string;
@@ -68,6 +67,12 @@ type PageCopy = {
     lede: string;
     meta: (resourceCount: number, labelCount: number, updatedAt: string) => string;
   };
+  cta: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    button: string;
+  };
   resource: {
     recommended: string;
     details: string;
@@ -76,20 +81,20 @@ type PageCopy = {
     tableNote: string;
     searchLabel: string;
     searchPlaceholder: string;
-    filterLabel: string;
     categoryLabel: string;
+    regionLabel: string;
+    trustLabel: string;
     all: string;
     countSuffix: string;
     tableHeaders: {
       number: string;
       resource: string;
-      type: string;
-      scale: string;
-      ai: string;
+      source: string;
+      locale: string;
+      trust: string;
     };
   };
   detail: {
-    back: string;
     labels: string;
     pricing: string;
     status: string;
@@ -131,7 +136,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "一个面向开发者、Agent 重度用户和搜索爬虫的 skill/MCP 生态入口。把注册表、市场、官方仓库、社区榜单和 AI 可读索引放在一处，不再满网乱翻。",
+      heroLead: "skill 来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？直接上精装包：选好、装好、持续维护。",
       browseDirectory: "浏览目录",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
@@ -157,15 +162,14 @@ export const pageCopy: Record<Language, PageCopy> = {
         adaptersValue: "Claude · Cursor · Codex"
       },
       viewPack: "立即查看精装包",
-      freeDirectory: "先看免费目录",
       featuredEyebrow: "Featured",
       featuredTitle: "先从推荐和高频入口开始。",
       featuredNote: "首位是目标清单标注的推荐入口，其余按合集和高价值标识排序。每条都能进入详情页，再跳转原站。",
-      labelsEyebrow: "Labels",
-      labelsTitle: "按标识快速定位。",
-      labelsNote: "目录页用三大固定分类做主轴，再用平台、场景和技术标识细分。",
-      labelCardKicker: "label",
-      labelCardDescription: (tag) => `查看带有「${tag}」标识的 skill 资源。`,
+      labelsEyebrow: "Sources",
+      labelsTitle: "按来源类型快速定位。",
+      labelsNote: "官方厂商、市场、开源仓库、社区榜单还是综合目录——按来源类型直达，再用语言和可信度细筛。",
+      labelCardKicker: "来源",
+      labelCardDescription: (name) => `查看「${name}」类的 skill 来源。`,
       aiEyebrow: "For Agents",
       aiTitle: "让 AI 直接读懂整个目录。",
       aiNote: "所有机器可读文件都由同一份 JSON 生成，不依赖客户端 JavaScript。"
@@ -180,28 +184,34 @@ export const pageCopy: Record<Language, PageCopy> = {
       lede: "按名称、标识和摘要即时筛选。静态 HTML 仍保留全部内容，搜索引擎和 AI 不需要执行 JS 也能读取。",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
+    cta: {
+      eyebrow: "Deluxe Pack",
+      title: "懒得一个个找、一个个装？",
+      body: "全网来源就这么多、这么散。精装包把最值的 skill 选好、装好、持续维护，一次到位。",
+      button: "获取精装包"
+    },
     resource: {
       recommended: "推荐",
       details: "详情",
       external: "外链",
       tableEyebrow: "DIRECTORY",
-      tableNote: "每条资源包含类型、标识、语言、摘要和 AI 解读。先看详情，再跳转外站。",
+      tableNote: "每个来源都标了类型、语言、定价和可信度。先看详情，再跳转原站。",
       searchLabel: "搜索",
       searchPlaceholder: "名称、标签、摘要",
-      filterLabel: "按标识筛选",
-      categoryLabel: "按分类筛选",
+      categoryLabel: "按来源类型",
+      regionLabel: "按语言",
+      trustLabel: "按可信度",
       all: "全部",
       countSuffix: "条",
       tableHeaders: {
         number: "No.",
-        resource: "集合站",
-        type: "类型 / 标识",
-        scale: "规模",
-        ai: "AI 解读"
+        resource: "来源站",
+        source: "类型",
+        locale: "语言 / 定价",
+        trust: "可信度"
       }
     },
     detail: {
-      back: "← 返回目录",
       labels: "标识",
       pricing: "定价",
       status: "状态",
@@ -219,7 +229,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     footer: {
       summary: "全网 skill/MCP 生态入口。先看目录，再决定装什么。",
-      labels: "标识",
+      labels: "来源类型",
       forAi: "给 AI",
       brand: "品牌",
       directory: "完整目录",
@@ -241,7 +251,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "A focused directory for developers, agent power users, and crawlers. SkillFlux brings skill collections, marketplaces, repositories, standout tools, and AI-readable indexes into one place.",
+      heroLead: "Skill sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Grab the Deluxe Pack: curated, installed, maintained.",
       browseDirectory: "Browse directory",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",
@@ -267,15 +277,14 @@ export const pageCopy: Record<Language, PageCopy> = {
         adaptersValue: "Claude · Cursor · Codex"
       },
       viewPack: "View pack",
-      freeDirectory: "Browse free directory",
       featuredEyebrow: "Featured",
       featuredTitle: "Start with the recommended and high-signal entries.",
       featuredNote: "The first entry is the marked recommendation from the source list. The rest are sorted by collection value and practical labels.",
-      labelsEyebrow: "Labels",
-      labelsTitle: "Browse by category, then refine with labels.",
-      labelsNote: "The directory leads with three fixed categories, then narrows down by platform, scenario, and technical labels.",
-      labelCardKicker: "label",
-      labelCardDescription: (tag) => `View skill resources tagged "${tag}".`,
+      labelsEyebrow: "Sources",
+      labelsTitle: "Find skills by source type.",
+      labelsNote: "Official vendors, marketplaces, open-source repos, community rankings, or aggregators — jump by source type, then refine by language and trust.",
+      labelCardKicker: "source",
+      labelCardDescription: (name) => `Browse ${name} skill sources.`,
       aiEyebrow: "For agents",
       aiTitle: "Let AI read the whole directory directly.",
       aiNote: "Every machine-readable file is generated from the same JSON catalog and works without client-side JavaScript."
@@ -290,28 +299,34 @@ export const pageCopy: Record<Language, PageCopy> = {
       lede: "Filter instantly by name, label, and summary. Static HTML keeps everything readable for search engines and AI without JavaScript.",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
+    cta: {
+      eyebrow: "Deluxe Pack",
+      title: "Tired of hunting and installing one by one?",
+      body: "This is how scattered the ecosystem is. The Deluxe Pack curates, installs, and maintains the best skills for you — all in one go.",
+      button: "Get the pack"
+    },
     resource: {
       recommended: "Recommended",
       details: "Details",
       external: "Source",
       tableEyebrow: "DIRECTORY",
-      tableNote: "Each resource includes type, labels, language, summary, and an AI-oriented read before you jump to the source.",
+      tableNote: "Every source is tagged with its type, language, pricing, and trust. Check details, then jump to the original.",
       searchLabel: "Search",
       searchPlaceholder: "Name, labels, summary",
-      filterLabel: "Filter by label",
-      categoryLabel: "Filter by category",
+      categoryLabel: "By source type",
+      regionLabel: "By language",
+      trustLabel: "By trust",
       all: "All",
       countSuffix: "items",
       tableHeaders: {
         number: "No.",
-        resource: "Resource",
-        type: "Type / labels",
-        scale: "Scale",
-        ai: "AI read"
+        resource: "Source",
+        source: "Type",
+        locale: "Language / Pricing",
+        trust: "Trust"
       }
     },
     detail: {
-      back: "← Back to directory",
       labels: "Labels",
       pricing: "Pricing",
       status: "Status",
@@ -329,7 +344,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     footer: {
       summary: "A skill/MCP ecosystem index. Scan the directory first, then decide what to install.",
-      labels: "Labels",
+      labels: "Source types",
       forAi: "For AI",
       brand: "Brand",
       directory: "Directory",
@@ -359,9 +374,26 @@ const tagTranslations: Record<string, string> = {
 };
 
 const categoryTranslations: Record<string, string> = {
-  collection: "Collections",
-  single: "Single skills",
-  repo: "Open source & downloads"
+  official: "Official vendors",
+  marketplace: "Marketplaces",
+  repo: "Open-source repos",
+  community: "Community & rankings",
+  directory: "Aggregator directories"
+};
+
+const regionLabels: Record<Language, Record<string, string>> = {
+  zh: { cn: "中文", global: "国际" },
+  en: { cn: "Chinese", global: "Global" }
+};
+
+const trustLabels: Record<Language, Record<string, string>> = {
+  zh: { high: "高", medium: "中", emerging: "新兴" },
+  en: { high: "High", medium: "Medium", emerging: "Emerging" }
+};
+
+const pricingLabels: Record<Language, Record<string, string>> = {
+  zh: { free: "免费", mixed: "部分付费", paid: "付费" },
+  en: { free: "Free", mixed: "Freemium", paid: "Paid" }
 };
 
 const typeTranslations: Record<string, string> = {
@@ -410,6 +442,18 @@ export function translateCategory(slug: string, zhLabel: string, lang: Language)
   return categoryTranslations[slug] ?? zhLabel;
 }
 
+export function translateRegion(region: string, lang: Language): string {
+  return regionLabels[lang][region] ?? region;
+}
+
+export function translateTrust(level: string, lang: Language): string {
+  return trustLabels[lang][level] ?? level;
+}
+
+export function translatePricing(pricing: string, lang: Language): string {
+  return pricingLabels[lang][pricing] ?? pricing;
+}
+
 export function translateTags(tags: string[], lang: Language): string[] {
   return tags.map((tag) => translateTag(tag, lang));
 }
@@ -446,10 +490,10 @@ export function getSiteCopy(site: Site, lang: Language) {
     name: site.name,
     type,
     scale,
-    tagline: site.recommended ? "The marked first recommendation from the source list" : `${type} entry`,
+    tagline: site.recommended ? "China's most complete big-vendor skill hub" : `${type} entry`,
     summary: `${site.name} is a ${type.toLowerCase()} in the SkillFlux catalog. Use it to discover, compare, or install agent skill resources from the original source.`,
     aiSummary: site.recommended
-      ? "Start here for the recommended Chinese skill ecosystem entry, then use labels to filter the rest of the catalog."
+      ? "The most complete commercial skills hub — a strong place to start."
       : `Useful when you are scanning by ${primaryTags || "resource"} signals before opening the source site.`,
     tags
   };

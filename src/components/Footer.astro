@@ -1,7 +1,7 @@
 ---
 import { ENDPOINTS, SITE } from "../config";
-import { getPopularTags } from "../lib/content";
-import { DEFAULT_LANGUAGE, getPageCopy, localizePath, translateTag, type Language } from "../lib/i18n";
+import { getCategories } from "../lib/content";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, translateCategory, type Language } from "../lib/i18n";
 
 type Props = {
   lang?: Language;
@@ -9,7 +9,7 @@ type Props = {
 
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const copy = getPageCopy(lang);
-const labels = getPopularTags(6);
+const categories = getCategories();
 ---
 
 <footer class="site-footer">
@@ -24,8 +24,8 @@ const labels = getPopularTags(6);
     <div>
       <h2>{copy.footer.labels}</h2>
       <ul>
-        {labels.map((label) => (
-          <li><a href={`${localizePath("/directory/", lang)}?label=${encodeURIComponent(label.tag)}`}>{translateTag(label.tag, lang)} <span>{label.count}</span></a></li>
+        {categories.map((category) => (
+          <li><a href={`${localizePath("/directory/", lang)}?category=${encodeURIComponent(category.slug)}`}>{translateCategory(category.slug, category.label, lang)} <span>{category.count}</span></a></li>
         ))}
       </ul>
     </div>
@@ -48,6 +48,6 @@ const labels = getPopularTags(6);
   </div>
   <div class="footer-bottom">
     <span>{copy.footer.copyrightNote}</span>
-    <span>© 2026 技流 SkillFlux</span>
+    <span>© 2026 砚垚信息科技(上海)有限公司</span>
   </div>
 </footer>

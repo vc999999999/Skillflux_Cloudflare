@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { absoluteUrl, getDirectoryStats, getSites } from "../lib/content";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
 import ResourceTable from "./ResourceTable.astro";
+import PackCta from "./PackCta.astro";
 
 type Props = {
   lang?: Language;
@@ -54,5 +55,7 @@ const jsonLd = {
     </section>
 
     <ResourceTable sites={sites} showControls={true} heading={copy.directory.title} lang={lang} />
+
+    <PackCta lang={lang} />
   </main>
 </BaseLayout>

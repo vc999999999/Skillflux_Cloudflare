@@ -41,7 +41,6 @@ export type CategoryMeta = {
   label: string;
   shortLabel: string;
   description: string;
-  types: string[];
   priority: number;
 };
 
@@ -78,7 +77,6 @@ const allowedStatuses = new Set<SiteStatus>(["active", "watching", "archived"]);
 
 let cachedCatalog: Catalog | undefined;
 let cachedCategories: CategoryMeta[] | undefined;
-let cachedTypeToCategory: Map<string, string> | undefined;
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -94,7 +92,6 @@ function loadCategories(): CategoryMeta[] {
     const context = `categories[${index}]`;
     assert(isRecord(item), `${context} must be an object`);
     const slug = requireString(item, "slug", context);
-    const types = requireStringArray(item, "types", context);
     const priority = item.priority;
     assert(typeof priority === "number", `${context}.priority must be a number`);
     assert(!slugs.has(slug), `duplicate category slug: ${slug}`);
@@ -104,7 +101,6 @@ function loadCategories(): CategoryMeta[] {
       label: requireString(item, "label", context),
       shortLabel: requireString(item, "shortLabel", context),
       description: requireString(item, "description", context),
-      types,
       priority
     } satisfies CategoryMeta;
   });
@@ -113,23 +109,14 @@ function loadCategories(): CategoryMeta[] {
   return categories;
 }
 
-function typeToCategoryMap(): Map<string, string> {
-  if (cachedTypeToCategory) return cachedTypeToCategory;
-  const map = new Map<string, string>();
-  for (const category of loadCategories()) {
-    for (const type of category.types) {
-      assert(!map.has(type), `type "${type}" is mapped to more than one category`);
-      map.set(type, category.slug);
-    }
-  }
-  cachedTypeToCategory = map;
-  return map;
+function categorySlugSet(): Set<string> {
+  return new Set(loadCategories().map((category) => category.slug));
 }
 
-function deriveCategory(type: string, context: string): string {
-  const slug = typeToCategoryMap().get(type);
-  assert(slug, `${context}.type "${type}" has no category mapping in data/categories.json`);
-  return slug;
+function requireCategory(record: Record<string, unknown>, context: string): string {
+  const value = requireString(record, "category", context);
+  assert(categorySlugSet().has(value), `${context}.category "${value}" is not defined in data/categories.json`);
+  return value;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -174,7 +161,6 @@ function requireDate(value: string, context: string): string {
 function normalizeSite(raw: unknown, index: number): Site {
   const context = `sites[${index}]`;
   assert(isRecord(raw), `${context} must be an object`);
-  assert(!Object.hasOwn(raw, "category"), `${context}.category is no longer supported; use tags instead`);
 
   const pricing = requireString(raw, "pricing", context) as Pricing;
   const trustLevel = requireString(raw, "trustLevel", context) as TrustLevel;
@@ -197,7 +183,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     canonicalUrl,
     displayUrl: requireString(raw, "displayUrl", context),
     tags,
-    category: deriveCategory(type, context),
+    category: requireCategory(raw, context),
     language: requireStringArray(raw, "language", context),
     region: requireString(raw, "region", context),
     type,
@@ -251,7 +237,7 @@ export function validateCatalog(): Catalog {
     urls.add(site.canonicalUrl);
   }
 
-  assert(sites.length >= 50, "catalog must contain at least 50 sites");
+  assert(sites.length >= 30, "catalog must contain at least 30 sites");
   assert(sites.some((site) => site.featured), "catalog must contain featured sites");
   assert(sites.some((site) => site.recommended), "catalog must contain a recommended site");
 
@@ -272,14 +258,7 @@ export function getPopularTags(limit?: number): CatalogLabel[] {
   return typeof limit === "number" ? labels.slice(0, limit) : labels;
 }
 
-// Tags that sit on every site (e.g. "Agent Skills") carry no filtering signal,
-// so they are excluded from filter buttons and discovery cards.
-export function getFilterableTags(limit?: number): CatalogLabel[] {
-  const total = getSites().length;
-  const labels = getCatalog().labels.filter((label) => label.count < total);
-  return typeof limit === "number" ? labels.slice(0, limit) : labels;
-}
-
+// Source-type categories (官方厂商 / 市场 / 开源仓库 / 社区 / 综合目录) with live counts.
 export function getCategories(): CategoryWithCount[] {
   const sites = getSites();
   return loadCategories().map((category) => ({

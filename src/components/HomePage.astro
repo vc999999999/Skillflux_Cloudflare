@@ -5,16 +5,17 @@ import {
   absoluteUrl,
   getDirectoryStats,
   getFeaturedSites,
-  getFilterableTags
+  getCategories
 } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
   getPageCopy,
   localizePath,
-  translateTag,
+  translateCategory,
   type Language
 } from "../lib/i18n";
 import ResourceCard from "./ResourceCard.astro";
+import PackCta from "./PackCta.astro";
 
 type Props = {
   lang?: Language;
@@ -24,7 +25,7 @@ const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const copy = getPageCopy(lang);
 const stats = getDirectoryStats();
 const featured = getFeaturedSites(8);
-const labels = getFilterableTags(9);
+const categories = getCategories();
 const canonicalPath = localizePath("/", lang);
 const jsonLd = [
   {
@@ -57,10 +58,9 @@ const jsonLd = [
         <h1>技流<small>SkillFlux</small></h1>
         <p class="hero-lede">{copy.home.heroLead}</p>
         <div class="hero-actions">
-          <a class="button primary" href={localizePath("/directory/", lang)}>{copy.home.browseDirectory}</a>
+          <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.packEntry}</a>
+          <a class="button secondary" href={localizePath("/directory/", lang)}>{copy.home.browseDirectory}</a>
           <a class="button secondary" href="/llms.txt">{copy.home.readForAi}</a>
-          <a class="button secondary" href="/feed.xml" type="application/rss+xml">{copy.home.rssSubscribe}</a>
-          <a class="button dark" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.packEntry}</a>
         </div>
         <div class="hero-stats" aria-label={copy.home.statsLabel}>
           <div>
@@ -99,7 +99,6 @@ const jsonLd = [
         </dl>
         <div class="pack-actions">
           <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.viewPack}</a>
-          <a class="button secondary" href={localizePath("/directory/", lang)}>{copy.home.freeDirectory}</a>
         </div>
       </aside>
     </section>
@@ -117,6 +116,8 @@ const jsonLd = [
       </div>
     </section>
 
+    <PackCta lang={lang} />
+
     <section class="home-section">
       <div class="section-heading-row">
         <div>
@@ -126,16 +127,16 @@ const jsonLd = [
         <p class="section-note">{copy.home.labelsNote}</p>
       </div>
       <div class="category-grid">
-        {labels.map((label) => {
-          const displayTag = translateTag(label.tag, lang);
+        {categories.map((category) => {
+          const displayLabel = translateCategory(category.slug, category.label, lang);
           return (
-            <a class="category-card" href={`${localizePath("/directory/", lang)}?label=${encodeURIComponent(label.tag)}`}>
+            <a class="category-card" href={`${localizePath("/directory/", lang)}?category=${encodeURIComponent(category.slug)}`}>
               <div class="category-card-top">
-                <span class="category-count">{String(label.count).padStart(2, "0")}</span>
+                <span class="category-count">{String(category.count).padStart(2, "0")}</span>
                 <span>{copy.home.labelCardKicker}</span>
               </div>
-              <strong>{displayTag}</strong>
-              <p>{copy.home.labelCardDescription(displayTag)}</p>
+              <strong>{displayLabel}</strong>
+              <p>{copy.home.labelCardDescription(displayLabel)}</p>
             </a>
           );
         })}

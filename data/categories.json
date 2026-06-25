@@ -1,26 +1,37 @@
 [
   {
-    "slug": "collection",
-    "label": "合集入口",
-    "shortLabel": "collection",
-    "description": "聚合多个 skill 的合集站、市场和平台入口。",
-    "types": ["skill 合集"],
+    "slug": "official",
+    "label": "官方厂商",
+    "shortLabel": "official",
+    "description": "平台、协议、工具厂商官方维护的 skill 入口。",
     "priority": 1
   },
   {
-    "slug": "single",
-    "label": "单项 skill",
-    "shortLabel": "single",
-    "description": "单个、可直接取用的 skill 条目。",
-    "types": ["单项 skill"],
+    "slug": "marketplace",
+    "label": "市场",
+    "shortLabel": "marketplace",
+    "description": "可安装、可订阅、带注册表的 skill 市场。",
     "priority": 2
   },
   {
     "slug": "repo",
-    "label": "开源与下载",
+    "label": "开源仓库·项目",
     "shortLabel": "repo",
-    "description": "开源仓库、npm 包、下载包和官方文档。",
-    "types": ["开源 skill 仓库", "npm skill 包", "skill 下载包", "skill 文档"],
+    "description": "GitHub 上的开源 skill 仓库、框架、awesome 清单和项目。",
     "priority": 3
+  },
+  {
+    "slug": "community",
+    "label": "社区·榜单",
+    "shortLabel": "community",
+    "description": "社区发现、榜单和趋势观察。",
+    "priority": 4
+  },
+  {
+    "slug": "directory",
+    "label": "综合目录",
+    "shortLabel": "directory",
+    "description": "聚合多家来源的综合 skill 导航站。",
+    "priority": 5
   }
 ]

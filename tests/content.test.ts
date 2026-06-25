@@ -4,91 +4,45 @@ import {
   getCategories,
   getDirectoryStats,
   getFeaturedSites,
-  getFilterableTags,
   getPopularTags,
   getSites,
   renderLlmsFullText,
   validateCatalog
 } from "../src/lib/content";
 
-const objectiveUrls = [
-  "https://agent-skills.md/",
-  "https://agentskill.sh/",
-  "https://aitmpl.com/",
-  "https://chompute-skills.s3.us-east-1.amazonaws.com/chompute-lpr.zip",
-  "https://claude-plugins.dev/",
-  "https://claudehub.cc/skills?seed=x14eqshh",
-  "https://claudemarketplaces.com/",
-  "https://clawhub.ai/",
-  "https://discoveraiskills.com/",
-  "https://github.com/OthmanAdi/planning-with-files",
-  "https://github.com/anthropics/skills",
-  "https://github.com/bradautomates/claude-video",
-  "https://github.com/gccszs/disk-cleaner",
-  "https://github.com/op7418/Humanizer-zh",
-  "https://github.com/varunr89/resume-tailoring-skill",
-  "https://hermes-agent.nousresearch.com/docs/zh-Hans/skills/",
-  "https://llmskills.org/",
-  "https://mcpmarket.com/zh/tools/skills/docker-patterns-6",
-  "https://mcpmarket.com/zh/tools/skills/go-development-patterns-1777750088354",
-  "https://mcpmarket.com/zh/tools/skills/go-testing-quality-2",
-  "https://mcpmarket.com/zh/tools/skills/leaderboard",
-  "https://mcpmarket.com/zh/tools/skills/postgresql-patterns-1777849920215",
-  "https://mcpmarket.com/zh/tools/skills/python-patterns-best-practices-7",
-  "https://mcpmarket.com/zh/tools/skills/python-testing-and-pytest-patterns",
-  "https://model-context-protocol.com/servers/skills",
+// Representative entries that must stay after curating down to a source/repo directory.
+const keptUrls = [
   "https://modelscope.cn/skills",
-  "https://nanoskill.ai/skills",
-  "https://qoder.com/marketplace/skill?id=official36467869",
-  "https://qoder.com/marketplace/skill?id=official86382844",
-  "https://qoder.com/marketplace/skill?id=official_5GXUhtdh",
-  "https://qoder.com/marketplace/skill?id=official_BSzoPrW7",
-  "https://qoder.com/marketplace/skill?id=official_y6w8EaWN",
-  "https://qoder.com/marketplace/skill?id=official_zy1pr4a2",
-  "https://qoder.com/zh/marketplace",
-  "https://skillhub.cn/dashboard",
-  "https://skills.aliyun.com/skills/alibabacloud-cli-guidance",
-  "https://skills.aliyun.com/skills/alibabacloud-iqs-weather-query",
-  "https://skills.aliyun.com/skills/alibabacloud-video-editor",
-  "https://skills.aliyun.com/skills?orderBy=install",
-  "https://skills.homes/zh-CN/categories",
-  "https://skills.pub/zh",
-  "https://skills.sh/",
-  "https://skillsllm.com/",
-  "https://skillsmp.com/",
-  "https://skillstore.io/zh-hans",
-  "https://skywork.ai/skillhub/zh/",
-  "https://smithery.ai/skills",
+  "https://github.com/anthropics/skills",
+  "https://github.com/obra/superpowers",
+  "https://github.com/ComposioHQ/awesome-claude-skills",
   "https://tessl.io/registry",
-  "https://www.claudeskillsmarket.com/",
-  "https://www.everydev.ai/developers",
-  "https://www.meyo123.com/community/square/skills",
-  "https://www.npmjs.com/package/agent-skills-hub",
-  "https://www.skillhub.club/",
-  "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/ai-music",
-  "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/face-swap",
-  "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/image-inpainting",
-  "https://www.skills.sh/leonxlnx/taste-skill/gpt-taste",
-  "https://www.skills.sh/mattpocock/skills/design-an-interface",
-  "https://www.skills.sh/mattpocock/skills/teach",
-  "https://www.skills.sh/microsoft/playwright-cli/playwright-cli",
-  "https://www.skills.sh/qu-skills/skills/ai-image-generation",
+  "https://skills.sh/"
+].map((url) => new URL(url).toString());
+
+// Single skills and niche entries were intentionally removed in the pivot.
+const removedUrls = [
+  "https://skills.aliyun.com/skills/alibabacloud-iqs-weather-query",
   "https://www.skills.sh/qu-skills/skills/ai-video-generation",
-  "https://www.skillsdirectory.com/"
+  "https://github.com/gccszs/disk-cleaner",
+  "https://qoder.com/marketplace/skill?id=official_y6w8EaWN"
 ].map((url) => new URL(url).toString());
 
 describe("SkillFlux catalog", () => {
-  it("contains every requested resource URL with unique IDs and slugs", () => {
+  it("is a curated source/repo catalog with unique ids, slugs, and urls", () => {
     const catalog = validateCatalog();
     const ids = new Set(catalog.sites.map((site) => site.id));
     const slugs = new Set(catalog.sites.map((site) => site.slug));
     const urls = new Set(catalog.sites.map((site) => site.canonicalUrl));
 
-    expect(catalog.sites.length).toBeGreaterThanOrEqual(objectiveUrls.length);
+    expect(catalog.sites.length).toBeGreaterThanOrEqual(30);
     expect(ids.size).toBe(catalog.sites.length);
     expect(slugs.size).toBe(catalog.sites.length);
-    for (const url of objectiveUrls) {
+    for (const url of keptUrls) {
       expect(urls.has(url)).toBe(true);
+    }
+    for (const url of removedUrls) {
+      expect(urls.has(url)).toBe(false);
     }
   });
 
@@ -109,10 +63,15 @@ describe("SkillFlux catalog", () => {
     expect(totalCategorized).toBe(catalog.sites.length);
   });
 
-  it("excludes no-op universal tags from filterable labels", () => {
-    const total = getSites().length;
-    for (const label of getFilterableTags()) {
-      expect(label.count).toBeLessThan(total);
+  it("groups every source under a known source-type category", () => {
+    const categories = getCategories();
+    const knownSlugs = new Set(categories.map((category) => category.slug));
+
+    for (const category of categories) {
+      expect(category.count).toBeGreaterThan(0);
+    }
+    for (const site of getSites()) {
+      expect(knownSlugs.has(site.category)).toBe(true);
     }
   });
 

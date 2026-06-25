@@ -1,0 +1,22 @@
+---
+import { SITE } from "../config";
+import { DEFAULT_LANGUAGE, getPageCopy, type Language } from "../lib/i18n";
+
+type Props = {
+  lang?: Language;
+};
+
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+---
+
+<section class="pack-cta" aria-label={copy.cta.title}>
+  <div class="pack-cta-body">
+    <p class="eyebrow"><span></span> {copy.cta.eyebrow}</p>
+    <h2>{copy.cta.title}</h2>
+    <p>{copy.cta.body}</p>
+  </div>
+  <div class="pack-cta-actions">
+    <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.cta.button}</a>
+  </div>
+</section>

@@ -12,6 +12,7 @@
       "ModelScope",
       "中文"
     ],
+    "category": "official",
     "language": [
       "zh"
     ],
@@ -19,9 +20,9 @@
     "type": "skill 合集",
     "scale": "推荐合集",
     "pricing": "free",
-    "tagline": "目标清单标注的首位推荐 skill 入口",
-    "summary": "中文 AI 技能生态入口，目标清单中明确标注为推荐，适合作为目录首位推荐入口。",
-    "aiSummary": "推荐从这里开始浏览中文技能生态，再用标签筛选其他合集和单项 skill。",
+    "tagline": "国内大厂 skill 合集首选",
+    "summary": "国内最全的大厂 skill 集合网站。",
+    "aiSummary": "最全商业 skills 合集中心",
     "featured": true,
     "recommended": true,
     "trustLevel": "high",
@@ -44,6 +45,7 @@
       "阿里云",
       "中文"
     ],
+    "category": "official",
     "language": [
       "zh"
     ],
@@ -75,6 +77,7 @@
       "合集",
       "中文"
     ],
+    "category": "official",
     "language": [
       "zh"
     ],
@@ -105,6 +108,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -135,6 +139,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -165,6 +170,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -196,6 +202,7 @@
       "开源",
       "GitHub"
     ],
+    "category": "repo",
     "language": [
       "en"
     ],
@@ -228,6 +235,7 @@
       "GitHub",
       "视频"
     ],
+    "category": "repo",
     "language": [
       "en"
     ],
@@ -258,6 +266,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "marketplace",
     "language": [
       "en"
     ],
@@ -288,6 +297,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "marketplace",
     "language": [
       "en"
     ],
@@ -318,6 +328,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "marketplace",
     "language": [
       "en"
     ],
@@ -348,6 +359,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -378,6 +390,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "community",
     "language": [
       "en"
     ],
@@ -399,37 +412,6 @@
     "updatedAt": "2026-06-24"
   },
   {
-    "id": "github-com-gccszs-disk-cleaner",
-    "slug": "github-com-gccszs-disk-cleaner",
-    "name": "gccszs/disk-cleaner",
-    "canonicalUrl": "https://github.com/gccszs/disk-cleaner",
-    "displayUrl": "github.com/gccszs/disk-cleaner",
-    "tags": [
-      "Agent Skills",
-      "开源",
-      "GitHub"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "开源 skill 仓库",
-    "scale": "开源项目",
-    "pricing": "free",
-    "tagline": "安全清磁盘",
-    "summary": "安全清理磁盘相关 skill 或工具项目。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://github.com/gccszs/disk-cleaner"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
     "id": "hermes-agent-nousresearch-com-docs-zh-hans-skills",
     "slug": "hermes-agent-nousresearch-com-docs-zh-hans-skills",
     "name": "Hermes Agent Skills",
@@ -440,6 +422,7 @@
       "合集",
       "中文"
     ],
+    "category": "official",
     "language": [
       "zh"
     ],
@@ -470,6 +453,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -503,6 +487,7 @@
       "MCP",
       "中文"
     ],
+    "category": "community",
     "language": [
       "zh"
     ],
@@ -535,6 +520,7 @@
       "GitHub",
       "写作"
     ],
+    "category": "repo",
     "language": [
       "en"
     ],
@@ -566,6 +552,7 @@
       "开源",
       "GitHub"
     ],
+    "category": "repo",
     "language": [
       "en"
     ],
@@ -587,197 +574,6 @@
     "updatedAt": "2026-06-24"
   },
   {
-    "id": "qoder-com-marketplace-skill-official-y6w8eawn",
-    "slug": "qoder-com-marketplace-skill-official-y6w8eawn",
-    "name": "Qoder - 创意写作",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official_y6w8EaWN",
-    "displayUrl": "qoder.com/marketplace/skill?id=official_y6w8EaWN",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder",
-      "写作"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "创意写作",
-    "summary": "创意写作。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official_y6w8EaWN"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "qoder-com-marketplace-skill-official-5gxuhtdh",
-    "slug": "qoder-com-marketplace-skill-official-5gxuhtdh",
-    "name": "Qoder - 发现 X/Twitter 和网络上的热门话题",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official_5GXUhtdh",
-    "displayUrl": "qoder.com/marketplace/skill?id=official_5GXUhtdh",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder",
-      "社媒"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "发现 X/Twitter 和网络上的热门话题",
-    "summary": "发现 X/Twitter 和网络上的热门话题。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official_5GXUhtdh"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "qoder-com-marketplace-skill-official36467869",
-    "slug": "qoder-com-marketplace-skill-official36467869",
-    "name": "Qoder - 分析数据分析",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official36467869",
-    "displayUrl": "qoder.com/marketplace/skill?id=official36467869",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "分析数据分析",
-    "summary": "分析数据分析。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official36467869"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "qoder-com-marketplace-skill-official-zy1pr4a2",
-    "slug": "qoder-com-marketplace-skill-official-zy1pr4a2",
-    "name": "Qoder - 优化、模式设计和数据分析的 SQL 查询专家",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official_zy1pr4a2",
-    "displayUrl": "qoder.com/marketplace/skill?id=official_zy1pr4a2",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder",
-      "SQL"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "优化、模式设计和数据分析的 SQL 查询专家",
-    "summary": "优化、模式设计和数据分析的 SQL 查询专家。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official_zy1pr4a2"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "qoder-com-marketplace-skill-official-bszoprw7",
-    "slug": "qoder-com-marketplace-skill-official-bszoprw7",
-    "name": "Qoder - A股股票财务分析",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official_BSzoPrW7",
-    "displayUrl": "qoder.com/marketplace/skill?id=official_BSzoPrW7",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder",
-      "财务"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "A股股票财务分析",
-    "summary": "A股股票财务分析。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official_BSzoPrW7"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "qoder-com-marketplace-skill-official86382844",
-    "slug": "qoder-com-marketplace-skill-official86382844",
-    "name": "Qoder - UI 设计",
-    "canonicalUrl": "https://qoder.com/marketplace/skill?id=official86382844",
-    "displayUrl": "qoder.com/marketplace/skill?id=official86382844",
-    "tags": [
-      "Agent Skills",
-      "合集",
-      "Qoder",
-      "UI"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 合集",
-    "scale": "集合入口",
-    "pricing": "mixed",
-    "tagline": "UI 设计",
-    "summary": "UI 设计。来自目标清单的 skill 合集，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "featured": true,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://qoder.com/marketplace/skill?id=official86382844"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
     "id": "qoder-com-zh-marketplace",
     "slug": "qoder-com-zh-marketplace",
     "name": "Qoder Marketplace",
@@ -789,6 +585,7 @@
       "Qoder",
       "中文"
     ],
+    "category": "marketplace",
     "language": [
       "zh"
     ],
@@ -819,6 +616,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -849,6 +647,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -880,6 +679,7 @@
       "合集",
       "中文"
     ],
+    "category": "directory",
     "language": [
       "zh"
     ],
@@ -911,6 +711,7 @@
       "合集",
       "中文"
     ],
+    "category": "directory",
     "language": [
       "zh"
     ],
@@ -942,6 +743,7 @@
       "合集",
       "skills.sh"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -972,6 +774,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -1002,6 +805,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "directory",
     "language": [
       "en"
     ],
@@ -1033,6 +837,7 @@
       "合集",
       "中文"
     ],
+    "category": "official",
     "language": [
       "zh"
     ],
@@ -1063,6 +868,7 @@
       "Agent Skills",
       "合集"
     ],
+    "category": "marketplace",
     "language": [
       "en"
     ],
@@ -1094,6 +900,7 @@
       "开源",
       "GitHub"
     ],
+    "category": "repo",
     "language": [
       "en"
     ],
@@ -1115,868 +922,338 @@
     "updatedAt": "2026-06-24"
   },
   {
-    "id": "skills-aliyun-com-skills-alibabacloud-video-editor",
-    "slug": "skills-aliyun-com-skills-alibabacloud-video-editor",
-    "name": "阿里云 - 将客户上下文中的音视频及字幕素材按照客户场景剪辑成视频",
-    "canonicalUrl": "https://skills.aliyun.com/skills/alibabacloud-video-editor",
-    "displayUrl": "skills.aliyun.com/skills/alibabacloud-video-editor",
+    "id": "github-com-obra-superpowers",
+    "slug": "github-com-obra-superpowers",
+    "name": "Superpowers (obra)",
+    "canonicalUrl": "https://github.com/obra/superpowers",
+    "displayUrl": "github.com/obra/superpowers",
     "tags": [
       "Agent Skills",
-      "单项 skill",
-      "阿里云",
-      "中文",
-      "视频"
+      "开源",
+      "GitHub",
+      "框架"
     ],
+    "category": "repo",
     "language": [
-      "zh"
+      "en"
     ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "mixed",
-    "tagline": "将客户上下文中的音视频及字幕素材按照客户场景剪辑成视频",
-    "summary": "将上下文中的音视频与字幕素材按客户场景剪辑成视频。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / 阿里云”标识快速判断是否需要深入查看。",
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "开源项目",
+    "pricing": "free",
+    "tagline": "约 23.8 万 star 的 agentic skills 框架",
+    "summary": "面向 Claude Code 的 agentic skills 框架与开发方法论，内置 TDD、调试、brainstorm/plan/execute 等成套技能，是社区最热门的 skills 项目之一（GitHub 约 23.8 万 star）。",
+    "aiSummary": "想一次拿到成套高质量工程化 skill，从这个超高 star 框架仓库入手。",
+    "featured": true,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/obra/superpowers"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-composiohq-awesome-claude-skills",
+    "slug": "github-com-composiohq-awesome-claude-skills",
+    "name": "awesome-claude-skills (Composio)",
+    "canonicalUrl": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "displayUrl": "github.com/ComposioHQ/awesome-claude-skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
+    "pricing": "free",
+    "tagline": "1000+ Claude Skills 精选清单",
+    "summary": "覆盖 Claude.ai、Claude Code、Codex、Cursor 等的 1000+ 生产可用 skill 与插件精选清单（GitHub 约 6.6 万 star）。",
+    "aiSummary": "按用途海选 skill 时的高质量清单入口。",
+    "featured": true,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/ComposioHQ/awesome-claude-skills"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-voltagent-awesome-agent-skills",
+    "slug": "github-com-voltagent-awesome-agent-skills",
+    "name": "awesome-agent-skills (VoltAgent)",
+    "canonicalUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+    "displayUrl": "github.com/VoltAgent/awesome-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
+    "pricing": "free",
+    "tagline": "1000+ 多平台 agent skills 合集",
+    "summary": "聚合 Anthropic、Google、Vercel、Stripe 等官方团队与社区的 1000+ agent skills，兼容 Claude Code、Codex、Cursor、Gemini CLI（GitHub 约 2.6 万 star）。",
+    "aiSummary": "想找各大厂官方出品的 agent skill，先看这个聚合清单。",
+    "featured": true,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/VoltAgent/awesome-agent-skills"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-travisvn-awesome-claude-skills",
+    "slug": "github-com-travisvn-awesome-claude-skills",
+    "name": "awesome-claude-skills (travisvn)",
+    "canonicalUrl": "https://github.com/travisvn/awesome-claude-skills",
+    "displayUrl": "github.com/travisvn/awesome-claude-skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
+    "pricing": "free",
+    "tagline": "Claude Code 向 skill 精选清单",
+    "summary": "聚焦 Claude Code 的 awesome skill 清单，含 skill 架构与渐进式加载说明（GitHub 约 1.4 万 star）。",
+    "aiSummary": "偏 Claude Code 工作流的 skill 清单。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/travisvn/awesome-claude-skills"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-behisecc-awesome-claude-skills",
+    "slug": "github-com-behisecc-awesome-claude-skills",
+    "name": "awesome-claude-skills (BehiSecc)",
+    "canonicalUrl": "https://github.com/BehiSecc/awesome-claude-skills",
+    "displayUrl": "github.com/BehiSecc/awesome-claude-skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集",
+      "安全"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
+    "pricing": "free",
+    "tagline": "安全向 Claude skills 精选清单",
+    "summary": "偏安全方向的 Claude Skills 精选清单（GitHub 约 9.6k star）。",
+    "aiSummary": "做安全相关任务时优先翻这个清单。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/BehiSecc/awesome-claude-skills"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-android-skills",
+    "slug": "github-com-android-skills",
+    "name": "Android Skills(官方)",
+    "canonicalUrl": "https://github.com/android/skills",
+    "displayUrl": "github.com/android/skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "官方",
+      "移动开发"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "开源项目",
+    "pricing": "free",
+    "tagline": "安卓官方 agent skills",
+    "summary": "Android 开发者团队官方维护的 agent skills，面向原生安卓开发（GitHub 约 5.9k star）。",
+    "aiSummary": "做原生安卓时用官方背书的 skills。",
+    "featured": true,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/android/skills"
+    ],
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
+  },
+  {
+    "id": "github-com-expo-skills",
+    "slug": "github-com-expo-skills",
+    "name": "Expo Skills(官方)",
+    "canonicalUrl": "https://github.com/expo/skills",
+    "displayUrl": "github.com/expo/skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "官方",
+      "移动开发"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "开源项目",
+    "pricing": "free",
+    "tagline": "Expo 官方 agent skills",
+    "summary": "Expo 官方维护的 agent skills，面向 React Native / Expo 开发（GitHub 约 2.1k star）。",
+    "aiSummary": "做 RN/Expo 时用官方 skills。",
     "featured": false,
     "recommended": false,
     "trustLevel": "high",
     "status": "active",
     "sourceUrls": [
-      "https://skills.aliyun.com/skills/alibabacloud-video-editor"
+      "https://github.com/expo/skills"
     ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
   },
   {
-    "id": "skills-aliyun-com-skills-alibabacloud-iqs-weather-query",
-    "slug": "skills-aliyun-com-skills-alibabacloud-iqs-weather-query",
-    "name": "阿里云 - 天气预报",
-    "canonicalUrl": "https://skills.aliyun.com/skills/alibabacloud-iqs-weather-query",
-    "displayUrl": "skills.aliyun.com/skills/alibabacloud-iqs-weather-query",
+    "id": "github-com-xu-xiang-everything-claude-code-zh",
+    "slug": "github-com-xu-xiang-everything-claude-code-zh",
+    "name": "everything-claude-code 中文版",
+    "canonicalUrl": "https://github.com/xu-xiang/everything-claude-code-zh",
+    "displayUrl": "github.com/xu-xiang/everything-claude-code-zh",
     "tags": [
       "Agent Skills",
-      "单项 skill",
-      "阿里云",
+      "开源",
+      "GitHub",
       "中文",
-      "天气"
+      "合集"
     ],
+    "category": "repo",
     "language": [
       "zh"
     ],
     "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "mixed",
-    "tagline": "天气预报",
-    "summary": "用于天气预报查询的阿里云 skill。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / 阿里云”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://skills.aliyun.com/skills/alibabacloud-iqs-weather-query"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-aliyun-com-skills-alibabacloud-cli-guidance",
-    "slug": "skills-aliyun-com-skills-alibabacloud-cli-guidance",
-    "name": "阿里云 - 用户在运行skills 时如出现报错，cli-guidance 可以提供一定的调试指引",
-    "canonicalUrl": "https://skills.aliyun.com/skills/alibabacloud-cli-guidance",
-    "displayUrl": "skills.aliyun.com/skills/alibabacloud-cli-guidance",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "阿里云",
-      "中文",
-      "UI",
-      "CLI"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "mixed",
-    "tagline": "用户在运行skills 时如出现报错，cli-guidance 可以提供一定的调试指引",
-    "summary": "用户运行 skills 出现报错时，可提供 CLI 调试指引和排查路径。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / 阿里云”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://skills.aliyun.com/skills/alibabacloud-cli-guidance"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "npmjs-com-package-agent-skills-hub",
-    "slug": "npmjs-com-package-agent-skills-hub",
-    "name": "agent-skills-hub",
-    "canonicalUrl": "https://www.npmjs.com/package/agent-skills-hub",
-    "displayUrl": "www.npmjs.com/package/agent-skills-hub",
-    "tags": [
-      "Agent Skills"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "npm skill 包",
-    "scale": "单项 skill",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "npm skill 包入口",
-    "summary": "agent-skills-hub 是目标清单中的 npm skill 包，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills”标识快速判断是否需要深入查看。",
+    "tagline": "完整 Claude Code 配置中文翻译",
+    "summary": "Anthropic 黑客松获胜配置的中文翻译项目，含 agents/skills/hooks/commands/rules/MCP 全套 80+ 文件（GitHub 约 1.4k star）。",
+    "aiSummary": "中文工程师快速上手整套 Claude Code 配置的入口。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
     "status": "active",
     "sourceUrls": [
-      "https://www.npmjs.com/package/agent-skills-hub"
+      "https://github.com/xu-xiang/everything-claude-code-zh"
     ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
   },
   {
-    "id": "chompute-skills-s3-us-east-1-amazonaws-com-chompute-lpr-zip",
-    "slug": "chompute-skills-s3-us-east-1-amazonaws-com-chompute-lpr-zip",
-    "name": "Chompute LPR",
-    "canonicalUrl": "https://chompute-skills.s3.us-east-1.amazonaws.com/chompute-lpr.zip",
-    "displayUrl": "chompute-skills.s3.us-east-1.amazonaws.com/chompute-lpr.zip",
+    "id": "github-com-wlzh-skills",
+    "slug": "github-com-wlzh-skills",
+    "name": "wlzh/skills",
+    "canonicalUrl": "https://github.com/wlzh/skills",
+    "displayUrl": "github.com/wlzh/skills",
     "tags": [
       "Agent Skills",
-      "下载包"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 下载包",
-    "scale": "下载包",
-    "pricing": "free",
-    "tagline": "Chompute车牌识别器",
-    "summary": "Chompute 车牌识别器 skill 下载包。",
-    "aiSummary": "适合按“Agent Skills / 下载包”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "emerging",
-    "status": "active",
-    "sourceUrls": [
-      "https://chompute-skills.s3.us-east-1.amazonaws.com/chompute-lpr.zip"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "claudehub-cc-skills-seed-x14eqshh",
-    "slug": "claudehub-cc-skills-seed-x14eqshh",
-    "name": "ClaudeHub Skills",
-    "canonicalUrl": "https://claudehub.cc/skills?seed=x14eqshh",
-    "displayUrl": "claudehub.cc/skills?seed=x14eqshh",
-    "tags": [
-      "Agent Skills",
-      "单项 skill"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "ClaudeHub Skills 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "emerging",
-    "status": "active",
-    "sourceUrls": [
-      "https://claudehub.cc/skills?seed=x14eqshh"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "everydev-ai-developers",
-    "slug": "everydev-ai-developers",
-    "name": "EveryDev Developers",
-    "canonicalUrl": "https://www.everydev.ai/developers",
-    "displayUrl": "www.everydev.ai/developers",
-    "tags": [
-      "Agent Skills",
-      "单项 skill"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "EveryDev Developers 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.everydev.ai/developers"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "model-context-protocol-com-servers-skills",
-    "slug": "model-context-protocol-com-servers-skills",
-    "name": "MCP Skills Directory",
-    "canonicalUrl": "https://model-context-protocol.com/servers/skills",
-    "displayUrl": "model-context-protocol.com/servers/skills",
-    "tags": [
-      "Agent Skills",
-      "文档",
-      "MCP"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "skill 文档",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "skill 文档入口",
-    "summary": "MCP Skills Directory 是目标清单中的 skill 文档，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 文档 / MCP”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://model-context-protocol.com/servers/skills"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-docker-patterns-6",
-    "slug": "mcpmarket-com-zh-tools-skills-docker-patterns-6",
-    "name": "MCPMarket - Docker 模式",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/docker-patterns-6",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/docker-patterns-6",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "Docker"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "Docker 模式",
-    "summary": "Docker 模式。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/docker-patterns-6"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-go-testing-quality-2",
-    "slug": "mcpmarket-com-zh-tools-skills-go-testing-quality-2",
-    "name": "MCPMarket - Go 测试与质量",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/go-testing-quality-2",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/go-testing-quality-2",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "测试",
-      "Go"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "Go 测试与质量",
-    "summary": "Go 测试与质量。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/go-testing-quality-2"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-go-development-patterns-1777750088354",
-    "slug": "mcpmarket-com-zh-tools-skills-go-development-patterns-1777750088354",
-    "name": "MCPMarket - Go 开发模式",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/go-development-patterns-1777750088354",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/go-development-patterns-1777750088354",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "Go"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "Go 开发模式",
-    "summary": "Go 开发模式。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/go-development-patterns-1777750088354"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-postgresql-patterns-1777849920215",
-    "slug": "mcpmarket-com-zh-tools-skills-postgresql-patterns-1777849920215",
-    "name": "MCPMarket - PostgreSQL 模式",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/postgresql-patterns-1777849920215",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/postgresql-patterns-1777849920215",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "PostgreSQL",
-      "SQL"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "PostgreSQL 模式",
-    "summary": "PostgreSQL 模式。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/postgresql-patterns-1777849920215"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-python-testing-and-pytest-patterns",
-    "slug": "mcpmarket-com-zh-tools-skills-python-testing-and-pytest-patterns",
-    "name": "MCPMarket - Python 测试与 Pytest 模式",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/python-testing-and-pytest-patterns",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/python-testing-and-pytest-patterns",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "测试",
-      "Python"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "Python 测试与 Pytest 模式",
-    "summary": "Python 测试与 Pytest 模式。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/python-testing-and-pytest-patterns"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "mcpmarket-com-zh-tools-skills-python-patterns-best-practices-7",
-    "slug": "mcpmarket-com-zh-tools-skills-python-patterns-best-practices-7",
-    "name": "MCPMarket - Python 模式与最佳实践",
-    "canonicalUrl": "https://mcpmarket.com/zh/tools/skills/python-patterns-best-practices-7",
-    "displayUrl": "mcpmarket.com/zh/tools/skills/python-patterns-best-practices-7",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCPMarket",
-      "MCP",
-      "中文",
-      "Python"
-    ],
-    "language": [
-      "zh"
-    ],
-    "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "Python 模式与最佳实践",
-    "summary": "Python 模式与最佳实践。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCPMarket”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://mcpmarket.com/zh/tools/skills/python-patterns-best-practices-7"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "meyo123-com-community-square-skills",
-    "slug": "meyo123-com-community-square-skills",
-    "name": "Meyo Skills Square",
-    "canonicalUrl": "https://www.meyo123.com/community/square/skills",
-    "displayUrl": "www.meyo123.com/community/square/skills",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
+      "开源",
+      "GitHub",
       "中文"
     ],
+    "category": "repo",
     "language": [
       "zh"
     ],
     "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
+    "type": "开源 skill 仓库",
+    "scale": "开源项目",
     "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "Meyo Skills Square 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / 中文”标识快速判断是否需要深入查看。",
+    "tagline": "实用 Claude/Codex skills 合集",
+    "summary": "作者自用沉淀的实用 skills 合集（视频下载发布、变声、发票识别等，GitHub 约 576 star）。",
+    "aiSummary": "找接地气的中文实用 skill 时翻一翻。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
     "status": "active",
     "sourceUrls": [
-      "https://www.meyo123.com/community/square/skills"
+      "https://github.com/wlzh/skills"
     ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
   },
   {
-    "id": "nanoskill-ai-skills",
-    "slug": "nanoskill-ai-skills",
-    "name": "NanoSkill",
-    "canonicalUrl": "https://nanoskill.ai/skills",
-    "displayUrl": "nanoskill.ai/skills",
+    "id": "github-com-laolaoshiren-claude-code-skills-zh",
+    "slug": "github-com-laolaoshiren-claude-code-skills-zh",
+    "name": "claude-code-skills-zh",
+    "canonicalUrl": "https://github.com/laolaoshiren/claude-code-skills-zh",
+    "displayUrl": "github.com/laolaoshiren/claude-code-skills-zh",
     "tags": [
       "Agent Skills",
-      "单项 skill"
+      "开源",
+      "GitHub",
+      "中文",
+      "合集"
     ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "NanoSkill 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "emerging",
-    "status": "active",
-    "sourceUrls": [
-      "https://nanoskill.ai/skills"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-mattpocock-skills-teach",
-    "slug": "skills-sh-mattpocock-skills-teach",
-    "name": "skills.sh - 教导",
-    "canonicalUrl": "https://www.skills.sh/mattpocock/skills/teach",
-    "displayUrl": "www.skills.sh/mattpocock/skills/teach",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "教导",
-    "summary": "教导。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/mattpocock/skills/teach"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-microsoft-playwright-cli-playwright-cli",
-    "slug": "skills-sh-microsoft-playwright-cli-playwright-cli",
-    "name": "skills.sh - 剧作家-CLI",
-    "canonicalUrl": "https://www.skills.sh/microsoft/playwright-cli/playwright-cli",
-    "displayUrl": "www.skills.sh/microsoft/playwright-cli/playwright-cli",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh",
-      "Playwright",
-      "CLI"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "剧作家-CLI",
-    "summary": "剧作家-CLI。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/microsoft/playwright-cli/playwright-cli"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-agentspace-so-runcomfy-agent-skills-face-swap",
-    "slug": "skills-sh-agentspace-so-runcomfy-agent-skills-face-swap",
-    "name": "skills.sh - 面部互换",
-    "canonicalUrl": "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/face-swap",
-    "displayUrl": "www.skills.sh/agentspace-so/runcomfy-agent-skills/face-swap",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "面部互换",
-    "summary": "面部互换。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/face-swap"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-qu-skills-skills-ai-video-generation",
-    "slug": "skills-sh-qu-skills-skills-ai-video-generation",
-    "name": "skills.sh - 人工智能视频生成",
-    "canonicalUrl": "https://www.skills.sh/qu-skills/skills/ai-video-generation",
-    "displayUrl": "www.skills.sh/qu-skills/skills/ai-video-generation",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh",
-      "视频"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "人工智能视频生成",
-    "summary": "人工智能视频生成。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/qu-skills/skills/ai-video-generation"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-qu-skills-skills-ai-image-generation",
-    "slug": "skills-sh-qu-skills-skills-ai-image-generation",
-    "name": "skills.sh - 人工智能图像生成",
-    "canonicalUrl": "https://www.skills.sh/qu-skills/skills/ai-image-generation",
-    "displayUrl": "www.skills.sh/qu-skills/skills/ai-image-generation",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh",
-      "图像"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "人工智能图像生成",
-    "summary": "人工智能图像生成。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/qu-skills/skills/ai-image-generation"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-agentspace-so-runcomfy-agent-skills-ai-music",
-    "slug": "skills-sh-agentspace-so-runcomfy-agent-skills-ai-music",
-    "name": "skills.sh - 人工智能音乐",
-    "canonicalUrl": "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/ai-music",
-    "displayUrl": "www.skills.sh/agentspace-so/runcomfy-agent-skills/ai-music",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh",
-      "音乐"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "人工智能音乐",
-    "summary": "人工智能音乐。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/ai-music"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-mattpocock-skills-design-an-interface",
-    "slug": "skills-sh-mattpocock-skills-design-an-interface",
-    "name": "skills.sh - 设计接口",
-    "canonicalUrl": "https://www.skills.sh/mattpocock/skills/design-an-interface",
-    "displayUrl": "www.skills.sh/mattpocock/skills/design-an-interface",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "设计接口",
-    "summary": "设计接口。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/mattpocock/skills/design-an-interface"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-agentspace-so-runcomfy-agent-skills-image-inpainting",
-    "slug": "skills-sh-agentspace-so-runcomfy-agent-skills-image-inpainting",
-    "name": "skills.sh - 图像修复",
-    "canonicalUrl": "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/image-inpainting",
-    "displayUrl": "www.skills.sh/agentspace-so/runcomfy-agent-skills/image-inpainting",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh",
-      "图像"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "图像修复",
-    "summary": "图像修复。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/agentspace-so/runcomfy-agent-skills/image-inpainting"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skills-sh-leonxlnx-taste-skill-gpt-taste",
-    "slug": "skills-sh-leonxlnx-taste-skill-gpt-taste",
-    "name": "skills.sh - GPT-taste（格特味）",
-    "canonicalUrl": "https://www.skills.sh/leonxlnx/taste-skill/gpt-taste",
-    "displayUrl": "www.skills.sh/leonxlnx/taste-skill/gpt-taste",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "skills.sh"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "GPT-taste（格特味）",
-    "summary": "GPT-taste（格特味）。来自目标清单的 单项 skill，已整理为可检索的 SkillFlux 资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / skills.sh”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "high",
-    "status": "active",
-    "sourceUrls": [
-      "https://www.skills.sh/leonxlnx/taste-skill/gpt-taste"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "skillstore-io-zh-hans",
-    "slug": "skillstore-io-zh-hans",
-    "name": "SkillStore",
-    "canonicalUrl": "https://skillstore.io/zh-hans",
-    "displayUrl": "skillstore.io/zh-hans",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "中文"
-    ],
+    "category": "repo",
     "language": [
       "zh"
     ],
     "region": "cn",
-    "type": "单项 skill",
-    "scale": "单项 skill",
+    "type": "开源 skill 仓库",
+    "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "SkillStore 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / 中文”标识快速判断是否需要深入查看。",
+    "tagline": "精选 100+ / 18 个原创可装中文 skill",
+    "summary": "中文社区精选 100+ Claude Code skills，含 18 个原创可安装技能，按场景分类（GitHub 约 449 star）。",
+    "aiSummary": "中文原创、复制即装的 skill 合集。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
     "status": "active",
     "sourceUrls": [
-      "https://skillstore.io/zh-hans"
+      "https://github.com/laolaoshiren/claude-code-skills-zh"
     ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
-  },
-  {
-    "id": "smithery-ai-skills",
-    "slug": "smithery-ai-skills",
-    "name": "Smithery Skills",
-    "canonicalUrl": "https://smithery.ai/skills",
-    "displayUrl": "smithery.ai/skills",
-    "tags": [
-      "Agent Skills",
-      "单项 skill",
-      "MCP"
-    ],
-    "language": [
-      "en"
-    ],
-    "region": "global",
-    "type": "单项 skill",
-    "scale": "单项 skill",
-    "pricing": "free",
-    "tagline": "单项 skill入口",
-    "summary": "Smithery Skills 是目标清单中的 单项 skill，适合用于发现、比较或安装 agent skill 相关资源。",
-    "aiSummary": "适合按“Agent Skills / 单项 skill / MCP”标识快速判断是否需要深入查看。",
-    "featured": false,
-    "recommended": false,
-    "trustLevel": "medium",
-    "status": "active",
-    "sourceUrls": [
-      "https://smithery.ai/skills"
-    ],
-    "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
+    "addedAt": "2026-06-25",
+    "updatedAt": "2026-06-25"
   }
 ]

@@ -1,13 +1,15 @@
 ---
 import type { Site } from "../lib/content";
-import { getCategories, getFilterableTags } from "../lib/content";
+import { getCategories } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
   getPageCopy,
   getSiteCopy,
   localizePath,
   translateCategory,
-  translateTag,
+  translatePricing,
+  translateRegion,
+  translateTrust,
   type Language
 } from "../lib/i18n";
 
@@ -23,7 +25,12 @@ const { sites, showControls = false, heading, compact = false, lang = DEFAULT_LA
 const copy = getPageCopy(lang);
 const resolvedHeading = heading ?? (lang === "zh" ? "资源目录" : "Resource directory");
 const categories = getCategories();
-const labels = getFilterableTags(18);
+const categoryLabelBySlug = new Map(categories.map((category) => [category.slug, category.label]));
+
+const regionOrder = ["cn", "global"];
+const regions = regionOrder.filter((region) => sites.some((site) => site.region === region));
+const trustOrder = ["high", "medium", "emerging"];
+const trustLevels = trustOrder.filter((level) => sites.some((site) => site.trustLevel === level));
 ---
 
 <section
@@ -54,11 +61,21 @@ const labels = getFilterableTags(18);
           </button>
         ))}
       </div>
-      <div class="filter-buttons is-secondary" role="group" aria-label={copy.resource.filterLabel}>
-        <button type="button" data-tag-filter="all" aria-pressed="true">{copy.resource.all}</button>
-        {labels.map((label) => (
-          <button type="button" data-tag-filter={label.tag} aria-pressed="false">{translateTag(label.tag, lang)}</button>
-        ))}
+      <div class="filter-rows">
+        <div class="filter-buttons is-secondary" role="group" aria-label={copy.resource.regionLabel}>
+          <span class="filter-tag">{copy.resource.regionLabel}</span>
+          <button type="button" data-region-filter="all" aria-pressed="true">{copy.resource.all}</button>
+          {regions.map((region) => (
+            <button type="button" data-region-filter={region} aria-pressed="false">{translateRegion(region, lang)}</button>
+          ))}
+        </div>
+        <div class="filter-buttons is-secondary" role="group" aria-label={copy.resource.trustLabel}>
+          <span class="filter-tag">{copy.resource.trustLabel}</span>
+          <button type="button" data-trust-filter="all" aria-pressed="true">{copy.resource.all}</button>
+          {trustLevels.map((level) => (
+            <button type="button" data-trust-filter={level} aria-pressed="false">{translateTrust(level, lang)}</button>
+          ))}
+        </div>
       </div>
       <span class="result-count" data-result-count>{sites.length} {copy.resource.countSuffix}</span>
     </div>
@@ -68,9 +85,9 @@ const labels = getFilterableTags(18);
     <div class="resource-row table-head" role="row">
       <span>{copy.resource.tableHeaders.number}</span>
       <span>{copy.resource.tableHeaders.resource}</span>
-      <span>{copy.resource.tableHeaders.type}</span>
-      <span>{copy.resource.tableHeaders.scale}</span>
-      <span>{copy.resource.tableHeaders.ai}</span>
+      <span>{copy.resource.tableHeaders.source}</span>
+      <span>{copy.resource.tableHeaders.locale}</span>
+      <span>{copy.resource.tableHeaders.trust}</span>
       <span></span>
     </div>
     {sites.map((site, index) => {
@@ -81,10 +98,10 @@ const labels = getFilterableTags(18);
         siteCopy.summary,
         siteCopy.aiSummary,
         siteCopy.type,
-        siteCopy.scale,
         siteCopy.tags.join(" "),
         site.tags.join(" ")
       ].join(" ").toLowerCase();
+      const categoryLabel = translateCategory(site.category, categoryLabelBySlug.get(site.category) ?? site.category, lang);
       return (
         <a
           class="resource-row"
@@ -92,7 +109,8 @@ const labels = getFilterableTags(18);
           href={localizePath(`/site/${site.slug}/`, lang)}
           data-site-row
           data-category={site.category}
-          data-labels={site.tags.join("|||")}
+          data-region={site.region}
+          data-trust={site.trustLevel}
           data-search={searchable}
         >
           <span class="resource-number">{String(index + 1).padStart(2, "0")}</span>
@@ -103,11 +121,16 @@ const labels = getFilterableTags(18);
             <code>{site.displayUrl}</code>
           </span>
           <span>
-            <strong>{siteCopy.type}</strong>
-            <small>{siteCopy.tags.slice(0, 4).join(" · ")} · {site.language.join("/")}</small>
+            <strong>{categoryLabel}</strong>
+            <small>{siteCopy.scale}</small>
           </span>
-          <span>{siteCopy.scale}</span>
-          <span>{siteCopy.aiSummary}</span>
+          <span>
+            <strong>{translateRegion(site.region, lang)}</strong>
+            <small>{translatePricing(site.pricing, lang)}</small>
+          </span>
+          <span>
+            <span class:list={["trust-chip", `is-${site.trustLevel}`]}>{translateTrust(site.trustLevel, lang)}</span>
+          </span>
           <span class="row-arrow" aria-hidden="true">↗</span>
         </a>
       );
@@ -119,60 +142,51 @@ const labels = getFilterableTags(18);
       const directoryRoot = document.querySelector('[data-directory="true"]');
       if (directoryRoot) {
         const input = directoryRoot.querySelector("[data-directory-search]");
-        const categoryButtons = Array.from(directoryRoot.querySelectorAll("[data-category-filter]"));
-        const tagButtons = Array.from(directoryRoot.querySelectorAll("[data-tag-filter]"));
         const rows = Array.from(directoryRoot.querySelectorAll("[data-site-row]"));
         const count = directoryRoot.querySelector("[data-result-count]");
         const countSuffix = directoryRoot.getAttribute("data-count-suffix") || "条";
-        let activeCategory = "all";
-        let activeTag = "all";
+
+        // Each facet: data attribute on rows + button attribute + URL param.
+        const facets = [
+          { row: "data-category", btn: "data-category-filter", param: "category", active: "all" },
+          { row: "data-region", btn: "data-region-filter", param: "region", active: "all" },
+          { row: "data-trust", btn: "data-trust-filter", param: "trust", active: "all" }
+        ];
 
         const updateRows = () => {
           const query = (input?.value || "").trim().toLowerCase();
           let visible = 0;
           rows.forEach((row) => {
-            const category = row.getAttribute("data-category") || "";
-            const labels = (row.getAttribute("data-labels") || "").split("|||");
             const haystack = row.getAttribute("data-search") || "";
-            const matchesCategory = activeCategory === "all" || category === activeCategory;
-            const matchesTag = activeTag === "all" || labels.includes(activeTag);
+            const matchesFacets = facets.every(
+              (facet) => facet.active === "all" || (row.getAttribute(facet.row) || "") === facet.active
+            );
             const matchesSearch = !query || haystack.includes(query);
-            const shouldShow = matchesCategory && matchesTag && matchesSearch;
+            const shouldShow = matchesFacets && matchesSearch;
             row.hidden = !shouldShow;
             if (shouldShow) visible += 1;
           });
           if (count) count.textContent = `${visible} ${countSuffix}`;
         };
 
-        const syncPressed = (buttons, attr, active) => {
-          buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.getAttribute(attr) === active)));
-        };
-
         const params = new URLSearchParams(window.location.search);
-        const initialCategory = params.get("category");
-        if (initialCategory && categoryButtons.some((button) => button.getAttribute("data-category-filter") === initialCategory)) {
-          activeCategory = initialCategory;
-          syncPressed(categoryButtons, "data-category-filter", activeCategory);
-        }
-        const initialTag = params.get("label");
-        if (initialTag && tagButtons.some((button) => button.getAttribute("data-tag-filter") === initialTag)) {
-          activeTag = initialTag;
-          syncPressed(tagButtons, "data-tag-filter", activeTag);
-        }
-
-        categoryButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            activeCategory = button.getAttribute("data-category-filter") || "all";
-            syncPressed(categoryButtons, "data-category-filter", activeCategory);
-            updateRows();
-          });
-        });
-
-        tagButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            activeTag = button.getAttribute("data-tag-filter") || "all";
-            syncPressed(tagButtons, "data-tag-filter", activeTag);
-            updateRows();
+        facets.forEach((facet) => {
+          facet.buttons = Array.from(directoryRoot.querySelectorAll(`[${facet.btn}]`));
+          const sync = () =>
+            facet.buttons.forEach((button) =>
+              button.setAttribute("aria-pressed", String(button.getAttribute(facet.btn) === facet.active))
+            );
+          const initial = params.get(facet.param);
+          if (initial && facet.buttons.some((button) => button.getAttribute(facet.btn) === initial)) {
+            facet.active = initial;
+            sync();
+          }
+          facet.buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              facet.active = button.getAttribute(facet.btn) || "all";
+              sync();
+              updateRows();
+            });
           });
         });
 
