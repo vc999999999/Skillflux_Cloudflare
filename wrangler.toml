@@ -12,3 +12,18 @@ zone_name = "skillflux.cn"
 
 [assets]
 directory = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "skillflux"
+database_id = "00000000-0000-0000-0000-000000000001"
+
+[vars]
+SITE_URL = "https://skillflux.cn"
+SKILLFLUX_PRODUCT = "deluxe-pack"
+SKILLFLUX_FIXTURE_MODE = "1"
+
+# Secrets (set via `wrangler secret put` in production):
+# GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
+# STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRICE_ID
+# SKILLFLUX_API_DEV_TOKEN

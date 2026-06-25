@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate && astro build",
+    "build": "npm run build:site",
     "preview": "astro preview",
     "test": "vitest run",
     "typecheck": "astro check",
-    "validate": "tsx scripts/validate-data.ts"
+    "validate": "tsx scripts/validate-data.ts",
+    "sync:pack": "cd skillflux-pack && npm run sync:hash && npm run validate:pack && cd .. && node scripts/sync-pack-to-functions.mjs",
+    "db:migrate:local": "wrangler d1 execute skillflux --local --file=./migrations/0001_init.sql",
+    "pages:dev": "npm run build:site && wrangler pages dev dist",
+    "build:site": "npm run validate && npm run sync:pack && astro build"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -17,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@cloudflare/workers-types": "^4.20250625.0",
     "@types/node": "^24.0.0",
     "tsx": "^4.19.0",
     "typescript": "^6.0.3",

@@ -1,0 +1,49 @@
+{
+  "name": "skillflux",
+  "version": "0.1.0",
+  "description": "SkillFlux curated skill marketplace — installer CLI and MCP package manager",
+  "type": "module",
+  "bin": {
+    "skillflux": "./dist/bin/skillflux.js",
+    "skillflux-mcp": "./dist/bin/skillflux-mcp.js"
+  },
+  "files": [
+    "dist",
+    "bootstrap",
+    "skills",
+    "pack.json"
+  ],
+  "scripts": {
+    "build": "node scripts/sync-pack-hash.mjs && tsc",
+    "sync:hash": "node scripts/sync-pack-hash.mjs",
+    "validate:pack": "node scripts/validate-pack.mjs",
+    "dev": "tsx src/bin/skillflux.ts",
+    "dev:mcp": "tsx src/bin/skillflux-mcp.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run sync:hash && npm run validate:pack && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "skillflux",
+    "mcp",
+    "agent-skills",
+    "cursor",
+    "claude-code",
+    "codex"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "commander": "^14.0.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^6.0.3",
+    "vitest": "^3.0.0"
+  }
+}

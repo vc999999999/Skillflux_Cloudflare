@@ -1,0 +1,67 @@
+{
+  "name": "skillflux/deluxe-pack",
+  "packVersion": "0.2.0",
+  "updatedAt": "2026-06-25",
+  "agents": [
+    "cursor",
+    "claude-code",
+    "codex"
+  ],
+  "skills": [
+    {
+      "id": "demo-skill",
+      "name": "SkillFlux 演示",
+      "description": "验证 SkillFlux 安装链路的演示 skill",
+      "category": "dev",
+      "version": "0.1.0",
+      "origin": "original",
+      "path": "skills/demo-skill",
+      "tier": "free",
+      "sha256": "f88bff5854758ed1fa077fab275957e10e44eb19fc4fa7eb842040d054b37458"
+    },
+    {
+      "id": "user-story-writer",
+      "name": "用户故事编写",
+      "description": "把需求拆成用户故事与 Given/When/Then 验收标准",
+      "category": "product",
+      "version": "1.0.0",
+      "origin": "original",
+      "path": "skills/user-story-writer",
+      "tier": "free",
+      "sha256": "50ecff0df8b08485ed7169a917fef73f42f0b1c6876dc1b5918384f78388110c"
+    },
+    {
+      "id": "prd-writer",
+      "name": "PRD Writer",
+      "description": "Write detailed product requirement documents",
+      "category": "product",
+      "version": "1.0.0",
+      "origin": "original",
+      "path": "skills/prd-writer",
+      "tier": "deluxe",
+      "sha256": "5290aae21851c0ed2fea0a1a4e59be0988787010c231a28a319c6887bdf427f8"
+    },
+    {
+      "id": "commit-message-zh",
+      "name": "Commit Message 中文",
+      "description": "编写符合规范的 Git commit message（中文/中英）",
+      "category": "dev",
+      "version": "1.0.0",
+      "origin": "original",
+      "path": "skills/commit-message-zh",
+      "tier": "deluxe",
+      "sha256": "30c97e0c360fe5f5992d2d84fec09c089475551ba0214fdf4f46a2f2d8addce7"
+    },
+    {
+      "id": "code-review-zh",
+      "name": "Code Review 中文",
+      "description": "结构化 code review 与 PR 审查清单",
+      "category": "dev",
+      "version": "1.0.0",
+      "origin": "original",
+      "path": "skills/code-review-zh",
+      "tier": "deluxe",
+      "sha256": "add6ecabdc2a1e0da64245ef3b1b186c04f38474639e871292334cf843a9a519"
+    }
+  ]
+}
