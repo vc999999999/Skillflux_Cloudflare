@@ -4,9 +4,6 @@ dist/
 artifacts/
 .wrangler/
 
-# Generated registry bundle for Pages Functions (rebuilt via npm run sync:pack)
-functions/_pack/catalog.json
-
 .DS_Store
 *.log
 npm-debug.log*
