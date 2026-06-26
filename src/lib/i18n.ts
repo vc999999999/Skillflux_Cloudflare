@@ -71,7 +71,9 @@ type PageCopy = {
     eyebrow: string;
     title: string;
     body: string;
-    button: string;
+    command: string;
+    copy: string;
+    note: string;
   };
   resource: {
     recommended: string;
@@ -136,7 +138,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "skill 来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？直接上精装包：选好、装好、持续维护。",
+      heroLead: "skill 来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？用 SkillFlux——精选 skill 的包管理器：一条命令接入 agent，按需安装、持续更新。",
       browseDirectory: "浏览目录",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
@@ -185,10 +187,12 @@ export const pageCopy: Record<Language, PageCopy> = {
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
     cta: {
-      eyebrow: "Deluxe Pack",
+      eyebrow: "Skill 包管理器",
       title: "懒得一个个找、一个个装？",
-      body: "全网来源就这么多、这么散。精装包把最值的 skill 选好、装好、持续维护，一次到位。",
-      button: "获取精装包"
+      body: "SkillFlux 是一个精选 skill 的远程仓库——一条命令接入你的 agent，按项目按需安装、版本管理、持续更新。",
+      command: "npx -y skillflux install",
+      copy: "复制",
+      note: "免费内测中 · 登录即用，无需付费"
     },
     resource: {
       recommended: "推荐",
@@ -251,7 +255,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "Skill sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Grab the Deluxe Pack: curated, installed, maintained.",
+      heroLead: "Skill sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Use SkillFlux — the package manager for agent skills: one command to connect, install on demand, always maintained.",
       browseDirectory: "Browse directory",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",
@@ -300,10 +304,12 @@ export const pageCopy: Record<Language, PageCopy> = {
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
     cta: {
-      eyebrow: "Deluxe Pack",
+      eyebrow: "Skill package manager",
       title: "Tired of hunting and installing one by one?",
-      body: "This is how scattered the ecosystem is. The Deluxe Pack curates, installs, and maintains the best skills for you — all in one go.",
-      button: "Get the pack"
+      body: "SkillFlux is a curated skill registry — one command connects it to your agent. Install per project, on demand, versioned, and always up to date.",
+      command: "npx -y skillflux install",
+      copy: "Copy",
+      note: "Free beta · sign in and go, no payment"
     },
     resource: {
       recommended: "Recommended",

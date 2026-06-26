@@ -1,5 +1,4 @@
 ---
-import { SITE } from "../config";
 import { DEFAULT_LANGUAGE, getPageCopy, type Language } from "../lib/i18n";
 
 type Props = {
@@ -17,6 +16,102 @@ const copy = getPageCopy(lang);
     <p>{copy.cta.body}</p>
   </div>
   <div class="pack-cta-actions">
-    <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.cta.button}</a>
+    <div class="install-cmd">
+      <code>{copy.cta.command}</code>
+      <button type="button" class="copy-btn" data-copy={copy.cta.command} aria-label={copy.cta.copy}>
+        {copy.cta.copy}
+      </button>
+    </div>
+    <p class="install-note">{copy.cta.note}</p>
   </div>
 </section>
+
+<style>
+  .pack-cta-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .install-cmd {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(244, 241, 232, 0.08);
+    border: 1px solid rgba(244, 241, 232, 0.28);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+  }
+
+  .install-cmd code {
+    font-size: 0.95rem;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+
+  .install-cmd code::before {
+    content: "$ ";
+    opacity: 0.5;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background: var(--paper);
+    color: var(--ink);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: opacity 0.15s ease;
+  }
+
+  .copy-btn:hover {
+    opacity: 0.85;
+  }
+
+  .copy-btn.copied {
+    background: var(--green);
+    color: var(--paper);
+  }
+
+  .install-note {
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: var(--paper);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 520px) {
+    .install-cmd {
+      flex-wrap: wrap;
+    }
+
+    .install-cmd code {
+      white-space: normal;
+      word-break: break-all;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".pack-cta .copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.getAttribute("data-copy") ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = "✓";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove("copied");
+        }, 1500);
+      } catch {
+        // Clipboard unavailable (e.g. non-secure context) — no-op.
+      }
+    });
+  });
+</script>
