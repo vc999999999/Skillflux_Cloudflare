@@ -58,8 +58,7 @@ const jsonLd = [
         <h1>技流<small>SkillFlux</small></h1>
         <p class="hero-lede">{copy.home.heroLead}</p>
         <div class="hero-actions">
-          <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.packEntry}</a>
-          <a class="button secondary" href={localizePath("/directory/", lang)}>{copy.home.browseDirectory}</a>
+          <a class="button primary" href={localizePath("/directory/", lang)}>{copy.home.browseDirectory}</a>
           <a class="button secondary" href="/llms.txt">{copy.home.readForAi}</a>
         </div>
         <div class="hero-stats" aria-label={copy.home.statsLabel}>
@@ -87,9 +86,19 @@ const jsonLd = [
       </div>
 
       <aside class="hero-panel" aria-label={copy.home.panelAria}>
-        <div class="pack-ledger-header">
-          <span>{copy.home.panelTitle}</span>
-          <strong>{copy.home.panelVersion}</strong>
+        <div class="install-head">
+          <span class="install-label">{copy.home.panelTitle} · {copy.home.panelVersion}</span>
+          <div class="hero-install">
+            <code>{copy.cta.command}</code>
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy={copy.cta.command}
+              aria-label={copy.cta.copy}
+            >
+              {copy.cta.copy}
+            </button>
+          </div>
         </div>
         <dl class="ledger-list">
           <div><dt>{copy.home.ledger.directory}</dt><dd>{stats.resourceCount} {copy.home.ledger.resourcesSuffix}</dd></div>
@@ -97,9 +106,7 @@ const jsonLd = [
           <div><dt>{copy.home.ledger.maintenance}</dt><dd>{copy.home.ledger.maintenanceValue}</dd></div>
           <div><dt>{copy.home.ledger.adapters}</dt><dd>{copy.home.ledger.adaptersValue}</dd></div>
         </dl>
-        <div class="pack-actions">
-          <a class="button primary" href={SITE.packUrl} rel="noopener noreferrer">{copy.home.viewPack}</a>
-        </div>
+        <p class="hero-install-note">{copy.cta.note}</p>
       </aside>
     </section>
 
@@ -145,3 +152,96 @@ const jsonLd = [
 
   </main>
 </BaseLayout>
+
+<style>
+  .install-head {
+    padding: 24px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .install-label {
+    display: block;
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+
+  .hero-install {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(244, 241, 232, 0.08);
+    border: 1px solid rgba(244, 241, 232, 0.28);
+    border-radius: 8px;
+  }
+
+  .hero-install code {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--paper);
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  .hero-install code::before {
+    content: "$ ";
+    opacity: 0.5;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background: var(--paper);
+    color: var(--ink);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: opacity 0.15s ease;
+  }
+
+  .copy-btn:hover {
+    opacity: 0.85;
+  }
+
+  .copy-btn.copied {
+    background: var(--green);
+    color: var(--paper);
+  }
+
+  .hero-install-note {
+    margin: 0;
+    padding: 14px 20px 20px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".hero-panel .copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.getAttribute("data-copy") ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = "✓";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove("copied");
+        }, 1500);
+      } catch {
+        // Clipboard unavailable (e.g. non-secure context) — no-op.
+      }
+    });
+  });
+</script>

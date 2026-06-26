@@ -150,9 +150,9 @@ export const pageCopy: Record<Language, PageCopy> = {
         featured: "精选入口",
         updated: "最近更新"
       },
-      panelAria: "SkillFlux 精装包",
-      panelTitle: "Deluxe Pack",
-      panelVersion: "v0.1",
+      panelAria: "SkillFlux 安装",
+      panelTitle: "skillflux",
+      panelVersion: "v0.1.1",
       ledger: {
         directory: "目录",
         install: "安装",
@@ -237,7 +237,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       forAi: "给 AI",
       brand: "品牌",
       directory: "完整目录",
-      pack: "精装包入口",
+      pack: "安装 SkillFlux",
       copyrightNote: "本站仅做导航与简介，内容版权归各集合站所有。"
     }
   },
@@ -267,9 +267,9 @@ export const pageCopy: Record<Language, PageCopy> = {
         featured: "Featured",
         updated: "Updated"
       },
-      panelAria: "SkillFlux pack",
-      panelTitle: "Deluxe Pack",
-      panelVersion: "v0.1",
+      panelAria: "SkillFlux install",
+      panelTitle: "skillflux",
+      panelVersion: "v0.1.1",
       ledger: {
         directory: "Directory",
         install: "Install",
@@ -354,7 +354,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       forAi: "For AI",
       brand: "Brand",
       directory: "Directory",
-      pack: "Pack entry",
+      pack: "Install SkillFlux",
       copyrightNote: "SkillFlux is a navigation and summary layer. Rights belong to the original resource owners."
     }
   }
