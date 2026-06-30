@@ -34,14 +34,15 @@ type PageCopy = {
     panelAria: string;
     panelTitle: string;
     panelVersion: string;
+    panelTagline: string;
     ledger: {
-      directory: string;
       install: string;
-      maintenance: string;
-      adapters: string;
-      resourcesSuffix: string;
       installValue: string;
+      scope: string;
+      scopeValue: string;
+      maintenance: string;
       maintenanceValue: string;
+      adapters: string;
       adaptersValue: string;
     };
     viewPack: string;
@@ -153,14 +154,15 @@ export const pageCopy: Record<Language, PageCopy> = {
       panelAria: "SkillFlux 安装",
       panelTitle: "skillflux",
       panelVersion: "v0.1.1",
+      panelTagline: "一条命令接入 agent，按需挑选 skill，自动写入配置，无需手动复制粘贴。",
       ledger: {
-        directory: "目录",
-        install: "安装",
-        maintenance: "维护",
-        adapters: "适配",
-        resourcesSuffix: "个入口",
-        installValue: "一键 MCP",
-        maintenanceValue: "JSON 更新",
+        install: "安装方式",
+        installValue: "一键安装",
+        scope: "安装范围",
+        scopeValue: "按项目按需",
+        maintenance: "更新维护",
+        maintenanceValue: "版本管理 · 持续更新",
+        adapters: "已适配",
         adaptersValue: "Claude · Cursor · Codex"
       },
       viewPack: "立即查看精装包",
@@ -270,14 +272,15 @@ export const pageCopy: Record<Language, PageCopy> = {
       panelAria: "SkillFlux install",
       panelTitle: "skillflux",
       panelVersion: "v0.1.1",
+      panelTagline: "One command connects your agent — pick skills on demand, the config is written for you, no copy-paste.",
       ledger: {
-        directory: "Directory",
         install: "Install",
-        maintenance: "Maintain",
+        installValue: "One command",
+        scope: "Scope",
+        scopeValue: "Per project, on demand",
+        maintenance: "Maintenance",
+        maintenanceValue: "Versioned · always updated",
         adapters: "Adapters",
-        resourcesSuffix: "resources",
-        installValue: "One-click MCP",
-        maintenanceValue: "JSON updates",
         adaptersValue: "Claude · Cursor · Codex"
       },
       viewPack: "View pack",

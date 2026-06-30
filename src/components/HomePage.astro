@@ -99,10 +99,11 @@ const jsonLd = [
               {copy.cta.copy}
             </button>
           </div>
+          <p class="install-tagline">{copy.home.panelTagline}</p>
         </div>
         <dl class="ledger-list">
-          <div><dt>{copy.home.ledger.directory}</dt><dd>{stats.resourceCount} {copy.home.ledger.resourcesSuffix}</dd></div>
           <div><dt>{copy.home.ledger.install}</dt><dd>{copy.home.ledger.installValue}</dd></div>
+          <div><dt>{copy.home.ledger.scope}</dt><dd>{copy.home.ledger.scopeValue}</dd></div>
           <div><dt>{copy.home.ledger.maintenance}</dt><dd>{copy.home.ledger.maintenanceValue}</dd></div>
           <div><dt>{copy.home.ledger.adapters}</dt><dd>{copy.home.ledger.adaptersValue}</dd></div>
         </dl>
@@ -158,6 +159,17 @@ const jsonLd = [
     padding: 24px;
     background: var(--ink);
     color: var(--paper);
+  }
+
+  .install-tagline {
+    margin: 14px 0 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: rgba(244, 241, 232, 0.66);
+  }
+
+  .hero-panel .ledger-list {
+    padding: 8px 20px;
   }
 
   .install-label {
@@ -220,7 +232,9 @@ const jsonLd = [
 
   .hero-install-note {
     margin: 0;
-    padding: 14px 20px 20px;
+    margin-top: auto;
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
     font-size: 0.82rem;
     color: var(--muted);
   }

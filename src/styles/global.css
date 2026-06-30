@@ -190,7 +190,7 @@ img {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.85fr);
   gap: 56px;
-  align-items: start;
+  align-items: stretch;
   padding: 72px 0 28px;
 }
 
@@ -296,6 +296,8 @@ img {
 }
 
 .hero-panel {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--line-strong);
   background: var(--paper-strong);
 }
