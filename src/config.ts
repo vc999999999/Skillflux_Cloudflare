@@ -7,7 +7,11 @@ export const SITE = {
   author: "SkillFlux",
   packUrl: "https://skillflux.dev/pack?utm_source=skillflux&utm_medium=site&utm_campaign=mvp-pack",
   repoUrl: "https://github.com/skillflux/skillflux",
-  schemaVersion: "2026-06-24"
+  schemaVersion: "2026-06-24",
+  // Cloudflare Web Analytics beacon token. Set CF_BEACON_TOKEN as a build-time
+  // env var (Cloudflare Pages → Settings → Environment variables). When empty
+  // the beacon is not rendered. The token is not a secret — it ships in the HTML.
+  cfBeaconToken: process.env.CF_BEACON_TOKEN ?? ""
 } as const;
 
 export const ENDPOINTS = [
