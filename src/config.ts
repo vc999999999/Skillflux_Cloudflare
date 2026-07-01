@@ -2,10 +2,10 @@ export const SITE = {
   name: "技流 SkillFlux",
   shortName: "SkillFlux",
   description: "全网 skill/MCP 生态入口，聚合 skill 合集、市场、仓库、单项能力和机器可读索引。",
-  url: process.env.SITE_URL || "https://skillflux.dev",
+  url: process.env.SITE_URL || "https://skillflux.cn",
   locale: "zh-CN",
   author: "SkillFlux",
-  packUrl: "https://skillflux.dev/pack?utm_source=skillflux&utm_medium=site&utm_campaign=mvp-pack",
+  packUrl: "https://skillflux.cn/pack?utm_source=skillflux&utm_medium=site&utm_campaign=mvp-pack",
   repoUrl: "https://github.com/skillflux/skillflux",
   schemaVersion: "2026-06-24",
   // Cloudflare Web Analytics beacon token. Not a secret — it ships in the HTML.
@@ -14,8 +14,12 @@ export const SITE = {
   // Search / webmaster site-verification codes. Paste the value each platform
   // gives you (meta-tag method) here or via the matching env var. Empty = no tag.
   verification: {
-    baidu: process.env.BAIDU_VERIFY ?? "", // 百度搜索资源平台 → baidu-site-verification
+    // Global
+    google: process.env.GOOGLE_VERIFY ?? "", // Google Search Console → google-site-verification
     bing: process.env.BING_VERIFY ?? "", // Bing Webmaster → msvalidate.01
+    yandex: process.env.YANDEX_VERIFY ?? "", // Yandex Webmaster → yandex-verification
+    // CN
+    baidu: process.env.BAIDU_VERIFY ?? "", // 百度搜索资源平台 → baidu-site-verification
     sogou: process.env.SOGOU_VERIFY ?? "", // 搜狗站长平台 → sogou_site_verification
     so360: process.env.SO360_VERIFY ?? "", // 360 站长平台 → 360-site-verification
     shenma: process.env.SHENMA_VERIFY ?? "" // 神马站长平台 → shenma-site-verification
