@@ -543,11 +543,37 @@ export function renderFeedXml(generatedAt = new Date().toISOString()): string {
 }
 
 export function renderRobotsTxt(): string {
-  return [
-    "User-agent: *",
-    "Allow: /",
-    "",
+  // Explicitly welcome the crawlers that feed CN and global AI search.
+  // The wildcard already allows everyone; the named blocks document intent
+  // and reassure crawlers that check for their own user-agent.
+  const crawlers = [
+    // CN search / AI search indexes
+    "Baiduspider", // 百度 → 文心 / 百度 AI 搜索
+    "Sogou web spider", // 搜狗 → 腾讯元宝 / 微信搜一搜
+    "360Spider", // 360 → 360 AI 搜索
+    "YisouSpider", // 神马 → 夸克 AI
+    "Bytespider", // 字节 → 豆包 / 头条 / 抖音
+    // Global AI crawlers
+    "GPTBot", // OpenAI / ChatGPT
+    "OAI-SearchBot", // ChatGPT search
+    "ChatGPT-User", // ChatGPT live fetch
+    "ClaudeBot", // Anthropic / Claude
+    "Claude-Web",
+    "PerplexityBot", // Perplexity
+    "Google-Extended", // Gemini / AI Overviews
+    "Applebot-Extended", // Apple Intelligence
+    "Bingbot", // Bing → Copilot
+    "Amazonbot",
+    "Meta-ExternalAgent"
+  ];
+
+  const lines = ["User-agent: *", "Allow: /", ""];
+  for (const agent of crawlers) {
+    lines.push(`User-agent: ${agent}`, "Allow: /", "");
+  }
+  lines.push(
     `Sitemap: ${absoluteUrl("/sitemap-index.xml")}`,
     `Sitemap: ${absoluteUrl("/sitemap-0.xml")}`
-  ].join("\n");
+  );
+  return lines.join("\n");
 }
