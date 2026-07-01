@@ -16,7 +16,7 @@ export const SITE = {
   verification: {
     // Global
     google: process.env.GOOGLE_VERIFY ?? "", // Google Search Console → google-site-verification
-    bing: process.env.BING_VERIFY ?? "", // Bing Webmaster → msvalidate.01
+    bing: process.env.BING_VERIFY ?? "C16EFBFC9E381FD0BE5E7D0846F8E3AF", // Bing Webmaster → msvalidate.01
     yandex: process.env.YANDEX_VERIFY ?? "", // Yandex Webmaster → yandex-verification
     // CN
     baidu: process.env.BAIDU_VERIFY ?? "", // 百度搜索资源平台 → baidu-site-verification
