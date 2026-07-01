@@ -1,0 +1,38 @@
+---
+import CollectionListPage from "../../../components/CollectionListPage.astro";
+import { getCategories, getSitesByCategory } from "../../../lib/content";
+import { getPageCopy, localizePath, translateCategory } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return getCategories().map((category) => ({
+    params: { slug: category.slug },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const lang = "en" as const;
+const copy = getPageCopy(lang);
+const label = translateCategory(category.slug, category.label, lang);
+const sites = getSitesByCategory(category.slug);
+const canonicalPath = localizePath(`/category/${category.slug}/`, lang);
+---
+
+<CollectionListPage
+  lang={lang}
+  title={copy.collections.categoryTitle(label)}
+  description={copy.collections.categoryDescription(label, category.count)}
+  canonicalPath={canonicalPath}
+  eyebrow={copy.collections.categoryEyebrow}
+  heading={label}
+  lede={copy.collections.categoryLede(label, category.count)}
+  metaText={`${category.count} sources`}
+  sites={sites}
+  breadcrumbItems={[
+    { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+    { label: copy.breadcrumb.directory, href: localizePath("/directory/", lang) },
+    { label }
+  ]}
+  collectionName={copy.collections.categoryTitle(label)}
+  collectionDescription={copy.collections.categoryDescription(label, category.count)}
+/>

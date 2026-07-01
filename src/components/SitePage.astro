@@ -1,7 +1,7 @@
 ---
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { absoluteUrl, getRelatedSites, type Site } from "../lib/content";
+import { absoluteUrl, getRelatedSites, getTagIndex, type Site } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
   getPageCopy,
@@ -13,6 +13,8 @@ import {
 } from "../lib/i18n";
 import ResourceTable from "./ResourceTable.astro";
 import PackCta from "./PackCta.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { translatePricing as pricingLabel } from "../lib/i18n";
 
 type Props = {
   site: Site;
@@ -25,31 +27,84 @@ const siteCopy = getSiteCopy(site, lang);
 const related = getRelatedSites(site, 4);
 const description = `${siteCopy.tagline} ${siteCopy.summary}`;
 const canonicalPath = localizePath(`/site/${site.slug}/`, lang);
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: `${siteCopy.name} - SkillFlux`,
-  url: absoluteUrl(canonicalPath),
-  description,
-  inLanguage: copy.locale,
-  isPartOf: {
-    "@type": "WebSite",
-    name: SITE.name,
-    url: SITE.url
+
+const tagSlugByName = new Map(getTagIndex().map((entry) => [entry.tag, entry.slug]));
+// Original zh tags map 1:1 (same order) to the localized siteCopy.tags.
+const tagLinks = site.tags.map((tag, index) => ({
+  label: siteCopy.tags[index] ?? tag,
+  slug: tagSlugByName.get(tag)
+}));
+
+const breadcrumbItems = [
+  { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+  { label: copy.breadcrumb.directory, href: localizePath("/directory/", lang) },
+  { label: siteCopy.name }
+];
+
+// Editorial write-up (data is zh-primary). EN pages use the synthesized summary.
+const introParagraphs =
+  lang === "zh" && site.longSummary ? site.longSummary.split(/\n\n+/) : [siteCopy.summary];
+
+const autoFaqs = [
+  { q: copy.faq.whatIs(siteCopy.name), a: siteCopy.summary },
+  { q: copy.faq.whoFor(siteCopy.name), a: `${siteCopy.aiSummary} ${copy.detail.positionText(siteCopy.name, siteCopy.tags.slice(0, 4).join(" / "))}`.trim() },
+  { q: copy.faq.pricingQ(siteCopy.name), a: pricingLabel(site.pricing, lang) },
+  { q: copy.faq.accessQ(siteCopy.name), a: copy.faq.accessA(siteCopy.name, site.canonicalUrl) }
+];
+const faqs = lang === "zh" && site.faqs && site.faqs.length > 0 ? site.faqs : autoFaqs;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${siteCopy.name} - SkillFlux`,
+    url: absoluteUrl(canonicalPath),
+    description,
+    inLanguage: copy.locale,
+    datePublished: site.addedAt,
+    dateModified: site.updatedAt,
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE.name,
+      url: SITE.url
+    },
+    about: {
+      "@type": "Thing",
+      name: siteCopy.name,
+      url: site.canonicalUrl,
+      description: siteCopy.summary
+    }
   },
-  about: {
-    "@type": "Thing",
-    name: siteCopy.name,
-    url: site.canonicalUrl,
-    description: siteCopy.summary
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a
+      }
+    }))
   }
-};
+];
 ---
 
 <BaseLayout lang={lang} title={siteCopy.name} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
   <main class="page-shell">
     <article>
       <section class="detail-hero">
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.home} />
         <div class="detail-hero-grid">
           <div>
             <p class="eyebrow"><span></span> {siteCopy.tags[0]}</p>
@@ -79,7 +134,7 @@ const jsonLd = {
         <div>
           <div class="prose-block">
             <h2>{copy.detail.intro}</h2>
-            <p>{siteCopy.summary}</p>
+            {introParagraphs.map((paragraph) => <p>{paragraph}</p>)}
           </div>
           <div class="prose-block">
             <h2>{copy.detail.aiRead}</h2>
@@ -102,7 +157,13 @@ const jsonLd = {
           <div class="side-box">
             <h2>{copy.detail.tags}</h2>
             <div class="tag-list">
-              {siteCopy.tags.map((tag) => <span>{tag}</span>)}
+              {tagLinks.map((tag) =>
+                tag.slug ? (
+                  <a href={localizePath(`/tag/${tag.slug}/`, lang)}>{tag.label}</a>
+                ) : (
+                  <span>{tag.label}</span>
+                )
+              )}
             </div>
           </div>
           <div class="side-box">
@@ -110,6 +171,18 @@ const jsonLd = {
             <p>{copy.detail.machineText}</p>
           </div>
         </aside>
+      </section>
+
+      <section class="detail-faq">
+        <h2>{copy.faq.heading}</h2>
+        <dl class="faq-list">
+          {faqs.map((faq) => (
+            <div class="faq-item">
+              <dt>{faq.q}</dt>
+              <dd>{faq.a}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     </article>
 

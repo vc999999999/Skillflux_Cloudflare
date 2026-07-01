@@ -1,0 +1,100 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl, type Site } from "../lib/content";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import Breadcrumb from "./Breadcrumb.astro";
+import ResourceTable from "./ResourceTable.astro";
+import PackCta from "./PackCta.astro";
+
+type Crumb = { label: string; href?: string };
+
+type Props = {
+  lang?: Language;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  metaText: string;
+  sites: Site[];
+  breadcrumbItems: Crumb[];
+  collectionName: string;
+  collectionDescription: string;
+};
+
+const {
+  lang = DEFAULT_LANGUAGE,
+  title,
+  description,
+  canonicalPath,
+  eyebrow,
+  heading,
+  lede,
+  metaText,
+  sites,
+  breadcrumbItems,
+  collectionName,
+  collectionDescription
+} = Astro.props;
+
+const copy = getPageCopy(lang);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: collectionName,
+    url: absoluteUrl(canonicalPath),
+    description: collectionDescription,
+    inLanguage: copy.locale,
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE.name,
+      url: SITE.url
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: sites.length,
+      itemListElement: sites.map((site, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: site.name,
+        url: absoluteUrl(localizePath(`/site/${site.slug}/`, lang))
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.home} />
+        <p class="eyebrow"><span></span> {eyebrow}</p>
+        <h1 class="page-title">{heading}</h1>
+        <p class="page-lede">{lede}</p>
+      </div>
+      <aside class="page-meta-panel">
+        <strong>{sites.length}</strong>
+        <span>{metaText}</span>
+      </aside>
+    </section>
+
+    <ResourceTable sites={sites} heading={heading} lang={lang} />
+
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>

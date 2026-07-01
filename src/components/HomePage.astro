@@ -5,7 +5,8 @@ import {
   absoluteUrl,
   getDirectoryStats,
   getFeaturedSites,
-  getCategories
+  getCategories,
+  getTagIndex
 } from "../lib/content";
 import {
   DEFAULT_LANGUAGE,
@@ -14,6 +15,7 @@ import {
   translateCategory,
   type Language
 } from "../lib/i18n";
+import { getGuides } from "../lib/guides";
 import ResourceCard from "./ResourceCard.astro";
 import PackCta from "./PackCta.astro";
 
@@ -26,6 +28,8 @@ const copy = getPageCopy(lang);
 const stats = getDirectoryStats();
 const featured = getFeaturedSites(8);
 const categories = getCategories();
+const tags = getTagIndex().slice(0, 18);
+const guides = getGuides();
 const canonicalPath = localizePath("/", lang);
 const jsonLd = [
   {
@@ -138,7 +142,7 @@ const jsonLd = [
         {categories.map((category) => {
           const displayLabel = translateCategory(category.slug, category.label, lang);
           return (
-            <a class="category-card" href={`${localizePath("/directory/", lang)}?category=${encodeURIComponent(category.slug)}`}>
+            <a class="category-card" href={localizePath(`/category/${category.slug}/`, lang)}>
               <div class="category-card-top">
                 <span class="category-count">{String(category.count).padStart(2, "0")}</span>
                 <span>{copy.home.labelCardKicker}</span>
@@ -148,6 +152,41 @@ const jsonLd = [
             </a>
           );
         })}
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow"><span></span> Tags</p>
+          <h2>{copy.collections.browseTagsTitle}</h2>
+        </div>
+        <p class="section-note">{copy.collections.browseTagsNote}</p>
+      </div>
+      <div class="tag-cloud">
+        {tags.map((entry) => (
+          <a class="tag-chip" href={localizePath(`/tag/${entry.slug}/`, lang)}>
+            {entry.tag}<small>{entry.count}</small>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow"><span></span> {copy.guidesPage.eyebrow}</p>
+          <h2>{copy.guidesPage.indexTitle}</h2>
+        </div>
+        <a class="section-note-link" href={localizePath("/guides/", lang)}>{copy.guidesPage.readMore} →</a>
+      </div>
+      <div class="home-guide-grid">
+        {guides.map((guide) => (
+          <a class="home-guide-card" href={localizePath(`/guides/${guide.slug}/`, lang)}>
+            <h3>{guide.title[lang]}</h3>
+            <p>{guide.description[lang]}</p>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -237,6 +276,76 @@ const jsonLd = [
     border-top: 1px solid var(--line);
     font-size: 0.82rem;
     color: var(--muted);
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .tag-chip:hover {
+    border-color: var(--ink);
+    background: var(--paper);
+  }
+
+  .tag-chip small {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .section-note-link {
+    color: var(--green);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .home-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .home-guide-card {
+    display: block;
+    padding: 22px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-strong);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.15s ease;
+  }
+
+  .home-guide-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .home-guide-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  .home-guide-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 0.92rem;
   }
 </style>
 
