@@ -51,6 +51,11 @@ const organizationJsonLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="robots" content="index, follow" />
+    {SITE.verification.baidu && <meta name="baidu-site-verification" content={SITE.verification.baidu} />}
+    {SITE.verification.bing && <meta name="msvalidate.01" content={SITE.verification.bing} />}
+    {SITE.verification.sogou && <meta name="sogou_site_verification" content={SITE.verification.sogou} />}
+    {SITE.verification.so360 && <meta name="360-site-verification" content={SITE.verification.so360} />}
+    {SITE.verification.shenma && <meta name="shenma-site-verification" content={SITE.verification.shenma} />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="zh-CN" href={zhAlternate} />
     <link rel="alternate" hreflang="en" href={enAlternate} />
