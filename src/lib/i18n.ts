@@ -529,7 +529,8 @@ const typeTranslations: Record<string, string> = {
   "开源 skill 仓库": "Open-source skill repository",
   "skill 文档": "Skill documentation",
   "skill 下载包": "Skill download package",
-  "npm skill 包": "npm skill package"
+  "npm skill 包": "npm skill package",
+  "MCP 服务器目录": "MCP server directory"
 };
 
 const scaleTranslations: Record<string, string> = {
