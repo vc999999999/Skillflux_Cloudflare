@@ -22,7 +22,14 @@
     "pricing": "free",
     "tagline": "国内大厂 skill 合集首选",
     "summary": "国内最全的大厂 skill 集合网站。",
+    "longSummary": "魔搭 ModelScope Skills 是由阿里达摩院旗下 ModelScope 社区维护的 Agent Skills 合集，也是国内起步较早、覆盖面较广的大厂 skill 入口之一。它把面向 Claude、Cursor、Codex 等 agent 的可复用能力集中在一个页面，按用途归类，方便中文用户快速检索、对比并取用。\n\n在 SkillFlux 的收录中，它被标记为「推荐」入口：来源可信度高、内容持续更新、且完全免费。如果你刚开始接触 agent skill，不确定从哪里找起，魔搭是一个信息密度高、上手门槛低的起点——先在这里建立对「有哪些 skill、分别解决什么问题」的整体认知，再按需深入到市场、仓库或单项 skill。",
     "aiSummary": "最全商业 skills 合集中心",
+    "faqs": [
+      { "q": "魔搭 ModelScope Skills 是什么？", "a": "它是 ModelScope 社区维护的 Agent Skills 合集，把面向 Claude、Cursor、Codex 等 agent 的可复用能力集中在一处，按用途归类，面向中文用户。" },
+      { "q": "魔搭 ModelScope Skills 收费吗？", "a": "免费。浏览与获取 skill 均不收费。" },
+      { "q": "它适合谁使用？", "a": "适合刚接触 agent skill、需要一个信息密度高且上手门槛低的中文起点的用户，用来建立对 skill 生态的整体认知。" },
+      { "q": "为什么 SkillFlux 把它列为推荐？", "a": "来源可信度高、内容持续更新、完全免费，且是国内覆盖面较广的大厂 skill 入口之一。" }
+    ],
     "featured": true,
     "recommended": true,
     "trustLevel": "high",
@@ -55,7 +62,13 @@
     "pricing": "mixed",
     "tagline": "skill 合集入口",
     "summary": "阿里云 Skills 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
+    "longSummary": "阿里云 Skills 是阿里云官方推出的 Agent Skills 合集入口，支持按安装量排序，帮助你快速看到当前被采用最多的能力。作为大厂官方来源，它在稳定性和可信度上有先天优势，适合在生产环境中挑选相对成熟、维护有保障的 skill。\n\n它的定价为「部分付费」：基础浏览和多数 skill 免费，部分能力可能与阿里云的商业服务绑定。在 SkillFlux 的收录中，它与魔搭、腾讯云 SkillHub 同属「官方厂商」类目——如果你已经在使用阿里云生态，或希望优先选择有厂商背书的 skill，这里是顺理成章的第一站。",
     "aiSummary": "适合按“Agent Skills / 合集 / 阿里云”标识快速判断是否需要深入查看。",
+    "faqs": [
+      { "q": "阿里云 Skills 是什么？", "a": "阿里云官方的 Agent Skills 合集入口，支持按安装量排序，便于快速定位当前采用最多的能力。" },
+      { "q": "阿里云 Skills 收费吗？", "a": "部分付费。基础浏览与多数 skill 免费，部分能力可能与阿里云商业服务绑定。" },
+      { "q": "它和魔搭 ModelScope Skills 有什么区别？", "a": "两者都是大厂官方合集；阿里云 Skills 更贴近阿里云商业生态并支持按安装量排序，魔搭覆盖面更广、被 SkillFlux 标为推荐起点。" }
+    ],
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -87,7 +100,13 @@
     "pricing": "free",
     "tagline": "skill 合集入口",
     "summary": "腾讯云 SkillHub 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
+    "longSummary": "腾讯云 SkillHub 是腾讯云面向 agent 场景推出的 Agent Skills 合集，以面板（dashboard）形式组织可复用能力，界面清晰、以中文为主。作为大厂官方来源，它在合规与稳定性上有保障，适合已经在腾讯云生态中工作、希望就近取用 skill 的团队。\n\n它当前完全免费。在 SkillFlux 的收录里，它与魔搭、阿里云 Skills 并列于「官方厂商」类目，可信度标记为中等——内容仍在扩充中。如果你在做多家大厂横向对比，建议把它和魔搭、阿里云 Skills 放在一起看，按你实际使用的云厂商和 skill 覆盖面来决定主用哪一个。",
     "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
+    "faqs": [
+      { "q": "腾讯云 SkillHub 是什么？", "a": "腾讯云面向 agent 场景推出的 Agent Skills 合集，以面板形式组织可复用能力，以中文为主。" },
+      { "q": "腾讯云 SkillHub 收费吗？", "a": "免费。" },
+      { "q": "它适合谁使用？", "a": "适合已在腾讯云生态中工作、希望就近取用 skill 的团队，或正在做多家大厂横向对比的用户。" }
+    ],
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",

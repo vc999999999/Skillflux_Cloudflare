@@ -68,6 +68,44 @@ type PageCopy = {
     lede: string;
     meta: (resourceCount: number, labelCount: number, updatedAt: string) => string;
   };
+  breadcrumb: {
+    home: string;
+    directory: string;
+    tags: string;
+    categories: string;
+    guides: string;
+  };
+  guidesPage: {
+    eyebrow: string;
+    indexTitle: string;
+    indexLede: string;
+    indexDescription: string;
+    updatedPrefix: string;
+    readMore: string;
+    ctaTitle: string;
+    ctaBody: string;
+  };
+  collections: {
+    tagEyebrow: string;
+    tagHeading: (tag: string) => string;
+    tagLede: (tag: string, count: number) => string;
+    tagTitle: (tag: string) => string;
+    tagDescription: (tag: string, count: number) => string;
+    categoryEyebrow: string;
+    categoryLede: (label: string, count: number) => string;
+    categoryTitle: (label: string) => string;
+    categoryDescription: (label: string, count: number) => string;
+    browseTagsTitle: string;
+    browseTagsNote: string;
+  };
+  faq: {
+    heading: string;
+    whatIs: (name: string) => string;
+    whoFor: (name: string) => string;
+    pricingQ: (name: string) => string;
+    accessQ: (name: string) => string;
+    accessA: (name: string, url: string) => string;
+  };
   cta: {
     eyebrow: string;
     title: string;
@@ -188,6 +226,44 @@ export const pageCopy: Record<Language, PageCopy> = {
       lede: "按名称、标识和摘要即时筛选。静态 HTML 仍保留全部内容，搜索引擎和 AI 不需要执行 JS 也能读取。",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
+    breadcrumb: {
+      home: "首页",
+      directory: "完整目录",
+      tags: "标签",
+      categories: "来源类型",
+      guides: "指南"
+    },
+    guidesPage: {
+      eyebrow: "指南",
+      indexTitle: "skill / MCP 上手指南",
+      indexLede: "从哪里下载、如何挑选来源、怎么接入 agent——这些高频问题的答案，整理成可直接引用的长文。",
+      indexDescription: "SkillFlux 指南：Claude Skills 下载、skill 来源挑选、MCP 接入等实操长文。",
+      updatedPrefix: "更新于",
+      readMore: "阅读全文",
+      ctaTitle: "看完就想动手？",
+      ctaBody: "SkillFlux 是精选 skill 的包管理器，一条命令接入 agent，按需安装、持续更新。"
+    },
+    collections: {
+      tagEyebrow: "标签",
+      tagHeading: (tag) => `「${tag}」相关的 skill/MCP 入口`,
+      tagLede: (tag, count) => `已收录 ${count} 个带「${tag}」标识的 skill/MCP 来源，覆盖官方厂商、市场、开源仓库和社区榜单。逐条查看类型、语言、定价和可信度，再决定跳转哪一个。`,
+      tagTitle: (tag) => `${tag} skill/MCP 入口合集`,
+      tagDescription: (tag, count) => `SkillFlux 收录的 ${count} 个「${tag}」相关 skill/MCP 来源目录：类型、语言、定价、可信度一览。`,
+      categoryEyebrow: "来源类型",
+      categoryLede: (label, count) => `${label} 类目下已收录 ${count} 个 skill/MCP 来源。按语言和可信度细筛，先看详情再跳转原站。`,
+      categoryTitle: (label) => `${label} · skill/MCP 来源目录`,
+      categoryDescription: (label, count) => `SkillFlux 收录的 ${count} 个${label}类 skill/MCP 来源，含类型、语言、定价与可信度标识。`,
+      browseTagsTitle: "按标签浏览",
+      browseTagsNote: "每个标签都是一个独立入口页，方便搜索引擎和 AI 按主题收录。"
+    },
+    faq: {
+      heading: "常见问题",
+      whatIs: (name) => `${name} 是什么？`,
+      whoFor: (name) => `${name} 适合谁使用？`,
+      pricingQ: (name) => `${name} 收费吗？`,
+      accessQ: (name) => `如何访问 ${name}？`,
+      accessA: (name, url) => `点击本页「访问原站」按钮，或直接打开 ${url} 即可进入 ${name} 原站。SkillFlux 只做导航与简介，不代理其内容。`
+    },
     cta: {
       eyebrow: "Skill 包管理器",
       title: "懒得一个个找、一个个装？",
@@ -306,6 +382,44 @@ export const pageCopy: Record<Language, PageCopy> = {
       lede: "Filter instantly by name, label, and summary. Static HTML keeps everything readable for search engines and AI without JavaScript.",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
+    breadcrumb: {
+      home: "Home",
+      directory: "Directory",
+      tags: "Tags",
+      categories: "Source types",
+      guides: "Guides"
+    },
+    guidesPage: {
+      eyebrow: "Guides",
+      indexTitle: "skill / MCP getting-started guides",
+      indexLede: "Where to download, how to pick a source, how to connect an agent — the answers to these common questions, written as long-form you can quote.",
+      indexDescription: "SkillFlux guides: downloading Claude Skills, choosing a skill source, connecting MCP, and more.",
+      updatedPrefix: "Updated",
+      readMore: "Read more",
+      ctaTitle: "Ready to try it?",
+      ctaBody: "SkillFlux is a package manager for curated skills — one command connects your agent, install on demand, always maintained."
+    },
+    collections: {
+      tagEyebrow: "Tag",
+      tagHeading: (tag) => `${tag} skill/MCP entries`,
+      tagLede: (tag, count) => `${count} skill/MCP sources tagged ${tag}, spanning official vendors, marketplaces, open-source repos, and community rankings. Check each entry's type, language, pricing, and trust before you jump.`,
+      tagTitle: (tag) => `${tag} skill/MCP directory`,
+      tagDescription: (tag, count) => `A directory of ${count} ${tag} skill/MCP sources indexed by SkillFlux — type, language, pricing, and trust at a glance.`,
+      categoryEyebrow: "Source type",
+      categoryLede: (label, count) => `${count} skill/MCP sources in the ${label} category. Refine by language and trust, review details, then visit the source.`,
+      categoryTitle: (label) => `${label} · skill/MCP source directory`,
+      categoryDescription: (label, count) => `${count} ${label} skill/MCP sources indexed by SkillFlux, with type, language, pricing, and trust signals.`,
+      browseTagsTitle: "Browse by tag",
+      browseTagsNote: "Each tag is its own landing page so search engines and AI can index the catalog by topic."
+    },
+    faq: {
+      heading: "FAQ",
+      whatIs: (name) => `What is ${name}?`,
+      whoFor: (name) => `Who is ${name} for?`,
+      pricingQ: (name) => `Is ${name} free?`,
+      accessQ: (name) => `How do I access ${name}?`,
+      accessA: (name, url) => `Use the "Visit source" button on this page, or open ${url} directly to reach ${name}. SkillFlux only provides navigation and summaries; it does not proxy the content.`
+    },
     cta: {
       eyebrow: "Skill package manager",
       title: "Tired of hunting and installing one by one?",
@@ -379,7 +493,11 @@ const tagTranslations: Record<string, string> = {
   音乐: "Music",
   天气: "Weather",
   财务: "Finance",
-  社媒: "Social"
+  社媒: "Social",
+  官方: "Official",
+  移动开发: "Mobile dev",
+  安全: "Security",
+  框架: "Framework"
 };
 
 const categoryTranslations: Record<string, string> = {

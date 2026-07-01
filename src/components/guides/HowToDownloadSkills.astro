@@ -1,0 +1,107 @@
+---
+import GuideLayout from "../GuideLayout.astro";
+import { getGuideBySlug } from "../../lib/guides";
+import { localizePath, type Language } from "../../lib/i18n";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const guide = getGuideBySlug("how-to-download-claude-skills")!;
+
+const href = {
+  directory: localizePath("/directory/", lang),
+  official: localizePath("/category/official/", lang),
+  marketplace: localizePath("/category/marketplace/", lang),
+  repo: localizePath("/category/repo/", lang),
+  modelscope: localizePath("/site/modelscope-cn-skills/", lang)
+};
+---
+
+<GuideLayout lang={lang} guide={guide}>
+  {lang === "zh" ? (
+    <Fragment>
+      <p>
+        「Claude Skills 从哪里下载」是刚接触 agent skill 的人最常问的问题。答案不是某一个网站，而是四类正规渠道，各有取舍。这篇指南把它们讲清楚，并给出一个不会踩坑的默认路径。
+      </p>
+
+      <h2>四条正规渠道</h2>
+      <h3>1. 官方厂商合集</h3>
+      <p>
+        大厂维护的 skill 合集是最稳的起点：来源可信、更新有保障、大多免费。国内可以从 <a href={href.official}>官方厂商类目</a> 进入，比如 <a href={href.modelscope}>魔搭 ModelScope Skills</a>、阿里云 Skills、腾讯云 SkillHub。如果你只想要「能用、可信、不折腾」的 skill，从这里开始就够了。
+      </p>
+      <h3>2. Skill 市场</h3>
+      <p>
+        市场类站点覆盖面更广，既有免费也有付费能力，通常带安装量、评分等信号，适合按需求横向比较。进入 <a href={href.marketplace}>市场类目</a> 查看收录的各家市场。
+      </p>
+      <h3>3. 开源仓库</h3>
+      <p>
+        GitHub 上有大量 awesome 列表和开源 skill 仓库，透明、可审计、可自行改造，适合开发者和需要定制的团队。进入 <a href={href.repo}>开源仓库类目</a> 查看。缺点是质量参差，需要自己判断维护状态。
+      </p>
+      <h3>4. 下载包与单项 skill</h3>
+      <p>
+        有些来源直接提供打包下载或单个 skill 文件，适合你已经明确知道要哪一个的时候。
+      </p>
+
+      <h2>一个不会踩坑的默认路径</h2>
+      <ol>
+        <li>先在 <a href={href.official}>官方厂商合集</a> 建立整体认知——有哪些 skill、分别解决什么问题；</li>
+        <li>有明确需求时，去 <a href={href.marketplace}>市场</a> 横向比较同类能力；</li>
+        <li>需要定制或审计代码，再进 <a href={href.repo}>开源仓库</a>;</li>
+        <li>选定后，用包管理器统一安装，避免手动复制粘贴配置。</li>
+      </ol>
+
+      <div class="guide-callout">
+        <p>
+          不想一个个网站找、一个个装？SkillFlux 把上面四类来源聚合成一份可检索的目录，并提供一条命令的安装方式。先浏览 <a href={href.directory}>完整目录</a>，再决定装什么。
+        </p>
+      </div>
+
+      <h2>安全与合规</h2>
+      <p>
+        skill 会在你的 agent 环境中执行，因此来源可信度很重要。优先选官方厂商或高信任度来源；对开源 skill，安装前看一下代码和最近更新时间。SkillFlux 为每个来源标注了「可信度」和「更新」，可以作为快速筛选的依据。
+      </p>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <p>
+        "Where do I download Claude Skills?" is the most common question for anyone new to agent skills. The answer isn't a single website — it's four legitimate channels, each with trade-offs. This guide breaks them down and gives you a safe default path.
+      </p>
+
+      <h2>Four legitimate channels</h2>
+      <h3>1. Official vendor collections</h3>
+      <p>
+        Vendor-maintained collections are the safest start: trustworthy source, reliable updates, mostly free. Browse the <a href={href.official}>official vendors category</a> — for example <a href={href.modelscope}>ModelScope Skills</a>, Alibaba Cloud Skills, and Tencent Cloud SkillHub. If you just want skills that work and are trustworthy, start here.
+      </p>
+      <h3>2. Skill marketplaces</h3>
+      <p>
+        Marketplaces cover more ground, mixing free and paid capabilities, usually with install counts and ratings so you can compare. See the <a href={href.marketplace}>marketplaces category</a>.
+      </p>
+      <h3>3. Open-source repositories</h3>
+      <p>
+        GitHub hosts many awesome lists and open-source skill repos — transparent, auditable, and customizable, ideal for developers and teams that need to adapt code. See the <a href={href.repo}>open-source repos category</a>. The downside is uneven quality; check maintenance status yourself.
+      </p>
+      <h3>4. Download packs and single skills</h3>
+      <p>
+        Some sources offer packaged downloads or individual skill files — useful once you already know exactly which one you want.
+      </p>
+
+      <h2>A safe default path</h2>
+      <ol>
+        <li>Build a mental map in the <a href={href.official}>official collections</a> — what exists and what each skill solves;</li>
+        <li>When you have a concrete need, compare equivalents in a <a href={href.marketplace}>marketplace</a>;</li>
+        <li>Only drop into <a href={href.repo}>open-source repos</a> when you need to customize or audit code;</li>
+        <li>Install through a package manager so config is written for you — no copy-paste.</li>
+      </ol>
+
+      <div class="guide-callout">
+        <p>
+          Tired of hunting and installing one by one? SkillFlux aggregates all four kinds of sources into one searchable directory with a one-command install. Browse the <a href={href.directory}>full directory</a> first, then decide what to install.
+        </p>
+      </div>
+
+      <h2>Safety and trust</h2>
+      <p>
+        Skills execute inside your agent environment, so source trust matters. Prefer official vendors or high-trust sources; for open-source skills, skim the code and the last-updated date before installing. SkillFlux labels every source with a trust level and an updated date to make that triage fast.
+      </p>
+    </Fragment>
+  )}
+</GuideLayout>

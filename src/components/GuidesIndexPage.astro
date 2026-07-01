@@ -1,0 +1,129 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl } from "../lib/content";
+import { getGuides } from "../lib/guides";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import Breadcrumb from "./Breadcrumb.astro";
+import PackCta from "./PackCta.astro";
+
+type Props = { lang?: Language };
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const copy = getPageCopy(lang);
+const guides = getGuides();
+const canonicalPath = localizePath("/guides/", lang);
+
+const breadcrumbItems = [
+  { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+  { label: copy.breadcrumb.guides }
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: copy.guidesPage.indexTitle,
+    url: absoluteUrl(canonicalPath),
+    description: copy.guidesPage.indexDescription,
+    inLanguage: copy.locale,
+    isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: guides.length,
+      itemListElement: guides.map((guide, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: guide.title[lang],
+        url: absoluteUrl(localizePath(`/guides/${guide.slug}/`, lang))
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  }
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.guidesPage.indexTitle}
+  description={copy.guidesPage.indexDescription}
+  canonicalPath={canonicalPath}
+  jsonLd={jsonLd}
+>
+  <main class="page-shell">
+    <section class="page-hero">
+      <div>
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.guides} />
+        <p class="eyebrow"><span></span> {copy.guidesPage.eyebrow}</p>
+        <h1 class="page-title">{copy.guidesPage.indexTitle}</h1>
+        <p class="page-lede">{copy.guidesPage.indexLede}</p>
+      </div>
+    </section>
+
+    <section class="guide-list">
+      {guides.map((guide) => (
+        <a class="guide-card" href={localizePath(`/guides/${guide.slug}/`, lang)}>
+          <p class="guide-card-date">{copy.guidesPage.updatedPrefix} {guide.dateModified}</p>
+          <h2>{guide.title[lang]}</h2>
+          <p class="guide-card-desc">{guide.description[lang]}</p>
+          <span class="guide-card-more">{copy.guidesPage.readMore} →</span>
+        </a>
+      ))}
+    </section>
+
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  .guide-list {
+    display: grid;
+    gap: 18px;
+    margin-top: 8px;
+  }
+
+  .guide-card {
+    display: block;
+    padding: 26px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-strong);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.15s ease;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .guide-card-date {
+    margin: 0 0 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .guide-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.4rem;
+  }
+
+  .guide-card-desc {
+    margin: 0 0 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .guide-card-more {
+    font-weight: 600;
+    color: var(--green);
+  }
+</style>

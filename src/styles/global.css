@@ -911,11 +911,50 @@ img {
 }
 
 .source-list a,
-.tag-list span {
+.tag-list span,
+.tag-list a {
   display: inline-flex;
   border: 1px solid var(--line);
   padding: 8px 10px;
   text-decoration: none;
+  color: inherit;
+}
+
+.tag-list a:hover {
+  border-color: var(--ink);
+}
+
+.detail-faq {
+  margin-top: 40px;
+}
+
+.detail-faq > h2 {
+  margin: 0 0 18px;
+  font-size: 1.4rem;
+}
+
+.faq-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.faq-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-item dt {
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.faq-item dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .detail-side {

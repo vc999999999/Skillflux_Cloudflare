@@ -1,10 +1,17 @@
 import sitesData from "../../data/sites.json";
 import categoriesData from "../../data/categories.json";
 import { ENDPOINTS, SITE } from "../config";
+import { translateTag } from "./i18n";
+import { getGuides } from "./guides";
 
 export type TrustLevel = "high" | "medium" | "emerging";
 export type SiteStatus = "active" | "watching" | "archived";
 export type Pricing = "free" | "mixed" | "paid";
+
+export type Faq = {
+  q: string;
+  a: string;
+};
 
 export type Site = {
   id: string;
@@ -21,7 +28,11 @@ export type Site = {
   pricing: Pricing;
   tagline: string;
   summary: string;
+  // Optional 100-200 word editorial write-up. Falls back to `summary` when absent.
+  longSummary?: string;
   aiSummary: string;
+  // Optional hand-written FAQ. Falls back to auto-generated questions when absent.
+  faqs?: Faq[];
   featured: boolean;
   recommended: boolean;
   trustLevel: TrustLevel;
@@ -142,6 +153,25 @@ function requireStringArray(record: Record<string, unknown>, key: string, contex
   return value.map((item) => item.trim());
 }
 
+function optionalString(record: Record<string, unknown>, key: string, context: string): string | undefined {
+  if (!(key in record) || record[key] === undefined || record[key] === null) return undefined;
+  return requireString(record, key, context);
+}
+
+function optionalFaqs(record: Record<string, unknown>, context: string): Faq[] | undefined {
+  const value = record.faqs;
+  if (value === undefined || value === null) return undefined;
+  assert(Array.isArray(value), `${context}.faqs must be an array`);
+  return value.map((item, index) => {
+    const itemContext = `${context}.faqs[${index}]`;
+    assert(isRecord(item), `${itemContext} must be an object`);
+    return {
+      q: requireString(item, "q", itemContext),
+      a: requireString(item, "a", itemContext)
+    } satisfies Faq;
+  });
+}
+
 function requireUrl(value: string, context: string): string {
   try {
     const url = new URL(value);
@@ -175,6 +205,8 @@ function normalizeSite(raw: unknown, index: number): Site {
   );
   const tags = requireStringArray(raw, "tags", context);
   const type = requireString(raw, "type", context);
+  const longSummary = optionalString(raw, "longSummary", context);
+  const faqs = optionalFaqs(raw, context);
 
   return {
     id: requireString(raw, "id", context),
@@ -191,7 +223,9 @@ function normalizeSite(raw: unknown, index: number): Site {
     pricing,
     tagline: requireString(raw, "tagline", context),
     summary: requireString(raw, "summary", context),
+    ...(longSummary ? { longSummary } : {}),
     aiSummary: requireString(raw, "aiSummary", context),
+    ...(faqs ? { faqs } : {}),
     featured: requireBoolean(raw, "featured", context),
     recommended: requireBoolean(raw, "recommended", context),
     trustLevel,
@@ -294,6 +328,61 @@ export function getRelatedSites(site: Site, limit = 4): Site[] {
     .map((item) => item.candidate);
 }
 
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export type TagIndexEntry = {
+  tag: string;
+  slug: string;
+  count: number;
+  sites: Site[];
+};
+
+let cachedTagIndex: TagIndexEntry[] | undefined;
+
+// Stable, URL-friendly tag routes. Prefer the English label (e.g. 合集 -> collection);
+// fall back to a slug of the raw tag, then to an encoded value so every tag is routable.
+export function getTagIndex(): TagIndexEntry[] {
+  if (cachedTagIndex) return cachedTagIndex;
+  const sites = getSites();
+  const usedSlugs = new Set<string>();
+  const entries = getPopularTags().map((label, index) => {
+    // Prefer the English label; fall back to a stable ASCII token so every tag stays routable.
+    const base = slugify(translateTag(label.tag, "en")) || slugify(label.tag) || `tag-${index + 1}`;
+    let slug = base;
+    let suffix = 2;
+    while (usedSlugs.has(slug)) {
+      slug = `${base}-${suffix++}`;
+    }
+    usedSlugs.add(slug);
+    return {
+      tag: label.tag,
+      slug,
+      count: label.count,
+      sites: sites.filter((site) => site.tags.includes(label.tag))
+    } satisfies TagIndexEntry;
+  });
+  cachedTagIndex = entries;
+  return entries;
+}
+
+export function getTagBySlug(slug: string): TagIndexEntry | undefined {
+  return getTagIndex().find((entry) => entry.slug === slug);
+}
+
+export function getSitesByCategory(slug: string): Site[] {
+  return getSites().filter((site) => site.category === slug);
+}
+
+export function getCategoryBySlug(slug: string): CategoryWithCount | undefined {
+  return getCategories().find((category) => category.slug === slug);
+}
+
 export function getDirectoryStats() {
   const sites = getSites();
   const updatedAt = sites.reduce((latest, site) => (site.updatedAt > latest ? site.updatedAt : latest), "1970-01-01");
@@ -339,6 +428,8 @@ export function renderLlmsText(generatedAt = new Date().toISOString()): string {
   const stats = getDirectoryStats();
   const featured = getFeaturedSites(12);
   const labels = getPopularTags(16);
+  const categories = getCategories();
+  const tagIndex = getTagIndex().slice(0, 16);
 
   return [
     "# SkillFlux 技流",
@@ -355,6 +446,15 @@ export function renderLlmsText(generatedAt = new Date().toISOString()): string {
     "",
     "## Featured Entrypoints",
     ...featured.map((site) => `- ${site.recommended ? "[推荐] " : ""}${site.name}: ${site.tagline} ${absoluteUrl(`/site/${site.slug}/`)}`),
+    "",
+    "## Browse by source type",
+    ...categories.map((category) => `- ${category.label} (${category.count}): ${absoluteUrl(`/category/${category.slug}/`)}`),
+    "",
+    "## Browse by tag",
+    ...tagIndex.map((entry) => `- ${entry.tag} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
+    "",
+    "## Guides",
+    ...getGuides().map((guide) => `- ${guide.title.zh}: ${guide.description.zh} ${absoluteUrl(`/guides/${guide.slug}/`)}`),
     "",
     "## Machine-readable endpoints",
     ...ENDPOINTS.map((endpoint) => `- ${endpoint.path}: ${endpoint.description}`),
@@ -390,6 +490,7 @@ export function renderLlmsFullText(generatedAt = new Date().toISOString()): stri
       `Tags: ${site.tags.join(", ")}`,
       `Tagline: ${site.tagline}`,
       `Summary: ${site.summary}`,
+      ...(site.longSummary ? [`Details: ${site.longSummary.replace(/\n+/g, " ")}`] : []),
       `AI Summary: ${site.aiSummary}`,
       `Updated: ${site.updatedAt}`,
       ""

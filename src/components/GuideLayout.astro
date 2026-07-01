@@ -1,0 +1,137 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl } from "../lib/content";
+import type { Guide } from "../lib/guides";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import Breadcrumb from "./Breadcrumb.astro";
+import PackCta from "./PackCta.astro";
+
+type Props = {
+  lang?: Language;
+  guide: Guide;
+};
+
+const { lang = DEFAULT_LANGUAGE, guide } = Astro.props;
+const copy = getPageCopy(lang);
+const title = guide.title[lang];
+const description = guide.description[lang];
+const canonicalPath = localizePath(`/guides/${guide.slug}/`, lang);
+
+const breadcrumbItems = [
+  { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+  { label: copy.breadcrumb.guides, href: localizePath("/guides/", lang) },
+  { label: title }
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    url: absoluteUrl(canonicalPath),
+    inLanguage: copy.locale,
+    datePublished: guide.datePublished,
+    dateModified: guide.dateModified,
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/skillflux-mark.svg") }
+    },
+    mainEntityOfPage: absoluteUrl(canonicalPath)
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <article class="guide">
+      <header class="guide-head">
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.guides} />
+        <p class="eyebrow"><span></span> {copy.guidesPage.eyebrow}</p>
+        <h1 class="page-title">{title}</h1>
+        <p class="page-lede">{description}</p>
+        <p class="guide-meta">{copy.guidesPage.updatedPrefix} {guide.dateModified}</p>
+      </header>
+      <div class="guide-body">
+        <slot />
+      </div>
+    </article>
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  .guide-head {
+    padding: 24px 0 28px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 32px;
+  }
+
+  .guide-meta {
+    margin: 12px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .guide-body {
+    max-width: 760px;
+  }
+
+  .guide-body :global(h2) {
+    margin: 36px 0 14px;
+    font-size: 1.5rem;
+  }
+
+  .guide-body :global(h3) {
+    margin: 26px 0 10px;
+    font-size: 1.15rem;
+  }
+
+  .guide-body :global(p) {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .guide-body :global(ul),
+  .guide-body :global(ol) {
+    margin: 0 0 18px;
+    padding-left: 22px;
+    line-height: 1.75;
+  }
+
+  .guide-body :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .guide-body :global(a) {
+    color: var(--green);
+    text-decoration: underline;
+  }
+
+  .guide-body :global(.guide-callout) {
+    margin: 24px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-strong);
+  }
+
+  .guide-body :global(.guide-callout p) {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import CollectionListPage from "../../../components/CollectionListPage.astro";
+import { getTagIndex } from "../../../lib/content";
+import { getPageCopy, localizePath } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return getTagIndex().map((entry) => ({
+    params: { tag: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const lang = "en" as const;
+const copy = getPageCopy(lang);
+const canonicalPath = localizePath(`/tag/${entry.slug}/`, lang);
+---
+
+<CollectionListPage
+  lang={lang}
+  title={copy.collections.tagTitle(entry.tag)}
+  description={copy.collections.tagDescription(entry.tag, entry.count)}
+  canonicalPath={canonicalPath}
+  eyebrow={copy.collections.tagEyebrow}
+  heading={copy.collections.tagHeading(entry.tag)}
+  lede={copy.collections.tagLede(entry.tag, entry.count)}
+  metaText={`${entry.count} sources`}
+  sites={entry.sites}
+  breadcrumbItems={[
+    { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+    { label: copy.breadcrumb.directory, href: localizePath("/directory/", lang) },
+    { label: entry.tag }
+  ]}
+  collectionName={copy.collections.tagTitle(entry.tag)}
+  collectionDescription={copy.collections.tagDescription(entry.tag, entry.count)}
+/>

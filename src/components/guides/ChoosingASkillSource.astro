@@ -1,0 +1,105 @@
+---
+import GuideLayout from "../GuideLayout.astro";
+import { getGuideBySlug } from "../../lib/guides";
+import { localizePath, type Language } from "../../lib/i18n";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const guide = getGuideBySlug("choosing-a-skill-source")!;
+
+const href = {
+  directory: localizePath("/directory/", lang),
+  official: localizePath("/category/official/", lang),
+  marketplace: localizePath("/category/marketplace/", lang),
+  repo: localizePath("/category/repo/", lang),
+  community: localizePath("/category/community/", lang),
+  aggregator: localizePath("/category/directory/", lang),
+  download: localizePath("/guides/how-to-download-claude-skills/", lang)
+};
+---
+
+<GuideLayout lang={lang} guide={guide}>
+  {lang === "zh" ? (
+    <Fragment>
+      <p>
+        skill 来源大致分五类：官方厂商、市场、开源仓库、社区榜单、综合目录。选错来源，轻则浪费时间，重则装进不维护甚至不可信的能力。这篇按可信度、更新频率、定价和适用场景，讲清楚什么时候该用哪一类。
+      </p>
+
+      <h2>五类来源速览</h2>
+      <h3>官方厂商</h3>
+      <p>
+        可信度最高、维护有保障、多数免费。适合生产环境和刚上手的人。覆盖面受厂商限制。查看 <a href={href.official}>官方厂商类目</a>。
+      </p>
+      <h3>市场</h3>
+      <p>
+        覆盖广、带安装量和评分信号，免费与付费混合。适合按需求横向比较。质量需要用信号自己筛。查看 <a href={href.marketplace}>市场类目</a>。
+      </p>
+      <h3>开源仓库</h3>
+      <p>
+        透明、可审计、可改造。适合开发者和需要定制的团队。质量参差，要看维护状态。查看 <a href={href.repo}>开源仓库类目</a>。
+      </p>
+      <h3>社区榜单</h3>
+      <p>
+        反映真实热度和口碑，适合发现新东西、看趋势。权威性弱于官方。查看 <a href={href.community}>社区榜单类目</a>。
+      </p>
+      <h3>综合目录</h3>
+      <p>
+        把多来源聚合到一处，适合做全局对比和快速定位——SkillFlux 本身就属于这一类。查看 <a href={href.aggregator}>综合目录类目</a>。
+      </p>
+
+      <h2>怎么选：三个判断维度</h2>
+      <ul>
+        <li><strong>可信度优先</strong>：会执行代码的能力，优先官方或高信任度来源；</li>
+        <li><strong>看更新时间</strong>：长期不更新的 skill 往往已废弃，SkillFlux 每条都标了「更新」；</li>
+        <li><strong>匹配场景</strong>：生产用官方、探索用社区、定制用开源、比较用目录。</li>
+      </ul>
+
+      <div class="guide-callout">
+        <p>
+          还没确定要哪一类？直接从 <a href={href.directory}>完整目录</a> 开始，用来源类型、语言和可信度筛。想知道具体怎么下载，看 <a href={href.download}>Claude Skills 下载指南</a>。
+        </p>
+      </div>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <p>
+        Skill sources fall into roughly five kinds: official vendors, marketplaces, open-source repos, community rankings, and aggregator directories. Pick the wrong one and you waste time — or worse, install something unmaintained or untrusted. Here's when to use which, by trust, freshness, pricing, and use case.
+      </p>
+
+      <h2>The five kinds at a glance</h2>
+      <h3>Official vendors</h3>
+      <p>
+        Highest trust, reliable maintenance, mostly free. Best for production and beginners. Coverage is limited to what the vendor ships. See the <a href={href.official}>official vendors category</a>.
+      </p>
+      <h3>Marketplaces</h3>
+      <p>
+        Broad coverage with install counts and ratings, mixing free and paid. Best for comparing options. You still filter quality using the signals. See the <a href={href.marketplace}>marketplaces category</a>.
+      </p>
+      <h3>Open-source repositories</h3>
+      <p>
+        Transparent, auditable, customizable. Best for developers and teams that need to adapt code. Quality varies — check maintenance. See the <a href={href.repo}>open-source repos category</a>.
+      </p>
+      <h3>Community rankings</h3>
+      <p>
+        Reflect real traction and word of mouth. Best for discovery and spotting trends, though less authoritative than vendors. See the <a href={href.community}>community rankings category</a>.
+      </p>
+      <h3>Aggregator directories</h3>
+      <p>
+        Pull many sources into one place for global comparison and fast lookup — SkillFlux itself is one. See the <a href={href.aggregator}>aggregator directories category</a>.
+      </p>
+
+      <h2>How to choose: three dimensions</h2>
+      <ul>
+        <li><strong>Trust first</strong>: for anything that executes code, prefer official or high-trust sources;</li>
+        <li><strong>Check the updated date</strong>: skills that haven't changed in a long time are often abandoned — SkillFlux labels every entry with one;</li>
+        <li><strong>Match the use case</strong>: official for production, community for exploration, open-source for customization, directories for comparison.</li>
+      </ul>
+
+      <div class="guide-callout">
+        <p>
+          Not sure which kind you need? Start from the <a href={href.directory}>full directory</a> and filter by source type, language, and trust. For the how-to, see the <a href={href.download}>Claude Skills download guide</a>.
+        </p>
+      </div>
+    </Fragment>
+  )}
+</GuideLayout>
