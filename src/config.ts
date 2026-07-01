@@ -15,7 +15,7 @@ export const SITE = {
   // gives you (meta-tag method) here or via the matching env var. Empty = no tag.
   verification: {
     // Global
-    google: process.env.GOOGLE_VERIFY ?? "", // Google Search Console → google-site-verification
+    google: process.env.GOOGLE_VERIFY ?? "56VjAx8K5mjpKWKm_9-v62j19Zv6GjAhiSbPzZKgC-s", // Google Search Console → google-site-verification
     bing: process.env.BING_VERIFY ?? "C16EFBFC9E381FD0BE5E7D0846F8E3AF", // Bing Webmaster → msvalidate.01
     yandex: process.env.YANDEX_VERIFY ?? "", // Yandex Webmaster → yandex-verification
     // CN
