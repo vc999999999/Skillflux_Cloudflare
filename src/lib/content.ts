@@ -424,7 +424,15 @@ export function absoluteUrl(path = "/"): string {
   return new URL(path, SITE.url).toString();
 }
 
-export function renderLlmsText(generatedAt = new Date().toISOString()): string {
+// Insight summaries are passed in by the endpoint (astro:content is only
+// available inside Astro builds; this module is also consumed by tsx/vitest).
+export type InsightSummary = {
+  title: string;
+  tldr: string;
+  url: string;
+};
+
+export function renderLlmsText(generatedAt = new Date().toISOString(), insights: InsightSummary[] = []): string {
   const stats = getDirectoryStats();
   const featured = getFeaturedSites(12);
   const labels = getPopularTags(16);
@@ -456,6 +464,9 @@ export function renderLlmsText(generatedAt = new Date().toISOString()): string {
     "## Guides",
     ...getGuides().map((guide) => `- ${guide.title.zh}: ${guide.description.zh} ${absoluteUrl(`/guides/${guide.slug}/`)}`),
     "",
+    ...(insights.length > 0
+      ? ["## Skill Deep-dives (拆解专题)", ...insights.map((insight) => `- ${insight.title}: ${insight.tldr} ${insight.url}`), ""]
+      : []),
     "## Machine-readable endpoints",
     ...ENDPOINTS.map((endpoint) => `- ${endpoint.path}: ${endpoint.description}`),
     "",

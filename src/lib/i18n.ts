@@ -74,6 +74,7 @@ type PageCopy = {
     tags: string;
     categories: string;
     guides: string;
+    insights: string;
   };
   guidesPage: {
     eyebrow: string;
@@ -84,6 +85,33 @@ type PageCopy = {
     readMore: string;
     ctaTitle: string;
     ctaBody: string;
+  };
+  insightsPage: {
+    eyebrow: string;
+    indexTitle: string;
+    indexLede: string;
+    indexDescription: string;
+    updatedPrefix: string;
+    readMore: string;
+    industryLabel: string;
+    tldrLabel: string;
+    scenariosTitle: string;
+    painPointsTitle: string;
+    painHeader: string;
+    solutionHeader: string;
+    workflowTitle: string;
+    judgmentsTitle: string;
+    deepDiveTitle: string;
+    limitationsTitle: string;
+    sourceTitle: string;
+    sourceRepo: string;
+    sourceAuthor: string;
+    sourceLicense: string;
+    sourceNote: string;
+    visitRepo: string;
+    relatedTitle: string;
+    machineNote: string;
+    zhOnlyNote: string;
   };
   collections: {
     tagEyebrow: string;
@@ -231,7 +259,8 @@ export const pageCopy: Record<Language, PageCopy> = {
       directory: "完整目录",
       tags: "标签",
       categories: "来源类型",
-      guides: "指南"
+      guides: "指南",
+      insights: "Skill 拆解"
     },
     guidesPage: {
       eyebrow: "指南",
@@ -242,6 +271,33 @@ export const pageCopy: Record<Language, PageCopy> = {
       readMore: "阅读全文",
       ctaTitle: "看完就想动手？",
       ctaBody: "SkillFlux 是精选 skill 的包管理器，一条命令接入 agent，按需安装、持续更新。"
+    },
+    insightsPage: {
+      eyebrow: "Skill 拆解",
+      indexTitle: "Skill 拆解：各行业 skill 的精华流程与痛点",
+      indexLede: "把优秀 skill 里编码的经验拆开讲清楚：它解决什么行业痛点、流程怎么走、专家判断藏在哪、边界在哪里。给人看，也给 AI 学。",
+      indexDescription: "SkillFlux Skill 拆解专题：逐个拆解优秀 agent skill 的工作流、专家判断与行业痛点，附来源署名与协议信息。",
+      updatedPrefix: "更新于",
+      readMore: "阅读拆解",
+      industryLabel: "行业",
+      tldrLabel: "TL;DR · 给 AI 的一句话",
+      scenariosTitle: "适用场景",
+      painPointsTitle: "痛点 → 解法",
+      painHeader: "行业痛点",
+      solutionHeader: "skill 的解法",
+      workflowTitle: "编码的经验流程",
+      judgmentsTitle: "编码的专家判断",
+      deepDiveTitle: "深度解读",
+      limitationsTitle: "局限与边界",
+      sourceTitle: "来源与署名",
+      sourceRepo: "原始仓库",
+      sourceAuthor: "作者",
+      sourceLicense: "协议",
+      sourceNote: "本文是对原 skill 的分析与评论，不转载其全文。使用该 skill 前请阅读原仓库协议。",
+      visitRepo: "访问原仓库",
+      relatedTitle: "相关收录入口",
+      machineNote: "此拆解同步出现在 `/insights/feed.xml` 与 `/llms.txt`，便于订阅工具和 AI agent 直接消费。",
+      zhOnlyNote: "拆解正文目前仅提供中文版。"
     },
     collections: {
       tagEyebrow: "标签",
@@ -387,7 +443,8 @@ export const pageCopy: Record<Language, PageCopy> = {
       directory: "Directory",
       tags: "Tags",
       categories: "Source types",
-      guides: "Guides"
+      guides: "Guides",
+      insights: "Skill deep-dives"
     },
     guidesPage: {
       eyebrow: "Guides",
@@ -398,6 +455,33 @@ export const pageCopy: Record<Language, PageCopy> = {
       readMore: "Read more",
       ctaTitle: "Ready to try it?",
       ctaBody: "SkillFlux is a package manager for curated skills — one command connects your agent, install on demand, always maintained."
+    },
+    insightsPage: {
+      eyebrow: "Skill deep-dives",
+      indexTitle: "Skill deep-dives: expert workflows and pain points, by industry",
+      indexLede: "We take outstanding agent skills apart: which industry pain they solve, how the encoded workflow runs, where the expert judgment hides, and where the limits are. Written for humans — and for AI to learn from.",
+      indexDescription: "SkillFlux skill deep-dives: analyses of outstanding agent skills — workflows, expert judgment, industry pain points, with full source attribution.",
+      updatedPrefix: "Updated",
+      readMore: "Read the deep-dive",
+      industryLabel: "Industry",
+      tldrLabel: "TL;DR · one line for AI",
+      scenariosTitle: "Use cases",
+      painPointsTitle: "Pain → solution",
+      painHeader: "Industry pain point",
+      solutionHeader: "How the skill solves it",
+      workflowTitle: "The encoded workflow",
+      judgmentsTitle: "The encoded expert judgment",
+      deepDiveTitle: "Deep dive",
+      limitationsTitle: "Limits and boundaries",
+      sourceTitle: "Source and attribution",
+      sourceRepo: "Original repository",
+      sourceAuthor: "Author",
+      sourceLicense: "License",
+      sourceNote: "This article is analysis and commentary on the original skill; it does not reproduce it. Read the repository license before using the skill.",
+      visitRepo: "Visit the repository",
+      relatedTitle: "Related directory entries",
+      machineNote: "This deep-dive is also available via `/insights/feed.xml` and `/llms.txt` for feed readers and AI agents.",
+      zhOnlyNote: "Deep-dive articles are currently written in Chinese."
     },
     collections: {
       tagEyebrow: "Tag",
@@ -645,6 +729,10 @@ const endpointCopy: Record<Language, Record<string, { label: string; description
     "/feed.xml": {
       label: "RSS feed",
       description: "A feed for newly added and updated resources."
+    },
+    "/insights/feed.xml": {
+      label: "Insights RSS",
+      description: "A feed for skill deep-dives: expert workflows and pain-point analyses by industry."
     }
   }
 };

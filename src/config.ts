@@ -30,5 +30,6 @@ export const ENDPOINTS = [
   { path: "/llms.txt", label: "LLM quick map", description: "站点定位、标识、精选入口和数据端点说明。" },
   { path: "/llms-full.txt", label: "Full text catalog", description: "完整资源清单的纯文本版本。" },
   { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
-  { path: "/feed.xml", label: "RSS feed", description: "新增和更新资源订阅流。" }
+  { path: "/feed.xml", label: "RSS feed", description: "新增和更新资源订阅流。" },
+  { path: "/insights/feed.xml", label: "Insights RSS", description: "Skill 拆解专题订阅流：各行业 skill 的精华流程与痛点分析。" }
 ] as const;

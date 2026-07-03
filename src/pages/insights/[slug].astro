@@ -1,0 +1,378 @@
+---
+import { getCollection, render } from "astro:content";
+import { SITE } from "../../config";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import PackCta from "../../components/PackCta.astro";
+import { absoluteUrl, getSiteBySlug } from "../../lib/content";
+import { getPageCopy } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("insights", (entry) => !entry.data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+const { Content } = await render(entry);
+
+const lang = "zh" as const;
+const copy = getPageCopy(lang);
+const t = copy.insightsPage;
+const canonicalPath = `/insights/${entry.id}/`;
+
+const relatedSites = data.relatedSites
+  .map((slug) => getSiteBySlug(slug))
+  .filter((site) => site !== undefined);
+
+const breadcrumbItems = [
+  { label: copy.breadcrumb.home, href: "/" },
+  { label: copy.breadcrumb.insights, href: "/insights/" },
+  { label: data.title }
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: data.title,
+    description: data.description,
+    abstract: data.tldr,
+    url: absoluteUrl(canonicalPath),
+    inLanguage: copy.locale,
+    datePublished: data.datePublished,
+    dateModified: data.dateModified,
+    about: { "@type": "SoftwareSourceCode", name: data.skillName, codeRepository: data.source.repo },
+    isBasedOn: data.source.repo,
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/skillflux-mark.svg") }
+    },
+    mainEntityOfPage: absoluteUrl(canonicalPath)
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} title={data.title} description={data.description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main class="page-shell">
+    <article class="insight">
+      <header class="insight-head">
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.insights} />
+        <p class="eyebrow"><span></span> {t.eyebrow}</p>
+        <h1 class="page-title">{data.title}</h1>
+        <p class="page-lede">{data.description}</p>
+        <p class="insight-meta">
+          {t.industryLabel}: {data.industry} · {t.updatedPrefix} {data.dateModified} · {t.sourceAuthor}: {data.source.author}
+        </p>
+      </header>
+
+      <div class="insight-body">
+        <aside class="insight-tldr" aria-label={t.tldrLabel}>
+          <p class="insight-block-kicker">{t.tldrLabel}</p>
+          <p class="insight-tldr-text">{data.tldr}</p>
+        </aside>
+
+        <section>
+          <h2>{t.scenariosTitle}</h2>
+          <ul class="insight-scenarios">
+            {data.scenarios.map((scenario) => <li>{scenario}</li>)}
+          </ul>
+        </section>
+
+        <section>
+          <h2>{t.painPointsTitle}</h2>
+          <table class="insight-table">
+            <thead>
+              <tr>
+                <th>{t.painHeader}</th>
+                <th>{t.solutionHeader}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.painPoints.map((item) => (
+                <tr>
+                  <td>{item.pain}</td>
+                  <td>{item.solution}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>{t.workflowTitle}</h2>
+          <ol class="insight-workflow">
+            {data.workflow.map((item) => (
+              <li>
+                <strong>{item.step}</strong>
+                <p>{item.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section>
+          <h2>{t.judgmentsTitle}</h2>
+          <ul class="insight-judgments">
+            {data.judgments.map((judgment) => <li>{judgment}</li>)}
+          </ul>
+        </section>
+
+        <section>
+          <h2>{t.deepDiveTitle}</h2>
+          <div class="insight-prose">
+            <Content />
+          </div>
+        </section>
+
+        <section>
+          <h2>{t.limitationsTitle}</h2>
+          <ul>
+            {data.limitations.map((limitation) => <li>{limitation}</li>)}
+          </ul>
+        </section>
+
+        <section class="insight-source">
+          <h2>{t.sourceTitle}</h2>
+          <dl>
+            <div>
+              <dt>{t.sourceRepo}</dt>
+              <dd><a href={data.source.repo} rel="noopener noreferrer">{data.source.repo}</a></dd>
+            </div>
+            <div>
+              <dt>{t.sourceAuthor}</dt>
+              <dd>
+                {data.source.authorUrl
+                  ? <a href={data.source.authorUrl} rel="noopener noreferrer">{data.source.author}</a>
+                  : data.source.author}
+              </dd>
+            </div>
+            <div>
+              <dt>{t.sourceLicense}</dt>
+              <dd>{data.source.license}</dd>
+            </div>
+          </dl>
+          <p class="insight-source-note">{t.sourceNote}</p>
+          <a class="insight-source-visit" href={data.source.repo} rel="noopener noreferrer">{t.visitRepo} →</a>
+        </section>
+
+        {relatedSites.length > 0 && (
+          <section>
+            <h2>{t.relatedTitle}</h2>
+            <div class="insight-related">
+              {relatedSites.map((site) => (
+                <a class="insight-related-card" href={`/site/${site.slug}/`}>
+                  <strong>{site.name}</strong>
+                  <span>{site.tagline}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <p class="insight-machine-note">{t.machineNote}</p>
+      </div>
+    </article>
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  .insight-head {
+    padding: 24px 0 28px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 32px;
+  }
+
+  .insight-meta {
+    margin: 12px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .insight-body {
+    max-width: 760px;
+  }
+
+  .insight-body h2 {
+    margin: 40px 0 16px;
+    font-size: 1.5rem;
+  }
+
+  .insight-body ul,
+  .insight-body ol {
+    margin: 0 0 18px;
+    padding-left: 22px;
+    line-height: 1.75;
+  }
+
+  .insight-body li {
+    margin-bottom: 8px;
+  }
+
+  .insight-tldr {
+    padding: 18px 20px;
+    border: 1px solid var(--line-strong);
+    border-left: 3px solid var(--green);
+    background: var(--paper-strong);
+  }
+
+  .insight-block-kicker {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .insight-tldr-text {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .insight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 18px;
+  }
+
+  .insight-table th,
+  .insight-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--line-strong);
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .insight-table th {
+    background: var(--paper-strong);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .insight-workflow li {
+    margin-bottom: 14px;
+  }
+
+  .insight-workflow li p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .insight-prose :global(h2),
+  .insight-prose :global(h3) {
+    margin: 26px 0 10px;
+    font-size: 1.15rem;
+  }
+
+  .insight-prose :global(p) {
+    margin: 0 0 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .insight-prose :global(ul),
+  .insight-prose :global(ol) {
+    margin: 0 0 18px;
+    padding-left: 22px;
+    line-height: 1.75;
+  }
+
+  .insight-prose :global(a) {
+    color: var(--green);
+    text-decoration: underline;
+  }
+
+  .insight-prose :global(blockquote) {
+    margin: 0 0 16px;
+    padding: 12px 18px;
+    border-left: 3px solid var(--line-strong);
+    color: var(--muted);
+  }
+
+  .insight-source {
+    padding: 20px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-strong);
+  }
+
+  .insight-source h2 {
+    margin-top: 0;
+  }
+
+  .insight-source dl {
+    margin: 0 0 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .insight-source dt {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .insight-source dd {
+    margin: 2px 0 0;
+    word-break: break-all;
+  }
+
+  .insight-source a {
+    color: var(--green);
+  }
+
+  .insight-source-note {
+    margin: 0 0 12px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .insight-source-visit {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .insight-related {
+    display: grid;
+    gap: 12px;
+  }
+
+  .insight-related-card {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-strong);
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .insight-related-card span {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .insight-machine-note {
+    margin: 36px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+</style>
