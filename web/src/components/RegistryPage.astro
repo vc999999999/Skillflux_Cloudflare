@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { localizePath, type Language } from "../lib/i18n";
+import RegistryExplorer from "./RegistryExplorer.astro";
+import { getPublication } from '../lib/publication';
+import { registryPageCount, registryPagePath } from '../lib/publication-search';
+
+type Props = { lang?: Language; page?: number };
+const { lang = "zh", page = 1 } = Astro.props;
+const isZh = lang === "zh";
+const total = getPublication().latest.length;
+const pageCount = registryPageCount(total);
+if (!Number.isSafeInteger(page) || page < 1 || page > pageCount) throw new Error(`Invalid registry page: ${page}`);
+const canonicalPath = registryPagePath(page, lang);
+const title = isZh ? `精品 Skill Registry${page > 1 ? ` — 第 ${page} 页` : ''}` : `Curated Skill Registry${page > 1 ? ` — Page ${page}` : ''}`;
+const description = isZh
+  ? `${page > 1 ? `第 ${page} 页，共 ${pageCount} 页。` : ''}浏览由平台人工精选维护、通过安全检查与实际使用测试的 Skill 发布快照。`
+  : `${page > 1 ? `Page ${page} of ${pageCount}. ` : ''}Browse signed publication snapshots of skills maintained and usage-tested by the platform.`;
+---
+
+<BaseLayout
+  lang={lang}
+  canonicalPath={canonicalPath}
+  title={title}
+  description={description}
+  noindex={total === 0}
+  pageClass="registry-page"
+>
+  <main id="main-content" class="registry-page-shell">
+    <section class="registry-page-hero">
+      <div>
+        <p class="eyebrow"><span></span>{isZh ? "CURATED SKILL REGISTRY" : "CURATED SKILL REGISTRY"}</p>
+        <h1>{page > 1 ? (isZh ? `精品 Skill — 第 ${page} 页` : `Curated skills — page ${page}`) : (isZh ? <>搜索少而精的<br /><em>Agent 能力。</em></> : <>Search fewer,<br /><em>better agent skills.</em></>)}</h1>
+      </div>
+      <div class="registry-hero-note">
+        <span>VERIFIED PUBLICATION</span>
+        <p>{isZh
+          ? "每个条目对应有质检记录的具体版本。正文和索引在构建时生成，不依赖运行 JavaScript 或在线 Registry 才能浏览；安装前由本地客户端实时核验资格。"
+          : "Each entry identifies a tested release. Content is built into static HTML and does not require JavaScript or a live registry to read. Your local client rechecks eligibility before installation."}</p>
+        <a href={localizePath("/directory/", lang)}>{isZh ? "浏览来源黄页 →" : "Browse the source directory →"}</a>
+      </div>
+    </section>
+
+    <RegistryExplorer lang={lang} mode="full" page={page} />
+
+    <section class="registry-principles" aria-label={isZh ? "Registry 原则" : "Registry principles"}>
+      <article><span>01</span><strong>{isZh ? "可读取的静态正文" : "Readable static content"}</strong><p>{isZh ? "发布快照标明同步时间；网络故障不伪造最新状态。" : "Snapshots disclose their sync time; network failure never becomes a claim of freshness."}</p></article>
+      <article><span>02</span><strong>{isZh ? "证据原样呈现" : "Evidence, verbatim"}</strong><p>{isZh ? "自动检查、人工记录和权限清单不被包装成虚构评分。" : "Checks, review records, and permissions are not converted into invented ratings."}</p></article>
+      <article><span>03</span><strong>{isZh ? "安装发生在本地" : "Installation stays local"}</strong><p>{isZh ? "网页负责发现；CLI 在项目中验签、落盘并锁定版本。" : "The web discovers; the CLI verifies, writes, and pins versions in your project."}</p></article>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .registry-page-shell {
+    width: min(1120px, calc(100% - 48px));
+    margin: 0 auto;
+    padding-bottom: 90px;
+  }
+
+  .registry-page-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.5fr);
+    gap: clamp(40px, 9vw, 120px);
+    align-items: end;
+    padding: clamp(48px, 6vw, 72px) 0 46px;
+  }
+
+  .registry-page-hero h1 {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
+  }
+
+  .registry-page-hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .registry-hero-note {
+    padding-top: 13px;
+    border-top: 1px solid var(--ink);
+  }
+
+  .registry-hero-note span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .registry-hero-note p {
+    margin: 24px 0 15px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .registry-hero-note a {
+    font-size: 0.78rem;
+  }
+
+  .registry-principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 72px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+  }
+
+  .registry-principles article {
+    min-height: 190px;
+    padding: 22px;
+    border-right: 1px solid var(--line);
+  }
+
+  .registry-principles article:last-child {
+    border-right: 0;
+  }
+
+  .registry-principles span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .registry-principles strong {
+    display: block;
+    margin-top: 39px;
+    font-size: 1.05rem;
+  }
+
+  .registry-principles p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 760px) {
+    .registry-page-shell {
+      width: min(100% - 28px, 1120px);
+    }
+
+    .registry-page-hero,
+    .registry-principles {
+      grid-template-columns: 1fr;
+    }
+
+    .registry-page-hero {
+      gap: 34px;
+      padding-top: 58px;
+    }
+
+    .registry-page-hero h1 {
+      font-size: clamp(2.3rem, 10vw, 3.3rem);
+    }
+
+    .registry-principles article,
+    .registry-principles article:last-child {
+      min-height: 150px;
+      border-right: 0;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .registry-principles article:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

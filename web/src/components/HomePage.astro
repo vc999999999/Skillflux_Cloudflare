@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from './Icon.astro';
+import RegistryExplorer from './RegistryExplorer.astro';
+import { absoluteUrl, getCategories, getDirectoryStats, getSiteBySlug, getTagIndex } from '../lib/content';
+import { localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
+import { useCases, collections, getEditorialSites } from '../lib/editorial';
+import { getGuides } from '../lib/guides';
+import { scenarios } from '../lib/scenarios';
+import { getPublication } from '../lib/publication';
+const { lang = 'zh' } = Astro.props as { lang?: Language };
+const zh = lang === 'zh';
+const href = (path: string) => localizePath(path, lang);
+const stats = getDirectoryStats();
+const categories = getCategories();
+const tags = getTagIndex().slice(0, 9);
+const title = zh ? '发现适合你的 Agent 能力' : 'Find the right agent capability';
+const description = zh ? '发现、比较 Agent Skills、MCP 资源和工具来源。按用途选择，再通过 SkillFlux 接入经过审核的 Skill 版本。' : 'Discover and compare agent skills, MCP resources and tool sources. Choose by task, then connect reviewed skill releases through SkillFlux.';
+const picks = [
+  { slug: 'github-com-anthropics-skills', name: 'Anthropic Skills', badge: zh ? '参考实现' : 'Reference', reason: zh ? '从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。' : 'Read the skill structure and implementations directly in Anthropic’s open-source repository.', best: zh ? '了解 Skill 格式，建立自己的技能库' : 'Learning the format and building a skill library' },
+  { slug: 'modelscope-cn-skills', name: 'ModelScope Skills', badge: zh ? '编辑推荐' : 'Recommended', reason: zh ? '中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。' : 'A starting point for discovering Chinese-language skills and comparing their original sources.', best: zh ? '中文资源发现与场景选型' : 'Finding Chinese-language skill resources' },
+  { slug: 'github-com-op7418-humanizer-zh', name: 'Humanizer-zh', badge: zh ? '用途明确' : 'Focused', reason: zh ? '围绕中文写作提供可阅读的规则，方便检查是否符合自己的编辑习惯。' : 'Readable rules for Chinese writing, so you can judge whether the editorial approach fits your work.', best: zh ? '中文文稿编辑与语言润色' : 'Editing and refining Chinese writing' },
+].flatMap(pick => { const site = getSiteBySlug(pick.slug); return site ? [{ ...pick, site }] : []; });
+const reading = [
+  ...getGuides().map(guide => ({ title: guide.title[lang], summary: guide.description[lang], path: `/guides/${guide.slug}/`, type: zh ? '选型指南' : 'GUIDE' })),
+  ...scenarios.slice(1).map(scenario => ({ title: scenario.title[lang], summary: scenario.summary[lang], path: `/scenarios/${scenario.slug}/`, type: zh ? '实践指南' : 'WORKFLOW' })),
+];
+const categoryNotes: Record<string, [string, string]> = {
+  official: ['厂商维护的官方资源入口。', 'Resources maintained by tool and platform makers.'],
+  marketplace: ['带有发现与安装流程的市场。', 'Catalogs with discovery and installation flows.'],
+  repo: ['可阅读源码的仓库与项目。', 'Repositories and projects you can inspect.'],
+  community: ['社区整理的榜单与推荐。', 'Community lists and discovery signals.'],
+  directory: ['跨来源聚合的导航入口。', 'Directories spanning multiple sources.'],
+};
+const publication = getPublication();
+const command = 'skillflux search "code review"';
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={href('/')} pageClass="sf-home" jsonLd={{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description }}>
+  <main id="main-content">
+    <section class="home-hero">
+      <div class="home-container">
+        <p class="hero-label"><span></span> AGENT SKILL & MCP DIRECTORY</p>
+        <h1>{zh ? <>找到适合你的 <span class="keep-together">Agent 能力。</span></> : 'Find the right agent capability.'}<br /><span class="hero-secondary">{zh ? '从发现，到项目接入。' : 'From discovery to your project.'}</span></h1>
+        <p class="hero-description">{description}</p>
+        <div class="hero-actions">
+          <a class="button primary" href={href('/directory/')}>{zh ? '探索资源目录' : 'Explore Directory'} <Icon size={16} /></a>
+          <a class="button secondary" href={href('/install/')}>{zh ? '接入 SkillFlux' : 'Set up SkillFlux'}</a>
+          <div class="command-bar"><span aria-hidden="true">$</span><code>{command}</code><button type="button" data-copy-text={command} aria-label={zh ? '复制搜索命令' : 'Copy search command'}><Icon name="copy" size={16} /></button></div>
+        </div>
+        <div class="works-with"><span>{zh ? '项目接入' : 'Connect with'}</span><span><Icon name="spark" size={15} /> Claude</span><span><Icon name="external" size={15} /> Cursor</span><span><Icon name="terminal" size={15} /> Codex</span><a href={href('/install/')}>{zh ? '查看安装步骤' : 'Setup required'} <span aria-hidden="true">↗</span></a></div>
+        <div class="decision-signals"><span>{zh ? '选择线索' : 'DECISION SIGNALS'}</span>{[zh ? '编辑推荐' : 'Recommended', zh ? '官方来源' : 'Official sources', zh ? '开源仓库' : 'Open source', zh ? '按用途选择' : 'Choose by task', zh ? '版本级审核' : 'Reviewed releases'].map(label => <span class="signal">{label}</span>)}<a href={href('/quality/')}>{zh ? '了解标准' : 'How we review'} ↗</a></div>
+        <div class="value-steps">
+          {[
+            ['01 · Index', zh ? '发现' : 'Discover', zh ? '从分散的仓库、市场与社区找到能力来源。' : 'Find skills, MCP resources and repositories across the ecosystem.'],
+            ['02 · Curate', zh ? '选择' : 'Decide', zh ? '结合任务、来源与编辑推荐，缩小选择范围。' : 'Choose with use cases, source context and editorial recommendations.'],
+            ['03 · Connect', zh ? '接入' : 'Connect', zh ? '通过本地 CLI 与 MCP，按需加载审核版本。' : 'Load reviewed skill releases with a local CLI and MCP entry point.'],
+          ].map(([label, name, note], index) => <article><div><span>{label}</span>{index === 1 && <small>{zh ? '核心' : 'core'}</small>}</div><h2>{name}</h2><p>{note}</p></article>)}
+        </div>
+      </div>
+    </section>
+    <div class="home-container">
+      <dl class="home-stats">
+        {[[stats.resourceCount, zh ? '收录来源' : 'Indexed sources', zh ? 'Skills、MCP 与工具入口' : 'Skills, MCP and tool sources'], [stats.labelCount, zh ? '主题标签' : 'Topics & labels', zh ? '按兴趣发现资源' : 'Explore the ecosystem'], [collections.length, zh ? '编辑合集' : 'Curated collections', zh ? '按目的整理的短名单' : 'Shortlists with a purpose'], [categories.length, zh ? '来源类型' : 'Source types', zh ? '从官方厂商到社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
+      </dl>
+      <section class="home-section" aria-labelledby="use-cases-title">
+        <div class="section-top"><div><p class="eyebrow">CHOOSE BY TASK</p><h2 id="use-cases-title">{zh ? '你想让 Agent 完成什么？' : 'What do you want your agent to do?'}</h2><p>{zh ? '从要完成的事情出发。每个场景都有一份相关来源清单和具体的选择建议。' : 'Start from the job. Each use case brings together relevant sources and practical guidance for choosing.'}</p></div><a href={href('/use-cases/')}>{zh ? '全部用途' : 'All use cases'} <Icon size={16} /></a></div>
+        <div class="use-case-grid">{useCases.map((item) => <a class="use-case-card" href={href(`/use-case/${item.slug}/`)}><div class="card-icons"><Icon name={item.icon} /><Icon name="external" size={16} /></div><h3>{item.title[lang]}</h3><p>{item.summary[lang]}</p><div class="case-count"><span class="tiny-dot"></span>{getEditorialSites(item).length} {zh ? '个相关来源' : 'related sources'}</div><small>{zh ? '查看来源与选型建议' : 'Sources & selection notes'}</small></a>)}</div>
+      </section>
+      <section class="home-section" aria-labelledby="picks-title">
+        <div class="section-top"><div><p class="eyebrow">EDITORIAL · CURATED RECOMMENDATIONS</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '先看值得了解的来源。推荐理由和适用方向，一起给你。' : 'A few worthwhile starting points, with the reasoning and intended use attached.'}</p></div><a href={href('/collections/')}>{zh ? '浏览合集' : 'Browse collections'} <Icon size={16} /></a></div>
+        <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE RECOMMEND IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{zh ? '来源推荐' : 'Source recommendation'}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
+        <p class="quiet-note">{zh ? '编辑推荐帮助你发现来源；可安装的审核版本请查看' : 'Editorial picks help you discover sources. For reviewed, installable releases, visit the'} <a href={href('/registry/')}>{zh ? '精品 Skill 目录' : 'curated skill registry'} ↗</a></p>
+      </section>
+    </div>
+    <section class="install-section" aria-labelledby="install-title">
+      <div class="home-container">
+        <div class="install-grid"><div class="install-intro"><p class="eyebrow">CONNECT · LOCAL CLI & MCP</p><h2 id="install-title">{zh ? <>从发现，<br />走向实际使用。</> : <>From discovery<br />to a working project.</>}</h2><p>{zh ? '为项目接入一个 SkillFlux 入口。显式调用后搜索、查看安装计划，再加载经过审核的 Skill 版本。' : 'Connect one SkillFlux entry point to your project. Invoke it to search, inspect an installation plan and load a reviewed skill release.'}</p><a class="button primary" href={href('/install/')}>{zh ? '查看安装指南' : 'Open setup guide'} <Icon size={16} /></a><p class="source-note">{zh ? '当前提供源码与本地构建包。需要 Node.js ≥ 22.13。' : 'Available from source and local builds. Requires Node.js ≥ 22.13.'}</p><div class="install-flow"><span>{zh ? '发现' : 'Discover'}</span><Icon size={13} /><span>{zh ? '选择' : 'Select'}</span><Icon size={13} /><span>{zh ? '检查' : 'Review'}</span><Icon size={13} /><span>{zh ? '加载' : 'Load'}</span></div></div>
+          <div class="terminal-demo"><div class="terminal-title"><span><i></i><i></i><i></i></span><span>~/my-project</span><span>CLI</span></div><div class="terminal-body"><p class="terminal-comment"># {zh ? '完成本地安装和初始化之后' : 'After local installation and project init'}</p><p><span>$</span> skillflux search "code review"</p><p class="terminal-comment"># {zh ? '选定搜索结果中的 Skill 与版本' : 'Choose a skill and version from the results'}</p><p><span>$</span> skillflux plan &lt;skill-id&gt;@&lt;version&gt;</p><p class="terminal-comment"># {zh ? '检查计划，然后使用返回的 plan ID' : 'Inspect the plan, then use its returned ID'}</p><p><span>$</span> skillflux install &lt;plan-id&gt;</p><p><span>$</span> skillflux load &lt;skill-id&gt;</p><div class="terminal-foot"><span class="tiny-dot"></span>{zh ? '项目内安装 · 固定版本 · 显式加载' : 'Project scoped · versioned · explicitly invoked'}</div></div></div>
+        </div>
+        <div class="install-benefits">{[["terminal", zh ? '一个接入入口' : 'One entry point', zh ? 'CLI 与 MCP 共用同一套版本流程。' : 'One version workflow for CLI and MCP.'], ['layers', zh ? '按项目管理' : 'Per-project installation', zh ? '能力与配置跟随需要它们的项目。' : 'Keep capabilities with the project that uses them.'], ['book', zh ? '可查看的审核记录' : 'Reviewable evidence', zh ? '发布版本附带公开的测试摘要。' : 'Published releases include public test summaries.'], ['code', zh ? '宿主配置适配' : 'Host-specific setup', zh ? '为 Claude、Cursor 和 Codex 生成配置。' : 'Configuration for Claude, Cursor and Codex.']].map(([icon, title, note]) => <div><Icon name={icon} size={19} /><h3>{title}</h3><p>{note}</p></div>)}</div>
+      </div>
+    </section>
+    <div class="home-container">
+      {publication.latest.length > 0 && <section class="home-section"><div class="section-top"><div><p class="eyebrow">REVIEWED RELEASES</p><h2>{zh ? '经过审核的 Skill 版本' : 'Reviewed skill releases'}</h2></div><a href={href('/registry/')}>{zh ? '全部版本' : 'All releases'} <Icon size={16} /></a></div><RegistryExplorer lang={lang} mode="preview" /></section>}
+      <section class="home-section sources-section" aria-labelledby="sources-title">
+        <div class="section-top"><div><p class="eyebrow">NAVIGATE THE ECOSYSTEM</p><h2 id="sources-title">{zh ? '来源类型与主题' : 'Source types & topics'}</h2><p>{zh ? '了解资源从哪里来，再决定从哪里开始。' : 'Understand where a resource comes from, then decide where to start.'}</p></div><a href={href('/directory/')}>{zh ? '全部来源' : 'All sources'} <Icon size={16} /></a></div>
+        <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon name="external" size={13} /></small></a>)}</div>
+        <div class="topic-row"><span>{zh ? '主题' : 'TOPICS'}</span>{tags.map(tag => <a href={href(`/tag/${tag.slug}/`)}># {translateTag(tag.tag, lang)}</a>)}</div>
+      </section>
+      <section class="home-section" aria-labelledby="collections-title">
+        <div class="section-top"><div><p class="eyebrow">EDITORIAL · COLLECTIONS</p><h2 id="collections-title">{zh ? '有选择的清单，有目的的探索。' : 'Curated shortlists, with a purpose.'}</h2><p>{zh ? '把相关来源放在一起。读懂适用方向，再选择自己的工作方式。' : 'Related sources, brought together. Understand the purpose before choosing your own setup.'}</p></div><a href={href('/collections/')}>{zh ? '全部合集' : 'All collections'} <Icon size={16} /></a></div>
+        <div class="collections-grid">{collections.map(collection => <a href={href(`/collection/${collection.slug}/`)}><div class="collection-top"><span>{getEditorialSites(collection).length} {zh ? '个来源' : 'SOURCES'}</span><Icon name="external" size={16} /></div><h3>{collection.title[lang]}</h3><p>{collection.summary[lang]}</p><small>{collection.kicker[lang]}</small></a>)}</div>
+      </section>
+      <section class="home-section" aria-labelledby="guides-title">
+        <div class="section-top"><div><p class="eyebrow">GUIDES</p><h2 id="guides-title">{zh ? '读懂 Agent Skill 生态' : 'Learn the agent skill ecosystem'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
+        <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
+      </section>
+      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '来源目录、编辑指南与审核版本都有结构化入口，让发现过程也能成为工作流的一部分。' : 'Structured access to source listings, editorial guides and reviewed releases. Make discovery part of your workflow.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '简明站点与资源索引' : 'A concise map for LLM context'], ['/llms-full.txt', zh ? '完整来源目录，纯文本' : 'Full source catalog, plain text'], ['/index.json', zh ? '结构化资源与发现数据' : 'Structured discovery data'], ['/feed.xml', zh ? '来源更新订阅' : 'Resource updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .home-container { width: min(1088px, calc(100% - 48px)); margin: 0 auto; }
+  .home-hero { padding: 96px 0 48px; background-image: linear-gradient(#e9e9e880 1px, transparent 1px), linear-gradient(90deg, #e9e9e880 1px, transparent 1px); background-size: 32px 32px; border-bottom: 1px solid var(--line); }
+  .hero-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 5px 11px; border: 1px solid #dededb; border-radius: 20px; background: var(--paper); font: .69rem var(--font-mono); color: #626468; letter-spacing: .04em; }
+  .hero-label > span, .tiny-dot { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
+  h1 { font-size: clamp(2.3rem, 4.2vw, 3.75rem); margin: 0; line-height: 1.05; letter-spacing: -.046em; font-weight: 650; }
+  h1 .hero-secondary { color: #77797b; }
+  .keep-together { white-space: nowrap; }
+  :global(html[lang="zh-CN"]) h1 { line-height: 1.25; letter-spacing: -.05em; }
+  .hero-description { max-width: 760px; margin: 26px 0 32px; color: #5e6064; font-size: 1.12rem; line-height: 1.7; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .command-bar { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 12px; border-radius: 6px; background: #101111; color: #f5f5f4; border: 1px solid #343637; }
+  .command-bar > span { color: #888d8f; }
+  .command-bar code { font-size: .69rem; }
+  .command-bar button { display: inline-flex; padding: 8px 0 8px 13px; background: none; border: 0; color: #c5c8c7; }
+  .command-bar button:hover { color: #fff; }
+  .works-with { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 23px; color: #626568; font-size: .8rem; }
+  .works-with > span { display: inline-flex; gap: 7px; align-items: center; }
+  .works-with > span:first-child { font: .7rem var(--font-mono); color: var(--faint); }
+  .works-with a { color: var(--faint); text-decoration: none; font-size: .75rem; }
+  .works-with a:hover { color: var(--ink); }
+  .decision-signals { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 34px; font-size: .64rem; color: var(--muted); }
+  .decision-signals > span:first-child { margin-right: 7px; font: .64rem var(--font-mono); }
+  .signal { border: 1px solid #dddeda; padding: 4px 8px; border-radius: 20px; background: var(--paper); }
+  .decision-signals a { margin-left: 5px; text-decoration: none; }
+  .value-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid #dededc; border-radius: 8px; background: var(--paper); margin-top: 44px; }
+  .value-steps article { padding: 20px; }
+  .value-steps article + article { border-left: 1px solid var(--line); }
+  .value-steps article > div { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: .69rem var(--font-mono); }
+  .value-steps small { padding: 3px 6px; border-radius: 3px; background: #dff3e4; color: #285a38; font-size: .66rem; }
+  .value-steps h2 { font-size: 1rem; margin: 11px 0 5px; font-weight: 600; }
+  .value-steps p { font-size: .81rem; line-height: 1.55; color: var(--muted); margin: 0; }
+  .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 32px 0; margin: 0; border-bottom: 1px solid var(--line); }
+  .home-stats div { padding: 4px 24px; border-left: 1px solid var(--line); }
+  .home-stats div:first-child { border: 0; padding-left: 0; }
+  .home-stats dd { margin: 0 0 9px; font: 500 2rem var(--font-mono); letter-spacing: -.07em; }
+  .home-stats dt { font-size: .83rem; font-weight: 500; }
+  .home-stats p { font-size: .73rem; margin: 5px 0 0; color: var(--muted); }
+  .home-section { padding: 64px 0 0; }
+  .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 25px; }
+  .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.88rem); font-weight: 600; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
+  .section-top .eyebrow { margin-bottom: 12px; font-size: .63rem; }
+  .section-top p:not(.eyebrow) { font-size: .87rem; line-height: 1.7; color: var(--muted); max-width: 720px; margin: 13px 0 0; }
+  .section-top > a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: .77rem; text-decoration: none; padding-bottom: 2px; }
+  .section-top > a:hover { text-decoration: underline; }
+  .use-case-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .use-case-card { display: flex; flex-direction: column; min-width: 0; padding: 20px; text-decoration: none; border: 1px solid var(--line); border-radius: 7px; background: var(--paper-strong); transition: border-color .2s, transform .2s; }
+  .use-case-card:hover { border-color: #afb4ad; transform: translateY(-2px); }
+  .card-icons { display: flex; justify-content: space-between; color: #6c7070; }
+  .card-icons :global(svg:last-child) { color: #8d9090; }
+  .use-case-card h3 { margin: 22px 0 7px; font-size: .94rem; font-weight: 600; }
+  .use-case-card > p { font-size: .77rem; line-height: 1.6; margin: 0 0 22px; color: var(--muted); }
+  .case-count { display: flex; align-items: center; gap: 7px; margin-top: auto; font-size: .74rem; }
+  .case-count .tiny-dot { background: #959c97; width: 4px; height: 4px; }
+  .use-case-card small { font-size: .64rem; line-height: 1.6; color: var(--faint); border-top: 1px solid var(--line); margin-top: 15px; padding-top: 11px; }
+  .picks-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .pick-card { border: 1px solid var(--line); border-radius: 8px; padding: 22px; background: var(--paper-strong); display: flex; flex-direction: column; }
+  .pick-label { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+  .pick-label > span { font-size: .63rem; padding: 4px 7px; border: 1px solid #d5e6d8; background: #f0f7f1; border-radius: 4px; color: #376345; }
+  .pick-label small { color: var(--muted); font: .58rem var(--font-mono); text-transform: uppercase; }
+  .pick-card h3 { font-size: 1.12rem; font-weight: 600; margin: 22px 0 24px; }
+  .pick-card h3 a { text-decoration: none; }
+  .pick-card h4 { font: 400 .6rem var(--font-mono); letter-spacing: .035em; color: var(--faint); margin: 0 0 7px; }
+  .pick-card p { font-size: .82rem; line-height: 1.7; margin: 0 0 20px; color: #53565a; }
+  .pick-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 15px; margin-top: auto; gap: 8px; }
+  .pick-bottom > span { font-size: .63rem; color: var(--faint); }
+  .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .74rem; text-decoration: none; }
+  .quiet-note { margin: 18px 0 0; font-size: .74rem; color: var(--muted); line-height: 1.7; }
+  .quiet-note a { text-decoration: none; color: var(--ink); }
+  .install-section { background: #f6f6f3; border-block: 1px solid var(--line); margin-top: 64px; padding: 64px 0 40px; }
+  .install-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 70px; align-items: center; }
+  .install-intro h2 { font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.13; letter-spacing: -.04em; font-weight: 600; margin: 0 0 20px; }
+  .install-intro > p:not(.eyebrow) { font-size: .89rem; line-height: 1.75; color: var(--muted); margin: 0 0 22px; }
+  .install-intro p.source-note { font-size: .67rem; margin-top: 12px; }
+  .install-flow { display: flex; align-items: center; gap: 14px; font-size: .72rem; color: var(--muted); }
+  .terminal-demo { border-radius: 9px; border: 1px solid #333737; background: #151818; color: #e6e8e7; overflow: hidden; box-shadow: 0 8px 28px #1718190d; min-width: 0; }
+  .terminal-title { display: flex; justify-content: space-between; align-items: center; padding: 13px 17px; background: #1e2121; border-bottom: 1px solid #303434; color: #8e9793; font: .64rem var(--font-mono); }
+  .terminal-title > span:first-child { display: flex; gap: 5px; }
+  .terminal-title i { width: 6px; height: 6px; border-radius: 50%; background: #6e7572; }
+  .terminal-body { padding: 21px; font: .69rem/1.85 var(--font-mono); }
+  .terminal-body p { margin: 10px 0; overflow-wrap: anywhere; }
+  .terminal-body p > span { color: #8c9b93; margin-right: 6px; }
+  .terminal-body .terminal-comment { margin: 17px 0 4px; color: #9aaba1; font-size: .65rem; }
+  .terminal-body .terminal-comment:first-child { margin-top: 0; }
+  .terminal-foot { display: flex; align-items: center; gap: 8px; color: #b2c1b8; padding-top: 19px; margin-top: 21px; border-top: 1px solid #343a36; font-size: .61rem; }
+  .terminal-foot .tiny-dot { background: #8cbb93; }
+  .install-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 45px; border-top: 1px solid #dededa; padding-top: 28px; }
+  .install-benefits > div > :global(svg) { color: #777d76; }
+  .install-benefits h3 { font-weight: 500; font-size: .82rem; margin: 12px 0 7px; }
+  .install-benefits p { font-size: .73rem; line-height: 1.6; color: var(--muted); margin: 0; }
+  .source-type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .source-type-grid > a { border: 1px solid var(--line); border-radius: 6px; padding: 16px; text-decoration: none; display: flex; flex-direction: column; }
+  .source-type-grid > a:hover, .collections-grid > a:hover { border-color: #b8bcb6; background: #fff; }
+  .source-type-grid a > div { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+  .source-type-grid h3 { font-size: .78rem; margin: 0; font-weight: 550; line-height: 1.5; }
+  .source-type-grid a > div > span { font: .67rem var(--font-mono); color: var(--muted); background: var(--cream); padding: 3px 5px; border-radius: 3px; }
+  .source-type-grid p { font-size: .72rem; line-height: 1.65; color: var(--muted); margin: 12px 0 18px; }
+  .source-type-grid small { display: flex; justify-content: space-between; align-items: center; margin-top: auto; font: .56rem var(--font-mono); color: var(--faint); }
+  .topic-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 22px; }
+  .topic-row > span { font: .61rem var(--font-mono); margin-right: 7px; color: var(--faint); }
+  .topic-row a { font-size: .67rem; border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; color: var(--muted); text-decoration: none; }
+  .topic-row a:hover { color: var(--ink); background: var(--cream); }
+  .collections-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .collections-grid > a { display: flex; flex-direction: column; padding: 21px; border: 1px solid var(--line); border-radius: 7px; text-decoration: none; transition: border-color .2s; }
+  .collection-top { display: flex; justify-content: space-between; color: var(--faint); }
+  .collection-top span { font: .62rem var(--font-mono); }
+  .collections-grid h3 { font-size: .97rem; line-height: 1.45; margin: 24px 0 9px; font-weight: 550; }
+  .collections-grid p { font-size: .77rem; line-height: 1.7; color: var(--muted); margin: 0 0 20px; }
+  .collections-grid small { margin-top: auto; font-size: .68rem; line-height: 1.6; color: var(--faint); }
+  .reading-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .reading-grid a { display: flex; flex-direction: column; border-top: 1px solid var(--line); padding-top: 18px; text-decoration: none; }
+  .reading-grid small { font: .58rem var(--font-mono); color: var(--faint); }
+  .reading-grid h3 { margin: 12px 0 10px; font-size: .9rem; line-height: 1.6; font-weight: 550; }
+  .reading-grid p { font-size: .74rem; line-height: 1.7; color: var(--muted); margin: 0 0 18px; }
+  .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .65rem; color: var(--muted); }
+  .reading-grid a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+  .machine-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; border: 1px solid var(--line); border-radius: 8px; padding: 34px; margin: 64px 0; background: #f8f8f6; }
+  .machine-section .eyebrow { font-size: .6rem; margin-bottom: 13px; }
+  .machine-section h2 { font-size: 1.65rem; }
+  .machine-section p:not(.eyebrow) { font-size: .81rem; color: var(--muted); line-height: 1.75; margin: 16px 0 20px; }
+  .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .75rem; text-decoration: none; }
+  .endpoint-list { display: grid; gap: 8px; align-content: center; min-width: 0; }
+  .endpoint-list a { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); text-decoration: none; }
+  .endpoint-list a > span { font: .6rem var(--font-mono); color: #456e52; }
+  .endpoint-list code { font-size: .72rem; }
+  .endpoint-list small { font-size: .62rem; color: var(--muted); margin-left: auto; }
+  .endpoint-list :global(svg) { color: var(--faint); }
+  @media (max-width: 1000px) { .home-hero { padding-top: 72px; } .use-case-grid { grid-template-columns: repeat(2, 1fr); } .install-grid { gap: 32px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 26px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
+  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 64px 0 32px; } h1 { font-size: 2.3rem; line-height: 1.06; } .hero-description { font-size: .96rem; line-height: 1.6; margin-block: 25px 30px; } .hero-actions { gap: 10px; } .command-bar { flex-basis: 100%; justify-content: flex-start; margin-top: 2px; } .command-bar button { margin-left: auto; } .works-with { gap: 12px; font-size: .75rem; } .decision-signals { margin-top: 28px; } .value-steps { margin-top: 32px; grid-template-columns: 1fr; } .value-steps article + article { border-left: 0; border-top: 1px solid var(--line); } .value-steps article { padding: 18px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 20px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.7rem; } .home-stats p { font-size: .64rem; } .home-section { padding-top: 42px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .82rem; } .section-top h2 { font-size: 1.55rem; } .use-case-card { padding: 16px; } .use-case-card h3 { font-size: .88rem; margin-top: 18px; } .use-case-card > p { font-size: .7rem; } .picks-grid, .install-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .install-section { padding-block: 42px 32px; margin-top: 42px; } .install-grid { gap: 28px; } .install-benefits { grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 30px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .collections-grid { grid-template-columns: 1fr 1fr; gap: 12px; } .collections-grid > a { padding: 16px; } .collections-grid h3 { font-size: .88rem; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 42px 0; gap: 24px; } }
+  @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .59rem; } .use-case-grid, .collections-grid { grid-template-columns: 1fr; } .command-bar code { font-size: .62rem; } }
+</style>

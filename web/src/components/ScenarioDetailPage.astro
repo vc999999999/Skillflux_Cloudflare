@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { absoluteUrl, getCategories } from '../lib/content';
+import { getPublication, skillPath } from '../lib/publication';
+import { getScenario } from '../lib/scenarios';
+import { localizePath, translateCategory, type Language } from '../lib/i18n';
+const { slug, lang = 'zh' } = Astro.props as { slug: string; lang?: Language };
+const scenario = getScenario(slug)!;
+const zh = lang === 'zh';
+const categories = getCategories();
+const related = getPublication().latest.slice(0, 3);
+const canonicalPath = localizePath(`/scenarios/${slug}/`, lang);
+---
+<BaseLayout lang={lang} title={scenario.title[lang]} description={scenario.summary[lang]} canonicalPath={canonicalPath} jsonLd={{ '@context': 'https://schema.org', '@type': 'TechArticle', headline: scenario.title[lang], description: scenario.summary[lang], dateModified: scenario.updatedAt, inLanguage: zh ? 'zh-CN' : 'en', url: absoluteUrl(canonicalPath) }}>
+  <main id="main-content" class="page-shell scenario-detail">
+    <nav aria-label={zh ? '面包屑' : 'Breadcrumb'}><a href={localizePath('/scenarios/', lang)}>{zh ? '场景与选型' : 'Scenarios & selection'}</a> / {scenario.title[lang]}</nav>
+    <article><header><h1>{scenario.title[lang]}</h1><p class="page-lede">{scenario.summary[lang]}</p><p class="section-note">{zh ? '维护于' : 'Maintained'} <time datetime={scenario.updatedAt}>{scenario.updatedAt}</time> · {zh ? '产品使用与选型说明，不是外部 Skill 实测报告' : 'Product guidance, not an external skill evaluation'}</p></header>
+      {scenario.sections.map(section => <section><h2>{section.title[lang]}</h2><p>{section.body[lang]}</p>{section.command && <div class="scenario-command"><code>{section.command}</code><button type="button" data-copy-text={section.command}>{zh ? '复制' : 'Copy'}</button></div>}</section>)}
+    </article>
+    <aside><h2>{zh ? '继续查找与接入' : 'Continue exploring'}</h2><ul><li><a href={localizePath('/directory/', lang)}>{zh ? '完整来源黄页' : 'Full source directory'}</a></li>{categories.map(category => <li><a href={localizePath(`/source-type/${category.slug}/`, lang)}>{translateCategory(category.slug, category.label, lang)} ({category.count})</a></li>)}<li><a href={localizePath('/registry/', lang)}>{zh ? '查看精品 Skill 与实际质检记录' : 'Curated skills and recorded evidence'}</a></li>{related.map(({ skill }) => <li><a href={localizePath(skillPath(skill.id), lang)}>{skill.name}</a></li>)}<li><a href={localizePath('/install/', lang)}>{zh ? 'npm/MCP 完整接入步骤' : 'Complete npm/MCP setup'}</a></li></ul></aside>
+  </main>
+</BaseLayout>
+<style>
+  .scenario-detail { padding-block: 30px 80px; }
+  nav { font-size: .85rem; line-height: 1.8; color: var(--muted); }
+  article { max-width: 850px; }
+  h1 { font-size: clamp(2rem, 4.6vw, 3.8rem); line-height: 1.2; text-wrap: balance; margin-top: 38px; }
+  article section { margin-top: 36px; }
+  article h2 { font-size: 1.5rem; }
+  article section p { line-height: 1.95; font-size: 1.03rem; max-width: 65ch; }
+  .scenario-command { display: flex; gap: 15px; justify-content: space-between; align-items: center; padding: 17px; background: var(--cream); }
+  .scenario-command code { overflow-wrap: anywhere; }
+  .scenario-command button { background: transparent; padding: 8px 12px; border: 1px solid var(--ink); cursor: pointer; color: var(--ink); }
+  aside { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 22px; }
+  aside ul { columns: 2; padding-left: 20px; }
+  aside li { line-height: 1.7; padding-block: 6px; break-inside: avoid; }
+  @media (max-width: 600px) { aside ul { columns: 1; } }
+</style>

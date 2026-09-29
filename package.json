@@ -1,27 +1,24 @@
 {
   "name": "skillflux",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "workspaces": ["mcp", "web"],
+  "engines": { "node": ">=22.13.0" },
   "scripts": {
-    "dev": "astro dev",
-    "build": "npm run validate && astro build",
-    "preview": "astro preview",
-    "test": "vitest run",
-    "typecheck": "astro check",
-    "validate": "tsx scripts/validate-data.ts"
-  },
-  "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.0.2"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@types/node": "^24.0.0",
-    "tsx": "^4.19.0",
-    "typescript": "^6.0.3",
-    "vitest": "^3.0.0",
-    "wrangler": "^4.104.0"
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "npm run dev --workspace @skillflux/web -- --host 127.0.0.1",
+    "dev:mcp": "npm run dev --workspace @skillflux/mcp",
+    "build": "npm run build --workspace @skillflux/mcp && npm run build --workspace @skillflux/web",
+    "preview": "npm run preview --workspace @skillflux/web",
+    "test": "npm test --workspace @skillflux/mcp && npm test --workspace @skillflux/web",
+    "typecheck": "npm run typecheck --workspace @skillflux/mcp && npm run typecheck --workspace @skillflux/web",
+    "validate": "npm run validate --workspace @skillflux/web",
+    "pack:mcp": "npm pack --workspace @skillflux/mcp",
+    "smoke:package": "node scripts/smoke-package.mjs",
+    "publication:sync": "npm run publication:sync --workspace @skillflux/web",
+    "publication:build": "npm run publication:build --workspace @skillflux/web",
+    "publication:watch": "npm run publication:watch --workspace @skillflux/web"
   },
   "overrides": {
     "yaml": "^2.9.0",

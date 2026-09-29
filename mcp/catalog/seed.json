@@ -1,0 +1,198 @@
+[
+  {
+    "id": "landing-page-design",
+    "name": "落地页设计",
+    "description": "为现有项目设计并实现有清晰视觉方向的响应式落地页；适用于 website、landing page、frontend、网站、前端、页面设计。",
+    "category": "development",
+    "tags": [
+      "web-design",
+      "frontend",
+      "landing-page",
+      "网站",
+      "前端",
+      "Astro",
+      "React"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: landing-page-design\ndescription: Design and implement responsive landing pages in the user's existing frontend stack.\n---\n\n# Landing page design\n\nInspect the existing entry route, layout, shared styles and available assets before editing. Preserve the framework, routing and user changes. Identify the audience, primary action and content hierarchy from the actual brief.\n\nChoose a visual direction that fits the product: type scale, background, accent and spacing. Establish reusable CSS tokens. Use supplied assets or original CSS/SVG primitives; do not invent customer logos, testimonials or performance numbers.\n\nImplement the complete route, including loading/empty/error states for real data. Interactive controls must perform the action they advertise. Keep prose, numeric information and navigation readable at 390px and desktop widths.\n\nCheck keyboard focus, headings, form labels, color contrast and reduced-motion behavior. Render in a browser and inspect both desktop and mobile. Check for overflow and broken links; run the project's existing build and tests relevant to changed behavior.\n\nDeliver the route and changed files, state what was verified and distinguish actual product metrics from examples. Refer to references/review.md for the final visual pass.\n",
+      "references/review.md": "# Visual review\n\nAt desktop width, check that the primary action is obvious and content alignment is deliberate. At phone width, check text wrapping, usable tap targets and scrolling containers. Use proper labels, preserve keyboard navigation and announce asynchronous errors. If backend data is unavailable, show an honest empty or failure state with retry rather than fabricated results.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  },
+  {
+    "id": "code-review",
+    "name": "代码审查",
+    "description": "审查 Git diff 和实现中的正确性、回归与测试缺口，提供可定位的问题；code review、review、代码审查。",
+    "category": "development",
+    "tags": [
+      "code-review",
+      "git",
+      "testing",
+      "代码审查",
+      "bug"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: code-review\ndescription: Review code changes for concrete bugs, regressions and missing verification.\n---\n\n# Code review\n\nRead the requested diff and surrounding callers. Trace inputs through validation, state changes and error handling. Prefer a small number of consequential findings over stylistic comments.\n\nFor each candidate finding, reproduce the trigger with a focused test or trace a specific failing execution path. Check existing constraints before claiming an issue. Review concurrency, ownership of cleanup, permission boundaries and rollback only when relevant to the changed code.\n\nReport findings in severity order, with an exact file and line, the triggering condition, user impact and a concise repair direction. Do not implement changes unless the user asked for a fix. If no defect is supported by evidence, say so and explain the remaining test coverage limits.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  },
+  {
+    "id": "research-synthesis",
+    "name": "研究资料综合",
+    "description": "把提供的访谈、文章与研究资料整理成有出处的洞察和决策依据；research、研究、访谈、资料分析。",
+    "category": "research",
+    "tags": [
+      "research",
+      "synthesis",
+      "访谈",
+      "研究",
+      "总结"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: research-synthesis\ndescription: Synthesize supplied interviews and research into traceable findings and decisions.\n---\n\n# Research synthesis\n\nBuild a source inventory with title, date and provenance. Distinguish direct observations, participant claims, analyst interpretation and unknowns. Use only accessible source contents; a filename or abstract is not evidence for unseen details.\n\nGroup observations by recurring question or behavior. Track contradictory evidence and sample limitations. A repeated statement from one participant does not count as agreement across participants. Support each material finding with source references that the user can inspect.\n\nFor a decision memo, lead with the decision it supports, then evidence, alternatives, tradeoffs and unresolved questions. For a thematic summary, retain minority or negative observations that could affect the conclusion. Do not manufacture quotes, sample sizes or statistical confidence.\n\nKeep personal information out of the report unless the user's purpose requires it. End with what evidence would change the conclusions.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  },
+  {
+    "id": "api-contract-design",
+    "name": "API 契约设计",
+    "description": "设计和检查 HTTP API、请求响应模型、分页、幂等与错误约定；API、接口、后端契约。",
+    "category": "development",
+    "tags": [
+      "api",
+      "backend",
+      "http",
+      "接口",
+      "schema"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: api-contract-design\ndescription: Define HTTP API contracts that clients can implement and verify.\n---\n\n# API contract design\n\nStart from the client actions and existing routes. For each operation specify method, path, request schema, response schema, expected status codes and authorization boundary. Separate resource identifiers from user-supplied paths and URLs.\n\nSpecify cursor or offset semantics, stable ordering, pagination bounds and empty results. For writes define idempotency behavior, transaction boundaries and what happens when a retry arrives after a partial failure. Validate resource ownership before applying changes.\n\nUse a consistent error envelope with machine-readable codes and useful messages. Include one valid and one invalid request for each nontrivial operation. Keep examples internally consistent with real models. Add compatibility rules before changing existing response fields.\n\nVerify the contract through request-level tests, including malformed bodies, permission failures, missing resources and duplicate writes. Do not invent successful backend behavior in client mocks when reporting implementation status.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  },
+  {
+    "id": "data-report",
+    "name": "数据分析报告",
+    "description": "分析 CSV 或表格并输出可复查的统计、图表与结论；data analysis、数据、报表、CSV。",
+    "category": "data",
+    "tags": [
+      "data",
+      "analysis",
+      "csv",
+      "spreadsheet",
+      "数据",
+      "报表"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: data-report\ndescription: Analyze tabular datasets and produce reproducible summaries with clear limits.\n---\n\n# Data report\n\nInspect columns, row count, units, date ranges, missing values and duplicate keys before analysis. Establish the observation unit and denominator for every rate. Do not silently discard rows; report exclusion rules and counts.\n\nCompute descriptive statistics appropriate to the distribution and question. Segment only when sample sizes support useful comparisons. Separate correlation from causal explanation. Check totals against the source and preserve enough calculation detail for a second analyst to reproduce the result.\n\nUse charts only when they reveal a pattern more clearly than a compact table. Label axes and units; preserve chronological order for time series. Mark missing data separately from zero.\n\nDeliver the main finding, supporting figures, limitations and reproducible calculations. If the dataset is incomplete, bound the conclusion instead of filling in missing values with assumptions.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  },
+  {
+    "id": "product-brief",
+    "name": "产品需求梳理",
+    "description": "将产品想法整理为用户场景、行为需求和可验收标准；product、PRD、需求、产品设计。",
+    "category": "product",
+    "tags": [
+      "product",
+      "prd",
+      "需求",
+      "产品",
+      "planning"
+    ],
+    "files": {
+      "SKILL.md": "---\nname: product-brief\ndescription: Translate a product idea into concrete scenarios, behavior and acceptance criteria.\n---\n\n# Product brief\n\nExtract the intended user, triggering situation, desired outcome and stated constraints. Preserve explicit scope, business model and user preferences across revisions. Mark inferred choices as assumptions rather than accepted requirements.\n\nDescribe the normal path with observable inputs, actions and outputs. Include consequential empty, error, cancellation and recovery states. Define acceptance criteria in terms of behavior that can be tested, not vague adjectives such as complete or intelligent.\n\nConnect each requirement to a user need. Distinguish product behavior from implementation choices. Identify dependencies that genuinely need external accounts, credentials, content or business decisions, while completing the portions supported by existing information.\n\nDeliver a coherent brief with scenarios, requirements, data boundaries and acceptance criteria. Do not introduce subscriptions, user accounts or new distribution channels unless the user's model requires them.\n"
+    },
+    "version": "1.0.0",
+    "hosts": [
+      "generic",
+      "codex",
+      "claude",
+      "cursor"
+    ],
+    "publisher": "SkillFlux",
+    "license": "MIT",
+    "entry": "SKILL.md",
+    "permissions": {
+      "network": [],
+      "shell": false,
+      "secrets": []
+    },
+    "dependencies": []
+  }
+]

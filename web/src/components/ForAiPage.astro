@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ENDPOINTS } from "../config";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+
+type Props = { lang?: Language };
+const { lang = "zh" } = Astro.props;
+const zh = lang === "zh";
+const t = (cn: string, en: string) => zh ? cn : en;
+const descriptions: Record<string, [string, string]> = {
+  "/llms.txt": ["先读这一份。了解站点定位、主要入口和数据的使用边界。", "Start here for the site's purpose, main entry points and data boundaries."],
+  "/llms-full.txt": ["完整来源目录的纯文本版本，适合直接阅读、检索和引用。", "The complete source catalog in plain text, ready to read, search and cite."],
+  "/index.json": ["来源名称、类型、标签、摘要与链接，以及场景和技能发布入口。", "Source names, types, tags, summaries and links, plus scenario and skill-release entry points."],
+  "/feed.xml": ["资源来源的 RSS 订阅流，用于跟进收录与更新。", "An RSS feed of source entries for following additions and updates."],
+  "/insights/feed.xml": ["编辑解读与工作流分析的 RSS；文章解读不等于安装包实测。", "RSS for editorial analysis and workflows. Articles are not install-package evaluations."],
+  "/skills-index.json": ["签名发布快照中的 Skill 和版本状态，安装前仍需实时检查资格。", "Skills and version states from a signed publication snapshot. Recheck live qualification before installation."],
+  "/scenarios/index.json": ["按任务组织的场景、选型与维护指南，含中英文页面链接。", "Task-based scenarios, selection and maintenance guides, with Chinese and English page links."]
+};
+const agentPrompt = t(
+  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/index.json")} 查找与我的任务相关的 Skill 来源。比较用途、来源类型和适用边界，给出原始链接及推荐理由。目录收录不代表通过 SkillFlux 评测；需要安装时，先核对 Registry 当前资格，再让我确认具体版本与计划。`,
+  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/index.json")} to find skill sources relevant to my task. Compare purpose, source type and limitations; include original links and your reasons. Directory inclusion does not imply SkillFlux evaluation. Before installation, check current registry qualification and ask me to approve the exact version and plan.`
+);
+---
+<BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的入口", "For AI agents")} description={t("SkillFlux 的机器可读目录：llms.txt、JSON、RSS 与签名发布快照，让 AI 从同一份真实数据开始。", "Machine-readable SkillFlux catalogs: llms.txt, JSON, RSS and signed publication snapshots for AI agents.")}>
+  <main id="main-content" class="page-shell ai-shell">
+    <header class="page-hero">
+      <div><p class="eyebrow">BUILT FOR AGENTS</p><h1 class="page-title">{t("人能看懂，AI 也能读。", "Readable by people. Ready for agents.")}</h1><p class="page-lede">{t("把清晰的目录交给 AI。结构化数据、纯文本和订阅流，都来自网站使用的同一份内容。", "Give your AI a clear map. Structured data, plain text and feeds are generated from the same content as this website.")}</p></div>
+      <div class="ai-symbol" aria-hidden="true">{ "{ }" }</div>
+    </header>
+    <section class="ai-start" aria-labelledby="ai-start-title">
+      <div><span class="ai-kicker">01 / START HERE</span><h2 id="ai-start-title">{t("让 AI 帮你挑选", "Ask your AI to explore")}</h2><p>{t("复制这段话，粘贴到支持读取网页的 AI 工具，再补充你的任务。", "Copy this into an AI tool that can read websites, then describe your task.")}</p><button class="button primary" type="button" data-copy-text={agentPrompt}>{t("复制给 AI 的指令", "Copy agent prompt")} <span aria-hidden="true">↗</span></button></div>
+      <div class="ai-prompt"><div><span>AGENT PROMPT</span><span aria-hidden="true">↗</span></div><p>{agentPrompt}</p></div>
+    </section>
+    <section class="ai-endpoints" aria-labelledby="ai-endpoints-title">
+      <div class="section-heading-row"><div><p class="eyebrow">02 / OPEN ENDPOINTS</p><h2 id="ai-endpoints-title">{t("选一个适合的格式", "Choose the right format")}</h2></div><span class="ai-open-label">{t("公开读取 · 无需登录", "Public access · No login")}</span></div>
+      <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
+    </section>
+    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("来源目录 ≠ 可安装版本", "Source catalogs and installable versions")}</h3><p>{t("来源条目用于发现和比较。只从当前 Registry 中选择获准发布、仍有资格且未撤销的具体版本。", "Source entries support discovery and comparison. Install only exact versions that are currently qualified, approved and not revoked in the registry.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("公开端点用于读取。连接项目、安装和升级需由用户明确发起，并遵循项目权限与精确版本计划。", "Public endpoints provide data. Connecting a project, installing and upgrading require explicit user intent, project permissions and exact-version plans.")}</p></div></article></div></section>
+    <div class="ai-next"><p>{t("想让 AI 直接使用 Skill？", "Want your AI to use a skill directly?")}</p><a class="button secondary" href={localizePath("/install/", lang)}>{t("查看 MCP 接入指南", "Read the MCP setup guide")} <span aria-hidden="true">→</span></a></div>
+  </main>
+</BaseLayout>
+<style>
+  .ai-symbol { display: grid; place-items: center; width: 86px; height: 86px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-strong); font: 400 2.2rem var(--font-mono); }
+  .ai-start { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: center; padding: 48px 0; border-bottom: 1px solid var(--line); }
+  .ai-kicker { font: .65rem var(--font-mono); color: var(--muted); }
+  .ai-start h2, .ai-boundaries h2 { margin: 14px 0; font-size: 1.65rem; letter-spacing: -.025em; }
+  .ai-start > div > p { color: var(--muted); font-size: .9rem; line-height: 1.8; margin-bottom: 24px; }
+  .ai-prompt { min-width: 0; border-radius: 8px; overflow: hidden; background: #1b1c1e; color: #e9e9e5; }
+  .ai-prompt > div { display: flex; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #353639; color: #acadaf; font: .64rem var(--font-mono); }
+  .ai-prompt p { padding: 4px 23px 8px; font: .79rem/1.95 var(--font-mono); overflow-wrap: anywhere; color: #e9e9e5 !important; }
+  .ai-endpoints { padding: 48px 0; }
+  .ai-open-label { font-size: .74rem; color: var(--muted); white-space: nowrap; }
+  .endpoint-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+  .endpoint-card { padding: 21px; border: 1px solid var(--line); border-radius: 7px; text-decoration: none; background: var(--paper-strong); transition: border-color .18s, transform .18s; }
+  .endpoint-card:hover { border-color: #aaa; transform: translateY(-2px); }
+  .endpoint-top { display: flex; justify-content: space-between; align-items: center; }
+  .endpoint-top span:first-child { padding: 4px 7px; border-radius: 3px; background: var(--cream); font: .63rem var(--font-mono); color: var(--muted); }
+  .endpoint-top span:last-child { color: var(--muted); }
+  .endpoint-card h3 { margin: 20px 0 12px; font: 500 .88rem var(--font-mono); overflow-wrap: anywhere; }
+  .endpoint-card p { margin: 0; font-size: .8rem; line-height: 1.85; color: var(--muted); }
+  .ai-boundaries { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; padding: 44px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .ai-rules { display: grid; gap: 26px; }
+  .ai-rules article { display: flex; gap: 17px; }
+  .ai-rules article > span { color: var(--faint); font: .69rem/1.8 var(--font-mono); }
+  .ai-rules h3 { margin: 0 0 8px; font-size: .88rem; }
+  .ai-rules p { margin: 0; color: var(--muted); font-size: .81rem; line-height: 1.85; }
+  .ai-next { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+  .ai-next p { margin: 0; font-weight: 550; font-size: .94rem; }
+  @media(max-width: 900px) { .endpoint-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ai-start, .ai-boundaries { gap: 30px; } }
+  @media(max-width: 620px) { .ai-symbol { display: none; } .ai-start, .ai-boundaries { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 32px 0; } .endpoint-grid { grid-template-columns: minmax(0, 1fr); } .ai-open-label { display: none; } .ai-endpoints { padding: 32px 0; } .endpoint-card h3 { margin-top: 15px; } }
+</style>

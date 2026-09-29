@@ -8,12 +8,12 @@ markdown 文件并提交 PR，网站负责渲染、RSS、llms.txt、sitemap 和 
 每篇拆解 = 一个文件：
 
 ```
-src/content/insights/<slug>.md
+web/src/content/insights/<slug>.md
 ```
 
 - `<slug>` 用被拆解 skill 的仓库名（kebab-case），如 `orange-line-illustration`。
 - 文件名即 URL：`/insights/<slug>/`。
-- schema 由 `src/content.config.ts` 强制校验，`npm run build` 不通过就无法上线。
+- schema 由 `web/src/content.config.ts` 强制校验，`npm run build` 不通过就无法上线。
 
 ## Frontmatter schema
 
@@ -29,8 +29,8 @@ source:                  # 署名三件套，缺一不可
   author: string         # 原作者署名
   authorUrl: url         # 可选
   license: string        # 协议描述，商用限制必须写明
-tags: [string]           # ≥1，尽量复用 data/sites.json 已有标签
-relatedSites: [string]   # data/sites.json 里的 slug，用于内链（可空）
+tags: [string]           # ≥1，尽量复用 web/data/sites.json 已有标签
+relatedSites: [string]   # web/data/sites.json 里的 slug，用于内链（可空）
 tldr: string             # ≥20 字，给 AI 的一句话，进 llms.txt 和 RSS
 scenarios: [string]      # ≥2 适用场景
 workflow:                # ≥3 步，skill 内部真实的经验流程
@@ -73,7 +73,7 @@ draft: boolean           # true 时不构建、不进 RSS/llms.txt
 ```
 爬虫扫描集合站/GitHub → 候选 skill 列表
   → 选品门槛过滤
-  → skill 分析工作流产出 src/content/insights/<slug>.md
+  → skill 分析工作流产出 web/src/content/insights/<slug>.md
   → 开 PR（一篇一个 PR）
   → 人工 review + merge
   → CI 构建部署（schema 校验失败会挡在 build 阶段）

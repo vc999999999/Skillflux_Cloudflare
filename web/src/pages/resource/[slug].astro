@@ -1,0 +1,15 @@
+---
+import SitePage from "../../components/SitePage.astro";
+import { getSites } from "../../lib/content";
+
+export function getStaticPaths() {
+  return getSites().map((site) => ({
+    params: { slug: site.resourceSlug },
+    props: { site }
+  }));
+}
+
+const { site } = Astro.props;
+---
+
+<SitePage site={site} lang="zh" />

@@ -1,0 +1,9 @@
+---
+import SkillDetailPage from '../../../../components/SkillDetailPage.astro';
+import { getPublication } from '../../../../lib/publication';
+export function getStaticPaths() {
+  const publication = getPublication();
+  return [...new Set([...publication.items.map(item => item.skill.id), ...publication.statuses.map(item => item.id)])].map(id => ({ params: { id }, props: { id } }));
+}
+---
+<SkillDetailPage id={Astro.props.id} lang="en" />

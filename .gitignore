@@ -1,12 +1,22 @@
 node_modules/
 dist/
 .astro/
+web/.publication/
 artifacts/
 .wrangler/
 
 .DS_Store
 *.log
 npm-debug.log*
+
+# Local registry data includes private signing keys and operator metadata.
+mcp/var/
+.skillflux-registry/
+.skillflux/
+*.tgz
+coverage/
+__pycache__/
+*.py[cod]
 
 .env
 .env.*

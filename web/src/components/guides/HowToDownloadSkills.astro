@@ -1,0 +1,79 @@
+---
+import GuideLayout from "../GuideLayout.astro";
+import { getGuideBySlug } from "../../lib/guides";
+import { getSiteBySlug } from "../../lib/content";
+import { localizePath, type Language } from "../../lib/i18n";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const guide = getGuideBySlug("how-to-download-claude-skills")!;
+const href = {
+  directory: localizePath("/directory/", lang),
+  official: localizePath("/source-type/official/", lang),
+  marketplace: localizePath("/source-type/marketplace/", lang),
+  repo: localizePath("/source-type/repo/", lang),
+  modelscope: localizePath(`/resource/${getSiteBySlug('modelscope-cn-skills')!.resourceSlug}/`, lang),
+  registry: localizePath("/registry/", lang),
+  install: localizePath("/install/", lang),
+  choosing: localizePath("/guides/choosing-a-skill-source/", lang),
+  discovery: localizePath("/use-case/discover-skills/", lang),
+  writing: localizePath("/use-case/writing/", lang),
+  planning: localizePath("/use-case/planning/", lang),
+  mobile: localizePath("/use-case/mobile/", lang),
+  video: localizePath("/use-case/video/", lang),
+};
+---
+
+<GuideLayout lang={lang} guide={guide}>
+  {lang === "zh" ? (
+    <Fragment>
+      <p>Claude Skills 可以从发布方页面、Skill 市场、开源仓库和具体项目的下载包获取。应选择哪条路径，取决于你要使用的 Skill 及宿主要求。先找到原始项目，再按对应文档安装；一个网站被 SkillFlux 收录，并不表示其中所有内容都已进入 SkillFlux 的可安装 Registry。</p>
+      <h2>四种获取路径</h2>
+      <h3>1. 发布方与官方合集</h3>
+      <p>发布方材料有助于确认出处和项目定位。可以从 <a href={href.official}>官方厂商来源</a> 浏览，例如 <a href={href.modelscope}>ModelScope Skills</a>，再进入具体 Skill 的说明。平台面向多个 agent 时，不要默认每个条目都能直接用于 Claude；需要核对所选项目的宿主、版本和依赖。</p>
+      <h3>2. Skill 市场</h3>
+      <p>市场适合围绕具体能力做比较。条目可能链接到外部仓库，也可能由平台提供获取方式，应分别确认作者、服务条件及安装说明。进入 <a href={href.marketplace}>Skill 市场类目</a> 查看候选入口。</p>
+      <h3>3. 开源仓库</h3>
+      <p>仓库可以直接阅读 Skill 指令、辅助文件和脚本。注意区分包含实现的项目与只提供外链的 awesome 清单；下载整个清单并不等于安装其中所有 Skill。查看 <a href={href.repo}>开源仓库来源</a>，找到具体项目后按原说明选取文件或发布版本。</p>
+      <h3>4. 项目发布包与单项 Skill</h3>
+      <p>已经确定项目时，可以使用其发布方提供的下载包或单项文件。保留原始来源与版本信息，并核对包中是否还需要脚本、模板或其他资源。不要仅凭存在一个指令文件就假定依赖齐全。</p>
+      <h2>从发现到使用的步骤</h2>
+      <ol>
+        <li>明确任务与宿主环境，用 <a href={href.discovery}>Skill 发现与比较方法</a> 建立短清单。</li>
+        <li>回到原项目阅读要求，检查文件、脚本、许可证与依赖。</li>
+        <li>依照该项目与宿主的说明安装；若使用包管理工具，先确认它支持目标包及版本。</li>
+        <li>在可恢复的项目里运行一个小任务，检查输出并保留实际使用的版本记录。</li>
+      </ol>
+      <h2>通过 SkillFlux 安装哪些内容</h2>
+      <p>SkillFlux 的 <a href={href.directory}>资源目录</a> 用于发现外部来源；<a href={href.registry}>精品 Registry</a> 展示实际发布的审核版本。希望使用 SkillFlux 本地安装流程时，先确认 Registry 中存在目标 Skill，再按 <a href={href.install}>接入指南</a> 操作。没有对应发布版本的外部资源，应使用其原始文档提供的方式。</p>
+      <h2>先按场景确定要下载什么</h2>
+      <p>中文初稿可以从 <a href={href.writing}>内容与写作</a> 比较专门工具；跨会话工作可以研究 <a href={href.planning}>长任务与规划</a>；应用项目可参考 <a href={href.mobile}>移动开发</a> 的平台区别；媒体素材任务可对照 <a href={href.video}>视频与媒体</a> 的输入和输出要求。</p>
+      <div class="guide-callout"><p>还不清楚目录、市场和仓库的区别？先读 <a href={href.choosing}>如何挑选 Skill 来源</a>。来源身份帮助确定出处，具体能力是否合适仍要用原文档和实际结果判断。</p></div>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <p>Claude Skills can be acquired through publisher pages, skill marketplaces, open-source repositories and project download packages. The right route depends on the selected skill and its host requirements. Find the original project, then follow its documentation. A website appearing in the SkillFlux catalog does not mean all of its content is available through the SkillFlux installable Registry.</p>
+      <h2>Four acquisition routes</h2>
+      <h3>1. Publishers and official collections</h3>
+      <p>Publisher material helps identify the origin and purpose of a project. Browse <a href={href.official}>official vendor sources</a>, such as <a href={href.modelscope}>ModelScope Skills</a>, then continue to an individual skill’s instructions. If a platform addresses several agents, do not assume every entry works directly with Claude. Check the selected project’s host, version and dependency requirements.</p>
+      <h3>2. Skill marketplaces</h3>
+      <p>Marketplaces are useful for comparing a specific capability. An entry may link to an external repository or use a platform-provided acquisition method. Check the author, service terms and installation instructions for that entry. Browse <a href={href.marketplace}>skill marketplaces</a> for candidate sources.</p>
+      <h3>3. Open-source repositories</h3>
+      <p>Repositories let you read skill instructions, supporting files and scripts. Distinguish an implementation from an awesome list that only links elsewhere; downloading a list does not install all of its linked skills. Browse <a href={href.repo}>open-source repository sources</a>, then follow the selected project’s instructions for files or releases.</p>
+      <h3>4. Project releases and individual skills</h3>
+      <p>Once you know the project, use a download package or individual files supplied by its publisher. Keep the origin and version information, and check whether scripts, templates or other resources are required. The presence of an instruction file alone does not establish that the package is complete.</p>
+      <h2>From discovery to a working trial</h2>
+      <ol>
+        <li>Define the task and host environment, then use the <a href={href.discovery}>skill discovery and comparison workflow</a> to create a shortlist.</li>
+        <li>Read the original requirements and inspect the files, scripts, license and dependencies.</li>
+        <li>Install using the project and host instructions. If using a package manager, first confirm support for that package and version.</li>
+        <li>Run a small task in a project you can restore, review the output and retain the version you actually used.</li>
+      </ol>
+      <h2>What can be installed through SkillFlux</h2>
+      <p>The SkillFlux <a href={href.directory}>resource directory</a> supports discovery of external sources. The <a href={href.registry}>curated Registry</a> contains published, reviewed releases. To use the local SkillFlux installation workflow, confirm that the target skill is in the Registry and follow the <a href={href.install}>setup guide</a>. For external resources without a corresponding published release, follow their original documentation.</p>
+      <h2>Choose what to download by task</h2>
+      <p>For a Chinese draft, compare the focused options in <a href={href.writing}>content and writing</a>. For work across sessions, examine <a href={href.planning}>planning and long tasks</a>. For an application project, compare platform differences in <a href={href.mobile}>mobile development</a>. For media assets, use <a href={href.video}>video and media</a> to distinguish input and output requirements.</p>
+      <div class="guide-callout"><p>Unsure how directories, marketplaces and repositories differ? Read <a href={href.choosing}>how to choose a skill source</a>. Source identity helps establish origin; original documentation and an actual trial establish whether a capability fits your task.</p></div>
+    </Fragment>
+  )}
+</GuideLayout>

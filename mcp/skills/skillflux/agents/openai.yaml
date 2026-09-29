@@ -1,0 +1,6 @@
+interface:
+  display_name: "SkillFlux"
+  short_description: "Search, load, and check updates for project skills"
+  default_prompt: "Use $skillflux to find and load a reviewed skill or check installed skill updates."
+policy:
+  allow_implicit_invocation: false

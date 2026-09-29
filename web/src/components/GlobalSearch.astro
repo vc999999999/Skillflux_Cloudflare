@@ -1,0 +1,148 @@
+---
+import { DEFAULT_LANGUAGE, type Language } from '../lib/i18n';
+type Props = { lang?: Language };
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const zh = lang === 'zh';
+---
+<button class="sf-search-trigger" type="button" data-sf-search-trigger aria-label={zh ? '搜索资源、场景与指南' : 'Search resources, use cases and guides'} aria-haspopup="dialog" aria-controls="sf-search-dialog">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+  <span>{zh ? '搜索' : 'Search'}</span><kbd data-sf-shortcut>⌘ K</kbd>
+</button>
+<dialog class="sf-search-dialog" id="sf-search-dialog" aria-label={zh ? '站内搜索' : 'Search SkillFlux'} data-lang={lang}>
+  <div class="sf-search-top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+    <label class="sf-search-sr" for="sf-search-input">{zh ? '搜索资源、场景、合集和指南' : 'Search resources, use cases, collections and guides'}</label>
+    <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索资源、场景、合集…' : 'Search resources, use cases, collections…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
+    <button class="sf-search-close" type="button" data-sf-search-close aria-label={zh ? '关闭搜索' : 'Close search'}>ESC</button>
+  </div>
+  <div class="sf-search-content">
+    <p id="sf-search-status" class="sf-search-status" role="status" aria-live="polite"></p>
+    <button class="sf-search-retry" type="button" hidden>{zh ? '重新加载' : 'Try again'}</button>
+    <ul id="sf-search-results" class="sf-search-results" role="listbox" aria-label={zh ? '搜索结果' : 'Search results'}></ul>
+  </div>
+  <div class="sf-search-bottom"><span><kbd>↑</kbd> <kbd>↓</kbd> {zh ? '选择' : 'select'}<span class="sf-search-hint-gap"><kbd>↵</kbd> {zh ? '打开' : 'open'}</span></span><span>{zh ? '搜索整个 SkillFlux' : 'Search all of SkillFlux'}</span></div>
+</dialog>
+
+<style>
+  .sf-search-trigger { display: inline-flex; align-items: center; gap: 7px; padding: 7px 8px; color: #808080; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; font: inherit; font-size: 10px; line-height: 1.4; cursor: pointer; white-space: nowrap; }
+  .sf-search-trigger:hover { color: #111; border-color: #ccc; }
+  .sf-search-trigger kbd { margin-left: 13px; color: #999; font: inherit; font-size: 9px; }
+  .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 14vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 76dvh); padding: 0; margin: 0; border: 1px solid #ddd; border-radius: 13px; color: #202020; background: #fff; box-shadow: 0 22px 80px #0003; overflow: hidden; }
+  .sf-search-dialog::backdrop { background: rgba(0,0,0,.32); backdrop-filter: blur(3px); }
+  .sf-search-dialog[open] { display: flex; flex-direction: column; }
+  .sf-search-top { display: flex; align-items: center; gap: 13px; padding: 20px; border-bottom: 1px solid #ededed; flex-shrink: 0; }
+  .sf-search-top > svg { flex-shrink: 0; color: #888; }
+  .sf-search-input { min-width: 0; flex: 1; padding: 0; border: 0; outline: none; background: transparent; color: #171717; font: inherit; font-size: 14px; line-height: 1.6; box-shadow: none; }
+  .sf-search-input::placeholder { color: #999; }
+  .sf-search-input::-webkit-search-cancel-button { cursor: pointer; }
+  .sf-search-close { border: 1px solid #e6e6e6; background: #fafafa; padding: 3px 5px; border-radius: 4px; color: #929292; font: inherit; font-size: 9px; cursor: pointer; }
+  .sf-search-content { min-height: 160px; padding: 13px 10px 10px; overflow: auto; overscroll-behavior: contain; }
+  .sf-search-status { margin: 0; padding: 4px 10px 12px; color: #999; font-size: 11px; line-height: 1.7; }
+  .sf-search-results { padding: 0; margin: 0; list-style: none; }
+  .sf-search-results :global(li) { list-style: none; }
+  .sf-search-results :global(.sf-search-result) { display: flex; align-items: center; gap: 14px; padding: 13px 11px; color: #222; border-radius: 6px; text-decoration: none; }
+  .sf-search-results :global(.sf-search-result[aria-selected="true"]), .sf-search-results :global(.sf-search-result:hover) { background: #f4f4f4; }
+  .sf-search-results :global(.sf-search-result-body) { display: block; min-width: 0; flex: 1; }
+  .sf-search-results :global(.sf-search-result-title) { display: block; font-size: 13px; font-weight: 550; line-height: 1.5; }
+  .sf-search-results :global(.sf-search-result-description) { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 3px; color: #888; font-size: 11px; line-height: 1.6; }
+  .sf-search-results :global(.sf-search-result-kind) { flex-shrink: 0; color: #999; font-size: 9px; border: 1px solid #e9e9e9; padding: 3px 5px; border-radius: 3px; }
+  .sf-search-bottom { display: flex; justify-content: space-between; gap: 12px; padding: 13px 20px; border-top: 1px solid #eee; flex-shrink: 0; color: #aaa; font-size: 10px; }
+  .sf-search-bottom kbd { font: inherit; color: #777; }
+  .sf-search-hint-gap { margin-left: 14px; }
+  .sf-search-retry { margin: 4px 10px 20px; border: 1px solid #ddd; border-radius: 5px; padding: 8px 14px; background: #fff; color: #333; cursor: pointer; font: inherit; font-size: 12px; }
+  .sf-search-retry[hidden] { display: none; }
+  .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+  .sf-search-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  @media (max-width: 1150px) { .sf-search-trigger { padding: 7px; background: transparent; border-color: transparent; } .sf-search-trigger span, .sf-search-trigger kbd { display: none; } .sf-search-trigger svg { width: 18px; height: 18px; } }
+  @media (max-width: 600px) { .sf-search-dialog { top: 10vh; max-height: 80dvh; border-radius: 10px; } .sf-search-top { padding: 17px 15px; gap: 10px; } .sf-search-input { font-size: 16px; } .sf-search-bottom { padding: 12px 15px; font-size: 9px; } }
+</style>
+
+<script>
+  import { isGlobalSearchEntry, searchGlobalIndex, type GlobalSearchEntry, type SearchKind } from '../lib/global-search';
+
+  const dialog = document.querySelector<HTMLDialogElement>('#sf-search-dialog');
+  if (dialog) {
+    const input = dialog.querySelector<HTMLInputElement>('#sf-search-input')!;
+    const resultList = dialog.querySelector<HTMLUListElement>('#sf-search-results')!;
+    const status = dialog.querySelector<HTMLElement>('#sf-search-status')!;
+    const retry = dialog.querySelector<HTMLButtonElement>('.sf-search-retry')!;
+    const lang = dialog.dataset.lang === 'en' ? 'en' : 'zh';
+    const zh = lang === 'zh';
+    const kinds: Record<SearchKind, string> = zh ? { source: '资源', 'use-case': '场景', collection: '合集', guide: '指南', skill: '精品 Skill', page: '页面' } : { source: 'Resource', 'use-case': 'Use case', collection: 'Collection', guide: 'Guide', skill: 'Curated skill', page: 'Page' };
+    let entries: GlobalSearchEntry[] | undefined;
+    let pending: Promise<void> | undefined;
+    let results: GlobalSearchEntry[] = [];
+    let selected = -1;
+    let previousFocus: HTMLElement | null = null;
+    let previousOverflow = '';
+    const shortcut = document.querySelector<HTMLElement>('[data-sf-shortcut]');
+    if (shortcut && !/Mac|iPhone|iPad/.test(navigator.platform)) shortcut.textContent = 'Ctrl K';
+
+    const select = (index: number, scroll = false) => {
+      selected = results.length ? (index + results.length) % results.length : -1;
+      resultList.querySelectorAll<HTMLAnchorElement>('[role="option"]').forEach((link, i) => link.setAttribute('aria-selected', String(i === selected)));
+      if (selected < 0) input.removeAttribute('aria-activedescendant');
+      else { input.setAttribute('aria-activedescendant', `sf-search-result-${selected}`); if (scroll) document.getElementById(`sf-search-result-${selected}`)?.scrollIntoView({ block: 'nearest' }); }
+    };
+    const render = () => {
+      if (!entries) return;
+      results = searchGlobalIndex(entries, input.value, lang);
+      resultList.replaceChildren();
+      status.textContent = !input.value.trim() ? (zh ? '浏览资源，或输入关键词搜索' : 'Browse resources, or start typing to search') : results.length ? (zh ? `${results.length} 条相关结果` : `${results.length} matching results`) : (zh ? '没有找到相关内容，试试其他关键词。' : 'No matches. Try another keyword.');
+      for (const [index, result] of results.entries()) {
+        const item = document.createElement('li'); item.setAttribute('role', 'presentation');
+        const link = document.createElement('a'); link.href = result.href; link.id = `sf-search-result-${index}`; link.className = 'sf-search-result'; link.setAttribute('role', 'option'); link.tabIndex = -1;
+        const body = document.createElement('span'); body.className = 'sf-search-result-body';
+        const title = document.createElement('span'); title.className = 'sf-search-result-title'; title.textContent = result.title;
+        const description = document.createElement('span'); description.className = 'sf-search-result-description'; description.textContent = result.description;
+        const kind = document.createElement('span'); kind.className = 'sf-search-result-kind'; kind.textContent = kinds[result.kind];
+        body.append(title, description); link.append(body, kind); item.append(link); resultList.append(item);
+        link.addEventListener('pointermove', () => select(index));
+      }
+      select(results.length ? 0 : -1);
+    };
+    const load = async () => {
+      if (entries) { render(); return; }
+      if (pending) return pending;
+      retry.hidden = true;
+      status.textContent = zh ? '正在加载搜索索引…' : 'Loading search index…';
+      pending = (async () => {
+        try {
+          const response = await fetch('/search-index.json', { signal: AbortSignal.timeout(12000) });
+          if (!response.ok) throw new Error('Search index unavailable');
+          const payload: unknown = await response.json();
+          if (!payload || typeof payload !== 'object' || !('entries' in payload) || !Array.isArray(payload.entries) || !payload.entries.every(isGlobalSearchEntry)) throw new Error('Invalid search index');
+          entries = payload.entries; render();
+        } catch {
+          status.textContent = zh ? '搜索暂时无法加载，请重试。你也可以直接浏览资源目录。' : 'Search could not load. Try again, or browse the directory.';
+          retry.hidden = false;
+        } finally { pending = undefined; }
+      })();
+      return pending;
+    };
+    const open = (query?: string) => {
+      if (dialog.open) return;
+      previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      previousOverflow = document.body.style.overflow;
+      if (query !== undefined) input.value = query.slice(0, 200);
+      dialog.showModal(); document.body.style.overflow = 'hidden'; input.focus(); input.select(); void load();
+    };
+    document.addEventListener('click', event => {
+      const trigger = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-sf-search-trigger]') : null;
+      if (trigger) { event.preventDefault(); open(trigger.dataset.sfSearchQuery); }
+    });
+    document.addEventListener('keydown', event => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k' && !event.isComposing) { event.preventDefault(); if (dialog.open) dialog.close(); else open(); }
+    });
+    dialog.addEventListener('keydown', event => {
+      if (event.isComposing || event.target !== input) return;
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); select(selected + (event.key === 'ArrowDown' ? 1 : -1), true); }
+      if (event.key === 'Enter' && selected >= 0 && results[selected]) { event.preventDefault(); window.location.assign(results[selected]!.href); }
+    });
+    input.addEventListener('input', render);
+    retry.addEventListener('click', () => { void load(); });
+    dialog.querySelector('[data-sf-search-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { const bounds = dialog.getBoundingClientRect(); if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close(); });
+    dialog.addEventListener('close', () => { document.body.style.overflow = previousOverflow; previousFocus?.focus(); });
+  }
+</script>

@@ -1,0 +1,67 @@
+---
+import { SITE } from "../config";
+import { DEFAULT_LANGUAGE, localizePath, type Language } from "../lib/i18n";
+type Props = { lang?: Language };
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const zh = lang === "zh";
+const groups = [
+  { title: zh ? "探索" : "Explore", links: [
+    { href: "/directory/", label: zh ? "资源目录" : "Resource directory" },
+    { href: "/use-cases/", label: zh ? "使用场景" : "Use cases" },
+    { href: "/collections/", label: zh ? "精选合集" : "Collections" },
+    { href: "/registry/", label: zh ? "精品 Skill" : "Curated skills" },
+    { href: "/agents/claude/", label: "Claude" },
+    { href: "/agents/codex/", label: "Codex" },
+    { href: "/agents/cursor/", label: "Cursor" }
+  ] },
+  { title: zh ? "资源" : "Resources", links: [
+    { href: "/guides/", label: zh ? "使用指南" : "Guides" },
+    { href: "/install/", label: zh ? "安装与接入" : "Installation & setup" },
+    { href: "/for-ai/", label: "For AI" },
+    { href: "/quality/", label: zh ? "收录与质检标准" : "Curation & quality" }
+  ] },
+  { title: zh ? "参与" : "Connect", links: [
+    { href: "/about/", label: zh ? "关于 SkillFlux" : "About SkillFlux" },
+    { href: "/submit/", label: zh ? "提交资源" : "Submit a resource" },
+    { href: SITE.repoUrl, label: "GitHub ↗", external: true },
+    { href: "/contact/", label: zh ? "联系我们" : "Contact" },
+    { href: "/feed.xml", label: "RSS", raw: true }
+  ] }
+];
+---
+<footer class="sf-footer">
+  <div class="sf-footer-inner">
+    <div class="sf-footer-grid">
+      <div class="sf-footer-intro">
+        <a class="sf-footer-brand" href={localizePath("/", lang)}><span class="sf-footer-mark" aria-hidden="true">sf</span><span>SkillFlux<span class="sf-footer-dot">.</span></span></a>
+        <p>{zh ? "发现值得用的 Skill 与 AI 工具，\n让每一个想法，都有合适的能力。" : "Find the skills and AI tools\nthat help you put ideas to work."}</p>
+        <span class="sf-footer-note">{zh ? "为人类与 AI Agent 而建" : "Built for people and AI agents"}</span>
+      </div>
+      {groups.map(group => <div class="sf-footer-column"><h2>{group.title}</h2><ul>{group.links.map(link => <li><a href={'external' in link || 'raw' in link ? link.href : localizePath(link.href, lang)} rel={'external' in link ? 'noopener noreferrer' : undefined}>{link.label}</a></li>)}</ul></div>)}
+    </div>
+    <div class="sf-footer-bottom">
+      <div class="sf-footer-copyright"><span>© {new Date().getFullYear()} SkillFlux</span><span>砚垚信息科技（上海）有限公司</span></div>
+      <div class="sf-footer-legal"><a href={localizePath("/privacy/", lang)}>{zh ? "隐私政策" : "Privacy"}</a><a href={localizePath("/terms/", lang)}>{zh ? "使用条款" : "Terms"}</a><a href={localizePath("/advertise/", lang)}>{zh ? "广告合作" : "Advertise"}</a><a href={localizePath("/report/", lang)}>{zh ? "广告举报" : "Report an ad"}</a></div>
+    </div>
+  </div>
+</footer>
+<style>
+  .sf-footer { margin-top: 0; background: #fafafa; border-top: 1px solid #e8e8e8; color: #6b6b6b; }
+  .sf-footer-inner { max-width: 1216px; margin: 0 auto; padding: 58px 32px 23px; }
+  .sf-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; padding-bottom: 49px; }
+  .sf-footer-brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: #151515; font-size: 19px; font-weight: 750; line-height: 1; letter-spacing: -.6px; }
+  .sf-footer-mark { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 5px; color: #fff; background: #171717; font-size: 17px; letter-spacing: -1px; }
+  .sf-footer-dot { color: #909090; }
+  .sf-footer-intro p { margin: 18px 0 20px; color: #7b7b7b; font-size: 12px; line-height: 1.85; white-space: pre-line; }
+  .sf-footer-note { font-size: 10px; color: #999; }
+  .sf-footer-column h2 { font-size: 11px; font-weight: 600; margin: 3px 0 20px; letter-spacing: .02em; color: #2b2b2b; }
+  .sf-footer-column ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .sf-footer-column a { color: #777; font-size: 11px; text-decoration: none; line-height: 1.5; }
+  .sf-footer a:hover { color: #111; }
+  .sf-footer a:focus-visible { outline: 2px solid #666; outline-offset: 4px; }
+  .sf-footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; padding-top: 23px; border-top: 1px solid #e9e9e9; font-size: 10px; color: #999; }
+  .sf-footer-copyright, .sf-footer-legal { display: flex; flex-wrap: wrap; gap: 16px; }
+  .sf-footer-legal a { color: #909090; text-decoration: none; }
+  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 28px; } .sf-footer-inner { padding: 40px 24px 22px; } .sf-footer-bottom { font-size: 9px; } }
+  @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 34px 20px; padding-bottom: 34px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 15px 0 10px; } .sf-footer-column h2 { margin-bottom: 15px; } .sf-footer-legal { gap: 18px; } .sf-footer-copyright { gap: 8px 16px; } }
+</style>

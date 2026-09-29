@@ -1,0 +1,91 @@
+---
+import { SITE } from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { absoluteUrl, getDirectoryStats, getSites } from '../lib/content';
+import { DEFAULT_LANGUAGE, localizePath, type Language } from '../lib/i18n';
+import ResourceTable from './ResourceTable.astro';
+type Props = { lang?: Language };
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const zh = lang === 'zh';
+const sites = getSites();
+const stats = getDirectoryStats();
+const canonicalPath = localizePath('/directory/', lang);
+const title = zh ? '资源目录' : 'Resource directory';
+const description = zh ? '发现适合你工作流的 Agent Skills、MCP 与开源资源。按场景和来源筛选，查看原始链接。' : 'Find Agent Skills, MCP and open-source resources for your workflow. Filter by use case and source, then explore original links.';
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell directory-page">
+    <header class="directory-heading"><div><p class="eyebrow">RESOURCE DIRECTORY</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div><a href={localizePath('/registry/', lang)}>{zh ? '查看可安装的精品 Skill' : 'Explore installable curated skills'} <span aria-hidden="true">↗</span></a></header>
+    <ResourceTable sites={sites} showControls heading={title} lang={lang} />
+    <aside class="source-note"><strong>{zh ? '从发现到使用' : 'From discovery to use'}</strong><p>{zh ? '本目录收录外部来源。查看详情可以追溯原始网站；通过 SkillFlux 安装的版本与审核记录，请前往精品 Registry。' : 'This directory lists external sources. Follow each detail page to the original site; find releases and review records for SkillFlux installation in the curated Registry.'}</p><a href={localizePath('/registry/', lang)}>{zh ? '精品 Registry →' : 'Curated Registry →'}</a></aside>
+  </main>
+</BaseLayout>
+<style>
+  .directory-page { padding-top: 54px; padding-bottom: 70px; }
+  .directory-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+  .directory-heading .eyebrow { font-size: .66rem; letter-spacing: .12em; margin: 0 0 14px; color: var(--muted); }
+  .directory-heading h1 { display: flex; align-items: center; gap: 14px; margin: 0 0 13px; font-size: clamp(1.9rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
+  .directory-heading h1 span { font-size: .74rem; color: var(--muted); letter-spacing: 0; border: 1px solid var(--line); border-radius: 5px; padding: 5px 8px; font-weight: 500; }
+  .directory-heading p:last-child { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.8; max-width: 650px; }
+  .directory-heading > a { flex-shrink: 0; font-size: .74rem; text-decoration: none; margin-bottom: 3px; }.directory-heading > a span { margin-left: 9px; }
+  .source-note { display: flex; align-items: center; gap: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--cream, #f6f6f6); }
+  .source-note strong { font-size: .8rem; white-space: nowrap; }.source-note p { margin: 0; font-size: .74rem; line-height: 1.8; color: var(--muted); flex: 1; }.source-note a { white-space: nowrap; font-size: .72rem; font-weight: 600; text-decoration: none; }
+  @media (max-width: 760px) { .directory-page { padding-top: 32px; }.directory-heading { display: block; }.directory-heading > a { display: inline-block; margin-top: 16px; }.directory-heading p:last-child { font-size: .8rem; }.source-note { display: block; padding: 20px; }.source-note p { margin: 10px 0 13px; } }
+</style>
+
+<script>
+  import { directoryFacets, readDirectoryFilters, writeDirectoryFilters, matchesDirectoryRow } from '../lib/directory-search';
+  import { updateClientRobots } from '../lib/indexing';
+  document.querySelectorAll<HTMLElement>('[data-directory="true"]').forEach(root => {
+    const input = root.querySelector<HTMLInputElement>('[data-directory-search]')!;
+    const rows = [...root.querySelectorAll<HTMLElement>('[data-site-row]')];
+    const list = root.querySelector<HTMLElement>('[data-resource-list]')!;
+    const count = root.querySelector<HTMLElement>('[data-result-count]')!;
+    const activeFilters = root.querySelector<HTMLElement>('[data-active-filters]')!;
+    const empty = root.querySelector<HTMLElement>('[data-directory-empty]')!;
+    const sort = root.querySelector<HTMLSelectElement>('[data-directory-sort]')!;
+    const sidebar = root.querySelector<HTMLDetailsElement>('[data-directory-sidebar]')!;
+    const mobile = window.matchMedia('(max-width: 760px)');
+    const setSidebar = () => { sidebar.open = !mobile.matches; };
+    setSidebar();
+    mobile.addEventListener('change', setSidebar);
+    let state = readDirectoryFilters(new URLSearchParams(location.search));
+    function render() {
+      updateClientRobots();
+      input.value = state.q;
+      sort.value = state.sort;
+      for (const facet of directoryFacets) root.querySelectorAll<HTMLButtonElement>(`[data-${facet}-filter]`).forEach(button => button.setAttribute('aria-pressed', String(button.getAttribute(`data-${facet}-filter`) === state[facet])));
+      const active = directoryFacets.filter(facet => state[facet] !== 'all').length;
+      activeFilters.textContent = active ? String(active) : '';
+      const ordered = [...rows].sort((a, b) => state.sort === 'name' ? (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '', document.documentElement.lang) : state.sort === 'newest' ? (b.dataset.updated ?? '').localeCompare(a.dataset.updated ?? '') || Number(a.dataset.position) - Number(b.dataset.position) : Number(a.dataset.position) - Number(b.dataset.position));
+      let visible = 0;
+      for (const row of ordered) {
+        row.hidden = !matchesDirectoryRow({ search: row.dataset.search ?? '', category: row.dataset.category ?? '', region: row.dataset.region ?? '', trust: row.dataset.trust ?? '', kind: row.dataset.kind, usecase: row.dataset.usecase, recommended: row.dataset.recommended }, state);
+        if (!row.hidden) visible++;
+        list.append(row);
+      }
+      count.textContent = `${visible} ${root.dataset.countSuffix ?? ''}`;
+      empty.hidden = visible > 0;
+    }
+    function commit(replace = false) {
+      const url = writeDirectoryFilters(new URL(location.href), state);
+      if (url.href !== location.href) history[replace ? 'replaceState' : 'pushState'](null, '', url);
+      render();
+      document.dispatchEvent(new Event('skillflux:filters'));
+    }
+    for (const facet of directoryFacets) root.querySelectorAll<HTMLButtonElement>(`[data-${facet}-filter]`).forEach(button => button.addEventListener('click', () => {
+      const value = button.getAttribute(`data-${facet}-filter`) ?? 'all';
+      state[facet] = state[facet] === value ? 'all' : value;
+      commit();
+    }));
+    input.addEventListener('input', () => { state.q = input.value; commit(true); });
+    sort.addEventListener('change', () => { state.sort = sort.value as typeof state.sort; commit(); });
+    root.querySelectorAll('[data-directory-reset]').forEach(button => button.addEventListener('click', () => { state = readDirectoryFilters(new URLSearchParams()); commit(); input.focus(); }));
+    window.addEventListener('popstate', () => { state = readDirectoryFilters(new URLSearchParams(location.search)); render(); });
+    document.addEventListener('keydown', event => {
+      if (event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey && !(event.target instanceof HTMLElement && (event.target.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)))) { event.preventDefault(); input.focus(); }
+    });
+    render();
+  });
+</script>

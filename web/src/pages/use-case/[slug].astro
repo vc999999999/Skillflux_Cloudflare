@@ -1,0 +1,6 @@
+---
+import EditorialDetailPage from '../../components/EditorialDetailPage.astro';
+import { useCases } from '../../lib/editorial';
+export function getStaticPaths() { return useCases.map(({ slug }) => ({ params: { slug }, props: { slug } })); }
+---
+<EditorialDetailPage kind="use-case" slug={Astro.props.slug} lang="zh" />

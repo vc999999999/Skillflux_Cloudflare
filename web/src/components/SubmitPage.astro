@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../config";
+import { localizePath, type Language } from "../lib/i18n";
+type Props = { lang?: Language };
+const { lang = "zh" } = Astro.props;
+const zh = lang === "zh";
+const t = (cn: string, en: string) => zh ? cn : en;
+const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
+---
+<BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过 GitHub 提交供编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then submit through GitHub for editorial review.")}>
+  <main id="main-content" class="page-shell submit-shell">
+    <header class="page-hero"><div><p class="eyebrow">CONTRIBUTE TO THE DIRECTORY</p><h1 class="page-title">{t("好资源，值得被更多人发现。", "Good resources deserve to be found.")}</h1><p class="page-lede">{t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")}</p></div></header>
+    <div class="submit-layout">
+      <section class="submission-panel" aria-labelledby="submission-title">
+        <div class="form-heading"><h2 id="submission-title">{t("介绍一下这个资源", "Tell us about the resource")}</h2><span>{t("* 为必填", "* Required")}</span></div>
+        <form data-resource-form data-issue-base={issueUrl}>
+          <label>{t("资源名称", "Resource name")} <span aria-hidden="true">*</span><input name="name" required maxlength="100" placeholder={t("例如：一个好用的文档整理 Skill", "e.g. A helpful documentation skill")} autocomplete="off" /></label>
+          <label>{t("原始链接", "Original URL")} <span aria-hidden="true">*</span><input name="url" type="url" required maxlength="500" placeholder="https://github.com/…" autocomplete="url" /><small>{t("请提供官网、公开仓库或作者发布页面。", "Use the website, public repository or author's release page.")}</small></label>
+          <label>{t("资源类型", "Resource type")} <span aria-hidden="true">*</span><select name="type" required><option value="">{t("选择最接近的类型", "Select the closest type")}</option><option value="Skill">Skill</option><option value="MCP">MCP</option><option value="Collection">{t("资源合集 / 目录", "Collection / directory")}</option><option value="Tool">{t("工具 / 教程", "Tool / guide")}</option></select></label>
+          <label>{t("推荐理由", "Why recommend it?")} <span aria-hidden="true">*</span><textarea name="description" required minlength="20" maxlength="1200" rows="5" placeholder={t("它解决什么问题？适合谁？你实际使用后的体验，或值得关注的限制是什么？（至少 20 字）", "What does it solve, who is it for, and what experience or limitations should we know about? (At least 20 characters)")}></textarea></label>
+          <label>{t("补充说明", "Additional context")}<textarea name="notes" maxlength="600" rows="3" placeholder={t("可选：适用工具、授权协议、安装文档、你与项目的关系等。", "Optional: compatible tools, license, setup docs or your relationship to the project.")}></textarea></label>
+          <div class="submission-footnote"><span aria-hidden="true">↗</span><p>{t("本页会生成 GitHub Issue 草稿。资料不会在此保存；你将在 GitHub 查看并确认提交，内容会公开。", "This page creates a GitHub issue draft. Nothing is saved here. Review and submit it on GitHub, where the content will be public.")}</p></div>
+          <button class="button primary" type="submit" data-generate-draft disabled>{t("生成提交草稿", "Create submission draft")} <span aria-hidden="true">→</span></button>
+          <p class="draft-status" data-draft-status role="status" aria-live="polite"></p>
+          <div class="draft-result" data-draft-result hidden><strong>{t("草稿已准备好", "Your draft is ready")}</strong><p>{t("点击下方链接，在 GitHub 中检查内容并确认发布。当前尚未提交。", "Open the link below, review the details and publish on GitHub. It has not been submitted yet.")}</p><a class="button secondary" data-issue-link href={issueUrl} target="_blank" rel="noopener noreferrer">{t("前往 GitHub 确认提交", "Review and submit on GitHub")} <span aria-hidden="true">↗</span></a></div>
+          <noscript><p>{t("启用 JavaScript 可生成草稿，或直接前往 GitHub，附上资源名称、原始链接、类型和推荐理由。", "Enable JavaScript to create a draft, or open GitHub and include the resource name, original URL, type and your recommendation.")} <a href={issueUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a></p></noscript>
+        </form>
+      </section>
+      <aside class="submission-sidebar">
+        <section><p class="eyebrow">WHAT WE LOOK FOR</p><h2>{t("我们想收录这样的资源", "What makes a useful entry")}</h2><ul><li><span aria-hidden="true">✓</span><div><strong>{t("用途清楚", "Clear purpose")}</strong><p>{t("能说清解决什么问题，适合什么任务。", "Explain the problem it solves and the tasks it suits.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("来源可查", "Traceable source")}</strong><p>{t("有可访问的官网、仓库或作者页面。", "Link to an accessible website, repository or author page.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("说明完整", "Useful documentation")}</strong><p>{t("包含使用方法、适用工具与已知限制。", "Include usage instructions, compatible tools and known limitations.")}</p></div></li></ul></section>
+        <section class="review-flow"><p class="eyebrow">AFTER YOU SUBMIT</p><h2>{t("接下来会发生什么", "What happens next")}</h2><ol><li>{t("在 GitHub 发布推荐信息", "Publish your recommendation on GitHub")}</li><li>{t("编辑核对来源与收录信息", "Editors check the source and entry details")}</li><li>{t("通过后更新目录，并在 Issue 跟进", "Approved entries appear in the directory, with follow-up in the issue")}</li></ol><p class="review-note">{t("目录收录与可安装包审核是两个流程。提交推荐不代表自动发布、通过评测或可安装。", "Directory inclusion and install-package review are separate processes. A recommendation does not automatically publish or qualify a package.")}</p></section>
+        <a class="submission-help" href={localizePath("/quality/", lang)}>{t("查看完整质量标准", "Read our quality standards")} <span aria-hidden="true">→</span></a>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-resource-form]");
+  if (form) {
+    const status = form.querySelector<HTMLElement>("[data-draft-status]")!;
+    const result = form.querySelector<HTMLElement>("[data-draft-result]")!;
+    const link = form.querySelector<HTMLAnchorElement>("[data-issue-link]")!;
+    const zh = document.documentElement.lang.startsWith("zh");
+    form.querySelector<HTMLButtonElement>("[data-generate-draft]")!.disabled = false;
+    form.addEventListener("input", () => { result.hidden = true; status.textContent = ""; });
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const get = (key: string) => String(data.get(key) ?? "").trim();
+      let source: URL;
+      try { source = new URL(get("url")); } catch { status.textContent = zh ? "请填写完整的资源链接。" : "Enter a complete resource URL."; return; }
+      if (!["http:", "https:"].includes(source.protocol)) { status.textContent = zh ? "资源链接需要以 https:// 或 http:// 开头。" : "The source URL must use https:// or http://."; return; }
+      if (!get("name") || get("description").length < 20) { status.textContent = zh ? "请填写名称，并用至少 20 字介绍推荐理由。" : "Add a name and at least 20 characters explaining your recommendation."; return; }
+      const issue = new URL(form.dataset.issueBase!);
+      issue.searchParams.set("title", `[Resource] ${get("name")}`);
+      issue.searchParams.set("body", `## Resource\n\n- Name: ${get("name")}\n- URL: ${source.href}\n- Type: ${get("type")}\n\n## Why recommend it?\n\n${get("description")}\n\n## Additional context\n\n${get("notes") || "—"}\n\nSubmitted via the SkillFlux resource directory. Directory inclusion does not imply package qualification.`);
+      if (issue.href.length > 7500) { status.textContent = zh ? "草稿链接较长，请缩短推荐理由或补充说明后重试。" : "This draft link is too long. Shorten the recommendation or additional context and try again."; return; }
+      link.href = issue.href;
+      result.hidden = false;
+      status.textContent = zh ? "已生成草稿。请前往 GitHub 确认提交。" : "Draft created. Review and submit it on GitHub.";
+      link.focus();
+    });
+  }
+</script>
+<style>
+  .submit-layout { display: grid; grid-template-columns: minmax(0, 1fr) 310px; align-items: start; gap: 64px; margin-top: 40px; }
+  .submission-panel { padding: 28px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: 8px; }
+  .form-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 24px; }
+  .form-heading h2 { margin: 0; font-size: 1.16rem; letter-spacing: -.02em; }
+  .form-heading > span { color: var(--muted); font-size: .7rem; white-space: nowrap; }
+  form > label { display: block; margin: 0 0 21px; font-size: .81rem; font-weight: 550; }
+  label > span { color: var(--muted); }
+  input, select, textarea { display: block; width: 100%; min-width: 0; margin-top: 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); padding: 11px 12px; font-size: .81rem; line-height: 1.55; }
+  textarea { resize: vertical; min-height: 90px; }
+  input::placeholder, textarea::placeholder { color: #939499; font-weight: 400; }
+  label small { display: block; margin-top: 7px; font-size: .7rem; font-weight: 400; color: var(--muted); line-height: 1.6; }
+  .submission-footnote { display: flex; gap: 10px; padding: 14px; margin: 5px 0 20px; background: var(--cream); border-radius: 5px; }
+  .submission-footnote > span { padding-top: 3px; color: var(--muted); }
+  .submission-footnote p { margin: 0; color: var(--muted); font-size: .74rem; line-height: 1.8; }
+  form > .button { width: 100%; }
+  .draft-status { font-size: .78rem; line-height: 1.7; color: var(--muted); margin: 12px 0 0; }
+  .draft-status:empty { display: none; }
+  .draft-result { margin-top: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 6px; background: var(--cream); }
+  .draft-result strong { font-size: .86rem; }
+  .draft-result p, noscript p { color: var(--muted); font-size: .78rem; line-height: 1.75; }
+  .submission-sidebar > section { padding: 8px 0 27px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+  .submission-sidebar .eyebrow { font-size: .61rem; }
+  .submission-sidebar h2 { font-size: 1.12rem; margin: 0 0 22px; letter-spacing: -.025em; }
+  .submission-sidebar ul { padding: 0; margin: 0; list-style: none; display: grid; gap: 22px; }
+  .submission-sidebar ul li { display: flex; gap: 12px; }
+  .submission-sidebar li > span { font: .83rem/1.7 var(--font-mono); }
+  .submission-sidebar li strong { font-size: .83rem; font-weight: 550; }
+  .submission-sidebar li p { margin: 6px 0 0; font-size: .78rem; color: var(--muted); line-height: 1.8; }
+  .review-flow ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: .8rem; line-height: 1.85; }
+  .review-flow li + li { margin-top: 14px; }
+  .review-note { font-size: .75rem; line-height: 1.85; color: var(--muted); margin: 23px 0 0; }
+  .submission-help { display: flex; justify-content: space-between; font-size: .8rem; text-decoration: none; }
+  @media(max-width: 900px) { .submit-layout { gap: 32px; grid-template-columns: minmax(0, 1fr) 250px; } }
+  @media(max-width: 700px) { .submit-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 26px; } .submission-panel { padding: 22px 18px; } .submission-sidebar > section { padding-top: 0; } }
+</style>

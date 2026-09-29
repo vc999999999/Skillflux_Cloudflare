@@ -1,0 +1,111 @@
+import { execFile } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
+import { readFile, writeFile, lstat, mkdir, mkdtemp, rename, symlink, unlink, rm } from 'node:fs/promises';
+import { basename, dirname, join, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parseArgs, promisify } from 'node:util';
+import type { PublicKeyInfo } from '../../mcp/src/shared';
+import { validatePublication, type PublicationSnapshot } from '../src/lib/publication';
+import { synchronizePublication } from './sync-publication';
+import { finalizeBuild } from './seo-build';
+
+const execute = promisify(execFile);
+const WEB_ROOT = fileURLToPath(new URL('..', import.meta.url));
+const ASTRO_CLI = fileURLToPath(new URL('../../node_modules/astro/bin/astro.mjs', import.meta.url));
+export interface PublicationBuildOptions { registry: string; output?: string; trustedKey?: PublicKeyInfo; acceptFirstKey?: boolean; force?: boolean; webRoot?: string }
+export interface PublicationBuildResult { changed: boolean; revision: string; current: string; dist: string; snapshot: string; versions: number }
+
+async function optionalStat(path: string) { return lstat(path).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return null; throw error; }); }
+async function lockBuild(path: string): Promise<() => Promise<void>> {
+  const nonce = randomUUID();
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      await writeFile(path, JSON.stringify({ pid: process.pid, nonce, startedAt: new Date().toISOString() }), { flag: 'wx', mode: 0o600 });
+      return async () => { const owner = JSON.parse(await readFile(path, 'utf8')); if (owner.nonce === nonce) await unlink(path); };
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error;
+      const info = await optionalStat(path);
+      if (!info?.isFile() || info.isSymbolicLink()) throw new Error('Publication build lock is not a regular file');
+      const owner = JSON.parse(await readFile(path, 'utf8')) as { pid?: number };
+      if (!Number.isSafeInteger(owner.pid) || owner.pid! <= 0) throw new Error('Publication build lock is invalid; inspect it before retrying');
+      try { process.kill(owner.pid!, 0); throw new Error(`Publication build is already running (PID ${owner.pid})`); }
+      catch (running) { if ((running as NodeJS.ErrnoException).code !== 'ESRCH') throw running; }
+      await unlink(path); // A stopped process cannot hold this lock; retry the exclusive create.
+    }
+  }
+  throw new Error('Could not acquire publication build lock');
+}
+
+/** The served pointer changes once, after both the verified snapshot and full static build succeed. */
+export async function buildPublication(options: PublicationBuildOptions): Promise<PublicationBuildResult> {
+  const webRoot = resolve(options.webRoot ?? WEB_ROOT);
+  const current = resolve(options.output ?? join(WEB_ROOT, '.publication/current'));
+  await mkdir(dirname(current), { recursive: true });
+  const unlock = await lockBuild(`${current}.lock`);
+  let staged: string | undefined;
+  let temporaryLink: string | undefined;
+  try {
+    const currentInfo = await optionalStat(current);
+    if (currentInfo && !currentInfo.isSymbolicLink()) throw new Error('Publication output already exists as a real directory or file. Choose a new pointer path; existing output is preserved.');
+    let previous: PublicationSnapshot | undefined;
+    if (currentInfo) {
+      previous = JSON.parse(await readFile(join(current, 'registry-publication.json'), 'utf8')) as PublicationSnapshot;
+      validatePublication(previous);
+    }
+    const releases = join(dirname(current), `${basename(current)}-releases`);
+    await mkdir(releases, { recursive: true });
+    staged = await mkdtemp(join(releases, '.stage-'));
+    const snapshotPath = join(staged, 'registry-publication.json');
+    // Copy the previous signed snapshot only to the isolated stage, retaining pinned trust.
+    if (previous) await writeFile(snapshotPath, JSON.stringify(previous), { flag: 'wx', mode: 0o600 });
+    const snapshot = await synchronizePublication({ registry: options.registry, output: snapshotPath, ...(options.trustedKey ? { trustedKey: options.trustedKey } : {}), acceptFirstKey: options.acceptFirstKey });
+    const publication = validatePublication(snapshot);
+    const revision = snapshot.pages[0]!.payload.revision;
+    const result = { revision, current, dist: join(current, 'dist'), snapshot: join(current, 'registry-publication.json'), versions: publication.items.length };
+    if (!options.force && previous?.pages[0]?.payload.revision === revision) return { ...result, changed: false };
+    const dist = join(staged, 'dist');
+    await execute(process.execPath, [ASTRO_CLI, 'build', '--outDir', dist], {
+      cwd: webRoot, timeout: 180_000, maxBuffer: 16 * 1024 * 1024,
+      env: { ...process.env, SKILLFLUX_PUBLICATION_PATH: snapshotPath, PUBLIC_REGISTRY_URL: snapshot.registry! },
+    });
+    await finalizeBuild(dist);
+    const index = await readFile(join(dist, 'index.html'), 'utf8');
+    if (!index.includes('<html') || index.length < 200) throw new Error('Static build did not produce a complete home page');
+    JSON.parse(await readFile(join(dist, 'index.json'), 'utf8'));
+    await readFile(join(dist, 'llms.txt'), 'utf8');
+    await writeFile(join(staged, 'publication-build.json'), JSON.stringify({ schema: 'skillflux-static-release/v1', revision, builtAt: new Date().toISOString(), registry: snapshot.registry, versions: publication.items.length }, null, 2) + '\n', { flag: 'wx', mode: 0o644 });
+    const release = join(releases, `${revision.slice(0, 16)}-${randomUUID()}`);
+    await rename(staged, release); staged = undefined;
+    temporaryLink = `${current}.${randomUUID()}.next`;
+    await symlink(relative(dirname(current), release), temporaryLink, 'dir');
+    await rename(temporaryLink, current); temporaryLink = undefined;
+    return { ...result, changed: true };
+  } finally {
+    if (temporaryLink) await unlink(temporaryLink).catch(() => {});
+    if (staged) await rm(staged, { recursive: true, force: true });
+    await unlock();
+  }
+}
+
+async function main(): Promise<void> {
+  const parsed = parseArgs({ options: { registry: { type: 'string' }, output: { type: 'string' }, 'trust-key': { type: 'string' }, 'accept-first-key': { type: 'boolean', default: false }, force: { type: 'boolean', default: false }, watch: { type: 'boolean', default: false }, interval: { type: 'string', default: '60' }, help: { type: 'boolean', default: false } } });
+  if (parsed.values.help) { process.stdout.write('publication:build --registry URL [--trust-key key.json | --accept-first-key] [--output CURRENT_POINTER] [--force]\npublication:watch uses the same options plus --interval SECONDS (minimum 5). Serve CURRENT_POINTER/dist. Each successful release atomically switches snapshot and dist together; failed builds preserve the previous release.\n'); return; }
+  const registry = parsed.values.registry ?? process.env.SKILLFLUX_REGISTRY_URL ?? process.env.PUBLIC_REGISTRY_URL;
+  if (!registry) throw new Error('Set --registry or SKILLFLUX_REGISTRY_URL');
+  const keyPath = parsed.values['trust-key'] ?? process.env.SKILLFLUX_PUBLICATION_KEY;
+  const trustedKey = keyPath ? JSON.parse(await readFile(keyPath, 'utf8')) as PublicKeyInfo : undefined;
+  const options: PublicationBuildOptions = { registry, output: parsed.values.output ?? process.env.SKILLFLUX_PUBLICATION_OUTPUT, trustedKey, acceptFirstKey: parsed.values['accept-first-key'], force: parsed.values.force };
+  const interval = Number(parsed.values.interval);
+  if (!Number.isFinite(interval) || interval < 5 || interval > 86400) throw new Error('Watch interval must be between 5 and 86400 seconds');
+  let stopped = false;
+  const stop = () => { stopped = true; };
+  process.on('SIGINT', stop); process.on('SIGTERM', stop);
+  do {
+    try { const result = await buildPublication(options); if (result.changed || !parsed.values.watch) process.stdout.write(JSON.stringify(result) + '\n'); }
+    catch (error) { if (!parsed.values.watch) throw error; process.stderr.write(`Publication attempt failed; current release preserved, retrying: ${(error as Error).message}\n`); }
+    if (!parsed.values.watch || stopped) break;
+    // Short waits allow signals to stop the watcher promptly.
+    for (let elapsed = 0; elapsed < interval * 1000 && !stopped; elapsed += 1000) await new Promise(resolve => setTimeout(resolve, Math.min(1000, interval * 1000 - elapsed)));
+  } while (!stopped);
+}
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(error => { process.stderr.write(`${(error as Error).message}\n`); process.exitCode = 1; });

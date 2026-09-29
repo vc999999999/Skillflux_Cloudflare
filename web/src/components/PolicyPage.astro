@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { localizePath, type Language } from "../lib/i18n";
+type Props = { lang?: Language; kind: "quality" | "privacy" | "terms" | "contact" };
+const { lang = "zh", kind } = Astro.props;
+const zh = lang === "zh";
+const t = (cn: string, en: string) => zh ? cn : en;
+const documents = {
+  quality: {
+    title: t("怎样才算通过审核。", "What approval requires."),
+    label: t("质量标准", "Quality standards"),
+    intro: t("审核针对一个确定版本和它的内容指纹。自动扫描、人工实测、签名发布分别记录，任何一步都不能替代其他步骤。", "Review applies to an exact version and content fingerprint. Automated checks, human evaluation and signed publication are recorded separately; none substitutes for another."),
+    sections: [
+      [t("先检查全部包内容", "Inspect the complete package"), t("入库需提供文本文件、入口、权限、依赖、许可证、发布者及版本维护信息。当前 Registry 仅接受无网络、Shell 或密钥权限的文本包。自动检查记录可见；纯文本不等于安全，检查不能代替人工实测。", "Submissions include all text files, an entry point, permissions, dependencies, license, publisher and release metadata. The current registry accepts text packages without network, shell or secret capabilities. Automated check results are visible; text alone is not proof of safety, and checks do not replace human testing.")],
+      [t("真实运行主要用途和边界场景", "Run the purpose and boundary cases"), t("发布前需由人实际执行主要用途成功场景和边界场景，并在全部声明支持的宿主中成功安装和读取。记录测试者、测试时间、环境与模型、输入、预期、实际结果、步骤、限制和证据。模拟结果不能充当人工实测。", "Before publication, a person must execute a successful primary-purpose case and a boundary case, and successfully install and read the package in every declared host. Records capture the tester, time, environment and model, input, expected and actual results, steps, limitations and evidence. Simulations do not qualify as human tests.")],
+      [t("公开脱敏摘要，保留原始记录", "Publish a redacted summary"), t("公开详情展示质量结论、适用宿主、测试时间及运营人员另行填写的脱敏摘要。原始测试记录供内部复核，不会自动复制到公开内容。批准、拒绝、撤销必须留下审核人与理由。", "Public details show qualification, tested hosts, test time and a separately authored redacted summary. Raw records remain available for internal review and are not automatically copied into public content. Approval, rejection and revocation require an operator and reason.")],
+      [t("每个版本都需重新确认", "Review each version independently"), t("更新需说明变更、是否破坏兼容、最低客户端版本、维护时间和维护者。审批不会改写已发布的旧版本。已撤销版本从可安装集合移除，客户端在线检查撤销信息；离线状态不能保证已知最新撤销。", "Updates declare changes, breaking compatibility, minimum client version, maintenance time and maintainer. Approval does not overwrite an older published version. Revoked versions are removed from the installable set, and online clients check revocations; offline operation cannot guarantee knowledge of the latest revocations.")],
+      [t("标准的边界", "Limits of the standard"), t("审核提高可追溯性，不保证模型每次执行正确，也不保证第三方服务、宿主更新后仍兼容。使用者仍需检查权限、输入适用性和模型输出；声明的限制是选择 Skill 的一部分。", "Review improves traceability. It does not guarantee correct model output on every run or compatibility after third-party service or host changes. Users still need to inspect capabilities, suitability of inputs and model outputs. Declared limitations matter when choosing a skill.")]
+    ]
+  },
+  privacy: {
+    title: t("哪些信息会留下。", "What information is retained."),
+    label: t("隐私说明", "Privacy notice"),
+    intro: t("公开浏览无需注册。静态页面、Registry 请求、广告统计和主动提交的咨询资料具有不同的数据范围。", "Public browsing needs no account. Static pages, registry requests, ad accounting and voluntarily submitted inquiries have different data scopes."),
+    sections: [
+      [t("公开访问与基础日志", "Public access and operational logs"), t("公开页面不要求用户身份，也不在线运行 AI。提供网站或 API 的服务器可能收到 IP、时间、请求路径、浏览器信息和错误日志，用于提供服务、限流和排障。不要把无需账号理解成不产生任何访问数据。", "Public pages do not require identity and do not run AI online. Website and API infrastructure may receive IP addresses, timestamps, request paths, browser information and error logs for delivery, rate limiting and diagnostics. Account-free access does not mean no access data is generated.")],
+      [t("本地项目与 Registry", "Local projects and the registry"), t("本地 Runtime 管理项目配置、缓存和版本锁定。搜索词、请求的 Skill ID / 版本、包下载及必要广告请求会传向配置的 Registry；该机制不要求把整个项目、密钥或完整对话上传到网站。外部模型供应商的数据处理以使用者选择的服务为准。", "The local runtime manages project configuration, cache and version locks. Search terms, requested skill IDs and versions, package downloads and necessary ad requests reach the configured registry. This mechanism does not require uploading an entire project, secrets or full conversations to the website. External model providers process data under the user's chosen service.")],
+      [t("合作咨询的用途与保留期", "Inquiry purpose and retention"), t("咨询表保存产品、公司、HTTPS 官网、联系人、联系方式、需求、用途同意和提交编号，供授权运营人员评估、联系和记录处理进展。完成或标记无效后，个人联系资料将在 180 天保留期届满后由清理流程清除；业务状态与不含个人资料的审计记录可继续保留。跟进中的咨询不从提交日自动起算此期限。", "The inquiry form stores product, company, HTTPS website, contact name and details, request, consent and submission ID for authorized operators to assess, contact and track handling. Once completed or marked invalid, personal contact details are cleared by the cleanup process after a 180-day retention period. Business status and audit records without personal data may remain. This period does not start at submission while an inquiry is being followed up.")],
+      [t("广告数据与举报", "Advertising data and reports"), t("广告系统记录活动、分配、展示、有效点击、账本金额及去重或限流所需的信息。举报保存活动标识、问题描述与处理情况，不要求联系方式。请勿在举报中附上无关个人资料。广告预览不创建计费点击。", "Advertising records include campaigns, allocations, impressions, valid clicks, ledger amounts and data needed for deduplication or rate limiting. Reports store a campaign identifier, concern and handling status without requiring contact details. Do not include unrelated personal data in reports. Ad previews do not create billable clicks.")],
+      [t("内部权限与联系", "Internal access and contact"), t("管理 Token 只驻留运营控制台当前页面内存，断开或离开时清除，不写入浏览器持久存储。咨询资料与原始实测记录需要后端管理员鉴权。若需要更正或删除咨询信息，请在已有合作联系渠道提供提交编号；尚未建立联系时，可在合作表中说明资料处理请求并引用原编号。", "Operator tokens stay in the current console page's memory and are cleared on disconnect or leaving; they are not persisted in browser storage. Inquiry data and raw evaluation records require backend administrator authentication. To correct or delete inquiry information, provide the record ID through your existing cooperation contact. If no contact is established, identify the request and original ID in the inquiry form.")]
+    ]
+  },
+  terms: {
+    title: t("服务如何使用，广告如何计量。", "Service use and ad accounting."),
+    label: t("服务与广告条款", "Service and advertising terms"),
+    intro: t("本页解释当前产品机制与使用边界。具体合作报价、付款和退款安排需另行明确；提交咨询不会产生订单。", "This page explains current product behavior and usage limits. Campaign pricing, payment and refund arrangements require separate agreement; submitting an inquiry does not place an order."),
+    sections: [
+      [t("目录与软件包", "Directory and packages"), t("来源目录提供第三方入口及简介，权利归原作者。Registry 提供具备版本与质量记录的软件包。使用或再分发前应阅读对应许可证；不可借来源收录声称第三方背书。", "The source directory links to third-party resources and summaries; rights remain with their authors. The registry provides packages with version and quality records. Read each license before using or redistributing it, and do not treat directory inclusion as third-party endorsement.")],
+      [t("本地执行边界", "Local execution limits"), t("网站不代替宿主执行 AI。安装需要本地 Runtime、宿主配置及适用权限；外部模型服务可有自己的费用和限制。固定版本、更新检查和主动升级是不同操作，用户应检查变更与破坏性更新。", "The website does not execute AI on behalf of a host. Installation needs the local runtime, host configuration and appropriate permissions. External model services may have separate costs and limits. Version pinning, update checks and explicit upgrades are distinct operations; users should inspect changes and breaking updates.")],
+      [t("广告披露与展示", "Ad disclosure and placement"), t("付费素材保留清楚的「广告」标记。敏感上下文跳过广告；原生宿主能否展示由宿主行为决定，不能承诺强制展示。SkillFlux 管理的输出只在命令成功并产生非空回答后追加广告，广告不用于改变答案内容或 Skill 搜索排名。", "Paid creative carries a clear “广告” (advertisement) label. Sensitive contexts skip ads. Native host display depends on host behavior and cannot be guaranteed. Managed output appends an ad only after a command succeeds with a non-empty answer. Ads do not control answer content or skill search ranking.")],
+      [t("预算、预留和花费", "Budget, reservation and spend"), t("广告分配预留 CPC，满足去重及校验条件的有效点击才计入花费。花费与预留分别记录，均不代表已经收到款项。分配上限按 UTC 自然日计算。暂停活动后，旧的未消费广告凭证失效；预览不计入付费展示或点击。", "Ad allocation reserves CPC, and valid clicks that pass deduplication and validation are charged to spend. Spend and reservations are tracked separately and neither proves payment was received. Allocation caps use UTC calendar days. Pausing a campaign invalidates old unused ad credentials; previews do not count as paid impressions or clicks.")],
+      [t("内容责任与问题处理", "Content responsibility and review"), t("广告主应提供真实且有权使用的产品、文案和 HTTPS 目标页面，不得提交误导、侵权或恶意内容。运营人员可根据举报与核查结果暂停活动。我们不保证广告触达、转化、被搜索引擎或 AI 收录，也不承诺审核等同于零风险。", "Advertisers should provide truthful, authorized product information, copy and HTTPS destinations, without misleading, infringing or malicious content. Operators may pause campaigns after report review. We do not guarantee reach, conversion, search-engine or AI indexing, or risk-free outcomes from review.")]
+    ]
+  },
+  contact: {
+    title: t("把问题交给合适的入口。", "Choose the right contact path."),
+    label: t("联系与反馈", "Contact and feedback"),
+    intro: t("浏览、搜索和本地安装无需登录。以下入口分别接收合作需求、广告举报和接入问题。", "Browsing, search and local installation require no login. The paths below cover campaign inquiries, ad reports and setup questions."),
+    sections: [
+      [t("产品与广告合作", "Product and advertising inquiries"), t("使用广告合作表留下产品、公司、HTTPS 官网、联系人和至少一种联系方式。收到真实保存确认后，保留返回的记录编号，便于后续查找。", "Use the advertising inquiry form to provide a product, company, HTTPS website, contact person and at least one contact method. After a confirmed save, keep the returned record ID for follow-up.")],
+      [t("广告内容问题", "Ad content concerns"), t("使用举报表提供活动 ID 和具体问题。无需账号或联系方式。举报不会自动下架广告，由运营人员查看关联素材并处理。", "Use the report form to provide a campaign ID and the specific concern. No account or contact details are needed. Reports do not automatically remove ads; operators inspect the related creative and act.")],
+      [t("本地接入与资料请求", "Local setup and data requests"), t("先阅读接入指南，检查本地构建、宿主配置与 Registry 地址。咨询资料更正或删除请求可沿用已有合作联系渠道，或在合作表的需求栏引用原咨询编号说明。不要提交管理员 Token、项目密钥或完整私人对话。", "Start with the setup guide and check your local build, host configuration and registry URL. For corrections or deletion of inquiry data, use an established contact or reference the original inquiry ID in a new inquiry. Do not submit operator tokens, project secrets or complete private conversations.")]
+    ]
+  }
+};
+const document = documents[kind];
+---
+<BaseLayout lang={lang} canonicalPath={localizePath("/" + kind + "/", lang)} title={document.label} description={document.intro} pageClass="policy-page">
+  <main id="main-content" class="policy-shell">
+    <a href={localizePath("/",lang)} class="policy-back">← {t("返回首页", "Home")}</a>
+    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 2026-09-06", "Current implementation · Updated 2026-09-06")}</small></header>
+    <div class="policy-body">
+      <nav aria-label={t("相关说明", "Related information")}>
+        {[["quality",t("质量标准","Quality standards")],["privacy",t("隐私说明","Privacy")],["terms",t("服务与广告条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
+      </nav>
+      <article>{document.sections.map(([heading,body],index)=><section><p class="policy-number">{String(index+1).padStart(2,"0")}</p><div><h2>{heading}</h2><p>{body}</p></div></section>)}
+        <div class="policy-actions"><a href={localizePath("/advertise/",lang)}>{t("提交合作咨询","Send an inquiry")} ↗</a><a href={localizePath("/report/",lang)}>{t("举报广告","Report an ad")} ↗</a><a href={localizePath("/install/",lang)}>{t("本地接入指南","Local setup guide")} →</a></div>
+      </article>
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .policy-shell { width:min(1180px,calc(100% - 48px)); margin:0 auto; padding:40px 0 100px; }
+  .policy-back { font-size:.8rem; }
+  .policy-shell > header { padding:55px 0 44px; border-bottom:2px solid var(--ink); }
+  h1 { font:800 clamp(2.5rem,5vw,3.8rem)/1.08 var(--font-body); letter-spacing:-.045em; max-width:17ch; margin:0 0 30px; text-wrap:balance; }
+  .policy-intro { max-width:65ch; line-height:1.8; color:var(--muted); }
+  header small { font: .7rem var(--font-mono); color:var(--accent); }
+  .policy-body { display:grid;grid-template-columns:minmax(150px,.3fr) minmax(0,1fr);gap:80px;padding-top:45px; }
+  nav { display:flex; flex-direction:column; gap:0; align-self:start; position:sticky; top:100px; }
+  nav a { text-decoration:none; border-bottom:1px solid var(--line); padding:15px 0; font-size:.85rem; }
+  nav a[aria-current="page"] { color:var(--accent); font-weight:700; }
+  article > section { display:grid;grid-template-columns:36px minmax(0,1fr);gap:20px;border-bottom:1px solid var(--ink);padding:0 0 30px;margin-bottom:30px; }
+  .policy-number { font: .75rem var(--font-mono); color:var(--accent); margin:5px 0; }
+  h2 { margin:0 0 18px;font:700 1.65rem/1.25 var(--font-body); }
+  section div > p { margin:0;line-height:1.85;max-width:70ch;color:var(--muted);font-size:.94rem; }
+  .policy-actions { display:flex;gap:20px;flex-wrap:wrap;padding-top:16px;font-size:.85rem; }
+  a:focus-visible { outline:3px solid var(--accent);outline-offset:5px; }
+  @media(max-width:700px) { .policy-shell {width:calc(100% - 30px);} .policy-body {grid-template-columns:1fr;gap:32px;} nav {position:static;flex-direction:row;flex-wrap:wrap;gap:18px;} nav a {padding:10px 0;} }
+</style>

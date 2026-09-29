@@ -1,0 +1,41 @@
+{
+  "name": "@skillflux/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run validate && astro build && npm run build:seo",
+    "build:seo": "tsx scripts/seo-build.ts",
+    "build:og": "node scripts/build-og.mjs",
+    "preview": "astro preview",
+    "publication:sync": "tsx scripts/sync-publication.ts",
+    "publication:build": "tsx scripts/publication-build.ts",
+    "publication:watch": "tsx scripts/publication-build.ts --watch",
+    "test:publication": "tsx --test tests/publication.integration.ts",
+    "test": "vitest run && npm run test:publication",
+    "typecheck": "astro check && tsc --project tsconfig.worker.json",
+    "types:worker": "wrangler types edge/worker-env.d.ts --config wrangler.workers.jsonc",
+    "validate": "tsx scripts/validate-data.ts"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.0.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/node": "^24.0.0",
+    "entities": "^4.5.0",
+    "esbuild": "^0.28.1",
+    "sharp": "^0.35.4",
+    "tsx": "^4.19.0",
+    "typescript": "^6.0.3",
+    "ultrahtml": "^1.6.0",
+    "vitest": "^3.0.0",
+    "wrangler": "^4.104.0"
+  },
+  "overrides": {
+    "yaml": "^2.9.0",
+    "yaml-language-server": "^1.23.0"
+  }
+}

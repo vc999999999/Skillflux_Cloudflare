@@ -1,0 +1,188 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl, getCategoryBySlug, getRelatedSites, getSiteBySlug, getTagIndex, type Site } from "../lib/content";
+import { collections, getUseCase } from "../lib/editorial";
+import { getGuideBySlug } from "../lib/guides";
+import { getResourceEditorial } from "../lib/resource-editorial";
+import {
+  DEFAULT_LANGUAGE,
+  getPageCopy,
+  getSiteCopy,
+  localizePath,
+  translateCategory,
+  translatePricing,
+  translateTrust,
+  type Language
+} from "../lib/i18n";
+import ResourceTable from "./ResourceTable.astro";
+import PackCta from "./PackCta.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+
+type Props = { site: Site; lang?: Language };
+const { site, lang = DEFAULT_LANGUAGE } = Astro.props;
+const zh = lang === "zh";
+const copy = getPageCopy(lang);
+const siteCopy = getSiteCopy(site, lang);
+const editorial = getResourceEditorial(site.slug);
+const summary = editorial?.summary[lang] ?? siteCopy.summary;
+const capability = editorial?.primaryCapability[lang] ?? siteCopy.tagline;
+const title = `${siteCopy.name} – ${capability}`;
+const description = summary;
+const canonicalPath = localizePath(`/resource/${site.resourceSlug}/`, lang);
+const updatedAt = site.updatedAt;
+const sourceCategory = getCategoryBySlug(site.category);
+const categoryLabel = translateCategory(site.category, sourceCategory?.label ?? site.category, lang);
+const related = getRelatedSites(site, 4);
+const useCases = (editorial?.useCases ?? []).flatMap(slug => {
+  const entry = getUseCase(slug);
+  return entry ? [entry] : [];
+});
+const alternatives = (editorial?.alternativeSlugs ?? []).flatMap(slug => {
+  const alternative = getSiteBySlug(slug);
+  return alternative && alternative.indexable ? [alternative] : [];
+});
+const relatedCollections = collections.filter(entry => entry.siteSlugs.includes(site.slug));
+const comparisonCollections = relatedCollections.length ? relatedCollections : collections.filter(entry =>
+  entry.siteSlugs.some(slug => editorial?.alternativeSlugs.includes(slug))
+).slice(0, 2);
+const relatedGuides = (editorial?.relatedGuideSlugs ?? []).flatMap(slug => {
+  const guide = getGuideBySlug(slug);
+  return guide ? [guide] : [];
+});
+const sourceUrls = [...new Set([site.canonicalUrl, ...site.sourceUrls])];
+const tagSlugByName = new Map(getTagIndex().map(entry => [entry.tag, entry.slug]));
+const tagLinks = site.tags.map((tag, index) => ({ label: siteCopy.tags[index] ?? tag, slug: tagSlugByName.get(tag) }));
+const breadcrumbItems = [
+  { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+  { label: copy.breadcrumb.directory, href: localizePath("/directory/", lang) },
+  { label: siteCopy.name }
+];
+const installation = site.category === "repo"
+  ? (zh ? "打开原始仓库，先阅读 README、选中 Skill 的主指令及相关脚本。核对安装目录、宿主要求、依赖与许可证，再按项目文档在可恢复的工作环境中验证一个小任务。" : "Open the original repository and read its README, the selected skill instructions and any linked scripts. Check installation paths, host requirements, dependencies and licenses, then follow the project documentation to verify a small task in a workspace you can restore.")
+  : (zh ? "先在来源页面选定具体条目，再进入该条目的原始文档，核对宿主、凭证、依赖与安装步骤。此页收录的是来源入口，实际安装方法由选中的项目决定。" : "Choose a specific entry on the source page, then follow its original documentation to check the host, credentials, dependencies and installation steps. This page lists a source entry point; the selected project determines the actual installation method.");
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "WebPage", name: title,
+    url: absoluteUrl(canonicalPath), description, inLanguage: copy.locale,
+    datePublished: site.addedAt, dateModified: updatedAt,
+    isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+    about: { "@type": "Thing", name: siteCopy.name, url: site.canonicalUrl, description: summary }
+  },
+  {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem", position: index + 1, name: crumb.label,
+      item: absoluteUrl(crumb.href ?? canonicalPath)
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={!site.indexable}>
+  <main id="main-content" class="page-shell">
+    <article>
+      <section class="detail-hero">
+        <Breadcrumb items={breadcrumbItems} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
+        <div class="detail-hero-grid">
+          <div>
+            <p class="eyebrow"><span></span> {categoryLabel}</p>
+            <h1>{siteCopy.name}</h1>
+            <p>{capability}</p>
+            <div class="detail-badges">
+              {site.recommended && <span>{copy.resource.recommended}</span>}
+              <span data-seo-field="resource-type">{siteCopy.type}</span>
+              <span>{siteCopy.scale}</span>
+              <span>{site.language.map(value => value === 'zh' ? (zh ? '中文' : 'Chinese') : value === 'en' ? (zh ? '英文' : 'English') : value).join(" / ")}</span>
+              <span>{translateTrust(site.trustLevel, lang)}</span>
+            </div>
+          </div>
+          <aside class="detail-panel">
+            <dl>
+              <div><dt>{zh ? '来源类型' : 'Source type'}</dt><dd data-seo-field="source-type"><a href={localizePath(`/source-type/${site.category}/`, lang)}>{categoryLabel}</a></dd></div>
+              <div><dt>{copy.detail.pricing}</dt><dd>{translatePricing(site.pricing, lang)}</dd></div>
+              <div><dt>{zh ? '内容更新' : 'Content updated'}</dt><dd><time datetime={updatedAt}>{updatedAt}</time></dd></div>
+            </dl>
+            <a class="button primary" data-seo-field="source-url" href={site.canonicalUrl} rel="noopener noreferrer">{copy.detail.visit}</a>
+          </aside>
+        </div>
+      </section>
+
+      <p class="content-disclosure">{zh ? '本页是来源收录与编辑说明；推荐和来源信任标签不代表每个 Skill 已通过人工实测。精品库采用独立的版本级质检标准。' : 'This page provides source information and editorial guidance. Recommendations and source trust labels do not mean every skill has passed human testing. The curated registry uses a separate qualification process for each version.'} <a href={localizePath('/quality/', lang)}>{zh ? '查看质检标准' : 'Read the qualification standard'}</a></p>
+      <section class="detail-grid">
+        <div class="resource-editorial">
+          <section class="prose-block" aria-labelledby="overview-heading">
+            <h2 id="overview-heading">{zh ? '资源介绍' : 'Overview'}</h2>
+            <p>{summary}</p>
+          </section>
+          {editorial && <>
+            <section class="prose-block" data-seo-section="best-for" aria-labelledby="best-for-heading">
+              <h2 id="best-for-heading">{zh ? '适合谁' : 'Best for'}</h2>
+              <ul>{editorial.bestFor.map(item => <li>{item[lang]}</li>)}</ul>
+            </section>
+            <section class="prose-block" data-seo-section="use-cases" aria-labelledby="use-cases-heading">
+              <h2 id="use-cases-heading">{zh ? '使用场景' : 'Use cases'}</h2>
+              <ul class="editorial-links">{useCases.map(entry => <li><a href={localizePath(`/use-case/${entry.slug}/`, lang)}>{entry.title[lang]}</a><p>{entry.summary[lang]}</p></li>)}</ul>
+            </section>
+            <section class="prose-block" data-seo-section="notes" aria-labelledby="notes-heading">
+              <h2 id="notes-heading">{zh ? 'SkillFlux 选用建议' : 'SkillFlux notes'}</h2>
+              <p>{editorial.skillFluxNote[lang]}</p>
+            </section>
+          </>}
+          <section class="prose-block" aria-labelledby="installation-heading">
+            <h2 id="installation-heading">{zh ? '获取与使用' : 'Installation and use'}</h2>
+            <p>{installation}</p>
+            <p><a href={site.canonicalUrl} rel="noopener noreferrer">{zh ? `阅读 ${siteCopy.name} 原始来源` : `Read the original ${siteCopy.name} source`}</a></p>
+          </section>
+          {editorial && <>
+            <section class="prose-block" data-seo-section="limitations" aria-labelledby="limitations-heading">
+              <h2 id="limitations-heading">{zh ? '使用边界与局限' : 'Limitations'}</h2>
+              <ul>{editorial.limitations.map(item => <li>{item[lang]}</li>)}</ul>
+            </section>
+            <section class="prose-block" data-seo-section="alternatives" aria-labelledby="alternatives-heading">
+              <h2 id="alternatives-heading">{zh ? '替代与比较' : 'Alternatives'}</h2>
+              <ul class="editorial-links">{alternatives.map(alternative => <li><a href={localizePath(`/resource/${alternative.resourceSlug}/`, lang)}>{getSiteCopy(alternative, lang).name}</a><p>{editorial.alternativeReasons[alternative.slug]?.[lang]}</p></li>)}</ul>
+            </section>
+          </>}
+          <section class="prose-block" aria-labelledby="source-links-heading">
+            <h2 id="source-links-heading">{copy.detail.sourceLinks}</h2>
+            <ul class="source-list">{sourceUrls.map(url => <li><a href={url} rel="noopener noreferrer">{new URL(url).hostname}{new URL(url).pathname === '/' ? '' : new URL(url).pathname}</a></li>)}</ul>
+          </section>
+        </div>
+        <aside class="detail-side">
+          {relatedGuides.length > 0 && <section class="side-box">
+            <h2>{zh ? '相关指南' : 'Related guides'}</h2>
+            <ul class="editorial-links">{relatedGuides.map(guide => <li><a href={localizePath(`/guides/${guide.slug}/`, lang)}>{guide.title[lang]}</a></li>)}</ul>
+          </section>}
+          {comparisonCollections.length > 0 && <section class="side-box">
+            <h2>{zh ? (relatedCollections.length ? '收录于精选合集' : '继续比较来源') : (relatedCollections.length ? 'Featured in collections' : 'Compare more sources')}</h2>
+            <ul class="editorial-links">{comparisonCollections.map(entry => <li><a href={localizePath(`/collection/${entry.slug}/`, lang)}>{entry.title[lang]}</a></li>)}</ul>
+          </section>}
+          <section class="side-box">
+            <h2>{copy.detail.tags}</h2>
+            <div class="tag-list">{tagLinks.map(tag => tag.slug ? <a href={localizePath(`/tag/${tag.slug}/`, lang)}>{tag.label}</a> : <span>{tag.label}</span>)}</div>
+          </section>
+          <section class="side-box">
+            <h2>{copy.detail.machine}</h2>
+            <p>{copy.detail.machineText}</p>
+            <a href="/index.json">{zh ? '读取结构化资源目录' : 'Read the structured resource catalog'}</a>
+          </section>
+        </aside>
+      </section>
+    </article>
+    {related.length > 0 && <ResourceTable sites={related} heading={copy.detail.related} compact={true} lang={lang} />}
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>
+<style>
+  .resource-editorial { min-width: 0; }
+  .resource-editorial .prose-block + .prose-block { padding-top: 26px; margin-top: 26px; border-top: 1px solid var(--line); }
+  .resource-editorial ul { padding-left: 21px; }
+  .resource-editorial li { line-height: 1.85; margin-bottom: 12px; color: var(--muted); font-size: .88rem; }
+  .editorial-links { list-style: none; padding: 0 !important; margin: 0; }
+  .editorial-links li + li { margin-top: 18px; }
+  .editorial-links a { text-underline-offset: 4px; line-height: 1.7; }
+  .editorial-links p { margin: 5px 0 0; }
+  .side-box .editorial-links { font-size: .8rem; }
+  .source-list a { overflow-wrap: anywhere; }
+</style>
