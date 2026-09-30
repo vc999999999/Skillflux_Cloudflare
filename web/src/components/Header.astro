@@ -1,0 +1,97 @@
+---
+import GlobalSearch from "./GlobalSearch.astro";
+import { SITE } from "../config";
+import { DEFAULT_LANGUAGE, getAlternateLanguagePath, localizePath, type Language } from "../lib/i18n";
+type Props = { lang?: Language; currentPath?: string; showLanguage?: boolean };
+const { lang = DEFAULT_LANGUAGE, currentPath = "/", showLanguage = true } = Astro.props;
+const zh = lang === "zh";
+const path = currentPath.replace(/^\/en(?=\/)/, "");
+const showLanguageSwitcher = showLanguage && !/^\/console(?:\/|$)/.test(path);
+const links = [
+  { href: "/directory/", label: zh ? "资源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
+  { href: "/guides/", label: zh ? "指南" : "Guides", active: /^\/(guides|scenarios|insights)(\/|$)/.test(path) },
+  { href: "/for-ai/", label: "For AI", active: path.startsWith("/for-ai") }
+];
+---
+<header class="sf-header">
+  <div class="sf-header-inner">
+    <a class="sf-brand" href={localizePath("/", lang)} aria-label={zh ? "SkillFlux 首页" : "SkillFlux home"}>
+      <svg class="sf-brand-mark" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="17" width="36" height="8" fill="currentColor"/><path d="M14 29h22l14 8-14 8H14z" fill="#e0381f"/><rect x="14" y="45" width="36" height="8" fill="currentColor"/></svg>
+      <span class="sf-brand-word">SkillFlux</span>
+    </a>
+    <nav class="sf-desktop-nav" aria-label={zh ? "主导航" : "Main navigation"}>
+      {links.map(link => <a href={localizePath(link.href, lang)} aria-current={link.active ? "page" : undefined}>{link.label}</a>)}
+    </nav>
+    <div class="sf-header-actions">
+      <GlobalSearch lang={lang} />
+      <a class="sf-github-link" href={SITE.repoUrl} aria-label="GitHub" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.58 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+      </a>
+      {showLanguageSwitcher && <div class="sf-language" aria-label={zh ? "切换语言" : "Language"}>
+        <a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a>
+      </div>}
+      <a class="sf-header-cta" href={localizePath("/install/", lang)}>{zh ? "开始使用" : "Get started"}<span aria-hidden="true">↗</span></a>
+      <button class="sf-menu-toggle" type="button" aria-controls="sf-mobile-nav" aria-expanded="false" aria-label={zh ? "打开导航菜单" : "Open navigation"} data-open-label={zh ? "打开导航菜单" : "Open navigation"} data-close-label={zh ? "关闭导航菜单" : "Close navigation"}>
+        <svg class="sf-menu-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="sf-menu-close" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="sf-mobile-nav" id="sf-mobile-nav" aria-label={zh ? "移动端导航" : "Mobile navigation"} hidden>
+    {links.map(link => <a href={localizePath(link.href, lang)} aria-current={link.active ? "page" : undefined}>{link.label}<span aria-hidden="true">↗</span></a>)}
+    <a href={localizePath("/install/", lang)}>{zh ? "开始使用 SkillFlux" : "Get started with SkillFlux"}<span aria-hidden="true">↗</span></a><a href={SITE.repoUrl} rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+<style>
+  .sf-header { position: sticky; top: 0; z-index: 40; width: 100%; border-bottom: 1px solid var(--line-strong); background: rgba(243, 242, 236, 0.94); color: var(--ink); backdrop-filter: blur(14px); }
+  .sf-header-inner { width: 100%; min-height: 58px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 38px; }
+  .sf-brand { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; color: var(--ink); line-height: 1; text-decoration: none; }
+  .sf-brand-word { font-size: 1.3rem; font-weight: 800; letter-spacing: -.03em; }
+  .sf-brand-mark { display: block; flex-shrink: 0; }
+  .sf-desktop-nav { display: flex; align-items: center; gap: 27px; white-space: nowrap; }
+  .sf-desktop-nav a { font-size: 12px; color: #706b5e; font-weight: 500; text-decoration: none; transition: color .15s; }
+  .sf-desktop-nav a:hover, .sf-desktop-nav a[aria-current="page"] { color: #17150f; }
+  .sf-header-actions { margin-left: auto; display: flex; gap: 19px; align-items: center; }
+  .sf-github-link { display: inline-flex; color: #6a6558; }
+  .sf-github-link:hover { color: #17150f; }
+  .sf-language { display: flex; align-items: center; gap: 6px; font-size: 10px; white-space: nowrap; }
+  .sf-language span { color: #d7d3c4; }
+  .sf-language a { color: #a29d90; text-decoration: none; }
+  .sf-language a[aria-current] { color: #221f18; font-weight: 600; }
+  .sf-header-cta { display: inline-flex; align-items: center; gap: 11px; padding: 9px 14px; border: 1px solid #1d1b15; border-radius: 6px; background: #1d1b15; color: #fdfcf8; font-size: 11px; font-weight: 500; line-height: 1.5; white-space: nowrap; text-decoration: none; }
+  .sf-header-cta:hover { background: #39362d; }
+  .sf-menu-toggle { display: none; width: 36px; height: 36px; border: 0; padding: 7px; background: transparent; color: #25221b; cursor: pointer; }
+  .sf-menu-close { display: none; }
+  .sf-menu-toggle[aria-expanded="true"] .sf-menu-icon { display: none; }
+  .sf-menu-toggle[aria-expanded="true"] .sf-menu-close { display: block; }
+  .sf-mobile-nav { border-top: 1px solid #f2f1ea; background: #fdfcf8; padding: 12px 24px 18px; }
+  .sf-mobile-nav[hidden] { display: none; }
+  .sf-mobile-nav a { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; color: #5e594d; font-size: 14px; text-decoration: none; }
+  .sf-mobile-nav a[aria-current="page"] { color: #17150f; font-weight: 600; }
+  .sf-mobile-nav a span { color: #a29d90; }
+  .sf-header a:focus-visible, .sf-header button:focus-visible { outline: 2px solid #5e594d; outline-offset: 4px; }
+  @media (max-width: 1150px) { .sf-header-inner { gap: 24px; padding: 0 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } .sf-github-link { display: none; } }
+  @media (max-width: 1050px) { .sf-desktop-nav { display: none; } .sf-menu-toggle { display: block; } }
+  @media (min-width: 1051px) { .sf-mobile-nav { display: none; } }
+  @media (max-width: 550px) { .sf-header-inner { padding: 0 20px; gap: 12px; } .sf-header-cta { display: none; } .sf-header-actions { gap: 13px; } .sf-language { font-size: 10px; gap: 5px; } }
+</style>
+<script>
+  const syncLanguageLinks = () => document.querySelectorAll<HTMLAnchorElement>('[data-language-link]').forEach(link => {
+    const target = new URL(link.href); target.search = location.search; target.hash = location.hash; link.href = target.toString();
+  });
+  syncLanguageLinks();
+  document.addEventListener('skillflux:filters', syncLanguageLinks);
+  window.addEventListener('popstate', syncLanguageLinks);
+  window.addEventListener('hashchange', syncLanguageLinks);
+  const menuButton = document.querySelector<HTMLButtonElement>('.sf-menu-toggle');
+  const mobileNav = document.querySelector<HTMLElement>('#sf-mobile-nav');
+  const setMenu = (open: boolean) => {
+    if (!menuButton || !mobileNav) return;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', (open ? menuButton.dataset.closeLabel : menuButton.dataset.openLabel) ?? 'Menu');
+    mobileNav.hidden = !open;
+  };
+  menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') { setMenu(false); menuButton.focus(); } });
+  document.addEventListener('click', event => { if (event.target instanceof Node && !document.querySelector('.sf-header')?.contains(event.target)) setMenu(false); });
+  window.matchMedia('(min-width: 1051px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
+</script>

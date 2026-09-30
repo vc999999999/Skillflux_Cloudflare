@@ -1,0 +1,11 @@
+---
+import RegistryPage from '../../../../components/RegistryPage.astro';
+import { getPublication } from '../../../../lib/publication';
+import { registryExtraPages } from '../../../../lib/publication-search';
+
+export function getStaticPaths() {
+  return registryExtraPages(getPublication().latest.length).map(page => ({ params: { page: String(page) }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+<RegistryPage lang="en" page={page} />

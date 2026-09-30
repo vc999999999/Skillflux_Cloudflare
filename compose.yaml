@@ -1,0 +1,47 @@
+services:
+  registry:
+    build:
+      context: .
+      dockerfile: mcp/Dockerfile
+    restart: unless-stopped
+    environment:
+      SKILLFLUX_HOST: 0.0.0.0
+      SKILLFLUX_PORT: 8787
+      SKILLFLUX_DATA_DIR: /data
+      SKILLFLUX_ADMIN_TOKEN: ${SKILLFLUX_ADMIN_TOKEN:?Set a private operator token in .env}
+      SKILLFLUX_PUBLIC_URL: ${SKILLFLUX_PUBLIC_URL:-http://localhost:8080}
+      SKILLFLUX_ALLOWED_ORIGINS: ${SKILLFLUX_ALLOWED_ORIGINS:-http://localhost:8080}
+      SKILLFLUX_TRUSTED_PROXIES: ${SKILLFLUX_TRUSTED_PROXIES:-}
+    volumes:
+      - registry-data:/data
+    expose:
+      - "8787"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    init: true
+    security_opt:
+      - no-new-privileges:true
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      args:
+        # Live console/forms use the same-origin proxy. Catalog HTML uses the
+        # signed web/data/registry-publication.json copied into the build.
+        PUBLIC_REGISTRY_URL: /
+        SITE_URL: ${SITE_URL:-http://localhost:8080}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${SKILLFLUX_WEB_PORT:-8080}:80"
+    depends_on:
+      registry:
+        condition: service_healthy
+    # After publication:sync, rebuild this image to publish changed skills or revocations.
+    init: true
+
+volumes:
+  registry-data:

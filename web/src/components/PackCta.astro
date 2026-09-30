@@ -1,0 +1,49 @@
+---
+import { DEFAULT_LANGUAGE, localizePath, type Language } from "../lib/i18n";
+
+type Props = { lang?: Language };
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const isZh = lang === "zh";
+---
+
+<section class="pack-cta" aria-label={isZh ? "SkillFlux 安装入口" : "SkillFlux setup"}>
+  <div class="pack-cta-body">
+    <p class="eyebrow"><span></span>CURATED REGISTRY</p>
+    <h2>{isZh ? "来源目录之外，还有真正可验证的安装链路。" : "Beyond the source map, there is a verifiable install path."}</h2>
+    <p>{isZh
+      ? "在精品 Registry 查看审核证据与权限，再按安装指南从本地构建 CLI。当前不宣称存在已发布的 npm 快捷安装包。"
+      : "Inspect review evidence and permissions in the curated Registry, then build the CLI locally using the setup guide. No published npm shortcut is claimed today."}</p>
+  </div>
+  <div class="pack-cta-actions">
+    <a href={localizePath("/registry/", lang)}>{isZh ? "搜索精品 Skill" : "Search curated skills"}<span>→</span></a>
+    <a href={localizePath("/install/", lang)}>{isZh ? "本地安装指南" : "Local setup guide"}<span>↗</span></a>
+  </div>
+</section>
+
+<style>
+  .pack-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+
+  .pack-cta-actions a {
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 24px;
+    min-width: 190px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 13px 14px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 750;
+  }
+
+  .pack-cta-actions a:first-child {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+  }
+</style>

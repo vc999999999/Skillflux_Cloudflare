@@ -1,0 +1,1734 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SkillFlux 无登录精品 Skill 搜索、本地加载、质检供应链与广告输出的完整商业架构。" />
+  <link rel="icon" href="data:," />
+  <title>SkillFlux Full Commercial Architecture · Revision 1.0</title>
+  <style>
+    :root {
+      --paper: #f1efe7;
+      --paper-2: #faf9f4;
+      --ink: #17150f;
+      --muted: #6d685c;
+      --faint: #a19b8d;
+      --line: rgba(23, 21, 15, 0.18);
+      --red: #e43b24;
+      --red-dark: #a92718;
+      --blue: #18475a;
+      --green: #1d6b51;
+      --dark: #171711;
+      --acid: #d9e7c8;
+      --display: "Baskerville", "Songti SC", "STSong", Georgia, serif;
+      --sans: "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      --rail: 244px;
+      --max: 1480px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        linear-gradient(rgba(23, 21, 15, 0.032) 1px, transparent 1px),
+        var(--paper);
+      background-size: 100% 28px;
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+    code { font-family: var(--mono); }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 50;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    :focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 40;
+      height: 3px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: var(--red);
+    }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      border-inline: 1px solid var(--line);
+      background: rgba(241, 239, 231, 0.92);
+    }
+
+    .rail {
+      position: sticky;
+      top: 0;
+      display: flex;
+      height: 100dvh;
+      flex-direction: column;
+      padding: 28px 24px 22px;
+      border-right: 1px solid var(--ink);
+      background: rgba(241, 239, 231, 0.96);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .brand strong {
+      font-size: 1.62rem;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+    }
+
+    .brand span,
+    .rail-meta,
+    .eyebrow,
+    .micro,
+    .kicker,
+    .node-label,
+    .trace-side {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.075em;
+    }
+
+    .brand span { color: var(--faint); font-size: 0.64rem; }
+
+    .rail-meta {
+      display: grid;
+      gap: 4px;
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 0.59rem;
+      line-height: 1.6;
+    }
+
+    .rail-meta b { color: var(--green); font-weight: 700; }
+
+    .toc {
+      display: grid;
+      gap: 3px;
+      margin-top: 38px;
+    }
+
+    .toc a {
+      display: grid;
+      grid-template-columns: 25px 1fr;
+      gap: 9px;
+      padding: 10px 0;
+      border-bottom: 1px solid transparent;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-decoration: none;
+      transition: color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .toc a span { color: var(--faint); font-family: var(--mono); font-size: 0.62rem; }
+
+    .toc a:hover,
+    .toc a.is-active {
+      border-color: var(--ink);
+      color: var(--ink);
+      transform: translateX(3px);
+    }
+
+    .toc a.is-active span { color: var(--red); }
+
+    .rail-foot {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .rail-foot p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.55;
+    }
+
+    .rail-foot a {
+      display: inline-block;
+      margin-top: 13px;
+      color: var(--red-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main { min-width: 0; }
+
+    section {
+      scroll-margin-top: 24px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .section-pad { padding: clamp(64px, 8vw, 118px) clamp(30px, 6vw, 86px); }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 0.64rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      background: var(--red);
+    }
+
+    h1, h2, h3, p { text-wrap: pretty; }
+
+    h1, h2 {
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: -0.055em;
+    }
+
+    h1 {
+      max-width: 1020px;
+      margin: 0;
+      font-size: clamp(4.3rem, 8.6vw, 9.4rem);
+      line-height: 0.86;
+    }
+
+    h1 em {
+      display: block;
+      color: var(--red);
+      font-style: normal;
+    }
+
+    h2 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(2.75rem, 5vw, 5.4rem);
+      line-height: 0.98;
+    }
+
+    h3 { letter-spacing: -0.025em; }
+
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      padding: clamp(52px, 7vw, 92px) clamp(30px, 6vw, 86px) 44px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 88% 17%, rgba(228, 59, 36, 0.09), transparent 25%),
+        transparent;
+    }
+
+    .hero::after {
+      content: "MCP";
+      position: absolute;
+      right: -0.07em;
+      bottom: -0.22em;
+      z-index: 0;
+      color: rgba(23, 21, 15, 0.035);
+      font-family: var(--display);
+      font-size: clamp(13rem, 28vw, 31rem);
+      font-weight: 900;
+      letter-spacing: -0.1em;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-lede {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr);
+      gap: clamp(30px, 7vw, 100px);
+      align-items: end;
+      margin-top: clamp(44px, 7vw, 94px);
+      padding-top: 24px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .hero-lede > p {
+      max-width: 690px;
+      margin: 0;
+      color: #484439;
+      font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+      line-height: 1.75;
+    }
+
+    .decision-stamp {
+      display: grid;
+      gap: 10px;
+      padding: 19px 20px;
+      border: 1px solid var(--ink);
+      background: var(--paper-2);
+      box-shadow: 7px 7px 0 rgba(24, 71, 90, 0.14);
+    }
+
+    .decision-stamp span {
+      color: var(--red);
+      font-family: var(--mono);
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .decision-stamp strong { font-size: 0.98rem; line-height: 1.4; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 44px;
+      border-block: 1px solid var(--ink);
+    }
+
+    .principles article {
+      min-height: 114px;
+      padding: 16px 14px;
+      border-right: 1px solid var(--line);
+    }
+
+    .principles article:last-child { border-right: 0; }
+    .principles b { display: block; font-family: var(--mono); font-size: 0.68rem; }
+    .principles p { margin: 24px 0 0; color: var(--muted); font-size: 0.72rem; line-height: 1.5; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.55fr);
+      gap: clamp(32px, 8vw, 116px);
+      align-items: end;
+      margin-bottom: 48px;
+    }
+
+    .section-head > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .architecture { background: var(--paper-2); }
+
+    .view-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .view-switcher button {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .view-switcher button:hover { transform: translateY(-2px); }
+    .view-switcher button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+    .view-note {
+      min-height: 42px;
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .system-map {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.72fr) 60px minmax(300px, 1.55fr) 60px minmax(185px, 0.85fr);
+      align-items: stretch;
+      border: 1px solid var(--ink);
+      background:
+        linear-gradient(rgba(23, 21, 15, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 100% 24px;
+    }
+
+    .map-node,
+    .cloud-stack {
+      transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
+    }
+
+    .map-node.is-muted,
+    .cloud-stack.is-muted,
+    .connector.is-muted { opacity: 0.16; filter: grayscale(1); }
+
+    .map-node {
+      position: relative;
+      min-width: 0;
+      padding: 20px;
+    }
+
+    .host-node {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--paper-2);
+    }
+
+    .node-label { color: var(--muted); font-size: 0.57rem; }
+
+    .host-node h3,
+    .runtime-node h3,
+    .cloud-node h3 {
+      margin: 12px 0 0;
+      font-size: 1.22rem;
+      line-height: 1.2;
+    }
+
+    .host-list,
+    .runtime-grid,
+    .cloud-list,
+    .guard-list,
+    .policy-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .host-list { display: grid; gap: 8px; margin-top: 70px; }
+
+    .host-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.75rem;
+    }
+
+    .connector {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 430px;
+      border-inline: 1px solid var(--line);
+      color: var(--red);
+      transition: opacity 220ms ease;
+    }
+
+    .connector::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      right: 12px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .connector::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 4px);
+      right: 11px;
+      width: 7px;
+      height: 7px;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .connector span {
+      position: relative;
+      z-index: 1;
+      padding: 6px 4px;
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    .runtime-node {
+      padding: 0;
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .runtime-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 22px;
+      border-bottom: 1px solid rgba(241, 239, 231, 0.18);
+    }
+
+    .runtime-head .node-label { color: rgba(241, 239, 231, 0.5); }
+
+    .runtime-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #9ed3bb;
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+    }
+
+    .runtime-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #68c99d;
+      box-shadow: 0 0 0 5px rgba(104, 201, 157, 0.11);
+    }
+
+    .runtime-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .runtime-grid li {
+      min-height: 104px;
+      padding: 16px 17px;
+      border-right: 1px solid rgba(241, 239, 231, 0.12);
+      border-bottom: 1px solid rgba(241, 239, 231, 0.12);
+    }
+
+    .runtime-grid li:nth-child(2n) { border-right: 0; }
+    .runtime-grid li:nth-last-child(-n + 2) { border-bottom: 0; }
+    .runtime-grid b { display: block; font-size: 0.78rem; }
+    .runtime-grid span { display: block; margin-top: 27px; color: rgba(241, 239, 231, 0.48); font-family: var(--mono); font-size: 0.54rem; }
+
+    .cloud-stack { display: grid; grid-template-rows: 1fr 0.78fr; }
+
+    .cloud-node { padding: 20px; background: #e6edeb; }
+    .cloud-node + .cloud-node { border-top: 1px solid var(--ink); background: #eee2d8; }
+    .cloud-list { display: grid; gap: 7px; margin-top: 30px; }
+    .cloud-list li { padding: 7px 0; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.58rem; }
+
+    .plane-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px 24px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    .plane-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .plane-legend i { width: 8px; height: 8px; background: var(--red); }
+    .plane-legend span:nth-child(2) i { background: var(--blue); }
+    .plane-legend span:nth-child(3) i { background: var(--green); }
+
+    .sequence { background: var(--ink); color: var(--paper); }
+    .sequence .eyebrow, .sequence .section-head > p { color: rgba(241, 239, 231, 0.58); }
+    .sequence h2 { color: var(--paper); }
+
+    .trace {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      border-top: 1px solid rgba(241, 239, 231, 0.28);
+    }
+
+    .trace article { display: contents; }
+
+    .trace-index,
+    .trace-body {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(241, 239, 231, 0.15);
+    }
+
+    .trace-index {
+      position: relative;
+      color: var(--red);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+    }
+
+    .trace-index::after {
+      content: "";
+      position: absolute;
+      top: 27px;
+      right: 18px;
+      width: 7px;
+      height: 7px;
+      background: currentColor;
+    }
+
+    .trace-body {
+      display: grid;
+      grid-template-columns: 96px minmax(150px, 0.45fr) minmax(200px, 1fr);
+      gap: 18px;
+      align-items: baseline;
+    }
+
+    .trace-side { color: rgba(241, 239, 231, 0.42); font-size: 0.55rem; }
+    .trace-body strong { font-size: 0.88rem; }
+    .trace-body p { margin: 0; color: rgba(241, 239, 231, 0.62); font-size: 0.76rem; line-height: 1.55; }
+
+    .boundary-callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 28px;
+      padding: 18px 20px;
+      border: 1px solid rgba(241, 239, 231, 0.34);
+      background: rgba(241, 239, 231, 0.06);
+    }
+
+    .boundary-callout b { color: #9ed3bb; font-family: var(--mono); font-size: 0.61rem; }
+    .boundary-callout p { margin: 0; color: rgba(241, 239, 231, 0.7); font-size: 0.78rem; line-height: 1.55; }
+
+    .contracts { background: var(--paper); }
+
+    .tool-table {
+      border: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .tool-row {
+      display: grid;
+      grid-template-columns: 58px minmax(180px, 0.75fr) 88px minmax(250px, 1.25fr);
+      align-items: center;
+      min-height: 74px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tool-row:last-child { border-bottom: 0; }
+    .tool-row > * { padding: 16px; }
+    .tool-row > * + * { border-left: 1px solid var(--line); }
+    .tool-row .micro { color: var(--red); font-size: 0.56rem; }
+    .tool-row code { font-size: 0.74rem; font-weight: 700; }
+    .tool-row p { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.5; }
+
+    .risk {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 24px;
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.53rem;
+      text-transform: uppercase;
+    }
+
+    .risk.write { border-color: var(--red); color: var(--red-dark); }
+    .risk.delete { background: var(--ink); color: var(--paper); }
+
+    .contract-note {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-top: 22px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .contract-note article { padding: 20px; background: var(--paper); }
+    .contract-note b { font-family: var(--mono); font-size: 0.62rem; }
+    .contract-note p { margin: 14px 0 0; color: var(--muted); font-size: 0.76rem; line-height: 1.6; }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr);
+      gap: clamp(28px, 6vw, 74px);
+      align-items: start;
+    }
+
+    .gates {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border: 1px solid var(--ink);
+    }
+
+    .gate {
+      position: relative;
+      min-height: 210px;
+      padding: 17px 15px;
+      border-right: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .gate:last-child { border-right: 0; }
+    .gate:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.64rem;
+    }
+
+    .gate span { color: var(--red); font-family: var(--mono); font-size: 0.58rem; }
+    .gate h3 { margin: 36px 0 10px; font-size: 0.9rem; }
+    .gate p { margin: 0; color: var(--muted); font-size: 0.68rem; line-height: 1.55; }
+
+    .guard-card {
+      padding: 22px;
+      background: var(--blue);
+      color: var(--paper);
+      box-shadow: 9px 9px 0 rgba(228, 59, 36, 0.13);
+    }
+
+    .guard-card .micro { color: rgba(241, 239, 231, 0.6); font-size: 0.57rem; }
+    .guard-card h3 { margin: 16px 0 22px; font-family: var(--display); font-size: 2rem; line-height: 1; }
+    .guard-list { display: grid; gap: 11px; }
+    .guard-list li { display: grid; grid-template-columns: 22px 1fr; gap: 9px; color: rgba(241, 239, 231, 0.78); font-size: 0.72rem; line-height: 1.45; }
+    .guard-list span { color: #bfe2ce; font-family: var(--mono); }
+
+    .package {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(420px, 1.28fr);
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .package-copy { padding: clamp(56px, 7vw, 96px) clamp(30px, 5vw, 68px); }
+    .package-copy h2 { font-size: clamp(2.8rem, 5vw, 5rem); }
+    .package-copy > p { max-width: 510px; margin: 28px 0 0; color: var(--muted); line-height: 1.7; }
+
+    .policy-list { display: grid; gap: 0; margin-top: 38px; border-top: 1px solid var(--ink); }
+    .policy-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.75rem; }
+    .policy-list span { color: var(--green); font-family: var(--mono); }
+
+    .manifest {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      background: var(--dark);
+      color: #ece9df;
+    }
+
+    .manifest-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(241, 239, 231, 0.15);
+      color: rgba(241, 239, 231, 0.5);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+    }
+
+    .manifest pre {
+      flex: 1;
+      overflow: auto;
+      margin: 0;
+      padding: 28px;
+      font-family: var(--mono);
+      font-size: clamp(0.67rem, 1vw, 0.8rem);
+      line-height: 1.75;
+      tab-size: 2;
+    }
+
+    .c-key { color: #84c9ac; }
+    .c-str { color: #e5ad92; }
+    .c-bool { color: #8db5ce; }
+    .c-dim { color: rgba(241, 239, 231, 0.4); }
+
+    .recommendation { background: #e9e4d7; }
+
+    .recommendation-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(420px, 1.14fr);
+      gap: clamp(38px, 7vw, 96px);
+      align-items: center;
+    }
+
+    .truth-table { display: grid; margin-top: 34px; border-top: 1px solid var(--ink); }
+    .truth-row { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .truth-row span { color: var(--red); font-family: var(--mono); font-size: 0.6rem; }
+    .truth-row p { margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
+
+    .output-window {
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--dark);
+      color: var(--paper);
+      box-shadow: 12px 12px 0 rgba(228, 59, 36, 0.13);
+    }
+
+    .window-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(241, 239, 231, 0.14);
+      color: rgba(241, 239, 231, 0.48);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+    }
+
+    .answer-block { margin: 20px; padding: 18px; border-left: 2px solid #68c99d; background: rgba(29, 107, 81, 0.1); }
+    .answer-block .micro { color: rgba(241, 239, 231, 0.45); font-size: 0.56rem; }
+    .answer-block p { margin: 11px 0 0; font-size: 0.84rem; line-height: 1.65; }
+
+    .sponsor-card {
+      margin: 28px 20px 20px;
+      padding: 17px;
+      border-left: 3px solid var(--red);
+      background: var(--paper-2);
+      color: var(--ink);
+    }
+
+    .sponsor-top { display: flex; justify-content: space-between; gap: 16px; }
+    .sponsor-top b { color: var(--red-dark); font-family: var(--mono); font-size: 0.57rem; text-transform: uppercase; }
+    .sponsor-top span { color: var(--muted); font-size: 0.7rem; }
+    .sponsor-card h3 { margin: 16px 0 7px; font-size: 1.1rem; }
+    .sponsor-card > p { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.55; }
+    .sponsor-reason { display: flex; justify-content: space-between; gap: 18px; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.62rem; }
+
+    .output-schema { display: flex; gap: 14px; padding: 11px 18px; border-top: 1px solid rgba(241, 239, 231, 0.12); color: rgba(241, 239, 231, 0.38); font-family: var(--mono); font-size: 0.55rem; }
+
+    .final-callout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: end;
+      margin-top: 52px;
+      padding: 25px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .final-callout b { display: block; font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.05; }
+    .final-callout p { max-width: 620px; margin: 12px 0 0; color: rgba(241, 239, 231, 0.63); font-size: 0.77rem; line-height: 1.6; }
+    .final-callout a { padding: 10px 13px; border: 1px solid rgba(241, 239, 231, 0.35); color: var(--paper); font-family: var(--mono); font-size: 0.58rem; text-decoration: none; text-transform: uppercase; }
+
+    .product-contract {
+      display: grid;
+      grid-template-columns: 0.62fr 1.38fr;
+      gap: clamp(34px, 7vw, 96px);
+      align-items: start;
+    }
+
+    .contract-ledger { border-top: 1px solid var(--ink); }
+
+    .contract-row {
+      display: grid;
+      grid-template-columns: 42px minmax(140px, 0.54fr) minmax(220px, 1fr);
+      gap: 18px;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contract-row > span { color: var(--red); font-family: var(--mono); font-size: 0.6rem; }
+    .contract-row strong { font-size: 0.86rem; }
+    .contract-row p { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.6; }
+
+    .no-account-banner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      align-items: center;
+      margin-top: 34px;
+      padding: 18px 20px;
+      border: 1px solid var(--ink);
+      background: var(--acid);
+      box-shadow: 8px 8px 0 rgba(24, 71, 90, 0.12);
+    }
+
+    .no-account-banner b { font-family: var(--mono); font-size: 0.64rem; }
+    .no-account-banner p { margin: 0; color: #34453d; font-size: 0.78rem; line-height: 1.55; }
+    .no-account-banner span { color: var(--green); font-family: var(--mono); font-size: 0.57rem; text-transform: uppercase; }
+
+    .platform-planes {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 26px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      gap: 1px;
+    }
+
+    .plane-card {
+      min-height: 220px;
+      padding: 18px;
+      background: var(--paper-2);
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .plane-card:hover { position: relative; z-index: 2; transform: translateY(-5px); background: #fffdf6; }
+    .plane-card > span { color: var(--red); font-family: var(--mono); font-size: 0.57rem; text-transform: uppercase; }
+    .plane-card h3 { margin: 38px 0 12px; font-size: 1rem; }
+    .plane-card p { margin: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.55; }
+    .plane-card ul { display: grid; gap: 7px; margin: 28px 0 0; padding: 0; list-style: none; }
+    .plane-card li { padding-top: 7px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.56rem; }
+
+    .search-section { background: #e6edeb; }
+
+    .retrieval-pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .pipeline-step {
+      position: relative;
+      min-height: 190px;
+      padding: 16px 14px;
+      border-right: 1px solid var(--ink);
+    }
+
+    .pipeline-step:last-child { border-right: 0; }
+    .pipeline-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 22px;
+      right: -11px;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 21px;
+      height: 21px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+    }
+
+    .pipeline-step span { color: var(--red); font-family: var(--mono); font-size: 0.56rem; }
+    .pipeline-step h3 { margin: 42px 0 10px; font-size: 0.86rem; }
+    .pipeline-step p { margin: 0; color: var(--muted); font-size: 0.67rem; line-height: 1.5; }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+      gap: clamp(32px, 7vw, 92px);
+      align-items: start;
+      margin-top: 42px;
+    }
+
+    .rank-card { padding: 24px; border: 1px solid var(--ink); background: var(--paper-2); }
+    .rank-card .micro { color: var(--red); font-size: 0.58rem; }
+    .rank-card h3 { margin: 20px 0 30px; font-family: var(--display); font-size: 2.25rem; line-height: 1; }
+
+    .rank-bar { display: grid; grid-template-columns: 42px 1fr 40px; gap: 12px; align-items: center; margin-top: 13px; }
+    .rank-bar span, .rank-bar b { font-family: var(--mono); font-size: 0.56rem; }
+    .rank-bar b { text-align: right; }
+    .rank-bar i { display: block; height: 8px; border: 1px solid var(--ink); background: linear-gradient(90deg, var(--red) var(--score), transparent var(--score)); }
+
+    .candidate-stack { display: grid; gap: 10px; }
+    .candidate-card { display: grid; grid-template-columns: 48px 1fr auto; gap: 16px; align-items: center; padding: 17px; border: 1px solid var(--ink); background: var(--paper-2); }
+    .candidate-card.is-selected { background: var(--dark); color: var(--paper); box-shadow: 8px 8px 0 rgba(228, 59, 36, 0.16); }
+    .candidate-score { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid currentColor; font-family: var(--mono); font-size: 0.68rem; }
+    .candidate-card h3 { margin: 0; font-size: 0.9rem; }
+    .candidate-card p { margin: 6px 0 0; color: var(--muted); font-size: 0.68rem; line-height: 1.45; }
+    .candidate-card.is-selected p { color: rgba(241, 239, 231, 0.58); }
+    .candidate-card > span:last-child { color: var(--green); font-family: var(--mono); font-size: 0.53rem; text-transform: uppercase; }
+    .candidate-card.is-selected > span:last-child { color: #9ed3bb; }
+
+    .activation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 26px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .activation-card { min-height: 210px; padding: 22px; background: var(--paper-2); }
+    .activation-card:first-child { background: var(--red); color: #fff; }
+    .activation-card span { font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; }
+    .activation-card h3 { margin: 46px 0 10px; font-size: 1.1rem; }
+    .activation-card p { margin: 0; color: var(--muted); font-size: 0.75rem; line-height: 1.55; }
+    .activation-card:first-child p { color: rgba(255, 255, 255, 0.76); }
+
+    .quality-section { background: var(--dark); color: var(--paper); }
+    .quality-section .eyebrow, .quality-section .section-head > p { color: rgba(241, 239, 231, 0.58); }
+
+    .quality-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid rgba(241, 239, 231, 0.34);
+    }
+
+    .quality-step { min-height: 220px; padding: 18px; border-right: 1px solid rgba(241, 239, 231, 0.18); border-bottom: 1px solid rgba(241, 239, 231, 0.18); }
+    .quality-step:nth-child(4n) { border-right: 0; }
+    .quality-step:nth-last-child(-n + 4) { border-bottom: 0; }
+    .quality-step span { color: #e87c65; font-family: var(--mono); font-size: 0.57rem; }
+    .quality-step h3 { margin: 40px 0 10px; font-size: 0.92rem; }
+    .quality-step p { margin: 0; color: rgba(241, 239, 231, 0.58); font-size: 0.68rem; line-height: 1.55; }
+
+    .lifecycle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 30px;
+      padding: 18px;
+      border: 1px solid rgba(241, 239, 231, 0.3);
+    }
+
+    .lifecycle span { padding: 8px 10px; border: 1px solid rgba(241, 239, 231, 0.28); font-family: var(--mono); font-size: 0.56rem; text-transform: uppercase; }
+    .lifecycle i { color: var(--red); font-family: var(--mono); font-style: normal; }
+    .lifecycle .is-live { background: #9ed3bb; color: var(--dark); }
+    .lifecycle .is-dead { background: var(--red); color: #fff; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 38px;
+      border: 1px solid var(--ink);
+    }
+
+    .cert-card { min-height: 270px; padding: 20px; border-right: 1px solid var(--ink); background: var(--paper-2); }
+    .cert-card:last-child { border-right: 0; }
+    .cert-card.is-guaranteed { background: var(--green); color: #fff; }
+    .cert-card span { font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; }
+    .cert-card h3 { margin: 52px 0 12px; font-size: 1.02rem; }
+    .cert-card p { margin: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.55; }
+    .cert-card.is-guaranteed p { color: rgba(255, 255, 255, 0.74); }
+    .cert-card b { display: block; margin-top: 34px; font-family: var(--mono); font-size: 0.57rem; text-transform: uppercase; }
+
+    .ad-system {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 42px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .ad-system article { min-height: 230px; padding: 19px; background: var(--paper-2); }
+    .ad-system span { color: var(--red); font-family: var(--mono); font-size: 0.57rem; }
+    .ad-system h3 { margin: 42px 0 10px; font-size: 0.92rem; }
+    .ad-system p { margin: 0; color: var(--muted); font-size: 0.7rem; line-height: 1.55; }
+    .ad-system ul { display: grid; gap: 7px; margin: 24px 0 0; padding: 0; list-style: none; }
+    .ad-system li { padding-top: 7px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.55rem; }
+
+    .platform-section { background: var(--paper-2); }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      gap: 1px;
+    }
+
+    .service-card { min-height: 250px; padding: 20px; background: var(--paper); }
+    .service-card:nth-child(2), .service-card:nth-child(5) { background: #e6edeb; }
+    .service-card span { color: var(--red); font-family: var(--mono); font-size: 0.57rem; }
+    .service-card h3 { margin: 44px 0 10px; font-size: 1rem; }
+    .service-card p { margin: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.55; }
+    .service-card ul { display: grid; gap: 7px; margin: 26px 0 0; padding: 0; list-style: none; }
+    .service-card li { padding-top: 7px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.55rem; }
+
+    .anonymous-flow {
+      display: grid;
+      grid-template-columns: 0.7fr 1fr 1fr;
+      gap: 1px;
+      margin-top: 34px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .anonymous-flow article { padding: 20px; background: var(--paper-2); }
+    .anonymous-flow article:first-child { background: var(--acid); }
+    .anonymous-flow b { display: block; font-family: var(--mono); font-size: 0.62rem; }
+    .anonymous-flow p { margin: 15px 0 0; color: var(--muted); font-size: 0.72rem; line-height: 1.55; }
+
+    .privacy-matrix,
+    .failure-table {
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .matrix-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.75fr) 110px minmax(260px, 1.25fr);
+      min-height: 66px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .matrix-row:last-child { border-bottom: 0; }
+    .matrix-row > * { display: flex; align-items: center; padding: 14px 16px; }
+    .matrix-row > * + * { border-left: 1px solid var(--line); }
+    .matrix-row strong { font-size: 0.76rem; }
+    .matrix-row span { justify-content: center; font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; }
+    .matrix-row .yes { color: var(--green); }
+    .matrix-row .no { color: var(--red); }
+    .matrix-row p { margin: 0; color: var(--muted); font-size: 0.7rem; line-height: 1.5; }
+
+    .slo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      gap: 1px;
+    }
+
+    .slo-card { min-height: 180px; padding: 18px; background: var(--paper-2); }
+    .slo-card span { color: var(--muted); font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; }
+    .slo-card strong { display: block; margin-top: 45px; color: var(--red); font-family: var(--display); font-size: 2.35rem; line-height: 1; }
+    .slo-card p { margin: 9px 0 0; color: var(--muted); font-size: 0.66rem; line-height: 1.45; }
+
+    .operations-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1.2fr);
+      gap: clamp(34px, 7vw, 92px);
+      align-items: start;
+      margin-top: 42px;
+    }
+
+    .ops-list { display: grid; gap: 1px; border: 1px solid var(--ink); background: var(--ink); }
+    .ops-list article { padding: 18px; background: var(--paper-2); }
+    .ops-list span { color: var(--red); font-family: var(--mono); font-size: 0.56rem; }
+    .ops-list h3 { margin: 10px 0 6px; font-size: 0.86rem; }
+    .ops-list p { margin: 0; color: var(--muted); font-size: 0.69rem; line-height: 1.5; }
+
+    .acceptance-section { background: #e9e4d7; }
+
+    .acceptance-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      gap: 1px;
+    }
+
+    .acceptance-card { min-height: 300px; padding: 20px; background: var(--paper-2); }
+    .acceptance-card span { color: var(--red); font-family: var(--mono); font-size: 0.57rem; }
+    .acceptance-card h3 { margin: 46px 0 22px; font-size: 1rem; }
+    .acceptance-card ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .acceptance-card li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; color: var(--muted); font-size: 0.7rem; line-height: 1.45; }
+    .acceptance-card li::before { content: "✓"; color: var(--green); font-family: var(--mono); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px clamp(30px, 6vw, 86px);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.57rem;
+    }
+
+    footer p { margin: 0; }
+
+    @media (max-width: 1120px) {
+      :root { --rail: 196px; }
+      .system-map { grid-template-columns: 0.7fr 42px 1.45fr 42px 0.85fr; }
+      .connector span { display: none; }
+      .gates { grid-template-columns: repeat(3, 1fr); }
+      .gate:nth-child(3) { border-right: 0; }
+      .gate:nth-child(-n + 3) { border-bottom: 1px solid var(--ink); }
+      .gate:nth-child(3)::after { display: none; }
+      .gate:nth-child(4) { grid-column: 1 / 2; }
+      .gate:nth-child(5) { grid-column: 2 / 4; border-right: 0; }
+      .platform-planes, .cert-grid, .acceptance-grid { grid-template-columns: repeat(2, 1fr); }
+      .retrieval-pipeline { grid-template-columns: repeat(3, 1fr); }
+      .pipeline-step:nth-child(3) { border-right: 0; }
+      .pipeline-step:nth-child(-n + 3) { border-bottom: 1px solid var(--ink); }
+      .quality-flow { grid-template-columns: repeat(2, 1fr); }
+      .quality-step:nth-child(2n) { border-right: 0; }
+      .quality-step:nth-child(-n + 6) { border-bottom: 1px solid rgba(241, 239, 231, 0.18); }
+      .slo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .app-shell { display: block; border: 0; }
+      .rail {
+        position: sticky;
+        z-index: 30;
+        top: 0;
+        height: auto;
+        padding: 11px 14px;
+        border-right: 0;
+        border-bottom: 1px solid var(--ink);
+      }
+      .rail-meta, .rail-foot { display: none; }
+      .brand strong { font-size: 1.25rem; }
+      .toc { display: flex; gap: 4px; margin: 9px 0 0; overflow-x: auto; }
+      .toc a { display: block; flex: 0 0 auto; padding: 7px 9px; border: 1px solid var(--line); font-size: 0.65rem; }
+      .toc a span { display: none; }
+      .toc a:hover, .toc a.is-active { transform: none; border-color: var(--ink); }
+      .hero { min-height: auto; }
+      .hero-lede, .section-head, .recommendation-grid, .security-grid, .product-contract, .search-grid, .operations-grid { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: repeat(2, 1fr); }
+      .principles article:nth-child(2) { border-right: 0; }
+      .principles article:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+      .system-map { grid-template-columns: 1fr; }
+      .connector { min-height: 58px; border: 0; border-block: 1px solid var(--line); }
+      .connector::before { top: 12px; bottom: 12px; left: 50%; right: auto; width: 1px; height: auto; }
+      .connector::after { top: auto; right: auto; bottom: 11px; left: calc(50% - 3px); transform: rotate(135deg); }
+      .cloud-stack { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .cloud-node + .cloud-node { border-top: 0; border-left: 1px solid var(--ink); }
+      .package { grid-template-columns: 1fr; }
+      .manifest { min-height: 580px; }
+      .tool-row { grid-template-columns: 52px minmax(140px, 0.8fr) 80px minmax(190px, 1.2fr); }
+      .platform-planes, .cert-grid, .acceptance-grid, .service-grid, .ad-system { grid-template-columns: repeat(2, 1fr); }
+      .anonymous-flow { grid-template-columns: 1fr; }
+      .slo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .section-pad, .hero, .package-copy { padding-inline: 18px; }
+      h1 { font-size: clamp(3.8rem, 19vw, 6.5rem); }
+      .hero-lede { margin-top: 44px; }
+      .principles { grid-template-columns: 1fr; }
+      .principles article { min-height: 88px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .principles article:last-child { border-bottom: 0; }
+      .host-list { margin-top: 36px; }
+      .runtime-grid { grid-template-columns: 1fr; }
+      .runtime-grid li { border-right: 0; border-bottom: 1px solid rgba(241, 239, 231, 0.12) !important; }
+      .runtime-grid li:last-child { border-bottom: 0 !important; }
+      .cloud-stack { grid-template-columns: 1fr; }
+      .cloud-node + .cloud-node { border-left: 0; border-top: 1px solid var(--ink); }
+      .trace { grid-template-columns: 48px 1fr; }
+      .trace-body { grid-template-columns: 1fr; gap: 7px; }
+      .trace-index::after { right: 10px; }
+      .boundary-callout { grid-template-columns: 1fr; }
+      .tool-table { overflow-x: auto; }
+      .tool-row { min-width: 680px; }
+      .contract-note { grid-template-columns: 1fr; }
+      .gates { grid-template-columns: 1fr; }
+      .gate,
+      .gate:nth-child(3),
+      .gate:nth-child(4),
+      .gate:nth-child(5) { grid-column: auto; border-right: 0; border-bottom: 1px solid var(--ink); }
+      .gate:last-child { border-bottom: 0; }
+      .gate::after { display: none !important; }
+      .manifest pre { font-size: 0.62rem; }
+      .recommendation-grid { min-width: 0; }
+      .output-window { box-shadow: 6px 6px 0 rgba(228, 59, 36, 0.13); }
+      .final-callout { grid-template-columns: 1fr; align-items: start; }
+      .contract-row { grid-template-columns: 34px 1fr; }
+      .contract-row p { grid-column: 2; }
+      .no-account-banner { grid-template-columns: 1fr; }
+      .platform-planes, .retrieval-pipeline, .activation-grid, .quality-flow, .cert-grid, .ad-system, .service-grid, .slo-grid, .acceptance-grid { grid-template-columns: 1fr; }
+      .pipeline-step, .pipeline-step:nth-child(3) { min-height: 155px; border-right: 0; border-bottom: 1px solid var(--ink); }
+      .pipeline-step:last-child { border-bottom: 0; }
+      .pipeline-step::after { display: none !important; }
+      .quality-step, .quality-step:nth-child(2n), .quality-step:nth-child(4n) { min-height: 170px; border-right: 0; border-bottom: 1px solid rgba(241, 239, 231, 0.18); }
+      .quality-step:last-child { border-bottom: 0; }
+      .candidate-card { grid-template-columns: 44px 1fr; }
+      .candidate-card > span:last-child { grid-column: 2; }
+      .matrix-row { min-width: 650px; }
+      .privacy-matrix, .failure-table { overflow-x: auto; }
+      footer { display: grid; padding-inline: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="文档导航">
+      <a class="brand" href="#top" aria-label="回到顶部"><strong>技流</strong><span>SkillFlux</span></a>
+      <div class="rail-meta">
+        <span>Document / Full System</span>
+        <span>Revision / 1.0</span>
+        <span>Status / <b>Complete blueprint</b></span>
+      </div>
+      <nav class="toc">
+        <a href="#product"><span>01</span>产品契约</a>
+        <a href="#architecture"><span>02</span>完整架构</a>
+        <a href="#sequence"><span>03</span>端到端时序</a>
+        <a href="#search"><span>04</span>精品搜索</a>
+        <a href="#runtime"><span>05</span>本地 Runtime</a>
+        <a href="#quality"><span>06</span>质检供应链</a>
+        <a href="#sponsor"><span>07</span>广告输出</a>
+        <a href="#platform"><span>08</span>云端平台</a>
+        <a href="#security"><span>09</span>安全隐私</a>
+        <a href="#operations"><span>10</span>可靠性</a>
+        <a href="#acceptance"><span>11</span>完整验收</a>
+      </nav>
+      <div class="rail-foot">
+        <p>终端用户永久免费且无账户。商业化只发生在一处：认证输出通道中明确标注的赞助句。</p>
+      </div>
+    </aside>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <p class="eyebrow">Full Commercial Architecture · Revision 1.0</p>
+        <h1>显性调用。精品加载。<em>广告买单。</em></h1>
+        <div class="hero-lede">
+          <p>用户安装 SkillFlux npm 包后，显性调用一个元 Skill。本地 Runtime 去云端搜索经过质检的最佳 Skill，安全加载进当前项目与当前上下文，再由认证输出层在最终回答末尾追加一句透明广告。不注册，不登录，不订阅。</p>
+          <div class="decision-stamp">
+            <span>Product Definition</span>
+            <strong>Anonymous Client<br />+ Curated Skill Engine<br />+ Certified Output Layer</strong>
+          </div>
+        </div>
+        <div class="principles" aria-label="完整产品原则">
+          <article><b>01 / NO ACCOUNT</b><p>随机本地安装 ID 代替用户账户，可随时重置。</p></article>
+          <article><b>02 / EXPLICIT CALL</b><p>只在用户显性调用 SkillFlux 时搜索、加载与展示广告。</p></article>
+          <article><b>03 / APPROVED ONLY</b><p>自然搜索只返回通过安全、评测与人审的 Skill。</p></article>
+          <article><b>04 / AD FUNDED</b><p>用户不付费；收入来自与回答隔离、清晰标识的赞助输出。</p></article>
+        </div>
+      </section>
+
+      <section class="section-pad" id="product">
+        <div class="product-contract">
+          <div><p class="eyebrow">01 · Product Contract</p><h2>不是商店，是一条完整执行链。</h2></div>
+          <div class="contract-ledger">
+            <div class="contract-row"><span>01</span><strong>唯一入口</strong><p><code>$skillflux</code> 或对应显性 Skill mention，不在后台猜测用户意图。</p></div>
+            <div class="contract-row"><span>02</span><strong>搜索对象</strong><p>仅搜索 approved index；广告预算对自然排名的权重永远是零。</p></div>
+            <div class="contract-row"><span>03</span><strong>加载语义</strong><p>同时向当前模型上下文注入指令，并向当前项目持久化精确版本。</p></div>
+            <div class="contract-row"><span>04</span><strong>完成语义</strong><p>Skill 完成原任务之后，Output Controller 才追加广告；广告不进入模型思考。</p></div>
+            <div class="contract-row"><span>05</span><strong>收费对象</strong><p>终端用户永久免费。收入来自通过审核的广告活动、展示与点击归因。</p></div>
+            <div class="contract-row"><span>06</span><strong>保证边界</strong><p>只在拥有 final-response hook 的认证宿主中承诺“最后必定带广告句”。</p></div>
+          </div>
+        </div>
+        <div class="no-account-banner"><b>NO LOGIN, BY DESIGN</b><p>第一次运行在本地生成可重置的 installation_id，只用于频控、反欺诈与匿名归因；不建立个人资料、跨设备账户或行为画像。</p><span>resettable / local</span></div>
+      </section>
+
+      <section class="architecture section-pad" id="architecture">
+        <div class="section-head">
+          <div><p class="eyebrow">02 · Complete Architecture</p><h2>三个执行端，四条生产线。</h2></div>
+          <p>宿主端负责显性调用与最终输出，npm Runtime 负责搜索、验签、加载与本地策略，云端负责精品索引、包分发、撤回与广告决策。</p>
+        </div>
+
+        <div class="view-switcher" aria-label="架构视图切换">
+          <button type="button" data-view="all" aria-pressed="true">全部</button>
+          <button type="button" data-view="control" aria-pressed="false">控制</button>
+          <button type="button" data-view="data" aria-pressed="false">包数据</button>
+          <button type="button" data-view="quality" aria-pressed="false">质检</button>
+          <button type="button" data-view="monetization" aria-pressed="false">广告</button>
+        </div>
+        <p class="view-note" aria-live="polite">完整视图：显性 Bootstrap Skill 调用本地 MCP Runtime；Runtime 连接公共云端索引与 CDN；认证 Output Controller 在模型完成后追加广告。</p>
+
+        <div class="system-map" aria-label="SkillFlux 完整系统架构图">
+          <article class="map-node host-node" data-planes="control monetization">
+            <div><span class="node-label">AI Host Surface</span><h3>Bootstrap Skill + Host Adapter</h3></div>
+            <ul class="host-list"><li>显性调用 SkillFlux</li><li>Capability Handshake</li><li>Final-response Hook</li><li>广告句渲染与点击</li></ul>
+          </article>
+
+          <div class="connector" data-planes="control monetization"><span>MCP · stdio</span></div>
+
+          <article class="map-node runtime-node" data-planes="control data quality monetization">
+            <div class="runtime-head">
+              <div><span class="node-label">npm / Local Control Plane</span><h3>SkillFlux Runtime</h3></div>
+              <span class="runtime-status">Anonymous + Project bound</span>
+            </div>
+            <ul class="runtime-grid">
+              <li data-planes="control"><b>MCP Router</b><span>handshake / search / plan</span></li>
+              <li data-planes="control"><b>Policy Engine</b><span>project / permissions / consent</span></li>
+              <li data-planes="data"><b>Package Manager</b><span>download / cache / rollback</span></li>
+              <li data-planes="quality data"><b>Trust Verifier</b><span>digest / signature / revocation</span></li>
+              <li data-planes="data"><b>Context Assembler</b><span>current turn + persistent mount</span></li>
+              <li data-planes="data"><b>Lockfile Manager</b><span>exact graph / provenance</span></li>
+              <li data-planes="monetization"><b>Ad Prefetch Client</b><span>contextual / capped / tokenized</span></li>
+              <li data-planes="monetization"><b>Output Controller</b><span>post-response deterministic append</span></li>
+            </ul>
+          </article>
+
+          <div class="connector" data-planes="control data quality monetization"><span>HTTPS / signed responses</span></div>
+
+          <div class="cloud-stack" data-planes="control data quality monetization">
+            <article class="cloud-node" data-planes="control quality monetization">
+              <span class="node-label">Public Cloud Control</span><h3>Search / Resolve / Ad Decision</h3>
+              <ul class="cloud-list"><li>approved-only search index</li><li>compatibility + dependency resolver</li><li>revocation / policy metadata</li><li>contextual campaign decision</li></ul>
+            </article>
+            <article class="cloud-node" data-planes="data quality">
+              <span class="node-label">Trust + Distribution</span><h3>Immutable CDN / Evidence Log</h3>
+              <ul class="cloud-list"><li>sha256 bundles / manifests</li><li>signatures / transparency records</li><li>QA evidence / SBOM</li><li>anonymous event ingress</li></ul>
+            </article>
+          </div>
+        </div>
+        <div class="plane-legend"><span><i></i>控制：意图、搜索、策略</span><span><i></i>数据：包、缓存、项目</span><span><i></i>商业：广告决策与输出</span></div>
+
+        <div class="platform-planes">
+          <article class="plane-card"><span>SUPPLY / 01</span><h3>Skill 供应链</h3><p>收录、扫描、沙箱评测、人审、签名、发布、持续复评与撤回。</p><ul><li>publisher intake</li><li>QA evidence</li><li>release signing</li></ul></article>
+          <article class="plane-card"><span>DEMAND / 02</span><h3>精品搜索引擎</h3><p>混合检索、兼容性过滤、依赖求解、质量排名和可解释选择。</p><ul><li>lexical + semantic</li><li>policy filters</li><li>composition graph</li></ul></article>
+          <article class="plane-card"><span>REVENUE / 03</span><h3>赞助输出系统</h3><p>内部活动管理、素材审核、情境匹配、频控、签名归因与反欺诈。</p><ul><li>campaign ops</li><li>decision engine</li><li>impression / click</li></ul></article>
+          <article class="plane-card"><span>OPERATE / 04</span><h3>运营与可靠性</h3><p>多区域 API、CDN、搜索索引、事件流、观测、审计、灾备和全局 kill switch。</p><ul><li>SLO / tracing</li><li>DR / replay</li><li>incident control</li></ul></article>
+        </div>
+      </section>
+
+      <section class="sequence section-pad" id="sequence">
+        <div class="section-head">
+          <div><p class="eyebrow">03 · End-to-end Sequence</p><h2>一次显性调用，二十个可审计步骤。</h2></div>
+          <p>广告决策在 Skill 执行时并行预取，等模型结束后由 Output Controller 追加，不延迟、不改写、不干预原回答。</p>
+        </div>
+        <div class="trace">
+          <article><div class="trace-index">01</div><div class="trace-body"><span class="trace-side">npm</span><strong>安装与 init</strong><p>写入本地 MCP 配置、Bootstrap Skill、项目策略和可重置匿名 ID。</p></div></article>
+          <article><div class="trace-index">02</div><div class="trace-body"><span class="trace-side">Host</span><strong>能力握手</strong><p>确认动态上下文、项目写入、审批 UI 与 final-response hook 能力。</p></div></article>
+          <article><div class="trace-index">03</div><div class="trace-body"><span class="trace-side">User</span><strong>显性调用</strong><p>用户以 <code>$skillflux</code> 或宿主 mention 提出原任务。</p></div></article>
+          <article><div class="trace-index">04</div><div class="trace-body"><span class="trace-side">Local</span><strong>安全摘要</strong><p>本地只抽取任务分类、语言、框架、宿主能力和权限上限。</p></div></article>
+          <article><div class="trace-index">05</div><div class="trace-body"><span class="trace-side">Search</span><strong>匿名检索</strong><p>向公共 Search API 发送粗粒度特征，不发送源码、secrets 或完整 prompt。</p></div></article>
+          <article><div class="trace-index">06</div><div class="trace-body"><span class="trace-side">Index</span><strong>仅检索已批准集</strong><p>先按安全状态、宿主兼容、Runtime 版本、权限上限和 license 过滤。</p></div></article>
+          <article><div class="trace-index">07</div><div class="trace-body"><span class="trace-side">Resolver</span><strong>求解 Skill 图</strong><p>解析精确版本、依赖、冲突、adapter 以及多 Skill 组合顺序。</p></div></article>
+          <article><div class="trace-index">08</div><div class="trace-body"><span class="trace-side">Ranker</span><strong>质量排名与解释</strong><p>任务匹配、评测成绩、成功率、兼容性和新鲜度决定候选。</p></div></article>
+          <article><div class="trace-index">09</div><div class="trace-body"><span class="trace-side">Local</span><strong>生成密封计划</strong><p>绑定项目根、候选图、每个 digest、权限、评测证据与过期时间。</p></div></article>
+          <article><div class="trace-index">10</div><div class="trace-body"><span class="trace-side">Policy</span><strong>本地批准</strong><p>无写入或已信任权限可自动通过；扩权、安装和更新由本地 UI 确认。</p></div></article>
+          <article><div class="trace-index">11</div><div class="trace-body"><span class="trace-side">CDN</span><strong>内容寻址下载</strong><p>Runtime 只下载计划中的不可变 URL，并支持断点、重试与本地共享缓存。</p></div></article>
+          <article><div class="trace-index">12</div><div class="trace-body"><span class="trace-side">Trust</span><strong>供应链验证</strong><p>校验根元数据、发布签名、透明日志、文件哈希、SBOM 与撤回新鲜度。</p></div></article>
+          <article><div class="trace-index">13</div><div class="trace-body"><span class="trace-side">Sandbox</span><strong>安全解包与扫描</strong><p>限制大小、文件数与压缩比，拒绝路径穿越、链接、设备文件和未声明代码。</p></div></article>
+          <article><div class="trace-index">14</div><div class="trace-body"><span class="trace-side">Project</span><strong>原子安装</strong><p>先写隔离目录，通过后一次性切换，更新 lockfile 和可回滚快照。</p></div></article>
+          <article><div class="trace-index">15</div><div class="trace-body"><span class="trace-side">MCP</span><strong>即时上下文注入</strong><p>工具结果返回当前轮必需的 Skill 指令与资源，无需重启宿主。</p></div></article>
+          <article><div class="trace-index">16</div><div class="trace-body"><span class="trace-side">Adapter</span><strong>持久激活</strong><p>将同一已验证版本映射到宿主 Skill 目录，供后续轮次与离线复用。</p></div></article>
+          <article><div class="trace-index">17</div><div class="trace-body"><span class="trace-side">Agent</span><strong>执行原任务</strong><p>模型按选中 Skill 完成工作；广告文案不在模型上下文中。</p></div></article>
+          <article><div class="trace-index">18</div><div class="trace-body"><span class="trace-side">Ad</span><strong>并行广告决策</strong><p>基于粗粒度任务分类、地区、频控与安全规则预取已审核的一句文案。</p></div></article>
+          <article><div class="trace-index">19</div><div class="trace-body"><span class="trace-side">Output</span><strong>确定性追加</strong><p>认证 Host Adapter 捕获最终回复，在流式结束后追加显著标注“广告”的句子与签名点击链接。</p></div></article>
+          <article><div class="trace-index">20</div><div class="trace-body"><span class="trace-side">Events</span><strong>匿名记录与回滚</strong><p>上报签名展示、点击、隐藏与 Skill 结果；失败可一键回滚并保留本地审计。</p></div></article>
+        </div>
+        <div class="boundary-callout"><b>DUAL LOAD</b><p>“加载到当前项目”必须同时实现当前轮注入和项目持久化。只写磁盘会导致当前轮无法使用，只注入上下文则无法复现。</p></div>
+      </section>
+
+      <section class="search-section section-pad" id="search">
+        <div class="section-head">
+          <div><p class="eyebrow">04 · Curated Search Engine</p><h2>搜的不是最热，是当前最适合。</h2></div>
+          <p>检索只在已批准集合中进行，先过滤再排名。每次自动选择都返回结构化理由、评测证据、权限差异和备选项。</p>
+        </div>
+        <div class="retrieval-pipeline" aria-label="Skill 搜索管线">
+          <article class="pipeline-step"><span>R01</span><h3>Normalize</h3><p>任务分类、输入输出、技术栈、宿主能力、权限上限。</p></article>
+          <article class="pipeline-step"><span>R02</span><h3>Retrieve</h3><p>BM25 词法召回与语义向量召回并行，结果去重合并。</p></article>
+          <article class="pipeline-step"><span>R03</span><h3>Filter</h3><p>审核状态、撤回、兼容性、权限、license、语言与地区硬过滤。</p></article>
+          <article class="pipeline-step"><span>R04</span><h3>Resolve</h3><p>计算依赖图、adapter、冲突、资源上限和精确版本集。</p></article>
+          <article class="pipeline-step"><span>R05</span><h3>Rank</h3><p>任务匹配、评测、成功率、稳定性、新鲜度与用户反馈。</p></article>
+          <article class="pipeline-step"><span>R06</span><h3>Explain</h3><p>用结构化证据解释为什么选它，不由广告主或模型自由编造。</p></article>
+        </div>
+        <div class="search-grid">
+          <aside class="rank-card">
+            <span class="micro">RANKING SIGNALS / DEFAULT PROFILE</span>
+            <h3>自然排名与商业库存完全断开。</h3>
+            <div class="rank-bar"><span>FIT</span><i style="--score: 38%"></i><b>38</b></div>
+            <div class="rank-bar"><span>EVAL</span><i style="--score: 25%"></i><b>25</b></div>
+            <div class="rank-bar"><span>RELIABILITY</span><i style="--score: 20%"></i><b>20</b></div>
+            <div class="rank-bar"><span>COMPAT</span><i style="--score: 10%"></i><b>10</b></div>
+            <div class="rank-bar"><span>FRESH</span><i style="--score: 7%"></i><b>07</b></div>
+            <div class="rank-bar"><span>AD</span><i style="--score: 0%"></i><b>00</b></div>
+          </aside>
+          <div class="candidate-stack" aria-label="Skill 搜索候选示例">
+            <article class="candidate-card is-selected"><span class="candidate-score">94</span><div><h3>landing-page-art-direction@3.4.1</h3><p>最符合高端落地页、当前 Astro 工程与无外部资源约束；黄金任务集 47/50。</p></div><span>auto selected</span></article>
+            <article class="candidate-card"><span class="candidate-score">88</span><div><h3>editorial-web-system@2.9.0</h3><p>视觉质量相近，但默认依赖外部字体，与当前策略存在差异。</p></div><span>alternative</span></article>
+            <article class="candidate-card"><span class="candidate-score">79</span><div><h3>conversion-copy-studio@5.1.2</h3><p>文案能力更强，但不包含完整页面实现流程，适合作为组合 Skill。</p></div><span>compose</span></article>
+          </div>
+        </div>
+        <div class="contract-note"><article><b>CONFIDENCE GATE</b><p>只有第一名超过可配置信心阈值、与第二名差距足够且不新增权限时才自动选择；否则展示候选。</p></article><article><b>SPONSORSHIP = ZERO WEIGHT</b><p>广告主可以竞价最终的赞助句，但不能购买 Skill 候选位置、评分、解释或默认选择。</p></article></div>
+      </section>
+
+      <section class="contracts section-pad" id="runtime">
+        <div class="section-head">
+          <div><p class="eyebrow">05 · npm Runtime + MCP Contract</p><h2>npm 包是本地控制面，不是一个网页 SDK。</h2></div>
+          <p><code>npx skillflux init</code> 完成宿主探测、MCP 注册、Bootstrap Skill 安装、匿名 ID 与本地策略初始化。之后所有项目写入都只由该进程完成。</p>
+        </div>
+        <div class="tool-table" role="table" aria-label="SkillFlux 完整 MCP 工具契约">
+          <div class="tool-row" role="row"><span class="micro">01</span><code>host_handshake</code><span class="risk">read</span><p>返回宿主、Runtime、项目与最终输出 hook 的能力协商结果。</p></div>
+          <div class="tool-row" role="row"><span class="micro">02</span><code>search_skills</code><span class="risk">read</span><p>搜索已批准 Skill，返回证据、兼容性、权限和可组合候选。</p></div>
+          <div class="tool-row" role="row"><span class="micro">03</span><code>resolve_install_plan</code><span class="risk">read</span><p>生成绑定项目、精确版本图、digest、权限与 QA 证据的密封计划。</p></div>
+          <div class="tool-row" role="row"><span class="micro">04</span><code>install_skill_graph</code><span class="risk write">write</span><p>下载、验签、安全解包、原子安装并写入 lockfile 与回滚点。</p></div>
+          <div class="tool-row" role="row"><span class="micro">05</span><code>activate_skill_context</code><span class="risk">read</span><p>把主指令和必需资源注入当前轮，并返回已持久安装位置。</p></div>
+          <div class="tool-row" role="row"><span class="micro">06</span><code>read_skill_resource</code><span class="risk">read</span><p>按 manifest 允许列表延迟读取参考、模板和静态资源，不暴露任意路径。</p></div>
+          <div class="tool-row" role="row"><span class="micro">07</span><code>inspect_installation</code><span class="risk">read</span><p>列出精确图、provenance、QA 证据、撤回新鲜度、本地改动与可回滚点。</p></div>
+          <div class="tool-row" role="row"><span class="micro">08</span><code>rollback_or_remove</code><span class="risk delete">delete</span><p>回滚到上一已验证快照或完整移除，并原子更新宿主映射与 lockfile。</p></div>
+        </div>
+        <div class="activation-grid">
+          <article class="activation-card"><span>PATH A / IMMEDIATE</span><h3>当前轮立即生效</h3><p>MCP 工具结果返回主入口指令、已展开依赖顺序与可读资源 URI，宿主不需重启。</p></article>
+          <article class="activation-card"><span>PATH B / PERSISTENT</span><h3>当前项目可复现</h3><p>包存入内容寻址缓存，项目锁文件记录精确图与证据，Host Adapter 建立宿主可发现的映射。</p></article>
+        </div>
+        <div class="contract-note"><article><b>PLAN ID ≠ APPROVAL</b><p>plan_id 只防止计划被替换。项目写入的批准来自本地 Host UI、CLI 或用户明确配置的本地自动策略。</p></article><article><b>OUTPUT IS NOT AN MCP TOOL</b><p>广告追加不依赖模型再调一次工具，而是宿主完成事件触发的本地 Output Controller。</p></article></div>
+      </section>
+
+      <section class="package" id="package">
+        <div class="package-copy">
+          <p class="eyebrow">Package + Evidence Contract</p>
+          <h2>包、权限、质检证据一起签名。</h2>
+          <p>每个 Skill 是内容寻址的不可变发布单元。自然搜索不相信发布者自述，而是验证与 digest 绑定的评测、人审和安全证据。</p>
+          <ul class="policy-list"><li><span>✓</span>精确文件哈希与依赖图</li><li><span>✓</span>声明式权限与宿主 adapter</li><li><span>✓</span>SBOM、静态扫描与红队评测</li><li><span>✓</span>人审结果、签名时间与透明记录</li><li><span>✓</span>撤回、废弃、替代版本与紧急 kill switch</li></ul>
+        </div>
+        <div class="manifest" aria-label="SkillFlux 完整 manifest 示例">
+          <div class="manifest-bar"><span>skillflux.manifest.json</span><span>signed / immutable / evidence-bound</span></div>
+          <pre><code>{
+  <span class="c-key">"schema"</span>: <span class="c-str">"skillflux/v1"</span>,
+  <span class="c-key">"id"</span>: <span class="c-str">"landing-page-art-direction"</span>,
+  <span class="c-key">"version"</span>: <span class="c-str">"3.4.1"</span>,
+  <span class="c-key">"digest"</span>: <span class="c-str">"sha256:7b8f..."</span>,
+  <span class="c-key">"entrypoints"</span>: {
+    <span class="c-key">"generic"</span>: <span class="c-str">"SKILL.md"</span>,
+    <span class="c-key">"codex"</span>: <span class="c-str">"adapters/codex.md"</span>
+  },
+  <span class="c-key">"capabilities"</span>: [<span class="c-str">"web-design"</span>, <span class="c-str">"frontend"</span>],
+  <span class="c-key">"compatibility"</span>: {
+    <span class="c-key">"runtime"</span>: <span class="c-str">">=1.0.0"</span>,
+    <span class="c-key">"hosts"</span>: [<span class="c-str">"codex"</span>, <span class="c-str">"claude"</span>, <span class="c-str">"cursor"</span>]
+  },
+  <span class="c-key">"permissions"</span>: {
+    <span class="c-key">"project_read"</span>: [<span class="c-str">"**/*.astro"</span>, <span class="c-str">"**/*.css"</span>],
+    <span class="c-key">"project_write"</span>: [<span class="c-str">"src/**"</span>],
+    <span class="c-key">"network"</span>: [], <span class="c-key">"shell"</span>: <span class="c-bool">false</span>
+  },
+  <span class="c-key">"quality"</span>: {
+    <span class="c-key">"status"</span>: <span class="c-str">"approved"</span>,
+    <span class="c-key">"eval_suite"</span>: <span class="c-str">"web-gold-2026-08"</span>,
+    <span class="c-key">"score"</span>: <span class="c-str">94</span>,
+    <span class="c-key">"evidence_digest"</span>: <span class="c-str">"sha256:19ac..."</span>
+  },
+  <span class="c-key">"files"</span>: [<span class="c-dim">/* path + size + sha256 */</span>],
+  <span class="c-key">"provenance"</span>: {
+    <span class="c-key">"publisher"</span>: <span class="c-str">"skillflux-reviewed"</span>,
+    <span class="c-key">"transparency_index"</span>: <span class="c-str">"84291"</span>,
+    <span class="c-key">"signature"</span>: <span class="c-str">"ed25519:..."</span>
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section class="quality-section section-pad" id="quality">
+        <div class="section-head">
+          <div><p class="eyebrow">06 · Quality Supply Chain</p><h2>“精品”必须是一条生产线，不是一个标签。</h2></div>
+          <p>收录的每个版本都经历八道独立关卡，上线后继续复评。任意一道失败都会移出可搜索集，而不是只下调排名。</p>
+        </div>
+        <div class="quality-flow">
+          <article class="quality-step"><span>Q01 / INTAKE</span><h3>来源与许可</h3><p>确认发布来源、license、所有权、依赖和原始提交摘要。</p></article>
+          <article class="quality-step"><span>Q02 / NORMALIZE</span><h3>规范化</h3><p>统一 manifest、文件清单、权限、输入输出、adapter 和任务分类。</p></article>
+          <article class="quality-step"><span>Q03 / SCAN</span><h3>静态安全</h3><p>检查提示注入、数据外泄、路径操纵、危险脚本、密钥和依赖漏洞。</p></article>
+          <article class="quality-step"><span>Q04 / SANDBOX</span><h3>沙箱行为</h3><p>在伪造项目、诱饵 secrets、断网和最小权限环境中观察真实行为。</p></article>
+          <article class="quality-step"><span>Q05 / EVAL</span><h3>黄金任务评测</h3><p>使用分类任务集评分完成度、稳定性、可复现性、成本和回归。</p></article>
+          <article class="quality-step"><span>Q06 / RED TEAM</span><h3>对抗测试</h3><p>针对恶意项目文件、冲突指令、不可信网页与越权工具进行对抗。</p></article>
+          <article class="quality-step"><span>Q07 / HUMAN</span><h3>人工评审</h3><p>阅读指令、权限理由、评测差异、依赖和上游更改，给出签名决定。</p></article>
+          <article class="quality-step"><span>Q08 / RELEASE</span><h3>签名与持续复评</h3><p>写入透明日志、发布不可变包，监测上游、反馈、宿主更新与安全情报。</p></article>
+        </div>
+        <div class="lifecycle" aria-label="Skill 生命周期"><span>draft</span><i>→</i><span>quarantine</span><i>→</i><span>automated pass</span><i>→</i><span>human review</span><i>→</i><span class="is-live">approved</span><i>→</i><span>deprecated</span><i>→</i><span class="is-dead">revoked</span></div>
+        <div class="boundary-callout"><b>REVOCATION CONTRACT</b><p>撤回会在分钟级传播到搜索、CDN 授权、Runtime 新安装策略与已安装状态；高危撤回可触发全局禁用和强制回滚建议。</p></div>
+      </section>
+
+      <section class="recommendation section-pad" id="sponsor">
+        <div class="recommendation-grid">
+          <div>
+            <p class="eyebrow">07 · Deterministic Sponsored Output</p>
+            <h2>广告不靠模型记得，靠输出控制层追加。</h2>
+            <div class="truth-table">
+              <div class="truth-row"><span>HARD</span><p>自有 <code>skillflux run</code>、OpenAI-compatible 本地 Gateway 或拥有 final-response hook 的认证插件可确定性追加。</p></div>
+              <div class="truth-row"><span>ANON</span><p>广告决策使用任务类别、地区、可重置 installation_id 和本地频控，不需账户。</p></div>
+              <div class="truth-row"><span>FAIL</span><p>广告服务超时、无合格付费库存或处于敏感任务时，立即使用本地已签名广告或 SkillFlux house ad，绝不阻塞原回答。</p></div>
+              <div class="truth-row"><span>NEVER</span><p>广告主不能改写回答、系统提示、Skill 内容、搜索排名或 QA 评分。</p></div>
+            </div>
+          </div>
+          <div class="output-window">
+            <div class="window-bar"><span>certified.output.pipeline</span><span>answer + sponsored_suffix</span></div>
+            <div class="answer-block"><span class="micro">Model output / untouched</span><p>页面已完成，包含响应式布局、搜索状态、安全边界与完整的视觉检查结果。</p></div>
+            <aside class="sponsor-card"><div class="sponsor-top"><b>广告 · 由 SkillFlux 提供</b><span>contextual / one line</span></div><h3>Framebird</h3><p>—— 广告｜Framebird 可以把这次页面方案直接整理成团队评审板。</p><div class="sponsor-reason"><span>creative_id: fb_042 / signed</span><span>为什么看到它 · 举报</span></div></aside>
+            <div class="output-schema"><span>answer_digest: sha256(...)</span><span>decision_token: signed</span><span>append_mode: deterministic</span></div>
+          </div>
+        </div>
+
+        <div class="cert-grid" aria-label="宿主广告输出能力分级">
+          <article class="cert-card is-guaranteed"><span>CERTIFIED / A</span><h3>SkillFlux CLI / Gateway</h3><p>最终消息经过本地 Output Controller，在流式输出结束后追加已签名广告句。</p><b>Guaranteed suffix</b></article>
+          <article class="cert-card is-guaranteed"><span>CERTIFIED / B</span><h3>Host Plugin + Final Hook</h3><p>宿主官方插件或钩子暴露最终回复事件，adapter 验证回答 digest 后追加。</p><b>Guaranteed suffix</b></article>
+          <article class="cert-card"><span>UI / C</span><h3>MCP App Sidecar</h3><p>可在模型回答旁渲染可关闭卡片，与回答隔离，但不算“最终文本的一句”。</p><b>Visual inventory</b></article>
+          <article class="cert-card"><span>PLAIN MCP / D</span><h3>MCP Tool Only</h3><p>无法拦截宿主最终回复，只能请求模型复述广告。完整产品不将此模式计入保证广告库存。</p><b>Search + load only</b></article>
+        </div>
+
+        <div class="ad-system">
+          <article><span>A01 / DECIDE</span><h3>情境广告决策</h3><p>基于粗粒度任务类别、宿主、地区、本地频控摘要、活动预算和安全阻断决定文案。</p><ul><li>sensitive-category block</li><li>creative approval</li><li>budget pacing</li></ul></article>
+          <article><span>A02 / DELIVER</span><h3>签名的一句文案</h3><p>响应包含 decision_id、creative_id、显性披露、一句文案、签名跳转链接、到期时间和防重放 token。</p><ul><li>prefetched locally</li><li>copy is immutable</li><li>answer stays untouched</li></ul></article>
+          <article><span>A03 / MEASURE</span><h3>匿名归因与结算</h3><p>只在真正渲染后记录 impression，点击经签名重定向，结合本地去重、服务端反欺诈与活动账本结算。</p><ul><li>no user profile</li><li>signed event chain</li><li>fraud holdback</li></ul></article>
+        </div>
+        <div class="no-account-banner"><b>COMMERCIAL REALITY</b><p>公共 Registry 和可修改的 npm 客户端意味着用户可以绕过官方 Output Controller，技术上无法强制“每次 Skill 使用都产生广告收入”。可售卖的库存必须来自官方认证输出通道；点击/转化优先于不可完全信任的客户端曝光计费。</p><span>open distribution ≠ forced monetization</span></div>
+        <div class="contract-note"><article><b>NATURAL LANGUAGE OUTPUT</b><p>普通文本回答在末尾追加一句“广告｜…”，并保证去掉广告后的正文 digest 与模型原输出一致。</p></article><article><b>MACHINE-READABLE OUTPUT</b><p>JSON、diff、表格协议、代码块、文件与终端退出码不得被广告污染；广告放在宿主 UI 的 sibling sponsored block，仍由认证 renderer 确认展示。</p></article></div>
+      </section>
+
+      <section class="platform-section section-pad" id="platform">
+        <div class="section-head">
+          <div><p class="eyebrow">08 · Anonymous Cloud Platform</p><h2>没有用户系统，但仍然有完整平台。</h2></div>
+          <p>终端 API 公共、匿名且可缓存。评审、广告活动和运维后台是内部供给侧系统，它们不要求终端用户创建账户。</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card"><span>P01</span><h3>Public Registry API</h3><p>发布签名根元数据、manifest、撤回、兼容性和 QA 证据索引。</p><ul><li>edge cache</li><li>signed metadata</li><li>no login</li></ul></article>
+          <article class="service-card"><span>P02</span><h3>Search + Resolver</h3><p>处理混合检索、硬过滤、依赖求解、排名解释和精确计划生成。</p><ul><li>stateless API</li><li>index snapshots</li><li>rate limited</li></ul></article>
+          <article class="service-card"><span>P03</span><h3>Package CDN</h3><p>分发内容寻址的不可变包、adapter、证据、透明日志和撤回快照。</p><ul><li>multi-region</li><li>range requests</li><li>digest verified</li></ul></article>
+          <article class="service-card"><span>P04</span><h3>Review Console</h3><p>内部评审人员处理收录、差异、自动检查、对抗样本、签名与撤回。</p><ul><li>dual control</li><li>evidence archive</li><li>review audit</li></ul></article>
+          <article class="service-card"><span>P05</span><h3>Campaign Operations</h3><p>内部运营导入广告合同、预算、已审素材、定向、频控、安全规则和结算条款。</p><ul><li>creative moderation</li><li>budget ledger</li><li>kill switch</li></ul></article>
+          <article class="service-card"><span>P06</span><h3>Events + Fraud</h3><p>接收签名展示、点击、隐藏、举报和 Skill 成功事件，完成去重、异常检测与活动账本。</p><ul><li>append-only stream</li><li>privacy retention</li><li>reconciliation</li></ul></article>
+        </div>
+        <div class="anonymous-flow">
+          <article><b>LOCAL INSTALLATION ID</b><p>第一次运行生成随机 ID，存放在本地。用户可重置，卸载后不可恢复，不与邮箱、手机或真实身份绑定。</p></article>
+          <article><b>CONTEXTUAL REQUEST</b><p>上传粗粒度任务 taxonomy、宿主能力、语言/框架标签、地区粒度、频控摘要和旋转后匿名 ID。</p></article>
+          <article><b>SIGNED EVENT TOKENS</b><p>展示和点击使用有限时、单次、可验证的 decision token；不靠登录会话，也不跨设备合并用户。</p></article>
+        </div>
+      </section>
+
+      <section class="section-pad" id="security">
+        <div class="section-head">
+          <div><p class="eyebrow">09 · Security + Privacy</p><h2>公共匿名不等于无边界。</h2></div>
+          <p>云端不识别人，但所有包、计划、响应和广告事件仍然可验证。本地 Runtime 是项目、模型与公共云端之间的强制安全边界。</p>
+        </div>
+        <div class="security-grid">
+          <div>
+            <div class="gates" aria-label="SkillFlux 安全门">
+              <article class="gate"><span>G01</span><h3>Bind</h3><p>Runtime 启动时 realpath 绑定一个项目根，不接受模型提供的路径。</p></article>
+              <article class="gate"><span>G02</span><h3>Seal</h3><p>计划绑定项目、版本图、digest、权限、证据和有效期。</p></article>
+              <article class="gate"><span>G03</span><h3>Verify</h3><p>验证根元数据、阈值签名、透明记录、哈希与撤回。</p></article>
+              <article class="gate"><span>G04</span><h3>Sandbox</h3><p>按 manifest 能力分级执行，项目写入、网络、Shell 和 secrets 分别授权。</p></article>
+              <article class="gate"><span>G05</span><h3>Audit</h3><p>安装、激活、回滚、广告追加与策略变更都留下本地记录。</p></article>
+            </div>
+            <div class="privacy-matrix" style="margin-top: 28px" aria-label="SkillFlux 云端数据边界">
+              <div class="matrix-row"><strong>任务 taxonomy</strong><span class="yes">可发送</span><p>如 web-design / research / video，使用粗粒度分类。</p></div>
+              <div class="matrix-row"><strong>宿主与技术栈标签</strong><span class="yes">可发送</span><p>用于兼容性过滤，不包含路径、仓库名或代码内容。</p></div>
+              <div class="matrix-row"><strong>完整 prompt</strong><span class="no">默认禁止</span><p>只在用户明确选择诊断分享时，经本地编辑后单次上传。</p></div>
+              <div class="matrix-row"><strong>项目源码与文件</strong><span class="no">禁止</span><p>搜索、广告决策和事件上报都不需要源码。</p></div>
+              <div class="matrix-row"><strong>secrets / env / tokens</strong><span class="no">禁止</span><p>本地过滤器发现后终止请求并写入安全记录。</p></div>
+              <div class="matrix-row"><strong>installation_id</strong><span class="yes">假名</span><p>可旋转、可重置、不与身份绑定，仅用于频控、去重与反欺诈。</p></div>
+            </div>
+          </div>
+          <aside class="guard-card"><span class="micro">PUBLIC ENDPOINT / ZERO TRUST</span><h3>匿名流量防滥用</h3><ul class="guard-list"><li><span>01</span>IP / ASN / installation 多维滑动窗口限速</li><li><span>02</span>搜索响应、计划、广告与事件 token 全部签名</li><li><span>03</span>异常重放、批量窃取、自点击与虚假展示自动冻结</li><li><span>04</span>安装包尺寸、文件数、并发、压缩比和缓存配额有硬上限</li><li><span>05</span>广告不做跨任务行为画像；默认仅当次情境匹配</li><li><span>06</span>敏感任务、未成年场景、高风险品类和无披露素材统一阻断</li><li><span>07</span>用户可禁用个性化定向、重置 ID、删除本地事件与举报广告</li></ul></aside>
+        </div>
+      </section>
+
+      <section class="section-pad" id="operations">
+        <div class="section-head">
+          <div><p class="eyebrow">10 · Reliability + Operations</p><h2>广告可以没有，用户结果不能被它卡住。</h2></div>
+          <p>核心交付路径与收益路径分离：Skill 搜索和加载有自己的 SLO，广告在执行期间预取。广告超时时，Output Controller 立即返回原答案。</p>
+        </div>
+        <div class="slo-grid" aria-label="SkillFlux 服务目标">
+          <article class="slo-card"><span>Search availability</span><strong>99.95%</strong><p>公共搜索与 resolver 月度目标。</p></article>
+          <article class="slo-card"><span>Search latency p95</span><strong>&lt;350ms</strong><p>不含首次包下载和本地审批。</p></article>
+          <article class="slo-card"><span>Cached activation</span><strong>&lt;100ms</strong><p>已验证本地包的上下文组装。</p></article>
+          <article class="slo-card"><span>Revocation spread</span><strong>&lt;5min</strong><p>高危撤回从发布到新安装阻断。</p></article>
+          <article class="slo-card"><span>Ad wait at finish</span><strong>0ms</strong><p>广告必须预取；未就绪则直接返回答案。</p></article>
+        </div>
+        <div class="operations-grid">
+          <div class="failure-table" aria-label="SkillFlux 故障降级矩阵">
+            <div class="matrix-row"><strong>Search API 不可用</strong><span>DEGRADE</span><p>使用最后一份已签名索引和本地缓存；标注索引时间。</p></div>
+            <div class="matrix-row"><strong>CDN 下载失败</strong><span>ABORT</span><p>不安装半包；保留原项目与 lockfile，按退避策略重试。</p></div>
+            <div class="matrix-row"><strong>撤回数据过期</strong><span>BLOCK NEW</span><p>禁止新安装；已安装包按本地策略运行并显示警告。</p></div>
+            <div class="matrix-row"><strong>Ad Decision 超时</strong><span>LOCAL FALLBACK</span><p>不重试阻塞最终输出；立即使用未过期本地广告或随 npm 签名发布的 house ad。</p></div>
+            <div class="matrix-row"><strong>Event Ingress 失败</strong><span>LOCAL SPOOL</span><p>本地限额加密队列延迟重放；队列满时丢弃而不阻塞用户。</p></div>
+            <div class="matrix-row"><strong>无 final hook</strong><span>UNCERTIFIED</span><p>平台只提供搜索和加载，不声称该宿主能保证广告句。</p></div>
+          </div>
+          <div class="ops-list">
+            <article><span>O01</span><h3>可观测性</h3><p>分布式 trace 连接 search、resolve、CDN、QA 证据、ad decision 和事件账本；本地只记录去敏 ID。</p></article>
+            <article><span>O02</span><h3>发布与兼容</h3><p>Runtime、manifest、Host Adapter、索引与 API 都有显式协议版本，采用灰度、双写和快速回滚。</p></article>
+            <article><span>O03</span><h3>灾备与备份</h3><p>元数据多区域复制，索引可由签名快照重建，对象存储版本化，事件流可重放结算。</p></article>
+            <article><span>O04</span><h3>全局 Kill Switch</h3><p>可按 Skill digest、发布者、宿主 adapter、广告活动、素材、地区和 Runtime 版本立即停用。</p></article>
+            <article><span>O05</span><h3>运营账本</h3><p>QA 审核、签名、撤回、广告审核、预算变更、展示、点击、退款与反欺诈调整全部追加写。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="acceptance-section section-pad" id="acceptance">
+        <div class="section-head">
+          <div><p class="eyebrow">11 · Complete Product Acceptance</p><h2>这不是路线图，是完整版必须同时成立的契约。</h2></div>
+          <p>任何一组未成立，产品都不能被定义为“完整 SkillFlux”：它可能只是索引、包管理器、广告插件或演示系统。</p>
+        </div>
+        <div class="acceptance-grid">
+          <article class="acceptance-card"><span>C01 / USER PATH</span><h3>匿名用户闭环</h3><ul><li>无注册安装和 init</li><li>显性调用 Bootstrap Skill</li><li>搜索、计划、审批和下载</li><li>当前轮即时生效</li><li>项目持久化、离线复用与回滚</li></ul></article>
+          <article class="acceptance-card"><span>C02 / TRUST</span><h3>精品与供应链</h3><ul><li>已批准集合与硬过滤</li><li>自动扫描、沙箱、评测、红队和人审</li><li>内容寻址包、阈值签名与透明记录</li><li>持续复评、废弃、撤回与紧急禁用</li><li>lockfile 与证据可复现</li></ul></article>
+          <article class="acceptance-card"><span>C03 / REVENUE</span><h3>广告收益闭环</h3><ul><li>已审核活动与素材</li><li>情境匹配、频控、敏感阻断与预算节奏</li><li>认证宿主的确定性输出追加</li><li>签名展示/点击与匿名反欺诈</li><li>活动账本、对账、退调整与结算</li></ul></article>
+          <article class="acceptance-card"><span>C04 / OPERATE</span><h3>生产可运营</h3><ul><li>公共匿名 API 防滥用</li><li>多区域、CDN、索引快照与事件重放</li><li>SLO、trace、告警、审计和容量管理</li><li>Runtime / API / manifest / adapter 协议兼容</li><li>安全、广告和发布全局 kill switch</li></ul></article>
+        </div>
+        <div class="final-callout"><div><b>最终定义：SkillFlux 是“显性调用的精品 Skill 搜索与执行网络”。</b><p>它不需要终端用户账户，也不靠订阅变现。它依靠可验证的 Skill 质量赢得调用，再依靠与模型回答隔离的透明广告句获得收入。</p></div><a href="#top">Back to system contract</a></div>
+      </section>
+
+      <footer><p>SkillFlux Full Commercial Architecture · Revision 1.0</p><p>Anonymous / Curated / Signed / Ad-funded / Output-certified</p></footer>
+    </main>
+  </div>
+
+  <script>
+    const progress = document.querySelector('.scroll-progress');
+    const tocLinks = [...document.querySelectorAll('.toc a')];
+    const sections = tocLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? window.scrollY / max : 0;
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+    };
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      tocLinks.forEach((link) => {
+        link.classList.toggle('is-active', link.getAttribute('href') === `#${visible.target.id}`);
+      });
+    }, { rootMargin: '-18% 0px -68%', threshold: [0, 0.1, 0.35] });
+
+    sections.forEach((section) => observer.observe(section));
+
+    const viewCopy = {
+      all: '完整视图：显性 Bootstrap Skill 调用本地 MCP Runtime；Runtime 连接公共云端索引与 CDN；认证 Output Controller 在模型完成后追加广告。',
+      control: '控制面：宿主负责显性调用和完成事件；本地 Runtime 密封计划和权限；云端搜索、求解与发布撤回元数据。',
+      data: '包数据面：不可变 Skill 包由 CDN 分发，Runtime 在项目边界内验签、缓存、原子安装、即时注入和持久激活。',
+      quality: '质检面：只有经过来源验证、扫描、沙箱、评测、红队、人审与签名的精确版本才能进入可搜索集。',
+      monetization: '广告面：情境广告在 Skill 执行时预取，并由认证输出层在模型回答之后确定性追加；广告不进入模型上下文。'
+    };
+
+    const viewButtons = [...document.querySelectorAll('[data-view]')];
+    const viewNodes = [...document.querySelectorAll('[data-planes]')];
+    const viewNote = document.querySelector('.view-note');
+
+    viewButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const view = button.dataset.view;
+        viewButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        viewNodes.forEach((node) => {
+          const planes = node.dataset.planes.split(' ');
+          node.classList.toggle('is-muted', view !== 'all' && !planes.includes(view));
+        });
+        viewNote.textContent = viewCopy[view];
+      });
+    });
+  </script>
+</body>
+</html>

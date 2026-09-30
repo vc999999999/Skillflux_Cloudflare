@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { scenarios } from '../lib/scenarios';
+import { getGuides } from '../lib/guides';
+import { localizePath, type Language } from '../lib/i18n';
+const { lang = 'zh' } = Astro.props as { lang?: Language };
+const zh = lang === 'zh';
+const insights = await getCollection('insights', entry => !entry.data.draft);
+const title = zh ? '场景与选型' : 'Scenarios & selection';
+---
+<BaseLayout lang={lang} title={title} description={zh ? '从具体任务开始，了解 Skill 来源、接入、版本维护和使用边界。' : 'Start with a task and understand skill sources, setup, release maintenance and limitations.'} canonicalPath={localizePath('/scenarios/', lang)}>
+  <main id="main-content" class="page-shell scenario-index">
+    <header class="page-hero"><div><p class="eyebrow">FIELD NOTES / SKILLFLUX</p><h1 class="page-title">{title}</h1><p class="page-lede">{zh ? '把问题说清楚，再找合适的 Skill。这里整理选择依据和操作路径，不把文章数量当作质量。' : 'Clarify the task, then find a suitable skill. These guides explain decisions and practical steps.'}</p></div></header>
+    <section class="scenario-list">{scenarios.map((scenario, index) => <article><span class="resource-number">{String(index + 1).padStart(2, '0')}</span><div><h2><a href={localizePath(`/scenarios/${scenario.slug}/`, lang)}>{scenario.title[lang]}</a></h2><p>{scenario.summary[lang]}</p><small>{zh ? '更新' : 'Updated'} {scenario.updatedAt}</small></div></article>)}</section>
+    <section class="scenario-archive"><h2>{zh ? '来源研究与已有指南' : 'Source research and existing guides'}</h2><p>{zh ? '旧链接继续保留。外部来源解读不是平台对其内容完成了人工实测。' : 'Existing URLs remain available. Editorial analysis of an external source is not a platform usage-test certification.'}</p><ul>{getGuides().map(guide => <li><a href={localizePath(`/guides/${guide.slug}/`, lang)}>{guide.title[lang]}</a></li>)}{insights.map(entry => <li><a href={`/insights/${entry.id}/`}>{entry.data.title}</a>{!zh && <span> · Chinese original</span>}</li>)}</ul></section>
+  </main>
+</BaseLayout>
+<style>
+  .scenario-index { padding-bottom: 80px; }
+  .scenario-list { display: grid; }
+  .scenario-list article { display: grid; grid-template-columns: 65px 1fr; gap: 24px; padding: 30px 0; border-top: 1px solid var(--ink); }
+  .scenario-list h2 { margin: 0 0 12px; font-size: clamp(1.3rem, 2.3vw, 1.8rem); }
+  .scenario-list p { max-width: 65ch; color: var(--muted); line-height: 1.8; }
+  .scenario-list small { color: var(--muted); font-family: var(--font-mono); }
+  .scenario-archive { margin-top: 35px; border-top: 1px solid var(--line); padding-top: 25px; line-height: 1.8; }
+  .scenario-archive li { margin: 12px 0; }
+  @media (max-width: 600px) { .scenario-list article { grid-template-columns: 32px 1fr; gap: 12px; } }
+</style>

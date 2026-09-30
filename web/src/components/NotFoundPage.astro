@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localizePath, type Language } from '../lib/i18n';
+const { lang = 'zh' } = Astro.props as { lang?: Language };
+const zh = lang === 'zh';
+---
+<BaseLayout lang={lang} title={zh ? '没有找到这个页面' : 'Page not found'} noindex={true}>
+  <main id="main-content" class="page-shell not-found">
+    <p class="eyebrow">404 · SkillFlux</p>
+    <h1>{zh ? '这个地址没有对应的页面。' : 'There is no page at this address.'}</h1>
+    <p>{zh ? '地址可能有误，或该版本从未公开发布。已公开版本如果撤销，会保留状态说明；不会自动跳到其他版本。' : 'The address may be incorrect, or the release was never published. Revoked public releases retain a status page; they are not silently replaced by another version.'}</p>
+    <div><a class="button primary" href={localizePath('/directory/', lang)}>{zh ? '浏览 Skill 黄页' : 'Browse source directory'}</a><a class="button secondary" href={localizePath('/guides/', lang)}>{zh ? '查看指南' : 'Read guides'}</a><a href={localizePath('/', lang)}>{zh ? '返回首页' : 'Back home'}</a></div>
+  </main>
+</BaseLayout>
+<style>
+  .not-found { padding-block: 85px 120px; min-height: 55vh; }
+  h1 { font-size: clamp(2rem, 5vw, 4rem); max-width: 20ch; line-height: 1.15; }
+  p:not(.eyebrow) { max-width: 65ch; color: var(--muted); line-height: 1.8; }
+  .not-found > div { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 30px; }
+</style>

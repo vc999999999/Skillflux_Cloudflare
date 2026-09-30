@@ -1,0 +1,130 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE } from "../config";
+import { absoluteUrl } from "../lib/content";
+import { DEFAULT_LANGUAGE, getAlternateLanguagePath, getPageCopy, type Language } from "../lib/i18n";
+import "../styles/global.css";
+
+type Props = {
+  lang?: Language;
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  pageClass?: string;
+  noindex?: boolean;
+  alternateLanguages?: Language[];
+};
+
+const {
+  lang = DEFAULT_LANGUAGE,
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  jsonLd,
+  pageClass = "",
+  noindex = false,
+  alternateLanguages = /^\/(?:en\/)?insights\/[^/]+\/?$/.test(Astro.url.pathname) ? ["zh"] : ["zh", "en"]
+} = Astro.props;
+const copy = getPageCopy(lang);
+const pageDescription = description ?? copy.siteDescription;
+const brandName = lang === "en" ? SITE.shortName : SITE.name;
+const pageTitle = title ? `${title} | ${brandName}` : `${brandName} | ${copy.titleSuffix}`;
+const canonical = absoluteUrl(canonicalPath);
+const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const zhAlternate = absoluteUrl(getAlternateLanguagePath(Astro.url.pathname, "zh"));
+const enAlternate = absoluteUrl(getAlternateLanguagePath(Astro.url.pathname, "en"));
+const ogImage = absoluteUrl("/og.png");
+const analyticsEnabled = !import.meta.env.DEV && !noindex && Boolean(SITE.cfBeaconToken);
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  url: SITE.url,
+  logo: absoluteUrl("/skillflux-mark.svg"),
+  description: SITE.description,
+  sameAs: [SITE.repoUrl]
+};
+---
+
+<!doctype html>
+<html lang={copy.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} data-base-robots={noindex ? "noindex, follow" : "index, follow"} />
+    {SITE.verification.google && <meta name="google-site-verification" content={SITE.verification.google} />}
+    {SITE.verification.bing && <meta name="msvalidate.01" content={SITE.verification.bing} />}
+    {SITE.verification.yandex && <meta name="yandex-verification" content={SITE.verification.yandex} />}
+    {SITE.verification.baidu && <meta name="baidu-site-verification" content={SITE.verification.baidu} />}
+    {SITE.verification.sogou && <meta name="sogou_site_verification" content={SITE.verification.sogou} />}
+    {SITE.verification.so360 && <meta name="360-site-verification" content={SITE.verification.so360} />}
+    {SITE.verification.shenma && <meta name="shenma-site-verification" content={SITE.verification.shenma} />}
+    <link rel="canonical" href={canonical} />
+    {!noindex && <>
+      {alternateLanguages.includes("zh") && <link rel="alternate" hreflang="zh-CN" href={zhAlternate} />}
+      {alternateLanguages.includes("en") && <link rel="alternate" hreflang="en" href={enAlternate} />}
+      <link rel="alternate" hreflang="x-default" href={alternateLanguages.includes("en") ? enAlternate : zhAlternate} />
+    </>}
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href={absoluteUrl("/feed.xml")} />
+    <link rel="icon" href="/skillflux-mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SITE.name} />
+    <meta property="og:locale" content={copy.locale === "en" ? "en_US" : "zh_CN"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c')} />
+    {jsonLdItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item).replace(/</g, '\\u003c')} />)}
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳转到正文' : 'Skip to content'}</a>
+    <Header lang={lang} currentPath={Astro.url.pathname} showLanguage={!noindex && alternateLanguages.length > 1} />
+    <slot />
+    <Footer lang={lang} />
+    <p class="copy-feedback" data-copy-feedback role="status" aria-live="polite" hidden></p>
+    <script>
+      const feedback = document.querySelector<HTMLElement>('[data-copy-feedback]');
+      let feedbackTimer: ReturnType<typeof setTimeout>;
+      document.addEventListener('click', async (event) => {
+        const target = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('[data-copy-text]') : null;
+        if (!target || !feedback) return;
+        const text = target.dataset.copyText;
+        if (!text) return;
+        const zh = document.documentElement.lang.startsWith('zh');
+        try {
+          await navigator.clipboard.writeText(text);
+          feedback.textContent = zh ? '已复制到剪贴板。' : 'Copied to clipboard.';
+        } catch {
+          feedback.textContent = zh ? '无法访问剪贴板，请手动选择并复制页面上的命令。' : 'Clipboard unavailable. Select and copy the command on this page manually.';
+        }
+        feedback.hidden = false;
+        clearTimeout(feedbackTimer);
+        feedbackTimer = setTimeout(() => { feedback.hidden = true; }, 6000);
+      });
+    </script>
+    {analyticsEnabled && SITE.cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: SITE.cfBeaconToken })}
+      />
+    )}
+  </body>
+</html>

@@ -1,0 +1,25 @@
+---
+type Props = { name?: string; size?: number; class?: string };
+const { name = 'arrow', size = 20, class: className } = Astro.props;
+const paths: Record<string, string> = {
+  arrow: 'M5 12h14m-5-5 5 5-5 5', external: 'M7 17 17 7M7 7h10v10',
+  code: 'm8 6-6 6 6 6m8-12 6 6-6 6m-3-16-2 20', browser: 'M3 8h18M7 5h.01M10 5h.01M3 3h18v18H3z',
+  search: 'm16 16 5 5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  writing: 'm15 4 5 5M4 20l5-1L21 7l-5-5L4 14z', chart: 'M4 3v18h17M9 16v-5m5 5V7m5 9V4',
+  design: 'm12 3 9 9-9 9-9-9zM3 12h18M12 3v18', cloud: 'M7 18a5 5 0 1 1 0-10 6 6 0 0 1 11-2 6 6 0 0 1 0 12M8 13l4-4 4 4m-4-4v12',
+  tasks: 'M9 6h12M9 12h12M9 18h12M3 5l1 1 2-2M3 11l1 1 2-2M3 17l1 1 2-2',
+  book: 'M12 5v16M12 5C8 2 4 3 2 4v15c3-1 6-1 10 2 4-3 7-3 10-2V4c-2-1-6-2-10 1',
+  terminal: 'm4 6 6 6-6 6m9 0h7', copy: 'M8 8h12v13H8zM16 8V3H3v13h5',
+  layers: 'm12 3 10 5-10 5L2 8zm-10 9 10 5 10-5M2 16l10 5 10-5',
+  mobile: 'M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 16h2',
+  pen: 'm15 4 5 5M4 20l5-1L21 7l-5-5L4 14z',
+  play: 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm5 5 6 4-6 4V8Z',
+  plan: 'M9 5h12M9 12h12M9 19h12M3 4l1 1 2-2M3 11l1 1 2-2M3 18l1 1 2-2',
+  shield: 'M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6l-9-4Zm-5 10 3 3 7-7',
+  plug: 'M8 2v5m8-5v5M5 7h14v3a7 7 0 0 1-7 7v5M5 7v3a7 7 0 0 0 7 7',
+  compass: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm5 5-3 7-7 3 3-7 7-3Z',
+  grid: 'M3 3h7v7H3V3Zm11 0h7v7h-7V3ZM3 14h7v7H3v-7Zm11 0h7v7h-7v-7Z',
+  check: 'm5 12 4 4L19 6', spark: 'm12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z',
+};
+---
+<svg class={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={paths[name] ?? paths.layers} /></svg>

@@ -1,0 +1,2314 @@
+{
+  "modelscope-cn-skills": {
+    "resourceSlug": "modelscope-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文 Agent Skills 发现",
+      "en": "Chinese-language skill discovery"
+    },
+    "summary": {
+      "zh": "魔搭 ModelScope Skills 把 ModelScope 社区的 Agent Skills 汇集到按用途浏览的中文入口。它适合先了解可复用能力的分布，再进入具体条目阅读来源说明；页面涵盖不同 agent 相关资源，实际使用条件仍需逐项确认。",
+      "en": "ModelScope Skills brings the ModelScope community’s Agent Skills together in a Chinese-language entry point organized by purpose. It helps readers survey reusable capabilities before opening individual source instructions. Its listings cover resources associated with different agents; the requirements of each item still need to be checked."
+    },
+    "bestFor": [
+      {
+        "zh": "希望用中文建立 Skill 生态整体认识的新用户。",
+        "en": "New users who want a Chinese-language overview of the skill ecosystem."
+      },
+      {
+        "zh": "已有明确任务、准备在厂商合集与开源仓库之间比较的开发者。",
+        "en": "Developers comparing a vendor collection with original repositories for a specific task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "建议先用一个真实任务筛出两三个条目，记录原始仓库与依赖，再与 Anthropic 的原始示例对照。魔搭解决的是查找入口问题，选中条目后仍要阅读其安装和权限要求。",
+      "en": "Start with a real task, shortlist two or three entries, and record their original repositories and dependencies. Compare their structure with Anthropic’s source examples. ModelScope provides a discovery entry point; installation and permission requirements belong to each selected item."
+    },
+    "limitations": [
+      {
+        "zh": "合集的分类不能证明每个条目支持同样的 agent 或运行环境。",
+        "en": "Collection categories do not establish identical agent or runtime support across entries."
+      },
+      {
+        "zh": "涉及外部服务的能力，应在来源页核对账户、凭证和服务费用。",
+        "en": "For skills using external services, check account, credential and service costs at the source."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-aliyun-com-skills-orderby-install",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "skills-aliyun-com-skills-orderby-install": {
+        "zh": "偏向阿里云生态时，可比较阿里云 Skills 的厂商入口与安装量排序。",
+        "en": "Compare Alibaba Cloud Skills when vendor context and installation-based ordering matter."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "想直接阅读 Skill 文件与示例组织方式时，进入 Anthropic 的原始仓库。",
+        "en": "Use Anthropic’s original repository to inspect skill files and example structure directly."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "skills-aliyun-com-skills-orderby-install": {
+    "resourceSlug": "aliyun-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "阿里云 Skill 合集",
+      "en": "Alibaba Cloud skill collection"
+    },
+    "summary": {
+      "zh": "阿里云 Skills 是阿里云的 Agent Skills 合集入口，收录链接使用按安装量排序的视图。它适合从云厂商生态出发寻找能力，同时将条目的用途、依赖和服务关联放在一起比较。",
+      "en": "Alibaba Cloud Skills is an Agent Skills collection from Alibaba Cloud. The listed entry point uses an installation-based ordering view. It is useful for discovering capabilities in a cloud-vendor context and comparing an item’s purpose, dependencies and associated services."
+    },
+    "bestFor": [
+      {
+        "zh": "已在阿里云生态中工作、希望寻找相关能力入口的团队。",
+        "en": "Teams already working in the Alibaba Cloud ecosystem."
+      },
+      {
+        "zh": "希望结合采用度线索与原始说明筛选 Skill 的用户。",
+        "en": "Users comparing adoption signals with original skill documentation."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "把排序当作候选发现线索，再检查前几个结果是否解决同一个问题。若条目连接云服务，应将服务开通、权限范围和费用一起纳入选择，而不是仅凭排名采用。",
+      "en": "Treat ordering as a discovery signal, then check whether the top candidates solve the same problem. If an entry connects to a cloud service, include service activation, permission scope and costs in the comparison before adopting it."
+    },
+    "limitations": [
+      {
+        "zh": "安装量不能替代与你的项目相匹配的功能验证。",
+        "en": "Installation counts cannot replace validation against your project."
+      },
+      {
+        "zh": "目录记录的部分付费属性不能确定具体条目或关联云服务的当前费用。",
+        "en": "The catalog’s mixed-pricing label does not establish current costs for an individual item or cloud service."
+      }
+    ],
+    "alternativeSlugs": [
+      "modelscope-cn-skills",
+      "skillhub-cn-dashboard"
+    ],
+    "alternativeReasons": {
+      "modelscope-cn-skills": {
+        "zh": "希望先建立更广的中文 Skill 认识时，可从魔搭的用途分类开始。",
+        "en": "Start with ModelScope’s purpose-based collection for a broader Chinese-language overview."
+      },
+      "skillhub-cn-dashboard": {
+        "zh": "在对比云厂商生态时，可同时查看腾讯云 SkillHub 的条目。",
+        "en": "Compare Tencent Cloud SkillHub when evaluating another cloud-vendor ecosystem."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skillhub-cn-dashboard": {
+    "resourceSlug": "tencent-skillhub",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "腾讯云 Skill 发现",
+      "en": "Tencent Cloud skill discovery"
+    },
+    "summary": {
+      "zh": "腾讯云 SkillHub 以 dashboard 形式呈现 Agent Skills，面向偏好中文界面的用户。它是从腾讯云生态查找可复用能力的入口，也可与其他厂商合集并列，比较具体任务是否有对应资源。",
+      "en": "Tencent Cloud SkillHub presents Agent Skills through a dashboard aimed at readers who prefer Chinese. It provides a starting point within the Tencent Cloud ecosystem and can be compared with other vendor collections to find resources for a concrete task."
+    },
+    "bestFor": [
+      {
+        "zh": "已使用腾讯云、希望就近寻找 Skill 资料的团队。",
+        "en": "Teams using Tencent Cloud and looking for nearby skill resources."
+      },
+      {
+        "zh": "按相同任务比较多个中文厂商入口的用户。",
+        "en": "Users comparing Chinese vendor entry points against the same task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先确认 dashboard 中的条目指向哪一个原始项目，再看它依赖的服务是否与你现有工作环境一致。厂商入口有助于定位来源，但不应据此推定每项内容都已适配你的项目。",
+      "en": "Follow a dashboard entry to its original project and check whether its service dependencies match your environment. A vendor entry point helps identify the source; it does not by itself establish suitability for your project."
+    },
+    "limitations": [
+      {
+        "zh": "中文界面不代表条目正文、依赖文档或输出语言全部为中文。",
+        "en": "A Chinese interface does not establish the language of every entry, dependency document or output."
+      },
+      {
+        "zh": "目录没有为每个 Skill 提供独立的运行结果；接入前需检查来源说明。",
+        "en": "The catalog does not provide execution results for each skill; inspect the source instructions before connecting it."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-aliyun-com-skills-orderby-install",
+      "modelscope-cn-skills"
+    ],
+    "alternativeReasons": {
+      "skills-aliyun-com-skills-orderby-install": {
+        "zh": "阿里云使用者可从对应云厂商的合集比较服务依赖。",
+        "en": "Alibaba Cloud users can compare service dependencies through that vendor’s collection."
+      },
+      "modelscope-cn-skills": {
+        "zh": "若尚未选定云厂商，可先在魔搭按用途浏览候选能力。",
+        "en": "Browse ModelScope by purpose if you have not selected a cloud-vendor context."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "agent-skills-md": {
+    "resourceSlug": "agent-skills-md",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Markdown 风格 Skill 目录",
+      "en": "Markdown-style skill directory"
+    },
+    "summary": {
+      "zh": "agent-skills.md 是面向英文读者的 Agent Skills 综合目录，用 Markdown 风格组织可复用能力。它适合快速扫读候选条目，建立名称与用途的初步对应，再沿链接深入查看单项资源。",
+      "en": "agent-skills.md is an English-language Agent Skills directory that presents reusable capabilities in a Markdown-style format. It is suited to scanning candidates, building an initial map of names and purposes, and following links to inspect individual resources."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好文字列表、想快速扫读英文 Skill 的开发者。",
+        "en": "Developers who prefer text lists when scanning English-language skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "用它做第一轮清单整理：保留与你任务相关的条目名称与源链接，再到原始仓库核对内容。简洁列表能降低浏览成本，实际取舍仍取决于条目的指令、依赖和许可证。",
+      "en": "Use it to build an initial shortlist of relevant names and source links, then inspect the original repositories. A compact list reduces browsing effort; the final choice should follow the instructions, dependencies and license of each item."
+    },
+    "limitations": [
+      {
+        "zh": "目录提供发现路径，并非统一的安装包或兼容性承诺。",
+        "en": "The directory provides discovery links, not one unified installation package or compatibility guarantee."
+      }
+    ],
+    "alternativeSlugs": [
+      "agentskill-sh",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "agentskill-sh": {
+        "zh": "需要另一个英文聚合入口交叉查找时，可比较 AgentSkill.sh。",
+        "en": "Compare AgentSkill.sh as another English aggregation entry point."
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "zh": "希望在 GitHub 阅读 Claude 方向清单及架构说明时，可查看 travisvn 的合集。",
+        "en": "Use travisvn’s GitHub list for Claude-oriented resources and architectural explanations."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "agentskill-sh": {
+    "resourceSlug": "agentskill-sh",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "英文 Skill 聚合发现",
+      "en": "English-language skill aggregation"
+    },
+    "summary": {
+      "zh": "AgentSkill.sh 是面向全球开发者的英文 Agent Skills 目录，把散落在不同来源的能力集中到同一个发现入口。它侧重查找与对照，适合与其他目录一起缩小候选范围。",
+      "en": "AgentSkill.sh is an English-language Agent Skills directory for developers. It collects capabilities from separate sources into one discovery entry point. Its role is finding and comparing candidates, making it useful alongside other directories when narrowing a shortlist."
+    },
+    "bestFor": [
+      {
+        "zh": "需要跨来源搜索 Skill、愿意回到原项目核实的英文用户。",
+        "en": "English-language users searching across sources and willing to verify the original projects."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "比较不同目录时，优先看它们最终指向的仓库是否相同。同一个 Skill 被多个目录收录，不等于多个独立实现；记录原始地址可以避免重复评估。",
+      "en": "When comparing directories, check whether their entries lead to the same repository. Multiple listings of one skill are not separate implementations. Recording the original URL avoids spending time evaluating duplicate entries."
+    },
+    "limitations": [
+      {
+        "zh": "本站收录资料未确认其具有统一托管或统一安装机制；按条目原始说明操作。",
+        "en": "The catalog record does not establish a unified hosting or installation mechanism; follow each item’s original instructions."
+      }
+    ],
+    "alternativeSlugs": [
+      "agent-skills-md",
+      "skillsdirectory-com"
+    ],
+    "alternativeReasons": {
+      "agent-skills-md": {
+        "zh": "偏好 Markdown 风格扫读时，可比较 agent-skills.md 的列表。",
+        "en": "Compare agent-skills.md if a Markdown-style list suits your reading workflow."
+      },
+      "skillsdirectory-com": {
+        "zh": "希望补充另一个按目录浏览的来源时，可查看 Skills Directory。",
+        "en": "Use Skills Directory as an additional directory-based discovery source."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "aitmpl-com": {
+    "resourceSlug": "aitmpl",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Agent 模板与 Skill 发现",
+      "en": "Agent template and skill discovery"
+    },
+    "summary": {
+      "zh": "AITmpl 是英文 Agent Skills 集合入口，将模板和技能组织为便于浏览的列表。它适合从现成能力的组织方式入手寻找候选，再将具体条目与官方示例或原始仓库对照。",
+      "en": "AITmpl is an English-language collection of Agent Skills and templates presented as a browsable list. It helps readers find candidates through existing capability patterns, then compare individual entries with official examples or original repositories."
+    },
+    "bestFor": [
+      {
+        "zh": "希望先浏览模板与技能，再决定采用哪一种工作方式的开发者。",
+        "en": "Developers exploring templates and skills before choosing a workflow."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先区分条目是可直接引用的指令、项目模板，还是依赖脚本的能力。这些内容可能有不同的引入成本；选中后记录需要复制的文件与执行步骤，避免仅根据名称判断用途。",
+      "en": "First determine whether an entry contains reusable instructions, a project template or a capability backed by scripts. These forms can require different integration work. Record the files and steps needed before deciding from the name alone."
+    },
+    "limitations": [
+      {
+        "zh": "合集中的模板与 Skill 不应被视为同一种可互换的安装产物。",
+        "en": "Templates and skills in a collection should not be treated as interchangeable installation artifacts."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "skills-sh"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "zh": "需要参考 Skill 文件本身的组织方式时，可阅读 Anthropic 的原始仓库。",
+        "en": "Read Anthropic’s repository when you need to inspect the structure of skill files themselves."
+      },
+      "skills-sh": {
+        "zh": "希望从另一个开发者向目录发现候选时，可比较 skills.sh。",
+        "en": "Compare skills.sh for another developer-oriented discovery route."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-anthropics-skills": {
+    "resourceSlug": "anthropic-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Anthropic 官方 Skill 示例",
+      "en": "Official Anthropic skill examples"
+    },
+    "summary": {
+      "zh": "anthropics/skills 是 Anthropic 在 GitHub 发布的 Skill 仓库，可以直接阅读各项能力的文件与实现。它适合作为理解 Skill 如何组织的第一手参考，也适合在引入社区内容前建立比较基准。",
+      "en": "anthropics/skills is Anthropic’s public skill repository on GitHub, where readers can inspect capability files and implementations directly. It provides a first-hand reference for how skills are organized and a useful baseline when evaluating community resources."
+    },
+    "bestFor": [
+      {
+        "zh": "希望阅读原始 Skill 文件、理解结构与使用要求的开发者。",
+        "en": "Developers learning skill structure and requirements from original files."
+      },
+      {
+        "zh": "准备编写或评估自有 Skill、需要第一手示例的团队。",
+        "en": "Teams seeking first-hand examples before writing or evaluating their own skills."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "从与你任务相关的一个目录开始，先读主指令，再看关联脚本和参考文件。将触发条件、输入输出与依赖记录下来，比一次复制整个仓库更容易判断一个示例是否适合自己的工作流。",
+      "en": "Start with one directory relevant to your task. Read its main instructions, then inspect linked scripts and reference files. Recording triggers, inputs, outputs and dependencies makes it easier to judge whether that example belongs in your workflow."
+    },
+    "limitations": [
+      {
+        "zh": "官方来源不能替代针对你所用 agent、项目和权限配置的实际验证。",
+        "en": "An official source does not replace validation against your agent, project and permission configuration."
+      },
+      {
+        "zh": "逐项阅读许可与依赖说明，不应假定仓库中的全部内容采用相同条件。",
+        "en": "Read each item’s license and dependency notes rather than assuming identical conditions throughout the repository."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-voltagent-awesome-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "zh": "若需要成套规划、调试与测试流程，可比较 Superpowers 的框架式组织。",
+        "en": "Compare Superpowers for a framework-oriented approach to planning, debugging and testing."
+      },
+      "github-com-voltagent-awesome-agent-skills": {
+        "zh": "若想寻找多个厂商与社区的来源，可用 VoltAgent 的策展清单扩大范围。",
+        "en": "Use VoltAgent’s curated list to explore sources from multiple vendors and the community."
+      }
+    },
+    "relatedGuideSlugs": [
+      "how-to-download-claude-skills",
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-bradautomates-claude-video": {
+    "resourceSlug": "claude-video",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "视频理解与处理项目",
+      "en": "Video understanding and processing"
+    },
+    "summary": {
+      "zh": "bradautomates/claude-video 是围绕视频理解和处理的 Claude 相关开源项目。作为单一主题的仓库，它让开发者直接查看实现与依赖，适合在明确视频任务后评估可复用的部分。",
+      "en": "bradautomates/claude-video is an open-source Claude-related project focused on understanding and processing video. As a repository with a specific media focus, it lets developers inspect implementation and dependencies directly when evaluating reusable parts for a defined video task."
+    },
+    "bestFor": [
+      {
+        "zh": "已明确视频输入与期望结果、愿意检查代码和依赖的开发者。",
+        "en": "Developers with a defined video input and output who can inspect code and dependencies."
+      }
+    ],
+    "useCases": [
+      "video"
+    ],
+    "skillFluxNote": {
+      "zh": "先用一段短视频验证你的目标：需要的是内容理解还是后续媒体处理。将来源文档支持的输入格式、所需工具和实际输出逐项对照，再决定是否接入更长的素材流程。",
+      "en": "Test a short clip against your goal: understanding its content or carrying out further media processing. Compare supported input formats, required tools and actual outputs with the repository documentation before integrating longer assets."
+    },
+    "limitations": [
+      {
+        "zh": "当前收录资料未逐项核验视频格式、时长上限或所需模型；请以仓库说明与样本测试为准。",
+        "en": "The catalog has not verified each supported format, duration limit or model requirement; check repository instructions and a sample run."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wlzh-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wlzh-skills": {
+        "zh": "若目标更偏视频下载、发布等实用流程，可检查 wlzh/skills 的对应条目。",
+        "en": "Inspect relevant wlzh/skills entries when the task is closer to practical downloading or publishing workflows."
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "zh": "若仍在寻找视频相关方向，可从 Composio 的分类清单继续发现候选。",
+        "en": "Use Composio’s categorized list for additional candidates while exploring media workflows."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "claudemarketplaces-com": {
+    "resourceSlug": "claude-marketplaces",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Claude 生态市场发现",
+      "en": "Claude marketplace discovery"
+    },
+    "summary": {
+      "zh": "Claude Marketplaces 是面向 Claude 生态的英文能力市场入口，将可选 Skill 集中呈现。它适合在多个市场之间比较候选能力，并追溯具体条目的提供者与使用说明。",
+      "en": "Claude Marketplaces is an English-language entry point for capabilities in the Claude ecosystem. It brings skill options together for browsing and comparison across marketplaces, with individual providers and instructions forming the basis for adoption decisions."
+    },
+    "bestFor": [
+      {
+        "zh": "已围绕 Claude 工作、希望在多个来源之间比较能力的用户。",
+        "en": "Claude users comparing capabilities offered by several sources."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "用具体任务词筛选条目，并记录提供者和最终来源，避免把市场名称当成能力维护者。若多个市场列出同一项目，比较安装说明和版本指向比重复收集链接更有用。",
+      "en": "Search with a concrete task and record the provider and final source. The marketplace name is not necessarily the capability’s maintainer. When markets list the same project, compare instructions and version references rather than collecting duplicate links."
+    },
+    "limitations": [
+      {
+        "zh": "市场入口不能证明所有条目有统一的许可证、支持方式或安装路径。",
+        "en": "A marketplace entry point does not establish a shared license, support model or installation path for every item."
+      }
+    ],
+    "alternativeSlugs": [
+      "claude-plugins-dev",
+      "skill0-io"
+    ],
+    "alternativeReasons": {
+      "claude-plugins-dev": {
+        "zh": "想从插件集合的角度探索 Claude 能力时，可比较 Claude Plugins。",
+        "en": "Compare Claude Plugins when exploring capabilities through plugin collections."
+      },
+      "skill0-io": {
+        "zh": "需要社区贡献和主题分类的市场视角时，可查看 skill0。",
+        "en": "Explore skill0 for a community-contributed, topic-oriented marketplace view."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "claude-plugins-dev": {
+    "resourceSlug": "claude-plugins",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Claude 插件与能力发现",
+      "en": "Claude plugin discovery"
+    },
+    "summary": {
+      "zh": "Claude Plugins 是英文的 Claude 插件与可复用能力集合入口。它将相关内容集中展示，适合围绕 Claude 工作流寻找现成候选，再根据各项目说明判断其包含哪些文件、指令或工具。",
+      "en": "Claude Plugins is an English-language collection of Claude plugins and reusable capabilities. It is useful for finding candidates around a Claude workflow, then consulting each project to understand the files, instructions or tools it includes."
+    },
+    "bestFor": [
+      {
+        "zh": "希望通过插件形式寻找 Claude 工作流扩展的用户。",
+        "en": "Users looking for Claude workflow extensions through plugin collections."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "比较插件时先列出包内实际包含的内容，再看是否只需要其中一个 Skill。一个名称下可能组织多个组件，采用前应把安装方式与宿主要求一起阅读。",
+      "en": "When comparing plugins, list the components they actually contain and decide whether you only need an individual skill. Read installation instructions alongside host requirements before adopting a package that groups several components."
+    },
+    "limitations": [
+      {
+        "zh": "插件与单个 Skill 的安装单位不同，不能只凭集合页推定同一命令适用于全部内容。",
+        "en": "Plugins and individual skills can be different installation units; the collection does not establish one command for all content."
+      }
+    ],
+    "alternativeSlugs": [
+      "claudemarketplaces-com",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "claudemarketplaces-com": {
+        "zh": "希望扩大到 Claude 市场入口之间的比较时，可查看 Claude Marketplaces。",
+        "en": "Use Claude Marketplaces to broaden comparisons across Claude marketplace entry points."
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "zh": "希望先理解 Skill 架构再选择具体内容时，可参考 travisvn 的开源清单。",
+        "en": "Read travisvn’s open list when learning skill architecture before choosing content."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "claudeskillsmarket-com": {
+    "resourceSlug": "claude-skills-market",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "商业 Skill 选型",
+      "en": "Commercial skill discovery"
+    },
+    "summary": {
+      "zh": "Claude Skills Market 是偏企业场景的英文 Skill 市场，目录资料将其内容标记为免费与付费并存。它适合有商业采购需求的团队先建立候选清单，再逐项核对授权、交付内容和服务条件。",
+      "en": "Claude Skills Market is an English-language skill marketplace oriented toward business use. Its catalog record describes a mix of free and paid content. Teams considering commercial procurement can use it to build a shortlist before checking licenses, deliverables and service terms item by item."
+    },
+    "bestFor": [
+      {
+        "zh": "有预算、需要比较付费能力与免费来源的团队。",
+        "en": "Teams with a budget comparing paid capabilities with free sources."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "采购前把需求写成可验收的任务，并对候选内容索取明确的交付和授权说明。商业定位本身不能说明支持范围，免费条目也应按同样的输入输出标准比较。",
+      "en": "Write a testable task before procurement and establish the deliverables and license of each candidate. Commercial positioning alone does not define support scope. Compare free entries using the same expected inputs and outputs."
+    },
+    "limitations": [
+      {
+        "zh": "本站未确认具体商品的当前价格、企业支持承诺或退款条件；需查看对应提供者条款。",
+        "en": "The catalog does not confirm current item pricing, enterprise support commitments or refund terms; consult the provider’s terms."
+      }
+    ],
+    "alternativeSlugs": [
+      "atcyrus-com-skills",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "atcyrus-com-skills": {
+        "zh": "若需求集中在开发、DevOps 与安全分类，可比较 Cyrus 的开发者市场。",
+        "en": "Compare Cyrus for a developer-oriented marketplace spanning development, DevOps and security."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "需要直接阅读来源内容、评估自行集成成本时，可从 Anthropic 的仓库建立基准。",
+        "en": "Use Anthropic’s repository as a baseline when inspecting source content and estimating integration work."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "clawhub-ai": {
+    "resourceSlug": "clawhub",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Agent Skill 集合发现",
+      "en": "Agent skill collection discovery"
+    },
+    "summary": {
+      "zh": "ClawHub 是 SkillFlux 收录的英文 Agent Skills 集合入口，将 agent 能力聚合起来供用户查找。本站将其作为需要继续核查的新来源，适合在已有明确需求时补充候选。",
+      "en": "ClawHub is an English-language Agent Skills collection listed by SkillFlux. It aggregates capabilities for discovery. In this catalog it is treated as a source requiring further checking, useful for adding candidates when you already have a specific need."
+    },
+    "bestFor": [
+      {
+        "zh": "愿意检查原始项目、寻找补充候选来源的用户。",
+        "en": "Users willing to inspect original projects while exploring an additional source."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "在条目页面先确认作者、原始仓库与安装说明能否相互对应，再选择一个范围小的任务试用。把核查结果留在自己的选型记录里，比依据站点的新旧或展示热度作判断更可靠。",
+      "en": "First check that the author, original repository and installation instructions correspond to the same project. Try a narrowly scoped task and keep your findings in your own evaluation notes instead of relying on the site’s age or prominence."
+    },
+    "limitations": [
+      {
+        "zh": "现有目录资料不能确认各条目的维护频率、审核过程或宿主支持。",
+        "en": "Existing catalog information does not establish each entry’s maintenance cadence, review process or host support."
+      }
+    ],
+    "alternativeSlugs": [
+      "skillsmp-com",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "skillsmp-com": {
+        "zh": "需要另一份英文候选清单交叉查找时，可比较 SkillsMP。",
+        "en": "Compare SkillsMP when cross-checking an English-language shortlist."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "想先从第一手来源建立判断标准时，可阅读 Anthropic 的仓库。",
+        "en": "Read Anthropic’s repository to establish an evaluation baseline from a first-hand source."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "discoveraiskills-com": {
+    "resourceSlug": "discover-ai-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "社区 Skill 探索",
+      "en": "Community skill discovery"
+    },
+    "summary": {
+      "zh": "Discover AI Skills 是偏社区发现的英文 Skill 站点，用于探索 agent 能力并了解不同选择。它适合在任务尚未形成固定实现方案时拓宽候选范围，然后回到项目本身继续评估。",
+      "en": "Discover AI Skills is an English-language, community-oriented site for exploring agent capabilities and available options. It is useful for broadening a shortlist before a task has a fixed implementation, followed by closer evaluation of the underlying projects."
+    },
+    "bestFor": [
+      {
+        "zh": "希望探索不同任务实现方法、寻找新候选的英文读者。",
+        "en": "English-language readers exploring alternative ways to approach a task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "浏览时把有趣的名称改写成你自己的需求句，再确认条目确实提供所需能力。社区发现适合打开思路，最终选择应有原始说明、可复现的小任务和明确的退出条件。",
+      "en": "Translate interesting entries into a statement of your own need, then check whether they provide that capability. Community discovery can broaden your options; adoption should rest on source instructions and a small task whose outcome you can verify."
+    },
+    "limitations": [
+      {
+        "zh": "社区曝光不能证明功能覆盖或实现质量；目录未对每个条目执行测试。",
+        "en": "Community visibility does not establish feature coverage or implementation quality; the catalog does not execute every listed item."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-community-pages-dev-zh-skills",
+      "github-com-voltagent-awesome-agent-skills"
+    ],
+    "alternativeReasons": {
+      "qoder-community-pages-dev-zh-skills": {
+        "zh": "偏好按角色浏览或使用中文界面时，可参考 Qoder Community。",
+        "en": "Compare Qoder Community for role-based browsing and a Chinese-language interface."
+      },
+      "github-com-voltagent-awesome-agent-skills": {
+        "zh": "希望通过可阅读的 GitHub 策展清单继续探索时，可查看 VoltAgent 合集。",
+        "en": "Use VoltAgent’s GitHub list when you prefer browsing a readable curated repository."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "hermes-agent-nousresearch-com-docs-zh-hans-skills": {
+    "resourceSlug": "hermes-agent-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Hermes Agent Skill 文档",
+      "en": "Hermes Agent skill documentation"
+    },
+    "summary": {
+      "zh": "Hermes Agent Skills 是 Nous Research 的 Hermes Agent 官方文档中的 Skill 部分，收录入口提供简体中文内容。它适合正在使用或评估 Hermes 的用户，围绕该宿主了解技能的组织和使用方式。",
+      "en": "Hermes Agent Skills is the skills section of the official Hermes Agent documentation from Nous Research. The listed entry point provides Simplified Chinese content. It serves users who are using or evaluating Hermes and want to understand skills in that host’s context."
+    },
+    "bestFor": [
+      {
+        "zh": "正在使用或评估 Hermes Agent、需要中文资料的用户。",
+        "en": "Users working with or evaluating Hermes Agent who need Chinese documentation."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先确认阅读的文档与当前 Hermes 环境对应，再按文档中的一个示例完成最小验证。它的价值在于宿主上下文清楚；跨宿主复用时，应重新检查文件组织与调用方式。",
+      "en": "Check that the documentation corresponds to your Hermes environment, then validate one documented example. Its value is the explicit host context. Reusing content in another host requires checking file organization and invocation again."
+    },
+    "limitations": [
+      {
+        "zh": "Hermes 的文档不能直接证明同一 Skill 可在 Claude、Codex 或其他宿主原样运行。",
+        "en": "Hermes documentation does not establish that a skill runs unchanged in Claude, Codex or other hosts."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "qoder-com-zh-marketplace"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "zh": "若你需要 Claude 方向的第一手 Skill 示例，可比较 Anthropic 的仓库。",
+        "en": "Compare Anthropic’s repository when you need first-hand examples in a Claude context."
+      },
+      "qoder-com-zh-marketplace": {
+        "zh": "若工作环境是 Qoder，可先从它自己的市场检查对应内容。",
+        "en": "Start with Qoder’s own marketplace when Qoder is your working environment."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "llmskills-org": {
+    "resourceSlug": "llm-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "LLM 能力主题目录",
+      "en": "LLM capability directory"
+    },
+    "summary": {
+      "zh": "LLM Skills 是英文 Agent Skills 集合入口，以大模型 agent 的可复用能力为主题汇总条目。它适合按能力方向浏览，为具体任务找到进一步阅读的项目与资料。",
+      "en": "LLM Skills is an English-language Agent Skills collection organized around reusable capabilities for LLM-based agents. It offers a way to browse capability areas and identify projects or material for closer reading against a specific task."
+    },
+    "bestFor": [
+      {
+        "zh": "从大模型 agent 的任务方向寻找现成能力的用户。",
+        "en": "Users searching for reusable capabilities by LLM-agent task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先明确自己缺的是操作步骤、领域知识还是外部工具连接，再阅读条目具体包含什么。LLM 主题覆盖很宽，使用清晰的输入输出约束可以让目录浏览更有针对性。",
+      "en": "Decide whether you need procedural instructions, domain knowledge or an external tool connection before inspecting an entry. LLM-related tasks are broad; defining expected inputs and outputs makes browsing this collection more focused."
+    },
+    "limitations": [
+      {
+        "zh": "主题归类不能说明条目支持哪种模型、上下文长度或工具接口。",
+        "en": "A topic category does not establish supported models, context lengths or tool interfaces."
+      }
+    ],
+    "alternativeSlugs": [
+      "skillsllm-com",
+      "mcpservers-org"
+    ],
+    "alternativeReasons": {
+      "skillsllm-com": {
+        "zh": "希望交叉比较同样面向大模型 agent 的来源时，可查看 SkillsLLM。",
+        "en": "Compare SkillsLLM for another source centered on LLM-agent capabilities."
+      },
+      "mcpservers-org": {
+        "zh": "若真正缺少的是外部工具连接，应转向 MCP 服务器目录检查接入要求。",
+        "en": "Use MCP Servers when the missing piece is an external tool connection and its integration requirements."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "mcpmarket-com-zh-tools-skills-leaderboard": {
+    "resourceSlug": "mcpmarket-skills-leaderboard",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文 Skill 榜单发现",
+      "en": "Chinese-language skill leaderboard"
+    },
+    "summary": {
+      "zh": "MCPMarket Skills Leaderboard 是 MCPMarket 的中文 Skill 排行榜入口，将能力按榜单信号组织。它为同时关注 Skill 与 MCP 生态的用户提供发现线索，适合进一步追溯具体条目的来源和作用。",
+      "en": "MCPMarket Skills Leaderboard is MCPMarket’s Chinese-language skill leaderboard. It organizes capabilities through ranking signals and provides discovery leads for readers interested in both skills and the MCP ecosystem, followed by closer inspection of each item’s source and purpose."
+    },
+    "bestFor": [
+      {
+        "zh": "希望用榜单发现候选、再自行核查的中文用户。",
+        "en": "Chinese-language users using rankings to discover candidates before checking them."
+      },
+      {
+        "zh": "正在区分 Skill 指令与 MCP 工具连接的用户。",
+        "en": "Users distinguishing skill instructions from MCP tool connections."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "先阅读榜单指标的定义，再把候选分成 Skill 与 MCP 服务器两类。排名只能帮助安排查看顺序；真正采用时，要对照任务、宿主要求与原始项目说明。",
+      "en": "Read the ranking metric’s definition, then distinguish skills from MCP servers among your candidates. Rankings can prioritize what to inspect. Adoption should follow your task, host requirements and the original project documentation."
+    },
+    "limitations": [
+      {
+        "zh": "榜单名次和采用度会变化，本站不维护实时排行或据此承诺效果。",
+        "en": "Rankings and adoption signals change; this page does not maintain live positions or promise outcomes from them."
+      },
+      {
+        "zh": "不能把 Skill 榜单中的所有条目视为可直接连接的 MCP 服务器。",
+        "en": "Not every entry in a skill leaderboard is an MCP server that can be connected directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "mcpservers-org",
+      "cc-jiekou-ai-skills"
+    ],
+    "alternativeReasons": {
+      "mcpservers-org": {
+        "zh": "明确需要 MCP 服务器时，可转到按服务器用途组织的 MCP Servers。",
+        "en": "Use MCP Servers when you specifically need a server organized by purpose."
+      },
+      "cc-jiekou-ai-skills": {
+        "zh": "希望同时查看命令行安装说明和采用度线索时，可比较接口 AI 的市场。",
+        "en": "Compare Jiekou AI when command-line installation instructions and adoption signals are both relevant."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-op7418-humanizer-zh": {
+    "resourceSlug": "humanizer-zh",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文表达润色",
+      "en": "Chinese prose editing"
+    },
+    "summary": {
+      "zh": "op7418/Humanizer-zh 是面向中文写作的开源 Skill，聚焦调整 AI 生成文本中的生硬表达，使行文更自然。仓库内容可以直接阅读，适合先了解编辑规则，再用自己的原稿评估修改效果。",
+      "en": "op7418/Humanizer-zh is an open-source skill for Chinese writing. It focuses on revising awkward patterns in AI-generated prose to make the wording more natural. Readers can inspect the editing instructions and evaluate the changes on their own drafts."
+    },
+    "bestFor": [
+      {
+        "zh": "已有中文原稿、希望调整语气和表达的写作者。",
+        "en": "Writers with an existing Chinese draft who want to refine tone and wording."
+      },
+      {
+        "zh": "需要比较修改前后事实与文风的内容编辑。",
+        "en": "Editors comparing factual content and style before and after revision."
+      }
+    ],
+    "useCases": [
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "先标出不可改动的事实、数字和引用，再选择一两段试改。评估重点应是读者能否更容易理解以及语气是否符合作者，而非笼统追求某种检测结果。",
+      "en": "Mark facts, numbers and quotations that must stay unchanged, then try one or two paragraphs. Judge whether readers understand the text more easily and whether it retains the author’s voice, rather than pursuing a detector score."
+    },
+    "limitations": [
+      {
+        "zh": "语言润色不能完成事实核查，改写后仍需复核证据、数字与引用。",
+        "en": "Prose editing does not perform fact-checking; review evidence, figures and quotations afterward."
+      },
+      {
+        "zh": "不应把自然度改进理解为任何 AI 检测结果保证。",
+        "en": "More natural wording is not a guarantee of any AI-detection outcome."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-laolaoshiren-claude-code-skills-zh",
+      "github-com-varunr89-resume-tailoring-skill"
+    ],
+    "alternativeReasons": {
+      "github-com-laolaoshiren-claude-code-skills-zh": {
+        "zh": "如果写作需求不限于润色，可从中文场景合集继续寻找具体能力。",
+        "en": "Explore the Chinese scenario-based collection when the writing task goes beyond prose refinement."
+      },
+      "github-com-varunr89-resume-tailoring-skill": {
+        "zh": "若文字面向求职岗位，可比较专注简历调整的项目。",
+        "en": "Compare the resume-tailoring project when the text is a job application."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-othmanadi-planning-with-files": {
+    "resourceSlug": "planning-with-files",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "文件化任务规划",
+      "en": "File-based task planning"
+    },
+    "summary": {
+      "zh": "OthmanAdi/planning-with-files 是用文件组织 agent 任务规划的开源 Skill 项目。它围绕长任务中目标、进度和上下文的保存提供可参考的做法，适合希望让多步骤工作更容易检查和接续的开发者。",
+      "en": "OthmanAdi/planning-with-files is an open-source skill project for organizing agent task planning in files. It offers practices for preserving goals, progress and context during longer tasks, making it relevant to developers who want multi-step work to be easier to inspect and resume."
+    },
+    "bestFor": [
+      {
+        "zh": "需要跨多个步骤或多次会话接续工作的开发者。",
+        "en": "Developers continuing work across multiple steps or sessions."
+      },
+      {
+        "zh": "希望让任务状态留在项目文件中的协作团队。",
+        "en": "Teams that want task state recorded in project files."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "试用时给一个真实任务写下目标、验收条件和当前状态，再在恢复任务时检查这些记录是否足以指导下一步。文件只有在随实际结果更新时才有价值，不能把已写计划当成已完成工作。",
+      "en": "Try a real task with its goal, acceptance criteria and current state recorded, then check whether those files guide the next step when resuming. The records are useful only when updated from actual outcomes; a written plan is not completed work."
+    },
+    "limitations": [
+      {
+        "zh": "文件记录依赖 agent 正确读取与维护，不会自动消除遗漏或上下文错误。",
+        "en": "File records depend on the agent reading and maintaining them correctly; they do not automatically eliminate omissions or context errors."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-xu-xiang-everything-claude-code-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "zh": "需要把规划连同调试、测试组织成开发流程时，可比较 Superpowers。",
+        "en": "Compare Superpowers when planning needs to sit alongside debugging and testing in a development workflow."
+      },
+      "github-com-xu-xiang-everything-claude-code-zh": {
+        "zh": "需要中文的完整 Claude Code 配置参考时，可查看 everything-claude-code 中文版。",
+        "en": "Read the Chinese everything-claude-code collection when you need broader Claude Code configuration examples in Chinese."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "qoder-com-zh-marketplace": {
+    "resourceSlug": "qoder-marketplace",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Qoder 生态 Skill 市场",
+      "en": "Qoder ecosystem marketplace"
+    },
+    "summary": {
+      "zh": "Qoder Marketplace 是 Qoder 的中文官方市场入口，收录面向其生态的 Agent Skills。本站资料将其标记为免费和付费内容并存，适合 Qoder 使用者沿着宿主自己的入口检查配套能力。",
+      "en": "Qoder Marketplace is Qoder’s official Chinese-language marketplace for Agent Skills in its ecosystem. The catalog records a mix of free and paid content. It is a relevant starting point for Qoder users checking capabilities through their host’s own entry point."
+    },
+    "bestFor": [
+      {
+        "zh": "已经使用 Qoder、需要查找生态配套 Skill 的中文用户。",
+        "en": "Chinese-language Qoder users looking for capabilities in that ecosystem."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先从你的 Qoder 工作流确定需要扩展的步骤，再检查条目的接入方法和使用条件。与社区聚合入口比较时，注意区分平台市场中的条目和从外部来源收集的链接。",
+      "en": "Identify the step you want to extend in your Qoder workflow, then check the entry’s integration method and requirements. When comparing the official marketplace with a community collection, distinguish marketplace items from links gathered from external sources."
+    },
+    "limitations": [
+      {
+        "zh": "官方市场的收录不能证明条目可在其他 agent 中直接使用。",
+        "en": "Inclusion in the official marketplace does not establish direct use in other agents."
+      },
+      {
+        "zh": "具体条目与平台方案的费用以来源当前说明为准。",
+        "en": "Check the source for current item costs and platform-plan requirements."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-community-pages-dev-zh-skills",
+      "modelscope-cn-skills"
+    ],
+    "alternativeReasons": {
+      "qoder-community-pages-dev-zh-skills": {
+        "zh": "希望按角色浏览来自多个平台的内容时，可查看 Qoder Community。",
+        "en": "Use Qoder Community for role-based discovery across multiple source platforms."
+      },
+      "modelscope-cn-skills": {
+        "zh": "希望在中文环境中扩大到更多来源时，可比较魔搭合集。",
+        "en": "Compare ModelScope to broaden the search through another Chinese-language collection."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skillhub-club": {
+    "resourceSlug": "skillhub-club",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "英文跨来源 Skill 发现",
+      "en": "Cross-source skill discovery"
+    },
+    "summary": {
+      "zh": "SkillHub Club 是英文 Agent Skills 综合目录，将不同来源的能力汇集到便于浏览的入口。它适合先做候选发现，再与厂商合集或原始仓库对照；它与腾讯云 SkillHub 是不同的收录对象。",
+      "en": "SkillHub Club is an English-language Agent Skills directory that brings capabilities from different sources into a browsable entry point. It is useful for initial discovery before comparison with vendor collections or original repositories. It is a separate catalog entry from Tencent Cloud SkillHub."
+    },
+    "bestFor": [
+      {
+        "zh": "希望跨来源浏览、并用英文阅读说明的用户。",
+        "en": "Users browsing across sources who are comfortable with English documentation."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "名称相近的站点容易混淆，记录候选时保留 skillhub.club 的域名和具体原始链接。再按同一任务比较条目，避免把目录站与厂商提供的能力混为一谈。",
+      "en": "Keep the skillhub.club domain and original item links in your notes because similarly named sites can be confusing. Compare entries against the same task without conflating a directory with capabilities supplied by a vendor."
+    },
+    "limitations": [
+      {
+        "zh": "站点名称不能用于推定与其他 SkillHub 品牌的关联、支持或质量标准。",
+        "en": "The name alone does not establish affiliation, support or shared quality standards with other SkillHub brands."
+      }
+    ],
+    "alternativeSlugs": [
+      "skillhub-cn-dashboard",
+      "skillsdirectory-com"
+    ],
+    "alternativeReasons": {
+      "skillhub-cn-dashboard": {
+        "zh": "若目标是腾讯云的中文 SkillHub，应使用对应厂商入口。",
+        "en": "Use the vendor-specific entry if you intended to find Tencent Cloud’s Chinese-language SkillHub."
+      },
+      "skillsdirectory-com": {
+        "zh": "希望增加另一份英文目录作交叉参考时，可查看 Skills Directory。",
+        "en": "Use Skills Directory as another English-language directory for cross-reference."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skillsdirectory-com": {
+    "resourceSlug": "skills-directory",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "英文 Agent Skills 目录",
+      "en": "English Agent Skills directory"
+    },
+    "summary": {
+      "zh": "Skills Directory 以英文目录形式集中列出 Agent Skills，适合在尚未选定具体项目时浏览能力范围。选中条目后，可以沿其来源继续检查功能边界、文件内容与使用方法。",
+      "en": "Skills Directory lists Agent Skills in an English-language directory format. It helps readers explore available capabilities before selecting a particular project. Once an entry looks relevant, its source provides the next step for checking scope, files and usage instructions."
+    },
+    "bestFor": [
+      {
+        "zh": "希望先浏览候选范围、再深入具体项目的英文用户。",
+        "en": "English-language users surveying options before inspecting individual projects."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "把目录浏览限制在一个任务上，为每个候选记下“解决哪一步”和原始项目地址。这样更容易识别重复收录，也能看清哪些资源只是名称相近而用途不同。",
+      "en": "Browse around one task and record which step each candidate addresses alongside its original project URL. This makes duplicate listings easier to recognize and distinguishes resources with similar names but different purposes."
+    },
+    "limitations": [
+      {
+        "zh": "目录的覆盖范围与展示说明不能替代具体版本的运行验证。",
+        "en": "Directory coverage and displayed descriptions do not replace checking a concrete version in your environment."
+      }
+    ],
+    "alternativeSlugs": [
+      "agent-skills-md",
+      "skills-homes-zh-cn-categories"
+    ],
+    "alternativeReasons": {
+      "agent-skills-md": {
+        "zh": "偏好简洁 Markdown 风格列表时，可比较 agent-skills.md。",
+        "en": "Compare agent-skills.md if you prefer a compact Markdown-style list."
+      },
+      "skills-homes-zh-cn-categories": {
+        "zh": "需要中文分类浏览时，可转到 Skills Homes。",
+        "en": "Use Skills Homes when Chinese-language category browsing is more suitable."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skills-homes-zh-cn-categories": {
+    "resourceSlug": "skills-homes",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文分类 Skill 目录",
+      "en": "Chinese skill category browsing"
+    },
+    "summary": {
+      "zh": "Skills Homes 提供简体中文的 Agent Skills 分类入口，将能力按类目组织。它适合知道大致任务类别、但尚未确定项目名称的用户，通过中文分类逐步缩小范围。",
+      "en": "Skills Homes provides a Simplified Chinese category entry point for Agent Skills. It suits readers who know the broad type of task but have not selected a project, using Chinese-language categories to narrow the search."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好中文界面、习惯从任务类目开始查找的用户。",
+        "en": "Users who prefer Chinese interfaces and begin their search from a task category."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先选与你实际工作对应的类目，再检查候选条目的原始说明是否支持所需输入输出。分类名称适合导航，遇到跨类别任务时，也应在相邻类目中寻找不同实现方式。",
+      "en": "Choose a category matching your work, then check the original entry for the inputs and outputs you need. Category names help navigation; tasks spanning several areas may require checking neighboring categories for different approaches."
+    },
+    "limitations": [
+      {
+        "zh": "中文分类不代表所有条目有完整中文文档，也不代表同类资源具有相同能力。",
+        "en": "Chinese categories do not imply full Chinese documentation for every item or identical capabilities within a category."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-pub-zh",
+      "qoder-community-pages-dev-zh-skills"
+    ],
+    "alternativeReasons": {
+      "skills-pub-zh": {
+        "zh": "希望另用一个中文合集补充发现时，可比较 Skills.pub。",
+        "en": "Compare Skills.pub as another Chinese-language collection."
+      },
+      "qoder-community-pages-dev-zh-skills": {
+        "zh": "若更适合从职业角色出发，可查看 Qoder Community 的组织方式。",
+        "en": "Use Qoder Community when browsing by professional role fits the task better."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skills-pub-zh": {
+    "resourceSlug": "skills-pub",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文 Skill 合集浏览",
+      "en": "Chinese-language skill browsing"
+    },
+    "summary": {
+      "zh": "Skills.pub 提供中文 Agent Skills 合集页面，将可复用能力集中呈现。它适合用中文快速浏览候选，并与其他目录或原始仓库对比，逐步明确适合自己任务的能力。",
+      "en": "Skills.pub offers a Chinese-language Agent Skills collection that brings reusable capabilities together. It is useful for scanning candidates in Chinese and comparing them with other directories or original repositories to identify a fit for a specific task."
+    },
+    "bestFor": [
+      {
+        "zh": "希望用中文阅读发现入口、再检查原始资源的用户。",
+        "en": "Users who want a Chinese discovery page before inspecting original resources."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "发现感兴趣的条目后，记录它的原始名称与链接，便于在英文仓库中继续查找。中文介绍可以帮助理解方向，但安装文件、参数与依赖应以源项目为准。",
+      "en": "Record an interesting entry’s original name and URL so you can continue researching it in an English-language repository if needed. Chinese descriptions help orient the search; installation files, parameters and dependencies should come from the source project."
+    },
+    "limitations": [
+      {
+        "zh": "中文集合页与项目本身可能使用不同名称；安装前需核对是否指向同一资源。",
+        "en": "The Chinese collection and original project may use different names; confirm they refer to the same resource before installation."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-homes-zh-cn-categories",
+      "github-com-laolaoshiren-claude-code-skills-zh"
+    ],
+    "alternativeReasons": {
+      "skills-homes-zh-cn-categories": {
+        "zh": "喜欢按明确类目逐步筛选时，可比较 Skills Homes。",
+        "en": "Compare Skills Homes when step-by-step category browsing is preferable."
+      },
+      "github-com-laolaoshiren-claude-code-skills-zh": {
+        "zh": "想直接阅读带中文说明的仓库内容时，可查看 claude-code-skills-zh。",
+        "en": "Read claude-code-skills-zh when you want repository content accompanied by Chinese explanations."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skills-sh": {
+    "resourceSlug": "skills-sh",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "开发者向 Skill 发现",
+      "en": "Developer-oriented skill discovery"
+    },
+    "summary": {
+      "zh": "skills.sh 是面向英文读者的 Agent Skills 集合入口，将 agent 能力集中展示，偏向开发者的查找和取用场景。它可以作为快速发现候选的起点，再按原始项目要求决定如何引入。",
+      "en": "skills.sh is an English-language Agent Skills collection that brings capabilities together for developer-oriented discovery and use. It provides a starting point for finding candidates quickly, followed by checking the original project requirements before integration."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好开发者工具入口、希望快速找到候选能力的用户。",
+        "en": "Users who prefer developer-oriented entry points for finding candidate capabilities."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "从一个具体任务选择条目，先检查它的来源和安装说明，再决定是否需要整组能力。若使用命令行获取内容，保留来源和版本记录，方便后续复查与回滚。",
+      "en": "Choose an entry for a specific task, inspect its source and installation instructions, then decide how much content you need. If you fetch it through a command line, retain source and version notes for later review and rollback."
+    },
+    "limitations": [
+      {
+        "zh": "目录入口不代表每项内容采用相同命令、宿主支持或许可条件。",
+        "en": "A shared directory entry point does not establish identical commands, host support or license terms for every item."
+      }
+    ],
+    "alternativeSlugs": [
+      "cc-jiekou-ai-skills",
+      "github-com-voltagent-awesome-agent-skills"
+    ],
+    "alternativeReasons": {
+      "cc-jiekou-ai-skills": {
+        "zh": "希望用中英双语界面阅读命令行安装线索时，可比较接口 AI。",
+        "en": "Compare Jiekou AI for a bilingual interface with command-line installation information."
+      },
+      "github-com-voltagent-awesome-agent-skills": {
+        "zh": "偏好先在 GitHub 阅读跨厂商清单时，可参考 VoltAgent 合集。",
+        "en": "Read VoltAgent’s collection if you prefer exploring a cross-vendor list on GitHub first."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skillsllm-com": {
+    "resourceSlug": "skillsllm",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "大模型 Agent Skill 汇总",
+      "en": "LLM-agent skill collection"
+    },
+    "summary": {
+      "zh": "SkillsLLM 是围绕大模型 agent 可复用能力的英文集合入口。它将相关 Skill 汇总展示，适合按任务查找候选，并在找到项目后进一步阅读其工作方式与依赖。",
+      "en": "SkillsLLM is an English-language collection centered on reusable capabilities for LLM-based agents. It gathers skills for discovery by task, with closer inspection of a project’s workflow and dependencies needed after a candidate is found."
+    },
+    "bestFor": [
+      {
+        "zh": "围绕大模型 agent 的实际任务寻找现成指令或能力的用户。",
+        "en": "Users seeking existing instructions or capabilities for a concrete LLM-agent task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "检索时使用可验证的任务描述，例如需要整理什么输入、产出什么结果。不要仅凭 LLM 或 AI 标签选工具；打开源项目后检查它是如何实现这一任务的。",
+      "en": "Search with a testable task description: what input needs processing and what output is expected. Do not select a tool solely from an LLM or AI label. Inspect the source project to see how it approaches that task."
+    },
+    "limitations": [
+      {
+        "zh": "现有资料未提供条目级模型适配、执行成本或运行结果，需从来源逐项检查。",
+        "en": "The catalog does not provide item-level model support, execution costs or results; inspect these at the source."
+      }
+    ],
+    "alternativeSlugs": [
+      "llmskills-org",
+      "agent-skills-md"
+    ],
+    "alternativeReasons": {
+      "llmskills-org": {
+        "zh": "希望比较相近主题的集合入口时，可查看 LLM Skills。",
+        "en": "Compare LLM Skills for another collection with a similar focus."
+      },
+      "agent-skills-md": {
+        "zh": "偏好文字清单并逐个阅读源链接时，可使用 agent-skills.md。",
+        "en": "Use agent-skills.md if you prefer a text list for inspecting source links one by one."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skillsmp-com": {
+    "resourceSlug": "skillsmp",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "跨来源 Skill 比较",
+      "en": "Cross-source skill comparison"
+    },
+    "summary": {
+      "zh": "SkillsMP 是英文 Agent Skills 集合站，把能力条目集中列出，便于发现与比较。它适合在多个来源之间建立候选清单，再检查每个项目如何满足自己的任务要求。",
+      "en": "SkillsMP is an English-language Agent Skills collection that lists capabilities for discovery and comparison. It can help build a shortlist across sources before evaluating how each underlying project meets a particular task’s requirements."
+    },
+    "bestFor": [
+      {
+        "zh": "尚未选定项目、希望横向比较多个 Skill 来源的英文用户。",
+        "en": "English-language users comparing several skill sources before choosing a project."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "比较候选时使用同一组标准：原始来源、任务覆盖、依赖和采用成本。不要把同一项目在不同目录的重复出现视为独立推荐证据，保留最终仓库地址可以帮助去重。",
+      "en": "Compare candidates using the same criteria: original source, task coverage, dependencies and integration effort. Repeated appearances of one project across directories are not independent recommendations. Keeping the final repository URL helps remove duplicates."
+    },
+    "limitations": [
+      {
+        "zh": "聚合条目的描述不能确认每个版本的状态或运行效果；采用前需查看原项目。",
+        "en": "Aggregated descriptions do not confirm the state or behavior of every version; inspect the original project before adoption."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "zh": "希望比较另一个开发者向发现入口时，可查看 skills.sh。",
+        "en": "Compare skills.sh for another developer-oriented discovery entry point."
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "zh": "偏好在开源仓库里按主题浏览时，可参考 Composio 的策展清单。",
+        "en": "Read Composio’s curated repository when topic-based browsing on GitHub suits the workflow."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skywork-ai-skillhub-zh": {
+    "resourceSlug": "skywork-skillhub",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Skywork 生态 Skill 中心",
+      "en": "Skywork ecosystem skill hub"
+    },
+    "summary": {
+      "zh": "Skywork SkillHub 是 Skywork 提供的中文 Skill 中心，汇集面向其生态的 agent 能力。它适合正在使用或评估 Skywork 的用户，先在平台上下文中了解可选能力和对应资料。",
+      "en": "Skywork SkillHub is Skywork’s Chinese-language skill hub for capabilities in its ecosystem. It is useful for people using or evaluating Skywork who want to review available capabilities and supporting material in that platform’s context."
+    },
+    "bestFor": [
+      {
+        "zh": "正在使用或评估 Skywork、需要中文 Skill 资料的用户。",
+        "en": "Users working with or evaluating Skywork who need Chinese skill material."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先从 Skywork 中想完成的任务出发，核对 Skill 的使用步骤是否依赖平台功能。若计划把内容带到其他宿主，应把这种迁移单独验证，而不是沿用平台内的使用假设。",
+      "en": "Begin with a task you want to perform in Skywork and check whether the skill’s steps depend on platform features. If you plan to use the content in another host, validate that migration separately instead of carrying over platform-specific assumptions."
+    },
+    "limitations": [
+      {
+        "zh": "平台 Skill 中心不能证明全部内容可独立于 Skywork 使用。",
+        "en": "A platform skill hub does not establish that all content can be used independently of Skywork."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-com-zh-marketplace",
+      "modelscope-cn-skills"
+    ],
+    "alternativeReasons": {
+      "qoder-com-zh-marketplace": {
+        "zh": "若实际使用的是 Qoder，可从其官方市场检查宿主相关能力。",
+        "en": "Use Qoder’s official marketplace when Qoder is your actual working environment."
+      },
+      "modelscope-cn-skills": {
+        "zh": "希望离开单一平台上下文做中文比较时，可浏览魔搭合集。",
+        "en": "Browse ModelScope for Chinese-language comparisons beyond a single platform context."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "tessl-io-registry": {
+    "resourceSlug": "tessl-registry",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Skill 注册表发现",
+      "en": "Skill registry discovery"
+    },
+    "summary": {
+      "zh": "Tessl Registry 是 Tessl 提供的英文 Skill 注册表，以市场形式集中呈现和分发 agent 能力。它适合希望从统一 registry 查找候选、或正在了解 Tessl 生态的开发者。",
+      "en": "Tessl Registry is Tessl’s English-language skill registry, presenting and distributing agent capabilities through a marketplace-style entry point. It is relevant to developers who prefer discovering candidates through a registry or are evaluating the Tessl ecosystem."
+    },
+    "bestFor": [
+      {
+        "zh": "希望通过 registry 查找与获取能力的开发者。",
+        "en": "Developers who prefer a registry for discovering and obtaining capabilities."
+      },
+      {
+        "zh": "正在评估 Tessl 生态与其内容组织方式的团队。",
+        "en": "Teams evaluating Tessl and how its content is organized."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先检查条目的发布者、版本说明和获取方法，再判断它与项目现有的依赖管理方式是否匹配。注册表带来的集中入口有助于查找，仍需逐项理解内容究竟包含哪些指令或文件。",
+      "en": "Check the publisher, version information and retrieval method, then compare them with your project’s dependency practices. A registry centralizes discovery, but you still need to understand which instructions or files an individual entry contains."
+    },
+    "limitations": [
+      {
+        "zh": "注册表中的条目不应被假定具有相同宿主支持或统一的项目集成方式。",
+        "en": "Registry entries should not be assumed to share host support or one project-integration method."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "zh": "希望先从开发者向合集发现候选时，可比较 skills.sh。",
+        "en": "Compare skills.sh when you prefer starting with a developer-oriented collection."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "希望不经过注册表直接阅读来源文件时，可使用 Anthropic 的仓库。",
+        "en": "Use Anthropic’s repository when you want to inspect original files directly, outside a registry."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-varunr89-resume-tailoring-skill": {
+    "resourceSlug": "resume-tailoring-skill",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "按岗位调整简历",
+      "en": "Job-specific resume tailoring"
+    },
+    "summary": {
+      "zh": "varunr89/resume-tailoring-skill 是围绕岗位需求调整简历的开源 Skill 项目。它让开发者检查相关指令与实现，适合求职工具的能力评估，或在已有真实履历的基础上研究表达和结构调整。",
+      "en": "varunr89/resume-tailoring-skill is an open-source project focused on adapting resumes to job requirements. Its instructions and implementation can be inspected when evaluating a job-search workflow or studying how to reorganize and express an existing, factual work history."
+    },
+    "bestFor": [
+      {
+        "zh": "拥有真实履历和目标岗位说明、希望调整简历表达的用户。",
+        "en": "Users with a factual work history and target job description who want to refine their resume."
+      },
+      {
+        "zh": "正在评估简历定制工作流的开发者。",
+        "en": "Developers evaluating a resume-tailoring workflow."
+      }
+    ],
+    "useCases": [
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "用岗位说明与真实履历做对照，把成果、职责和技能的事实边界写清楚。评估修改是否突出了已有证据，而不是新增经历；保留前后版本，方便核对每项表述。",
+      "en": "Compare the job description with a factual resume and make the boundaries of achievements, responsibilities and skills explicit. Evaluate whether the revision highlights existing evidence rather than adding experience. Keep both versions to review each statement."
+    },
+    "limitations": [
+      {
+        "zh": "简历改写不能证明候选人具备新技能，也不能保证通过筛选或获得录用。",
+        "en": "Resume revision cannot establish new qualifications or guarantee screening success or an offer."
+      },
+      {
+        "zh": "处理个人资料前应检查实际执行位置和外部调用。",
+        "en": "Check where execution occurs and any external calls before processing personal information."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-op7418-humanizer-zh",
+      "github-com-laolaoshiren-claude-code-skills-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-op7418-humanizer-zh": {
+        "zh": "若主要需求是中文表达润色，而非岗位匹配，可比较 Humanizer-zh。",
+        "en": "Compare Humanizer-zh when the main need is Chinese prose editing rather than job matching."
+      },
+      "github-com-laolaoshiren-claude-code-skills-zh": {
+        "zh": "希望寻找更多中文写作工作流时，可浏览中文 Skill 场景合集。",
+        "en": "Browse the Chinese skill collection when looking for additional writing workflows."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-obra-superpowers": {
+    "resourceSlug": "superpowers",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "规划、调试与测试工作流",
+      "en": "Planning, debugging and testing workflows"
+    },
+    "summary": {
+      "zh": "Superpowers 是 obra 的开源 agentic skills 框架与开发方法论，围绕规划、执行、调试和测试组织能力。它适合希望把多个开发步骤串成可检查流程的团队，也可以用于研究 Skill 的组合方式。",
+      "en": "Superpowers is obra’s open-source agentic skills framework and development methodology. It organizes capabilities around planning, execution, debugging and testing. It is relevant to teams connecting several development steps into an inspectable process or studying how skills can be composed."
+    },
+    "bestFor": [
+      {
+        "zh": "希望把任务规划、调试和测试纳入同一开发流程的团队。",
+        "en": "Teams bringing planning, debugging and testing into a shared development process."
+      },
+      {
+        "zh": "愿意阅读框架规则并按项目特点调整的开发者。",
+        "en": "Developers willing to read the framework’s rules and adapt them to a project."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "planning",
+      "security"
+    ],
+    "skillFluxNote": {
+      "zh": "先选一个有现成测试的改动，观察规划到验证的每一步是否产生了可复查的结果。框架流程应服务于项目验收，遇到不适用的步骤应明确调整理由，不能用流程完成代替功能正确。",
+      "en": "Start with a change covered by existing tests and inspect the output of each step from planning to verification. The process should serve the project’s acceptance criteria. Explain adjustments where a step does not fit; completing a process is not proof that the feature works."
+    },
+    "limitations": [
+      {
+        "zh": "框架引入的规则可能与项目现有约定重叠，采用前需阅读并协调。",
+        "en": "Framework rules may overlap with project conventions and need to be reconciled before adoption."
+      },
+      {
+        "zh": "测试与审查指令本身不是测试结果或安全结论。",
+        "en": "Testing and review instructions are not themselves test results or security conclusions."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-othmanadi-planning-with-files",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-othmanadi-planning-with-files": {
+        "zh": "如果主要问题是长任务状态保存，可先采用更聚焦文件规划的项目。",
+        "en": "Compare planning-with-files when preserving long-task state is the primary concern."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "如果需要独立能力的原始示例，可从 Anthropic 仓库按单项阅读。",
+        "en": "Read Anthropic’s repository item by item when you need original examples of individual capabilities."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-composiohq-awesome-claude-skills": {
+    "resourceSlug": "composio-awesome-claude-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Claude Skill 主题策展",
+      "en": "Thematic Claude skill curation"
+    },
+    "summary": {
+      "zh": "Composio 维护的 awesome-claude-skills 是 GitHub 上的 Claude Skills 策展清单，将候选资源按主题组织。它适合系统浏览不同能力方向，再从清单中的链接进入真正提供实现的项目。",
+      "en": "Composio’s awesome-claude-skills is a curated Claude Skills list on GitHub that organizes candidate resources by topic. It is useful for surveying capability areas and then following links to the projects that provide the implementations."
+    },
+    "bestFor": [
+      {
+        "zh": "希望系统浏览 Claude Skill 方向、再逐项深入的用户。",
+        "en": "Users surveying Claude skill areas before inspecting individual resources."
+      },
+      {
+        "zh": "为写作、媒体或开发任务建立候选清单的团队。",
+        "en": "Teams building a shortlist for writing, media or development work."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "writing",
+      "video"
+    ],
+    "skillFluxNote": {
+      "zh": "把 awesome 清单作为索引来读，区分维护清单的人和维护具体 Skill 的人。选中条目后检查源项目文档，避免把清单的整体介绍当成每个链接都具备的能力或支持承诺。",
+      "en": "Read the awesome list as an index and distinguish its curator from each skill’s maintainer. Once you choose an entry, inspect the source project. The list’s general description is not a capability or support commitment for every linked item."
+    },
+    "limitations": [
+      {
+        "zh": "清单收录不代表所有链接已通过同样的运行测试或采用相同许可证。",
+        "en": "Inclusion does not establish identical execution testing or licensing across linked projects."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-awesome-agent-skills",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-awesome-agent-skills": {
+        "zh": "想从更广的 agent 生态比较厂商和社区来源时，可查看 VoltAgent 清单。",
+        "en": "Compare VoltAgent’s list for discovery across vendor and community sources in the broader agent ecosystem."
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "zh": "想结合 Claude Skill 架构说明阅读另一份清单时，可参考 travisvn 的版本。",
+        "en": "Read travisvn’s list for another Claude-focused perspective alongside architecture explanations."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-voltagent-awesome-agent-skills": {
+    "resourceSlug": "voltagent-awesome-agent-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "跨 Agent Skill 策展",
+      "en": "Cross-agent skill curation"
+    },
+    "summary": {
+      "zh": "VoltAgent 的 awesome-agent-skills 将厂商团队与社区的 Skill 来源汇集到 GitHub 策展清单。它的视角不局限于一个 agent，适合比较来源类型，再回到具体项目核对宿主、安装方式和能力范围。",
+      "en": "VoltAgent’s awesome-agent-skills brings vendor-team and community skill sources together in a curated GitHub list. Its scope is broader than a single agent, making it useful for comparing source types before checking each project’s host requirements, installation method and capability scope."
+    },
+    "bestFor": [
+      {
+        "zh": "希望跨 agent 生态发现来源、比较厂商与社区项目的开发者。",
+        "en": "Developers exploring multiple agent ecosystems and comparing vendor and community projects."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mobile"
+    ],
+    "skillFluxNote": {
+      "zh": "按任务挑选几条来源，记录各自声明的宿主要求，避免从合集的广泛覆盖推断每个 Skill 都能跨宿主使用。涉及移动开发时，优先回到 Android 或 Expo 等源仓库阅读技术栈要求。",
+      "en": "Select a few sources by task and record their stated host requirements. Broad coverage by the list does not establish cross-host use for every skill. For mobile work, follow entries to original Android or Expo repositories and inspect their stack requirements."
+    },
+    "limitations": [
+      {
+        "zh": "不同来源的 Skill 可能在格式、依赖与许可证上存在差别，需逐项确认。",
+        "en": "Skills from different sources can differ in format, dependencies and licenses; check each one."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-composiohq-awesome-claude-skills",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-composiohq-awesome-claude-skills": {
+        "zh": "希望围绕 Claude 相关主题继续筛选时，可比较 Composio 的清单。",
+        "en": "Compare Composio’s list when narrowing the search around Claude-related topics."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "需要单一官方来源的原始实现时，可直接阅读 Anthropic 仓库。",
+        "en": "Read Anthropic’s repository directly for original content from one official source."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-travisvn-awesome-claude-skills": {
+    "resourceSlug": "travisvn-awesome-claude-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "Claude Skill 清单与架构参考",
+      "en": "Claude skill list and architecture reference"
+    },
+    "summary": {
+      "zh": "travisvn 的 awesome-claude-skills 是面向 Claude 的开源策展清单，现有资料还记录了 Skill 架构与渐进式加载的说明。它适合同时了解候选资源和组织原理，再决定要深入阅读哪一个项目。",
+      "en": "travisvn’s awesome-claude-skills is an open curated list focused on Claude. The catalog also records explanations of skill architecture and progressive loading. It is useful for learning both candidate resources and organizational concepts before selecting a project for closer inspection."
+    },
+    "bestFor": [
+      {
+        "zh": "希望先理解 Skill 结构，再浏览 Claude 相关候选的开发者。",
+        "en": "Developers learning skill structure before exploring Claude-oriented candidates."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先阅读清单中的架构介绍，再选一个源项目对照其文件组织。概念说明有助于建立阅读方法，但具体版本的格式和加载行为仍应以宿主及项目文档为准。",
+      "en": "Read the architecture explanation and compare it with the file layout of one linked project. Conceptual material can guide your reading, while the format and loading behavior of a specific version should be checked against the host and project documentation."
+    },
+    "limitations": [
+      {
+        "zh": "清单与架构说明不能替代实际宿主文档，也不证明每个链接遵循完全相同的结构。",
+        "en": "The list and architecture explanation do not replace host documentation or establish identical structure across linked projects."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "zh": "想直接对照原始文件与实现时，可查看 Anthropic 仓库。",
+        "en": "Use Anthropic’s repository to compare original files and implementations directly."
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "zh": "想扩大主题候选清单时，可比较 Composio 的策展方向。",
+        "en": "Compare Composio’s curated topics to expand your shortlist."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-behisecc-awesome-claude-skills": {
+    "resourceSlug": "behisecc-awesome-claude-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "安全视角 Skill 清单",
+      "en": "Security-oriented skill list"
+    },
+    "summary": {
+      "zh": "BehiSecc 的 awesome-claude-skills 是带安全视角的开源 Claude Skills 策展清单。它提供安全相关能力的发现路径，适合从项目链接进一步检查指令、脚本和权限要求。",
+      "en": "BehiSecc’s awesome-claude-skills is an open curated Claude Skills list with a security-oriented perspective. It provides discovery leads for security-related capabilities, followed by closer inspection of project instructions, scripts and permission requirements."
+    },
+    "bestFor": [
+      {
+        "zh": "关注 Skill 安全或正在为授权审查任务寻找候选的开发者。",
+        "en": "Developers concerned with skill safety or seeking candidates for authorized review tasks."
+      }
+    ],
+    "useCases": [
+      "security",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先明确审查对象与授权范围，再检查链接项目实际执行哪些操作。把清单中的候选当作待验证工具，评估其输出能否复现，以及是否给出了足够证据定位问题。",
+      "en": "Define the review target and authorized scope before inspecting what a linked project executes. Treat candidates as tools to validate: check whether their findings can be reproduced and whether the output supplies enough evidence to locate a problem."
+    },
+    "limitations": [
+      {
+        "zh": "安全标签不是安全审计结论，清单本身也不能证明所收录脚本无风险。",
+        "en": "A security label is not an audit conclusion, and the list does not establish that linked scripts are risk-free."
+      }
+    ],
+    "alternativeSlugs": [
+      "atcyrus-com-skills",
+      "github-com-obra-superpowers"
+    ],
+    "alternativeReasons": {
+      "atcyrus-com-skills": {
+        "zh": "希望在开发者市场的安全分类中比较候选时，可查看 Cyrus。",
+        "en": "Compare Cyrus when you want security candidates within a developer-oriented marketplace."
+      },
+      "github-com-obra-superpowers": {
+        "zh": "需求偏开发流程中的检查与验证时，可比较 Superpowers 的工作流组织。",
+        "en": "Compare Superpowers when the need is checking and verification within a development process."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-android-skills": {
+    "resourceSlug": "android-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "原生 Android 开发",
+      "en": "Native Android development"
+    },
+    "summary": {
+      "zh": "Android Skills 是 Android 开发者团队在 GitHub 发布的 Skill 仓库，聚焦原生 Android 开发场景。开发者可以直接阅读文件与说明，结合项目的 Android 技术栈判断适合参考或引入的内容。",
+      "en": "Android Skills is a skill repository published by the Android developer team on GitHub, focused on native Android development. Developers can inspect its files and instructions directly and compare them with their project’s Android stack before adopting relevant content."
+    },
+    "bestFor": [
+      {
+        "zh": "进行原生 Android 开发、需要官方来源参考的开发者。",
+        "en": "Native Android developers seeking a reference from the platform team."
+      }
+    ],
+    "useCases": [
+      "mobile",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先对照项目使用的语言、构建工具和框架版本选择相关 Skill，再在模拟器或真机上验证结果。源团队的上下文有助于理解意图，最终判断仍应来自你的项目构建和实际交互。",
+      "en": "Choose a relevant skill against your project’s language, build tools and framework versions, then validate results on an emulator or device. The source team’s context helps explain intent; your own build and interaction results determine suitability."
+    },
+    "limitations": [
+      {
+        "zh": "原生 Android 定位不能推导出对 Expo、React Native 或其他移动栈的支持。",
+        "en": "A native Android focus does not establish support for Expo, React Native or other mobile stacks."
+      },
+      {
+        "zh": "具体工具链版本与权限要求需阅读所选条目的说明。",
+        "en": "Read the selected entry for exact toolchain versions and permission requirements."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-expo-skills",
+      "github-com-voltagent-awesome-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-expo-skills": {
+        "zh": "若项目使用 React Native / Expo，应优先比较 Expo 官方的对应来源。",
+        "en": "Compare Expo’s official source when the project uses React Native / Expo."
+      },
+      "github-com-voltagent-awesome-agent-skills": {
+        "zh": "若仍在寻找不同厂商的移动能力入口，可通过 VoltAgent 清单继续探索。",
+        "en": "Use VoltAgent’s list when still exploring mobile capability sources from different teams."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-expo-skills": {
+    "resourceSlug": "expo-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "React Native 与 Expo 开发",
+      "en": "React Native and Expo development"
+    },
+    "summary": {
+      "zh": "Expo Skills 是 Expo 团队在 GitHub 发布的 Skill 仓库，面向 React Native / Expo 移动开发生态。它适合使用这一技术栈的开发者阅读原始指令，再对照现有项目选择和验证相关能力。",
+      "en": "Expo Skills is a skill repository published by the Expo team on GitHub for the React Native / Expo mobile development ecosystem. Developers using this stack can read the original instructions and choose relevant capabilities to validate in their existing projects."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 React Native / Expo、希望查阅对应团队 Skill 的开发者。",
+        "en": "React Native / Expo developers seeking skills from the team behind the ecosystem."
+      }
+    ],
+    "useCases": [
+      "mobile",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先核对项目的 Expo 与 React Native 环境，再挑选与当前改动相关的 Skill。界面或交互变更除了代码检查，还应在目标设备环境验证，尤其是平台差异和已有项目约定。",
+      "en": "Check the project’s Expo and React Native environment, then select a skill relevant to the current change. For interface or interaction changes, validate on the target device environment alongside code checks, paying attention to platform differences and project conventions."
+    },
+    "limitations": [
+      {
+        "zh": "仓库的生态定位不能说明每个条目支持所有 Expo 或 React Native 版本。",
+        "en": "The repository’s ecosystem focus does not establish support for every Expo or React Native version."
+      },
+      {
+        "zh": "原生 Android 项目应另行评估，而非直接套用跨平台项目步骤。",
+        "en": "Evaluate native Android projects separately instead of applying cross-platform project steps unchanged."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-android-skills",
+      "github-com-obra-superpowers"
+    ],
+    "alternativeReasons": {
+      "github-com-android-skills": {
+        "zh": "若项目是原生 Android，可比较 Android 团队的官方 Skill 仓库。",
+        "en": "Compare the Android team’s official skill repository for native Android projects."
+      },
+      "github-com-obra-superpowers": {
+        "zh": "若需要的是通用规划、调试和测试流程，可比较 Superpowers。",
+        "en": "Compare Superpowers when the need is a general planning, debugging and testing process."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-xu-xiang-everything-claude-code-zh": {
+    "resourceSlug": "everything-claude-code-zh",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文 Claude Code 配置参考",
+      "en": "Chinese Claude Code configuration reference"
+    },
+    "summary": {
+      "zh": "everything-claude-code 中文版由 xu-xiang 维护，整理 Claude Code 相关的中文资料与配置，覆盖 agents、skills、hooks、commands、rules 和 MCP 等内容。它适合从整体配置角度学习，再按项目需要选择其中的部分。",
+      "en": "The Chinese edition of everything-claude-code, maintained by xu-xiang, gathers Chinese Claude Code material and configuration covering agents, skills, hooks, commands, rules and MCP. It supports learning the broader configuration picture before selecting individual parts for a project."
+    },
+    "bestFor": [
+      {
+        "zh": "希望用中文理解 Claude Code 多类配置关系的工程师。",
+        "en": "Engineers learning how Claude Code configuration components relate through Chinese material."
+      },
+      {
+        "zh": "能够逐项检查现有项目配置、准备按需引入的团队。",
+        "en": "Teams ready to inspect existing project configuration and adopt selected parts."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "planning",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "先盘点项目已有的规则、hook 和工具连接，再选择一个配置文件比较变化。将翻译内容与上游来源对照，保留自己的项目约定，避免一次覆盖整套配置后难以追踪行为变化。",
+      "en": "Inventory existing rules, hooks and tool connections, then compare changes from one selected configuration file. Cross-check translated material with its upstream source and preserve project conventions so that changes in behavior remain traceable."
+    },
+    "limitations": [
+      {
+        "zh": "完整配置可能与项目原有规则或权限重叠，不能默认整套直接适用。",
+        "en": "A complete configuration can overlap with existing rules or permissions and should not be assumed to fit unchanged."
+      },
+      {
+        "zh": "中文翻译与上游版本可能不同步，需要核对对应文件。",
+        "en": "The Chinese translation and upstream version may differ; compare the relevant files."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-laolaoshiren-claude-code-skills-zh",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-laolaoshiren-claude-code-skills-zh": {
+        "zh": "只想寻找带中文说明的单项 Skill 时，可比较 claude-code-skills-zh。",
+        "en": "Compare claude-code-skills-zh when you only need individual skills with Chinese explanations."
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "zh": "如果主要需求是长任务规划，可从更聚焦的 planning-with-files 开始。",
+        "en": "Start with planning-with-files when long-task planning is the main requirement."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-wlzh-skills": {
+    "resourceSlug": "wlzh-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文实用 Skill 集合",
+      "en": "Practical Chinese skill collection"
+    },
+    "summary": {
+      "zh": "wlzh/skills 是个人维护的中文实用 Skill 仓库，现有资料列举了视频下载发布、变声、发票识别等方向。它适合围绕具体任务阅读对应文件和脚本，评估能否复用或按需要修改。",
+      "en": "wlzh/skills is a personally maintained Chinese-language repository of practical skills. The catalog describes examples including video download and publishing, voice changes and invoice recognition. It is useful for inspecting task-specific files and scripts before deciding what to reuse or adapt."
+    },
+    "bestFor": [
+      {
+        "zh": "希望按实际任务阅读中文 Skill 实现的开发者。",
+        "en": "Developers exploring Chinese skill implementations for practical tasks."
+      },
+      {
+        "zh": "愿意逐项检查脚本、依赖和输入材料的用户。",
+        "en": "Users willing to inspect scripts, dependencies and input material individually."
+      }
+    ],
+    "useCases": [
+      "video",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "每次只选择一个与你任务相符的条目，读清输入格式、外部服务和文件输出位置。媒体与票据任务的依赖可能差异很大，应分别用短素材或脱敏样本验证。",
+      "en": "Choose one entry that matches your task and check input formats, external services and output locations. Media and invoice tasks can have very different dependencies, so validate them separately with short media or redacted samples."
+    },
+    "limitations": [
+      {
+        "zh": "同一仓库内不同 Skill 的依赖和权限不能视为相同。",
+        "en": "Different skills in one repository should not be assumed to share dependencies or permissions."
+      },
+      {
+        "zh": "文件公开不等于所有用途均获授权，复用时仍应阅读许可证和素材使用条件。",
+        "en": "Public files do not establish permission for every use; read licenses and conditions attached to source material."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-bradautomates-claude-video",
+      "github-com-laolaoshiren-claude-code-skills-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-bradautomates-claude-video": {
+        "zh": "如果关注视频理解本身，可比较专注视频主题的 claude-video。",
+        "en": "Compare the video-focused claude-video project when understanding video is the main task."
+      },
+      "github-com-laolaoshiren-claude-code-skills-zh": {
+        "zh": "如果想按中文场景继续发现其他能力，可浏览该中文合集。",
+        "en": "Browse the Chinese skill collection for additional scenario-based capabilities."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-laolaoshiren-claude-code-skills-zh": {
+    "resourceSlug": "claude-code-skills-zh",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "中文 Claude Code Skill 合集",
+      "en": "Chinese Claude Code skill collection"
+    },
+    "summary": {
+      "zh": "laolaoshiren 维护的 claude-code-skills-zh 将 Claude Code Skill 按场景汇总，并提供中文说明与原创内容。它适合中文用户先理解条目用途，再打开具体文件阅读使用步骤。",
+      "en": "claude-code-skills-zh, maintained by laolaoshiren, organizes Claude Code skills by scenario and includes Chinese explanations and original content. It helps Chinese-language readers understand an entry’s purpose before opening the specific files and usage instructions."
+    },
+    "bestFor": [
+      {
+        "zh": "希望通过中文说明学习和挑选 Claude Code Skill 的用户。",
+        "en": "Users learning and selecting Claude Code skills through Chinese explanations."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "先区分合集中的外部链接与仓库内的原创文件，然后只选择与你任务相符的一项。这样可以清楚记录实际安装来源，也能分别阅读外部项目与原创内容的依赖和许可。",
+      "en": "Distinguish links to external projects from original files stored in the repository, then choose one item for your task. This makes the actual installation source clear and lets you inspect dependencies and licenses separately for each kind of content."
+    },
+    "limitations": [
+      {
+        "zh": "中文说明不代表所有外部资源均有中文文档，也不保证不同宿主的安装步骤一致。",
+        "en": "Chinese explanations do not mean all linked resources have Chinese documentation or identical installation steps across hosts."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-xu-xiang-everything-claude-code-zh",
+      "github-com-op7418-humanizer-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-xu-xiang-everything-claude-code-zh": {
+        "zh": "想从完整配置学习 agents、hooks 和 MCP 的关系时，可比较 everything-claude-code 中文版。",
+        "en": "Compare the Chinese everything-claude-code collection when learning how agents, hooks and MCP fit into a full configuration."
+      },
+      "github-com-op7418-humanizer-zh": {
+        "zh": "若明确要做中文表达润色，可直接阅读 Humanizer-zh 的专门规则。",
+        "en": "Read Humanizer-zh’s focused instructions when Chinese prose refinement is the specific task."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "skill0-io": {
+    "resourceSlug": "skill0",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "社区 Claude Skill 市场",
+      "en": "Community Claude skill marketplace"
+    },
+    "summary": {
+      "zh": "skill0 是社区贡献的英文 Skill 市场，按 AI 产品增长、文档、设计、安全等主题呈现能力，并提供 Claude Code 的接入说明。它适合从工作主题出发寻找候选，再核查各条目的提供者和依赖。",
+      "en": "skill0 is an English-language marketplace of community-contributed skills. It presents topics such as AI product growth, documentation, design and security, with integration instructions for Claude Code. It is useful for finding candidates by work area and checking individual providers and dependencies."
+    },
+    "bestFor": [
+      {
+        "zh": "希望按工作主题浏览社区 Skill 的英文用户。",
+        "en": "English-language users browsing community skills by area of work."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "writing",
+      "security"
+    ],
+    "skillFluxNote": {
+      "zh": "主题浏览之后，把候选落到一个可验证的小任务，并阅读条目自己的接入步骤。社区贡献的内容可能采用不同工具，先确认实际需要的组件与权限，再决定是否纳入日常流程。",
+      "en": "After browsing by topic, narrow a candidate to a small, verifiable task and read its own integration steps. Community entries may use different tools. Identify the components and permissions actually needed before adding one to a daily workflow."
+    },
+    "limitations": [
+      {
+        "zh": "市场的 Claude Code 接入说明不能证明所有条目支持相同宿主版本或其他 agent。",
+        "en": "Marketplace instructions for Claude Code do not establish identical version support or compatibility with other agents for every entry."
+      }
+    ],
+    "alternativeSlugs": [
+      "atcyrus-com-skills",
+      "claudemarketplaces-com"
+    ],
+    "alternativeReasons": {
+      "atcyrus-com-skills": {
+        "zh": "需求以开发、DevOps 或安全为主时，可比较 Cyrus 的开发者分类。",
+        "en": "Compare Cyrus’s developer-oriented categories for development, DevOps or security work."
+      },
+      "claudemarketplaces-com": {
+        "zh": "希望扩大到其他 Claude 市场入口时，可查看 Claude Marketplaces。",
+        "en": "Use Claude Marketplaces to broaden discovery across other Claude marketplace entry points."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "qoder-community-pages-dev-zh-skills": {
+    "resourceSlug": "qoder-community-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "按角色发现社区 Skill",
+      "en": "Role-based community skill discovery"
+    },
+    "summary": {
+      "zh": "Qoder Community Skills 汇总 skills.sh、MCP Marketplace、Anthropic 官方等多个来源的能力，按分类和职业角色组织，并提供中文与英文界面。它是社区聚合入口，与 Qoder 官方市场是两个不同来源。",
+      "en": "Qoder Community Skills brings together capabilities from sources including skills.sh, MCP Marketplace and Anthropic. It organizes entries by category and professional role and provides Chinese and English interfaces. This community aggregator is distinct from Qoder’s official marketplace."
+    },
+    "bestFor": [
+      {
+        "zh": "希望从职业角色或任务分类出发查找 Skill 的用户。",
+        "en": "Users finding skills through professional roles or task categories."
+      },
+      {
+        "zh": "偏好中文阅读、但需要比较多个来源的团队。",
+        "en": "Teams that prefer Chinese explanations while comparing multiple sources."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "角色分类适合帮助表达需求，选中条目后仍要回到原始项目确定适用任务。特别注意官方市场与社区聚合的区别：同属 Qoder 主题，并不意味着安装路径与维护者相同。",
+      "en": "Role categories help express a need, but the original project defines the actual task coverage. Keep the official marketplace separate from the community aggregator: a shared Qoder theme does not establish the same installation path or maintainer."
+    },
+    "limitations": [
+      {
+        "zh": "聚合自不同来源的内容可能在安装方式、版本与宿主要求上不同。",
+        "en": "Content aggregated from different sources can have different installation methods, versions and host requirements."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-com-zh-marketplace",
+      "skills-homes-zh-cn-categories"
+    ],
+    "alternativeReasons": {
+      "qoder-com-zh-marketplace": {
+        "zh": "希望优先检查 Qoder 平台市场内容时，可进入官方市场。",
+        "en": "Use the official marketplace when you want to prioritize content in Qoder’s platform marketplace."
+      },
+      "skills-homes-zh-cn-categories": {
+        "zh": "偏好中文类目浏览而不依赖角色视角时，可比较 Skills Homes。",
+        "en": "Compare Skills Homes for Chinese category browsing without a role-based starting point."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "atcyrus-com-skills": {
+    "resourceSlug": "cyrus-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "开发者 Skill 市场",
+      "en": "Developer skill marketplace"
+    },
+    "summary": {
+      "zh": "Cyrus Skills 是面向 AI 编码 agent 的英文 Skill 市场，按开发、DevOps、安全、设计、文档等方向组织可复用能力。它适合围绕开发工作流查找候选；具体使用条件与方案应在对应来源核对。",
+      "en": "Cyrus Skills is an English-language marketplace for AI coding-agent capabilities. It organizes skills across development, DevOps, security, design and documentation. It is useful for finding candidates around a development workflow, with item requirements and plan terms to be checked at the source."
+    },
+    "bestFor": [
+      {
+        "zh": "需要按开发、DevOps 或安全分类寻找候选的工程团队。",
+        "en": "Engineering teams finding candidates by development, DevOps or security category."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "security",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先定位现有开发流程中最明确的缺口，例如调试或审查，再对比候选的输入输出与工具依赖。若使用涉及试用或付费方案的能力，应把方案限制与实际任务范围一并确认。",
+      "en": "Identify a clear gap in the current workflow, such as debugging or review, then compare candidate inputs, outputs and tool dependencies. If trial or paid plans are involved, confirm their limits alongside the actual scope of the task."
+    },
+    "limitations": [
+      {
+        "zh": "开发者市场分类不能替代项目级验证，本站未对每项能力进行实测。",
+        "en": "Developer-marketplace categories do not replace project-level validation; this catalog does not test every capability."
+      },
+      {
+        "zh": "具体价格、试用限制与包含内容可能不同，需阅读对应方案说明。",
+        "en": "Check the relevant plan for item pricing, trial limits and included content."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "skill0-io"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "zh": "需要完整的规划、执行、调试和测试流程时，可比较 Superpowers。",
+        "en": "Compare Superpowers when you need an integrated planning, execution, debugging and testing process."
+      },
+      "skill0-io": {
+        "zh": "希望扩大到社区的文档、设计等工作主题时，可查看 skill0。",
+        "en": "Use skill0 to explore additional community topics such as documentation and design."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "lobehub-com-skills": {
+    "resourceSlug": "lobehub-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "LobeHub 生态 Skill 发现",
+      "en": "LobeHub ecosystem skill discovery"
+    },
+    "summary": {
+      "zh": "LobeHub Skills 是 LobeHub 团队提供的 Skill 市场，面向中英文用户集中呈现 agent 的可复用能力。它适合已了解 LobeHub / LobeChat 生态的用户从熟悉的入口浏览，再按具体条目检查使用方式。",
+      "en": "LobeHub Skills is a skill marketplace from the LobeHub team, presenting reusable agent capabilities for Chinese- and English-language readers. It is a familiar discovery entry point for people exploring the LobeHub / LobeChat ecosystem, followed by checking each item’s usage instructions."
+    },
+    "bestFor": [
+      {
+        "zh": "正在使用或了解 LobeHub / LobeChat 生态的用户。",
+        "en": "Users working with or exploring the LobeHub / LobeChat ecosystem."
+      },
+      {
+        "zh": "希望在中英文界面间阅读和比较资源的团队。",
+        "en": "Teams that want to browse and compare resources through Chinese and English interfaces."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "从熟悉的生态入口发现候选后，仍需确认具体条目如何接入当前宿主。LobeHub 的开源背景与市场中每项内容的许可证、执行方式是不同问题，应分别查看。",
+      "en": "After discovering a candidate through the ecosystem entry point, check how the specific item connects to your host. LobeHub’s open-source background and an individual marketplace item’s license or execution method are separate questions that need separate inspection."
+    },
+    "limitations": [
+      {
+        "zh": "不能根据市场所属生态，推定每个条目可直接用于 LobeChat 或其他宿主。",
+        "en": "The marketplace’s ecosystem affiliation does not establish direct use of every entry in LobeChat or another host."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-community-pages-dev-zh-skills",
+      "skill0-io"
+    ],
+    "alternativeReasons": {
+      "qoder-community-pages-dev-zh-skills": {
+        "zh": "若更希望按角色比较多个来源，可查看中英双语的 Qoder Community。",
+        "en": "Compare the bilingual Qoder Community collection for role-based discovery across multiple sources."
+      },
+      "skill0-io": {
+        "zh": "若偏好按文档、设计等社区主题寻找能力，可比较 skill0。",
+        "en": "Compare skill0 for community discovery by topics such as documentation and design."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "mcpservers-org": {
+    "resourceSlug": "mcp-servers",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "MCP 服务器发现",
+      "en": "MCP server discovery"
+    },
+    "summary": {
+      "zh": "MCP Servers 是收录官方与社区 MCP 服务器的英文目录，按网页抓取、开发、生产力、金融等方向组织条目。它适合在需要把外部工具接入 agent 时发现候选，并进入各服务器文档核对配置和认证。",
+      "en": "MCP Servers is an English-language directory of official and community MCP servers, organized around areas including web scraping, development, productivity and finance. It helps readers discover candidates for connecting external tools to an agent, then inspect server documentation for configuration and authentication."
+    },
+    "bestFor": [
+      {
+        "zh": "已经知道要连接哪个服务、需要查找 MCP 实现的开发者。",
+        "en": "Developers who know which service to connect and need to find an MCP implementation."
+      },
+      {
+        "zh": "需要比较服务器认证、部署和数据访问方式的团队。",
+        "en": "Teams comparing server authentication, deployment and data access."
+      }
+    ],
+    "useCases": [
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "先确定服务和操作范围，再检查候选服务器使用的连接方式、凭证和权限。目录帮助找到服务器，真正能否接入由当前宿主与服务器的协议和配置要求共同决定。",
+      "en": "Define the service and operations needed, then inspect a candidate server’s connection method, credentials and permissions. The directory helps locate servers; actual integration depends on the protocol and configuration requirements of both your host and the server."
+    },
+    "limitations": [
+      {
+        "zh": "目录不是一个统一的 MCP 服务器，不能把目录地址直接当作工具端点。",
+        "en": "The directory is not one unified MCP server; its URL is not a tool endpoint."
+      },
+      {
+        "zh": "不同服务器的数据流向、费用和权限要求需逐项检查，不能从目录分类推定。",
+        "en": "Inspect each server’s data flow, costs and permissions; directory categories do not establish them."
+      }
+    ],
+    "alternativeSlugs": [
+      "mcpmarket-com-zh-tools-skills-leaderboard",
+      "github-com-xu-xiang-everything-claude-code-zh"
+    ],
+    "alternativeReasons": {
+      "mcpmarket-com-zh-tools-skills-leaderboard": {
+        "zh": "希望从中文榜单同时了解 Skill 与 MCP 相关线索时，可查看 MCPMarket。",
+        "en": "Use MCPMarket for Chinese-language leaderboard discovery spanning skill and MCP-related leads."
+      },
+      "github-com-xu-xiang-everything-claude-code-zh": {
+        "zh": "需要从 Claude Code 中文配置中理解 MCP 的位置时，可比较该配置合集。",
+        "en": "Compare the Chinese everything-claude-code collection when learning how MCP fits into a Claude Code configuration."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "cc-jiekou-ai-skills": {
+    "resourceSlug": "jiekou-ai-skills",
+    "updatedAt": "2026-09-29",
+    "primaryCapability": {
+      "zh": "双语 Skill 市场与安装发现",
+      "en": "Bilingual skill marketplace discovery"
+    },
+    "summary": {
+      "zh": "接口 AI Skills 是面向 Claude agent 的中英双语 Skill 市场，提供社区能力浏览、命令行安装说明和按安装量排序的榜单。它适合偏好中文阅读与命令行获取内容的用户，先找到候选再检查具体来源。",
+      "en": "Jiekou AI Skills is a bilingual skill marketplace for Claude-related agents. It provides community capability listings, command-line installation instructions and installation-based rankings. It suits users who prefer Chinese reading and command-line retrieval, with original sources to be inspected after discovery."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好中英双语界面、习惯阅读命令行安装步骤的用户。",
+        "en": "Users who prefer a bilingual interface and command-line installation instructions."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "阅读安装命令前先确认它对应的项目和来源，然后检查命令会写入哪些目录。榜单可以安排查看顺序，但实际采用仍应以任务效果、依赖与维护信息为依据。",
+      "en": "Identify the project and source behind an installation command, then check which directories the command writes to. Rankings can guide inspection order; adoption should follow task results, dependencies and maintenance information from the project."
+    },
+    "limitations": [
+      {
+        "zh": "不同条目的命令、依赖和宿主要求可能不同，不能只复制榜单上的名称完成验证。",
+        "en": "Commands, dependencies and host requirements can differ by entry; copying a ranked name is not sufficient validation."
+      },
+      {
+        "zh": "安装量只提供发现线索，不能证明质量或与你的任务匹配。",
+        "en": "Installation counts provide discovery signals, not proof of quality or task fit."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "mcpmarket-com-zh-tools-skills-leaderboard"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "zh": "若偏好英文开发者入口，可比较 skills.sh 的资源发现路径。",
+        "en": "Compare skills.sh for an English-language, developer-oriented discovery route."
+      },
+      "mcpmarket-com-zh-tools-skills-leaderboard": {
+        "zh": "如果主要目的是中文榜单发现，可同时查看 MCPMarket 的排序线索。",
+        "en": "Compare MCPMarket’s ranking signals when Chinese-language leaderboard discovery is the main need."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  }
+}

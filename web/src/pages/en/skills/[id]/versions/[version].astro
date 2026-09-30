@@ -1,0 +1,10 @@
+---
+import SkillDetailPage from '../../../../../components/SkillDetailPage.astro';
+import { getPublication } from '../../../../../lib/publication';
+export function getStaticPaths() {
+  const publication = getPublication();
+  const versions = new Map([...publication.items.map(item => item.skill), ...publication.statuses].map(item => [`${item.id}@${item.version}`, item]));
+  return [...versions.values()].map(({ id, version }) => ({ params: { id, version }, props: { id, version } }));
+}
+---
+<SkillDetailPage {...Astro.props} lang="en" />

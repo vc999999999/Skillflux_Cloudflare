@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">SkillFlux brand mark</title>
+  <rect width="64" height="64" fill="#fbfbf8"/>
+  <rect x="0.5" y="0.5" width="63" height="63" fill="none" stroke="#17150f" stroke-opacity="0.16"/>
+  <rect x="14" y="17" width="36" height="8" fill="#17150f"/>
+  <path d="M14 29h22l14 8-14 8H14z" fill="#e0381f"/>
+  <rect x="14" y="45" width="36" height="8" fill="#17150f"/>
+</svg>

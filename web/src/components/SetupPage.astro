@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../config";
+import { localizePath, type Language } from "../lib/i18n";
+import packageInfo from "../../../mcp/package.json";
+
+type Props = { lang?: Language };
+const { lang = "zh" } = Astro.props;
+const zh = lang === "zh";
+const t = (cn: string, en: string) => zh ? cn : en;
+const installCommand = `npm ci\nnpm run build --workspace @skillflux/mcp\nnpm pack --workspace @skillflux/mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
+const initCommand = "cd /path/to/your-project\nskillflux init --project . --registry http://127.0.0.1:8787 --host codex";
+const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
+const updateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID';
+const hosts = [
+  { id: "codex", name: "Codex", config: ".codex/config.toml", skill: ".agents/skills/skillflux/" },
+  { id: "claude", name: "Claude Code", config: ".mcp.json", skill: ".claude/skills/skillflux/" },
+  { id: "cursor", name: "Cursor", config: ".cursor/mcp.json", skill: ".cursor/skills/skillflux/" },
+  { id: "generic", name: "Generic MCP", config: ".mcp.json", skill: ".skillflux/bootstrap/skillflux/" }
+];
+const sections = [
+  ["install", t("安装本地 CLI", "Install the CLI")],
+  ["registry", t("连接 Registry", "Connect a registry")],
+  ["project", t("配置你的工具", "Configure your host")],
+  ["first-skill", t("使用第一个 Skill", "Use your first skill")],
+  ["updates", t("更新与版本管理", "Updates & versions")],
+  ["faq", t("常见问题", "Common questions")]
+];
+---
+<BaseLayout lang={lang} canonicalPath={localizePath("/install/", lang)} title={t("安装与接入", "Installation & setup")} description={t("从源码安装 SkillFlux，连接项目内的 MCP，并按精确版本搜索、安装和加载已审核的 Skill。", "Install SkillFlux from source, connect a project MCP, and search, install and load reviewed skills at exact versions.")} pageClass="setup-page">
+  <main id="main-content" class="page-shell setup-shell">
+    <header class="setup-heading">
+      <p class="eyebrow">GET STARTED</p>
+      <h1 class="page-title">{t("把好用的 Skill，接进你的工具。", "Good skills. Inside your tools.")}</h1>
+      <p class="page-lede">{t("一次配置，在熟悉的 AI 工具中搜索、安装和加载。每个项目独立管理，每个版本都有据可查。", "Configure once, then search, install and load in the AI tools you already use. Every project stays independent. Every version is traceable.")}</p>
+      <div class="setup-pills"><span>Node.js ≥ 22.13.0</span><span>npm + MCP</span><span>{t("当前：源码安装", "Available: source install")}</span></div>
+    </header>
+    <div class="setup-layout">
+      <aside class="setup-nav">
+        <p>{t("本页目录", "ON THIS PAGE")}</p>
+        <nav aria-label={t("安装步骤", "Setup sections")}>{sections.map(([id, title], index) => <a href={`#${id}`}><span>{String(index + 1).padStart(2, "0")}</span>{title}</a>)}</nav>
+        <a class="setup-source" href={SITE.repoUrl} target="_blank" rel="noopener noreferrer">{t("查看源码", "View source")} <span aria-hidden="true">↗</span></a>
+      </aside>
+      <div class="setup-content">
+        <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("当前提供源码与本地构建包。以下命令从已下载的 SkillFlux 仓库根目录执行；暂不以公开 npm 发布为安装前提。", "Source and local build packages are available. Run the first commands from your downloaded SkillFlux repository root; a public npm release is not assumed.")}</p></div>
+        <section id="install" class="setup-section">
+          <div class="step-heading"><span>01</span><h2>{t("安装本地 CLI", "Install the local CLI")}</h2></div>
+          <p>{t("构建当前版本并安装 skillflux 命令。确认 Node.js 版本满足要求后，再执行下面四条命令。", "Build the current version and install the skillflux command. Check your Node.js version, then run these four commands.")}</p>
+          <div class="command-block"><div class="command-label"><span>TERMINAL · {t("仓库根目录", "REPOSITORY ROOT")}</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
+        </section>
+        <section id="registry" class="setup-section">
+          <div class="step-heading"><span>02</span><h2>{t("连接一个 Registry", "Connect a registry")}</h2></div>
+          <p>{t("本地试用时，在另一个终端启动开发 Registry，并保持运行。已有可信 Registry 时，可直接在下一步替换地址。", "For local use, start the development registry in another terminal and keep it running. If you already have a trusted registry, use its URL in the next step.")}</p>
+          <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text="skillflux registry --dev">{t("复制", "Copy")}</button></div><pre><code>skillflux registry --dev</code></pre></div>
+          <p class="step-hint">{t("默认地址为 http://127.0.0.1:8787。开发样例进入待审队列，公开可安装列表为空是正常状态；只有完成真实评测并获批准的版本才可安装。", "The default URL is http://127.0.0.1:8787. Development examples enter the review queue, so an empty public catalog is expected. Installation requires completed evaluations and approval.")}</p>
+        </section>
+        <section id="project" class="setup-section">
+          <div class="step-heading"><span>03</span><h2>{t("选择你的 AI 工具", "Choose your AI tool")}</h2></div>
+          <p>{t("进入目标项目，选择宿主后复制命令。init 合并项目内的 MCP 配置，保留已有服务器，并固定 Registry 公钥。", "Open your target project, choose a host and copy the command. init merges the project's MCP configuration, preserves existing servers and pins the registry public key.")}</p>
+          <div class="host-switch" role="group" aria-label={t("AI 工具", "AI host")}>{hosts.map(host => <button type="button" data-setup-host={host.id} aria-pressed={host.id === "codex"}>{host.name}</button>)}</div>
+          <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-init-copy data-copy-text={initCommand}>{t("复制", "Copy")}</button></div><pre><code data-init-command>{initCommand}</code></pre></div>
+          <div class="host-paths">{hosts.map(host => <div data-host-path={host.id} hidden={host.id !== "codex"}><p><span>{t("MCP 配置", "MCP config")}</span><code>{host.config}</code></p><p><span>{t("入口 Skill", "Entry skill")}</span><code>{host.skill}</code></p></div>)}</div>
+          <p class="step-hint">{t("替换 /path/to/your-project 为真实项目路径。宿主重新读取 MCP 配置后，再显式调用 SkillFlux；Codex 中使用 $skillflux。通用宿主可能需要手动加载入口。", "Replace /path/to/your-project with your real project path. Reload MCP configuration, then explicitly invoke SkillFlux. Use $skillflux in Codex; generic hosts may need the entry loaded manually.")}</p>
+          <details class="setup-detail"><summary>{t("允许 MCP 直接安装已审核的纯文本包", "Allow MCP to install reviewed text bundles")}</summary><p>{t("只有明确在 init 命令中加入 --preauthorize-reviewed-text，MCP 才能直接安装已批准、完成用途与边界测试且无网络、Shell 或密钥权限的纯文本包。默认通过 CLI 安装；具体版本升级仍需明确确认。", "Only an explicit --preauthorize-reviewed-text flag on init allows MCP to install approved text bundles with completed purpose and boundary tests and no network, shell or secret capabilities. CLI installation is the default; exact-version upgrades still need approval.")}</p></details>
+        </section>
+        <section id="first-skill" class="setup-section">
+          <div class="step-heading"><span>04</span><h2>{t("搜索、看计划，再安装", "Search, review, install")}</h2></div>
+          <p>{t("从 Registry 返回的结果中选择 Skill 和精确版本。查看 plan 输出的权限、依赖和文件，确认后使用它返回的计划 ID 安装。", "Choose a skill and exact version returned by the registry. Review the plan's capabilities, dependencies and files, then install using its returned plan ID.")}</p>
+          <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-copy-text={useCommand}>{t("复制", "Copy")}</button></div><pre><code>{useCommand}</code></pre></div>
+          <p class="step-hint">{t("将 SKILL_ID、VERSION 和 PLAN_ID 替换为实际返回值。安装时重新检查签名、摘要、资格与撤销状态；load 在当前轮提供技能入口和所需资源。", "Replace SKILL_ID, VERSION and PLAN_ID with actual values. Installation rechecks signatures, digests, qualification and revocations. load provides the skill entry and needed resources in the current turn.")}</p>
+        </section>
+        <section id="updates" class="setup-section">
+          <div class="step-heading"><span>05</span><h2>{t("版本变化，由你决定", "You decide when to update")}</h2></div>
+          <p>{t("check-updates 只检查；update 指定精确版本后展示计划并等待终端确认。pin 可固定版本，升级前需先 unpin。", "check-updates is read-only. update with an exact version shows a plan and waits for terminal confirmation. pin locks a version; unpin it before upgrading.")}</p>
+          <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={updateCommand}>{t("复制", "Copy")}</button></div><pre><code>{updateCommand}</code></pre></div>
+          <p class="step-hint">{t("普通版本缓存最长 24 小时，手动检查默认刷新。离线状态会标明缓存时间与未知项；安装、升级和回滚需要在线检查资格与撤销。", "Normal version cache lasts up to 24 hours; manual checks refresh by default. Offline results show cache age and unknown states. Installation, upgrades and rollback require online qualification and revocation checks.")}</p>
+        </section>
+        <section id="faq" class="setup-section setup-faq">
+          <div class="step-heading"><span>06</span><h2>{t("常见问题", "Common questions")}</h2></div>
+          <details><summary>{t("目录里的来源，都能一键安装吗？", "Can I install every directory source?")}</summary><p>{t("来源目录帮助你发现第三方资源。SkillFlux 的安装命令只用于当前 Registry 已批准的版本；第三方 MCP 服务器或合集请查看原站的接入说明。", "The source directory helps you discover third-party resources. SkillFlux installation commands apply to approved versions in your registry. Follow the original instructions for other MCP servers and collections.")}</p></details>
+          <details><summary>{t("是否修改全局 AI 工具配置？", "Does setup modify global AI settings?")}</summary><p>{t("init 只写入指定项目的 MCP 配置与入口文件，保留已有服务器，遇到用户自有入口文件时不会直接覆盖。", "init writes only the specified project's MCP configuration and entry files, preserves existing servers and does not overwrite user-owned entry files.")}</p></details>
+          <details><summary>{t("接入后会自动运行所有 Skill 吗？", "Will every skill run automatically?")}</summary><p>{t("需要用户显式调用。宿主读取轻量入口后，由本地 MCP Runtime 搜索、校验和加载；网站不替你运行模型。", "An explicit user invocation is required. After reading the lightweight entry, the host uses the local MCP runtime to search, verify and load. The website does not run your model.")}</p></details>
+          <details><summary>{t("如何理解 Runtime 的广告输出？", "How does runtime advertising work?")}</summary><p>{t("普通 MCP 返回独立的结构化广告信息，展示由宿主决定。受控 run 只执行用户指定的外部命令；默认 unknown 上下文不投放，仅显式 normal 上下文且命令成功产生非空输出后，才可能追加一行披露广告。更多选项见 skillflux --help。", "Standard MCP returns separate structured advertising data; display is controlled by the host. Managed run executes only the supplied external command. Its default unknown context skips ads; an explicit normal context and successful non-empty output may append one disclosed ad line. See skillflux --help.")}</p></details>
+        </section>
+        <div class="setup-bottom"><div><strong>{t("接入完成，开始找一个合适的 Skill。", "Connected. Find the right skill next.")}</strong><p>{t("浏览当前可用版本，或先从资源目录开始。", "Explore available versions or start with the source directory.")}</p></div><a class="button primary" href={localizePath("/registry/", lang)}>{t("查看已审核 Skill", "Browse reviewed skills")} <span aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+<script>
+  const command = document.querySelector<HTMLElement>("[data-init-command]");
+  const copy = document.querySelector<HTMLButtonElement>("[data-init-copy]");
+  document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(button => {
+    button.addEventListener("click", () => {
+      const host = button.dataset.setupHost;
+      if (!host || !command || !copy) return;
+      const value = `cd /path/to/your-project\nskillflux init --project . --registry http://127.0.0.1:8787 --host ${host}`;
+      command.textContent = value;
+      copy.dataset.copyText = value;
+      document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+      document.querySelectorAll<HTMLElement>("[data-host-path]").forEach(item => { item.hidden = item.dataset.hostPath !== host; });
+    });
+  });
+</script>
+<style>
+  .setup-heading { padding: 14px 0 42px; border-bottom: 1px solid var(--line); }
+  .setup-heading .page-title { max-width: 850px; }
+  .setup-pills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+  .setup-pills span { padding: 6px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper-strong); color: var(--muted); font: .72rem var(--font-mono); }
+  .setup-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 64px; padding-top: 40px; }
+  .setup-nav { position: sticky; top: 102px; align-self: start; }
+  .setup-nav > p { margin: 0 0 18px; font-size: .68rem; letter-spacing: .08em; color: var(--muted); }
+  .setup-nav nav { display: grid; gap: 3px; }
+  .setup-nav nav a { display: flex; gap: 10px; padding: 10px 0; font-size: .79rem; text-decoration: none; color: var(--muted); }
+  .setup-nav nav a:hover { color: var(--ink); }
+  .setup-nav nav a span { font: .67rem var(--font-mono); color: var(--faint); padding-top: 2px; }
+  .setup-source { display: flex; justify-content: space-between; margin-top: 22px; padding: 18px 0; border-top: 1px solid var(--line); text-decoration: none; font-size: .8rem; }
+  .setup-note { padding: 20px 22px; border: 1px solid var(--line); border-radius: 7px; background: var(--cream); }
+  .setup-note strong { font-size: .86rem; }
+  .setup-note p { margin: 8px 0 0; font-size: .83rem; line-height: 1.8; color: var(--muted); }
+  .setup-section { margin-top: 44px; padding-bottom: 38px; border-bottom: 1px solid var(--line); scroll-margin-top: 100px; }
+  .step-heading { display: flex; align-items: center; gap: 13px; }
+  .step-heading > span { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--line); border-radius: 5px; background: white; font: .72rem var(--font-mono); }
+  .step-heading h2 { margin: 0; font-size: 1.35rem; font-weight: 620; letter-spacing: -.025em; }
+  .setup-section > p { margin: 15px 0 20px; color: var(--muted); font-size: .89rem; line-height: 1.85; }
+  .setup-section > p.step-hint { margin-bottom: 0; font-size: .78rem; }
+  .command-block { min-width: 0; overflow: hidden; border: 1px solid #38342c; border-radius: 7px; background: #211f18; color: #f2f1ea; }
+  .command-label { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #3c392f; }
+  .command-label > span { color: #afaa9c; font: .63rem var(--font-mono); letter-spacing: .035em; }
+  .command-label button { border: 1px solid #504c41; border-radius: 4px; background: transparent; color: #cec9b9; padding: 4px 9px; font-size: .68rem; }
+  .command-label button:hover { color: white; border-color: #817c6f; }
+  .command-block pre { max-width: 100%; margin: 0; overflow-x: auto; padding: 21px 18px; font-size: .76rem; line-height: 1.9; }
+  .host-switch { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 13px; }
+  .host-switch button { padding: 9px 13px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper-strong); font-size: .77rem; }
+  .host-switch button[aria-pressed="true"] { background: var(--ink); color: white; border-color: var(--ink); }
+  .host-paths { margin-top: 16px; padding: 2px 15px; background: var(--cream); border-radius: 5px; }
+  .host-paths p { display: flex; flex-wrap: wrap; gap: 7px 18px; font-size: .74rem; }
+  .host-paths p span { width: 84px; flex-shrink: 0; color: var(--muted); }
+  .host-paths code { overflow-wrap: anywhere; font-size: .7rem; }
+  .setup-detail { margin-top: 22px; padding: 15px; border: 1px solid var(--line); border-radius: 5px; }
+  details summary { cursor: pointer; font-size: .83rem; line-height: 1.65; font-weight: 500; }
+  details p { color: var(--muted); font-size: .82rem; line-height: 1.85; margin-bottom: 0; }
+  .setup-faq .step-heading { margin-bottom: 16px; }
+  .setup-faq > details { padding: 17px 0; border-bottom: 1px solid var(--line); }
+  .setup-faq > details:last-child { border: 0; padding-bottom: 0; }
+  .setup-bottom { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .setup-bottom strong { font-size: .94rem; }
+  .setup-bottom p { margin: 8px 0 0; font-size: .8rem; color: var(--muted); }
+  @media(max-width: 900px) { .setup-layout { grid-template-columns: 165px minmax(0, 1fr); gap: 30px; } }
+  @media(max-width: 680px) { .setup-layout { grid-template-columns: minmax(0, 1fr); padding-top: 24px; gap: 24px; } .setup-nav { position: static; } .setup-nav nav { display: flex; flex-wrap: wrap; gap: 4px 18px; } .setup-nav nav a { padding: 4px 0; } .setup-source { display: none; } .setup-nav > p { margin-bottom: 10px; } .setup-section { margin-top: 32px; padding-bottom: 28px; } .setup-heading { padding-bottom: 28px; } .command-block pre { font-size: .68rem; padding: 16px 14px; } .step-heading h2 { font-size: 1.18rem; } }
+</style>

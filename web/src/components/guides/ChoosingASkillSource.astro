@@ -1,0 +1,80 @@
+---
+import GuideLayout from "../GuideLayout.astro";
+import { getGuideBySlug } from "../../lib/guides";
+import { getSiteBySlug } from "../../lib/content";
+import { localizePath, type Language } from "../../lib/i18n";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const guide = getGuideBySlug("choosing-a-skill-source")!;
+const href = {
+  directory: localizePath("/directory/", lang),
+  official: localizePath("/source-type/official/", lang),
+  marketplace: localizePath("/source-type/marketplace/", lang),
+  repo: localizePath("/source-type/repo/", lang),
+  community: localizePath("/source-type/community/", lang),
+  aggregator: localizePath("/source-type/directory/", lang),
+  download: localizePath("/guides/how-to-download-claude-skills/", lang),
+  discovery: localizePath("/scenarios/choose-a-source/", lang),
+  connect: localizePath("/scenarios/connect-a-project/", lang),
+  maintain: localizePath("/scenarios/maintain-project-skills/", lang),
+  mcp: localizePath("/directory/?kind=mcp", lang),
+  anthropic: localizePath(`/resource/${getSiteBySlug('github-com-anthropics-skills')!.resourceSlug}/`, lang),
+};
+---
+
+<GuideLayout lang={lang} guide={guide}>
+  {lang === "zh" ? (
+    <Fragment>
+      <p>选择 Skill 来源，可以先区分“在哪里发现”和“最终从哪里获取”。市场和目录帮助缩小候选范围，原始仓库或发布方文档用来确认实际指令、依赖与安装方式。同一个 Skill 可能被多个站点收录，来源数量并不等于独立的质量验证。</p>
+      <h2>五类来源分别解决什么问题</h2>
+      <h3>官方厂商</h3>
+      <p>适合先了解某个发布方的 Skill 组织方式或产品约定。例如 <a href={href.anthropic}>anthropics/skills</a> 提供官方仓库内容，可以直接阅读实现。官方身份说明出处，具体 Skill 是否适合你的宿主、版本和任务仍需检查。查看 <a href={href.official}>官方厂商来源</a> 中的具体入口。</p>
+      <h3>市场</h3>
+      <p>适合围绕明确需求比较候选能力。不同条目的作者、依赖、服务条件和安装方式可能不同，应回到条目本身确认；平台上的排序或评价只能作为发现线索。查看 <a href={href.marketplace}>Skill 市场</a>。</p>
+      <h3>开源仓库</h3>
+      <p>适合阅读指令与代码、研究实现或按许可证允许的范围改造。先区分仓库里放的是可用 Skill、配置示例还是指向外部项目的 awesome 清单。能够阅读代码不代表代码已经通过审查。查看 <a href={href.repo}>开源仓库来源</a>。</p>
+      <h3>社区榜单</h3>
+      <p>适合扩展候选范围、发现原本不知道的项目。榜单采用的统计和编辑方法各不相同，应追溯到原项目，而不是把排序当作兼容性或安全性结论。查看 <a href={href.community}>社区来源</a>。</p>
+      <h3>综合目录</h3>
+      <p>适合跨来源浏览、按任务缩小范围。SkillFlux 属于这种导航入口，资源页连接原始来源；目录收录不等于可通过 SkillFlux 直接安装。查看 <a href={href.aggregator}>综合目录来源</a>。</p>
+      <h2>如何从短清单做出选择</h2>
+      <ol>
+        <li>写清任务、输入、预期输出和当前宿主，先排除环境不匹配的候选项。</li>
+        <li>记录原始仓库、发布方和具体版本，识别多个目录重复收录的同一资源。</li>
+        <li>阅读入口指令、相关脚本、许可证与依赖，确认需要哪些文件访问和外部服务。</li>
+        <li>用一个可复核的小任务试用，再依据实际输出决定是否保留。</li>
+      </ol>
+      <p>维护情况需要结合原项目的说明、变更记录和问题处理情况判断。SkillFlux 的资料日期用于说明条目何时整理，不能用来证明上游刚刚更新；长期未修改也不必然代表项目不可用。</p>
+      <h2>按你要完成的任务继续筛选</h2>
+      <p>还在寻找方向时，阅读 <a href={href.discovery}>来源选型场景指南</a>；已有代码项目时，对照 <a href={href.connect}>项目接入场景</a>；接入后的维护方式见 <a href={href.maintain}>项目技能维护场景</a>。如果真正需要连接外部工具，可在 <a href={href.mcp}>资源目录按 MCP 类型筛选</a>。</p>
+      <div class="guide-callout"><p>选择来源后，继续阅读 <a href={href.download}>Claude Skills 获取与安装指南</a>。需要查看更多候选项，可以返回 <a href={href.directory}>完整资源目录</a>。</p></div>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <p>Choosing a skill source starts by separating discovery from acquisition. A marketplace or directory helps narrow the candidates; the original repository or publisher documentation establishes the actual instructions, dependencies and installation route. One skill can appear on several sites, so the number of listings is not independent evidence of quality.</p>
+      <h2>What the five source types are useful for</h2>
+      <h3>Official vendors</h3>
+      <p>Start here to understand a publisher’s skill structure or product conventions. For example, <a href={href.anthropic}>anthropics/skills</a> exposes first-party repository content to inspect. Official identity establishes origin; fit for your host, version and task still requires a separate check. Browse <a href={href.official}>official vendor sources</a>, or browse the specific entries in <a href={href.official}>official vendor sources</a>.</p>
+      <h3>Marketplaces</h3>
+      <p>Use a marketplace to compare capabilities against a defined requirement. Authors, dependencies, service terms and installation methods may differ between entries. Examine the individual item; rankings and reviews are discovery signals, not compatibility evidence. Browse <a href={href.marketplace}>skill marketplaces</a>.</p>
+      <h3>Open-source repositories</h3>
+      <p>Repositories let you read instructions and code, study an implementation or adapt material under its license. First distinguish an actual skill from a configuration example or an awesome list linking to external projects. Readable code is not the same as reviewed code. Browse <a href={href.repo}>open-source repository sources</a>.</p>
+      <h3>Community rankings</h3>
+      <p>Community sources can expand a shortlist and reveal projects you have not encountered. Their statistics and editorial methods differ, so trace entries to the original project instead of treating a ranking as a conclusion about safety or compatibility. Browse <a href={href.community}>community sources</a>.</p>
+      <h3>Aggregator directories</h3>
+      <p>Directories support browsing across sources and narrowing by task. SkillFlux is this kind of discovery entry point: resource pages link to original sources. A catalog listing does not establish direct installation support through SkillFlux. Browse <a href={href.aggregator}>aggregator directories</a>.</p>
+      <h2>How to make a decision from a shortlist</h2>
+      <ol>
+        <li>Write down the task, input, expected output and host; remove candidates that do not fit the environment.</li>
+        <li>Record the original repository, publisher and version to identify duplicate listings of the same resource.</li>
+        <li>Read the entry instructions, scripts, license and dependencies, including file access and external service requirements.</li>
+        <li>Try a small task whose result you can inspect, then decide from the output whether to keep the skill.</li>
+      </ol>
+      <p>Assess maintenance through the project’s own documentation, change history and issue handling. A SkillFlux record date describes our catalog material; it does not prove a recent upstream release. An unchanged project is not necessarily unusable either.</p>
+      <h2>Continue with the task you need to complete</h2>
+      <p>For open-ended discovery, read the <a href={href.discovery}>source selection scenario</a>. For an existing codebase, see the <a href={href.connect}>project connection scenario</a>, and for post-setup maintenance the <a href={href.maintain}>project skills maintenance scenario</a>. If the goal is an external tool connection, filter the <a href={href.mcp}>directory by MCP resources</a>.</p>
+      <div class="guide-callout"><p>After choosing a source, continue to the <a href={href.download}>Claude Skills download and installation guide</a>, or return to the <a href={href.directory}>full resource directory</a> for more candidates.</p></div>
+    </Fragment>
+  )}
+</GuideLayout>

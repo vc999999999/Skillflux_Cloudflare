@@ -1,0 +1,9 @@
+{
+  "eval_id": 2,
+  "eval_name": "trivial-skill-rejection",
+  "prompt": "看下 /tmp/iw-fixtures/emoji-titles 这个本地 skill 值不值得给 insights 专题拆一篇，值得就直接写。",
+  "assertions": [
+    "没有为 emoji-titles 创建拆解文章文件（选品门槛应拦下这个 5 行的 skill）",
+    "给出了明确的否决结论，且理由引用了准入标准（流程/判断数量不足或无增量可写）"
+  ]
+}

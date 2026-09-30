@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import ResourceTable from './ResourceTable.astro';
+import { absoluteUrl, getIndexableSites } from '../lib/content';
+import { agents, type AgentEntry } from '../lib/agents';
+import { localizePath, type Language } from '../lib/i18n';
+const { entry, lang = 'zh' } = Astro.props as { entry: AgentEntry; lang?: Language };
+const zh = lang === 'zh';
+const path = localizePath(`/agents/${entry.slug}/`, lang);
+const title = zh ? `${entry.name} 的 Skill 来源与选型` : `Skill sources and selection for ${entry.name}`;
+const sites = getIndexableSites().filter(site => entry.sourceSlugs.includes(site.slug));
+const crumbs = [{ label: zh ? '首页' : 'Home', href: localizePath('/', lang) }, { label: zh ? '资源目录' : 'Directory', href: localizePath('/directory/', lang) }, { label: entry.name }];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(path), description: entry.summary[lang], dateModified: '2026-09-29', inLanguage: zh ? 'zh-CN' : 'en' },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.label, ...('href' in crumb ? { item: absoluteUrl(crumb.href!) } : {}) })) }
+];
+---
+<BaseLayout lang={lang} title={title} description={entry.summary[lang]} canonicalPath={path} jsonLd={jsonLd} noindex={sites.length === 0}>
+  <main id="main-content" class="page-shell agent-page">
+    <Breadcrumb items={crumbs} />
+    <h1>{title}</h1><p class="intro">{entry.summary[lang]}</p>
+    <section><h2>{zh ? '如何选择' : 'How to choose'}</h2>{entry.guidance.map(text => <p>{text[lang]}</p>)}</section>
+    <ResourceTable sites={sites} lang={lang} heading={zh ? '值得研究的来源' : 'Sources to investigate'} />
+    <section><h2>{zh ? '接入你的项目' : 'Connect your project'}</h2><p><a href={localizePath('/install/', lang)}>{zh ? 'SkillFlux 安装与 MCP 接入指南' : 'SkillFlux installation and MCP setup'}</a></p></section>
+    <nav aria-label={zh ? '其他 Agent' : 'Other agents'}>{agents.filter(agent => agent.slug !== entry.slug).map(agent => <a href={localizePath(`/agents/${agent.slug}/`, lang)}>{agent.name}</a>)}</nav>
+  </main>
+</BaseLayout>
+<style>.agent-page{padding-block:36px 70px}.agent-page h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.04em}.intro{font-size:1.1rem}section>p,.intro{max-width:80ch;line-height:1.9;color:var(--muted)}section h2{font-size:1.35rem}li{margin-block:12px}nav{display:flex;gap:24px;margin-top:32px}</style>

@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "humanizer-zh-writing",
+  "prompt": "https://github.com/op7418/humanizer-zh 这个去 AI 味的写作 skill 最近挺火，站里也收录了它（github-com-op7418-humanizer-zh），拆一篇 insights 文章吧。",
+  "assertions": [
+    "产出了拆解文章 .md 文件（而不是拒写或只有说明文档）",
+    "结构化槽位达到 schema 最小数量：scenarios≥2、workflow≥3、judgments≥3、painPoints≥2、limitations≥2",
+    "署名完整且正确：source.repo 为 https://github.com/op7418/humanizer-zh，author 与 license 非空",
+    "全篇无禁用套话（随着/近年来/众所周知/在…的今天/未来可期/拭目以待）",
+    "正文有实质增量：≥800 字符且含 3–6 个 ## 小节",
+    "relatedSites 包含站内收录条目 github-com-op7418-humanizer-zh（内链闭环）"
+  ]
+}

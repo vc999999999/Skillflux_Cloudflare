@@ -1,0 +1,112 @@
+---
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteUrl, type Site } from "../lib/content";
+import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import Breadcrumb from "./Breadcrumb.astro";
+import ResourceTable from "./ResourceTable.astro";
+import PackCta from "./PackCta.astro";
+
+type Crumb = { label: string; href?: string };
+
+type Props = {
+  lang?: Language;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  noindex?: boolean;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  metaText: string;
+  sites: Site[];
+  breadcrumbItems: Crumb[];
+  collectionName: string;
+  collectionDescription: string;
+};
+
+const {
+  lang = DEFAULT_LANGUAGE,
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+  eyebrow,
+  heading,
+  lede,
+  metaText,
+  sites,
+  breadcrumbItems,
+  collectionName,
+  collectionDescription
+} = Astro.props;
+
+const copy = getPageCopy(lang);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: collectionName,
+    url: absoluteUrl(canonicalPath),
+    description: collectionDescription,
+    inLanguage: copy.locale,
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE.name,
+      url: SITE.url
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: sites.length,
+      itemListElement: sites.map((site, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: site.name,
+        url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang))
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(crumb.href ? { item: absoluteUrl(crumb.href) } : {})
+    }))
+  }
+];
+---
+
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={noindex}>
+  <main id="main-content" class="page-shell">
+    <section class="page-hero">
+      <div>
+        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.home} />
+        <p class="eyebrow"><span></span> {eyebrow}</p>
+        <h1 class="page-title">{heading}</h1>
+        <p class="page-lede">{lede}</p>
+      </div>
+      <aside class="page-meta-panel">
+        <strong>{sites.length}</strong>
+        <span>{metaText}</span>
+      </aside>
+    </section>
+
+    <ResourceTable sites={sites} heading={heading} lang={lang} />
+
+    <section class="prose-block">
+      <h2>{lang === 'zh' ? '继续选型' : 'Continue your comparison'}</h2>
+      <p>{lang === 'zh' ? '把分类中的来源与实际任务对应起来，再回到原始项目检查说明。' : 'Match these sources to a concrete task, then review the original project instructions.'}</p>
+      <ul>
+        <li><a href={localizePath('/scenarios/choose-a-source/', lang)}>{lang === 'zh' ? '如何发现合适的 Skill' : 'Find the right skill for your task'}</a></li>
+        <li><a href={localizePath('/guides/choosing-a-skill-source/', lang)}>{lang === 'zh' ? '比较官方来源、市场与仓库' : 'Compare vendor sources, marketplaces and repositories'}</a></li>
+        <li><a href={localizePath('/directory/?recommended=yes', lang)}>{lang === 'zh' ? '浏览有入选理由的编辑推荐' : 'Browse recommendations with selection notes'}</a></li>
+      </ul>
+    </section>
+
+    <PackCta lang={lang} />
+  </main>
+</BaseLayout>
