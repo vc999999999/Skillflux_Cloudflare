@@ -16,11 +16,11 @@ const href = {
   registry: localizePath("/registry/", lang),
   install: localizePath("/install/", lang),
   choosing: localizePath("/guides/choosing-a-skill-source/", lang),
-  discovery: localizePath("/use-case/discover-skills/", lang),
-  writing: localizePath("/use-case/writing/", lang),
-  planning: localizePath("/use-case/planning/", lang),
-  mobile: localizePath("/use-case/mobile/", lang),
-  video: localizePath("/use-case/video/", lang),
+  discovery: localizePath("/scenarios/choose-a-source/", lang),
+  writing: localizePath("/tag/chinese/", lang),
+  planning: localizePath(`/resource/${getSiteBySlug('github-com-othmanadi-planning-with-files')!.resourceSlug}/`, lang),
+  mobile: localizePath(`/resource/${getSiteBySlug('github-com-android-skills')!.resourceSlug}/`, lang),
+  video: localizePath(`/resource/${getSiteBySlug('github-com-bradautomates-claude-video')!.resourceSlug}/`, lang),
 };
 ---
 
@@ -47,7 +47,7 @@ const href = {
       <h2>通过 SkillFlux 安装哪些内容</h2>
       <p>SkillFlux 的 <a href={href.directory}>资源目录</a> 用于发现外部来源；<a href={href.registry}>精品 Registry</a> 展示实际发布的审核版本。希望使用 SkillFlux 本地安装流程时，先确认 Registry 中存在目标 Skill，再按 <a href={href.install}>接入指南</a> 操作。没有对应发布版本的外部资源，应使用其原始文档提供的方式。</p>
       <h2>先按场景确定要下载什么</h2>
-      <p>中文初稿可以从 <a href={href.writing}>内容与写作</a> 比较专门工具；跨会话工作可以研究 <a href={href.planning}>长任务与规划</a>；应用项目可参考 <a href={href.mobile}>移动开发</a> 的平台区别；媒体素材任务可对照 <a href={href.video}>视频与媒体</a> 的输入和输出要求。</p>
+      <p>中文初稿可以在 <a href={href.writing}>中文来源标签</a> 中比较专门工具；跨会话工作可以研究 <a href={href.planning}>planning-with-files</a>；应用项目可参考 <a href={href.mobile}>Android Skills</a> 的平台区别；媒体素材任务可对照 <a href={href.video}>claude-video</a> 的输入和输出要求。</p>
       <div class="guide-callout"><p>还不清楚目录、市场和仓库的区别？先读 <a href={href.choosing}>如何挑选 Skill 来源</a>。来源身份帮助确定出处，具体能力是否合适仍要用原文档和实际结果判断。</p></div>
     </Fragment>
   ) : (
@@ -72,7 +72,7 @@ const href = {
       <h2>What can be installed through SkillFlux</h2>
       <p>The SkillFlux <a href={href.directory}>resource directory</a> supports discovery of external sources. The <a href={href.registry}>curated Registry</a> contains published, reviewed releases. To use the local SkillFlux installation workflow, confirm that the target skill is in the Registry and follow the <a href={href.install}>setup guide</a>. For external resources without a corresponding published release, follow their original documentation.</p>
       <h2>Choose what to download by task</h2>
-      <p>For a Chinese draft, compare the focused options in <a href={href.writing}>content and writing</a>. For work across sessions, examine <a href={href.planning}>planning and long tasks</a>. For an application project, compare platform differences in <a href={href.mobile}>mobile development</a>. For media assets, use <a href={href.video}>video and media</a> to distinguish input and output requirements.</p>
+      <p>For a Chinese draft, compare the focused options in the <a href={href.writing}>Chinese sources tag</a>. For work across sessions, examine <a href={href.planning}>planning-with-files</a>. For an application project, compare platform differences in <a href={href.mobile}>Android Skills</a>. For media assets, use <a href={href.video}>claude-video</a> to distinguish input and output requirements.</p>
       <div class="guide-callout"><p>Unsure how directories, marketplaces and repositories differ? Read <a href={href.choosing}>how to choose a skill source</a>. Source identity helps establish origin; original documentation and an actual trial establish whether a capability fits your task.</p></div>
     </Fragment>
   )}

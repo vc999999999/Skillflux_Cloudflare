@@ -6,7 +6,7 @@ import { validatePublication } from '../src/lib/publication';
 import { getSites, renderRobotsTxt } from '../src/lib/content';
 import { getAlternateLanguagePath, getSiteCopy } from '../src/lib/i18n';
 import { scenarios } from '../src/lib/scenarios';
-import { useCases, collections } from '../src/lib/editorial';
+
 
 const skill = (id: string, changes: Partial<SearchableSkill> = {}): SearchableSkill => ({ id, version: '1.0.0', name: id, description: 'Review project files', category: 'engineering', tags: ['code'], hosts: ['codex'], publisher: 'Isolated unit fixture', createdAt: '2026-09-01T00:00:00.000Z', ...changes });
 describe('public discovery and URL state', () => {
@@ -110,11 +110,8 @@ describe('public discovery and URL state', () => {
     const index = discoveryIndex(publication);
     expect(index.curated.skills).toEqual([]);
     expect(index.scenarios).toHaveLength(3);
-    expect(index.useCases).toHaveLength(useCases.length);
-    expect(index.collections).toHaveLength(collections.length);
-    for (const entry of [...index.useCases, ...index.collections]) {
-      expect(entry.sourceSlugs.every(slug => getSites().some(site => site.slug === slug))).toBe(true);
-      expect(entry.englishUrl).toContain('/en/');
+    for (const scenario of index.scenarios) {
+      expect(scenario.englishUrl).toContain('/en/');
     }
     const text = renderDiscoveryText(true, publication);
     expect(text).toContain('No qualified releases');

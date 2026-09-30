@@ -1,7 +1,7 @@
 export const SITE = {
-  name: "技流 SkillFlux",
+  name: "SkillFlux",
   shortName: "SkillFlux",
-  description: "给人和 AI Agent 的 Skill 黄页：浏览来源、场景与选型，通过一个 npm/MCP 入口按需获取人工精选维护的 Skill。",
+  description: "给人和 AI Agent 的能力资源目录：浏览 Skill、MCP 与插件来源，通过一个 npm/MCP 入口按需获取人工精选维护的 Skill。",
   url: process.env.SITE_URL || "https://skillflux.cn",
   locale: "zh-CN",
   author: "SkillFlux",

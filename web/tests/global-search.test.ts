@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { isGlobalSearchEntry, searchGlobalIndex, type GlobalSearchEntry } from '../src/lib/global-search';
 import { GET } from '../src/pages/search-index.json';
 import { getSites } from '../src/lib/content';
-import { useCases, collections } from '../src/lib/editorial';
 import { localizePath } from '../src/lib/i18n';
 
 const entry = (id: string, changes: Partial<GlobalSearchEntry> = {}): GlobalSearchEntry => ({ id, lang: 'zh', kind: 'source', title: id, description: 'Agent tools', keywords: '', href: `/resource/${id}/`, ...changes });
@@ -15,9 +14,9 @@ describe('global search', () => {
     expect(searchGlobalIndex(items, 'missing', 'zh')).toEqual([]);
   });
   it('keeps language-specific links and includes Chinese partial phrase matches', () => {
-    const items = [entry('zh', { title: '代码审查', kind: 'use-case', href: '/use-case/code-review/' }), entry('en', { title: 'Code review', lang: 'en', href: '/en/use-case/code-review/', keywords: '代码审查' })];
-    expect(searchGlobalIndex(items, '审查', 'zh').map(item => item.href)).toEqual(['/use-case/code-review/']);
-    expect(searchGlobalIndex(items, '审查', 'en').map(item => item.href)).toEqual(['/en/use-case/code-review/']);
+    const items = [entry('zh', { title: '代码审查', kind: 'page', href: '/scenarios/choose-a-source/' }), entry('en', { title: 'Code review', lang: 'en', href: '/en/scenarios/choose-a-source/', keywords: '代码审查' })];
+    expect(searchGlobalIndex(items, '审查', 'zh').map(item => item.href)).toEqual(['/scenarios/choose-a-source/']);
+    expect(searchGlobalIndex(items, '审查', 'en').map(item => item.href)).toEqual(['/en/scenarios/choose-a-source/']);
     expect(searchGlobalIndex(items, '', 'en')).toHaveLength(1);
   });
   it('rejects noninternal links and malformed indexes before creating result anchors', () => {
@@ -33,8 +32,6 @@ describe('global search', () => {
     for (const lang of ['zh', 'en'] as const) {
       const entries = payload.entries.filter(item => item.lang === lang);
       expect(entries.filter(item => item.kind === 'source').map(item => item.href)).toEqual(getSites().map(site => localizePath(`/resource/${site.resourceSlug}/`, lang)));
-      expect(entries.filter(item => item.kind === 'use-case').map(item => item.href)).toEqual(useCases.map(item => localizePath(`/use-case/${item.slug}/`, lang)));
-      expect(entries.filter(item => item.kind === 'collection').map(item => item.href)).toEqual(collections.map(item => localizePath(`/collection/${item.slug}/`, lang)));
     }
   });
 });

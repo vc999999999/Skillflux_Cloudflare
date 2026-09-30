@@ -2,7 +2,6 @@
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { absoluteUrl, getCategoryBySlug, getRelatedSites, getSiteBySlug, getTagIndex, type Site } from "../lib/content";
-import { collections, getUseCase } from "../lib/editorial";
 import { getGuideBySlug } from "../lib/guides";
 import { getResourceEditorial } from "../lib/resource-editorial";
 import {
@@ -34,18 +33,24 @@ const updatedAt = site.updatedAt;
 const sourceCategory = getCategoryBySlug(site.category);
 const categoryLabel = translateCategory(site.category, sourceCategory?.label ?? site.category, lang);
 const related = getRelatedSites(site, 4);
+const useCaseLabels: Record<string, { zh: string; en: string }> = {
+  coding: { zh: '编程与开发', en: 'Coding & development' },
+  mobile: { zh: '移动应用开发', en: 'Mobile development' },
+  writing: { zh: '内容与写作', en: 'Content & writing' },
+  video: { zh: '视频与媒体', en: 'Video & media' },
+  planning: { zh: '长任务与规划', en: 'Planning & long tasks' },
+  security: { zh: '安全与审查', en: 'Security & review' },
+  'discover-skills': { zh: '发现合适的 Skill', en: 'Find the right skill' },
+  mcp: { zh: '连接工具与 MCP', en: 'Tools & MCP' }
+};
 const useCases = (editorial?.useCases ?? []).flatMap(slug => {
-  const entry = getUseCase(slug);
-  return entry ? [entry] : [];
+  const label = useCaseLabels[slug];
+  return label ? [{ slug, label }] : [];
 });
 const alternatives = (editorial?.alternativeSlugs ?? []).flatMap(slug => {
   const alternative = getSiteBySlug(slug);
   return alternative && alternative.indexable ? [alternative] : [];
 });
-const relatedCollections = collections.filter(entry => entry.siteSlugs.includes(site.slug));
-const comparisonCollections = relatedCollections.length ? relatedCollections : collections.filter(entry =>
-  entry.siteSlugs.some(slug => editorial?.alternativeSlugs.includes(slug))
-).slice(0, 2);
 const relatedGuides = (editorial?.relatedGuideSlugs ?? []).flatMap(slug => {
   const guide = getGuideBySlug(slug);
   return guide ? [guide] : [];
@@ -122,7 +127,7 @@ const jsonLd = [
             </section>
             <section class="prose-block" data-seo-section="use-cases" aria-labelledby="use-cases-heading">
               <h2 id="use-cases-heading">{zh ? '使用场景' : 'Use cases'}</h2>
-              <ul class="editorial-links">{useCases.map(entry => <li><a href={localizePath(`/use-case/${entry.slug}/`, lang)}>{entry.title[lang]}</a><p>{entry.summary[lang]}</p></li>)}</ul>
+              <ul class="editorial-links">{useCases.map(entry => <li>{entry.label[lang]}</li>)}</ul>
             </section>
             <section class="prose-block" data-seo-section="notes" aria-labelledby="notes-heading">
               <h2 id="notes-heading">{zh ? 'SkillFlux 选用建议' : 'SkillFlux notes'}</h2>
@@ -154,10 +159,7 @@ const jsonLd = [
             <h2>{zh ? '相关指南' : 'Related guides'}</h2>
             <ul class="editorial-links">{relatedGuides.map(guide => <li><a href={localizePath(`/guides/${guide.slug}/`, lang)}>{guide.title[lang]}</a></li>)}</ul>
           </section>}
-          {comparisonCollections.length > 0 && <section class="side-box">
-            <h2>{zh ? (relatedCollections.length ? '收录于精选合集' : '继续比较来源') : (relatedCollections.length ? 'Featured in collections' : 'Compare more sources')}</h2>
-            <ul class="editorial-links">{comparisonCollections.map(entry => <li><a href={localizePath(`/collection/${entry.slug}/`, lang)}>{entry.title[lang]}</a></li>)}</ul>
-          </section>}
+
           <section class="side-box">
             <h2>{copy.detail.tags}</h2>
             <div class="tag-list">{tagLinks.map(tag => tag.slug ? <a href={localizePath(`/tag/${tag.slug}/`, lang)}>{tag.label}</a> : <span>{tag.label}</span>)}</div>

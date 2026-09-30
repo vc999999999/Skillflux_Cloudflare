@@ -15,6 +15,19 @@ export type Faq = {
   a: string;
 };
 
+export type ResourceKind = "skill" | "mcp" | "plugin";
+
+const RESOURCE_KIND_RULES: Array<[ResourceKind, RegExp]> = [
+  ["skill", /agent[\s-]?skills?|skill/i],
+  ["mcp", /\bmcp\b/i],
+  ["plugin", /plugin|插件|extension|扩展|add-?on/i]
+];
+
+function deriveKinds(tags: string[], type: string): ResourceKind[] {
+  const haystack = `${tags.join(" ")} ${type}`;
+  return RESOURCE_KIND_RULES.filter(([, rule]) => rule.test(haystack)).map(([kind]) => kind);
+}
+
 export type Site = {
   id: string;
   slug: string;
@@ -29,6 +42,7 @@ export type Site = {
   language: string[];
   region: string;
   type: string;
+  kinds: ResourceKind[];
   scale: string;
   pricing: Pricing;
   tagline: string;
@@ -232,6 +246,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     language: requireStringArray(raw, "language", context),
     region: requireString(raw, "region", context),
     type,
+    kinds: deriveKinds(tags, type),
     scale: requireString(raw, "scale", context),
     pricing,
     tagline: editorial?.primaryCapability.zh ?? requireString(raw, "tagline", context),
@@ -286,6 +301,7 @@ export function validateCatalog(): Catalog {
     assert(!resourceSlugs.has(site.resourceSlug), `duplicate resource slug: ${site.resourceSlug}`);
     resourceSlugs.add(site.resourceSlug);
     assert(site.tags.length > 0, `${site.slug} must have at least one tag`);
+    assert(site.kinds.length > 0, `${site.slug} must map to a resource kind (skill/mcp/plugin)`);
     ids.add(site.id);
     slugs.add(site.slug);
     urls.add(site.canonicalUrl);
@@ -477,7 +493,7 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
   const tagIndex = getTagIndex().slice(0, 16);
 
   return [
-    "# SkillFlux 技流",
+    "# SkillFlux",
     "",
     SITE.description,
     "",
@@ -514,7 +530,7 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
 export function renderLlmsFullText(generatedAt = new Date().toISOString()): string {
   const labels = getPopularTags();
   const lines = [
-    "# SkillFlux 技流完整目录",
+    "# SkillFlux 完整目录",
     "",
     SITE.description,
     "",
@@ -535,6 +551,7 @@ export function renderLlmsFullText(generatedAt = new Date().toISOString()): stri
       `SkillFlux: ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`,
       `English: ${absoluteUrl(`/en/resource/${site.resourceSlug}/`)}`,
       `Type: ${site.type}`,
+      `Kinds: ${site.kinds.join(", ")}`,
       `Scale: ${site.scale}`,
       `Language: ${site.language.join(", ")}`,
       `Tags: ${site.tags.join(", ")}`,

@@ -117,7 +117,7 @@ test('explicit synthetic operator fixtures serve verifiable catalog, search, det
     const catalogResponse = await fetch(`${registry.baseUrl}/v1/catalog`);
     const signedCatalog = await json<Signed<Catalog>>(catalogResponse);
     const catalog = verifyPayload(signedCatalog, key);
-    assert.equal(catalog.skills.length, 6);
+    assert.equal(catalog.skills.length, 9);
     assert.ok(catalog.skills.every(skill => skill.status === 'approved'));
     assert.ok(catalog.skills.every(skill => skill.quality.automated.passed));
     assert.ok(catalog.skills.every(skill => skill.quality.review?.reviewer === 'SkillFlux operator'));
@@ -135,7 +135,7 @@ test('explicit synthetic operator fixtures serve verifiable catalog, search, det
 
     const browse = await json<SearchResponse>(await fetch(`${registry.baseUrl}/v1/search?limit=2&offset=2&sort=name`));
     assert.equal(browse.items.length, 2);
-    assert.equal(browse.total, 6);
+    assert.equal(browse.total, 9);
     assert.equal(browse.offset, 2);
     assert.ok(browse.items.every(item => item.score === undefined && item.reasons === undefined));
 

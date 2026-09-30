@@ -11,7 +11,7 @@ const sites = getSites();
 const stats = getDirectoryStats();
 const canonicalPath = localizePath('/directory/', lang);
 const title = zh ? '资源目录' : 'Resource directory';
-const description = zh ? '发现适合你工作流的 Agent Skills、MCP 与开源资源。按场景和来源筛选，查看原始链接。' : 'Find Agent Skills, MCP and open-source resources for your workflow. Filter by use case and source, then explore original links.';
+const description = zh ? '发现适合你工作流的 Agent Skills、MCP、插件与开源资源。按类型和来源筛选，查看原始链接。' : 'Find Agent Skills, MCP, plugins and open-source resources for your workflow. Filter by kind and source, then explore original links.';
 const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
@@ -29,7 +29,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
   .directory-heading h1 span { font-size: .74rem; color: var(--muted); letter-spacing: 0; border: 1px solid var(--line); border-radius: 5px; padding: 5px 8px; font-weight: 500; }
   .directory-heading p:last-child { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.8; max-width: 650px; }
   .directory-heading > a { flex-shrink: 0; font-size: .74rem; text-decoration: none; margin-bottom: 3px; }.directory-heading > a span { margin-left: 9px; }
-  .source-note { display: flex; align-items: center; gap: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--cream, #f6f6f6); }
+  .source-note { display: flex; align-items: center; gap: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--cream, #f9f8f4); }
   .source-note strong { font-size: .8rem; white-space: nowrap; }.source-note p { margin: 0; font-size: .74rem; line-height: 1.8; color: var(--muted); flex: 1; }.source-note a { white-space: nowrap; font-size: .72rem; font-weight: 600; text-decoration: none; }
   @media (max-width: 760px) { .directory-page { padding-top: 32px; }.directory-heading { display: block; }.directory-heading > a { display: inline-block; margin-top: 16px; }.directory-heading p:last-child { font-size: .8rem; }.source-note { display: block; padding: 20px; }.source-note p { margin: 10px 0 13px; } }
 </style>

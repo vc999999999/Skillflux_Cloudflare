@@ -1,12 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#e9e9e6" stroke-width="1"/></pattern></defs>
-  <rect width="1200" height="630" fill="#fcfcfb"/><rect width="1200" height="630" fill="url(#grid)"/>
-  <rect x="72" y="60" width="40" height="40" rx="7" fill="#171819"/><text x="82" y="88" fill="#fff" font-family="sans-serif" font-size="25" font-weight="700">sf</text>
-  <text x="128" y="88" fill="#171819" font-family="sans-serif" font-size="28" font-weight="600">SkillFlux</text>
-  <circle cx="79" cy="199" r="4" fill="#338551"/><text x="96" y="205" fill="#65666a" font-family="monospace" font-size="15" letter-spacing="1">AGENT SKILL &amp; MCP DIRECTORY</text>
-  <text x="72" y="304" fill="#171819" font-family="sans-serif" font-size="59" font-weight="700" letter-spacing="-2">Find the right agent capability.</text>
-  <text x="72" y="378" fill="#77797b" font-family="sans-serif" font-size="57" font-weight="600" letter-spacing="-2">From discovery to your project.</text>
-  <text x="74" y="446" fill="#65666a" font-family="sans-serif" font-size="23">Sources, use cases, curated collections and reviewed skill releases.</text>
-  <rect x="72" y="501" width="191" height="48" rx="6" fill="#171819"/><text x="92" y="532" fill="#fff" font-family="sans-serif" font-size="18">Explore Directory →</text>
-  <text x="1128" y="536" text-anchor="end" fill="#65666a" font-family="monospace" font-size="19">skillflux.cn</text>
+  <defs><pattern id="rules" width="1200" height="28" patternUnits="userSpaceOnUse"><path d="M0 27.5H1200" fill="none" stroke="#17150f" stroke-opacity="0.05" stroke-width="1"/></pattern></defs>
+  <rect width="1200" height="630" fill="#f3f2ec"/><rect width="1200" height="630" fill="url(#rules)"/>
+  <rect x="72" y="60" width="1056" height="8" fill="#17150f"/>
+  <g transform="translate(72,88)">
+    <rect x="14" y="17" width="36" height="8" fill="#17150f"/>
+    <path d="M14 29h22l14 8-14 8H14z" fill="#e0381f"/>
+    <rect x="14" y="45" width="36" height="8" fill="#17150f"/>
+  </g>
+  <text x="152" y="150" fill="#17150f" font-family="sans-serif" font-size="58" font-weight="900" letter-spacing="-1">SkillFlux</text>
+  <circle cx="79" cy="216" r="4" fill="#1f6f54"/><text x="96" y="222" fill="#686356" font-family="monospace" font-size="15" letter-spacing="1">AGENT SKILL &amp; MCP DIRECTORY</text>
+  <text x="72" y="330" fill="#17150f" font-family="sans-serif" font-size="59" font-weight="700" letter-spacing="-2">Find the right agent capability.</text>
+  <text x="72" y="404" fill="#686356" font-family="sans-serif" font-size="57" font-weight="600" letter-spacing="-2">From discovery to your project.</text>
+  <text x="74" y="472" fill="#686356" font-family="sans-serif" font-size="23">Skill, MCP and plugin sources, scenarios and reviewed skill releases.</text>
+  <rect x="72" y="527" width="191" height="48" fill="#e0381f"/><text x="92" y="558" fill="#fff" font-family="sans-serif" font-size="18">Explore Directory →</text>
+  <text x="1128" y="562" text-anchor="end" fill="#686356" font-family="monospace" font-size="19">skillflux.cn</text>
 </svg>

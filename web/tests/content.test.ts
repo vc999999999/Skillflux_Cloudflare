@@ -107,7 +107,7 @@ describe("SkillFlux catalog", () => {
   it("renders full LLM text that includes every resource name", () => {
     const text = renderLlmsFullText("2026-06-24T00:00:00.000Z");
 
-    expect(text).toContain("# SkillFlux 技流完整目录");
+    expect(text).toContain("# SkillFlux 完整目录");
     expect(text).toContain("## 标签");
     for (const site of getSites()) {
       expect(text).toContain(site.name);

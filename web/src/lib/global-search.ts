@@ -1,5 +1,5 @@
 export type SearchLanguage = 'zh' | 'en';
-export type SearchKind = 'source' | 'use-case' | 'collection' | 'guide' | 'skill' | 'page';
+export type SearchKind = 'source' | 'guide' | 'skill' | 'page';
 export interface GlobalSearchEntry {
   id: string;
   lang: SearchLanguage;
@@ -35,6 +35,6 @@ export function isGlobalSearchEntry(value: unknown): value is GlobalSearchEntry 
   const item = value as Record<string, unknown>;
   return ['id', 'title', 'description', 'keywords', 'href'].every(key => typeof item[key] === 'string')
     && (item.lang === 'zh' || item.lang === 'en')
-    && ['source', 'use-case', 'collection', 'guide', 'skill', 'page'].includes(String(item.kind))
+    && ['source', 'guide', 'skill', 'page'].includes(String(item.kind))
     && /^\/(?!\/)/.test(String(item.href)) && !/[\\\u0000-\u001f]/.test(String(item.href));
 }

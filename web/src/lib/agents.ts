@@ -1,6 +1,6 @@
 import type { Language } from './i18n';
 type Text = Record<Language, string>;
-export type AgentEntry = { slug: string; name: string; summary: Text; guidance: Text[]; sourceSlugs: string[]; useCases: string[] };
+export type AgentEntry = { slug: string; name: string; summary: Text; guidance: Text[]; sourceSlugs: string[] };
 export const agents: AgentEntry[] = [
   {
     slug: 'claude', name: 'Claude',
@@ -10,7 +10,7 @@ export const agents: AgentEntry[] = [
       { zh: 'Claude 网页、桌面应用与 Claude Code 的文件和工具接入方式并不相同。按你实际使用的产品阅读来源说明，确认当前环境能否运行其中的命令。', en: 'File and tool workflows differ across Claude products and Claude Code. Read the source instructions for the product you actually use and check whether the commands are available in that environment.' },
       { zh: 'SkillFlux 的本地安装流程通过项目 MCP 入口提供已审核版本。先查看安装指南，再从具体使用场景缩小候选范围；本页的外部来源清单不等于版本审核。', en: 'The local SkillFlux workflow exposes reviewed releases through a project MCP entry point. Follow the installation guide and narrow the shortlist by use case. Inclusion in this external source list is separate from release qualification.' }
     ],
-    sourceSlugs: ['github-com-anthropics-skills', 'claude-plugins-dev', 'github-com-composiohq-awesome-claude-skills'], useCases: ['coding', 'writing', 'planning']
+    sourceSlugs: ['github-com-anthropics-skills', 'claude-plugins-dev', 'github-com-composiohq-awesome-claude-skills']
   },
   {
     slug: 'codex', name: 'Codex',
@@ -20,7 +20,7 @@ export const agents: AgentEntry[] = [
       { zh: '检查 Skill 是否依赖特定宿主命令、配置位置或外部服务。可迁移的文字说明与绑定宿主的工具调用应分开判断，不要仅凭资源名称认定兼容。', en: 'Check for host-specific commands, configuration paths and external services. Portable written guidance and host-dependent tool calls should be assessed separately; a resource name is not sufficient evidence of compatibility.' },
       { zh: '本项目提供 Codex 的 MCP 接入流程。阅读安装指南配置项目后，选择已公开的具体版本，并用已有测试检查运行结果。外部资源详情中的局限与替代方案可帮助你比较候选。', en: 'This project provides a Codex MCP setup workflow. Configure the project through the installation guide, choose an available exact release and use existing tests to evaluate the result. Resource limitations and alternatives help compare external candidates.' }
     ],
-    sourceSlugs: ['github-com-obra-superpowers', 'github-com-othmanadi-planning-with-files', 'skills-sh'], useCases: ['coding', 'planning', 'discover-skills']
+    sourceSlugs: ['github-com-obra-superpowers', 'github-com-othmanadi-planning-with-files', 'skills-sh']
   },
   {
     slug: 'cursor', name: 'Cursor',
@@ -30,6 +30,6 @@ export const agents: AgentEntry[] = [
       { zh: '开发清单适合建立候选范围，专门的计划项目适合查看文件如何保存任务上下文。回到每个项目原始文档，核对是否需要把特定宿主配置适配到当前工作区。', en: 'Development lists help form a shortlist, while focused planning projects show how files can preserve task context. Return to each original project to check whether host-specific configuration needs adaptation in the current workspace.' },
       { zh: '使用 SkillFlux 时，按安装指南配置 Cursor 的项目 MCP。接入成功与某个外部来源的兼容性是不同判断；只对实际发布且符合审核要求的版本提供安装流程。', en: 'For SkillFlux, configure the project MCP using the Cursor installation instructions. A working connection and compatibility of an external source are separate checks. The installation workflow applies to published releases that meet qualification requirements.' }
     ],
-    sourceSlugs: ['github-com-voltagent-awesome-agent-skills', 'github-com-othmanadi-planning-with-files', 'skillsmp-com'], useCases: ['coding', 'planning', 'mcp']
+    sourceSlugs: ['github-com-voltagent-awesome-agent-skills', 'github-com-othmanadi-planning-with-files', 'skillsmp-com']
   }
 ];

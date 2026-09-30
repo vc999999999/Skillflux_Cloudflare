@@ -1,6 +1,0 @@
----
-import EditorialDetailPage from '../../../components/EditorialDetailPage.astro';
-import { collections } from '../../../lib/editorial';
-export function getStaticPaths() { return collections.map(({ slug }) => ({ params: { slug }, props: { slug } })); }
----
-<EditorialDetailPage kind="collection" slug={Astro.props.slug} lang="en" />

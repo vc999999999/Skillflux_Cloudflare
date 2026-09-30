@@ -4,7 +4,6 @@ import Breadcrumb from './Breadcrumb.astro';
 import ResourceTable from './ResourceTable.astro';
 import { absoluteUrl, getIndexableSites } from '../lib/content';
 import { agents, type AgentEntry } from '../lib/agents';
-import { getUseCase } from '../lib/editorial';
 import { localizePath, type Language } from '../lib/i18n';
 const { entry, lang = 'zh' } = Astro.props as { entry: AgentEntry; lang?: Language };
 const zh = lang === 'zh';
@@ -23,7 +22,7 @@ const jsonLd = [
     <h1>{title}</h1><p class="intro">{entry.summary[lang]}</p>
     <section><h2>{zh ? '如何选择' : 'How to choose'}</h2>{entry.guidance.map(text => <p>{text[lang]}</p>)}</section>
     <ResourceTable sites={sites} lang={lang} heading={zh ? '值得研究的来源' : 'Sources to investigate'} />
-    <section><h2>{zh ? '按任务继续阅读' : 'Continue by task'}</h2><ul>{entry.useCases.map(slug => { const item = getUseCase(slug); return item && <li><a href={localizePath(`/use-case/${slug}/`, lang)}>{item.title[lang]}</a></li>; })}</ul><p><a href={localizePath('/install/', lang)}>{zh ? 'SkillFlux 安装与 MCP 接入指南' : 'SkillFlux installation and MCP setup'}</a></p></section>
+    <section><h2>{zh ? '接入你的项目' : 'Connect your project'}</h2><p><a href={localizePath('/install/', lang)}>{zh ? 'SkillFlux 安装与 MCP 接入指南' : 'SkillFlux installation and MCP setup'}</a></p></section>
     <nav aria-label={zh ? '其他 Agent' : 'Other agents'}>{agents.filter(agent => agent.slug !== entry.slug).map(agent => <a href={localizePath(`/agents/${agent.slug}/`, lang)}>{agent.name}</a>)}</nav>
   </main>
 </BaseLayout>

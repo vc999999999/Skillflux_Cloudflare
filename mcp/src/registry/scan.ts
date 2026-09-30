@@ -6,8 +6,8 @@ export const MAX_BUNDLE_BYTES = 512 * 1024;
 export const MAX_BUNDLE_FILES = 64;
 
 const deniedExtensions = new Set([
-  '.7z', '.app', '.bat', '.bin', '.cmd', '.com', '.dll', '.dmg', '.exe', '.gz',
-  '.jar', '.js', '.mjs', '.cjs', '.msi', '.node', '.ps1', '.py', '.rb', '.sh',
+  '.7z', '.app', '.bin', '.com', '.dll', '.dmg', '.exe', '.gz',
+  '.jar', '.msi', '.node',
   '.so', '.tar', '.tgz', '.wasm', '.xz', '.zip',
 ]);
 
@@ -76,7 +76,6 @@ export function scanSubmission(submission: Submission, checkedAt = new Date().to
     }
     if (deniedExtensions.has(extension)) failures.push(`${path}: executable or archive extension is not allowed`);
     if (content.includes('\u0000')) failures.push(`${path}: NUL byte is not valid text content`);
-    if (/^#!\s*\//.test(content)) failures.push(`${path}: executable shebang is not allowed`);
     for (const secret of secretPatterns) {
       if (secret.pattern.test(content)) failures.push(`${path}: possible ${secret.name}`);
     }
@@ -93,7 +92,7 @@ export function scanSubmission(submission: Submission, checkedAt = new Date().to
   checks.push('file-directory-path-collisions');
   checks.push('filesystem-segment-byte-limits');
   checks.push('entry-present');
-  checks.push('text-only-no-executable-extension');
+  checks.push('no-binary-or-archive-extension');
   checks.push('secret-pattern-scan');
   checks.push('instruction-risk-pattern-scan');
   checks.push('declarative-permissions-only');

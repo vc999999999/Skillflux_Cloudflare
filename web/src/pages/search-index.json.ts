@@ -1,5 +1,4 @@
 import { getSites } from '../lib/content';
-import { useCases, collections } from '../lib/editorial';
 import { getGuides } from '../lib/guides';
 import { getSiteCopy, localizePath, type Language } from '../lib/i18n';
 import { getPublication, skillPath } from '../lib/publication';
@@ -17,8 +16,6 @@ export function GET() {
       entries.push({ id: `source:${site.slug}:${lang}`, lang, kind: 'source', title: copy.name, description: copy.tagline,
         href: localizePath(`/resource/${site.resourceSlug}/`, lang), keywords: `${site.name} ${site.summary} ${copy.summary} ${site.tags.join(' ')} ${copy.tags.join(' ')} ${site.category} ${site.type}` });
     }
-    for (const entry of useCases) entries.push({ id: `use-case:${entry.slug}:${lang}`, lang, kind: 'use-case', title: entry.title[lang], description: entry.summary[lang], href: localizePath(`/use-case/${entry.slug}/`, lang), keywords: `${entry.title.zh} ${entry.title.en} ${entry.siteSlugs.join(' ')}` });
-    for (const entry of collections) entries.push({ id: `collection:${entry.slug}:${lang}`, lang, kind: 'collection', title: entry.title[lang], description: entry.summary[lang], href: localizePath(`/collection/${entry.slug}/`, lang), keywords: `${entry.title.zh} ${entry.title.en} ${entry.siteSlugs.join(' ')}` });
     for (const guide of getGuides()) entries.push({ id: `guide:${guide.slug}:${lang}`, lang, kind: 'guide', title: guide.title[lang], description: guide.description[lang], href: localizePath(`/guides/${guide.slug}/`, lang), keywords: `${guide.title.zh} ${guide.title.en}` });
     for (const scenario of scenarios) entries.push({ id: `scenario:${scenario.slug}:${lang}`, lang, kind: 'guide', title: scenario.title[lang], description: scenario.summary[lang], href: localizePath(`/scenarios/${scenario.slug}/`, lang), keywords: scenario.sections.map(section => `${section.title[lang]} ${section.body[lang]}`).join(' ') });
     for (const { skill } of publication.latest) entries.push({ id: `skill:${skill.id}:${lang}`, lang, kind: 'skill', title: skill.name, description: skill.description, href: localizePath(skillPath(skill.id), lang), keywords: `${skill.id} ${skill.tags.join(' ')} ${skill.hosts.join(' ')} ${skill.publisher}` });

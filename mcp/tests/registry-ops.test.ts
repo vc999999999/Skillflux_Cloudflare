@@ -35,7 +35,7 @@ function storeDecision(store: RegistryStore, campaign: Campaign, requestId: stri
 
 test('development seeds and historical approvals cannot appear as tested publications', async t => {
   const { api, store } = await setup(t, true);
-  assert.equal(store.listSkills().length, 6);
+  assert.equal(store.listSkills().length, 9);
   assert.ok(store.listSkills().every(record => record.summary.status === 'pending'));
   const record = store.listSkills()[0]!;
   store.database.prepare("UPDATE skills SET status = 'approved' WHERE id = ? AND version = ?").run(record.summary.id, record.summary.version);

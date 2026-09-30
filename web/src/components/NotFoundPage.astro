@@ -9,7 +9,7 @@ const zh = lang === 'zh';
     <p class="eyebrow">404 · SkillFlux</p>
     <h1>{zh ? '这个地址没有对应的页面。' : 'There is no page at this address.'}</h1>
     <p>{zh ? '地址可能有误，或该版本从未公开发布。已公开版本如果撤销，会保留状态说明；不会自动跳到其他版本。' : 'The address may be incorrect, or the release was never published. Revoked public releases retain a status page; they are not silently replaced by another version.'}</p>
-    <div><a class="button primary" href={localizePath('/directory/', lang)}>{zh ? '浏览 Skill 黄页' : 'Browse source directory'}</a><a class="button secondary" href={localizePath('/use-cases/', lang)}>{zh ? '热门使用场景' : 'Popular use cases'}</a><a href={localizePath('/', lang)}>{zh ? '返回首页' : 'Back home'}</a></div>
+    <div><a class="button primary" href={localizePath('/directory/', lang)}>{zh ? '浏览 Skill 黄页' : 'Browse source directory'}</a><a class="button secondary" href={localizePath('/guides/', lang)}>{zh ? '查看指南' : 'Read guides'}</a><a href={localizePath('/', lang)}>{zh ? '返回首页' : 'Back home'}</a></div>
   </main>
 </BaseLayout>
 <style>

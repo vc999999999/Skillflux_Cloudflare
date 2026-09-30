@@ -1,7 +1,7 @@
 import { absoluteUrl } from './content';
 import { getPublication, skillPath, type Publication } from './publication';
 import { scenarios } from './scenarios';
-import { useCases, collections } from './editorial';
+
 
 export function discoveryIndex(publication: Publication = getPublication()) {
   return {
@@ -12,8 +12,6 @@ export function discoveryIndex(publication: Publication = getPublication()) {
       skills: publication.latest.map(({ skill }) => ({ ...skill, url: absoluteUrl(skillPath(skill.id)), versionUrl: absoluteUrl(skillPath(skill.id, skill.version)) })),
       versions: publication.statuses.map(status => ({ ...status, url: absoluteUrl(skillPath(status.id, status.version)) })),
     },
-    useCases: useCases.map(entry => ({ slug: entry.slug, title: entry.title, description: entry.summary, sourceSlugs: entry.siteSlugs, url: absoluteUrl(`/use-case/${entry.slug}/`), englishUrl: absoluteUrl(`/en/use-case/${entry.slug}/`) })),
-    collections: collections.map(entry => ({ slug: entry.slug, title: entry.title, description: entry.summary, sourceSlugs: entry.siteSlugs, url: absoluteUrl(`/collection/${entry.slug}/`), englishUrl: absoluteUrl(`/en/collection/${entry.slug}/`) })),
     scenarios: scenarios.map(scenario => ({ slug: scenario.slug, title: scenario.title, description: scenario.summary, updatedAt: scenario.updatedAt, url: absoluteUrl(`/scenarios/${scenario.slug}/`), englishUrl: absoluteUrl(`/en/scenarios/${scenario.slug}/`) })),
   };
 }
@@ -24,10 +22,6 @@ export function renderDiscoveryText(full = false, publication: Publication = get
     'This static site offers discoverable HTML and machine-readable indexes. It does not guarantee search/AI inclusion, training use, ranking or model recommendations.',
     '', '## 场景与选型 / Scenarios & selection',
     ...index.scenarios.map(scenario => `- ${scenario.title.zh} / ${scenario.title.en}: ${scenario.description.zh} ${scenario.url}`),
-    '', '## 使用场景 / Use cases',
-    ...index.useCases.map(entry => `- ${entry.title.zh} / ${entry.title.en}: ${entry.description.zh} ${entry.url}`),
-    '', '## 精选合集 / Editorial collections',
-    ...index.collections.map(entry => `- ${entry.title.zh} / ${entry.title.en}: ${entry.description.zh} ${entry.url}`),
     '', '## 精品 Skill / Curated releases', `Snapshot: ${index.curated.snapshotAt ?? 'Not synchronized'}`,
     `Registry: ${index.curated.registry ?? 'Not configured'}`,
     ...(index.curated.skills.length ? [] : ['No qualified releases in this static snapshot. Development samples are not published as human-tested skills.']),

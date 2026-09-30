@@ -88,8 +88,8 @@ def main():
                 evidence['checks'].append('populated exact release, original text and clipboard command')
 
             routes = ['/', '/en/', '/directory/', '/en/directory/', '/registry/', '/en/registry/', '/scenarios/', '/en/scenarios/', '/setup/', '/en/setup/', '/quality/', '/privacy/', '/terms/', '/advertise/', '/contact/', '/report/', '/404.html', '/en/404/', '/guides/', '/insights/']
-            routes += ['/use-cases/', '/en/use-cases/', '/collections/', '/en/collections/', '/for-ai/', '/en/for-ai/']
-            for section in ['scenarios', 'useCases', 'collections']:
+            routes += ['/for-ai/', '/en/for-ai/']
+            for section in ['scenarios']:
                 routes += [urlparse(item[key]).path for item in payload[section] for key in ['url', 'englishUrl']]
             routes += [urlparse(item['versionUrl']).path for item in payload['curated']['skills']]
             for width in [1440, 768, 390, 320]:
@@ -140,16 +140,11 @@ def main():
             static_page.goto(args.base + '/scenarios/', wait_until='networkidle')
             for item in payload['scenarios']:
                 assert item['title']['zh'] in static_page.locator('main').inner_text()
-            for section, route in [('useCases', '/use-cases/'), ('collections', '/collections/')]:
-                for language, prefix in [('zh', ''), ('en', '/en')]:
-                    static_page.goto(args.base + prefix + route, wait_until='networkidle')
-                    for item in payload[section]:
-                        assert item['title'][language] in static_page.locator('main').inner_text()
-            evidence['checks'].append('JavaScript disabled: all source rows, curated cards/text, scenarios and bilingual editorial lists remain server-rendered')
+            evidence['checks'].append('JavaScript disabled: all source rows, curated cards/text and scenarios remain server-rendered')
             nojs.close()
 
             all_links = set()
-            for route in ['/', '/en/', '/directory/', '/scenarios/', '/registry/', '/use-cases/', '/en/use-cases/', '/collections/', '/en/collections/', '/for-ai/']:
+            for route in ['/', '/en/', '/directory/', '/scenarios/', '/registry/', '/for-ai/']:
                 page.goto(args.base + route, wait_until='networkidle')
                 for href in page.locator('a[href]').evaluate_all('(links) => links.map(link => link.href)'):
                     if href.startswith(args.base):

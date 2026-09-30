@@ -4,7 +4,6 @@ import Icon from './Icon.astro';
 import RegistryExplorer from './RegistryExplorer.astro';
 import { absoluteUrl, getCategories, getDirectoryStats, getSiteBySlug, getTagIndex } from '../lib/content';
 import { localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
-import { useCases, collections, getEditorialSites } from '../lib/editorial';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
 import { getPublication } from '../lib/publication';
@@ -60,14 +59,10 @@ const command = 'skillflux search "code review"';
     </section>
     <div class="home-container">
       <dl class="home-stats">
-        {[[stats.resourceCount, zh ? '收录来源' : 'Indexed sources', zh ? 'Skills、MCP 与工具入口' : 'Skills, MCP and tool sources'], [stats.labelCount, zh ? '主题标签' : 'Topics & labels', zh ? '按兴趣发现资源' : 'Explore the ecosystem'], [collections.length, zh ? '编辑合集' : 'Curated collections', zh ? '按目的整理的短名单' : 'Shortlists with a purpose'], [categories.length, zh ? '来源类型' : 'Source types', zh ? '从官方厂商到社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
+        {[[stats.resourceCount, zh ? '收录来源' : 'Indexed sources', zh ? 'Skills、MCP 与工具入口' : 'Skills, MCP and tool sources'], [stats.labelCount, zh ? '主题标签' : 'Topics & labels', zh ? '按兴趣发现资源' : 'Explore the ecosystem'], [stats.recommendedCount, zh ? '编辑推荐' : 'Editor picks', zh ? '有入选理由的来源' : 'Sources with reasons attached'], [categories.length, zh ? '来源类型' : 'Source types', zh ? '从官方厂商到社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
       </dl>
-      <section class="home-section" aria-labelledby="use-cases-title">
-        <div class="section-top"><div><p class="eyebrow">CHOOSE BY TASK</p><h2 id="use-cases-title">{zh ? '你想让 Agent 完成什么？' : 'What do you want your agent to do?'}</h2><p>{zh ? '从要完成的事情出发。每个场景都有一份相关来源清单和具体的选择建议。' : 'Start from the job. Each use case brings together relevant sources and practical guidance for choosing.'}</p></div><a href={href('/use-cases/')}>{zh ? '全部用途' : 'All use cases'} <Icon size={16} /></a></div>
-        <div class="use-case-grid">{useCases.map((item) => <a class="use-case-card" href={href(`/use-case/${item.slug}/`)}><div class="card-icons"><Icon name={item.icon} /><Icon name="external" size={16} /></div><h3>{item.title[lang]}</h3><p>{item.summary[lang]}</p><div class="case-count"><span class="tiny-dot"></span>{getEditorialSites(item).length} {zh ? '个相关来源' : 'related sources'}</div><small>{zh ? '查看来源与选型建议' : 'Sources & selection notes'}</small></a>)}</div>
-      </section>
       <section class="home-section" aria-labelledby="picks-title">
-        <div class="section-top"><div><p class="eyebrow">EDITORIAL · CURATED RECOMMENDATIONS</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '先看值得了解的来源。推荐理由和适用方向，一起给你。' : 'A few worthwhile starting points, with the reasoning and intended use attached.'}</p></div><a href={href('/collections/')}>{zh ? '浏览合集' : 'Browse collections'} <Icon size={16} /></a></div>
+        <div class="section-top"><div><p class="eyebrow">EDITORIAL · CURATED RECOMMENDATIONS</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '先看值得了解的来源。推荐理由和适用方向，一起给你。' : 'A few worthwhile starting points, with the reasoning and intended use attached.'}</p></div><a href={href('/directory/')}>{zh ? '浏览目录' : 'Browse directory'} <Icon size={16} /></a></div>
         <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE RECOMMEND IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{zh ? '来源推荐' : 'Source recommendation'}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
         <p class="quiet-note">{zh ? '编辑推荐帮助你发现来源；可安装的审核版本请查看' : 'Editorial picks help you discover sources. For reviewed, installable releases, visit the'} <a href={href('/registry/')}>{zh ? '精品 Skill 目录' : 'curated skill registry'} ↗</a></p>
       </section>
@@ -87,10 +82,6 @@ const command = 'skillflux search "code review"';
         <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon name="external" size={13} /></small></a>)}</div>
         <div class="topic-row"><span>{zh ? '主题' : 'TOPICS'}</span>{tags.map(tag => <a href={href(`/tag/${tag.slug}/`)}># {translateTag(tag.tag, lang)}</a>)}</div>
       </section>
-      <section class="home-section" aria-labelledby="collections-title">
-        <div class="section-top"><div><p class="eyebrow">EDITORIAL · COLLECTIONS</p><h2 id="collections-title">{zh ? '有选择的清单，有目的的探索。' : 'Curated shortlists, with a purpose.'}</h2><p>{zh ? '把相关来源放在一起。读懂适用方向，再选择自己的工作方式。' : 'Related sources, brought together. Understand the purpose before choosing your own setup.'}</p></div><a href={href('/collections/')}>{zh ? '全部合集' : 'All collections'} <Icon size={16} /></a></div>
-        <div class="collections-grid">{collections.map(collection => <a href={href(`/collection/${collection.slug}/`)}><div class="collection-top"><span>{getEditorialSites(collection).length} {zh ? '个来源' : 'SOURCES'}</span><Icon name="external" size={16} /></div><h3>{collection.title[lang]}</h3><p>{collection.summary[lang]}</p><small>{collection.kicker[lang]}</small></a>)}</div>
-      </section>
       <section class="home-section" aria-labelledby="guides-title">
         <div class="section-top"><div><p class="eyebrow">GUIDES</p><h2 id="guides-title">{zh ? '读懂 Agent Skill 生态' : 'Learn the agent skill ecosystem'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
         <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
@@ -101,34 +92,34 @@ const command = 'skillflux search "code review"';
 </BaseLayout>
 <style>
   .home-container { width: min(1088px, calc(100% - 48px)); margin: 0 auto; }
-  .home-hero { padding: 96px 0 48px; background-image: linear-gradient(#e9e9e880 1px, transparent 1px), linear-gradient(90deg, #e9e9e880 1px, transparent 1px); background-size: 32px 32px; border-bottom: 1px solid var(--line); }
-  .hero-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 5px 11px; border: 1px solid #dededb; border-radius: 20px; background: var(--paper); font: .69rem var(--font-mono); color: #626468; letter-spacing: .04em; }
+  .home-hero { padding: 96px 0 48px; background-image: linear-gradient(#eeece380 1px, transparent 1px), linear-gradient(90deg, #eeece380 1px, transparent 1px); background-size: 32px 32px; border-bottom: 1px solid var(--line); }
+  .hero-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 5px 11px; border: 1px solid #e4e0d2; border-radius: 20px; background: var(--paper); font: .69rem var(--font-mono); color: #6f6a5d; letter-spacing: .04em; }
   .hero-label > span, .tiny-dot { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
   h1 { font-size: clamp(2.3rem, 4.2vw, 3.75rem); margin: 0; line-height: 1.05; letter-spacing: -.046em; font-weight: 650; }
-  h1 .hero-secondary { color: #77797b; }
+  h1 .hero-secondary { color: #837e71; }
   .keep-together { white-space: nowrap; }
   :global(html[lang="zh-CN"]) h1 { line-height: 1.25; letter-spacing: -.05em; }
-  .hero-description { max-width: 760px; margin: 26px 0 32px; color: #5e6064; font-size: 1.12rem; line-height: 1.7; }
+  .hero-description { max-width: 760px; margin: 26px 0 32px; color: #6b6659; font-size: 1.12rem; line-height: 1.7; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-  .command-bar { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 12px; border-radius: 6px; background: #101111; color: #f5f5f4; border: 1px solid #343637; }
-  .command-bar > span { color: #888d8f; }
+  .command-bar { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 12px; border-radius: 6px; background: #17150f; color: #f7f7f2; border: 1px solid #3c392f; }
+  .command-bar > span { color: #969184; }
   .command-bar code { font-size: .69rem; }
-  .command-bar button { display: inline-flex; padding: 8px 0 8px 13px; background: none; border: 0; color: #c5c8c7; }
-  .command-bar button:hover { color: #fff; }
-  .works-with { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 23px; color: #626568; font-size: .8rem; }
+  .command-bar button { display: inline-flex; padding: 8px 0 8px 13px; background: none; border: 0; color: #c9c4b5; }
+  .command-bar button:hover { color: #fdfcf8; }
+  .works-with { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 23px; color: #6f6a5d; font-size: .8rem; }
   .works-with > span { display: inline-flex; gap: 7px; align-items: center; }
   .works-with > span:first-child { font: .7rem var(--font-mono); color: var(--faint); }
   .works-with a { color: var(--faint); text-decoration: none; font-size: .75rem; }
   .works-with a:hover { color: var(--ink); }
   .decision-signals { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 34px; font-size: .64rem; color: var(--muted); }
   .decision-signals > span:first-child { margin-right: 7px; font: .64rem var(--font-mono); }
-  .signal { border: 1px solid #dddeda; padding: 4px 8px; border-radius: 20px; background: var(--paper); }
+  .signal { border: 1px solid #e3dfd1; padding: 4px 8px; border-radius: 20px; background: var(--paper); }
   .decision-signals a { margin-left: 5px; text-decoration: none; }
-  .value-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid #dededc; border-radius: 8px; background: var(--paper); margin-top: 44px; }
+  .value-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid #e5e0d3; border-radius: 8px; background: var(--paper); margin-top: 44px; }
   .value-steps article { padding: 20px; }
   .value-steps article + article { border-left: 1px solid var(--line); }
   .value-steps article > div { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: .69rem var(--font-mono); }
-  .value-steps small { padding: 3px 6px; border-radius: 3px; background: #dff3e4; color: #285a38; font-size: .66rem; }
+  .value-steps small { padding: 3px 6px; border-radius: 3px; background: #efece3; color: #274b3d; font-size: .66rem; }
   .value-steps h2 { font-size: 1rem; margin: 11px 0 5px; font-weight: 600; }
   .value-steps p { font-size: .81rem; line-height: 1.55; color: var(--muted); margin: 0; }
   .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 32px 0; margin: 0; border-bottom: 1px solid var(--line); }
@@ -144,54 +135,44 @@ const command = 'skillflux search "code review"';
   .section-top p:not(.eyebrow) { font-size: .87rem; line-height: 1.7; color: var(--muted); max-width: 720px; margin: 13px 0 0; }
   .section-top > a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: .77rem; text-decoration: none; padding-bottom: 2px; }
   .section-top > a:hover { text-decoration: underline; }
-  .use-case-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-  .use-case-card { display: flex; flex-direction: column; min-width: 0; padding: 20px; text-decoration: none; border: 1px solid var(--line); border-radius: 7px; background: var(--paper-strong); transition: border-color .2s, transform .2s; }
-  .use-case-card:hover { border-color: #afb4ad; transform: translateY(-2px); }
-  .card-icons { display: flex; justify-content: space-between; color: #6c7070; }
-  .card-icons :global(svg:last-child) { color: #8d9090; }
-  .use-case-card h3 { margin: 22px 0 7px; font-size: .94rem; font-weight: 600; }
-  .use-case-card > p { font-size: .77rem; line-height: 1.6; margin: 0 0 22px; color: var(--muted); }
-  .case-count { display: flex; align-items: center; gap: 7px; margin-top: auto; font-size: .74rem; }
-  .case-count .tiny-dot { background: #959c97; width: 4px; height: 4px; }
-  .use-case-card small { font-size: .64rem; line-height: 1.6; color: var(--faint); border-top: 1px solid var(--line); margin-top: 15px; padding-top: 11px; }
   .picks-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .pick-card { border: 1px solid var(--line); border-radius: 8px; padding: 22px; background: var(--paper-strong); display: flex; flex-direction: column; }
   .pick-label { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
-  .pick-label > span { font-size: .63rem; padding: 4px 7px; border: 1px solid #d5e6d8; background: #f0f7f1; border-radius: 4px; color: #376345; }
+  .pick-label > span { font-size: .63rem; padding: 4px 7px; border: 1px solid #e5e1d4; background: #f6f6f1; border-radius: 4px; color: #345447; }
   .pick-label small { color: var(--muted); font: .58rem var(--font-mono); text-transform: uppercase; }
   .pick-card h3 { font-size: 1.12rem; font-weight: 600; margin: 22px 0 24px; }
   .pick-card h3 a { text-decoration: none; }
   .pick-card h4 { font: 400 .6rem var(--font-mono); letter-spacing: .035em; color: var(--faint); margin: 0 0 7px; }
-  .pick-card p { font-size: .82rem; line-height: 1.7; margin: 0 0 20px; color: #53565a; }
+  .pick-card p { font-size: .82rem; line-height: 1.7; margin: 0 0 20px; color: #605b4f; }
   .pick-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 15px; margin-top: auto; gap: 8px; }
   .pick-bottom > span { font-size: .63rem; color: var(--faint); }
   .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .74rem; text-decoration: none; }
   .quiet-note { margin: 18px 0 0; font-size: .74rem; color: var(--muted); line-height: 1.7; }
   .quiet-note a { text-decoration: none; color: var(--ink); }
-  .install-section { background: #f6f6f3; border-block: 1px solid var(--line); margin-top: 64px; padding: 64px 0 40px; }
+  .install-section { background: #f7f7f2; border-block: 1px solid var(--line); margin-top: 64px; padding: 64px 0 40px; }
   .install-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 70px; align-items: center; }
   .install-intro h2 { font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.13; letter-spacing: -.04em; font-weight: 600; margin: 0 0 20px; }
   .install-intro > p:not(.eyebrow) { font-size: .89rem; line-height: 1.75; color: var(--muted); margin: 0 0 22px; }
   .install-intro p.source-note { font-size: .67rem; margin-top: 12px; }
   .install-flow { display: flex; align-items: center; gap: 14px; font-size: .72rem; color: var(--muted); }
-  .terminal-demo { border-radius: 9px; border: 1px solid #333737; background: #151818; color: #e6e8e7; overflow: hidden; box-shadow: 0 8px 28px #1718190d; min-width: 0; }
-  .terminal-title { display: flex; justify-content: space-between; align-items: center; padding: 13px 17px; background: #1e2121; border-bottom: 1px solid #303434; color: #8e9793; font: .64rem var(--font-mono); }
+  .terminal-demo { border-radius: 9px; border: 1px solid #3b382f; background: #1b1812; color: #edebe1; overflow: hidden; box-shadow: 0 8px 28px #1c1a140d; min-width: 0; }
+  .terminal-title { display: flex; justify-content: space-between; align-items: center; padding: 13px 17px; background: #24221b; border-bottom: 1px solid #38352c; color: #9d988b; font: .64rem var(--font-mono); }
   .terminal-title > span:first-child { display: flex; gap: 5px; }
-  .terminal-title i { width: 6px; height: 6px; border-radius: 50%; background: #6e7572; }
+  .terminal-title i { width: 6px; height: 6px; border-radius: 50%; background: #7b7669; }
   .terminal-body { padding: 21px; font: .69rem/1.85 var(--font-mono); }
   .terminal-body p { margin: 10px 0; overflow-wrap: anywhere; }
-  .terminal-body p > span { color: #8c9b93; margin-right: 6px; }
-  .terminal-body .terminal-comment { margin: 17px 0 4px; color: #9aaba1; font-size: .65rem; }
+  .terminal-body p > span { color: #9e998c; margin-right: 6px; }
+  .terminal-body .terminal-comment { margin: 17px 0 4px; color: #aaa598; font-size: .65rem; }
   .terminal-body .terminal-comment:first-child { margin-top: 0; }
-  .terminal-foot { display: flex; align-items: center; gap: 8px; color: #b2c1b8; padding-top: 19px; margin-top: 21px; border-top: 1px solid #343a36; font-size: .61rem; }
-  .terminal-foot .tiny-dot { background: #8cbb93; }
-  .install-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 45px; border-top: 1px solid #dededa; padding-top: 28px; }
-  .install-benefits > div > :global(svg) { color: #777d76; }
+  .terminal-foot { display: flex; align-items: center; gap: 8px; color: #beb9aa; padding-top: 19px; margin-top: 21px; border-top: 1px solid #3e3a31; font-size: .61rem; }
+  .terminal-foot .tiny-dot { background: #78a795; }
+  .install-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 45px; border-top: 1px solid #e3dfd1; padding-top: 28px; }
+  .install-benefits > div > :global(svg) { color: #837e71; }
   .install-benefits h3 { font-weight: 500; font-size: .82rem; margin: 12px 0 7px; }
   .install-benefits p { font-size: .73rem; line-height: 1.6; color: var(--muted); margin: 0; }
   .source-type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
   .source-type-grid > a { border: 1px solid var(--line); border-radius: 6px; padding: 16px; text-decoration: none; display: flex; flex-direction: column; }
-  .source-type-grid > a:hover, .collections-grid > a:hover { border-color: #b8bcb6; background: #fff; }
+  .source-type-grid > a:hover { border-color: #beb9aa; background: #fdfcf8; }
   .source-type-grid a > div { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
   .source-type-grid h3 { font-size: .78rem; margin: 0; font-weight: 550; line-height: 1.5; }
   .source-type-grid a > div > span { font: .67rem var(--font-mono); color: var(--muted); background: var(--cream); padding: 3px 5px; border-radius: 3px; }
@@ -201,13 +182,6 @@ const command = 'skillflux search "code review"';
   .topic-row > span { font: .61rem var(--font-mono); margin-right: 7px; color: var(--faint); }
   .topic-row a { font-size: .67rem; border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; color: var(--muted); text-decoration: none; }
   .topic-row a:hover { color: var(--ink); background: var(--cream); }
-  .collections-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-  .collections-grid > a { display: flex; flex-direction: column; padding: 21px; border: 1px solid var(--line); border-radius: 7px; text-decoration: none; transition: border-color .2s; }
-  .collection-top { display: flex; justify-content: space-between; color: var(--faint); }
-  .collection-top span { font: .62rem var(--font-mono); }
-  .collections-grid h3 { font-size: .97rem; line-height: 1.45; margin: 24px 0 9px; font-weight: 550; }
-  .collections-grid p { font-size: .77rem; line-height: 1.7; color: var(--muted); margin: 0 0 20px; }
-  .collections-grid small { margin-top: auto; font-size: .68rem; line-height: 1.6; color: var(--faint); }
   .reading-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
   .reading-grid a { display: flex; flex-direction: column; border-top: 1px solid var(--line); padding-top: 18px; text-decoration: none; }
   .reading-grid small { font: .58rem var(--font-mono); color: var(--faint); }
@@ -215,18 +189,18 @@ const command = 'skillflux search "code review"';
   .reading-grid p { font-size: .74rem; line-height: 1.7; color: var(--muted); margin: 0 0 18px; }
   .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .65rem; color: var(--muted); }
   .reading-grid a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
-  .machine-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; border: 1px solid var(--line); border-radius: 8px; padding: 34px; margin: 64px 0; background: #f8f8f6; }
+  .machine-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; border: 1px solid var(--line); border-radius: 8px; padding: 34px; margin: 64px 0; background: #faf9f6; }
   .machine-section .eyebrow { font-size: .6rem; margin-bottom: 13px; }
   .machine-section h2 { font-size: 1.65rem; }
   .machine-section p:not(.eyebrow) { font-size: .81rem; color: var(--muted); line-height: 1.75; margin: 16px 0 20px; }
   .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .75rem; text-decoration: none; }
   .endpoint-list { display: grid; gap: 8px; align-content: center; min-width: 0; }
   .endpoint-list a { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); text-decoration: none; }
-  .endpoint-list a > span { font: .6rem var(--font-mono); color: #456e52; }
+  .endpoint-list a > span { font: .6rem var(--font-mono); color: #405e52; }
   .endpoint-list code { font-size: .72rem; }
   .endpoint-list small { font-size: .62rem; color: var(--muted); margin-left: auto; }
   .endpoint-list :global(svg) { color: var(--faint); }
-  @media (max-width: 1000px) { .home-hero { padding-top: 72px; } .use-case-grid { grid-template-columns: repeat(2, 1fr); } .install-grid { gap: 32px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 26px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
-  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 64px 0 32px; } h1 { font-size: 2.3rem; line-height: 1.06; } .hero-description { font-size: .96rem; line-height: 1.6; margin-block: 25px 30px; } .hero-actions { gap: 10px; } .command-bar { flex-basis: 100%; justify-content: flex-start; margin-top: 2px; } .command-bar button { margin-left: auto; } .works-with { gap: 12px; font-size: .75rem; } .decision-signals { margin-top: 28px; } .value-steps { margin-top: 32px; grid-template-columns: 1fr; } .value-steps article + article { border-left: 0; border-top: 1px solid var(--line); } .value-steps article { padding: 18px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 20px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.7rem; } .home-stats p { font-size: .64rem; } .home-section { padding-top: 42px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .82rem; } .section-top h2 { font-size: 1.55rem; } .use-case-card { padding: 16px; } .use-case-card h3 { font-size: .88rem; margin-top: 18px; } .use-case-card > p { font-size: .7rem; } .picks-grid, .install-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .install-section { padding-block: 42px 32px; margin-top: 42px; } .install-grid { gap: 28px; } .install-benefits { grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 30px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .collections-grid { grid-template-columns: 1fr 1fr; gap: 12px; } .collections-grid > a { padding: 16px; } .collections-grid h3 { font-size: .88rem; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 42px 0; gap: 24px; } }
-  @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .59rem; } .use-case-grid, .collections-grid { grid-template-columns: 1fr; } .command-bar code { font-size: .62rem; } }
+  @media (max-width: 1000px) { .home-hero { padding-top: 72px; } .install-grid { gap: 32px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 26px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
+  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 64px 0 32px; } h1 { font-size: 2.3rem; line-height: 1.06; } .hero-description { font-size: .96rem; line-height: 1.6; margin-block: 25px 30px; } .hero-actions { gap: 10px; } .command-bar { flex-basis: 100%; justify-content: flex-start; margin-top: 2px; } .command-bar button { margin-left: auto; } .works-with { gap: 12px; font-size: .75rem; } .decision-signals { margin-top: 28px; } .value-steps { margin-top: 32px; grid-template-columns: 1fr; } .value-steps article + article { border-left: 0; border-top: 1px solid var(--line); } .value-steps article { padding: 18px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 20px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.7rem; } .home-stats p { font-size: .64rem; } .home-section { padding-top: 42px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .82rem; } .section-top h2 { font-size: 1.55rem; } .picks-grid, .install-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .install-section { padding-block: 42px 32px; margin-top: 42px; } .install-grid { gap: 28px; } .install-benefits { grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 30px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 42px 0; gap: 24px; } }
+  @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .59rem; } .command-bar code { font-size: .62rem; } }
 </style>

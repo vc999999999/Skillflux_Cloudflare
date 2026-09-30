@@ -15,11 +15,10 @@ const href = {
   community: localizePath("/source-type/community/", lang),
   aggregator: localizePath("/source-type/directory/", lang),
   download: localizePath("/guides/how-to-download-claude-skills/", lang),
-  discovery: localizePath("/use-case/discover-skills/", lang),
-  coding: localizePath("/use-case/coding/", lang),
-  security: localizePath("/use-case/security/", lang),
-  mcp: localizePath("/use-case/mcp/", lang),
-  collection: localizePath("/collection/official-start/", lang),
+  discovery: localizePath("/scenarios/choose-a-source/", lang),
+  connect: localizePath("/scenarios/connect-a-project/", lang),
+  maintain: localizePath("/scenarios/maintain-project-skills/", lang),
+  mcp: localizePath("/directory/?kind=mcp", lang),
   anthropic: localizePath(`/resource/${getSiteBySlug('github-com-anthropics-skills')!.resourceSlug}/`, lang),
 };
 ---
@@ -30,7 +29,7 @@ const href = {
       <p>选择 Skill 来源，可以先区分“在哪里发现”和“最终从哪里获取”。市场和目录帮助缩小候选范围，原始仓库或发布方文档用来确认实际指令、依赖与安装方式。同一个 Skill 可能被多个站点收录，来源数量并不等于独立的质量验证。</p>
       <h2>五类来源分别解决什么问题</h2>
       <h3>官方厂商</h3>
-      <p>适合先了解某个发布方的 Skill 组织方式或产品约定。例如 <a href={href.anthropic}>anthropics/skills</a> 提供官方仓库内容，可以直接阅读实现。官方身份说明出处，具体 Skill 是否适合你的宿主、版本和任务仍需检查。查看 <a href={href.official}>官方厂商来源</a>，或按 <a href={href.collection}>先看官方来源合集</a> 的资料形式选择入口。</p>
+      <p>适合先了解某个发布方的 Skill 组织方式或产品约定。例如 <a href={href.anthropic}>anthropics/skills</a> 提供官方仓库内容，可以直接阅读实现。官方身份说明出处，具体 Skill 是否适合你的宿主、版本和任务仍需检查。查看 <a href={href.official}>官方厂商来源</a> 中的具体入口。</p>
       <h3>市场</h3>
       <p>适合围绕明确需求比较候选能力。不同条目的作者、依赖、服务条件和安装方式可能不同，应回到条目本身确认；平台上的排序或评价只能作为发现线索。查看 <a href={href.marketplace}>Skill 市场</a>。</p>
       <h3>开源仓库</h3>
@@ -48,7 +47,7 @@ const href = {
       </ol>
       <p>维护情况需要结合原项目的说明、变更记录和问题处理情况判断。SkillFlux 的资料日期用于说明条目何时整理，不能用来证明上游刚刚更新；长期未修改也不必然代表项目不可用。</p>
       <h2>按你要完成的任务继续筛选</h2>
-      <p>还在寻找方向时，阅读 <a href={href.discovery}>发现合适的 Skill</a>；已有代码项目时，对照 <a href={href.coding}>编程与开发来源比较</a>；需要核查脚本或审查结果时，阅读 <a href={href.security}>安全与审查的选择方法</a>。如果真正需要连接外部工具，可从 <a href={href.mcp}>工具与 MCP 场景</a> 先分清服务器与 Skill。</p>
+      <p>还在寻找方向时，阅读 <a href={href.discovery}>来源选型场景指南</a>；已有代码项目时，对照 <a href={href.connect}>项目接入场景</a>；接入后的维护方式见 <a href={href.maintain}>项目技能维护场景</a>。如果真正需要连接外部工具，可在 <a href={href.mcp}>资源目录按 MCP 类型筛选</a>。</p>
       <div class="guide-callout"><p>选择来源后，继续阅读 <a href={href.download}>Claude Skills 获取与安装指南</a>。需要查看更多候选项，可以返回 <a href={href.directory}>完整资源目录</a>。</p></div>
     </Fragment>
   ) : (
@@ -56,7 +55,7 @@ const href = {
       <p>Choosing a skill source starts by separating discovery from acquisition. A marketplace or directory helps narrow the candidates; the original repository or publisher documentation establishes the actual instructions, dependencies and installation route. One skill can appear on several sites, so the number of listings is not independent evidence of quality.</p>
       <h2>What the five source types are useful for</h2>
       <h3>Official vendors</h3>
-      <p>Start here to understand a publisher’s skill structure or product conventions. For example, <a href={href.anthropic}>anthropics/skills</a> exposes first-party repository content to inspect. Official identity establishes origin; fit for your host, version and task still requires a separate check. Browse <a href={href.official}>official vendor sources</a>, or compare material types in the <a href={href.collection}>official sources collection</a>.</p>
+      <p>Start here to understand a publisher’s skill structure or product conventions. For example, <a href={href.anthropic}>anthropics/skills</a> exposes first-party repository content to inspect. Official identity establishes origin; fit for your host, version and task still requires a separate check. Browse <a href={href.official}>official vendor sources</a>, or browse the specific entries in <a href={href.official}>official vendor sources</a>.</p>
       <h3>Marketplaces</h3>
       <p>Use a marketplace to compare capabilities against a defined requirement. Authors, dependencies, service terms and installation methods may differ between entries. Examine the individual item; rankings and reviews are discovery signals, not compatibility evidence. Browse <a href={href.marketplace}>skill marketplaces</a>.</p>
       <h3>Open-source repositories</h3>
@@ -74,7 +73,7 @@ const href = {
       </ol>
       <p>Assess maintenance through the project’s own documentation, change history and issue handling. A SkillFlux record date describes our catalog material; it does not prove a recent upstream release. An unchanged project is not necessarily unusable either.</p>
       <h2>Continue with the task you need to complete</h2>
-      <p>For open-ended discovery, read <a href={href.discovery}>how to find the right skill</a>. For an existing codebase, compare <a href={href.coding}>coding and development sources</a>. For script inspection or review findings, use the <a href={href.security}>security and review selection guide</a>. If the goal is an external tool connection, first distinguish servers from skills in the <a href={href.mcp}>tools and MCP use case</a>.</p>
+      <p>For open-ended discovery, read the <a href={href.discovery}>source selection scenario</a>. For an existing codebase, see the <a href={href.connect}>project connection scenario</a>, and for post-setup maintenance the <a href={href.maintain}>project skills maintenance scenario</a>. If the goal is an external tool connection, filter the <a href={href.mcp}>directory by MCP resources</a>.</p>
       <div class="guide-callout"><p>After choosing a source, continue to the <a href={href.download}>Claude Skills download and installation guide</a>, or return to the <a href={href.directory}>full resource directory</a> for more candidates.</p></div>
     </Fragment>
   )}

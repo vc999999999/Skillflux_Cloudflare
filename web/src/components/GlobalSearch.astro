@@ -11,8 +11,8 @@ const zh = lang === 'zh';
 <dialog class="sf-search-dialog" id="sf-search-dialog" aria-label={zh ? '站内搜索' : 'Search SkillFlux'} data-lang={lang}>
   <div class="sf-search-top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-    <label class="sf-search-sr" for="sf-search-input">{zh ? '搜索资源、场景、合集和指南' : 'Search resources, use cases, collections and guides'}</label>
-    <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索资源、场景、合集…' : 'Search resources, use cases, collections…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
+    <label class="sf-search-sr" for="sf-search-input">{zh ? '搜索资源和指南' : 'Search resources and guides'}</label>
+    <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索资源、指南…' : 'Search resources, guides…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
     <button class="sf-search-close" type="button" data-sf-search-close aria-label={zh ? '关闭搜索' : 'Close search'}>ESC</button>
   </div>
   <div class="sf-search-content">
@@ -24,34 +24,34 @@ const zh = lang === 'zh';
 </dialog>
 
 <style>
-  .sf-search-trigger { display: inline-flex; align-items: center; gap: 7px; padding: 7px 8px; color: #808080; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; font: inherit; font-size: 10px; line-height: 1.4; cursor: pointer; white-space: nowrap; }
-  .sf-search-trigger:hover { color: #111; border-color: #ccc; }
-  .sf-search-trigger kbd { margin-left: 13px; color: #999; font: inherit; font-size: 9px; }
-  .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 14vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 76dvh); padding: 0; margin: 0; border: 1px solid #ddd; border-radius: 13px; color: #202020; background: #fff; box-shadow: 0 22px 80px #0003; overflow: hidden; }
-  .sf-search-dialog::backdrop { background: rgba(0,0,0,.32); backdrop-filter: blur(3px); }
+  .sf-search-trigger { display: inline-flex; align-items: center; gap: 7px; padding: 7px 8px; color: #8a8578; background: #fbfbf8; border: 1px solid #eeebe2; border-radius: 6px; font: inherit; font-size: 10px; line-height: 1.4; cursor: pointer; white-space: nowrap; }
+  .sf-search-trigger:hover { color: #17150f; border-color: #cec9b9; }
+  .sf-search-trigger kbd { margin-left: 13px; color: #a29d90; font: inherit; font-size: 9px; }
+  .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 14vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 76dvh); padding: 0; margin: 0; border: 1px solid #e5e0d3; border-radius: 13px; color: #25221b; background: #fdfcf8; box-shadow: 0 22px 80px #14130f33; overflow: hidden; }
+  .sf-search-dialog::backdrop { background: rgba(20,19,15,.32); backdrop-filter: blur(3px); }
   .sf-search-dialog[open] { display: flex; flex-direction: column; }
-  .sf-search-top { display: flex; align-items: center; gap: 13px; padding: 20px; border-bottom: 1px solid #ededed; flex-shrink: 0; }
-  .sf-search-top > svg { flex-shrink: 0; color: #888; }
-  .sf-search-input { min-width: 0; flex: 1; padding: 0; border: 0; outline: none; background: transparent; color: #171717; font: inherit; font-size: 14px; line-height: 1.6; box-shadow: none; }
-  .sf-search-input::placeholder { color: #999; }
+  .sf-search-top { display: flex; align-items: center; gap: 13px; padding: 20px; border-bottom: 1px solid #f1f0e8; flex-shrink: 0; }
+  .sf-search-top > svg { flex-shrink: 0; color: #928d80; }
+  .sf-search-input { min-width: 0; flex: 1; padding: 0; border: 0; outline: none; background: transparent; color: #1b1913; font: inherit; font-size: 14px; line-height: 1.6; box-shadow: none; }
+  .sf-search-input::placeholder { color: #a29d90; }
   .sf-search-input::-webkit-search-cancel-button { cursor: pointer; }
-  .sf-search-close { border: 1px solid #e6e6e6; background: #fafafa; padding: 3px 5px; border-radius: 4px; color: #929292; font: inherit; font-size: 9px; cursor: pointer; }
+  .sf-search-close { border: 1px solid #edeadf; background: #fbfbf8; padding: 3px 5px; border-radius: 4px; color: #9c978a; font: inherit; font-size: 9px; cursor: pointer; }
   .sf-search-content { min-height: 160px; padding: 13px 10px 10px; overflow: auto; overscroll-behavior: contain; }
-  .sf-search-status { margin: 0; padding: 4px 10px 12px; color: #999; font-size: 11px; line-height: 1.7; }
+  .sf-search-status { margin: 0; padding: 4px 10px 12px; color: #a29d90; font-size: 11px; line-height: 1.7; }
   .sf-search-results { padding: 0; margin: 0; list-style: none; }
   .sf-search-results :global(li) { list-style: none; }
-  .sf-search-results :global(.sf-search-result) { display: flex; align-items: center; gap: 14px; padding: 13px 11px; color: #222; border-radius: 6px; text-decoration: none; }
-  .sf-search-results :global(.sf-search-result[aria-selected="true"]), .sf-search-results :global(.sf-search-result:hover) { background: #f4f4f4; }
+  .sf-search-results :global(.sf-search-result) { display: flex; align-items: center; gap: 14px; padding: 13px 11px; color: #27241d; border-radius: 6px; text-decoration: none; }
+  .sf-search-results :global(.sf-search-result[aria-selected="true"]), .sf-search-results :global(.sf-search-result:hover) { background: #f7f6f2; }
   .sf-search-results :global(.sf-search-result-body) { display: block; min-width: 0; flex: 1; }
   .sf-search-results :global(.sf-search-result-title) { display: block; font-size: 13px; font-weight: 550; line-height: 1.5; }
-  .sf-search-results :global(.sf-search-result-description) { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 3px; color: #888; font-size: 11px; line-height: 1.6; }
-  .sf-search-results :global(.sf-search-result-kind) { flex-shrink: 0; color: #999; font-size: 9px; border: 1px solid #e9e9e9; padding: 3px 5px; border-radius: 3px; }
-  .sf-search-bottom { display: flex; justify-content: space-between; gap: 12px; padding: 13px 20px; border-top: 1px solid #eee; flex-shrink: 0; color: #aaa; font-size: 10px; }
-  .sf-search-bottom kbd { font: inherit; color: #777; }
+  .sf-search-results :global(.sf-search-result-description) { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 3px; color: #928d80; font-size: 11px; line-height: 1.6; }
+  .sf-search-results :global(.sf-search-result-kind) { flex-shrink: 0; color: #a29d90; font-size: 9px; border: 1px solid #efece3; padding: 3px 5px; border-radius: 3px; }
+  .sf-search-bottom { display: flex; justify-content: space-between; gap: 12px; padding: 13px 20px; border-top: 1px solid #f2f1ea; flex-shrink: 0; color: #b1ac9e; font-size: 10px; }
+  .sf-search-bottom kbd { font: inherit; color: #817c6f; }
   .sf-search-hint-gap { margin-left: 14px; }
-  .sf-search-retry { margin: 4px 10px 20px; border: 1px solid #ddd; border-radius: 5px; padding: 8px 14px; background: #fff; color: #333; cursor: pointer; font: inherit; font-size: 12px; }
+  .sf-search-retry { margin: 4px 10px 20px; border: 1px solid #e5e0d3; border-radius: 5px; padding: 8px 14px; background: #fdfcf8; color: #39362d; cursor: pointer; font: inherit; font-size: 12px; }
   .sf-search-retry[hidden] { display: none; }
-  .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+  .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid #5e594d; outline-offset: 3px; }
   .sf-search-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   @media (max-width: 1150px) { .sf-search-trigger { padding: 7px; background: transparent; border-color: transparent; } .sf-search-trigger span, .sf-search-trigger kbd { display: none; } .sf-search-trigger svg { width: 18px; height: 18px; } }
   @media (max-width: 600px) { .sf-search-dialog { top: 10vh; max-height: 80dvh; border-radius: 10px; } .sf-search-top { padding: 17px 15px; gap: 10px; } .sf-search-input { font-size: 16px; } .sf-search-bottom { padding: 12px 15px; font-size: 9px; } }
@@ -68,7 +68,7 @@ const zh = lang === 'zh';
     const retry = dialog.querySelector<HTMLButtonElement>('.sf-search-retry')!;
     const lang = dialog.dataset.lang === 'en' ? 'en' : 'zh';
     const zh = lang === 'zh';
-    const kinds: Record<SearchKind, string> = zh ? { source: '资源', 'use-case': '场景', collection: '合集', guide: '指南', skill: '精品 Skill', page: '页面' } : { source: 'Resource', 'use-case': 'Use case', collection: 'Collection', guide: 'Guide', skill: 'Curated skill', page: 'Page' };
+    const kinds: Record<SearchKind, string> = zh ? { source: '资源', guide: '指南', skill: '精品 Skill', page: '页面' } : { source: 'Resource', guide: 'Guide', skill: 'Curated skill', page: 'Page' };
     let entries: GlobalSearchEntry[] | undefined;
     let pending: Promise<void> | undefined;
     let results: GlobalSearchEntry[] = [];

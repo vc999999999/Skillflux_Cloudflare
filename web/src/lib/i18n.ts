@@ -194,8 +194,8 @@ export const pageCopy: Record<Language, PageCopy> = {
   zh: {
     htmlLang: "zh-CN",
     locale: "zh-CN",
-    siteDescription: "公开的 Skill 来源黄页、场景选型与精品 Skill 目录。通过 npm + MCP 搜索经过质检的 Skill，按需安装到本地项目并检查版本更新。",
-    titleSuffix: "Skill 来源黄页与精品目录",
+    siteDescription: "公开的 Skill、MCP 与插件来源目录、场景选型与精品 Skill 目录。通过 npm + MCP 搜索经过质检的 Skill，按需安装到本地项目并检查版本更新。",
+    titleSuffix: "Skill、MCP 与插件资源目录",
     nav: {
       homeLabel: "SkillFlux 首页",
       directory: "目录",
@@ -205,7 +205,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "skill 来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？用 SkillFlux——精选 skill 的包管理器：一条命令接入 agent，按需安装、持续更新。",
+      heroLead: "Skill、MCP 和插件的来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？用 SkillFlux——精选 skill 的包管理器：一条命令接入 agent，按需安装、持续更新。",
       browseDirectory: "浏览目录",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
@@ -378,8 +378,8 @@ export const pageCopy: Record<Language, PageCopy> = {
   en: {
     htmlLang: "en",
     locale: "en",
-    siteDescription: "A public skill source directory, scenario guides and curated catalog. Search qualified skills through npm + MCP, install them on demand and check project updates.",
-    titleSuffix: "skill sources and curated directory",
+    siteDescription: "A public directory of skill, MCP and plugin sources, scenario guides and a curated catalog. Search qualified skills through npm + MCP, install them on demand and check project updates.",
+    titleSuffix: "skill, MCP and plugin resources",
     nav: {
       homeLabel: "SkillFlux home",
       directory: "Directory",
@@ -389,7 +389,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "skill / mcp ecosystem index",
-      heroLead: "Skill sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Use SkillFlux — the package manager for agent skills: one command to connect, install on demand, always maintained.",
+      heroLead: "Skill, MCP and plugin sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Use SkillFlux — the package manager for agent skills: one command to connect, install on demand, always maintained.",
       browseDirectory: "Browse directory",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",

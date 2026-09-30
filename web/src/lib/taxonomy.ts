@@ -13,8 +13,8 @@ const tagEditorial: Record<string, TagEditorial> = {
   collection: {
     searchValue: true,
     intro: {
-      zh: '资源合集适合建立候选清单，但合集里的条目可能来自不同维护者，拥有不同许可与安装要求。本页聚合提供多项资源的仓库、平台和清单。阅读时优先追溯原始项目，而不是一次导入整套内容。需要围绕具体任务比较来源，可以继续查看 SkillFlux 的编辑精选与使用场景。',
-      en: 'Skill collections are useful for building a shortlist, but entries may have different maintainers, licenses and setup requirements. This page groups repositories, platforms and lists that gather multiple resources. Follow individual entries to their original projects before choosing one. For a task-specific comparison, use the editorial collections and use-case pages rather than importing an entire list into a project.'
+      zh: '资源合集适合建立候选清单，但合集里的条目可能来自不同维护者，拥有不同许可与安装要求。本页聚合提供多项资源的仓库、平台和清单。阅读时优先追溯原始项目，而不是一次导入整套内容。需要围绕具体任务比较来源，可以继续查看 SkillFlux 的指南与资源详情页。',
+      en: 'Skill collections are useful for building a shortlist, but entries may have different maintainers, licenses and setup requirements. This page groups repositories, platforms and lists that gather multiple resources. Follow individual entries to their original projects before choosing one. For a task-specific comparison, use the SkillFlux guides and resource detail pages rather than importing an entire list into a project.'
     }
   },
   'open-source': {
