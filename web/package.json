@@ -12,7 +12,7 @@
     "publication:sync": "tsx scripts/sync-publication.ts",
     "publication:build": "tsx scripts/publication-build.ts",
     "publication:watch": "tsx scripts/publication-build.ts --watch",
-    "build:production": "SITE_URL=https://skillflux.cn tsx scripts/publication-build.ts --registry https://8.210.176.19 --trust-key data/registry-production-key.json --output .publication/production --force",
+    "build:production": "SITE_URL=https://skillflux.cn tsx scripts/publication-build.ts --repo vc999999999/skillflux-catalog --output .publication/production --force",
     "deploy:production": "npm run build:production && wrangler deploy .publication/production/dist/_worker.js --assets .publication/production/dist --config wrangler.workers.jsonc --keep-vars",
     "test:publication": "tsx --test tests/publication.integration.ts",
     "test": "vitest run && npm run test:publication",

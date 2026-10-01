@@ -18,7 +18,5 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-        env:
-          PUBLIC_REGISTRY_URL: https://registry.example.invalid
       - run: npm pack --workspace @skillflux/mcp --dry-run
       - run: npm run smoke:package
