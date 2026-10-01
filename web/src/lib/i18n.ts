@@ -194,8 +194,8 @@ export const pageCopy: Record<Language, PageCopy> = {
   zh: {
     htmlLang: "zh-CN",
     locale: "zh-CN",
-    siteDescription: "公开的 Skill、MCP 与插件来源目录、场景选型与精品 Skill 目录。通过 npm + MCP 搜索经过质检的 Skill，按需安装到本地项目并检查版本更新。",
-    titleSuffix: "Skill、MCP 与插件资源目录",
+    siteDescription: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？一站式检索全网 Agent Skills、MCP 工具、插件与开源生态。按需选型、透明验证，即插即用。",
+    titleSuffix: "想给你的 Agent 增加什么能力？· 功能黄页",
     nav: {
       homeLabel: "SkillFlux 首页",
       directory: "目录",
@@ -204,23 +204,23 @@ export const pageCopy: Record<Language, PageCopy> = {
       languageLabel: "语言切换"
     },
     home: {
-      eyebrow: "skill / mcp ecosystem index",
-      heroLead: "Skill、MCP 和插件的来源又多又散——官方厂商、市场、开源仓库、社区榜单都在这份免费目录里。懒得一个个找、一个个装？用 SkillFlux——精选 skill 的包管理器：一条命令接入 agent，按需安装、持续更新。",
-      browseDirectory: "浏览目录",
+      eyebrow: "capabilities to add to your agent",
+      heroLead: "想给你的 AI Agent 增加新能力？无论是编程 Skill、MCP 工具、外部插件还是特定工作流，全网你想给 Agent 扩展的本领都在这份功能黄页里。按需查找、透明挑选、一键接入你的项目。",
+      browseDirectory: "查找想增加的能力",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
       packEntry: "精装包入口",
       statsLabel: "站点统计",
       stats: {
-        resources: "收录入口",
-        labels: "标识标签",
-        featured: "精选入口",
+        resources: "可选能力",
+        labels: "能力标签",
+        featured: "精选推荐",
         updated: "最近更新"
       },
       panelAria: "SkillFlux 安装",
       panelTitle: "skillflux",
       panelVersion: "v0.1.1",
-      panelTagline: "一条命令接入 agent，按需挑选 skill，自动写入配置，无需手动复制粘贴。",
+      panelTagline: "为你的 Agent 扩充任何能力的统一入口——按需选配，自动写入配置，无须手动复制粘贴。",
       ledger: {
         install: "安装方式",
         installValue: "一键安装",
@@ -232,26 +232,26 @@ export const pageCopy: Record<Language, PageCopy> = {
         adaptersValue: "Claude · Cursor · Codex"
       },
       viewPack: "立即查看精装包",
-      featuredEyebrow: "Featured",
-      featuredTitle: "先从推荐和高频入口开始。",
-      featuredNote: "首位是目标清单标注的推荐入口，其余按合集和高价值标识排序。每条都能进入详情页，再跳转原站。",
-      labelsEyebrow: "Sources",
-      labelsTitle: "按来源类型快速定位。",
-      labelsNote: "官方厂商、市场、开源仓库、社区榜单还是综合目录——按来源类型直达，再用语言和可信度细筛。",
-      labelCardKicker: "来源",
-      labelCardDescription: (name) => `查看「${name}」类的 skill 来源。`,
+      featuredEyebrow: "Curated",
+      featuredTitle: "常用且高频的能力推荐入口。",
+      featuredNote: "首位是官方与核心能力推荐，其余按高频场景排序。每条都能进入详情页，查看如何给 Agent 接入。",
+      labelsEyebrow: "Categories",
+      labelsTitle: "按想增加的能力类型查找。",
+      labelsNote: "官方厂商、开放市场、源码仓库或开发者社区——按类别直达，快速找到你想给 Agent 装配的工具与技能。",
+      labelCardKicker: "类别",
+      labelCardDescription: (name) => `查看「${name}」类你想给 Agent 增加的能力来源。`,
       aiEyebrow: "For Agents",
-      aiTitle: "让 AI 直接读懂整个目录。",
-      aiNote: "所有机器可读文件都由同一份 JSON 生成，不依赖客户端 JavaScript。"
+      aiTitle: "让你的 AI Agent 自己来查想增加的能力。",
+      aiNote: "提供结构化纯文本与 JSON 数据，AI Agent 可自主检索并提出安装建议。"
     },
     directory: {
-      title: "完整目录",
-      description: "浏览 SkillFlux 收录的 skill 合集、市场、仓库、工具和单项 skill 入口。",
-      jsonLdName: "SkillFlux 完整目录",
-      jsonLdDescription: "SkillFlux 收录的 skill/MCP 生态入口完整目录。",
-      eyebrow: "Directory",
-      heading: "全网 skill/MCP 生态入口，一处看全。",
-      lede: "按名称、标识和摘要即时筛选。静态 HTML 仍保留全部内容，搜索引擎和 AI 不需要执行 JS 也能读取。",
+      title: "功能黄页",
+      description: "想给你的 Agent 增加什么能力？浏览 SkillFlux 收录的全网 Agent 能力来源，包括 Skills、MCP 工具、插件与开源项目。",
+      jsonLdName: "SkillFlux 功能黄页",
+      jsonLdDescription: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？全网能力目录。",
+      eyebrow: "Yellow Pages",
+      heading: "想给你的 Agent 增加什么能力？",
+      lede: "全网 Agent 功能黄页：浏览与检索你想为 Agent 增加的所有能力——覆盖 Skills、MCP 工具、插件与开源项目。静态呈现，人类与 AI 均可免 JS 读取。",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
     breadcrumb: {
@@ -366,11 +366,11 @@ export const pageCopy: Record<Language, PageCopy> = {
       machineText: "此条目同步出现在 `/index.json` 和 `/llms-full.txt`，便于搜索工具和 AI agent 直接消费。"
     },
     footer: {
-      summary: "全网 skill/MCP 生态入口。先看目录，再决定装什么。",
-      labels: "来源类型",
+      summary: "AI Agent 开放功能黄页。汇集全网能力与工具来源，按需发现，随时接入。",
+      labels: "来源类别",
       forAi: "给 AI",
       brand: "品牌",
-      directory: "完整目录",
+      directory: "功能黄页",
       pack: "安装 SkillFlux",
       copyrightNote: "本站仅做导航与简介，内容版权归各集合站所有。"
     }
@@ -378,8 +378,8 @@ export const pageCopy: Record<Language, PageCopy> = {
   en: {
     htmlLang: "en",
     locale: "en",
-    siteDescription: "A public directory of skill, MCP and plugin sources, scenario guides and a curated catalog. Search qualified skills through npm + MCP, install them on demand and check project updates.",
-    titleSuffix: "skill, MCP and plugin resources",
+    siteDescription: "The open yellow pages for AI agent capabilities. Find what capabilities you want to add to your agent — skills, MCP servers, plugins, and tools. Discover by task, verify quality, and connect on demand.",
+    titleSuffix: "Capabilities to Add to Your AI Agent",
     nav: {
       homeLabel: "SkillFlux home",
       directory: "Directory",
@@ -388,55 +388,55 @@ export const pageCopy: Record<Language, PageCopy> = {
       languageLabel: "Language switcher"
     },
     home: {
-      eyebrow: "skill / mcp ecosystem index",
-      heroLead: "Skill, MCP and plugin sources are scattered everywhere — vendors, marketplaces, open-source repos, and community rankings are all in this free directory. Don't want to hunt and install one by one? Use SkillFlux — the package manager for agent skills: one command to connect, install on demand, always maintained.",
-      browseDirectory: "Browse directory",
+      eyebrow: "capabilities to add to your agent",
+      heroLead: "What capabilities do you want to add to your AI agent? Whether you need coding skills, database MCP tools, automation plugins, or specialized workflows — find everything you want your agent to do in this open yellow pages. Search by task, verify quality, and wire capabilities into your project on demand.",
+      browseDirectory: "Find capabilities for your agent",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",
       packEntry: "Pack entry",
-      statsLabel: "Site statistics",
+      statsLabel: "Catalog metrics",
       stats: {
-        resources: "Resources",
-        labels: "Labels",
-        featured: "Featured",
+        resources: "Available capabilities",
+        labels: "Topics & tags",
+        featured: "Curated",
         updated: "Updated"
       },
       panelAria: "SkillFlux install",
       panelTitle: "skillflux",
       panelVersion: "v0.1.1",
-      panelTagline: "One command connects your agent — pick skills on demand, the config is written for you, no copy-paste.",
+      panelTagline: "The easiest way to give your AI agent new capabilities — pick what you need, configuration is handled automatically.",
       ledger: {
-        install: "Install",
-        installValue: "One command",
+        install: "Installation",
+        installValue: "Single command",
         scope: "Scope",
         scopeValue: "Per project, on demand",
         maintenance: "Maintenance",
-        maintenanceValue: "Versioned · always updated",
+        maintenanceValue: "Versioned · verified",
         adapters: "Adapters",
         adaptersValue: "Claude · Cursor · Codex"
       },
-      viewPack: "View pack",
-      featuredEyebrow: "Featured",
-      featuredTitle: "Start with the recommended and high-signal entries.",
-      featuredNote: "The first entry is the marked recommendation from the source list. The rest are sorted by collection value and practical labels.",
-      labelsEyebrow: "Sources",
-      labelsTitle: "Find skills by source type.",
-      labelsNote: "Official vendors, marketplaces, open-source repos, community rankings, or aggregators — jump by source type, then refine by language and trust.",
-      labelCardKicker: "source",
-      labelCardDescription: (name) => `Browse ${name} skill sources.`,
+      viewPack: "View runtime pack",
+      featuredEyebrow: "Curated",
+      featuredTitle: "Popular capabilities to add to your agent.",
+      featuredNote: "Curated capabilities with transparent reasoning, task fit, and clear documentation. Jump into details or connect to your agent.",
+      labelsEyebrow: "Categories",
+      labelsTitle: "Browse by capability category.",
+      labelsNote: "Official platforms, marketplaces, open-source repos, and developer lists — jump by category to find tools and skills to equip your agent.",
+      labelCardKicker: "category",
+      labelCardDescription: (name) => `Browse ${name} capabilities for your agent.`,
       aiEyebrow: "For agents",
-      aiTitle: "Let AI read the whole directory directly.",
-      aiNote: "Every machine-readable file is generated from the same JSON catalog and works without client-side JavaScript."
+      aiTitle: "Let your AI agent find capabilities for itself.",
+      aiNote: "Structured machine-readable data enables your agent to discover, compare, and propose capabilities autonomously."
     },
     directory: {
-      title: "Directory",
-      description: "Browse SkillFlux resources across skill collections, marketplaces, repositories, tools, and individual skills.",
-      jsonLdName: "SkillFlux Directory",
-      jsonLdDescription: "The full SkillFlux directory of skill and MCP ecosystem resources.",
-      eyebrow: "Directory",
-      heading: "A single place to scan the skill/MCP ecosystem.",
-      lede: "Filter instantly by name, label, and summary. Static HTML keeps everything readable for search engines and AI without JavaScript.",
-      meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
+      title: "Agent Capabilities",
+      description: "What capabilities do you want to add to your agent? Browse skills, MCP tools, plugins, and workflows across the open ecosystem.",
+      jsonLdName: "SkillFlux Agent Capabilities Yellow Pages",
+      jsonLdDescription: "Capabilities you want to add to your AI agent: skills, MCP tools, plugins, and frameworks.",
+      eyebrow: "Yellow Pages",
+      heading: "What capabilities do you want to add to your agent?",
+      lede: "The open yellow pages for everything your agent can learn or do. Discover skills, MCP tools, plugins, and workflows across the ecosystem.",
+      meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} capabilities · ${labelCount} topics · updated ${updatedAt}`
     },
     breadcrumb: {
       home: "Home",
@@ -550,13 +550,13 @@ export const pageCopy: Record<Language, PageCopy> = {
       machineText: "This entry is also available in `/index.json` and `/llms-full.txt` for search tools and AI agents."
     },
     footer: {
-      summary: "A skill/MCP ecosystem index. Scan the directory first, then decide what to install.",
-      labels: "Source types",
+      summary: "The yellow pages for AI agent capabilities. Discover what agents can do, inspect provenance, and connect on demand.",
+      labels: "Source categories",
       forAi: "For AI",
       brand: "Brand",
-      directory: "Directory",
+      directory: "Yellow Pages",
       pack: "Install SkillFlux",
-      copyrightNote: "SkillFlux is a navigation and summary layer. Rights belong to the original resource owners."
+      copyrightNote: "SkillFlux is an open navigation and summary layer. Rights belong to the original resource owners."
     }
   }
 };

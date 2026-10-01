@@ -39,31 +39,47 @@ const evidence = skill?.quality.evaluation;
   </main>
 </BaseLayout>
 <style>
-  .skill-detail { padding-bottom: 80px; }
-  .detail-breadcrumb { margin: 30px 0; color: var(--muted); font-size: .85rem; }
-  .skill-heading { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: start; }
-  .skill-heading h1 { font-size: clamp(2.3rem, 5vw, 4.5rem); line-height: 1.12; margin: 20px 0; overflow-wrap: anywhere; }
-  .skill-heading aside { display: grid; gap: 14px; border-top: 2px solid var(--accent); padding-top: 18px; font-size: .9rem; }
-  .snapshot-notice { border-block: 1px solid var(--line); padding: 15px 0; color: var(--muted); font-size: .8rem; line-height: 1.8; }
-  .version-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 25px 0; font-size: .85rem; }
-  .version-links a { border: 1px solid var(--line); padding: 8px; }
-  .version-links a[aria-current] { background: var(--ink); color: var(--paper); }
-  .skill-install { padding: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; background: var(--cream); }
-  .skill-install h2 { margin-top: 0; font-size: 1.3rem; }
-  .skill-install > div:last-child { display: grid; gap: 12px; align-content: center; font-size: .8rem; }
-  .skill-install code { overflow-wrap: anywhere; }
-  .skill-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 35px 0; }
-  .skill-facts dt { color: var(--muted); margin-bottom: 8px; font-size: .8rem; }
-  .skill-facts dd { margin: 0; overflow-wrap: anywhere; }
-  .detail-section { border-top: 1px solid var(--line); padding-top: 25px; margin-top: 35px; line-height: 1.8; }
-  .detail-section h2 { font-size: 1.6rem; }
-  .evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
+  .skill-detail { padding-bottom: 96px; }
+  .detail-breadcrumb { margin: 24px 0 28px; color: var(--muted); font-size: .88rem; }
+  .detail-breadcrumb a { color: var(--muted); text-decoration: none; }
+  .detail-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
+  .skill-heading { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: start; }
+  .skill-heading h1 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); line-height: 1.15; margin: 16px 0 20px; overflow-wrap: anywhere; font-weight: 650; letter-spacing: -.035em; }
+  .skill-heading aside { display: grid; gap: 10px; border-top: 2px solid var(--accent); padding: 18px 20px; font-size: .88rem; background: var(--paper-strong); border: 1px solid var(--line); border-top: 2px solid var(--accent); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+  .skill-heading aside code { font-weight: 600; font-size: 1rem; color: var(--ink); }
+  .skill-heading aside span { color: var(--green); font-weight: 550; font-size: .82rem; }
+  .snapshot-notice { border-block: 1px solid var(--line); padding: 16px 0; color: var(--muted); font-size: .85rem; line-height: 1.8; margin-top: 24px; }
+  .version-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 28px 0; font-size: .86rem; }
+  .version-links strong { color: var(--ink); margin-right: 6px; }
+  .version-links a { border: 1px solid var(--line); padding: 6px 12px; border-radius: var(--radius-sm); text-decoration: none; color: var(--muted); background: var(--paper-strong); transition: all .15s ease; }
+  .version-links a:hover { border-color: var(--line-strong); color: var(--ink); }
+  .version-links a[aria-current] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); font-weight: 550; }
+  .skill-install { padding: 28px; display: grid; grid-template-columns: 1fr auto; gap: 28px; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius-lg); margin-top: 32px; }
+  .skill-install h2 { margin-top: 0; font-size: 1.35rem; font-weight: 650; letter-spacing: -.02em; }
+  .skill-install p { color: var(--muted); font-size: .9rem; line-height: 1.7; margin: 6px 0 16px; }
+  .skill-install > div:last-child { display: grid; gap: 12px; align-content: center; font-size: .85rem; }
+  .skill-install code { overflow-wrap: anywhere; background: var(--paper-strong); padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); font-size: .88rem; display: block; }
+  .skill-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 40px 0; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .skill-facts dt { color: var(--faint); margin-bottom: 6px; font-size: .8rem; font-weight: 500; }
+  .skill-facts dd { margin: 0; overflow-wrap: anywhere; font-weight: 600; color: var(--ink); font-size: .94rem; }
+  .detail-section { border-top: 1px solid var(--line); padding-top: 32px; margin-top: 40px; line-height: 1.8; }
+  .detail-section h2 { font-size: 1.55rem; font-weight: 650; letter-spacing: -.03em; margin: 0 0 18px; }
+  .evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .evidence-grid > div { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; background: var(--paper-strong); }
+  .evidence-grid h3 { font-size: 1.05rem; font-weight: 650; margin: 0 0 12px; color: var(--ink); }
+  .evidence-grid p { color: var(--muted); font-size: .88rem; line-height: 1.75; }
+  .evidence-grid ul { padding-left: 20px; color: var(--muted); font-size: .88rem; }
+  .evidence-grid li { margin-bottom: 6px; }
   .pre-line { white-space: pre-line; }
-  .risk-note { border-left: 3px solid var(--accent); padding-left: 15px; }
-  .digest { overflow-wrap: anywhere; font: .8rem/1.7 var(--font-mono); color: var(--muted); }
-  .skill-file { margin: 14px 0; border: 1px solid var(--line); background: var(--paper-strong); }
-  .skill-file summary { cursor: pointer; padding: 14px; font: .85rem/1.7 var(--font-mono); overflow-wrap: anywhere; }
-  .skill-file pre { margin: 0; padding: 20px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 620px; font: .82rem/1.8 var(--font-mono); border-top: 1px solid var(--line); }
-  .publication-unavailable { border: 1px solid var(--accent); padding: 25px; line-height: 1.8; }
-  @media (max-width: 760px) { .skill-heading, .skill-install, .evidence-grid { grid-template-columns: 1fr; } .skill-facts { grid-template-columns: 1fr 1fr; } }
+  .risk-note { border-left: 3px solid var(--accent); padding-left: 16px; color: var(--muted); font-size: .9rem; background: var(--cream); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .digest { overflow-wrap: anywhere; font: 500 .82rem/1.7 var(--font-mono); color: var(--muted); background: var(--paper-strong); padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); margin-top: 14px; }
+  .skill-file { margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); overflow: hidden; }
+  .skill-file summary { cursor: pointer; padding: 14px 18px; font: 600 .86rem/1.7 var(--font-mono); overflow-wrap: anywhere; background: var(--paper); border-bottom: 1px solid var(--line); transition: background .15s ease; }
+  .skill-file summary:hover { background: var(--cream); }
+  .skill-file pre { margin: 0; padding: 24px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 620px; font: .82rem/1.85 var(--font-mono); background: var(--paper-strong); }
+  .publication-unavailable { border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: 28px; line-height: 1.8; background: var(--paper-strong); }
+  @media (max-width: 760px) {
+    .skill-heading, .skill-install, .evidence-grid { grid-template-columns: 1fr; }
+    .skill-facts { grid-template-columns: 1fr 1fr; padding: 18px; }
+  }
 </style>

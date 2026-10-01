@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import { getLegacyRedirects } from "./src/lib/seo-routes.ts";
 
-const site = process.env.SITE_URL || "https://skillflux.cn";
+const site = process.env.SITE_URL || "https://skillflux.app";
 
 export default defineConfig({
   site,

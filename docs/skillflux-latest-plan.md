@@ -336,7 +336,7 @@ npm run publication:watch --workspace @skillflux/web -- --repo CATALOG_REPO --in
 | --- | --- |
 | GitHub 账号或仓库被攻破 | 账号 2FA、分支保护、禁 force-push 为信任根的一部分；账号失窃即内容失窃，须立即撤销仓库并以新仓库重发 |
 | 免签名模型下的索引篡改 | 客户端钉 commit SHA 下载、plan 绑定 indexSha256、CI `catalog build --check` 一致性门禁三重约束 |
-| 国内访问 raw.githubusercontent.com 不稳定 | 客户端保留 `--source` 镜像参数；必要时为 skillflux.cn Worker 增加透传缓存路由（后续决策） |
+| 国内访问 raw.githubusercontent.com 不稳定 | 客户端保留 `--source` 镜像参数；必要时为 skillflux.app Worker 增加透传缓存路由（后续决策） |
 | 页面可抓取但未被收录 | 正确提供静态内容与索引，持续观察真实结果，不承诺训练、收录或排名 |
 | 把扫描当成人测 | 分开保存自动与人工证据，评测绑定 contentHash，模拟记录不满足生产发布 |
 | 历史版本无法补测 | 更新该版本目录的 review evaluation 并绑定当前 contentHash，保持原版本目录内容不变 |

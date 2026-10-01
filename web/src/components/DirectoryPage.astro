@@ -10,28 +10,40 @@ const zh = lang === 'zh';
 const sites = getSites();
 const stats = getDirectoryStats();
 const canonicalPath = localizePath('/directory/', lang);
-const title = zh ? '资源目录' : 'Resource directory';
-const description = zh ? '发现适合你工作流的 Agent Skills、MCP、插件与开源资源。按类型和来源筛选，查看原始链接。' : 'Find Agent Skills, MCP, plugins and open-source resources for your workflow. Filter by kind and source, then explore original links.';
+const title = zh ? '功能黄页 · 想给 Agent 增加的能力' : 'Capabilities to Add to Your Agent';
+const description = zh ? '面向 AI Agent 的开放功能黄页：想给你的 Agent 增加什么能力？浏览与检索全网 Skills、MCP 工具、插件与开源生态。按场景和可信度筛选，即插即用。' : 'The yellow pages for everything you want your AI agent to do: discover skills, MCP tools, plugins, and open-source capabilities. Filter by task and trust, then wire into your project.';
 const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
   <main id="main-content" class="page-shell directory-page">
-    <header class="directory-heading"><div><p class="eyebrow">RESOURCE DIRECTORY</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div><a href={localizePath('/registry/', lang)}>{zh ? '查看可安装的精品 Skill' : 'Explore installable curated skills'} <span aria-hidden="true">↗</span></a></header>
+    <header class="directory-heading"><div><p class="eyebrow">{zh ? 'AI AGENT 功能黄页' : 'THE AGENT CAPABILITY YELLOW PAGES'}</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div><a href={localizePath('/registry/', lang)}>{zh ? '查看可安装的精品能力' : 'Explore installable curated capabilities'} <span aria-hidden="true">↗</span></a></header>
     <ResourceTable sites={sites} showControls heading={title} lang={lang} />
-    <aside class="source-note"><strong>{zh ? '从发现到使用' : 'From discovery to use'}</strong><p>{zh ? '本目录收录外部来源。查看详情可以追溯原始网站；通过 SkillFlux 安装的版本与审核记录，请前往精品 Registry。' : 'This directory lists external sources. Follow each detail page to the original site; find releases and review records for SkillFlux installation in the curated Registry.'}</p><a href={localizePath('/registry/', lang)}>{zh ? '精品 Registry →' : 'Curated Registry →'}</a></aside>
+    <aside class="source-note"><strong>{zh ? '从黄页到落地' : 'From discovery to execution'}</strong><p>{zh ? '本黄页收录全网开放来源。进入详情可追溯原始网站；通过 SkillFlux 安装的审核版本与测试记录，请前往精品库。' : 'This yellow pages directory lists open ecosystem sources. Follow each detail page to original sources; find releases and review records ready for installation in the curated Registry.'}</p><a href={localizePath('/registry/', lang)}>{zh ? '精品能力库 →' : 'Curated Registry →'}</a></aside>
   </main>
 </BaseLayout>
 <style>
-  .directory-page { padding-top: 54px; padding-bottom: 70px; }
+  .directory-page { padding-top: 48px; padding-bottom: 72px; }
   .directory-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
-  .directory-heading .eyebrow { font-size: .66rem; letter-spacing: .12em; margin: 0 0 14px; color: var(--muted); }
-  .directory-heading h1 { display: flex; align-items: center; gap: 14px; margin: 0 0 13px; font-size: clamp(1.9rem, 3vw, 2.65rem); letter-spacing: -.05em; line-height: 1.2; }
-  .directory-heading h1 span { font-size: .74rem; color: var(--muted); letter-spacing: 0; border: 1px solid var(--line); border-radius: 5px; padding: 5px 8px; font-weight: 500; }
-  .directory-heading p:last-child { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.8; max-width: 650px; }
-  .directory-heading > a { flex-shrink: 0; font-size: .74rem; text-decoration: none; margin-bottom: 3px; }.directory-heading > a span { margin-left: 9px; }
-  .source-note { display: flex; align-items: center; gap: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--cream, #f9f8f4); }
-  .source-note strong { font-size: .8rem; white-space: nowrap; }.source-note p { margin: 0; font-size: .74rem; line-height: 1.8; color: var(--muted); flex: 1; }.source-note a { white-space: nowrap; font-size: .72rem; font-weight: 600; text-decoration: none; }
-  @media (max-width: 760px) { .directory-page { padding-top: 32px; }.directory-heading { display: block; }.directory-heading > a { display: inline-block; margin-top: 16px; }.directory-heading p:last-child { font-size: .8rem; }.source-note { display: block; padding: 20px; }.source-note p { margin: 10px 0 13px; } }
+  .directory-heading .eyebrow { font-size: .75rem; letter-spacing: .08em; margin: 0 0 16px; color: var(--muted); }
+  .directory-heading h1 { display: flex; align-items: center; gap: 14px; margin: 0 0 14px; font-size: clamp(2rem, 3.2vw, 2.75rem); letter-spacing: -.04em; line-height: 1.2; font-weight: 650; }
+  .directory-heading h1 span { font-size: .8rem; color: var(--muted); letter-spacing: 0; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 4px 9px; font-weight: 550; background: var(--paper-strong); }
+  .directory-heading p:last-child { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.75; max-width: 680px; }
+  .directory-heading > a { flex-shrink: 0; font-size: .84rem; font-weight: 550; text-decoration: none; margin-bottom: 4px; color: var(--ink); }
+  .directory-heading > a:hover { color: var(--accent); }
+  .directory-heading > a span { margin-left: 6px; }
+  .source-note { display: flex; align-items: center; gap: 28px; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--cream); margin-top: 48px; }
+  .source-note strong { font-size: .9rem; white-space: nowrap; color: var(--ink); }
+  .source-note p { margin: 0; font-size: .86rem; line-height: 1.75; color: var(--muted); flex: 1; }
+  .source-note a { white-space: nowrap; font-size: .84rem; font-weight: 600; text-decoration: none; color: var(--ink); }
+  .source-note a:hover { color: var(--accent); }
+  @media (max-width: 760px) {
+    .directory-page { padding-top: 32px; }
+    .directory-heading { display: block; }
+    .directory-heading > a { display: inline-block; margin-top: 16px; }
+    .directory-heading p:last-child { font-size: .88rem; }
+    .source-note { display: block; padding: 20px; }
+    .source-note p { margin: 8px 0 12px; }
+  }
 </style>
 
 <script>

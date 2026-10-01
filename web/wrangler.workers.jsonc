@@ -4,6 +4,8 @@
   "account_id": "8cd022f1b58a8645269abbf21e7522d8",
   "workers_dev": false,
   "routes": [
+    { "pattern": "skillflux.app", "custom_domain": true },
+    { "pattern": "www.skillflux.app", "custom_domain": true },
     { "pattern": "skillflux.cn/*", "zone_name": "skillflux.cn" },
     { "pattern": "www.skillflux.cn/*", "zone_name": "skillflux.cn" }
   ],

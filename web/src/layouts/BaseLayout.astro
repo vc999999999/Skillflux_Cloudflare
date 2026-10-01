@@ -109,13 +109,15 @@ const organizationJsonLd = {
         const zh = document.documentElement.lang.startsWith('zh');
         try {
           await navigator.clipboard.writeText(text);
-          feedback.textContent = zh ? '已复制到剪贴板。' : 'Copied to clipboard.';
+          feedback.textContent = zh ? '已复制到剪贴板' : 'Copied to clipboard';
+          target.classList.add('copy-success');
+          setTimeout(() => target.classList.remove('copy-success'), 2000);
         } catch {
-          feedback.textContent = zh ? '无法访问剪贴板，请手动选择并复制页面上的命令。' : 'Clipboard unavailable. Select and copy the command on this page manually.';
+          feedback.textContent = zh ? '无法访问剪贴板，请手动选择并复制。' : 'Clipboard unavailable. Select and copy manually.';
         }
         feedback.hidden = false;
         clearTimeout(feedbackTimer);
-        feedbackTimer = setTimeout(() => { feedback.hidden = true; }, 6000);
+        feedbackTimer = setTimeout(() => { feedback.hidden = true; }, 3200);
       });
     </script>
     {analyticsEnabled && SITE.cfBeaconToken && (

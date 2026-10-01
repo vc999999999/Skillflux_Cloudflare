@@ -27,7 +27,7 @@ describe('public discovery and URL state', () => {
   });
   it('roundtrips all curated filters without discarding unrelated parameters or hash', () => {
     const filters = { q: '代码 审查', category: 'engineering', host: 'codex', sort: 'newest' as const, page: 3 };
-    const target = writePublicationFilters(new URL('https://skillflux.cn/registry/?utm_source=docs&offset=10#list'), filters);
+    const target = writePublicationFilters(new URL('https://skillflux.app/registry/?utm_source=docs&offset=10#list'), filters);
     expect(readPublicationFilters(target.searchParams)).toEqual(filters);
     expect(target.searchParams.get('utm_source')).toBe('docs');
     expect(target.searchParams.has('offset')).toBe(false);
@@ -47,9 +47,9 @@ describe('public discovery and URL state', () => {
     for (const page of [1, 2, 3]) {
       const path = registryPagePath(page, 'en');
       expect(registryPageNumber(path)).toBe(page);
-      const state = readPublicationUrl(new URL(`https://skillflux.cn${path}`));
+      const state = readPublicationUrl(new URL(`https://skillflux.app${path}`));
       expect(state.page).toBe(page);
-      const target = writePublicationFilters(new URL('https://skillflux.cn/en/registry/?utm_source=docs#list'), state);
+      const target = writePublicationFilters(new URL('https://skillflux.app/en/registry/?utm_source=docs#list'), state);
       expect(target.pathname).toBe(path);
       expect(target.search).toBe('?utm_source=docs');
       expect(target.hash).toBe('#list');
@@ -61,7 +61,7 @@ describe('public discovery and URL state', () => {
   it('keeps filtered pagination on the registry root and clears filters back to page one', () => {
     const state = readPublicationFilters(new URLSearchParams('q=review&sort=name&page=2'));
     expect(hasPublicationFilters(state)).toBe(true);
-    const filtered = writePublicationFilters(new URL('https://skillflux.cn/en/registry/page/3/?utm_source=docs'), state);
+    const filtered = writePublicationFilters(new URL('https://skillflux.app/en/registry/page/3/?utm_source=docs'), state);
     expect(filtered.pathname).toBe('/en/registry/');
     expect(filtered.searchParams.get('page')).toBe('2');
     expect(readPublicationUrl(filtered)).toEqual(state);
@@ -69,13 +69,13 @@ describe('public discovery and URL state', () => {
     expect(cleared.pathname).toBe('/en/registry/');
     expect(cleared.search).toBe('?utm_source=docs');
     expect(hasPublicationFilters(readPublicationUrl(cleared))).toBe(false);
-    expect(readPublicationUrl(new URL('https://skillflux.cn/registry/page/3/?page=2')).page).toBe(2);
+    expect(readPublicationUrl(new URL('https://skillflux.app/registry/page/3/?page=2')).page).toBe(2);
   });
   it('has identical deterministic server and client page membership without losing or duplicating skills', () => {
     const items = Array.from({ length: 25 }, (_, index) => skill(`skill-${String(index).padStart(2, '0')}`));
     const ordered = searchPublication(items.reverse(), readPublicationFilters(new URLSearchParams()));
     const rendered = [1, ...registryExtraPages(items.length)].map(page => {
-      const state = readPublicationUrl(new URL(`https://skillflux.cn${registryPagePath(page)}`));
+      const state = readPublicationUrl(new URL(`https://skillflux.app${registryPagePath(page)}`));
       return searchPublication(items, state).slice((page - 1) * PUBLICATION_PAGE_SIZE, page * PUBLICATION_PAGE_SIZE);
     });
     expect(rendered.map(page => page.length)).toEqual([12, 12, 1]);
@@ -96,7 +96,7 @@ describe('public discovery and URL state', () => {
   });
   it('roundtrips source keyword all, combines facets and keeps meaningful URLs', () => {
     const filters = readDirectoryFilters(new URLSearchParams('q=all&category=vendors&region=cn&trust=high'));
-    const target = writeDirectoryFilters(new URL('https://skillflux.cn/directory/?utm=source'), filters);
+    const target = writeDirectoryFilters(new URL('https://skillflux.app/directory/?utm=source'), filters);
     expect(readDirectoryFilters(target.searchParams)).toEqual(filters);
     expect(target.searchParams.get('q')).toBe('all');
     const row = { search: 'ALL project Skills', category: 'vendors', region: 'cn', trust: 'high' };

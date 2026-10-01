@@ -49,4 +49,4 @@ Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路�
 
 ## 国内可达性预留
 
-`raw.githubusercontent.com` 在部分网络环境下不可达。客户端 `init --source URL` 可指定镜像源。如需为 skillflux.cn 增加透传缓存路由（Worker `/gh/` 路由回源 raw 并按 SHA 缓存），在 `web/edge/worker.ts` 的 `/console` 重定向之后插入；当前未实现。
+`raw.githubusercontent.com` 在部分网络环境下不可达。客户端 `init --source URL` 可指定镜像源。如需为 skillflux.app 增加透传缓存路由（Worker `/gh/` 路由回源 raw 并按 SHA 缓存），在 `web/edge/worker.ts` 的 `/console` 重定向之后插入；当前未实现。

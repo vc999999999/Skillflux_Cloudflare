@@ -224,7 +224,7 @@ async function listFiles(directory: string, base = directory): Promise<string[]>
   return nested.flat().sort();
 }
 
-export async function runSeoBuild(outDir = join(WEB_ROOT, 'dist'), site = process.env.SITE_URL || 'https://skillflux.cn'): Promise<{ pages: number; indexable: number }> {
+export async function runSeoBuild(outDir = join(WEB_ROOT, 'dist'), site = process.env.SITE_URL || 'https://skillflux.app'): Promise<{ pages: number; indexable: number }> {
   const files = await listFiles(outDir);
   const pages = await Promise.all(files.filter(file => file.endsWith('.html')).map(async file => inspectHtml(file, await readFile(join(outDir, file), 'utf8'))));
   validatePages(pages, site, new Set(files));

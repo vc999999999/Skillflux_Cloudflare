@@ -77,7 +77,7 @@ npm run build --workspace @skillflux/web
 
 ## 部署配置与本地 HTTP 检查
 
-构建时将 `SITE_URL` 设置为最终公开站点地址，例如 `https://skillflux.cn`。它决定 canonical、hreflang 和 sitemap 域名；不要发布使用 localhost 或预览域名构建的生产产物。
+构建时将 `SITE_URL` 设置为最终公开站点地址，例如 `https://skillflux.app`。它决定 canonical、hreflang 和 sitemap 域名；不要发布使用 localhost 或预览域名构建的生产产物。
 
 | 部署方式 | 使用配置 | 必须保留的行为 |
 | --- | --- | --- |

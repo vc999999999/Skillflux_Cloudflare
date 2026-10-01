@@ -18,55 +18,62 @@ const descriptions: Record<string, [string, string]> = {
   "/scenarios/index.json": ["按任务组织的场景、选型与维护指南，含中英文页面链接。", "Task-based scenarios, selection and maintenance guides, with Chinese and English page links."]
 };
 const agentPrompt = t(
-  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/index.json")} 查找与我的任务相关的 Skill 来源。比较用途、来源类型和适用边界，给出原始链接及推荐理由。目录收录不代表通过 SkillFlux 评测；需要安装时，先核对 Registry 当前资格，再让我确认具体版本与计划。`,
-  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/index.json")} to find skill sources relevant to my task. Compare purpose, source type and limitations; include original links and your reasons. Directory inclusion does not imply SkillFlux evaluation. Before installation, check current registry qualification and ask me to approve the exact version and plan.`
+  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/index.json")} 查找与我的任务相关的能力来源（Skills、MCP 工具、插件）。比较功能定位、来源类型和适用边界，给出原始链接及推荐理由。黄页收录不代表已获官方担保；需要安装时，先核对当前资格，再由我确认具体计划。`,
+  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/index.json")} to find agent capabilities (skills, MCP tools, plugins) relevant to my task. Compare purpose, source type, and limitations; include original links and recommendations. Yellow pages inclusion does not imply official endorsement. Before installation, check qualification and ask me to approve the plan.`
 );
 ---
-<BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的入口", "For AI agents")} description={t("SkillFlux 的机器可读目录：llms.txt、JSON、RSS 与签名发布快照，让 AI 从同一份真实数据开始。", "Machine-readable SkillFlux catalogs: llms.txt, JSON, RSS and signed publication snapshots for AI agents.")}>
+<BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的黄页入口", "For AI agents")} description={t("SkillFlux 机器可读黄页：llms.txt、JSON、RSS 与结构化索引，让 AI 直接读懂全网 Agent 能力。", "Machine-readable capability directory for AI agents: llms.txt, JSON, RSS, and structured endpoints.")}>
   <main id="main-content" class="page-shell ai-shell">
     <header class="page-hero">
-      <div><p class="eyebrow">BUILT FOR AGENTS</p><h1 class="page-title">{t("人能看懂，AI 也能读。", "Readable by people. Ready for agents.")}</h1><p class="page-lede">{t("把清晰的目录交给 AI。结构化数据、纯文本和订阅流，都来自网站使用的同一份内容。", "Give your AI a clear map. Structured data, plain text and feeds are generated from the same content as this website.")}</p></div>
-      <div class="ai-symbol" aria-hidden="true">{ "{ }" }</div>
+      <div><p class="eyebrow">{t("面向智能体设计", "BUILT FOR AGENTS")}</p><h1 class="page-title">{t("人类看得懂，Agent 直接读。", "Readable by humans. Native to agents.")}</h1><p class="page-lede">{t("把结构清晰的能力黄页交给 AI。纯文本、JSON 索引与订阅流，均与网站实时数据完全同源。", "Deliver a structured capability directory directly to your agent. Plain text, JSON indexes, and feeds generated from the exact same source.")}</p></div>
+    <div class="ai-symbol" aria-hidden="true">
+      <span class="ai-symbol-status"></span>
+      <code>/api/live</code>
+    </div>
     </header>
     <section class="ai-start" aria-labelledby="ai-start-title">
-      <div><span class="ai-kicker">01 / START HERE</span><h2 id="ai-start-title">{t("让 AI 帮你挑选", "Ask your AI to explore")}</h2><p>{t("复制这段话，粘贴到支持读取网页的 AI 工具，再补充你的任务。", "Copy this into an AI tool that can read websites, then describe your task.")}</p><button class="button primary" type="button" data-copy-text={agentPrompt}>{t("复制给 AI 的指令", "Copy agent prompt")} <span aria-hidden="true">↗</span></button></div>
+      <div><span class="ai-kicker">01 / START HERE</span><h2 id="ai-start-title">{t("让 AI 帮你选配能力", "Ask your AI to explore")}</h2><p>{t("复制这段提示词，粘贴到支持网络或文件读取的 AI 工具中，输入你的具体任务。", "Copy this prompt into any AI agent with web or context reading capabilities, then describe your task.")}</p><button class="button primary" type="button" data-copy-text={agentPrompt}>{t("复制给 AI 的指令", "Copy agent prompt")} <span aria-hidden="true">↗</span></button></div>
       <div class="ai-prompt"><div><span>AGENT PROMPT</span><span aria-hidden="true">↗</span></div><p>{agentPrompt}</p></div>
     </section>
     <section class="ai-endpoints" aria-labelledby="ai-endpoints-title">
       <div class="section-heading-row"><div><p class="eyebrow">02 / OPEN ENDPOINTS</p><h2 id="ai-endpoints-title">{t("选一个适合的格式", "Choose the right format")}</h2></div><span class="ai-open-label">{t("公开读取 · 无需登录", "Public access · No login")}</span></div>
-      <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
+      <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span class:list={['format-tag', endpoint.path.endsWith('.json') && 'is-json', endpoint.path.endsWith('.xml') && 'is-xml']}>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
     </section>
-    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("来源目录 ≠ 可安装版本", "Source catalogs and installable versions")}</h3><p>{t("来源条目用于发现和比较。只从当前 Registry 中选择获准发布、仍有资格且未撤销的具体版本。", "Source entries support discovery and comparison. Install only exact versions that are currently qualified, approved and not revoked in the registry.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("公开端点用于读取。连接项目、安装和升级需由用户明确发起，并遵循项目权限与精确版本计划。", "Public endpoints provide data. Connecting a project, installing and upgrading require explicit user intent, project permissions and exact-version plans.")}</p></div></article></div></section>
-    <div class="ai-next"><p>{t("想让 AI 直接使用 Skill？", "Want your AI to use a skill directly?")}</p><a class="button secondary" href={localizePath("/install/", lang)}>{t("查看 MCP 接入指南", "Read the MCP setup guide")} <span aria-hidden="true">→</span></a></div>
+    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("黄页目录 ≠ 随意安装", "Directory entries and verified installation")}</h3><p>{t("黄页条目用于全景发现和对比。需要安装时，请选择经由审核流水线验证、具备完整签名与测试报告的具体版本。", "Directory entries enable open discovery and comparison. When installing, select verified releases with signed manifests and review records.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("公开端点用于读取。连接项目、安装和升级需由用户明确发起，并遵循项目权限与精确版本计划。", "Public endpoints provide data. Connecting a project, installing and upgrading require explicit user intent, project permissions and exact-version plans.")}</p></div></article></div></section>
+    <div class="ai-next"><p>{t("想让 AI 直接接入能力？", "Want to equip your agent directly?")}</p><a class="button secondary" href={localizePath("/install/", lang)}>{t("查看运行时接入指南", "Read the setup guide")} <span aria-hidden="true">→</span></a></div>
   </main>
 </BaseLayout>
 <style>
-  .ai-symbol { display: grid; place-items: center; width: 86px; height: 86px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-strong); font: 400 2.2rem var(--font-mono); }
-  .ai-start { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: center; padding: 48px 0; border-bottom: 1px solid var(--line); }
-  .ai-kicker { font: .65rem var(--font-mono); color: var(--muted); }
-  .ai-start h2, .ai-boundaries h2 { margin: 14px 0; font-size: 1.65rem; letter-spacing: -.025em; }
-  .ai-start > div > p { color: var(--muted); font-size: .9rem; line-height: 1.8; margin-bottom: 24px; }
-  .ai-prompt { min-width: 0; border-radius: 8px; overflow: hidden; background: #211f18; color: #edebe1; }
-  .ai-prompt > div { display: flex; justify-content: space-between; padding: 13px 20px; border-bottom: 1px solid #3e3a31; color: #b4afa1; font: .64rem var(--font-mono); }
-  .ai-prompt p { padding: 4px 23px 8px; font: .79rem/1.95 var(--font-mono); overflow-wrap: anywhere; color: #edebe1 !important; }
-  .ai-endpoints { padding: 48px 0; }
-  .ai-open-label { font-size: .74rem; color: var(--muted); white-space: nowrap; }
-  .endpoint-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
-  .endpoint-card { padding: 21px; border: 1px solid var(--line); border-radius: 7px; text-decoration: none; background: var(--paper-strong); transition: border-color .18s, transform .18s; }
-  .endpoint-card:hover { border-color: #b1ac9e; transform: translateY(-2px); }
+  .ai-symbol { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--line); border-radius: 24px; background: var(--paper-strong); box-shadow: var(--shadow-sm); }
+  .ai-symbol-status { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 0 2px var(--green-subtle); }
+  .ai-symbol code { font-size: .8rem; font-weight: 600; color: var(--muted); }
+  .ai-start { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: center; padding: 56px 0; border-bottom: 1px solid var(--line); }
+  .ai-kicker { font: 500 .75rem var(--font-mono); color: var(--faint); letter-spacing: .08em; }
+  .ai-start h2, .ai-boundaries h2 { margin: 14px 0 16px; font-size: 1.75rem; letter-spacing: -.03em; font-weight: 650; }
+  .ai-start > div > p { color: var(--muted); font-size: .95rem; line-height: 1.8; margin-bottom: 26px; }
+  .ai-prompt { min-width: 0; border-radius: var(--radius-lg); overflow: hidden; background: #191712; color: #edebe1; border: 1px solid #332f26; box-shadow: var(--shadow-card); }
+  .ai-prompt > div { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #2e2a22; color: #a6a193; font: 500 .72rem var(--font-mono); letter-spacing: .06em; }
+  .ai-prompt p { padding: 8px 22px 14px; font: .82rem/1.9 var(--font-mono); overflow-wrap: anywhere; color: #edebe1 !important; margin: 0; }
+  .ai-endpoints { padding: 56px 0; }
+  .ai-open-label { font-size: .82rem; color: var(--muted); white-space: nowrap; font-weight: 500; }
+  .endpoint-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .endpoint-card { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-lg); text-decoration: none; background: var(--paper-strong); box-shadow: var(--shadow-sm); transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease; }
+  .endpoint-card:hover { border-color: rgba(23, 21, 15, 0.28); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
   .endpoint-top { display: flex; justify-content: space-between; align-items: center; }
-  .endpoint-top span:first-child { padding: 4px 7px; border-radius: 3px; background: var(--cream); font: .63rem var(--font-mono); color: var(--muted); }
-  .endpoint-top span:last-child { color: var(--muted); }
-  .endpoint-card h3 { margin: 20px 0 12px; font: 500 .88rem var(--font-mono); overflow-wrap: anywhere; }
-  .endpoint-card p { margin: 0; font-size: .8rem; line-height: 1.85; color: var(--muted); }
-  .ai-boundaries { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; padding: 44px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .format-tag { padding: 3px 8px; border-radius: var(--radius-sm); background: var(--cream); font: 600 .72rem var(--font-mono); color: var(--muted); letter-spacing: .04em; }
+  .format-tag.is-json { background: var(--green-subtle); color: var(--green); }
+  .format-tag.is-xml { background: #fbeee9; color: var(--accent); }
+  .endpoint-top span:last-child { color: var(--faint); }
+  .endpoint-card h3 { margin: 18px 0 10px; font: 600 .92rem var(--font-mono); overflow-wrap: anywhere; color: var(--ink); }
+  .endpoint-card p { margin: 0; font-size: .84rem; line-height: 1.75; color: var(--muted); }
+  .ai-boundaries { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; padding: 52px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .ai-rules { display: grid; gap: 26px; }
-  .ai-rules article { display: flex; gap: 17px; }
-  .ai-rules article > span { color: var(--faint); font: .69rem/1.8 var(--font-mono); }
-  .ai-rules h3 { margin: 0 0 8px; font-size: .88rem; }
-  .ai-rules p { margin: 0; color: var(--muted); font-size: .81rem; line-height: 1.85; }
-  .ai-next { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
-  .ai-next p { margin: 0; font-weight: 550; font-size: .94rem; }
-  @media(max-width: 900px) { .endpoint-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ai-start, .ai-boundaries { gap: 30px; } }
-  @media(max-width: 620px) { .ai-symbol { display: none; } .ai-start, .ai-boundaries { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 32px 0; } .endpoint-grid { grid-template-columns: minmax(0, 1fr); } .ai-open-label { display: none; } .ai-endpoints { padding: 32px 0; } .endpoint-card h3 { margin-top: 15px; } }
+  .ai-rules article { display: flex; gap: 18px; }
+  .ai-rules article > span { color: var(--accent); font: 600 .85rem/1.6 var(--font-mono); }
+  .ai-rules h3 { margin: 0 0 8px; font-size: .98rem; font-weight: 620; color: var(--ink); }
+  .ai-rules p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.8; }
+  .ai-next { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; margin-top: 40px; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .ai-next p { margin: 0; font-weight: 600; font-size: .98rem; color: var(--ink); }
+  @media(max-width: 900px) { .endpoint-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ai-start, .ai-boundaries { gap: 32px; } }
+  @media(max-width: 620px) { .ai-symbol { display: none; } .ai-start, .ai-boundaries { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 36px 0; } .endpoint-grid { grid-template-columns: minmax(0, 1fr); } .ai-open-label { display: none; } .ai-endpoints { padding: 36px 0; } .endpoint-card h3 { margin-top: 14px; } }
 </style>

@@ -4,11 +4,17 @@ declare const __SEO_REDIRECTS__: Record<string, string>;
 declare const __SEO_PAGES__: string[];
 const redirects = __SEO_REDIRECTS__;
 const pages = new Set(__SEO_PAGES__);
+const primaryHost = 'skillflux.app';
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
+    if (['skillflux.cn', 'www.skillflux.cn', 'www.skillflux.app'].includes(url.hostname)) {
+      url.protocol = 'https:';
+      url.hostname = primaryHost;
+      return Response.redirect(url.href, 308);
+    }
     if (url.protocol === 'http:' && !loopback) {
       url.protocol = 'https:';
       return Response.redirect(url.href, 308);

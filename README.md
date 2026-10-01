@@ -104,4 +104,4 @@ npm run build:production --workspace @skillflux/web   # 从真实目录仓库同
 npm run deploy:production --workspace @skillflux/web  # wrangler 部署
 ```
 
-旧 VPS Registry 部署已废弃；服务器已可在确认后下线。备份即 `git clone` / fork 目录仓库。`raw.githubusercontent.com` 在部分网络环境下不可达时，客户端 `--source` 参数可指定镜像源；为 skillflux.cn Worker 增加透传缓存路由是预留的后续选项。
+旧 VPS Registry 部署已废弃；服务器已可在确认后下线。备份即 `git clone` / fork 目录仓库。`raw.githubusercontent.com` 在部分网络环境下不可达时，客户端 `--source` 参数可指定镜像源；为 skillflux.app Worker 增加透传缓存路由是预留的后续选项。

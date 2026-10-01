@@ -24,37 +24,38 @@ const zh = lang === 'zh';
 </dialog>
 
 <style>
-  .sf-search-trigger { display: inline-flex; align-items: center; gap: 7px; padding: 7px 8px; color: #8a8578; background: #fbfbf8; border: 1px solid #eeebe2; border-radius: 6px; font: inherit; font-size: 10px; line-height: 1.4; cursor: pointer; white-space: nowrap; }
-  .sf-search-trigger:hover { color: #17150f; border-color: #cec9b9; }
-  .sf-search-trigger kbd { margin-left: 13px; color: #a29d90; font: inherit; font-size: 9px; }
-  .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 14vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 76dvh); padding: 0; margin: 0; border: 1px solid #e5e0d3; border-radius: 13px; color: #25221b; background: #fdfcf8; box-shadow: 0 22px 80px #14130f33; overflow: hidden; }
-  .sf-search-dialog::backdrop { background: rgba(20,19,15,.32); backdrop-filter: blur(3px); }
+  .sf-search-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; color: var(--muted); background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-md); font: inherit; font-size: 12px; line-height: 1.4; cursor: pointer; white-space: nowrap; transition: all .15s ease; }
+  .sf-search-trigger:hover { color: var(--ink); border-color: rgba(23, 21, 15, 0.3); background: var(--paper); }
+  .sf-search-trigger kbd { margin-left: 8px; color: var(--faint); font: 500 10px var(--font-mono); background: var(--cream); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; }
+  .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 12vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 78dvh); padding: 0; margin: 0; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--paper-strong); box-shadow: 0 20px 60px rgba(23, 21, 15, 0.12); overflow: hidden; }
+  .sf-search-dialog::backdrop { background: rgba(23, 21, 15, 0.28); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
   .sf-search-dialog[open] { display: flex; flex-direction: column; }
-  .sf-search-top { display: flex; align-items: center; gap: 13px; padding: 20px; border-bottom: 1px solid #f1f0e8; flex-shrink: 0; }
-  .sf-search-top > svg { flex-shrink: 0; color: #928d80; }
-  .sf-search-input { min-width: 0; flex: 1; padding: 0; border: 0; outline: none; background: transparent; color: #1b1913; font: inherit; font-size: 14px; line-height: 1.6; box-shadow: none; }
-  .sf-search-input::placeholder { color: #a29d90; }
+  .sf-search-top { display: flex; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+  .sf-search-top > svg { flex-shrink: 0; color: var(--muted); }
+  .sf-search-input { min-width: 0; flex: 1; padding: 0; border: 0; outline: none; background: transparent; color: var(--ink); font: inherit; font-size: 15px; line-height: 1.5; box-shadow: none; }
+  .sf-search-input::placeholder { color: var(--faint); }
   .sf-search-input::-webkit-search-cancel-button { cursor: pointer; }
-  .sf-search-close { border: 1px solid #edeadf; background: #fbfbf8; padding: 3px 5px; border-radius: 4px; color: #9c978a; font: inherit; font-size: 9px; cursor: pointer; }
-  .sf-search-content { min-height: 160px; padding: 13px 10px 10px; overflow: auto; overscroll-behavior: contain; }
-  .sf-search-status { margin: 0; padding: 4px 10px 12px; color: #a29d90; font-size: 11px; line-height: 1.7; }
+  .sf-search-close { border: 1px solid var(--line); background: var(--paper); padding: 3px 6px; border-radius: var(--radius-sm); color: var(--faint); font: 500 10px var(--font-mono); cursor: pointer; transition: all .15s ease; }
+  .sf-search-close:hover { color: var(--ink); border-color: var(--line-strong); }
+  .sf-search-content { min-height: 160px; padding: 12px 10px 10px; overflow: auto; overscroll-behavior: contain; }
+  .sf-search-status { margin: 0; padding: 6px 12px 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
   .sf-search-results { padding: 0; margin: 0; list-style: none; }
   .sf-search-results :global(li) { list-style: none; }
-  .sf-search-results :global(.sf-search-result) { display: flex; align-items: center; gap: 14px; padding: 13px 11px; color: #27241d; border-radius: 6px; text-decoration: none; }
-  .sf-search-results :global(.sf-search-result[aria-selected="true"]), .sf-search-results :global(.sf-search-result:hover) { background: #f7f6f2; }
+  .sf-search-results :global(.sf-search-result) { display: flex; align-items: center; gap: 14px; padding: 12px 14px; color: var(--ink); border-radius: var(--radius-md); text-decoration: none; transition: background .12s ease; }
+  .sf-search-results :global(.sf-search-result[aria-selected="true"]), .sf-search-results :global(.sf-search-result:hover) { background: var(--cream); }
   .sf-search-results :global(.sf-search-result-body) { display: block; min-width: 0; flex: 1; }
-  .sf-search-results :global(.sf-search-result-title) { display: block; font-size: 13px; font-weight: 550; line-height: 1.5; }
-  .sf-search-results :global(.sf-search-result-description) { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 3px; color: #928d80; font-size: 11px; line-height: 1.6; }
-  .sf-search-results :global(.sf-search-result-kind) { flex-shrink: 0; color: #a29d90; font-size: 9px; border: 1px solid #efece3; padding: 3px 5px; border-radius: 3px; }
-  .sf-search-bottom { display: flex; justify-content: space-between; gap: 12px; padding: 13px 20px; border-top: 1px solid #f2f1ea; flex-shrink: 0; color: #b1ac9e; font-size: 10px; }
-  .sf-search-bottom kbd { font: inherit; color: #817c6f; }
+  .sf-search-results :global(.sf-search-result-title) { display: block; font-size: 14px; font-weight: 600; line-height: 1.5; color: var(--ink); }
+  .sf-search-results :global(.sf-search-result-description) { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .sf-search-results :global(.sf-search-result-kind) { flex-shrink: 0; color: var(--muted); font: 500 11px var(--font-mono); border: 1px solid var(--line); padding: 3px 6px; border-radius: var(--radius-sm); background: var(--paper); }
+  .sf-search-bottom { display: flex; justify-content: space-between; gap: 12px; padding: 12px 20px; border-top: 1px solid var(--line); flex-shrink: 0; color: var(--muted); font-size: 11px; background: var(--paper); }
+  .sf-search-bottom kbd { font: 500 11px var(--font-mono); color: var(--ink); padding: 1px 4px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper-strong); }
   .sf-search-hint-gap { margin-left: 14px; }
-  .sf-search-retry { margin: 4px 10px 20px; border: 1px solid #e5e0d3; border-radius: 5px; padding: 8px 14px; background: #fdfcf8; color: #39362d; cursor: pointer; font: inherit; font-size: 12px; }
+  .sf-search-retry { margin: 4px 10px 20px; border: 1px solid var(--line); border-radius: var(--radius-md); padding: 8px 14px; background: var(--paper-strong); color: var(--ink); cursor: pointer; font: inherit; font-size: 12px; }
   .sf-search-retry[hidden] { display: none; }
-  .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid #5e594d; outline-offset: 3px; }
+  .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   .sf-search-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-  @media (max-width: 1150px) { .sf-search-trigger { padding: 7px; background: transparent; border-color: transparent; } .sf-search-trigger span, .sf-search-trigger kbd { display: none; } .sf-search-trigger svg { width: 18px; height: 18px; } }
-  @media (max-width: 600px) { .sf-search-dialog { top: 10vh; max-height: 80dvh; border-radius: 10px; } .sf-search-top { padding: 17px 15px; gap: 10px; } .sf-search-input { font-size: 16px; } .sf-search-bottom { padding: 12px 15px; font-size: 9px; } }
+  @media (max-width: 1150px) { .sf-search-trigger { padding: 6px; background: transparent; border-color: transparent; } .sf-search-trigger span, .sf-search-trigger kbd { display: none; } .sf-search-trigger svg { width: 18px; height: 18px; } }
+  @media (max-width: 600px) { .sf-search-dialog { top: 8vh; max-height: 82dvh; border-radius: 10px; } .sf-search-top { padding: 16px 14px; gap: 10px; } .sf-search-input { font-size: 16px; } .sf-search-bottom { padding: 10px 14px; font-size: 10px; } }
 </style>
 
 <script>

@@ -7,10 +7,10 @@ import { isResourceIndexable } from '../src/lib/resource-editorial';
 describe('resource and URL indexing policy', () => {
   it('excludes query variants, including blank filters, without excluding tracking or real pagination', () => {
     for (const path of ['/directory/?q=', '/en/directory/?agent=claude&type=mcp', '/en/registry/page/2/?q=review', '/registry/?sort=newest&page=2']) {
-      expect(isFacetedUrl(new URL(path, 'https://skillflux.cn'))).toBe(true);
+      expect(isFacetedUrl(new URL(path, 'https://skillflux.app'))).toBe(true);
     }
     for (const path of ['/directory/?utm_source=docs', '/en/registry/page/2/', '/registry/?page=2', '/resource/anthropic-skills/?q=note']) {
-      expect(isFacetedUrl(new URL(path, 'https://skillflux.cn'))).toBe(false);
+      expect(isFacetedUrl(new URL(path, 'https://skillflux.app'))).toBe(false);
     }
   });
   it('keeps permanent mappings complete, local and specific to known legacy resources', () => {

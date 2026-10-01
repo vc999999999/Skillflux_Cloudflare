@@ -32,9 +32,9 @@ const groups = [
   <div class="sf-footer-inner">
     <div class="sf-footer-grid">
       <div class="sf-footer-intro">
-        <a class="sf-footer-brand" href={localizePath("/", lang)}><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="17" width="36" height="8" fill="currentColor"/><path d="M14 29h22l14 8-14 8H14z" fill="#e0381f"/><rect x="14" y="45" width="36" height="8" fill="currentColor"/></svg><span class="sf-footer-word">SkillFlux</span></a>
-        <p>{zh ? "发现值得用的 Skill 与 AI 工具，\n让每一个想法，都有合适的能力。" : "Find the skills and AI tools\nthat help you put ideas to work."}</p>
-        <span class="sf-footer-note">{zh ? "为人类与 AI Agent 而建" : "Built for people and AI agents"}</span>
+        <a class="sf-footer-brand" href={localizePath("/", lang)}><svg class="sf-brand-mark" width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><mask id="sfFooterMask"><rect width="64" height="64" fill="#000"/><rect x="6" y="6" width="52" height="52" rx="12" ry="12" fill="#fff"/><rect x="20" y="20" width="24" height="24" rx="4" ry="4" fill="#000"/></mask></defs><g mask="url(#sfFooterMask)"><rect x="6" y="6" width="14" height="52" fill="#34A853"/><rect x="6" y="44" width="52" height="14" fill="#FBBC04"/><rect x="6" y="44" width="14" height="14" fill="#188038"/><rect x="44" y="6" width="14" height="52" fill="#EA4335"/><rect x="44" y="44" width="14" height="14" fill="#F29900"/><rect x="6" y="6" width="52" height="14" fill="#4285F4"/><rect x="44" y="6" width="14" height="14" fill="#D93025"/><rect x="6" y="6" width="14" height="14" fill="#1967D2"/></g></svg><span class="sf-footer-word">SkillFlux</span></a>
+        <p>{zh ? "AI Agent 开放功能黄页：\n让每一个想法，都有匹配的能力。" : "The yellow pages for AI agent capabilities:\nempowering every idea with the right tool."}</p>
+        <span class="sf-footer-note">{zh ? "面向开发者与自主智能体" : "Built for developers and autonomous agents"}</span>
       </div>
       {groups.map(group => <div class="sf-footer-column"><h2>{group.title}</h2><ul>{group.links.map(link => <li><a href={'external' in link || 'raw' in link ? link.href : localizePath(link.href, lang)} rel={'external' in link ? 'noopener noreferrer' : undefined}>{link.label}</a></li>)}</ul></div>)}
     </div>
@@ -45,22 +45,23 @@ const groups = [
   </div>
 </footer>
 <style>
-  .sf-footer { margin-top: 0; background: var(--cream); border-top: 1px solid var(--line-strong); color: #757063; }
-  .sf-footer-inner { max-width: 1216px; margin: 0 auto; padding: 58px 32px 23px; }
-  .sf-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; padding-bottom: 49px; }
-  .sf-footer-brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); line-height: 1; }
-  .sf-footer-word { font-size: 1.3rem; font-weight: 800; letter-spacing: -.03em; }
+  .sf-footer { margin-top: 0; background: var(--cream); border-top: 1px solid var(--line); color: var(--muted); }
+  .sf-footer-inner { max-width: 1216px; margin: 0 auto; padding: 64px 32px 32px; }
+  .sf-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; padding-bottom: 52px; }
+  .sf-footer-brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); line-height: 1; }
+  .sf-footer-word { font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; }
   .sf-footer-brand svg { display: block; flex-shrink: 0; }
-  .sf-footer-intro p { margin: 18px 0 20px; color: #858073; font-size: 12px; line-height: 1.85; white-space: pre-line; }
-  .sf-footer-note { font-size: 10px; color: #a29d90; }
-  .sf-footer-column h2 { font-size: 11px; font-weight: 600; margin: 3px 0 20px; letter-spacing: .02em; color: #312e26; }
+  .sf-footer-intro p { margin: 18px 0 16px; color: var(--muted); font-size: 13px; line-height: 1.8; white-space: pre-line; }
+  .sf-footer-note { font: 500 12px var(--font-mono); color: var(--faint); letter-spacing: .02em; }
+  .sf-footer-column h2 { font: 600 12px var(--font-mono); margin: 3px 0 20px; letter-spacing: .06em; color: var(--ink); text-transform: uppercase; }
   .sf-footer-column ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .sf-footer-column a { color: #817c6f; font-size: 11px; text-decoration: none; line-height: 1.5; }
-  .sf-footer a:hover { color: #17150f; }
-  .sf-footer a:focus-visible { outline: 2px solid #706b5e; outline-offset: 4px; }
-  .sf-footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; padding-top: 23px; border-top: 1px solid #efece3; font-size: 10px; color: #a29d90; }
-  .sf-footer-copyright, .sf-footer-legal { display: flex; flex-wrap: wrap; gap: 16px; }
-  .sf-footer-legal a { color: #9a9588; text-decoration: none; }
-  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 28px; } .sf-footer-inner { padding: 40px 24px 22px; } .sf-footer-bottom { font-size: 9px; } }
-  @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 34px 20px; padding-bottom: 34px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 15px 0 10px; } .sf-footer-column h2 { margin-bottom: 15px; } .sf-footer-legal { gap: 18px; } .sf-footer-copyright { gap: 8px 16px; } }
+  .sf-footer-column a { color: var(--muted); font-size: 13px; text-decoration: none; line-height: 1.5; transition: color .15s ease; }
+  .sf-footer a:hover { color: var(--ink); }
+  .sf-footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .sf-footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+  .sf-footer-copyright, .sf-footer-legal { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+  .sf-footer-legal a { color: var(--muted); text-decoration: none; transition: color .15s ease; }
+  .sf-footer-legal a:hover { color: var(--ink); text-decoration: underline; }
+  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px; } .sf-footer-inner { padding: 48px 24px 28px; } }
+  @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 20px; padding-bottom: 36px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 16px 0 12px; } .sf-footer-column h2 { margin-bottom: 16px; } .sf-footer-bottom { font-size: 11px; } }
 </style>

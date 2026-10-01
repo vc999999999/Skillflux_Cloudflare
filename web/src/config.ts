@@ -1,8 +1,8 @@
 export const SITE = {
   name: "SkillFlux",
   shortName: "SkillFlux",
-  description: "给人和 AI Agent 的能力资源目录：浏览 Skill、MCP 与插件来源，通过一个 npm/MCP 入口按需获取人工精选维护的 Skill。",
-  url: process.env.SITE_URL || "https://skillflux.cn",
+  description: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？一站式检索全网 Agent Skills、MCP 工具、插件与开源生态。按需选型、透明验证，即插即用。",
+  url: process.env.SITE_URL || "https://skillflux.app",
   locale: "zh-CN",
   author: "SkillFlux",
   repoUrl: "https://github.com/vc999999999/Skillflux_Cloudflare",

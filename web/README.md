@@ -15,7 +15,7 @@ The web app serves on `http://127.0.0.1:4321`. There is no local backend; curate
 
 ```bash
 npm run publication:sync --workspace @skillflux/web -- --repo vc999999999/skillflux-catalog
-SITE_URL=https://skillflux.cn npm run build --workspace @skillflux/web
+SITE_URL=https://skillflux.app npm run build --workspace @skillflux/web
 ```
 
 ## Verification

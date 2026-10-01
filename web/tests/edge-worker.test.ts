@@ -36,14 +36,22 @@ function assets() {
 }
 
 describe('production edge routing', () => {
-  it.each(['skillflux.cn', 'www.skillflux.cn'])('upgrades public HTTP before serving any %s page', async host => {
+  it.each(['skillflux.app', 'www.skillflux.app', 'skillflux.cn', 'www.skillflux.cn'])('sends public HTTP on %s to the primary HTTPS domain', async host => {
     for (const path of ['/console/?tab=reports', '/install/', '/setup/?utm_source=docs']) {
       const { fetch, env } = assets();
       const response = await worker.fetch(new Request(`http://${host}${path}`), env);
       expect(response.status).toBe(308);
-      expect(response.headers.get('Location')).toBe(`https://${host}${path}`);
+      expect(response.headers.get('Location')).toBe(`https://skillflux.app${path}`);
       expect(fetch).not.toHaveBeenCalled();
     }
+  });
+
+  it.each(['www.skillflux.app', 'skillflux.cn', 'www.skillflux.cn'])('redirects %s to the primary domain without fetching assets', async host => {
+    const { fetch, env } = assets();
+    const response = await worker.fetch(new Request(`https://${host}/directory/?q=agent`), env);
+    expect(response.status).toBe(308);
+    expect(response.headers.get('Location')).toBe('https://skillflux.app/directory/?q=agent');
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it.each(['localhost', '127.0.0.1', '[::1]'])('keeps local HTTP development working on %s', async host => {
@@ -56,7 +64,7 @@ describe('production edge routing', () => {
 
   it.each(['/404', '/404/', '/404.html'])('serves %s as a real 404 without the asset redirect or soft 404', async path => {
     const { fetch, env } = assets();
-    const response = await worker.fetch(new Request(`https://skillflux.cn${path}?test=1`), env);
+    const response = await worker.fetch(new Request(`https://skillflux.app${path}?test=1`), env);
     expect(response.status).toBe(404);
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
     expect(response.headers.get('Location')).toBeNull();
@@ -67,10 +75,10 @@ describe('production edge routing', () => {
 
   it('keeps error HEAD responses bodyless and ordinary missing pages at 404', async () => {
     const { env } = assets();
-    const head = await worker.fetch(new Request('https://skillflux.cn/404/', { method: 'HEAD' }), env);
+    const head = await worker.fetch(new Request('https://skillflux.app/404/', { method: 'HEAD' }), env);
     expect(head.status).toBe(404);
     expect(await head.text()).toBe('');
-    const missing = await worker.fetch(new Request('https://skillflux.cn/missing/'), env);
+    const missing = await worker.fetch(new Request('https://skillflux.app/missing/'), env);
     expect(missing.status).toBe(404);
     expect(missing.headers.get('X-Robots-Tag')).toBe('noindex, follow');
     expect(await missing.text()).toBe('Missing page');
@@ -84,18 +92,18 @@ describe('production edge routing', () => {
       ['/registry/?page=2&utm_source=docs', '/registry/page/2/?utm_source=docs']
     ]) {
       const { fetch, env } = assets();
-      const response = await worker.fetch(new Request(`https://skillflux.cn${from}`), env);
+      const response = await worker.fetch(new Request(`https://skillflux.app${from}`), env);
       expect(response.status).toBe(301);
-      expect(response.headers.get('Location')).toBe(`https://skillflux.cn${to}`);
+      expect(response.headers.get('Location')).toBe(`https://skillflux.app${to}`);
       expect(fetch).not.toHaveBeenCalled();
     }
   });
 
   it.each(['/console', '/console/', '/console/index.html'])('retires the operator page at %s', async path => {
     const { fetch, env } = assets();
-    const response = await worker.fetch(new Request(`https://skillflux.cn${path}?tab=reports`), env);
+    const response = await worker.fetch(new Request(`https://skillflux.app${path}?tab=reports`), env);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('https://skillflux.cn/registry/');
+    expect(response.headers.get('Location')).toBe('https://skillflux.app/registry/');
     expect(fetch).not.toHaveBeenCalled();
   });
 });
