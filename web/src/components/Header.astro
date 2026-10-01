@@ -9,6 +9,7 @@ const path = currentPath.replace(/^\/en(?=\/)/, "");
 const showLanguageSwitcher = showLanguage && !/^\/console(?:\/|$)/.test(path);
 const links = [
   { href: "/directory/", label: zh ? "资源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
+  { href: "/registry/", label: zh ? "精品 Skill" : "Registry", active: /^\/(registry|skill)(\/|$)/.test(path) },
   { href: "/guides/", label: zh ? "指南" : "Guides", active: /^\/(guides|scenarios|insights)(\/|$)/.test(path) },
   { href: "/for-ai/", label: "For AI", active: path.startsWith("/for-ai") }
 ];

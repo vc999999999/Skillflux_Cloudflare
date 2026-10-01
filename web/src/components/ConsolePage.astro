@@ -288,19 +288,28 @@ const modules = [
       const section=root!.querySelector<HTMLElement>('[data-module="'+key+'"]')!;
       const target=section.querySelector<HTMLElement>("[data-list]")!;const form=section.querySelector<HTMLFormElement>("[data-list-filter]")!;
       const state=listState.get(key)??{offset:0,total:0,request:0};listState.set(key,state);const requestNumber=++state.request,current=session;
-      const params=new URLSearchParams();new FormData(form).forEach((entry,name)=>{if(String(entry).trim())params.set(name,String(entry).trim());});params.set("offset",String(state.offset));params.set("limit","10");
+      const isCurrent=()=>current===session&&requestNumber===state.request;
+      const previous=section.querySelector<HTMLButtonElement>("[data-prev]")!,next=section.querySelector<HTMLButtonElement>("[data-next]")!;
+      const pageInfo=section.querySelector<HTMLElement>("[data-page-info]")!;
+      const offset=state.offset;
+      const params=new URLSearchParams();new FormData(form).forEach((entry,name)=>{if(String(entry).trim())params.set(name,String(entry).trim());});params.set("offset",String(offset));params.set("limit","10");
+      previous.disabled=true;next.disabled=true;pageInfo.textContent="";
       target.replaceChildren(el("p","正在读取此模块…","console-loading"));
       try{
-        const response=await request<PageResponse<unknown>>("/v1/admin/"+key+"?"+params,undefined,isPageResponse);if(current!==session||requestNumber!==state.request)return;
-        state.total=response.total;target.replaceChildren();
+        const response=await request<PageResponse<unknown>>("/v1/admin/"+key+"?"+params,undefined,isPageResponse);if(!isCurrent())return;
+        state.total=response.total;
+        const lastOffset=Math.max(0,Math.floor((response.total-1)/10)*10);
+        // Processing the final record on a page can remove that page from the current filter.
+        if(offset>lastOffset){state.offset=lastOffset;await loadList(key);return;}
+        target.replaceChildren();
         if(!response.items.length)target.append(el("p","当前筛选没有记录。","console-empty"));
         if(key==="skills")renderSkills(response.items as SkillSummary[],target);
         else if(key==="campaigns")renderCampaigns(response.items as Campaign[],target);
         else if(key==="inquiries"||key==="reports")renderOperations(response.items as Array<Inquiry|AdReport>,target,key);
         else(response.items as AuditItem[]).forEach(item=>target.append(jsonSection(date(item.createdAt)+" · "+item.action+" · "+item.subject,item.details??item)));
-        section.querySelector<HTMLElement>("[data-page-info]")!.textContent=response.total?String(state.offset+1)+"–"+Math.min(state.offset+response.items.length,response.total)+" / "+response.total:"0 条";
-      }catch(error){if(current===session){target.replaceChildren(el("p",errorText(error),"is-error"),button("重试此模块",()=>loadList(key)));}}
-      finally{if(current===session){section.querySelector<HTMLButtonElement>("[data-prev]")!.disabled=state.offset===0;section.querySelector<HTMLButtonElement>("[data-next]")!.disabled=state.offset+10>=state.total;}}
+        pageInfo.textContent=response.total?String(offset+1)+"–"+Math.min(offset+response.items.length,response.total)+" / "+response.total:"0 条";
+      }catch(error){if(isCurrent()){target.replaceChildren(el("p",errorText(error),"is-error"),button("重试此模块",()=>loadList(key)));}}
+      finally{if(isCurrent()){previous.disabled=state.offset===0;next.disabled=state.offset+10>=state.total;}}
     }
     function metricsQuery() {
       const params=new URLSearchParams();new FormData(metricsForm).forEach((entry,name)=>{if(String(entry))params.set(name,String(entry));});

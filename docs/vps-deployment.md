@@ -4,16 +4,40 @@
 
 ```
 访客浏览器 ──▶ Cloudflare Workers（静态站点 + 边缘重定向/noindex）
-   表单/console/广告预览 ──浏览器直连──▶ https://registry.skillflux.cn ──▶ VPS 上的 Registry 容器
+   表单/广告预览 ──浏览器直连──▶ https://registry.skillflux.cn ──▶ VPS 上的 Registry 容器
 skillflux CLI / MCP ────────────────────────────────────────────────▶ 同上
 发布流程：本机 publication:sync 拉签名快照 → 重建 → wrangler deploy
 ```
+
+## 当前生产环境
+
+网站为 `https://skillflux.cn`，Registry 为 `https://8.210.176.19`。公网 IP 已配置受信任 HTTPS，Caddy 自动续期；不需要为后端另配域名。下文的 `registry.skillflux.cn` 是采用域名时的示例。
+
+在仓库根目录执行：
+
+```bash
+# 同步真实生产快照、构建，再发布现有 skillflux Worker
+npm run deploy:production --workspace @skillflux/web
+```
+
+该命令使用 `web/data/registry-production-key.json` 钉住生产公钥，并将独立产物放入 `web/.publication/production/dist`。表单和接入指南使用同一生产 Registry；原有 `web/data/registry-publication.json` 保留，不会被同步覆盖。每次强制重建，确保仅修改前端源码时也能发布。Registry 为空时，精品库如实显示当前状态。
+
+只构建并检查部署配置：
+
+```bash
+npm run build:production --workspace @skillflux/web
+cd web
+npx wrangler deploy .publication/production/dist/_worker.js \
+  --assets .publication/production/dist --config wrangler.workers.jsonc --dry-run
+```
+
+Wrangler 需要已登录的 Cloudflare 账号。生产公钥可以公开，管理员 Token 和服务器私钥不能放入前端环境变量或静态产物。更换 Registry 身份时，应先通过服务器核实新公钥，再显式更新钉住的公钥。
 
 ## 一、VPS 准备
 
 - 最低 1 vCPU / 1 GB / 20 GB 磁盘（Node 24 + SQLite，技能包都是 KB 级文本）
 - 装 Docker 与 compose 插件
-- DNS：`registry.skillflux.cn` A 记录指向 VPS IP
+- 使用域名时，DNS 的 `registry.skillflux.cn` A 记录指向 VPS IP；使用公网 IP HTTPS 时无需此记录
 - 防火墙只放 22/80/443；Registry 容器只绑 `127.0.0.1`，TLS 由反代终结
 
 ## 二、Registry 容器
@@ -77,29 +101,28 @@ curl https://registry.skillflux.cn/v1/keys     # 保存返回 JSON，下一步�
 ```bash
 cd web
 curl -s https://registry.skillflux.cn/v1/keys > /tmp/registry-key.json
-npx tsx scripts/sync-publication.ts \
+SITE_URL=https://skillflux.cn npx tsx scripts/publication-build.ts \
   --registry https://registry.skillflux.cn \
-  --trust-key /tmp/registry-key.json
-# 之后例行同步只需：--registry https://registry.skillflux.cn
+  --trust-key /tmp/registry-key.json \
+  --output .publication/production --force
+# 既有 production 快照会钉住签名身份；切换服务时始终明确核对公钥。
 ```
 
-构建 + 部署到 Cloudflare：
+上述命令已完成构建，再从 `web` 目录部署到 Cloudflare：
 
 ```bash
-PUBLIC_REGISTRY_URL=https://registry.skillflux.cn npm run build --workspace @skillflux/web
-cd web && npx wrangler deploy --config wrangler.workers.jsonc
+npx wrangler deploy --config wrangler.workers.jsonc --keep-vars
 ```
 
-`PUBLIC_REGISTRY_URL` 会在构建时烘进 `/console/`、`/advertise/`、`/report/` 页面供浏览器直连；不配则表单自动显示"未配置"并禁用（安全降级）。
+`publication:build` 自动设置 `PUBLIC_REGISTRY_URL`，构建时写入 `/advertise/`、`/report/` 页面供浏览器直连。公开 `/console/` 页面已下线，旧地址重定向到 `/registry/`；运营需通过受保护的 admin API 操作。Wrangler 的默认入口和资源目录也指向该生产产物；普通 `npm run build` 的 `web/dist` 不用于生产发布。
 
 ## 五、日常发布流
 
 ```
-新技能/改广告/撤销 ──(admin API 或 /console/)──▶ Registry 库更新
+新技能/改广告/撤销 ──(受保护的 admin API)──▶ Registry 库更新
         │
         ▼
-npx tsx scripts/sync-publication.ts --registry https://registry.skillflux.cn
-npm run build --workspace @skillflux/web && (cd web && npx wrangler deploy)
+npm run deploy:production --workspace @skillflux/web
 ```
 
 Registry 重启**不需要**重新部署网站；但每次审核/撤销后必须重跑 sync + build + deploy，静态页才反映最新快照。

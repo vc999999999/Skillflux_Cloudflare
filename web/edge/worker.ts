@@ -8,6 +8,14 @@ const pages = new Set(__SEO_PAGES__);
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
+    if (url.protocol === 'http:' && !loopback) {
+      url.protocol = 'https:';
+      return Response.redirect(url.href, 308);
+    }
+    if (/^\/console(?:\/(?:index\.html)?)?$/.test(url.pathname)) {
+      return Response.redirect(new URL('/registry/', url.origin).href, 301);
+    }
     if (/^\/(?:_nginx-(?:redirects|pagination)\.conf|_worker\.js|_routes\.json|_redirects|_headers|\.assetsignore)\/?$/.test(url.pathname)) {
       return new Response('Not found', { status: 404, headers: { 'X-Robots-Tag': 'noindex, follow' } });
     }
@@ -28,8 +36,17 @@ export default {
       }
     }
 
-    const response = await env.ASSETS.fetch(request);
-    const result = new Response(response.body, response);
+    // force-trailing-slash serves the 404.html asset at /404/ with status 200.
+    // Fetch that canonical asset directly and preserve its body as an actual error.
+    const errorPage = /^\/404(?:\.html)?\/?$/.test(url.pathname);
+    const assetRequest = errorPage ? new Request(new URL('/404/', url), request) : request;
+    const response = await env.ASSETS.fetch(assetRequest);
+    const result = new Response(response.body, {
+      status: errorPage ? 404 : response.status,
+      statusText: errorPage ? 'Not Found' : response.statusText,
+      headers: response.headers
+    });
+    if (errorPage) result.headers.delete('Location');
     if (result.status === 404) result.headers.set('X-Robots-Tag', 'noindex, follow');
     if (isFacetedUrl(url) && result.headers.get('Content-Type')?.includes('text/html')) {
       result.headers.set('X-Robots-Tag', 'noindex, follow');

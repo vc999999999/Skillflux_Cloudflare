@@ -98,6 +98,15 @@ test('real static builds publish same-name skills through approval, historic ret
   }
   const first = await buildPublication({ registry: base, output: current, acceptFirstKey: true });
   assert.equal(first.changed, true); assert.equal(first.versions, 1);
+  for (const prefix of ['', 'en/']) {
+    const setup = await readFile(join(first.dist, `${prefix}install/index.html`), 'utf8');
+    const nodes: ElementNode[] = [];
+    walkSync(parse(setup), node => { if (node.type === ELEMENT_NODE) nodes.push(node); });
+    assert.equal(nodes.find(node => 'data-setup-registry' in node.attributes)?.attributes['data-setup-registry'], base);
+    const initCopy = nodes.find(node => 'data-init-copy' in node.attributes);
+    assert.ok(initCopy?.attributes['data-copy-text']?.includes(base), 'Setup must initialize the registry from this signed publication');
+    assert.ok(!initCopy?.attributes['data-copy-text']?.includes('http://127.0.0.1:8787'), 'Setup must not silently initialize the default development registry');
+  }
   const originalPointer = await readlink(current);
   const originalSnapshot = await readFile(first.snapshot, 'utf8');
   const publishedHtml = await readFile(join(first.dist, 'skills/published-example/index.html'), 'utf8');

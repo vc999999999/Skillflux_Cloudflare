@@ -612,14 +612,14 @@
   },
   "discoveraiskills-com": {
     "resourceSlug": "discover-ai-skills",
-    "updatedAt": "2026-09-29",
+    "updatedAt": "2026-10-01",
     "primaryCapability": {
-      "zh": "社区 Skill 探索",
-      "en": "Community skill discovery"
+      "zh": "社区 Skill 探索 · 来源暂不可访问",
+      "en": "Community skill discovery · Temporarily unavailable"
     },
     "summary": {
-      "zh": "Discover AI Skills 是偏社区发现的英文 Skill 站点，用于探索 agent 能力并了解不同选择。它适合在任务尚未形成固定实现方案时拓宽候选范围，然后回到项目本身继续评估。",
-      "en": "Discover AI Skills is an English-language, community-oriented site for exploring agent capabilities and available options. It is useful for broadening a shortlist before a task has a fixed implementation, followed by closer evaluation of the underlying projects."
+      "zh": "2026-10-01 核查：Discover AI Skills 来源站点显示 Deployment Paused，暂不可访问。它原为偏社区发现的英文 Skill 站点；目前可先看 Qoder Community 或 VoltAgent 合集等替代来源。保留原网址供后续复查。",
+      "en": "Checked on 2026-10-01: Discover AI Skills displays “Deployment Paused” and is temporarily unavailable. This English-language community skill discovery site remains listed for future checks. In the meantime, explore Qoder Community or the VoltAgent collection."
     },
     "bestFor": [
       {
@@ -631,10 +631,14 @@
       "discover-skills"
     ],
     "skillFluxNote": {
-      "zh": "浏览时把有趣的名称改写成你自己的需求句，再确认条目确实提供所需能力。社区发现适合打开思路，最终选择应有原始说明、可复现的小任务和明确的退出条件。",
-      "en": "Translate interesting entries into a statement of your own need, then check whether they provide that capability. Community discovery can broaden your options; adoption should rest on source instructions and a small task whose outcome you can verify."
+      "zh": "本站于 2026-10-01 访问来源时看到 Deployment Paused，当前不建议将其作为获取资源的入口。可先浏览下方 Qoder Community 与 VoltAgent 替代来源，再按具体任务核对项目原始说明；待来源恢复后复查。",
+      "en": "Our source check on 2026-10-01 returned “Deployment Paused”, so this is currently unavailable as a resource entry point. Use the Qoder Community and VoltAgent alternatives below, then verify each project against your task. Recheck this source if service resumes."
     },
     "limitations": [
+      {
+        "zh": "2026-10-01 核查时来源返回 HTTP 402，并显示 Deployment Paused。这里只记录当前暂停状态，不能据此认定永久关闭。",
+        "en": "On 2026-10-01 the source returned HTTP 402 with “Deployment Paused”. This records its current paused state and does not establish a permanent closure."
+      },
       {
         "zh": "社区曝光不能证明功能覆盖或实现质量；目录未对每个条目执行测试。",
         "en": "Community visibility does not establish feature coverage or implementation quality; the catalog does not execute every listed item."

@@ -2,14 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
+import { getPublication } from "../lib/publication";
+import { DEVELOPMENT_REGISTRY_URL, normalizeRegistryUrl } from "../lib/registry-client";
 import packageInfo from "../../../mcp/package.json";
 
 type Props = { lang?: Language };
 const { lang = "zh" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
+const configuredRegistry = String(import.meta.env.PUBLIC_REGISTRY_URL ?? "").trim();
+const registryUrl = getPublication().snapshot.registry ?? (configuredRegistry.startsWith("https://") || configuredRegistry.startsWith("http://") ? normalizeRegistryUrl(configuredRegistry) : DEVELOPMENT_REGISTRY_URL);
+const localRegistry = ["localhost", "127.0.0.1", "[::1]"].includes(new URL(registryUrl).hostname);
+const registryArgument = `'${registryUrl.replace(/'/g, "'\\''")}'`;
 const installCommand = `npm ci\nnpm run build --workspace @skillflux/mcp\nnpm pack --workspace @skillflux/mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
-const initCommand = "cd /path/to/your-project\nskillflux init --project . --registry http://127.0.0.1:8787 --host codex";
+const initCommand = `cd /path/to/your-project\nskillflux init --project . --registry ${registryArgument} --host codex`;
 const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
 const updateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID';
 const hosts = [
@@ -28,7 +34,7 @@ const sections = [
 ];
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/install/", lang)} title={t("安装与接入", "Installation & setup")} description={t("从源码安装 SkillFlux，连接项目内的 MCP，并按精确版本搜索、安装和加载已审核的 Skill。", "Install SkillFlux from source, connect a project MCP, and search, install and load reviewed skills at exact versions.")} pageClass="setup-page">
-  <main id="main-content" class="page-shell setup-shell">
+  <main id="main-content" class="page-shell setup-shell" data-setup-registry={registryUrl} data-registry-argument={registryArgument}>
     <header class="setup-heading">
       <p class="eyebrow">GET STARTED</p>
       <h1 class="page-title">{t("把好用的 Skill，接进你的工具。", "Good skills. Inside your tools.")}</h1>
@@ -50,9 +56,10 @@ const sections = [
         </section>
         <section id="registry" class="setup-section">
           <div class="step-heading"><span>02</span><h2>{t("连接一个 Registry", "Connect a registry")}</h2></div>
-          <p>{t("本地试用时，在另一个终端启动开发 Registry，并保持运行。已有可信 Registry 时，可直接在下一步替换地址。", "For local use, start the development registry in another terminal and keep it running. If you already have a trusted registry, use its URL in the next step.")}</p>
-          <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text="skillflux registry --dev">{t("复制", "Copy")}</button></div><pre><code>skillflux registry --dev</code></pre></div>
-          <p class="step-hint">{t("默认地址为 http://127.0.0.1:8787。开发样例进入待审队列，公开可安装列表为空是正常状态；只有完成真实评测并获批准的版本才可安装。", "The default URL is http://127.0.0.1:8787. Development examples enter the review queue, so an empty public catalog is expected. Installation requires completed evaluations and approval.")}</p>
+          <p>{localRegistry ? t("当前构建连接本地开发 Registry。请先启动它，再在下一步配置项目。", "This build connects to a local development registry. Start it before configuring your project below.") : t("本站使用以下 Registry。下一步的初始化命令已包含这个地址，可直接连接云端服务。", "This site uses the registry below. The initialization command in the next step already includes this address and connects to the hosted service.")}</p>
+          <p><code>{registryUrl}</code></p>
+          <p class="step-hint">{t("只有完成真实评测并获批准的版本才可安装。当前可用版本以精品库和客户端搜索结果为准。", "Only evaluated and approved releases can be installed. Check the curated registry or search with the client for available versions.")}</p>
+          <details class="setup-detail" open={localRegistry}><summary>{t("本地开发：启动自己的 Registry", "Local development: run your own registry")}</summary><p>{t("在另一个终端执行下面的命令并保持运行，然后将初始化命令中的地址换成 http://127.0.0.1:8787。开发样例进入待审队列，公开可安装列表为空是正常状态。", "Run the command below in another terminal and keep it running, then replace the registry URL in the initialization command with http://127.0.0.1:8787. Development examples enter the review queue, so an empty public catalog is expected.")}</p><div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text="skillflux registry --dev">{t("复制", "Copy")}</button></div><pre><code>skillflux registry --dev</code></pre></div></details>
         </section>
         <section id="project" class="setup-section">
           <div class="step-heading"><span>03</span><h2>{t("选择你的 AI 工具", "Choose your AI tool")}</h2></div>
@@ -88,13 +95,14 @@ const sections = [
   </main>
 </BaseLayout>
 <script>
+  const registryArgument = document.querySelector<HTMLElement>("[data-setup-registry]")?.dataset.registryArgument;
   const command = document.querySelector<HTMLElement>("[data-init-command]");
   const copy = document.querySelector<HTMLButtonElement>("[data-init-copy]");
   document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(button => {
     button.addEventListener("click", () => {
       const host = button.dataset.setupHost;
-      if (!host || !command || !copy) return;
-      const value = `cd /path/to/your-project\nskillflux init --project . --registry http://127.0.0.1:8787 --host ${host}`;
+      if (!host || !registryArgument || !command || !copy) return;
+      const value = `cd /path/to/your-project\nskillflux init --project . --registry ${registryArgument} --host ${host}`;
       command.textContent = value;
       copy.dataset.copyText = value;
       document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));

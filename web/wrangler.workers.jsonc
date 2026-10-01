@@ -1,11 +1,17 @@
 {
   "$schema": "../node_modules/wrangler/config-schema.json",
-  "name": "skillflux-web",
-  "main": "./dist/_worker.js",
+  "name": "skillflux",
+  "account_id": "8cd022f1b58a8645269abbf21e7522d8",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "skillflux.cn/*", "zone_name": "skillflux.cn" },
+    { "pattern": "www.skillflux.cn/*", "zone_name": "skillflux.cn" }
+  ],
+  "main": "./.publication/production/dist/_worker.js",
   "compatibility_date": "2026-09-10",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": "./dist",
+    "directory": "./.publication/production/dist",
     "binding": "ASSETS",
     "run_worker_first": true,
     "html_handling": "force-trailing-slash",

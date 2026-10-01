@@ -85,7 +85,7 @@ with sync_playwright() as runtime:
         print("PASS: campaign create/edit, unbilled real preview, pause/resume")
         # Seed a larger disposable dataset through the actual API, then test pagination using UI controls.
         for index in range(11):
-            payload = {"name": "Browser pager " + suffix + " " + str(index), "sponsor": "QA fixture", "text": "Disposable pagination fixture.", "url": "https://example.com/qa", "categories": ["research"], "active": False, "budgetCents": 0, "cpcCents": 0, "dailyCap": 0, "startsAt": (now - timedelta(days=1)).isoformat(), "endsAt": (now + timedelta(days=1)).isoformat()}
+            payload = {"name": "Browser pager " + suffix + " " + str(index), "sponsor": "QA fixture", "text": "Disposable pagination fixture.", "url": "https://example.com/qa", "categories": ["research"], "active": False, "budgetCents": 5000, "cpcCents": 25, "dailyCap": 100, "startsAt": (now - timedelta(days=1)).isoformat(), "endsAt": (now + timedelta(days=1)).isoformat()}
             response = page.request.post(API + "/v1/admin/campaigns", headers=headers, data=payload)
             assert response.status == 201, response.text()
         campaign_module = page.locator("#campaigns")
@@ -97,6 +97,13 @@ with sync_playwright() as runtime:
         expect(campaign_module.locator("[data-page-info]")).to_have_text("11–11 / 11")
         campaign_module.get_by_role("button", name="上一页").click()
         expect(campaign_module.locator("[data-page-info]")).to_have_text("1–10 / 11")
+        campaign_module.get_by_role("button", name="下一页").click()
+        expect(campaign_module.locator("[data-page-info]")).to_have_text("11–11 / 11")
+        campaign_module.locator(".console-record").get_by_role("button", name="启用", exact=True).click()
+        expect(campaign_module.locator("[data-page-info]")).to_have_text("1–10 / 10")
+        expect(campaign_module.locator(".console-record")).to_have_count(10)
+        expect(campaign_module.get_by_role("button", name="上一页")).to_be_disabled()
+        expect(campaign_module.get_by_role("button", name="下一页")).to_be_disabled()
         campaign_module.locator('[name="q"]').fill("no-matching-fixture-" + suffix)
         campaign_module.get_by_role("button", name="搜索 / 筛选").click()
         expect(campaign_module.locator("[data-list]")).to_contain_text("当前筛选没有记录")
@@ -104,7 +111,7 @@ with sync_playwright() as runtime:
         campaign_module.locator('[name="status"]').select_option("")
         campaign_module.get_by_role("button", name="搜索 / 筛选").click()
         expect(row).to_be_visible()
-        print("PASS: actual 11-record search/status filter, next/previous pagination and empty state")
+        print("PASS: actual 11-record search/status filter, next/previous pagination, shrinking last-page recovery and empty state")
 
         public = context.new_page()
         public.on("pageerror", lambda error: failures.append(str(error)))

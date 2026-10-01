@@ -551,9 +551,9 @@
     "scale": "集合入口",
     "pricing": "free",
     "tagline": "skill 合集入口",
-    "summary": "Discover AI Skills 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
+    "summary": "2026-10-01 核查：Discover AI Skills 来源站点显示 Deployment Paused，暂不可访问，可先看 Qoder Community 或 VoltAgent 合集等替代来源。保留原网址供后续复查。",
     "longSummary": "Discover AI Skills 是一个偏社区发现导向的英文 skill 站点,帮助用户发现新的 agent 能力、了解当下有哪些选择。\n\n作为社区类来源,它更适合探索和了解趋势,而非作为权威基准。免费使用,可信度中等。适合想扩展视野、发现新 skill 的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
+    "aiSummary": "2026-10-01 核查：来源站点显示 Deployment Paused，暂不可访问。请先参考 Qoder Community 或 VoltAgent 合集；这不代表该站已永久关闭。",
     "faqs": [
       {
         "q": "Discover AI Skills 是什么?",
@@ -564,15 +564,15 @@
         "a": "适合想探索趋势、发现新 skill 的用户。"
       }
     ],
-    "featured": true,
+    "featured": false,
     "recommended": false,
     "trustLevel": "medium",
-    "status": "active",
+    "status": "watching",
     "sourceUrls": [
       "https://discoveraiskills.com/"
     ],
     "addedAt": "2026-06-24",
-    "updatedAt": "2026-06-24"
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "hermes-agent-nousresearch-com-docs-zh-hans-skills",

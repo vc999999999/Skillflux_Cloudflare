@@ -40,7 +40,7 @@ npm run publication:watch --workspace @skillflux/web -- --registry https://regis
 
 ## 内部运营
 
-运营 token 仅存页面内存，刷新、断开和 401 后清除。轮换需更新服务环境并重启。终端用户不用该凭据。生产可用私网进一步限制 `/console/` 与 `/v1/admin/`。
+公开 `/console/` 页面已下线，旧地址重定向到 `/registry/`。运营操作通过受保护的 `/v1/admin/` API 完成；Token 不应进入前端静态产物。轮换需更新服务环境并重启。终端用户不用该凭据。生产可用私网进一步限制 `/v1/admin/`。
 
 新提交包含完整 `release`：摘要、破坏性变更、最低客户端版本、维护时间和维护者。自动检查后，录入绑定当前 `contentHash` 的实际人工用途测试、边界测试及全部声明宿主的安装/读取证据，最后填写批准理由。`kind: simulation` 可留档，但不能满足发布门槛。开发 seed 仅待审，缺失的发布元数据应通过新提交版本提供。
 

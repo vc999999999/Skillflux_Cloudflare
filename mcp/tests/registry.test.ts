@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
+import { request as httpRequest } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -479,6 +480,47 @@ test('HTTP boundary enforces exact CORS, body limits, campaign URL checks, disab
     assert.ok(responses.every(response => response.status === 200), 'Explicit trusted proxy mode must rate-limit distinct forwarded clients independently');
   } finally {
     await proxied.close();
+  }
+});
+
+test('oversized JSON returns 413 reliably and bounds unfinished fixed-length and chunked uploads', { timeout: 15_000 }, async () => {
+  const registry = await startRegistry({ dev: false, seed: false });
+  const body = JSON.stringify({ payload: 'x'.repeat(1024 * 1024) });
+  try {
+    // Exercise the original upload/early-close race across fresh and reused
+    // connections rather than allowing a passing retry to hide ECONNRESET.
+    for (let index = 0; index < 24; index += 1) {
+      const response = await fetch(`${registry.baseUrl}/v1/admin/skills`, {
+        method: 'POST', headers: operatorHeaders(), body,
+      });
+      assert.equal(response.status, 413);
+      assert.equal((await json<{ error: { code: string } }>(response)).error.code, 'body_too_large');
+    }
+
+    const upload = (chunk: string, complete: boolean, declaredLength?: number) => new Promise<number>((resolve, reject) => {
+      const request = httpRequest(`${registry.baseUrl}/v1/admin/skills`, {
+        method: 'POST',
+        headers: { ...operatorHeaders(), ...(declaredLength ? { 'Content-Length': declaredLength } : {}) },
+      }, response => {
+        response.resume();
+        response.once('end', () => resolve(response.statusCode!));
+        response.once('error', reject);
+      });
+      request.once('error', reject);
+      request.setTimeout(5_000, () => request.destroy(new Error('Oversized upload was not bounded')));
+      if (complete) request.end(chunk);
+      else request.write(chunk);
+    });
+
+    assert.equal(await upload(body, true), 413, 'Complete chunked bodies receive the same structured rejection');
+    assert.equal(await upload('x', false, 2 * 1024 * 1024), 413, 'An oversized declared body cannot reserve an idle connection');
+    assert.equal(await upload(body, false), 413, 'An oversized chunked body is rejected even without its final chunk');
+    assert.equal(await upload('x'.repeat(2 * 1024 * 1024 + 1), false), 413, 'The drain byte cap rejects continuously supplied bodies before their end');
+
+    const healthy = await fetch(`${registry.baseUrl}/health`);
+    assert.equal(healthy.status, 200);
+  } finally {
+    await registry.close();
   }
 });
 

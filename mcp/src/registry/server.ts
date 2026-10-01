@@ -31,6 +31,8 @@ import {
 } from './schemas.js';
 
 const MAX_JSON_BODY_BYTES = 1024 * 1024;
+const MAX_REJECTED_BODY_BYTES = 2 * MAX_JSON_BODY_BYTES;
+const REJECTED_BODY_DRAIN_TIMEOUT_MS = 1_000;
 const DEFAULT_ALLOWED_ORIGINS = ['http://localhost:4321', 'http://127.0.0.1:4321'];
 const SENSITIVE_CATEGORIES = new Set([
   'crisis', 'emergency', 'finance', 'financial', 'health', 'legal', 'medical',
@@ -164,23 +166,48 @@ function assertJsonContentType(request: IncomingMessage): void {
 async function readJson(request: IncomingMessage): Promise<unknown> {
   assertJsonContentType(request);
   const declared = request.headers['content-length'];
-  if (declared && Number.parseInt(declared, 10) > MAX_JSON_BODY_BYTES) {
-    request.resume();
-    throw new HttpError(413, 'body_too_large', 'JSON body exceeds 1 MiB', { Connection: 'close' });
-  }
-  let size = 0;
-  let exceeded = false;
-  const chunks: Buffer[] = [];
-  for await (const rawChunk of request) {
-    const chunk = Buffer.isBuffer(rawChunk) ? rawChunk : Buffer.from(rawChunk);
-    size += chunk.byteLength;
-    if (size > MAX_JSON_BODY_BYTES) {
+  const chunks = await new Promise<Buffer[]>((resolve, reject) => {
+    let size = 0;
+    let exceeded = Boolean(declared && Number.parseInt(declared, 10) > MAX_JSON_BODY_BYTES);
+    let settled = false;
+    let drainTimer: ReturnType<typeof setTimeout> | undefined;
+    const buffered: Buffer[] = [];
+    const finish = (error?: Error): void => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(drainTimer);
+      request.off('data', onData);
+      request.off('end', onEnd);
+      request.off('aborted', onAborted);
+      // Retain the one-shot error listener: an aborted request may emit error
+      // after aborted, including when the rejection closes its connection.
+      if (error) { request.pause(); reject(error); }
+      else resolve(buffered);
+    };
+    const tooLarge = (close: boolean): HttpError => new HttpError(413, 'body_too_large', 'JSON body exceeds 1 MiB', close ? { Connection: 'close' } : undefined);
+    const startDraining = (): void => {
       exceeded = true;
-      continue;
-    }
-    chunks.push(chunk);
-  }
-  if (exceeded) throw new HttpError(413, 'body_too_large', 'JSON body exceeds 1 MiB');
+      buffered.length = 0;
+      // Closing while a normal client is still uploading can replace the 413
+      // with ECONNRESET. Drain a bounded amount, for a bounded time, first.
+      drainTimer ??= setTimeout(() => finish(tooLarge(true)), REJECTED_BODY_DRAIN_TIMEOUT_MS).unref();
+    };
+    const onData = (rawChunk: Buffer | string): void => {
+      const chunk = Buffer.isBuffer(rawChunk) ? rawChunk : Buffer.from(rawChunk);
+      size += chunk.byteLength;
+      if (exceeded || size > MAX_JSON_BODY_BYTES) {
+        startDraining();
+        if (size > MAX_REJECTED_BODY_BYTES) finish(tooLarge(true));
+      } else buffered.push(chunk);
+    };
+    const onEnd = (): void => finish(exceeded ? tooLarge(false) : undefined);
+    const onAborted = (): void => finish(new HttpError(400, 'request_aborted', 'Request body was interrupted'));
+    request.on('data', onData);
+    request.once('end', onEnd);
+    request.once('aborted', onAborted);
+    request.once('error', finish);
+    if (exceeded) startDraining();
+  });
   if (chunks.length === 0) throw new HttpError(400, 'invalid_json', 'JSON body is required');
   try {
     return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown;
