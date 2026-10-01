@@ -3,19 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
 import { getPublication } from "../lib/publication";
-import { DEVELOPMENT_REGISTRY_URL, normalizeRegistryUrl } from "../lib/registry-client";
 import packageInfo from "../../../mcp/package.json";
 
 type Props = { lang?: Language };
 const { lang = "zh" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
-const configuredRegistry = String(import.meta.env.PUBLIC_REGISTRY_URL ?? "").trim();
-const registryUrl = getPublication().snapshot.registry ?? (configuredRegistry.startsWith("https://") || configuredRegistry.startsWith("http://") ? normalizeRegistryUrl(configuredRegistry) : DEVELOPMENT_REGISTRY_URL);
-const localRegistry = ["localhost", "127.0.0.1", "[::1]"].includes(new URL(registryUrl).hostname);
-const registryArgument = `'${registryUrl.replace(/'/g, "'\\''")}'`;
+const catalogRepo = getPublication().snapshot.repo ?? "vc999999999/skillflux-catalog";
+const repoArgument = `--repo ${catalogRepo}`;
 const installCommand = `npm ci\nnpm run build --workspace @skillflux/mcp\nnpm pack --workspace @skillflux/mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
-const initCommand = `cd /path/to/your-project\nskillflux init --project . --registry ${registryArgument} --host codex`;
+const initCommand = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host codex`;
 const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
 const updateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID';
 const hosts = [
@@ -26,7 +23,7 @@ const hosts = [
 ];
 const sections = [
   ["install", t("安装本地 CLI", "Install the CLI")],
-  ["registry", t("连接 Registry", "Connect a registry")],
+  ["catalog", t("连接技能目录仓库", "Connect the catalog")],
   ["project", t("配置你的工具", "Configure your host")],
   ["first-skill", t("使用第一个 Skill", "Use your first skill")],
   ["updates", t("更新与版本管理", "Updates & versions")],
@@ -34,7 +31,7 @@ const sections = [
 ];
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/install/", lang)} title={t("安装与接入", "Installation & setup")} description={t("从源码安装 SkillFlux，连接项目内的 MCP，并按精确版本搜索、安装和加载已审核的 Skill。", "Install SkillFlux from source, connect a project MCP, and search, install and load reviewed skills at exact versions.")} pageClass="setup-page">
-  <main id="main-content" class="page-shell setup-shell" data-setup-registry={registryUrl} data-registry-argument={registryArgument}>
+  <main id="main-content" class="page-shell setup-shell" data-catalog-repo={catalogRepo} data-repo-argument={repoArgument}>
     <header class="setup-heading">
       <p class="eyebrow">GET STARTED</p>
       <h1 class="page-title">{t("把好用的 Skill，接进你的工具。", "Good skills. Inside your tools.")}</h1>
@@ -54,16 +51,15 @@ const sections = [
           <p>{t("构建当前版本并安装 skillflux 命令。确认 Node.js 版本满足要求后，再执行下面四条命令。", "Build the current version and install the skillflux command. Check your Node.js version, then run these four commands.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("仓库根目录", "REPOSITORY ROOT")}</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
         </section>
-        <section id="registry" class="setup-section">
-          <div class="step-heading"><span>02</span><h2>{t("连接一个 Registry", "Connect a registry")}</h2></div>
-          <p>{localRegistry ? t("当前构建连接本地开发 Registry。请先启动它，再在下一步配置项目。", "This build connects to a local development registry. Start it before configuring your project below.") : t("本站使用以下 Registry。下一步的初始化命令已包含这个地址，可直接连接云端服务。", "This site uses the registry below. The initialization command in the next step already includes this address and connects to the hosted service.")}</p>
-          <p><code>{registryUrl}</code></p>
+        <section id="catalog" class="setup-section">
+          <div class="step-heading"><span>02</span><h2>{t("连接技能目录仓库", "Connect the skill catalog")}</h2></div>
+          <p>{t("SkillFlux 的精选技能保存在 GitHub 目录仓库中。init 会解析仓库当前 commit 并固定它，之后所有下载都来自这个 commit 地址，并逐一校验文件哈希。", "SkillFlux curated skills live in a GitHub catalog repository. init resolves the repository's current commit and pins it; every download then anchors to that commit and verifies per-file hashes.")}</p>
+          <p><code>{catalogRepo}</code></p>
           <p class="step-hint">{t("只有完成真实评测并获批准的版本才可安装。当前可用版本以精品库和客户端搜索结果为准。", "Only evaluated and approved releases can be installed. Check the curated registry or search with the client for available versions.")}</p>
-          <details class="setup-detail" open={localRegistry}><summary>{t("本地开发：启动自己的 Registry", "Local development: run your own registry")}</summary><p>{t("在另一个终端执行下面的命令并保持运行，然后将初始化命令中的地址换成 http://127.0.0.1:8787。开发样例进入待审队列，公开可安装列表为空是正常状态。", "Run the command below in another terminal and keep it running, then replace the registry URL in the initialization command with http://127.0.0.1:8787. Development examples enter the review queue, so an empty public catalog is expected.")}</p><div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text="skillflux registry --dev">{t("复制", "Copy")}</button></div><pre><code>skillflux registry --dev</code></pre></div></details>
         </section>
         <section id="project" class="setup-section">
           <div class="step-heading"><span>03</span><h2>{t("选择你的 AI 工具", "Choose your AI tool")}</h2></div>
-          <p>{t("进入目标项目，选择宿主后复制命令。init 合并项目内的 MCP 配置，保留已有服务器，并固定 Registry 公钥。", "Open your target project, choose a host and copy the command. init merges the project's MCP configuration, preserves existing servers and pins the registry public key.")}</p>
+          <p>{t("进入目标项目，选择宿主后复制命令。init 合并项目内的 MCP 配置，保留已有服务器，并固定目录仓库身份。", "Open your target project, choose a host and copy the command. init merges the project's MCP configuration, preserves existing servers and pins the catalog repository identity.")}</p>
           <div class="host-switch" role="group" aria-label={t("AI 工具", "AI host")}>{hosts.map(host => <button type="button" data-setup-host={host.id} aria-pressed={host.id === "codex"}>{host.name}</button>)}</div>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-init-copy data-copy-text={initCommand}>{t("复制", "Copy")}</button></div><pre><code data-init-command>{initCommand}</code></pre></div>
           <div class="host-paths">{hosts.map(host => <div data-host-path={host.id} hidden={host.id !== "codex"}><p><span>{t("MCP 配置", "MCP config")}</span><code>{host.config}</code></p><p><span>{t("入口 Skill", "Entry skill")}</span><code>{host.skill}</code></p></div>)}</div>
@@ -72,22 +68,21 @@ const sections = [
         </section>
         <section id="first-skill" class="setup-section">
           <div class="step-heading"><span>04</span><h2>{t("搜索、看计划，再安装", "Search, review, install")}</h2></div>
-          <p>{t("从 Registry 返回的结果中选择 Skill 和精确版本。查看 plan 输出的权限、依赖和文件，确认后使用它返回的计划 ID 安装。", "Choose a skill and exact version returned by the registry. Review the plan's capabilities, dependencies and files, then install using its returned plan ID.")}</p>
+          <p>{t("搜索在本地缓存的目录索引上进行，检索词不会离开你的机器。从返回结果中选择 Skill 和精确版本，查看 plan 输出的权限、依赖和文件，确认后使用它返回的计划 ID 安装。", "Search runs locally over a cached catalog index; queries never leave your machine. Choose a skill and exact version, review the plan's capabilities, dependencies and files, then install using its returned plan ID.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-copy-text={useCommand}>{t("复制", "Copy")}</button></div><pre><code>{useCommand}</code></pre></div>
-          <p class="step-hint">{t("将 SKILL_ID、VERSION 和 PLAN_ID 替换为实际返回值。安装时重新检查签名、摘要、资格与撤销状态；load 在当前轮提供技能入口和所需资源。", "Replace SKILL_ID, VERSION and PLAN_ID with actual values. Installation rechecks signatures, digests, qualification and revocations. load provides the skill entry and needed resources in the current turn.")}</p>
+          <p class="step-hint">{t("将 SKILL_ID、VERSION 和 PLAN_ID 替换为实际返回值。安装时逐文件下载并校验哈希、资格与撤销状态；load 在当前轮提供技能入口和所需资源。", "Replace SKILL_ID, VERSION and PLAN_ID with actual values. Installation downloads each file at the pinned commit and rechecks hashes, qualification and revocations. load provides the skill entry and needed resources in the current turn.")}</p>
         </section>
         <section id="updates" class="setup-section">
           <div class="step-heading"><span>05</span><h2>{t("版本变化，由你决定", "You decide when to update")}</h2></div>
           <p>{t("check-updates 只检查；update 指定精确版本后展示计划并等待终端确认。pin 可固定版本，升级前需先 unpin。", "check-updates is read-only. update with an exact version shows a plan and waits for terminal confirmation. pin locks a version; unpin it before upgrading.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={updateCommand}>{t("复制", "Copy")}</button></div><pre><code>{updateCommand}</code></pre></div>
-          <p class="step-hint">{t("普通版本缓存最长 24 小时，手动检查默认刷新。离线状态会标明缓存时间与未知项；安装、升级和回滚需要在线检查资格与撤销。", "Normal version cache lasts up to 24 hours; manual checks refresh by default. Offline results show cache age and unknown states. Installation, upgrades and rollback require online qualification and revocation checks.")}</p>
+          <p class="step-hint">{t("目录索引缓存最长 24 小时，手动检查默认刷新。离线状态会标明缓存时间与未知项；安装、升级和回滚需要在线检查资格与撤销。", "The catalog index cache lasts up to 24 hours; manual checks refresh by default. Offline results show cache age and unknown states. Installation, upgrades and rollback require online qualification and revocation checks.")}</p>
         </section>
         <section id="faq" class="setup-section setup-faq">
           <div class="step-heading"><span>06</span><h2>{t("常见问题", "Common questions")}</h2></div>
-          <details><summary>{t("目录里的来源，都能一键安装吗？", "Can I install every directory source?")}</summary><p>{t("来源目录帮助你发现第三方资源。SkillFlux 的安装命令只用于当前 Registry 已批准的版本；第三方 MCP 服务器或合集请查看原站的接入说明。", "The source directory helps you discover third-party resources. SkillFlux installation commands apply to approved versions in your registry. Follow the original instructions for other MCP servers and collections.")}</p></details>
+          <details><summary>{t("目录里的来源，都能一键安装吗？", "Can I install every directory source?")}</summary><p>{t("来源目录帮助你发现第三方资源。SkillFlux 的安装命令只用于当前目录仓库已批准的版本；第三方 MCP 服务器或合集请查看原站的接入说明。", "The source directory helps you discover third-party resources. SkillFlux installation commands apply to approved versions in your catalog repository. Follow the original instructions for other MCP servers and collections.")}</p></details>
           <details><summary>{t("是否修改全局 AI 工具配置？", "Does setup modify global AI settings?")}</summary><p>{t("init 只写入指定项目的 MCP 配置与入口文件，保留已有服务器，遇到用户自有入口文件时不会直接覆盖。", "init writes only the specified project's MCP configuration and entry files, preserves existing servers and does not overwrite user-owned entry files.")}</p></details>
           <details><summary>{t("接入后会自动运行所有 Skill 吗？", "Will every skill run automatically?")}</summary><p>{t("需要用户显式调用。宿主读取轻量入口后，由本地 MCP Runtime 搜索、校验和加载；网站不替你运行模型。", "An explicit user invocation is required. After reading the lightweight entry, the host uses the local MCP runtime to search, verify and load. The website does not run your model.")}</p></details>
-          <details><summary>{t("如何理解 Runtime 的广告输出？", "How does runtime advertising work?")}</summary><p>{t("普通 MCP 返回独立的结构化广告信息，展示由宿主决定。受控 run 只执行用户指定的外部命令；默认 unknown 上下文不投放，仅显式 normal 上下文且命令成功产生非空输出后，才可能追加一行披露广告。更多选项见 skillflux --help。", "Standard MCP returns separate structured advertising data; display is controlled by the host. Managed run executes only the supplied external command. Its default unknown context skips ads; an explicit normal context and successful non-empty output may append one disclosed ad line. See skillflux --help.")}</p></details>
         </section>
         <div class="setup-bottom"><div><strong>{t("接入完成，开始找一个合适的 Skill。", "Connected. Find the right skill next.")}</strong><p>{t("浏览当前可用版本，或先从资源目录开始。", "Explore available versions or start with the source directory.")}</p></div><a class="button primary" href={localizePath("/registry/", lang)}>{t("查看已审核 Skill", "Browse reviewed skills")} <span aria-hidden="true">→</span></a></div>
       </div>
@@ -95,14 +90,14 @@ const sections = [
   </main>
 </BaseLayout>
 <script>
-  const registryArgument = document.querySelector<HTMLElement>("[data-setup-registry]")?.dataset.registryArgument;
+  const repoArgument = document.querySelector<HTMLElement>("[data-repo-argument]")?.dataset.repoArgument;
   const command = document.querySelector<HTMLElement>("[data-init-command]");
   const copy = document.querySelector<HTMLButtonElement>("[data-init-copy]");
   document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(button => {
     button.addEventListener("click", () => {
       const host = button.dataset.setupHost;
-      if (!host || !registryArgument || !command || !copy) return;
-      const value = `cd /path/to/your-project\nskillflux init --project . --registry ${registryArgument} --host ${host}`;
+      if (!host || !repoArgument || !command || !copy) return;
+      const value = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host ${host}`;
       command.textContent = value;
       copy.dataset.copyText = value;
       document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));

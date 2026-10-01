@@ -106,7 +106,7 @@ describe('public discovery and URL state', () => {
     expect(writeDirectoryFilters(target, readDirectoryFilters(new URLSearchParams())).search).toBe('?utm=source');
   });
   it('exposes honest empty publication and complete scenario discovery without changing original URLs', () => {
-    const publication = validatePublication({ schema: 'skillflux-publication/v1', registry: null, fetchedAt: null, key: null, pages: [] });
+    const publication = validatePublication({ schema: 'skillflux-publication/v2', repo: null, commitSha: null, fetchedAt: null, items: [] });
     const index = discoveryIndex(publication);
     expect(index.curated.skills).toEqual([]);
     expect(index.scenarios).toHaveLength(3);
@@ -115,7 +115,7 @@ describe('public discovery and URL state', () => {
     }
     const text = renderDiscoveryText(true, publication);
     expect(text).toContain('No qualified releases');
-    expect(text).toContain('cannot force');
+    expect(text).toContain('Catalog repository: Not configured');
     for (const scenario of scenarios) { expect(text).toContain(scenario.title.zh); expect(getAlternateLanguagePath(`/scenarios/${scenario.slug}/`, 'en')).toBe(`/en/scenarios/${scenario.slug}/`); }
     expect(getAlternateLanguagePath('/skills/demo/versions/1.0.0/', 'en')).toBe('/en/skills/demo/versions/1.0.0/');
   });

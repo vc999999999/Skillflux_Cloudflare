@@ -4,7 +4,6 @@ import { readFile, writeFile, lstat, mkdir, mkdtemp, rename, symlink, unlink, rm
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs, promisify } from 'node:util';
-import type { PublicKeyInfo } from '../../mcp/src/shared';
 import { validatePublication, type PublicationSnapshot } from '../src/lib/publication';
 import { synchronizePublication } from './sync-publication';
 import { finalizeBuild } from './seo-build';
@@ -12,8 +11,8 @@ import { finalizeBuild } from './seo-build';
 const execute = promisify(execFile);
 const WEB_ROOT = fileURLToPath(new URL('..', import.meta.url));
 const ASTRO_CLI = fileURLToPath(new URL('../../node_modules/astro/bin/astro.mjs', import.meta.url));
-export interface PublicationBuildOptions { registry: string; output?: string; trustedKey?: PublicKeyInfo; acceptFirstKey?: boolean; force?: boolean; webRoot?: string }
-export interface PublicationBuildResult { changed: boolean; revision: string; current: string; dist: string; snapshot: string; versions: number }
+export interface PublicationBuildOptions { repo: string; output?: string; source?: string; branch?: string; force?: boolean; webRoot?: string }
+export interface PublicationBuildResult { changed: boolean; commitSha: string; current: string; dist: string; snapshot: string; versions: number }
 
 async function optionalStat(path: string) { return lstat(path).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return null; throw error; }); }
 async function lockBuild(path: string): Promise<() => Promise<void>> {
@@ -56,25 +55,25 @@ export async function buildPublication(options: PublicationBuildOptions): Promis
     await mkdir(releases, { recursive: true });
     staged = await mkdtemp(join(releases, '.stage-'));
     const snapshotPath = join(staged, 'registry-publication.json');
-    // Copy the previous signed snapshot only to the isolated stage, retaining pinned trust.
+    // Copy the previous snapshot only to the isolated stage, retaining the pinned repository identity.
     if (previous) await writeFile(snapshotPath, JSON.stringify(previous), { flag: 'wx', mode: 0o600 });
-    const snapshot = await synchronizePublication({ registry: options.registry, output: snapshotPath, ...(options.trustedKey ? { trustedKey: options.trustedKey } : {}), acceptFirstKey: options.acceptFirstKey });
+    const snapshot = await synchronizePublication({ repo: options.repo, output: snapshotPath, ...(options.source ? { source: options.source } : {}), ...(options.branch ? { branch: options.branch } : {}) });
     const publication = validatePublication(snapshot);
-    const revision = snapshot.pages[0]!.payload.revision;
-    const result = { revision, current, dist: join(current, 'dist'), snapshot: join(current, 'registry-publication.json'), versions: publication.items.length };
-    if (!options.force && previous?.pages[0]?.payload.revision === revision) return { ...result, changed: false };
+    const commitSha = snapshot.commitSha!;
+    const result = { commitSha, current, dist: join(current, 'dist'), snapshot: join(current, 'registry-publication.json'), versions: publication.items.length };
+    if (!options.force && previous?.commitSha === commitSha) return { ...result, changed: false };
     const dist = join(staged, 'dist');
     await execute(process.execPath, [ASTRO_CLI, 'build', '--outDir', dist], {
       cwd: webRoot, timeout: 180_000, maxBuffer: 16 * 1024 * 1024,
-      env: { ...process.env, SKILLFLUX_PUBLICATION_PATH: snapshotPath, PUBLIC_REGISTRY_URL: snapshot.registry! },
+      env: { ...process.env, SKILLFLUX_PUBLICATION_PATH: snapshotPath, SKILLFLUX_CATALOG_REPO: snapshot.repo! },
     });
     await finalizeBuild(dist);
     const index = await readFile(join(dist, 'index.html'), 'utf8');
     if (!index.includes('<html') || index.length < 200) throw new Error('Static build did not produce a complete home page');
     JSON.parse(await readFile(join(dist, 'index.json'), 'utf8'));
     await readFile(join(dist, 'llms.txt'), 'utf8');
-    await writeFile(join(staged, 'publication-build.json'), JSON.stringify({ schema: 'skillflux-static-release/v1', revision, builtAt: new Date().toISOString(), registry: snapshot.registry, versions: publication.items.length }, null, 2) + '\n', { flag: 'wx', mode: 0o644 });
-    const release = join(releases, `${revision.slice(0, 16)}-${randomUUID()}`);
+    await writeFile(join(staged, 'publication-build.json'), JSON.stringify({ schema: 'skillflux-static-release/v2', commitSha, builtAt: new Date().toISOString(), repo: snapshot.repo, versions: publication.items.length }, null, 2) + '\n', { flag: 'wx', mode: 0o644 });
+    const release = join(releases, `${commitSha.slice(0, 16)}-${randomUUID()}`);
     await rename(staged, release); staged = undefined;
     temporaryLink = `${current}.${randomUUID()}.next`;
     await symlink(relative(dirname(current), release), temporaryLink, 'dir');
@@ -88,13 +87,11 @@ export async function buildPublication(options: PublicationBuildOptions): Promis
 }
 
 async function main(): Promise<void> {
-  const parsed = parseArgs({ options: { registry: { type: 'string' }, output: { type: 'string' }, 'trust-key': { type: 'string' }, 'accept-first-key': { type: 'boolean', default: false }, force: { type: 'boolean', default: false }, watch: { type: 'boolean', default: false }, interval: { type: 'string', default: '60' }, help: { type: 'boolean', default: false } } });
-  if (parsed.values.help) { process.stdout.write('publication:build --registry URL [--trust-key key.json | --accept-first-key] [--output CURRENT_POINTER] [--force]\npublication:watch uses the same options plus --interval SECONDS (minimum 5). Serve CURRENT_POINTER/dist. Each successful release atomically switches snapshot and dist together; failed builds preserve the previous release.\n'); return; }
-  const registry = parsed.values.registry ?? process.env.SKILLFLUX_REGISTRY_URL ?? process.env.PUBLIC_REGISTRY_URL;
-  if (!registry) throw new Error('Set --registry or SKILLFLUX_REGISTRY_URL');
-  const keyPath = parsed.values['trust-key'] ?? process.env.SKILLFLUX_PUBLICATION_KEY;
-  const trustedKey = keyPath ? JSON.parse(await readFile(keyPath, 'utf8')) as PublicKeyInfo : undefined;
-  const options: PublicationBuildOptions = { registry, output: parsed.values.output ?? process.env.SKILLFLUX_PUBLICATION_OUTPUT, trustedKey, acceptFirstKey: parsed.values['accept-first-key'], force: parsed.values.force };
+  const parsed = parseArgs({ options: { repo: { type: 'string' }, source: { type: 'string' }, branch: { type: 'string' }, output: { type: 'string' }, force: { type: 'boolean', default: false }, watch: { type: 'boolean', default: false }, interval: { type: 'string', default: '60' }, help: { type: 'boolean', default: false } } });
+  if (parsed.values.help) { process.stdout.write('publication:build --repo OWNER/NAME [--source URL] [--output CURRENT_POINTER] [--force]\npublication:watch uses the same options plus --interval SECONDS (minimum 5). Serve CURRENT_POINTER/dist. Each successful release atomically switches snapshot and dist together; failed builds preserve the previous release.\n'); return; }
+  const repo = parsed.values.repo ?? process.env.SKILLFLUX_CATALOG_REPO;
+  if (!repo) throw new Error('Set --repo or SKILLFLUX_CATALOG_REPO');
+  const options: PublicationBuildOptions = { repo, output: parsed.values.output ?? process.env.SKILLFLUX_PUBLICATION_OUTPUT, source: parsed.values.source, branch: parsed.values.branch, force: parsed.values.force };
   const interval = Number(parsed.values.interval);
   if (!Number.isFinite(interval) || interval < 5 || interval > 86400) throw new Error('Watch interval must be between 5 and 86400 seconds');
   let stopped = false;

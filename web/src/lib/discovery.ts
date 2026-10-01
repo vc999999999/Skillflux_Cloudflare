@@ -8,7 +8,7 @@ export function discoveryIndex(publication: Publication = getPublication()) {
     qualificationNote: 'Source listings and editorial articles are not usage-test approvals. Curated releases require separate safety checks and human evaluation.',
     freshness: 'Static build snapshot, not live installation authority. npm/MCP verifies current eligibility and revocations before installation and loading.',
     curated: {
-      registry: publication.snapshot.registry, snapshotAt: publication.snapshot.fetchedAt,
+      repo: publication.snapshot.repo, snapshotAt: publication.snapshot.fetchedAt,
       skills: publication.latest.map(({ skill }) => ({ ...skill, url: absoluteUrl(skillPath(skill.id)), versionUrl: absoluteUrl(skillPath(skill.id, skill.version)) })),
       versions: publication.statuses.map(status => ({ ...status, url: absoluteUrl(skillPath(status.id, status.version)) })),
     },
@@ -23,7 +23,7 @@ export function renderDiscoveryText(full = false, publication: Publication = get
     '', '## 场景与选型 / Scenarios & selection',
     ...index.scenarios.map(scenario => `- ${scenario.title.zh} / ${scenario.title.en}: ${scenario.description.zh} ${scenario.url}`),
     '', '## 精品 Skill / Curated releases', `Snapshot: ${index.curated.snapshotAt ?? 'Not synchronized'}`,
-    `Registry: ${index.curated.registry ?? 'Not configured'}`,
+    `Catalog repository: ${index.curated.repo ?? 'Not configured'}`,
     ...(index.curated.skills.length ? [] : ['No qualified releases in this static snapshot. Development samples are not published as human-tested skills.']),
   ];
   for (const skill of index.curated.skills) {
@@ -33,9 +33,8 @@ export function renderDiscoveryText(full = false, publication: Publication = get
     }
   }
   lines.push('## Public release states', ...index.curated.versions.map(version => `- ${version.id}@${version.version}: ${version.qualification}${version.reason ? ` — ${version.reason}` : ''}; ${version.url}`), '', '## Local project workflow',
-    'Install the SkillFlux npm entry and local MCP server using the setup guide. Explicitly invoke SkillFlux to search qualified skills; authorize an exact-version installation plan before files are downloaded into the project.',
+    'Install the SkillFlux npm entry and local MCP server using the setup guide. Explicitly invoke SkillFlux to search a locally cached catalog index; authorize an exact-version installation plan before files are downloaded at a pinned catalog commit.',
     'check-updates is read-only. Normal update notices are cached for 24 hours; revocation checks have a separate freshness policy. A pinned version is not silently upgraded. Offline or stopped clients cannot receive real-time push notifications.',
-    'Ads, when eligible, are declared separately from skill text. MCP provides a recommendation field but cannot force a host model to include it. Controlled CLI text output can append one ad after success. Unknown or sensitive context receives no ad.',
-    `Setup: ${absoluteUrl('/install/')}`, `Quality: ${absoluteUrl('/quality/')}`, `Advertising: ${absoluteUrl('/advertise/')}`, '');
+    `Setup: ${absoluteUrl('/install/')}`, `Quality: ${absoluteUrl('/quality/')}`, '');
   return lines.join('\n');
 }
