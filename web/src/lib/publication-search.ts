@@ -49,34 +49,14 @@ export function registryExtraPages(total: number): number[] {
   return Array.from({ length: registryPageCount(total) - 1 }, (_, index) => index + 2);
 }
 
-export function compareSkillVersions(left: string, right: string): number {
-  const [leftCore, leftPre] = left.split('+')[0]!.split(/-(.*)/s);
-  const [rightCore, rightPre] = right.split('+')[0]!.split(/-(.*)/s);
-  const a = leftCore!.split('.');
-  const b = rightCore!.split('.');
-  for (let index = 0; index < 3; index++) {
-    const x = BigInt(a[index] ?? 0), y = BigInt(b[index] ?? 0);
-    if (x !== y) return x > y ? 1 : -1;
-  }
-  if (leftPre === undefined || rightPre === undefined) return leftPre === rightPre ? 0 : leftPre === undefined ? 1 : -1;
-  const ap = leftPre.split('.'), bp = rightPre.split('.');
-  for (let index = 0; index < Math.max(ap.length, bp.length); index++) {
-    const x = ap[index], y = bp[index];
-    if (x === y) continue;
-    if (x === undefined || y === undefined) return x === undefined ? -1 : 1;
-    const xn = /^\d+$/.test(x), yn = /^\d+$/.test(y);
-    if (xn && yn) return BigInt(x) > BigInt(y) ? 1 : -1;
-    if (xn !== yn) return xn ? -1 : 1;
-    return x > y ? 1 : -1;
-  }
-  return 0;
-}
+export { compareSemver as compareSkillVersions } from './semver';
+import { compareSemver } from './semver';
 
 export function latestSkills<T extends SearchableSkill>(items: T[]): T[] {
   const latest = new Map<string, T>();
   for (const item of items) {
     const previous = latest.get(item.id);
-    if (!previous || compareSkillVersions(item.version, previous.version) > 0) latest.set(item.id, item);
+    if (!previous || compareSemver(item.version, previous.version) > 0) latest.set(item.id, item);
   }
   return [...latest.values()];
 }
@@ -129,6 +109,6 @@ export function searchPublication<T extends SearchableSkill>(items: T[], filters
     .sort((a, b) => {
       if (filters.sort === 'name') return a.item.name.localeCompare(b.item.name, 'zh-CN') || a.item.id.localeCompare(b.item.id);
       if (filters.sort === 'relevance' && filters.q.trim() && a.score !== b.score) return b.score - a.score;
-      return b.item.createdAt.localeCompare(a.item.createdAt) || compareSkillVersions(b.item.version, a.item.version) || a.item.id.localeCompare(b.item.id);
+      return b.item.createdAt.localeCompare(a.item.createdAt) || compareSemver(b.item.version, a.item.version) || a.item.id.localeCompare(b.item.id);
     }).map(result => result.item);
 }

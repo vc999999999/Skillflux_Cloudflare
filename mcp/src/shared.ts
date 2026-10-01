@@ -49,22 +49,8 @@ export function canonical(value: unknown): string {
   throw new Error('Unsupported value in canonical JSON');
 }
 export function sha256(value: string | Uint8Array): string { return createHash('sha256').update(value).digest('hex'); }
-export function compareVersions(left: string, right: string): number {
-  const parts = (value: string) => { const base = value.split('+')[0]!; const at = base.indexOf('-'); return { core: (at < 0 ? base : base.slice(0, at)).split('.').map(BigInt), pre: at < 0 ? [] : base.slice(at + 1).split('.') }; };
-  const a = parts(left), b = parts(right);
-  for (let i = 0; i < 3; i++) if (a.core[i] !== b.core[i]) return a.core[i]! < b.core[i]! ? -1 : 1;
-  if (!a.pre.length || !b.pre.length) return a.pre.length ? -1 : b.pre.length ? 1 : 0;
-  for (let i = 0; i < Math.max(a.pre.length, b.pre.length); i++) {
-    const x = a.pre[i], y = b.pre[i];
-    if (x === y) continue;
-    if (x === undefined || y === undefined) return x === undefined ? -1 : 1;
-    const xn = /^\d+$/.test(x), yn = /^\d+$/.test(y);
-    if (xn && yn) return BigInt(x) < BigInt(y) ? -1 : 1;
-    if (xn !== yn) return xn ? -1 : 1;
-    return x < y ? -1 : 1;
-  }
-  return 0;
-}
+export { compareSemver as compareVersions } from './semver.js';
+import { compareSemver } from './semver.js';
 export function safeRelativePath(path: string): boolean {
   return typeof path === 'string' && path.length > 0 && path.length <= 240 && !/[\\\x00-\x1f\x7f:]/.test(path) && !path.startsWith('/') && path.split('/').every(part => part !== '' && part !== '.' && part !== '..' && !part.endsWith('.') && !part.endsWith(' ') && !/^(con|prn|aux|nul|com[0-9]|lpt[0-9])(?:\.|$)/i.test(part));
 }

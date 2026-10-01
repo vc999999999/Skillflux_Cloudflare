@@ -49,6 +49,7 @@ import {
   assertNoSymlinkPath,
   atomicWriteJson,
   isInside,
+  sweepTemporaryWrites,
   readJson,
   readJsonIfExists,
   removeIfExists,
@@ -82,8 +83,36 @@ export class SkillFluxRuntime {
 
   static async open(projectRoot: string): Promise<SkillFluxRuntime> {
     const state = await loadRuntimeState(projectRoot);
-    await withProjectLock(state.paths, async () => recoverJournal(state.paths));
-    return new SkillFluxRuntime(state);
+    const runtime = new SkillFluxRuntime(state);
+    await withProjectLock(state.paths, async () => {
+      await recoverJournal(state.paths);
+      await runtime.sweepOrphans();
+    });
+    return runtime;
+  }
+
+  /** Clean up crash leftovers: interrupted staging trees, abandoned temporary
+   * writes, and installed package directories that no lock revision references
+   * (e.g. a SIGKILL between an atomic move and the lock write). */
+  private async sweepOrphans(): Promise<void> {
+    const lock = await readLock(this.paths);
+    const known = new Set(Object.values(lock.skills).map(entry => join(this.paths.skills, entry.id, entry.version)));
+    const removeIfOrphan = async (target: string, isKnown: boolean): Promise<void> => {
+      if (isKnown) return;
+      const info = await lstat(target).catch(() => null);
+      if (info?.isDirectory() && !info.isSymbolicLink()) await removeIfExists(target);
+    };
+    for (const skillId of await readdir(this.paths.skills).catch(() => [])) {
+      const skillRoot = join(this.paths.skills, skillId);
+      for (const version of await readdir(skillRoot).catch(() => [])) {
+        await removeIfOrphan(join(skillRoot, version), known.has(join(skillRoot, version)));
+      }
+    }
+    for (const staged of await readdir(this.paths.staging).catch(() => [])) {
+      await removeIfOrphan(join(this.paths.staging, staged), false);
+    }
+    await sweepTemporaryWrites(this.paths.state);
+    await sweepTemporaryWrites(this.paths.cache);
   }
 
   get policy(): Readonly<RuntimePolicy> {
@@ -95,7 +124,7 @@ export class SkillFluxRuntime {
     const catalog = await this.getCatalog(false);
     return searchIndex(catalog.index.skills, {
       query,
-      category: options.category?.slice(0, 80),
+      ...(options.category ? [validateCategory(options.category)] : []),
       host: options.host ?? this.config.host,
       sort: options.sort ?? 'relevance',
       limit: options.limit,
@@ -242,6 +271,14 @@ export class SkillFluxRuntime {
           if (current?.digest === item.digest) {
             const installed = await this.readAndVerifyInstalled(current, null, { localOnly: true });
             assertPlanPackageMatchesBundle(item, installed);
+            // Re-check compatibility even for reused packages: the project may
+            // have re-initialized with a different host since installation.
+            if (!installed.manifest.hosts.includes(this.config.host) && !installed.manifest.hosts.includes('generic')) {
+              throw new SkillFluxError('INCOMPATIBLE_HOST', `${item.id}@${item.version} does not support host ${this.config.host}`);
+            }
+            if (installed.manifest.release?.minClientVersion && compareVersions(RUNTIME_VERSION, installed.manifest.release.minClientVersion) < 0) {
+              throw new SkillFluxError('INCOMPATIBLE_CLIENT', `${item.id}@${item.version} requires SkillFlux >= ${installed.manifest.release.minClientVersion}`);
+            }
             verified.set(item.id, { pkg: installed, target, reused: true });
             continue;
           }
@@ -651,19 +688,32 @@ export class SkillFluxRuntime {
     } catch (error) {
       if ((error as SkillFluxError).code !== 'PACKAGE_NOT_FOUND') throw error;
     }
-    const cachedPath = join(this.paths.cache, `${entry.digest}.json`);
-    await assertNoSymlinkPath(this.paths.root, cachedPath, true);
-    const cached = await readJsonIfExists<InstalledPackage>(cachedPath);
-    if (!cached || cached.schema !== STATE_SCHEMA || cached.digest !== entry.digest) throw new SkillFluxError('ROLLBACK_ARTIFACT_MISSING', `Verified cached artifact is unavailable for ${entry.id}@${entry.version}`);
     const indexEntry = findCatalogEntry(catalog.index, entry.id, entry.version);
     if (indexEntry && (indexEntry.skill.status === 'revoked' || indexEntry.skill.qualification === 'revoked')) {
       throw new SkillFluxError('SKILL_REVOKED', `${entry.id}@${entry.version} was revoked`);
     }
+    // Restore sources, in order: local content cache, then a fresh download at the
+    // pinned catalog commit. The download fallback also covers cache cleanup.
+    let pkg: InstalledPackage | null = null;
+    if (indexEntry && indexEntry.skill.digest === entry.digest) {
+      const cachedPath = join(this.paths.cache, `${entry.digest}.json`);
+      await assertNoSymlinkPath(this.paths.root, cachedPath, true);
+      const cached = await readJsonIfExists<InstalledPackage>(cachedPath);
+      if (cached && cached.schema === STATE_SCHEMA && cached.digest === entry.digest) {
+        pkg = cached;
+      } else {
+        const bundle = await this.downloadBundle(catalog.commitSha, indexEntry);
+        pkg = { schema: STATE_SCHEMA, digest: entry.digest, manifest: bundle.manifest, files: bundle.files, installedAt: new Date().toISOString() };
+        await assertNoSymlinkPath(this.paths.root, this.paths.cache, false);
+        await atomicWriteJson(cachedPath, pkg);
+      }
+    }
+    if (!pkg) throw new SkillFluxError('ROLLBACK_ARTIFACT_MISSING', `Verified artifact is unavailable for ${entry.id}@${entry.version}: it is not in the current catalog index and no cached copy exists`);
     const stage = join(this.paths.staging, `rollback-${randomUUID()}`);
     await assertNoSymlinkPath(this.paths.root, stage, true);
     await mkdir(stage, { recursive: true, mode: 0o700 });
     await assertNoSymlinkPath(this.paths.root, stage, false);
-    await writeInstalledPackage(this.paths, cached, stage);
+    await writeInstalledPackage(this.paths, pkg, stage);
     const target = this.packageRoot(entry.id, entry.version);
     await assertNoSymlinkPath(this.paths.root, dirname(target), true);
     await mkdir(dirname(target), { recursive: true, mode: 0o700 });
@@ -708,6 +758,12 @@ function sanitizeCapabilityQuery(input: string): string {
   const normalized = input.replace(/[\x00-\x1f\x7f]/g, ' ').replace(/\s+/g, ' ').trim();
   if (normalized.length > 500) throw new SkillFluxError('QUERY_TOO_LONG', 'Capability query must be 500 characters or fewer and must not contain source or prompt content');
   return normalized;
+}
+
+function validateCategory(category: string): string {
+  const trimmed = category.trim();
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(trimmed)) throw new SkillFluxError('INVALID_CATEGORY', `Invalid category filter: ${category}`);
+  return trimmed;
 }
 
 function assertSkillId(id: string): void {

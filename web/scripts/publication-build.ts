@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { readFile, writeFile, lstat, mkdir, mkdtemp, rename, symlink, unlink, rm } from 'node:fs/promises';
+import { readFile, writeFile, lstat, mkdir, mkdtemp, readdir, rename, symlink, unlink, rm } from 'node:fs/promises';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs, promisify } from 'node:util';
@@ -17,22 +17,33 @@ export interface PublicationBuildResult { changed: boolean; commitSha: string; c
 async function optionalStat(path: string) { return lstat(path).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return null; throw error; }); }
 async function lockBuild(path: string): Promise<() => Promise<void>> {
   const nonce = randomUUID();
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      await writeFile(path, JSON.stringify({ pid: process.pid, nonce, startedAt: new Date().toISOString() }), { flag: 'wx', mode: 0o600 });
+      await writeFile(path, JSON.stringify({ nonce, startedAt: new Date().toISOString() }), { flag: 'wx', mode: 0o600 });
       return async () => { const owner = JSON.parse(await readFile(path, 'utf8')); if (owner.nonce === nonce) await unlink(path); };
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error;
       const info = await optionalStat(path);
       if (!info?.isFile() || info.isSymbolicLink()) throw new Error('Publication build lock is not a regular file');
-      const owner = JSON.parse(await readFile(path, 'utf8')) as { pid?: number };
-      if (!Number.isSafeInteger(owner.pid) || owner.pid! <= 0) throw new Error('Publication build lock is invalid; inspect it before retrying');
-      try { process.kill(owner.pid!, 0); throw new Error(`Publication build is already running (PID ${owner.pid})`); }
-      catch (running) { if ((running as NodeJS.ErrnoException).code !== 'ESRCH') throw running; }
-      await unlink(path); // A stopped process cannot hold this lock; retry the exclusive create.
+      if (Date.now() - info.mtimeMs > 10 * 60_000) {
+        // Break stale locks purely by age: PID probing misfires when PIDs get reused.
+        await unlink(path).catch(error2 => { if ((error2 as NodeJS.ErrnoException).code !== 'ENOENT') throw error2; });
+        continue;
+      }
+      throw new Error('Publication build is already running (a fresh lock exists)');
     }
   }
   throw new Error('Could not acquire publication build lock');
+}
+
+/** Keep the newest N release directories; watch mode otherwise grows one per commit forever. */
+const RELEASE_RETENTION = 10;
+
+async function pruneReleases(releases: string): Promise<void> {
+  const entries = (await readdir(releases).catch(() => [])).filter(name => !name.startsWith('.')).sort();
+  for (const stale of entries.slice(0, Math.max(0, entries.length - RELEASE_RETENTION))) {
+    await rm(join(releases, stale), { recursive: true, force: true }).catch(() => undefined);
+  }
 }
 
 /** The served pointer changes once, after both the verified snapshot and full static build succeed. */
@@ -78,6 +89,7 @@ export async function buildPublication(options: PublicationBuildOptions): Promis
     temporaryLink = `${current}.${randomUUID()}.next`;
     await symlink(relative(dirname(current), release), temporaryLink, 'dir');
     await rename(temporaryLink, current); temporaryLink = undefined;
+    await pruneReleases(releases);
     return { ...result, changed: true };
   } finally {
     if (temporaryLink) await unlink(temporaryLink).catch(() => {});

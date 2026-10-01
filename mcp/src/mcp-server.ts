@@ -5,12 +5,13 @@ import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { Host } from './shared.js';
 import { SkillFluxError } from './runtime/errors.js';
 import { SkillFluxRuntime } from './runtime/runtime.js';
+import { RUNTIME_VERSION } from './runtime/updates.js';
 
 const hostSchema = z.enum(['generic', 'codex', 'claude', 'cursor']);
 const sortSchema = z.enum(['relevance', 'newest', 'name']);
 
 export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
-  const server = new McpServer({ name: 'skillflux', version: '2.0.0' });
+  const server = new McpServer({ name: 'skillflux', version: RUNTIME_VERSION });
 
   server.registerTool('skillflux.search', {
     title: 'Search the curated SkillFlux catalog',
@@ -54,7 +55,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     title: 'Install a sealed SkillFlux plan',
     description: 'Install only a Runtime-generated plan id. Each file is downloaded from a pinned catalog commit and verified against its sha256. MCP installation works only when reviewed text packages were explicitly preauthorized during local init.',
     inputSchema: { planId: z.string().min(20).max(100) },
-    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   }, async args => toolResult(async () => {
     const result = await runtime.installPlan(args.planId, 'mcp');
     return { value: result, text: `Installed ${result.rootSkill.id}@${result.rootSkill.version}; project lock revision is ${result.lockRevision}.` };
@@ -110,7 +111,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     title: 'Execute an explicitly authorized fixed update plan',
     description: 'Call only after the user explicitly approves the exact versions and breaking changes in a skillflux.plan result. Requires that planId; initial reviewed-text preauthorization does not authorize arbitrary upgrades. Does not resolve latest versions. Local edits, pins, stale plans and revoked targets block execution.',
     inputSchema: { planId: z.string().min(20).max(100) },
-    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   }, async args => toolResult(async () => {
     const result = await runtime.installUpdatePlan(args.planId, 'mcp');
     return { value: result, text: `Updated ${result.rootSkill.id}@${result.rootSkill.version}; project lock revision is ${result.lockRevision}.` };

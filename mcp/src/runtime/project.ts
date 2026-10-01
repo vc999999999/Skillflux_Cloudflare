@@ -35,6 +35,8 @@ import {
   withProjectLock,
 } from './paths.js';
 
+const LOCK_HISTORY_LIMIT = 50;
+
 export function emptyLock(): ProjectLock {
   return { schema: LOCK_SCHEMA, revision: 0, updatedAt: new Date().toISOString(), skills: {} };
 }
@@ -255,6 +257,11 @@ export async function writeLockWithHistory(paths: RuntimePaths, previous: Projec
     const historyPath = join(paths.history, `${String(previous.revision).padStart(8, '0')}-${Date.now()}-${randomUUID()}.json`);
     await assertNoSymlinkPath(paths.root, historyPath, true);
     await writeFile(historyPath, `${JSON.stringify(next, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
+    // Rollback only needs a bounded window; keep the newest LOCK_HISTORY_LIMIT revisions.
+    const files = (await readdir(paths.history)).filter(name => name.endsWith('.json')).sort();
+    for (const stale of files.slice(0, Math.max(0, files.length - LOCK_HISTORY_LIMIT))) {
+      await rm(join(paths.history, stale), { force: true }).catch(() => undefined);
+    }
   }
   await assertNoSymlinkPath(paths.root, paths.lock, true);
   await atomicWriteJson(paths.lock, next);
@@ -295,7 +302,6 @@ export async function readInstalledPackage(packageRoot: string): Promise<Install
 }
 
 export async function verifyInstalledFiles(packageRoot: string, pkg: InstalledPackage): Promise<void> {
-  await assertNoSymlinkPath(packageRoot, packageRoot, false);
   const anchorPath = join(packageRoot, INSTALL_MANIFEST_FILE);
   await assertNoSymlinkPath(packageRoot, anchorPath, false);
   const anchor = await readJson<InstalledPackage>(anchorPath);

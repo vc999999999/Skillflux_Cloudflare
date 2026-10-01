@@ -2,8 +2,8 @@ import { extname } from 'node:path';
 import { sha256 } from '../shared.js';
 import type { QualityEvidence, SkillFile } from '../shared.js';
 
-export const MAX_BUNDLE_BYTES = 512 * 1024;
-export const MAX_BUNDLE_FILES = 64;
+import { MAX_BUNDLE_BYTES, MAX_BUNDLE_FILES } from '../runtime/validation.js';
+export { MAX_BUNDLE_BYTES, MAX_BUNDLE_FILES };
 
 const deniedExtensions = new Set([
   '.7z', '.app', '.bin', '.com', '.dll', '.dmg', '.exe', '.gz',

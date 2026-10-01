@@ -13,7 +13,7 @@ export const DEFAULT_CATALOG_REPO = 'vc999999999/skillflux-catalog';
 
 export function parseRepoRef(input: string): { owner: string; repo: string } {
   const value = input.trim().replace(/\.git$/, '').replace(/\/+$/, '');
-  const shorthand = value.match(/^([\w.-]+)\/([\w.-]+)$/);
+  const shorthand = value.match(/^([A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)\/([\w.-]+)$/);
   if (shorthand) return { owner: shorthand[1]!, repo: shorthand[2]! };
   const url = (() => { try { return new URL(value); } catch { return null; } })();
   if (url && (url.hostname === 'github.com' || url.hostname === 'www.github.com')) {

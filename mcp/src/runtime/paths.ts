@@ -1,4 +1,4 @@
-import { lstat, mkdir, open, readFile, realpath, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { lstat, mkdir, open, readFile, readdir, realpath, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import type { RuntimePaths } from './model.js';
@@ -98,50 +98,68 @@ export async function readJsonIfExists<T>(path: string): Promise<T | null> {
   }
 }
 
-export async function atomicWriteJson(path: string, value: unknown, mode = 0o600): Promise<void> {
+async function atomicWrite(path: string, contents: string, mode: number): Promise<void> {
   await mkdir(dirname(path), { recursive: true, mode: 0o700 });
   const temporary = `${path}.${process.pid}.${randomUUID()}.tmp`;
-  await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, { encoding: 'utf8', mode, flag: 'wx' });
-  await rename(temporary, path);
+  const handle = await open(temporary, 'wx', mode);
+  try {
+    await handle.writeFile(contents, 'utf8');
+    // fsync so a crash cannot leave a renamed-but-empty file behind.
+    await handle.sync();
+  } finally {
+    await handle.close();
+  }
+  try {
+    await rename(temporary, path);
+  } catch (error) {
+    await rm(temporary, { force: true }).catch(() => undefined);
+    throw error;
+  }
+}
+
+export async function atomicWriteJson(path: string, value: unknown, mode = 0o600): Promise<void> {
+  await atomicWrite(path, `${JSON.stringify(value, null, 2)}\n`, mode);
 }
 
 export async function atomicWriteText(path: string, value: string, mode = 0o600): Promise<void> {
-  await mkdir(dirname(path), { recursive: true, mode: 0o700 });
-  const temporary = `${path}.${process.pid}.${randomUUID()}.tmp`;
-  await writeFile(temporary, value, { encoding: 'utf8', mode, flag: 'wx' });
-  await rename(temporary, path);
+  await atomicWrite(path, value, mode);
 }
 
-export async function withProjectLock<T>(paths: RuntimePaths, operation: () => Promise<T>, timeoutMs = 10_000): Promise<T> {
+/** Remove leftover `*.tmp-*` files from writers that crashed between write and rename. */
+export async function sweepTemporaryWrites(directory: string): Promise<number> {
+  const entries = await readdir(directory, { withFileTypes: true }).catch(() => []);
+  let removed = 0;
+  for (const entry of entries) {
+    if (entry.isFile() && /\.\d+\.[0-9a-f-]{8,}\.tmp$/.test(entry.name)) {
+      await rm(join(directory, entry.name), { force: true }).catch(() => undefined);
+      removed += 1;
+    }
+  }
+  return removed;
+}
+
+export async function withProjectLock<T>(paths: RuntimePaths, operation: () => Promise<T>, timeoutMs = 5 * 60_000): Promise<T> {
   const started = Date.now();
   let handle: Awaited<ReturnType<typeof open>> | null = null;
   while (!handle) {
     await assertNoSymlinkPath(paths.root, paths.mutex, true);
     try {
       handle = await open(paths.mutex, 'wx', 0o600);
-      await handle.writeFile(JSON.stringify({ pid: process.pid, createdAt: new Date().toISOString() }));
+      try {
+        await handle.writeFile(JSON.stringify({ pid: process.pid, createdAt: new Date().toISOString() }));
+      } catch (error) {
+        await handle.close();
+        handle = null;
+        throw error;
+      }
     } catch (error) {
       const nodeError = error as NodeJS.ErrnoException;
       if (nodeError.code !== 'EEXIST') throw error;
       const existing = await stat(paths.mutex).catch(() => null);
       if (existing) {
-        let stalePid: number | null = null;
-        try {
-          const value = JSON.parse(await readFile(paths.mutex, 'utf8')) as { pid?: unknown };
-          stalePid = typeof value.pid === 'number' && Number.isInteger(value.pid) && value.pid > 0 ? value.pid : null;
-        } catch {
-          stalePid = null;
-        }
-        let ownerAlive = true;
-        if (stalePid !== null) {
-          try {
-            process.kill(stalePid, 0);
-          } catch (ownerError) {
-            const ownerNodeError = ownerError as NodeJS.ErrnoException;
-            ownerAlive = ownerNodeError.code === 'EPERM';
-          }
-        }
-        if ((!ownerAlive && stalePid !== null) || (stalePid === null && Date.now() - existing.mtimeMs > 120_000)) {
+        // Break stale locks purely by age: a reused PID would otherwise make a dead
+        // lock look alive forever. Two minutes is far above any legit operation.
+        if (Date.now() - existing.mtimeMs > 120_000) {
           const current = await stat(paths.mutex).catch(() => null);
           if (current && current.ino === existing.ino && current.mtimeMs === existing.mtimeMs && current.size === existing.size) {
             await rm(paths.mutex, { force: true });

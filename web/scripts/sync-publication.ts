@@ -12,6 +12,23 @@ const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const DEFAULT_SOURCE = 'https://raw.githubusercontent.com';
 const DEFAULT_BRANCH = 'main';
 
+function normalizeSourceUrl(input: string | undefined): string {
+  if (!input) return DEFAULT_SOURCE;
+  let parsed: URL;
+  try {
+    parsed = new URL(input);
+  } catch {
+    throw new Error(`Invalid catalog source URL: ${input}`);
+  }
+  if (parsed.protocol !== 'https:' && !['localhost', '127.0.0.1', '[::1]'].includes(parsed.hostname)) {
+    throw new Error('Catalog source must use HTTPS; HTTP is allowed only for a loopback development mirror');
+  }
+  if (parsed.username || parsed.password || parsed.search || parsed.hash) {
+    throw new Error('Catalog source URL cannot contain credentials, query parameters or fragments');
+  }
+  return parsed.toString().replace(/\/+$/, '');
+}
+
 function parseRepoRef(input: string): string {
   const value = input.trim().replace(/\.git$/, '').replace(/\/+$/, '');
   const shorthand = value.match(/^([\w.-]+)\/([\w.-]+)$/);
@@ -71,7 +88,7 @@ export async function synchronizePublication(options: { repo: string; output: st
   if (previous?.repo && previous.repo !== repo) {
     throw new Error(`Publication is pinned to ${previous.repo}; refusing to switch to ${repo}. Use a separate output path for a new catalog repository.`);
   }
-  const source = (options.source ?? DEFAULT_SOURCE).replace(/\/+$/, '');
+  const source = normalizeSourceUrl(options.source);
   const branch = options.branch ?? DEFAULT_BRANCH;
   // The head-resolution API host follows the source: loopback sources (fixtures,
   // local mirrors) serve the GitHub-style API on the same origin at /api.
@@ -129,6 +146,11 @@ async function syncEntry(entry: CatalogIndexEntry, raw: (path: string) => string
       throw new Error(`Downloaded file does not match the catalog hash: ${summary.id}/${summary.version}/${file.path}`);
     }
     files[file.path] = text;
+  }
+  const declaredSize = summary.size;
+  const computedSize = entry.files.reduce((sum, file) => sum + file.size, 0);
+  if (Number.isSafeInteger(declaredSize) && declaredSize !== computedSize) {
+    throw new Error(`Catalog size mismatch for ${summary.id}@${summary.version}: declared ${declaredSize} bytes, files sum to ${computedSize}`);
   }
   const bundle: Bundle = { manifest, files };
   return { skill: summary, bundle };

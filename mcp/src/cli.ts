@@ -135,9 +135,10 @@ async function installCommand(args: string[]): Promise<number> {
   const parsed = parseArgs({ args, strict: true, allowPositionals: true, options: { project: { type: 'string' }, version: { type: 'string' } } });
   const target = requireOnePositional(parsed.positionals, 'install requires exactly one skill id or plan id');
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
-  if (target.startsWith('plan_') && parsed.values.version) throw new SkillFluxError('INVALID_ARGUMENTS', '--version cannot be combined with a plan id');
-  const specifier = target.startsWith('plan_') ? null : parseSkillSpecifier(target, parsed.values.version);
-  const planId = target.startsWith('plan_') ? target : (await runtime.createPlan(specifier!.id, { version: specifier!.version })).id;
+  const isPlanId = /^plan_[a-f0-9-]{20,}$/.test(target);
+  if (isPlanId && parsed.values.version) throw new SkillFluxError('INVALID_ARGUMENTS', '--version cannot be combined with a plan id');
+  const specifier = isPlanId ? null : parseSkillSpecifier(target, parsed.values.version);
+  const planId = isPlanId ? target : (await runtime.createPlan(specifier!.id, { version: specifier!.version })).id;
   printJson(await runtime.installPlan(planId, 'cli'));
   return 0;
 }
@@ -207,10 +208,23 @@ async function pinCommand(args: string[], pinned: boolean): Promise<number> {
 }
 
 async function rollbackCommand(args: string[]): Promise<number> {
-  const parsed = parseArgs({ args, strict: true, allowPositionals: true, options: { project: { type: 'string' } } });
+  const parsed = parseArgs({ args, strict: true, allowPositionals: true, options: { project: { type: 'string' }, yes: { type: 'boolean', default: false } } });
   if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'rollback accepts at most one skill id');
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
-  printJson(await runtime.rollback(parsed.positionals[0], 'cli'));
+  const current = await runtime.list();
+  const target = parsed.positionals[0];
+  const installed = target ? current.skills.find(item => item.id === target) : current.skills[0];
+  if (!installed) throw new SkillFluxError('SKILL_NOT_INSTALLED', target ? `${target} is not installed` : 'No skills are installed');
+  let confirmed = parsed.values.yes;
+  if (!confirmed && process.stdin.isTTY && process.stderr.isTTY) {
+    const input = createInterface({ input: process.stdin, output: process.stderr });
+    try { confirmed = (await input.question(`Restore the previous lock state for ${installed.id} (currently ${installed.version})? [y/N] `)).trim().toLowerCase() === 'y'; } finally { input.close(); }
+  }
+  if (!confirmed) {
+    printJson({ rolledBack: false, nextStep: `Re-run with --yes to restore the previous verified lock state for ${installed.id}.` });
+    return 0;
+  }
+  printJson(await runtime.rollback(target, 'cli'));
   return 0;
 }
 
@@ -231,13 +245,13 @@ async function privacyCommand(args: string[]): Promise<number> {
   });
   if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'privacy accepts at most one action');
   const action = parsed.positionals[0] ?? 'status';
+  if (action !== 'status') throw new SkillFluxError('INVALID_ARGUMENTS', `Unknown privacy action: ${action}`);
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
   if (parsed.values['reset-trust']) {
     await runtime.resetTrust();
     printJson({ trustReset: true, notice: 'Repository pin removed. Re-run init and verify the new catalog repository owner out of band.' });
     return 0;
   }
-  if (action !== 'status') throw new SkillFluxError('INVALID_ARGUMENTS', `Unknown privacy action: ${action}`);
   printJson(await runtime.privacyState());
   return 0;
 }
@@ -312,7 +326,7 @@ Usage:
   skillflux check-updates [SKILL_ID] [--cached] [--project PATH]
   skillflux pin|unpin SKILL_ID [--project PATH]
   skillflux update [SKILL_ID@VERSION] [--plan PLAN_ID] [--yes] [--project PATH]
-  skillflux rollback [SKILL_ID] [--project PATH]
+  skillflux rollback [SKILL_ID] [--yes] [--project PATH]
   skillflux remove SKILL_ID [--force] [--project PATH]
   skillflux privacy [status] [--reset-trust] [--project PATH]
 
