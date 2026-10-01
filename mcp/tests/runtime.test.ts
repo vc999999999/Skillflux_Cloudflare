@@ -4,9 +4,19 @@ import { readFileSync } from 'node:fs';
 import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fixtureCatalog } from './runtime-fixture.js';
+import { initializeProject } from '../src/runtime/project.js';
 import { SkillFluxRuntime } from '../src/runtime/runtime.js';
 
 const RUNTIME_VERSION: string = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+
+test('init rejects an unsupported trust record without replacing it', async t => {
+  const fixture = await fixtureCatalog(t);
+  const trustPath = join(fixture.project, '.skillflux', 'trust.json');
+  const unsupported = JSON.stringify({ schema: 'skillflux/runtime/v2', registryOrigin: 'https://old.example' });
+  await writeFile(trustPath, unsupported);
+  await assert.rejects(initializeProject({ projectRoot: fixture.project, repo: fixture.repo, host: 'generic', cliPath: process.execPath, source: fixture.origin }), { code: 'INVALID_TRUST' });
+  assert.equal(await readFile(trustPath, 'utf8'), unsupported);
+});
 
 test('search runs locally against the cached catalog index and never sends the query', async t => {
   const fixture = await fixtureCatalog(t);

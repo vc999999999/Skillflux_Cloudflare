@@ -31,6 +31,8 @@ npm run deploy:production --workspace @skillflux/web    # wrangler 部署到 Clo
 
 `publication:build --watch --repo ... --interval 60` 持续同步；相同 commit SHA 跳过重建。失败保留上一份有效站点与快照。
 
+发布构建只接受 GitHub Catalog v2 快照；构建完成后才切换生产产物指针。目录仓库身份固定，不能在同一产物路径下悄悄更换仓库。
+
 Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路由与产物路径已指向生产配置。紧急撤销还需处理部署端/CDN 缓存；不能声称已追回用户下载或模型已经读入的旧文字。
 
 ## 备份与恢复

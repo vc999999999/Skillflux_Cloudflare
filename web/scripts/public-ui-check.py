@@ -63,18 +63,24 @@ def main():
             page.goto(args.base + '/registry/', wait_until='networkidle')
             print(json.dumps({'registry_controls': page.locator('button,select').all_text_contents(), 'cards': page.locator('[data-skill-id]').count()}, ensure_ascii=False))
             expect(page.locator('[data-skill-id]')).to_have_count(curated_count)
-            page.locator('[data-skill-filters] input[name="q"]').fill('zzqxv987654321zzq')
-            page.locator('[data-skill-filters] button[type="submit"]').click()
-            expect(page.locator('[data-skill-empty]')).to_be_visible()
-            assert 'q=' in page.locator('[data-language-link][lang="en"]').get_attribute('href')
-            page.locator('[data-skill-filters] button[type="reset"]').click()
-            expect(page.locator('[data-skill-id]:visible')).to_have_count(min(curated_count, 12))
-            if curated_count > 12:
-                page.locator('[data-skill-next]').click()
-                assert parse_qs(urlparse(page.url).query)['page'] == ['2']
-                page.go_back(wait_until='networkidle')
-                expect(page.locator('[data-skill-prev]')).to_be_disabled()
-            evidence['checks'].append('curated search, reset, count, empty and pagination when populated')
+            if curated_count:
+                page.locator('[data-skill-filters] input[name="q"]').fill('zzqxv987654321zzq')
+                page.locator('[data-skill-filters] button[type="submit"]').click()
+                expect(page.locator('[data-skill-empty]')).to_be_visible()
+                assert 'q=' in page.locator('[data-language-link][lang="en"]').get_attribute('href')
+                page.locator('[data-skill-filters] button[type="reset"]').click()
+                expect(page.locator('[data-skill-id]:visible')).to_have_count(min(curated_count, 12))
+                if curated_count > 12:
+                    page.locator('[data-skill-next]').click()
+                    assert parse_qs(urlparse(page.url).query)['page'] == ['2']
+                    page.go_back(wait_until='networkidle')
+                    expect(page.locator('[data-skill-prev]')).to_be_disabled()
+                evidence['checks'].append('curated search, reset, empty results and pagination when populated')
+            else:
+                expect(page.locator('.registry-empty')).to_be_visible()
+                expect(page.locator('[data-skill-filters]')).to_have_count(0)
+                assert '00' in page.locator('.registry-status-count').inner_text()
+                evidence['checks'].append('empty catalog shows honest zero-state without search controls')
 
             if curated_count:
                 page.locator('[data-skill-id] h3 a').first.click()
@@ -87,7 +93,7 @@ def main():
                 assert 'skillflux install' in page.evaluate('navigator.clipboard.readText()')
                 evidence['checks'].append('populated exact release, original text and clipboard command')
 
-            routes = ['/', '/en/', '/directory/', '/en/directory/', '/registry/', '/en/registry/', '/scenarios/', '/en/scenarios/', '/setup/', '/en/setup/', '/quality/', '/privacy/', '/terms/', '/advertise/', '/contact/', '/report/', '/404.html', '/en/404/', '/guides/', '/insights/']
+            routes = ['/', '/en/', '/directory/', '/en/directory/', '/registry/', '/en/registry/', '/scenarios/', '/en/scenarios/', '/install/', '/en/install/', '/quality/', '/en/quality/', '/privacy/', '/terms/', '/contact/', '/submit/', '/en/submit/', '/404.html', '/en/404/', '/guides/', '/insights/']
             routes += ['/for-ai/', '/en/for-ai/']
             for section in ['scenarios']:
                 routes += [urlparse(item[key]).path for item in payload[section] for key in ['url', 'englishUrl']]

@@ -10,7 +10,6 @@ import { validatePublication, type PublishedSkill, type PublicationSnapshot } fr
 const MAX_RESPONSE_BYTES = 16 * 1024 * 1024;
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const DEFAULT_SOURCE = 'https://raw.githubusercontent.com';
-const GITHUB_API = 'https://api.github.com';
 const DEFAULT_BRANCH = 'main';
 
 function parseRepoRef(input: string): string {
@@ -60,6 +59,13 @@ const GITHUB_API_SOURCE = 'https://api.github.com';
 /** Sync a publication snapshot from the GitHub catalog repository at a pinned commit. */
 export async function synchronizePublication(options: { repo: string; output: string; source?: string; branch?: string }): Promise<PublicationSnapshot> {
   const repo = parseRepoRef(options.repo);
+  let previous: PublicationSnapshot | undefined;
+  try { previous = JSON.parse(await readFile(options.output, 'utf8')); }
+  catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
+  if (previous) validatePublication(previous);
+  if (previous?.repo && previous.repo !== repo) {
+    throw new Error(`Publication is pinned to ${previous.repo}; refusing to switch to ${repo}. Use a separate output path for a new catalog repository.`);
+  }
   const source = (options.source ?? DEFAULT_SOURCE).replace(/\/+$/, '');
   const branch = options.branch ?? DEFAULT_BRANCH;
   // The head-resolution API host follows the source: loopback sources (fixtures,
@@ -80,10 +86,6 @@ export async function synchronizePublication(options: { repo: string; output: st
   }
   const snapshot: PublicationSnapshot = { schema: 'skillflux-publication/v2', repo, commitSha: head.sha, fetchedAt: new Date().toISOString(), items };
   validatePublication(snapshot);
-  let previous: PublicationSnapshot | undefined;
-  try { previous = JSON.parse(await readFile(options.output, 'utf8')); }
-  catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
-  if (previous) validatePublication(previous);
   await mkdir(dirname(options.output), { recursive: true });
   const stat = await lstat(options.output).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return null; throw error; });
   if (stat?.isSymbolicLink()) throw new Error('Refusing to replace a symlinked publication output');

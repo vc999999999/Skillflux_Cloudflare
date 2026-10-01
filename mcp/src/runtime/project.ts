@@ -139,7 +139,10 @@ export async function initializeProject(options: InitOptions): Promise<InitResul
       await assertNoSymlinkPath(projectRoot, file, true);
     }
     const existingTrust = await readJsonIfExists<TrustRecord>(paths.trust);
-    const existingTrustRepo = existingTrust?.repo ?? (existingTrust as unknown as { registryOrigin?: string } | null)?.registryOrigin;
+    if (existingTrust && (existingTrust.schema !== STATE_SCHEMA || typeof existingTrust.repo !== 'string' || !existingTrust.repo)) {
+      throw new SkillFluxError('INVALID_TRUST', 'Existing trust record is not a GitHub catalog repository pin. Inspect it before initializing this project.');
+    }
+    const existingTrustRepo = existingTrust?.repo;
     if (existingTrustRepo && existingTrustRepo !== repo) {
       throw new SkillFluxError('TRUST_PIN_MISMATCH', `This project is pinned to catalog repository ${existingTrustRepo}. Run 'skillflux privacy --reset-trust' only after verifying that switching to ${repo} is intended.`);
     }

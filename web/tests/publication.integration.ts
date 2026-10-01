@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, readlink, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readlink, rm, symlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import type { AddressInfo } from 'node:net';
@@ -100,6 +100,9 @@ test('catalog sync downloads at the pinned commit, verifies hashes and preserves
   assert.equal(first.commitSha, fixture.commit());
   const original = await readFile(output, 'utf8');
 
+  await assert.rejects(synchronizePublication({ repo: 'different-owner/skillflux-catalog', output, source: fixture.base }), /pinned to fixture-owner\/skillflux-catalog/);
+  assert.equal(await readFile(output, 'utf8'), original);
+
   // Tampering a file body must fail the hash check and preserve the existing snapshot.
   const tampered = entries[0]!;
   entries = [{ ...tampered, bundleFiles: { ...tampered.bundleFiles, 'SKILL.md': '---\nname: t\n---\ntampered body' } }];
@@ -146,7 +149,6 @@ test('real static builds publish same-name skills; failed build preserves the li
     assert.ok(initCopy?.attributes['data-copy-text']?.includes('--repo fixture-owner/skillflux-catalog'), 'Setup must initialize from this catalog repository');
   }
   const originalPointer = await readlink(current);
-  const originalSnapshot = await readFile(first.snapshot, 'utf8');
   const publishedHtml = await readFile(join(first.dist, 'skills/published-example/index.html'), 'utf8');
   assert.ok(publishedHtml.includes('UNIQUE_PRIVATE_PACKAGE_BODY_published-example'));
   const machineText = await readFile(join(first.dist, 'skills-index.json'), 'utf8');
@@ -183,6 +185,19 @@ test('real static builds publish same-name skills; failed build preserves the li
   await assert.rejects(readFile(join(revoked.dist, 'skills/published-example/index.html')), { code: 'ENOENT' });
   for (const path of ['index.json', 'skills-index.json', 'llms.txt', 'llms-full.txt']) assert.ok(!(await readFile(join(revoked.dist, path), 'utf8')).includes('UNIQUE_PRIVATE_PACKAGE_BODY_published-example'), `${path} must remove revoked package content`);
   assert.notEqual(await readlink(current), originalPointer);
+});
+
+test('a non-catalog publication snapshot is rejected without changing the served release', async t => {
+  const fixture = await catalogServer(t, () => []);
+  const current = join(fixture.directory, 'served-current');
+  const prior = join(fixture.directory, 'prior-release');
+  await mkdir(prior);
+  const invalidSnapshot = JSON.stringify({ schema: 'unsupported-publication', items: [] });
+  await writeFile(join(prior, 'registry-publication.json'), invalidSnapshot);
+  await symlink('prior-release', current);
+  await assert.rejects(buildPublication({ repo: 'fixture-owner/skillflux-catalog', output: current, source: fixture.base }), /Invalid SkillFlux publication snapshot/);
+  assert.equal(await readlink(current), 'prior-release');
+  assert.equal(await readFile(join(prior, 'registry-publication.json'), 'utf8'), invalidSnapshot);
 });
 
 test('static registry pagination publishes real bilingual page two with canonical metadata and no-JavaScript links', { timeout: 180_000 }, async t => {

@@ -25,7 +25,7 @@ export interface Publication {
  * Validate a publication snapshot synced from the GitHub catalog repository.
  * Integrity here comes from the synced commit SHA plus per-file sha256 checks —
  * there is no registry signature anymore. All qualification and evidence
- * binding checks from v1 are preserved.
+ * binding checks apply to every published version.
  */
 /** Matches the catalog builder's versionContentHash: sha256(canonical({manifest, files})). */
 function catalogContentHash(bundle: { manifest: PublishedManifest; files: Record<string, string> }): string {
