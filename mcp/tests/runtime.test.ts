@@ -1,117 +1,136 @@
+import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { readFileSync } from 'node:fs';
+import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { test, type TestContext } from 'node:test';
-import { createRegistryServer } from '../src/registry/server.js';
-import { initializeProject } from '../src/runtime/project.js';
+import { fixtureCatalog } from './runtime-fixture.js';
 import { SkillFluxRuntime } from '../src/runtime/runtime.js';
-import { seedSyntheticCatalog } from './registry-fixture.js';
 
-async function runtimeFixture(t: TestContext, options: { initialize?: boolean; host?: 'generic' | 'codex' | 'claude' | 'cursor' } = {}) {
-  const directory = await mkdtemp(join(tmpdir(), 'skillflux-runtime-'));
-  const token = 'synthetic-runtime-test-operator-token';
-  const server = await createRegistryServer({ dataDir: join(directory, 'registry'), dev: false, adminToken: token });
-  await new Promise<void>((resolveListen, rejectListen) => {
-    server.once('error', rejectListen);
-    server.listen(0, '127.0.0.1', resolveListen);
-  });
-  const address = server.address();
-  assert.ok(address && typeof address !== 'string');
-  const registry = `http://127.0.0.1:${address.port}`;
-  await seedSyntheticCatalog(registry, token);
-  const project = join(directory, 'project');
-  await mkdir(project);
-  t.after(async () => {
-    server.closeAllConnections();
-    await new Promise<void>((resolveClose, rejectClose) => server.close(error => error ? rejectClose(error) : resolveClose()));
-    await rm(directory, { recursive: true, force: true });
-  });
-  if (options.initialize !== false) {
-    await initializeProject({
-      projectRoot: project,
-      registry,
-      host: options.host ?? 'generic',
-      cliPath: process.execPath,
-      preauthorizeReviewedText: true,
-    });
-  }
-  return { directory, registry, project };
-}
+const RUNTIME_VERSION: string = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
 
-test('init pins TOFU, preserves unrelated MCP configuration and installs an explicit-only bootstrap', async t => {
-  const { project, registry } = await runtimeFixture(t, { initialize: false });
-  await writeFile(join(project, '.mcp.json'), JSON.stringify({ mcpServers: { existing: { command: 'existing-tool' } }, custom: { keep: true } }));
-  const first = await initializeProject({ projectRoot: project, registry, host: 'generic', cliPath: process.execPath, preauthorizeReviewedText: true });
-  assert.match(first.trustNotice, /^TOFU:/);
-  const config = JSON.parse(await readFile(join(project, '.mcp.json'), 'utf8'));
-  assert.equal(config.mcpServers.existing.command, 'existing-tool');
-  assert.deepEqual(config.custom, { keep: true });
-  assert.equal(config.mcpServers.skillflux.command, process.execPath);
-  assert.equal(Object.hasOwn(config.mcpServers.skillflux, '_skillfluxManaged'), false);
-  const bootstrap = await readFile(first.bootstrapSkillPath, 'utf8');
-  assert.match(bootstrap, /skillflux-bootstrap:v1/);
-  const second = await initializeProject({ projectRoot: project, registry, host: 'cursor', cliPath: process.execPath, preauthorizeReviewedText: true });
-  assert.match(await readFile(second.bootstrapSkillPath, 'utf8'), /disable-model-invocation: true/);
-  assert.equal(second.trust.publicKey, first.trust.publicKey);
-  assert.equal(second.trust.pinnedAt, first.trust.pinnedAt);
+test('search runs locally against the cached catalog index and never sends the query', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const result = await runtime.search({ query: 'code review' });
+  assert.equal(result.total, 1);
+  assert.equal(result.items[0]!.id, 'code-review');
+  const queryPaths = fixture.requests.filter(path => path.includes('?') || path.includes('search'));
+  assert.equal(queryPaths.length, 0, 'search must not emit any network query path');
 });
 
-test('sealed plans reject edits and every load detects local package changes', async t => {
-  const { project } = await runtimeFixture(t);
-  const runtime = await SkillFluxRuntime.open(project);
-  const alteredPlan = await runtime.createPlan('code-review');
-  const planPath = join(project, '.skillflux', 'plans', `${alteredPlan.id}.json`);
-  const altered = JSON.parse(await readFile(planPath, 'utf8'));
-  altered.rootSkillVersion = '9.9.9';
-  await writeFile(planPath, JSON.stringify(altered));
-  await assert.rejects(runtime.installPlan(alteredPlan.id), /modified/i);
-
-  const plan = await runtime.createPlan('code-review');
-  await runtime.installPlan(plan.id);
-  const loaded = await runtime.load('code-review', [], false);
-  assert.match(loaded.entry.content, /# Code review/);
-  const entryPath = join(project, '.skillflux', 'skills', 'code-review', '1.0.0', 'SKILL.md');
-  await writeFile(entryPath, `${loaded.entry.content}\nuser edit\n`);
-  await assert.rejects(runtime.load('code-review', [], false), /modified|hash/i);
-  await assert.rejects(runtime.remove('code-review'), /edited|changed|refusing/i);
-});
-
-test('privacy reset invalidates old plans and the same runtime can create a valid new plan', async t => {
-  const { project } = await runtimeFixture(t);
-  const runtime = await SkillFluxRuntime.open(project);
-  const oldPlan = await runtime.createPlan('code-review');
-  const before = await runtime.privacyState();
-  assert.equal(before.installationIdLeavesDevice, false);
-  assert.doesNotMatch(before.installationId, /[0-9a-f]{8}-[0-9a-f-]{20,}/i);
-  await runtime.resetPrivacy();
-  await assert.rejects(runtime.installPlan(oldPlan.id), /missing|plan/i);
-  const freshPlan = await runtime.createPlan('code-review');
-  const reopened = await SkillFluxRuntime.open(project);
-  const installed = await reopened.installPlan(freshPlan.id);
+test('plan → install → load round-trip installs at a pinned commit with hash verification', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const plan = await runtime.createPlan('code-review', { version: '1.0.0' });
+  assert.equal(plan.intent, 'install');
+  const installed = await runtime.installPlan(plan.id, 'cli');
   assert.equal(installed.rootSkill.id, 'code-review');
+  const loaded = await runtime.load('code-review');
+  assert.match(loaded.entry.content, /Synthetic test fixture version 1\.0\.0/);
+  assert.equal(loaded.manifest.id, 'code-review');
+  const list = await runtime.list();
+  assert.equal(list.skills.length, 1);
 });
 
-test('runtime refuses a symlink substituted for a protected state directory', async t => {
-  const { directory, project } = await runtimeFixture(t);
-  const staging = join(project, '.skillflux', 'staging');
-  const outside = join(directory, 'outside-staging');
-  await mkdir(outside);
-  await rm(staging, { recursive: true });
-  await symlink(outside, staging, 'dir');
-  await assert.rejects(SkillFluxRuntime.open(project), /symbolic link/i);
+test('hash mismatch on download aborts installation', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  fixture.tamper('code-review', '1.0.0', 'SKILL.md', '---\nname: malicious\ndescription: hash mismatch\n---\ntampered\n');
+  const plan = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await assert.rejects(() => runtime.installPlan(plan.id, 'cli'), /FILE_HASH_MISMATCH|FILE_SIZE_MISMATCH|expected .* bytes, downloaded/);
 });
 
-test('runtime rejects symbolic links at its transaction journal and process mutex', async t => {
-  const { directory, project } = await runtimeFixture(t);
-  const external = join(directory, 'external-state.json');
-  const original = JSON.stringify({ pid: 999999999, schema: 'unrelated-user-state' });
-  await writeFile(external, original);
-  for (const filename of ['runtime.lock', 'journal.json']) {
-    const target = join(project, '.skillflux', filename);
-    await symlink(external, target);
-    await assert.rejects(SkillFluxRuntime.open(project), /symbolic link/i);
-    assert.equal(await readFile(external, 'utf8'), original);
-    await rm(target);
-  }
+test('revoked entries cannot be installed and installed copies refuse to load', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const plan = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(plan.id, 'cli');
+  fixture.revoke('code-review', '1.0.0');
+  const updates = await runtime.checkUpdates('code-review', true);
+  assert.equal(updates.items[0]!.revocationStatus, 'revoked');
+  await assert.rejects(() => runtime.load('code-review'), /was revoked/);
+});
+
+test('update flow requires exact target, plan approval and re-verifies catalog digest', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const first = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(first.id, 'cli');
+  fixture.add('1.1.0');
+  const check = await runtime.checkUpdates('code-review', true);
+  assert.equal(check.items[0]!.status, 'update-available');
+  assert.equal(check.items[0]!.latestVersion, '1.1.0');
+  // Without an exact target, update is read-only.
+  const readOnly = await runtime.update();
+  assert.equal(readOnly.items[0]!.currentVersion, '1.0.0');
+  const upgrade = await runtime.createPlan('code-review', { version: '1.1.0' });
+  assert.equal(upgrade.intent, 'update');
+  await runtime.installUpdatePlan(upgrade.id, 'cli');
+  const loaded = await runtime.load('code-review');
+  assert.match(loaded.entry.content, /version 1\.1\.0/);
+});
+
+test('pinned versions block upgrade plans until unpinned', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const first = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(first.id, 'cli');
+  await runtime.setPinned('code-review', true);
+  fixture.add('1.2.0');
+  await assert.rejects(() => runtime.createPlan('code-review', { version: '1.2.0' }), /is pinned at/);
+  await runtime.setPinned('code-review', false);
+  const plan = await runtime.createPlan('code-review', { version: '1.2.0' });
+  await runtime.installUpdatePlan(plan.id, 'cli');
+});
+
+test('rollback restores the previous verified lock state', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const first = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(first.id, 'cli');
+  fixture.add('2.0.0');
+  const upgrade = await runtime.createPlan('code-review', { version: '2.0.0' });
+  await runtime.installUpdatePlan(upgrade.id, 'cli');
+  const restored = await runtime.rollback('code-review');
+  assert.equal(restored.skills['code-review']!.version, '1.0.0');
+  const loaded = await runtime.load('code-review');
+  assert.match(loaded.entry.content, /version 1\.0\.0/);
+});
+
+test('local file edits block removal and upgrades', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const first = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(first.id, 'cli');
+  await appendFile(join(fixture.project, '.skillflux', 'skills', 'code-review', '1.0.0', 'SKILL.md'), '\nlocal edit\n');
+  await assert.rejects(() => runtime.remove('code-review'), /Refusing to remove/);
+});
+
+test('offline load discloses unknown catalog status without faking freshness', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const first = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(first.id, 'cli');
+  fixture.setOffline(true);
+  const loaded = await runtime.load('code-review');
+  assert.ok(loaded.warnings.some(warning => warning.includes('catalog status is unknown')), 'must disclose unknown status');
+  const check = await runtime.checkUpdates('code-review', true);
+  assert.equal(check.items[0]!.source, 'unavailable');
+  assert.equal(check.items[0]!.status, 'unknown');
+});
+
+test('MCP installation requires explicit preauthorization', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const plan = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await assert.rejects(() => runtime.installPlan(plan.id, 'mcp'), /has not preauthorized MCP installation/);
+  // After the user enables preauthorization, the MCP path installs.
+  const policyPath = join(fixture.project, '.skillflux', 'policy.json');
+  const policy = JSON.parse(await readFile(policyPath, 'utf8'));
+  policy.preauthorizeReviewedText = true;
+  await writeFile(policyPath, JSON.stringify(policy, null, 2));
+  const runtimeAgain = await SkillFluxRuntime.open(fixture.project);
+  const result = await runtimeAgain.installPlan(plan.id, 'mcp');
+  assert.equal(result.rootSkill.id, 'code-review');
+  void RUNTIME_VERSION;
 });

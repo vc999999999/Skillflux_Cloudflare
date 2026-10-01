@@ -23,9 +23,7 @@ export function runtimePaths(projectRoot: string): RuntimePaths {
     staging: join(state, 'staging'),
     journal: join(state, 'journal.json'),
     mutex: join(state, 'runtime.lock'),
-    revocations: join(state, 'revocations.json'),
-    adFrequency: join(state, 'ad-frequency.json'),
-    eventOutbox: join(state, 'event-outbox.json'),
+    index: join(state, 'index.json'),
     runs: join(state, 'runs'),
   };
 }

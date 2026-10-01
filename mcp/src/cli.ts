@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { randomBytes } from 'node:crypto';
 import { stat } from 'node:fs/promises';
 import { realpathSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -8,15 +7,12 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { createInterface } from 'node:readline/promises';
 import type { Host } from './shared.js';
-import { createRegistryServer } from './registry/server.js';
-import { backupRegistry, checkRegistryBackup, registryKeyId, restoreRegistryBackup } from './registry/maintenance.js';
 import { serveSkillFluxStdio } from './mcp-server.js';
 import { initializeProject } from './runtime/project.js';
 import { errorMessage, SkillFluxError } from './runtime/errors.js';
-import { runManaged } from './runtime/managed-run.js';
 import { SkillFluxRuntime } from './runtime/runtime.js';
-
-const DEFAULT_REGISTRY = 'http://127.0.0.1:8787';
+import { buildCatalogIndex, checkCatalogIndex } from './catalog/build.js';
+import { DEFAULT_CATALOG_REPO } from './runtime/catalog-client.js';
 
 export async function main(argv = process.argv.slice(2)): Promise<number> {
   const [command, ...args] = argv;
@@ -24,7 +20,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
     process.stdout.write(usage());
     return 0;
   }
-  if (command === 'registry') return registryCommand(args);
+  if (command === 'catalog') return catalogCommand(args);
   if (command === 'init') return initCommand(args);
   if (command === 'serve') return serveCommand(args);
   if (command === 'search') return searchCommand(args);
@@ -38,68 +34,32 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
   if (command === 'rollback') return rollbackCommand(args);
   if (command === 'remove') return removeCommand(args);
   if (command === 'privacy') return privacyCommand(args);
-  if (command === 'backup') return backupCommand(args);
-  if (command === 'run') return runCommand(args);
   throw new SkillFluxError('UNKNOWN_COMMAND', `Unknown command: ${command}`);
 }
 
-async function registryCommand(args: string[]): Promise<number> {
+async function catalogCommand(args: string[]): Promise<number> {
   const parsed = parseArgs({
     args,
     strict: true,
-    allowPositionals: false,
+    allowPositionals: true,
     options: {
-      dev: { type: 'boolean', default: false },
-      host: { type: 'string' },
-      port: { type: 'string' },
-      'data-dir': { type: 'string' },
-      'public-url': { type: 'string' },
-      'allowed-origin': { type: 'string', multiple: true },
-      'trusted-proxy': { type: 'string', multiple: true },
+      check: { type: 'boolean', default: false },
+      output: { type: 'string' },
     },
   });
-  const dev = parsed.values.dev ?? false;
-  const host = parsed.values.host ?? process.env.SKILLFLUX_HOST ?? '127.0.0.1';
-  const port = parsePort(parsed.values.port ?? process.env.SKILLFLUX_PORT ?? '8787');
-  const dataDir = resolve(parsed.values['data-dir'] ?? process.env.SKILLFLUX_DATA_DIR ?? join(process.cwd(), '.skillflux-registry'));
-  const publicUrl = parsed.values['public-url'] ?? process.env.SKILLFLUX_PUBLIC_URL;
-  const envOrigins = process.env.SKILLFLUX_ALLOWED_ORIGINS?.split(',').map(item => item.trim()).filter(Boolean);
-  const allowedOrigins = parsed.values['allowed-origin'] ?? envOrigins;
-  const envTrustedProxies = process.env.SKILLFLUX_TRUSTED_PROXIES?.split(',').map(item => item.trim()).filter(Boolean);
-  const trustedProxies = parsed.values['trusted-proxy'] ?? envTrustedProxies;
-  let adminToken = process.env.SKILLFLUX_ADMIN_TOKEN;
-  if (dev && !adminToken) {
-    adminToken = randomBytes(32).toString('base64url');
-    process.stderr.write(`SkillFlux development operator token: ${adminToken}\n`);
+  const catalogRoot = resolve(parsed.positionals[0] ?? process.cwd());
+  if (parsed.values.check) {
+    const result = await checkCatalogIndex(catalogRoot);
+    if (result.ok) {
+      process.stdout.write(`OK: index.json matches the skills/ directory (${result.index.skills.length} entries)\n`);
+      return 0;
+    }
+    process.stderr.write(`FAIL: ${result.reason}\n`);
+    return 1;
   }
-  const server = await createRegistryServer({
-    dataDir,
-    adminToken,
-    allowedOrigins,
-    trustedProxies,
-    publicUrl,
-    dev,
-    seedPath: dev ? join(packageRoot(), 'catalog', 'seed.json') : undefined,
-  });
-  await new Promise<void>((resolveListen, rejectListen) => {
-    server.once('error', rejectListen);
-    server.listen(port, host, () => {
-      server.off('error', rejectListen);
-      resolveListen();
-    });
-  });
-  const address = server.address();
-  const actualPort = address && typeof address === 'object' ? address.port : port;
-  process.stderr.write(`SkillFlux registry listening on http://${host}:${actualPort}\n`);
-  const close = (): void => {
-    server.close(() => process.exit(0));
-  };
-  process.once('SIGINT', close);
-  process.once('SIGTERM', close);
-  await new Promise<void>((resolveClose, rejectClose) => {
-    server.once('close', resolveClose);
-    server.once('error', rejectClose);
-  });
+  const result = await buildCatalogIndex(catalogRoot, parsed.values.output ? { output: parsed.values.output } : {});
+  for (const warning of result.warnings) process.stderr.write(`warning: ${warning}\n`);
+  process.stdout.write(`index.json written to ${result.output} (${result.index.skills.length} entries)\n`);
   return 0;
 }
 
@@ -110,7 +70,8 @@ async function initCommand(args: string[]): Promise<number> {
     allowPositionals: false,
     options: {
       project: { type: 'string' },
-      registry: { type: 'string' },
+      repo: { type: 'string' },
+      source: { type: 'string' },
       host: { type: 'string' },
       locale: { type: 'string' },
       'preauthorize-reviewed-text': { type: 'boolean' },
@@ -120,7 +81,8 @@ async function initCommand(args: string[]): Promise<number> {
   const cliPath = await compiledCliPath();
   const result = await initializeProject({
     projectRoot: parsed.values.project ?? process.cwd(),
-    registry: parsed.values.registry ?? DEFAULT_REGISTRY,
+    repo: parsed.values.repo ?? process.env.SKILLFLUX_CATALOG_REPO ?? DEFAULT_CATALOG_REPO,
+    source: parsed.values.source,
     host,
     cliPath,
     locale: parsed.values.locale,
@@ -185,11 +147,11 @@ async function loadCommand(args: string[]): Promise<number> {
     args,
     strict: true,
     allowPositionals: true,
-    options: { project: { type: 'string' }, resource: { type: 'string', multiple: true }, 'no-ad': { type: 'boolean', default: false } },
+    options: { project: { type: 'string' }, resource: { type: 'string', multiple: true } },
   });
   const skillId = requireOnePositional(parsed.positionals, 'load requires exactly one skill id');
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
-  printJson(await runtime.load(skillId, parsed.values.resource ?? [], !(parsed.values['no-ad'] ?? false)));
+  printJson(await runtime.load(skillId, parsed.values.resource ?? []));
   return 0;
 }
 
@@ -267,85 +229,17 @@ async function privacyCommand(args: string[]): Promise<number> {
     allowPositionals: true,
     options: { project: { type: 'string' }, 'reset-trust': { type: 'boolean', default: false } },
   });
-  if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'privacy accepts one action: status, reset, ads-on or ads-off');
+  if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'privacy accepts at most one action');
   const action = parsed.positionals[0] ?? 'status';
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
   if (parsed.values['reset-trust']) {
     await runtime.resetTrust();
-    printJson({ trustReset: true, notice: 'Trust pin removed. Re-run init and verify the new TOFU fingerprint out of band.' });
+    printJson({ trustReset: true, notice: 'Repository pin removed. Re-run init and verify the new catalog repository owner out of band.' });
     return 0;
   }
-  if (action === 'ads-on') await runtime.setAdvertising(true);
-  else if (action === 'ads-off') await runtime.setAdvertising(false);
-  else if (action === 'reset') {
-    printJson(await runtime.resetPrivacy());
-    return 0;
-  } else if (action !== 'status') throw new SkillFluxError('INVALID_ARGUMENTS', `Unknown privacy action: ${action}`);
+  if (action !== 'status') throw new SkillFluxError('INVALID_ARGUMENTS', `Unknown privacy action: ${action}`);
   printJson(await runtime.privacyState());
   return 0;
-}
-
-async function backupCommand(args: string[]): Promise<number> {
-  const parsed = parseArgs({
-    args,
-    strict: true,
-    allowPositionals: false,
-    options: {
-      'data-dir': { type: 'string' },
-      dest: { type: 'string' },
-      backup: { type: 'string' },
-      check: { type: 'boolean', default: false },
-      restore: { type: 'boolean', default: false },
-      'key-id': { type: 'string' },
-    },
-  });
-  const values = parsed.values;
-  if (values.check && values.restore) throw new SkillFluxError('INVALID_ARGUMENTS', '--check and --restore cannot be combined');
-  if (values['key-id'] && values['data-dir']) throw new SkillFluxError('INVALID_ARGUMENTS', '--key-id cannot be combined with --data-dir');
-  const expectedKeyId = values['key-id'] ?? (values['data-dir'] && (values.check || values.restore) ? await registryKeyId(values['data-dir']) : undefined);
-  if (values.check) {
-    if (!values.backup || values.dest) throw new SkillFluxError('INVALID_ARGUMENTS', 'backup --check requires --backup DIR and does not accept --dest');
-    printJson(await checkRegistryBackup(values.backup, expectedKeyId));
-    return 0;
-  }
-  if (values.restore) {
-    if (!values.backup || !values.dest) throw new SkillFluxError('INVALID_ARGUMENTS', 'backup --restore requires --backup DIR and --dest DIR; the destination must be a new directory');
-    printJson(await restoreRegistryBackup(values.backup, values.dest, expectedKeyId));
-    return 0;
-  }
-  if (!values['data-dir'] || !values.dest || values.backup) throw new SkillFluxError('INVALID_ARGUMENTS', 'backup requires --data-dir DIR and --dest DIR; the destination must be a new directory');
-  printJson(await backupRegistry(values['data-dir'], values.dest));
-  return 0;
-}
-
-async function runCommand(args: string[]): Promise<number> {
-  const delimiter = args.indexOf('--');
-  if (delimiter < 0 || delimiter === args.length - 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'run requires `-- EXECUTABLE ARG...`; commands are never passed through a shell');
-  const wrapperArgs = args.slice(0, delimiter);
-  const childArgs = args.slice(delimiter + 1);
-  const parsed = parseArgs({
-    args: wrapperArgs,
-    strict: true,
-    allowPositionals: false,
-    options: {
-      project: { type: 'string' }, skill: { type: 'string' }, resource: { type: 'string', multiple: true },
-      category: { type: 'string' }, json: { type: 'boolean', default: false }, 'ad-context': { type: 'string', default: 'unknown' },
-    },
-  });
-  if (!parsed.values.skill) throw new SkillFluxError('INVALID_ARGUMENTS', 'run requires --skill ID');
-  const adContext = parsed.values['ad-context'];
-  if (adContext !== 'normal' && adContext !== 'sensitive' && adContext !== 'unknown') throw new SkillFluxError('INVALID_ARGUMENTS', '--ad-context must be normal, sensitive, or unknown');
-  const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
-  const result = await runManaged(runtime, {
-    command: childArgs[0],
-    args: childArgs.slice(1),
-    skillId: parsed.values.skill,
-    resources: parsed.values.resource,
-    category: parsed.values.category,
-    adContext,
-    json: parsed.values.json,
-  });
-  return result.exitCode;
 }
 
 function parseProjectArgs(args: string[]): { project: string } {
@@ -367,12 +261,6 @@ function parseInteger(value: string | undefined, fallback: number, label: string
   if (value === undefined) return fallback;
   if (!/^\d+$/.test(value)) throw new SkillFluxError('INVALID_ARGUMENTS', `${label} must be a non-negative integer`);
   return Number.parseInt(value, 10);
-}
-
-function parsePort(value: string): number {
-  const port = parseInteger(value, 8787, 'port');
-  if (port < 0 || port > 65535) throw new SkillFluxError('INVALID_ARGUMENTS', 'port must be between 0 and 65535');
-  return port;
 }
 
 function requireOnePositional(positionals: string[], message: string): string {
@@ -410,11 +298,11 @@ function printJson(value: unknown): void {
 }
 
 function usage(): string {
-  return `SkillFlux — anonymous reviewed skill search, local loading and disclosed sponsored output
+  return `SkillFlux — curated skill marketplace on GitHub, local install and same-turn loading
 
 Usage:
-  skillflux registry [--dev] [--host HOST] [--port PORT] [--data-dir PATH]
-  skillflux init --project PATH --registry URL --host codex|claude|cursor|generic [--preauthorize-reviewed-text]
+  skillflux catalog PATH [--check] [--output FILE]      build or verify a catalog repository index
+  skillflux init --project PATH [--repo OWNER/NAME] [--source URL] --host codex|claude|cursor|generic [--preauthorize-reviewed-text]
   skillflux serve --project PATH
   skillflux search [QUERY...] [--project PATH] [--category CATEGORY]
   skillflux plan SKILL_ID [--version VERSION] [--project PATH]
@@ -426,13 +314,11 @@ Usage:
   skillflux update [SKILL_ID@VERSION] [--plan PLAN_ID] [--yes] [--project PATH]
   skillflux rollback [SKILL_ID] [--project PATH]
   skillflux remove SKILL_ID [--force] [--project PATH]
-  skillflux privacy [status|reset|ads-on|ads-off] [--reset-trust] [--project PATH]
-  skillflux backup --data-dir DIR --dest DIR
-  skillflux backup --check --backup DIR [--data-dir DIR | --key-id KEY_ID]
-  skillflux backup --restore --backup DIR --dest DIR [--data-dir DIR | --key-id KEY_ID]
-  skillflux run --project PATH --skill SKILL_ID [--resource PATH] [--category CATEGORY] [--ad-context normal|sensitive|unknown] [--json] -- EXECUTABLE ARG...
+  skillflux privacy [status] [--reset-trust] [--project PATH]
 
-Managed run never invokes a shell. It supplies verified context through SKILLFLUX_CONTEXT_FILE and appends a disclosed advertisement only after successful, non-empty text output.
+Catalog content comes from a GitHub repository (default ${DEFAULT_CATALOG_REPO}).
+The client resolves the default branch to a commit SHA and downloads every file at that SHA;
+search runs locally over a cached index, so capability queries never leave this machine.
 `;
 }
 

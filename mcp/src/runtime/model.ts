@@ -1,33 +1,38 @@
-import type { AdDecision, Bundle, Host, Manifest, Permissions, PublicKeyInfo, Signed, SkillSummary } from '../shared.js';
+import type { Bundle, Manifest, SearchResponse, SkillSummary } from '../shared.js';
 
 export const STATE_DIRECTORY = '.skillflux';
-export const STATE_SCHEMA = 'skillflux/runtime/v1' as const;
+export const STATE_SCHEMA = 'skillflux/runtime/v2' as const;
 export const LOCK_SCHEMA = 'skillflux/lock/v1' as const;
 export const PLAN_SCHEMA = 'skillflux/plan/v1' as const;
+
+/** Local install anchor file replacing the old signed envelope. */
+export const INSTALL_MANIFEST_FILE = '.skillflux-manifest.json';
 
 export interface RuntimeConfig {
   schema: typeof STATE_SCHEMA;
   projectRoot: string;
-  registry: string;
+  repo: string;
+  source: string;
   host: Host;
   cliPath: string;
   createdAt: string;
 }
 
+export type Host = 'generic' | 'codex' | 'claude' | 'cursor';
+
 export interface RuntimePolicy {
   schema: typeof STATE_SCHEMA;
   preauthorizeReviewedText: boolean;
-  adsEnabled: boolean;
   locale: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface TrustRecord extends PublicKeyInfo {
+export interface TrustRecord {
   schema: typeof STATE_SCHEMA;
-  registryOrigin: string;
+  repo: string;
   pinnedAt: string;
-  method: 'TOFU';
+  method: 'repo-pin';
 }
 
 export interface InstallationState {
@@ -48,7 +53,6 @@ export interface LockEntry {
   publisher: string;
   name: string;
   pinned?: boolean;
-  qualificationProofRequired?: boolean;
 }
 
 export interface ProjectLock {
@@ -65,7 +69,7 @@ export interface PlanPackage {
   direct: boolean;
   name: string;
   publisher: string;
-  permissions: Permissions;
+  permissions: import('../shared.js').Permissions;
   dependencies: { id: string; version: string }[];
 }
 
@@ -73,7 +77,7 @@ export interface ResolutionPlanBody {
   schema: typeof PLAN_SCHEMA;
   id: string;
   projectRoot: string;
-  registryOrigin: string;
+  repo: string;
   host: Host;
   rootSkillId: string;
   rootSkillVersion: string;
@@ -100,21 +104,15 @@ export interface InstallJournal {
   createdAt: string;
 }
 
-export interface InstalledEnvelope {
+/** Locally installed package: manifest plus full content, written atomically from staged downloads. */
+export interface InstalledPackage {
   schema: typeof STATE_SCHEMA;
   digest: string;
-  envelope: Signed<Bundle>;
+  manifest: Manifest;
+  files: Record<string, string>;
+  indexSha: string;
   installedAt: string;
-}
-
-export interface RevocationCache {
-  schema: typeof STATE_SCHEMA;
-  envelope: Signed<{
-    items: { id: string; version: string; digest: string; reason: string; revokedAt: string }[];
-    generatedAt: string;
-    expiresAt: string;
-  }>;
-  fetchedAt: string;
+  warnings?: string[];
 }
 
 export interface LoadedSkill {
@@ -130,7 +128,6 @@ export interface LoadedSkill {
   resources: Record<string, string>;
   dependencies: { id: string; version: string; entry: string; content: string }[];
   warnings: string[];
-  advertisement?: AdDecision;
   update?: UpdateCheckItem;
 }
 
@@ -174,7 +171,7 @@ export interface UpdateCheckItem {
   compatibility: 'compatible' | 'incompatible' | 'unknown';
   revocationStatus: 'clear' | 'revoked' | 'unknown';
   checkedAt: string | null;
-  source: 'registry' | 'cache' | 'stale-cache' | 'unavailable';
+  source: 'catalog' | 'cache' | 'stale-cache' | 'unavailable';
   warnings: string[];
 }
 
@@ -188,75 +185,22 @@ export interface UpdateCheckResult {
 
 export interface InitOptions {
   projectRoot: string;
-  registry: string;
+  repo: string;
   host: Host;
   cliPath: string;
+  source?: string;
   preauthorizeReviewedText?: boolean;
   locale?: string;
 }
 
 export interface InitResult {
   projectRoot: string;
-  registry: string;
+  repo: string;
   host: Host;
   mcpConfigPath: string;
   bootstrapSkillPath: string;
   trust: TrustRecord;
   trustNotice: string;
-}
-
-export interface PrivacyState {
-  anonymous: true;
-  accountRequired: false;
-  installationId: string;
-  installationIdLeavesDevice: false;
-  adsEnabled: boolean;
-  locale: string;
-  localFrequencyEntries: number;
-  queuedEvents: number;
-  registry: string;
-  dataSent: string[];
-  dataNeverSent: string[];
-}
-
-export interface AdFrequencyRecord {
-  campaignId: string;
-  sponsor: string;
-  renderedAt: string;
-}
-
-export interface AdFrequencyState {
-  schema: typeof STATE_SCHEMA;
-  records: AdFrequencyRecord[];
-}
-
-export interface AdSelection {
-  decision: AdDecision;
-  envelope: Signed<AdDecision>;
-}
-
-export type AdEventType = 'impression' | 'hide' | 'report';
-
-export interface QueuedAdEvent {
-  token: string;
-  type: AdEventType;
-  eventId: string;
-  reason?: string;
-  queuedAt: string;
-}
-
-/** 'reported' means the registry accepted the event; 'queued' means it is only stored locally for retry; 'unknown' means neither confirmed nor queued. */
-export interface AdEventReport {
-  type: AdEventType;
-  eventId: string;
-  status: 'reported' | 'queued' | 'unknown';
-  duplicate: boolean;
-}
-
-export interface EventOutboxFlush {
-  flushed: number;
-  dropped: number;
-  remaining: number;
 }
 
 export interface RuntimePaths {
@@ -274,13 +218,9 @@ export interface RuntimePaths {
   staging: string;
   journal: string;
   mutex: string;
-  revocations: string;
-  adFrequency: string;
-  eventOutbox: string;
+  index: string;
   runs: string;
 }
 
-export interface ResolvedSkill {
-  summary: SkillSummary;
-  direct: boolean;
-}
+export type { Bundle, Manifest, SearchResponse, SkillSummary };
+export type { Permissions } from '../shared.js';

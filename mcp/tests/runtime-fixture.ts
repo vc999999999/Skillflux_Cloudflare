@@ -1,118 +1,165 @@
-import { generateKeyPairSync, randomUUID } from 'node:crypto';
-import { createServer } from 'node:http';
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { createHash, randomUUID } from 'node:crypto';
+import { createServer, type Server } from 'node:http';
 import { mkdir, mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import type { TestContext } from 'node:test';
-import { bundleDigest, contentHash, sha256, signPayload, type AdDecision, type Bundle, type Host, type Revocations, type SkillDetail, type SkillVersionSummary } from '../src/shared.js';
-import { issueDecisionToken, verifyDecisionToken } from '../src/registry/crypto.js';
+import type { Bundle, Host } from '../src/shared.js';
+import { sha256 } from '../src/shared.js';
+import type { CatalogIndex, CatalogIndexEntry } from '../src/catalog/model.js';
 import { initializeProject } from '../src/runtime/project.js';
 import { SkillFluxRuntime } from '../src/runtime/runtime.js';
 
-/** Synthetic signed HTTP fixture only. It represents protocol states, never real human testing. */
-export async function fixtureRegistry(t: TestContext) {
-  const directory = await mkdtemp(join(tmpdir(), 'skillflux-runtime-fixture-'));
+/**
+ * Local fixture emulating a GitHub catalog repository.
+ * Serves raw.githubusercontent-style paths (`/<owner>/<repo>/<sha>/<path>`)
+ * plus a GitHub-style commits API for head resolution. All content is synthetic
+ * and marked as such; it represents protocol states, never real human testing.
+ */
+export async function fixtureCatalog(t: TestContext) {
+  const directory = await mkdtemp(join(tmpdir(), 'skillflux-catalog-fixture-'));
   const project = join(directory, 'project');
   await mkdir(project);
-  const pair = generateKeyPairSync('ed25519');
-  const privateKey = pair.privateKey.export({ type: 'pkcs8', format: 'pem' }).toString();
-  const key = { keyId: 'synthetic-runtime-fixture', publicKey: pair.publicKey.export({ type: 'spki', format: 'pem' }).toString() };
-  const bundles = new Map<string, Bundle>();
-  const requests: string[] = [];
-  const revoked: Revocations['items'] = [];
-  const adEvents: { eventId: string; type: string; token: string; reason?: string }[] = [];
+  const repo = 'fixture-owner/skillflux-catalog';
+  const skills = new Map<string, { bundle: Bundle; status: string; qualification: string }>();
+  let headCounter = 0;
   let offline = false;
-  let failBundles = false;
-  let ads = false;
-  let dropEventResponses = false;
-  function add(version: string, options: { id?: string; minClient?: string; hosts?: Host[]; breaking?: boolean; deps?: {id: string; version: string}[] } = {}) {
+  let failDownloads = false;
+  const tamperFiles = new Map<string, string>();
+  const requests: string[] = [];
+  let head = newHead();
+  let server: Server | null = null;
+
+  function newHead(): string {
+    headCounter += 1;
+    return createHash('sha1').update(`fixture-commit-${headCounter}-${randomUUID()}`).digest('hex');
+  }
+
+  function add(version: string, options: { id?: string; minClient?: string; hosts?: Host[]; breaking?: boolean; deps?: { id: string; version: string }[]; status?: string; qualification?: string } = {}) {
     const id = options.id ?? 'code-review';
     const text = `---\nname: ${id}\ndescription: Synthetic test fixture\n---\n\n# Code review\n\nSynthetic test fixture version ${version}.\n`;
     const createdAt = new Date().toISOString();
-    const bundle: Bundle = { manifest: {
-      schema: 'skillflux/v1', id, version, name: 'Synthetic review fixture', description: 'Runtime protocol test fixture only',
-      category: 'development', tags: [], hosts: options.hosts ?? ['generic'], publisher: 'Synthetic test fixture (not a person)', license: 'MIT', entry: 'SKILL.md',
-      permissions: { network: [], shell: false, secrets: [] }, dependencies: options.deps ?? [],
-      files: [{ path: 'SKILL.md', sha256: sha256(text), size: Buffer.byteLength(text) }],
-      quality: { automated: { passed: true, checks: ['synthetic fixture'], checkedAt: createdAt }, review: { reviewer: 'Synthetic fixture; not a real evaluation', reviewedAt: createdAt, notes: 'Protocol test state only' } },
-      createdAt, release: { notes: `Synthetic release ${version}`, breaking: options.breaking ?? false, minClientVersion: options.minClient ?? '1.0.0', maintainedAt: createdAt, maintainedBy: 'Synthetic fixture' },
-    }, files: { 'SKILL.md': text } };
-    bundle.manifest.quality.evaluation = { evaluationId: `synthetic-${id}-${version}`, contentHash: contentHash(bundle), testedAt: createdAt, summary: 'Synthetic public proof for protocol tests; not actual human testing', hosts: bundle.manifest.hosts, purposePassed: true, boundaryPassed: true };
-    bundles.set(`${id}@${version}`, bundle);
+    const bundle: Bundle = {
+      manifest: {
+        schema: 'skillflux/v1', id, version, name: 'Synthetic review fixture', description: 'Runtime protocol test fixture only',
+        category: 'development', tags: [], hosts: options.hosts ?? ['generic'], publisher: 'Synthetic test fixture (not a person)', license: 'MIT', entry: 'SKILL.md',
+        permissions: { network: [], shell: false, secrets: [] }, dependencies: options.deps ?? [],
+        createdAt, release: { notes: `Synthetic release ${version}`, breaking: options.breaking ?? false, minClientVersion: options.minClient ?? '1.0.0', maintainedAt: createdAt, maintainedBy: 'Synthetic fixture' },
+      },
+      files: { 'SKILL.md': text },
+    };
+    const status = options.status ?? 'approved';
+    const qualification = options.qualification ?? (status === 'approved' ? 'qualified' : 'needs-testing');
+    skills.set(`${id}@${version}`, { bundle, status, qualification });
+    head = newHead();
     return bundle;
   }
-  function summary(bundle: Bundle): SkillDetail['skill'] {
-    const manifest = bundle.manifest;
-    const isRevoked = revoked.some(item => item.id === manifest.id && item.version === manifest.version);
-    return { ...manifest, status: isRevoked ? 'revoked' : 'approved', qualification: isRevoked ? 'revoked' : 'qualified', digest: bundleDigest(bundle), size: Buffer.byteLength(bundle.files['SKILL.md']) };
+
+  function setStatus(id: string, version: string, status: string, qualification: string) {
+    const entry = skills.get(`${id}@${version}`);
+    if (!entry) throw new Error(`Fixture skill not found: ${id}@${version}`);
+    entry.status = status;
+    entry.qualification = qualification;
+    head = newHead();
   }
+
+  function revoke(id: string, version: string) {
+    setStatus(id, version, 'revoked', 'revoked');
+  }
+
+  function entryFor(id: string, version: string): CatalogIndexEntry | null {
+    const record = skills.get(`${id}@${version}`);
+    if (!record) return null;
+    const manifest = record.bundle.manifest;
+    const files = Object.entries(record.bundle.files).map(([path, content]) => ({ path, sha256: sha256(content), size: Buffer.byteLength(content) }));
+    const digest = sha256(JSON.stringify(manifest));
+    return {
+      skill: {
+        id: manifest.id, version: manifest.version, name: manifest.name, description: manifest.description,
+        category: manifest.category, tags: manifest.tags, hosts: manifest.hosts, publisher: manifest.publisher,
+        license: manifest.license, status: record.status as CatalogIndexEntry['skill']['status'], digest,
+        size: files.reduce((sum, file) => sum + file.size, 0), entry: manifest.entry,
+        permissions: manifest.permissions, dependencies: manifest.dependencies, createdAt: manifest.createdAt,
+        release: manifest.release, qualification: record.qualification as CatalogIndexEntry['skill']['qualification'],
+        quality: {
+          automated: { passed: true, checks: ['synthetic fixture'], checkedAt: manifest.createdAt },
+          review: { reviewer: 'Synthetic fixture; not a real evaluation', reviewedAt: manifest.createdAt, notes: 'Protocol test state only' },
+          evaluation: {
+            evaluationId: `synthetic-${id}-${version}`, contentHash: digest, testedAt: manifest.createdAt,
+            summary: 'Synthetic public proof for protocol tests; not actual human testing', hosts: manifest.hosts,
+            purposePassed: true, boundaryPassed: true,
+          },
+        },
+      },
+      files,
+    };
+  }
+
+  function buildIndex(): CatalogIndex {
+    const entries = [...skills.keys()].sort().map(key => {
+      const [id, version] = key.split('@');
+      return entryFor(id!, version!);
+    }).filter((entry): entry is CatalogIndexEntry => entry !== null);
+    return { schema: 'skillflux-catalog-index/v1', generatedAt: new Date().toISOString(), skills: entries };
+  }
+
+  // Seed the fixture with a base version.
   add('1.0.0');
-  const server = createServer((req, res) => {
+
+  server = createServer((req, res) => {
     const url = new URL(req.url!, 'http://localhost');
     requests.push(`${req.method} ${url.pathname}`);
     if (offline) { req.socket.destroy(); return; }
     const send = (value: unknown, status = 200) => { res.writeHead(status, { 'content-type': 'application/json' }); res.end(JSON.stringify(value)); };
-    if (url.pathname === '/v1/keys') return send(key);
-    if (url.pathname === '/v1/revocations') return send(signPayload({ items: revoked, generatedAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 60_000).toISOString() }, privateKey, key.keyId));
-    const qualification = /^\/v1\/qualifications\/([a-f0-9]+)$/.exec(url.pathname);
-    if (qualification) {
-      const bundle = [...bundles.values()].find(item => bundleDigest(item) === qualification[1]);
-      if (bundle) return send(signPayload({ id: bundle.manifest.id, version: bundle.manifest.version, digest: bundleDigest(bundle), contentHash: contentHash(bundle), qualification: summary(bundle).qualification, evaluation: bundle.manifest.quality.evaluation, generatedAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 60_000).toISOString() }, privateKey, key.keyId));
-    }
-    const versions = /^\/v1\/skills\/([^/]+)\/versions$/.exec(url.pathname);
-    if (versions) {
-      const items: SkillVersionSummary[] = [...bundles.values()].filter(bundle => bundle.manifest.id === versions[1]).map(bundle => ({ ...summary(bundle), qualification: summary(bundle).qualification! }));
-      return send({ items, total: items.length, offset: 0, limit: 100 });
-    }
-    const skill = /^\/v1\/skills\/([^/]+)$/.exec(url.pathname);
-    if (skill) {
-      const bundle = bundles.get(`${skill[1]}@${url.searchParams.get('version') ?? '1.0.0'}`);
-      if (bundle) return send({ skill: summary(bundle), manifest: bundle.manifest, content: bundle.files['SKILL.md'], resources: [] });
-    }
-    const artifact = /^\/v1\/bundles\/([a-f0-9]+)$/.exec(url.pathname);
-    if (artifact && !failBundles) {
-      const bundle = [...bundles.values()].find(item => bundleDigest(item) === artifact[1]);
-      if (bundle) return send(signPayload(bundle, privateKey, key.keyId));
-    }
-    if (url.pathname === '/v1/ads/decision' && req.method === 'POST' && ads) {
-      const expiresAt = new Date(Date.now() + 600_000).toISOString();
-      const decisionId = randomUUID();
-      const decision: AdDecision = { decisionId, campaignId: null, creativeId: 'synthetic-house', disclosure: '广告', text: 'Synthetic fixture advertisement', url: 'https://registry.example/', expiresAt, token: issueDecisionToken(decisionId, expiresAt, privateKey), house: true };
-      return send(signPayload(decision, privateKey, key.keyId));
-    }
-    if (url.pathname === '/v1/events' && req.method === 'POST' && ads) {
-      let raw = '';
-      req.on('data', chunk => { raw += chunk; });
-      req.on('end', () => {
-        const body = JSON.parse(raw) as { token: string; type: string; eventId: string; reason?: string };
-        try {
-          verifyDecisionToken(body.token, key.publicKey);
-        } catch {
-          send({ error: { code: 'invalid_decision_token', message: 'Synthetic fixture rejected the decision token' } }, 401);
-          return;
-        }
-        const duplicate = adEvents.some(event => event.eventId === body.eventId || (body.type === 'impression' && event.type === 'impression' && event.token === body.token));
-        adEvents.push({ eventId: body.eventId, type: body.type, token: body.token, ...(body.reason ? { reason: body.reason } : {}) });
-        // Simulates a response lost after the server already recorded the event.
-        if (dropEventResponses) { req.socket.destroy(); return; }
-        send({ accepted: true, duplicate });
-      });
-      return;
-    }
-    return send({ error: { code: 'NOT_FOUND', message: 'Synthetic fixture route unavailable' } }, 404);
+    const sendText = (value: string, status = 200) => { res.writeHead(status, { 'content-type': 'text/plain; charset=utf-8' }); res.end(value); };
+    if (url.pathname === `/api/repos/${repo}/commits/main`) return send({ sha: head });
+    const raw = new RegExp(`^/${repo}/([0-9a-f]{40})/(.+)$`).exec(url.pathname);
+    if (!raw) return send({ error: { code: 'not_found', message: `Fixture path miss: ${url.pathname}` } }, 404);
+    const [, sha, path] = raw;
+    if (sha !== head) return send({ error: { code: 'not_found', message: 'Fixture only serves its current head SHA' } }, 404);
+    if (failDownloads) return send({ error: { code: 'source_unavailable', message: 'Fixture download failure injected' } }, 500);
+    if (path === 'index.json') return send(buildIndex());
+    const fileMatch = /^skills\/([^/]+)\/([^/]+)\/(.+)$/.exec(path!);
+    if (!fileMatch) return send({ error: { code: 'not_found', message: 'Not a fixture skill path' } }, 404);
+    const [, id, version, filePath] = fileMatch;
+    const record = skills.get(`${id}@${version}`);
+    if (!record) return send({ error: { code: 'not_found', message: `No fixture skill ${id}@${version}` } }, 404);
+    const content = tamperFiles.get(`${id}@${version}/${filePath}`) ?? record.bundle.files[filePath!];
+    if (content === undefined) return send({ error: { code: 'not_found', message: `No fixture file ${filePath}` } }, 404);
+    return sendText(content);
   });
-  await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
-  const address = server.address();
-  if (!address || typeof address === 'string') throw new Error('Missing test address');
-  const registry = `http://127.0.0.1:${address.port}`;
-  t.after(async () => { server.closeAllConnections(); await new Promise<void>(resolve => server.close(() => resolve())); await rm(directory, { recursive: true, force: true }); });
-  return { directory, project, registry, add, requests, revoked, bundles, adEvents, offline: (value: boolean) => { offline = value; }, failBundles: (value: boolean) => { failBundles = value; }, enableAds: (value: boolean) => { ads = value; }, dropEvents: (value: boolean) => { dropEventResponses = value; } };
-}
+  await new Promise<void>(resolveListen => { server!.listen(0, '127.0.0.1', resolveListen); });
+  const address = server!.address();
+  const port = typeof address === 'object' && address ? address.port : 0;
+  const origin = `http://127.0.0.1:${port}`;
+  await initializeProject({
+    projectRoot: project,
+    repo,
+    host: 'generic',
+    cliPath: process.execPath,
+    source: origin,
+    preauthorizeReviewedText: false,
+  });
+  t.after(async () => {
+    await new Promise<void>(resolveClose => server?.close(() => resolveClose()));
+    await rm(directory, { recursive: true, force: true });
+  });
 
-export async function installedRuntime(t: TestContext) {
-  const fixture = await fixtureRegistry(t);
-  await initializeProject({ projectRoot: fixture.project, registry: fixture.registry, host: 'generic', cliPath: process.execPath, preauthorizeReviewedText: true });
-  const runtime = await SkillFluxRuntime.open(fixture.project);
-  await runtime.installPlan((await runtime.createPlan('code-review')).id);
-  return { ...fixture, runtime };
+  return {
+    project,
+    repo,
+    origin,
+    requests,
+    add,
+    revoke,
+    setStatus,
+    commit: () => head,
+    setOffline: (value: boolean) => { offline = value; },
+    setFailDownloads: (value: boolean) => { failDownloads = value; },
+    tamper: (id: string, version: string, file: string, content: string) => { tamperFiles.set(`${id}@${version}/${file}`, content); },
+    index: buildIndex,
+    skills,
+  };
 }

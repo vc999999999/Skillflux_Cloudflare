@@ -1,6 +1,6 @@
 import { extname } from 'node:path';
 import { sha256 } from '../shared.js';
-import type { QualityEvidence, SkillFile, Submission } from '../shared.js';
+import type { QualityEvidence, SkillFile } from '../shared.js';
 
 export const MAX_BUNDLE_BYTES = 512 * 1024;
 export const MAX_BUNDLE_FILES = 64;
@@ -14,7 +14,10 @@ const deniedExtensions = new Set([
 const reservedRuntimeRoots = new Set([
   '.skillflux-envelope.json',
   '.skillflux-qualification.json',
+  '.skillflux-manifest.json',
   'manifest.json',
+  'skillflux.json',
+  'skillflux.review.json',
 ]);
 
 const secretPatterns: Array<{ name: string; pattern: RegExp }> = [
@@ -38,23 +41,23 @@ export interface ScanResult {
   failures: string[];
 }
 
-export function scanSubmission(submission: Submission, checkedAt = new Date().toISOString()): ScanResult {
+export function scanFiles(files: Record<string, string>, checkedAt = new Date().toISOString()): ScanResult {
   const checks: string[] = [];
   const failures: string[] = [];
-  const files: SkillFile[] = [];
+  const scanned: SkillFile[] = [];
   let totalBytes = 0;
 
-  const paths = Object.keys(submission.files).sort();
+  const paths = Object.keys(files).sort();
   const foldedPaths = new Map<string, string>();
   const allFoldedPaths = new Set(paths.map(path => path.normalize('NFC').toLowerCase()));
   checks.push(`file-count:${paths.length}/${MAX_BUNDLE_FILES}`);
   if (paths.length > MAX_BUNDLE_FILES) failures.push('bundle contains too many files');
 
   for (const path of paths) {
-    const content = submission.files[path];
+    const content = files[path];
     const encoded = Buffer.from(content, 'utf8');
     totalBytes += encoded.byteLength;
-    files.push({ path, sha256: sha256(encoded), size: encoded.byteLength });
+    scanned.push({ path, sha256: sha256(encoded), size: encoded.byteLength });
 
     const extension = extname(path).toLowerCase();
     const foldedPath = path.normalize('NFC').toLowerCase();
@@ -91,15 +94,9 @@ export function scanSubmission(submission: Submission, checkedAt = new Date().to
   checks.push('case-folded-path-collisions');
   checks.push('file-directory-path-collisions');
   checks.push('filesystem-segment-byte-limits');
-  checks.push('entry-present');
   checks.push('no-binary-or-archive-extension');
   checks.push('secret-pattern-scan');
   checks.push('instruction-risk-pattern-scan');
-  checks.push('declarative-permissions-only');
-
-  if (submission.permissions.shell) failures.push('shell permission is not supported');
-  if (submission.permissions.network.length > 0) failures.push('network permission is not supported');
-  if (submission.permissions.secrets.length > 0) failures.push('secret access is not supported');
 
   return {
     quality: {
@@ -110,8 +107,17 @@ export function scanSubmission(submission: Submission, checkedAt = new Date().to
       },
       review: null,
     },
-    files,
+    files: scanned,
     totalBytes,
     failures: [...new Set(failures)],
   };
+}
+
+/** Reject declarative permissions: the runtime only installs reviewed text-only skills. */
+export function scanPermissions(permissions: { shell: boolean; network: string[]; secrets: string[] }): string[] {
+  const failures: string[] = [];
+  if (permissions.shell) failures.push('shell permission is not supported');
+  if (permissions.network.length > 0) failures.push('network permission is not supported');
+  if (permissions.secrets.length > 0) failures.push('secret access is not supported');
+  return failures;
 }

@@ -1,21 +1,20 @@
-import { createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
-import { lstat, mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { randomBytes, randomUUID, createHmac, timingSafeEqual } from 'node:crypto';
+import { mkdir, readFile, rename, rm, writeFile, stat, readdir } from 'node:fs/promises';
 import { dirname, join, relative, resolve, sep } from 'node:path';
-import type { Bundle, Host, Signed } from '../shared.js';
-import { canonical, sha256 } from '../shared.js';
-import { RegistryClient, normalizeRegistryUrl } from './api-client.js';
+import type { Bundle, Host } from '../shared.js';
+import { canonical } from '../shared.js';
+import { CatalogClient, normalizeSourceUrl, parseRepoRef } from './catalog-client.js';
 import { installBootstrapSkill } from './bootstrap.js';
 import { SkillFluxError } from './errors.js';
-import { QUALIFICATION_FILE } from './qualification.js';
 import {
+  INSTALL_MANIFEST_FILE,
   LOCK_SCHEMA,
   STATE_SCHEMA,
-  type AdFrequencyState,
   type InitOptions,
   type InitResult,
   type InstallationState,
   type InstallJournal,
-  type InstalledEnvelope,
+  type InstalledPackage,
   type ProjectLock,
   type ResolutionPlan,
   type ResolutionPlanBody,
@@ -27,13 +26,11 @@ import {
 import {
   assertNoSymlinkPath,
   atomicWriteJson,
-  atomicWriteText,
   canonicalProjectRoot,
   ensureStateLayout,
   isInside,
   readJson,
   readJsonIfExists,
-  removeIfExists,
   runtimePaths,
   withProjectLock,
 } from './paths.js';
@@ -115,7 +112,9 @@ async function mergeCodexMcpConfig(projectRoot: string, cliPath: string): Promis
     if (lines.length) lines.push('');
     lines.push(...managedLines);
   }
-  await atomicWriteText(target, `${lines.join('\n')}\n`, 0o644);
+  const staged = `${target}.${randomUUID()}.tmp`;
+  await writeFile(staged, `${lines.join('\n')}\n`, { encoding: 'utf8', mode: 0o644, flag: 'wx' });
+  await rename(staged, target);
   return target;
 }
 
@@ -128,74 +127,72 @@ async function mergeMcpConfig(projectRoot: string, cliPath: string, host: Host):
 export async function initializeProject(options: InitOptions): Promise<InitResult> {
   validateHost(options.host);
   const projectRoot = await canonicalProjectRoot(options.projectRoot);
-  const registry = normalizeRegistryUrl(options.registry);
-  const client = new RegistryClient(registry);
-  const remoteKey = await client.getKey();
-  if (!remoteKey?.keyId || !remoteKey.publicKey) throw new SkillFluxError('INVALID_REGISTRY_KEY', 'Registry returned an invalid public key');
+  const repo = (() => { const parsed = parseRepoRef(options.repo); return `${parsed.owner}/${parsed.repo}`; })();
+  const source = normalizeSourceUrl(options.source);
+  // Verify the catalog source is reachable and resolves to a commit before writing any config.
+  const client = new CatalogClient(repo, { source });
+  const commitSha = await client.resolveHead();
   const paths = runtimePaths(projectRoot);
   await ensureStateLayout(paths);
   return withProjectLock(paths, async () => {
-  for (const file of [paths.config, paths.policy, paths.trust, paths.installation, paths.lock, paths.adFrequency, paths.eventOutbox]) {
-    await assertNoSymlinkPath(projectRoot, file, true);
-  }
-  const existingTrust = await readJsonIfExists<TrustRecord>(paths.trust);
-  if (existingTrust && (existingTrust.registryOrigin !== client.origin || existingTrust.keyId !== remoteKey.keyId || existingTrust.publicKey !== remoteKey.publicKey)) {
-    throw new SkillFluxError('TRUST_PIN_MISMATCH', 'The registry identity differs from the explicitly pinned key. Run `skillflux privacy --reset-trust` only after independently verifying the new key.');
-  }
-  const now = new Date().toISOString();
-  const previousConfig = await readJsonIfExists<RuntimeConfig>(paths.config);
-  const config: RuntimeConfig = {
-    schema: STATE_SCHEMA,
-    projectRoot,
-    registry,
-    host: options.host,
-    cliPath: resolve(options.cliPath),
-    createdAt: previousConfig?.createdAt ?? now,
-  };
-  const previousPolicy = await readJsonIfExists<RuntimePolicy>(paths.policy);
-  const policy: RuntimePolicy = {
-    schema: STATE_SCHEMA,
-    preauthorizeReviewedText: options.preauthorizeReviewedText ?? previousPolicy?.preauthorizeReviewedText ?? false,
-    adsEnabled: previousPolicy?.adsEnabled ?? true,
-    locale: options.locale ?? previousPolicy?.locale ?? 'zh-CN',
-    createdAt: previousPolicy?.createdAt ?? now,
-    updatedAt: now,
-  };
-  const trust: TrustRecord = existingTrust ?? {
-    schema: STATE_SCHEMA,
-    registryOrigin: client.origin,
-    keyId: remoteKey.keyId,
-    publicKey: remoteKey.publicKey,
-    pinnedAt: now,
-    method: 'TOFU',
-  };
-  const installation = await readJsonIfExists<InstallationState>(paths.installation) ?? {
-    schema: STATE_SCHEMA,
-    installationId: randomUUID(),
-    planSecret: randomBytes(32).toString('base64url'),
-    createdAt: now,
-    rotatedAt: now,
-  };
-  await Promise.all([
-    atomicWriteJson(paths.config, config),
-    atomicWriteJson(paths.policy, policy),
-    atomicWriteJson(paths.trust, trust),
-    atomicWriteJson(paths.installation, installation),
-    atomicWriteJson(paths.lock, await readJsonIfExists<ProjectLock>(paths.lock) ?? emptyLock()),
-    atomicWriteJson(paths.adFrequency, await readJsonIfExists<AdFrequencyState>(paths.adFrequency) ?? { schema: STATE_SCHEMA, records: [] }),
-    atomicWriteJson(paths.eventOutbox, await readJsonIfExists<unknown[]>(paths.eventOutbox) ?? []),
-  ]);
-  const mcpConfigPath = await mergeMcpConfig(projectRoot, options.cliPath, options.host);
-  const bootstrapSkillPath = await installBootstrapSkill(projectRoot, options.host);
-  return {
-    projectRoot,
-    registry,
-    host: options.host,
-    mcpConfigPath,
-    bootstrapSkillPath,
-    trust,
-    trustNotice: `TOFU: pinned registry key ${trust.keyId} for ${trust.registryOrigin}. Verify this fingerprint out of band before relying on it: ${sha256(trust.publicKey)}`,
-  };
+    for (const file of [paths.config, paths.policy, paths.trust, paths.installation, paths.lock]) {
+      await assertNoSymlinkPath(projectRoot, file, true);
+    }
+    const existingTrust = await readJsonIfExists<TrustRecord>(paths.trust);
+    const existingTrustRepo = existingTrust?.repo ?? (existingTrust as unknown as { registryOrigin?: string } | null)?.registryOrigin;
+    if (existingTrustRepo && existingTrustRepo !== repo) {
+      throw new SkillFluxError('TRUST_PIN_MISMATCH', `This project is pinned to catalog repository ${existingTrustRepo}. Run 'skillflux privacy --reset-trust' only after verifying that switching to ${repo} is intended.`);
+    }
+    const now = new Date().toISOString();
+    const previousConfig = await readJsonIfExists<RuntimeConfig>(paths.config);
+    const config: RuntimeConfig = {
+      schema: STATE_SCHEMA,
+      projectRoot,
+      repo,
+      source,
+      host: options.host,
+      cliPath: resolve(options.cliPath),
+      createdAt: previousConfig?.createdAt ?? now,
+    };
+    const previousPolicy = await readJsonIfExists<RuntimePolicy>(paths.policy);
+    const policy: RuntimePolicy = {
+      schema: STATE_SCHEMA,
+      preauthorizeReviewedText: options.preauthorizeReviewedText ?? previousPolicy?.preauthorizeReviewedText ?? false,
+      locale: options.locale ?? previousPolicy?.locale ?? 'zh-CN',
+      createdAt: previousPolicy?.createdAt ?? now,
+      updatedAt: now,
+    };
+    const trust: TrustRecord = existingTrust && existingTrust.repo ? existingTrust : {
+      schema: STATE_SCHEMA,
+      repo,
+      pinnedAt: now,
+      method: 'repo-pin',
+    };
+    const installation = await readJsonIfExists<InstallationState>(paths.installation) ?? {
+      schema: STATE_SCHEMA,
+      installationId: randomUUID(),
+      planSecret: randomBytes(32).toString('base64url'),
+      createdAt: now,
+      rotatedAt: now,
+    };
+    await Promise.all([
+      atomicWriteJson(paths.config, config),
+      atomicWriteJson(paths.policy, policy),
+      atomicWriteJson(paths.trust, trust),
+      atomicWriteJson(paths.installation, installation),
+      atomicWriteJson(paths.lock, await readJsonIfExists<ProjectLock>(paths.lock) ?? emptyLock()),
+    ]);
+    const mcpConfigPath = await mergeMcpConfig(projectRoot, options.cliPath, options.host);
+    const bootstrapSkillPath = await installBootstrapSkill(projectRoot, options.host);
+    return {
+      projectRoot,
+      repo,
+      host: options.host,
+      mcpConfigPath,
+      bootstrapSkillPath,
+      trust,
+      trustNotice: `Pinned catalog repository ${repo} at commit ${commitSha.slice(0, 10)} (source ${source}). All downloads anchor to commit SHAs; verify the repository owner out of band before relying on it.`,
+    };
   });
 }
 
@@ -217,11 +214,10 @@ export async function loadRuntimeState(projectRootInput: string): Promise<{
     readJson<InstallationState>(paths.installation),
   ]);
   if (config.schema !== STATE_SCHEMA || policy.schema !== STATE_SCHEMA || trust.schema !== STATE_SCHEMA || installation.schema !== STATE_SCHEMA) {
-    throw new SkillFluxError('UNSUPPORTED_STATE', 'Project state schema is unsupported');
+    throw new SkillFluxError('UNSUPPORTED_STATE', 'Project state schema is unsupported; run skillflux init again');
   }
   if (config.projectRoot !== projectRoot) throw new SkillFluxError('PROJECT_BINDING_MISMATCH', 'Runtime configuration is bound to a different canonical project root');
-  const client = new RegistryClient(config.registry);
-  if (client.origin !== trust.registryOrigin) throw new SkillFluxError('TRUST_ORIGIN_MISMATCH', 'Pinned key does not belong to the configured registry origin');
+  if (config.repo !== trust.repo) throw new SkillFluxError('TRUST_ORIGIN_MISMATCH', 'Pinned repository does not match the configured catalog repository');
   return { paths, config, policy, trust, installation };
 }
 
@@ -255,16 +251,16 @@ export async function writeLockWithHistory(paths: RuntimePaths, previous: Projec
   if (previous.revision !== next.revision) {
     const historyPath = join(paths.history, `${String(previous.revision).padStart(8, '0')}-${Date.now()}-${randomUUID()}.json`);
     await assertNoSymlinkPath(paths.root, historyPath, true);
-    await atomicWriteJson(historyPath, previous);
+    await writeFile(historyPath, `${JSON.stringify(next, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
   }
+  await assertNoSymlinkPath(paths.root, paths.lock, true);
   await atomicWriteJson(paths.lock, next);
 }
 
 export async function writePlan(paths: RuntimePaths, plan: ResolutionPlan): Promise<void> {
-  await assertNoSymlinkPath(paths.root, paths.plans, false);
   const target = join(paths.plans, `${plan.id}.json`);
   await assertNoSymlinkPath(paths.root, target, true);
-  await atomicWriteJson(target, plan);
+  await writeFile(target, `${JSON.stringify(plan, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
 }
 
 export async function readPlan(paths: RuntimePaths, planId: string): Promise<ResolutionPlan> {
@@ -274,50 +270,59 @@ export async function readPlan(paths: RuntimePaths, planId: string): Promise<Res
   return readJson<ResolutionPlan>(target);
 }
 
-export async function writeInstalledBundle(paths: RuntimePaths, envelope: Signed<Bundle>, digest: string, targetRoot: string): Promise<void> {
-  const manifest = envelope.payload.manifest;
-  for (const [path, content] of Object.entries(envelope.payload.files)) {
+/** Write a downloaded, verified package: content files plus a local anchor manifest. */
+export async function writeInstalledPackage(paths: RuntimePaths, pkg: InstalledPackage, targetRoot: string): Promise<void> {
+  void paths;
+  for (const [path, content] of Object.entries(pkg.files)) {
     const target = resolve(targetRoot, ...path.split('/'));
     if (!isInside(targetRoot, target)) throw new SkillFluxError('PATH_OUTSIDE_PACKAGE', `Bundle path escaped staging: ${path}`);
     await mkdir(dirname(target), { recursive: true, mode: 0o700 });
     await writeFile(target, content, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
   }
-  const installed: InstalledEnvelope = { schema: STATE_SCHEMA, digest, envelope, installedAt: new Date().toISOString() };
-  await writeFile(join(targetRoot, '.skillflux-envelope.json'), `${JSON.stringify(installed, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
-  await writeFile(join(targetRoot, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
+  await writeFile(join(targetRoot, INSTALL_MANIFEST_FILE), `${JSON.stringify(pkg, null, 2)}\n`, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
 }
 
-export async function verifyInstalledFiles(packageRoot: string, bundle: Bundle): Promise<void> {
-  await assertNoSymlinkPath(packageRoot, packageRoot, false);
-  const manifestPath = join(packageRoot, 'manifest.json');
-  await assertNoSymlinkPath(packageRoot, manifestPath, false);
-  try {
-    if (canonical(await readJson<unknown>(manifestPath)) !== canonical(bundle.manifest)) throw new Error('Manifest differs from signed metadata');
-  } catch {
-    throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', 'Installed manifest.json was modified or is unreadable');
+export async function readInstalledPackage(packageRoot: string): Promise<InstalledPackage> {
+  const anchorPath = join(packageRoot, INSTALL_MANIFEST_FILE);
+  const pkg = await readJson<InstalledPackage>(anchorPath);
+  if (pkg.schema !== STATE_SCHEMA || !pkg.manifest || typeof pkg.files !== 'object') {
+    throw new SkillFluxError('INSTALL_METADATA_MISMATCH', `Installed anchor is invalid under ${packageRoot}`);
   }
-  for (const declared of bundle.manifest.files) {
-    const target = resolve(packageRoot, ...declared.path.split('/'));
-    if (!isInside(packageRoot, target)) throw new SkillFluxError('PATH_OUTSIDE_PACKAGE', `Installed path escaped package: ${declared.path}`);
+  return pkg;
+}
+
+export async function verifyInstalledFiles(packageRoot: string, pkg: InstalledPackage): Promise<void> {
+  await assertNoSymlinkPath(packageRoot, packageRoot, false);
+  const anchorPath = join(packageRoot, INSTALL_MANIFEST_FILE);
+  await assertNoSymlinkPath(packageRoot, anchorPath, false);
+  const anchor = await readJson<InstalledPackage>(anchorPath);
+  if (anchor.schema !== STATE_SCHEMA || anchor.digest !== pkg.digest || canonical(anchor.manifest) !== canonical(pkg.manifest)) {
+    throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed ${INSTALL_MANIFEST_FILE} was modified or is unreadable`);
+  }
+  for (const [path, expected] of Object.entries(pkg.files)) {
+    const target = resolve(packageRoot, ...path.split('/'));
+    if (!isInside(packageRoot, target)) throw new SkillFluxError('PATH_OUTSIDE_PACKAGE', `Installed path escaped package: ${path}`);
     await assertNoSymlinkPath(packageRoot, target, false);
-    const info = await lstat(target).catch(() => null);
-    if (!info?.isFile() || info.isSymbolicLink()) throw new SkillFluxError('INSTALLED_FILE_INVALID', `Installed file is missing or is not a regular file: ${declared.path}`);
     const content = await readFile(target);
-    if (content.byteLength !== declared.size || sha256(content) !== declared.sha256) {
-      throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed file was modified: ${declared.path}`);
+    if (content.byteLength !== Buffer.byteLength(expected, 'utf8') || content.toString('utf8') !== expected) {
+      throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed file was modified: ${path}`);
     }
   }
-  const allowed = new Set([...bundle.manifest.files.map(file => file.path), 'manifest.json', '.skillflux-envelope.json', QUALIFICATION_FILE]);
+  const declared = new Set([...Object.keys(pkg.files), INSTALL_MANIFEST_FILE]);
   const visit = async (directory: string): Promise<void> => {
     for (const item of await readdir(directory, { withFileTypes: true })) {
       const absolute = join(directory, item.name);
-      const rel = relative(packageRoot, absolute).split(sep).join('/');
+      const rel = relativePath(packageRoot, absolute);
       if (item.isSymbolicLink()) throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed package contains a symbolic link: ${rel}`);
       if (item.isDirectory()) await visit(absolute);
-      else if (!item.isFile() || !allowed.has(rel)) throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed package contains an undeclared file: ${rel}`);
+      else if (!item.isFile() || !declared.has(rel)) throw new SkillFluxError('LOCAL_MODIFICATION_DETECTED', `Installed package contains an undeclared file: ${rel}`);
     }
   };
   await visit(packageRoot);
+}
+
+function relativePath(from: string, to: string): string {
+  return relative(from, to).split(sep).join('/');
 }
 
 export async function recoverJournal(paths: RuntimePaths): Promise<void> {
@@ -327,15 +332,25 @@ export async function recoverJournal(paths: RuntimePaths): Promise<void> {
   if (journal.schema !== STATE_SCHEMA || !journal.nextLock || !journal.previousLock) {
     throw new SkillFluxError('INVALID_JOURNAL', 'Install journal is invalid; refusing unsafe automatic recovery');
   }
-  if (journal.phase === 'materialized') await writeLockWithHistory(paths, journal.previousLock, journal.nextLock);
-  if (journal.stageRoot && isInside(paths.staging, journal.stageRoot)) await removeIfExists(journal.stageRoot);
-  await rm(paths.journal, { force: true });
+  if (journal.operation === 'install' && journal.phase === 'prepared') {
+    // The previous lock is still authoritative; the staged directory is garbage.
+    if (journal.stageRoot) await rm(journal.stageRoot, { recursive: true, force: true }).catch(() => undefined);
+    await assertNoSymlinkPath(paths.root, paths.lock, true);
+    await atomicWriteJson(paths.lock, journal.previousLock);
+    await rm(paths.journal, { force: true });
+    return;
+  }
+  if (journal.phase === 'materialized') {
+    await assertNoSymlinkPath(paths.root, paths.lock, true);
+    await atomicWriteJson(paths.lock, journal.nextLock);
+    if (journal.operation === 'install' && journal.stageRoot) await rm(journal.stageRoot, { recursive: true, force: true }).catch(() => undefined);
+    await rm(paths.journal, { force: true });
+  }
 }
 
 export async function moveDirectoryAtomic(source: string, target: string): Promise<boolean> {
-  const existing = await stat(target).catch(() => null);
-  if (existing) return false;
-  await mkdir(dirname(target), { recursive: true, mode: 0o700 });
+  const targetInfo = await stat(target).catch(() => null);
+  if (targetInfo) return false;
   await rename(source, target);
   return true;
 }

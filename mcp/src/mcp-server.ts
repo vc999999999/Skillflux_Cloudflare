@@ -10,11 +10,11 @@ const hostSchema = z.enum(['generic', 'codex', 'claude', 'cursor']);
 const sortSchema = z.enum(['relevance', 'newest', 'name']);
 
 export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
-  const server = new McpServer({ name: 'skillflux', version: '1.0.0' });
+  const server = new McpServer({ name: 'skillflux', version: '2.0.0' });
 
   server.registerTool('skillflux.search', {
-    title: 'Search reviewed SkillFlux skills',
-    description: 'Search the public, quality-reviewed SkillFlux catalog using a short capability description. Do not include source, secrets, full prompts or personal data.',
+    title: 'Search the curated SkillFlux catalog',
+    description: 'Search the curated SkillFlux skill marketplace (a reviewed GitHub-hosted catalog) using a short capability description. Search runs locally over a cached catalog index. Do not include source, secrets, full prompts or personal data.',
     inputSchema: {
       query: z.string().max(500).optional().default(''),
       category: z.string().max(80).optional(),
@@ -36,7 +36,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.plan', {
     title: 'Create a sealed installation plan',
-    description: 'Resolve one approved skill and its exact dependencies into a short-lived plan bound to this project, registry and host.',
+    description: 'Resolve one approved catalog skill and its exact dependencies into a short-lived plan bound to this project, catalog repository and host.',
     inputSchema: {
       skillId: z.string().min(1).max(96),
       version: z.string().max(128).optional(),
@@ -46,13 +46,13 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     const plan = await runtime.createPlan(args.skillId, { version: args.version });
     return {
       value: plan,
-      text: `Plan ${plan.id} resolves ${plan.rootSkillId}@${plan.rootSkillVersion} with ${plan.packages.length} signed text package(s). It expires at ${plan.expiresAt}.` + (plan.intent === 'update' ? `\nReview these exact changes and obtain explicit user authorization before calling skillflux.update with this planId:\n${plan.changes!.map(change => `${change.id}: ${change.from} → ${change.to}${change.breaking ? ' [BREAKING]' : ''}: ${change.notes}`).join('\n')}` : ''),
+      text: `Plan ${plan.id} resolves ${plan.rootSkillId}@${plan.rootSkillVersion} with ${plan.packages.length} reviewed text package(s). It expires at ${plan.expiresAt}.` + (plan.intent === 'update' ? `\nReview these exact changes and obtain explicit user authorization before calling skillflux.update with this planId:\n${plan.changes!.map(change => `${change.id}: ${change.from} → ${change.to}${change.breaking ? ' [BREAKING]' : ''}: ${change.notes}`).join('\n')}` : ''),
     };
   }));
 
   server.registerTool('skillflux.install', {
     title: 'Install a sealed SkillFlux plan',
-    description: 'Install only a Runtime-generated plan id. MCP installation works only when reviewed text packages were explicitly preauthorized during local init.',
+    description: 'Install only a Runtime-generated plan id. Each file is downloaded from a pinned catalog commit and verified against its sha256. MCP installation works only when reviewed text packages were explicitly preauthorized during local init.',
     inputSchema: { planId: z.string().min(20).max(100) },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   }, async args => toolResult(async () => {
@@ -62,15 +62,14 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.load', {
     title: 'Load a verified skill into this turn',
-    description: 'Reverify an installed signed package, check revocations, and return its complete main entry plus explicitly requested resources for immediate use.',
+    description: 'Reverify an installed package, check the current catalog for revocations, and return its complete main entry plus explicitly requested resources for immediate use.',
     inputSchema: {
       skillId: z.string().min(1).max(96),
       resources: z.array(z.string().min(1).max(240)).max(32).optional().default([]),
-      adContext: z.enum(['normal', 'sensitive', 'unknown']).optional().default('unknown'),
     },
     annotations: { readOnlyHint: true, openWorldHint: true },
   }, async args => toolResult(async () => {
-    const loaded = await runtime.load(args.skillId, args.resources, true, args.adContext);
+    const loaded = await runtime.load(args.skillId, args.resources);
     return { value: loaded, text: renderLoadedSkill(loaded) };
   }));
 
@@ -78,7 +77,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     title: 'List installed project skills',
     description: 'List the exact SkillFlux versions selected by the current project lock.',
     inputSchema: {},
-    annotations: { readOnlyHint: true, openWorldHint: false },
+    annotations: { readOnlyHint: true, openWorldHint: false, idempotentHint: true },
   }, async () => toolResult(async () => {
     const result = await runtime.list();
     return {
@@ -89,7 +88,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.check_updates', {
     title: 'Check installed skill updates without installing',
-    description: 'Read current and available versions, change notes, compatibility, pins and revocations. Force defaults to true; cached checks have a 24-hour lifetime. Offline or failed checks report unknown and their cache source. Never installs or changes a version.',
+    description: 'Read current and available versions, change notes, compatibility, pins and revocations from the catalog index. Cached checks have a 24-hour lifetime. Offline or failed checks report unknown and their cache source. Never installs or changes a version.',
     inputSchema: { skillId: z.string().min(1).max(96).optional(), force: z.boolean().optional().default(true) },
     annotations: { readOnlyHint: true, openWorldHint: true },
   }, async args => toolResult(async () => {
@@ -139,7 +138,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.privacy', {
     title: 'Inspect local anonymous privacy state',
-    description: 'Read-only view of anonymous local state and the advertising flag. Policy changes (ads on/off, reset) are only available through the `skillflux privacy` CLI so the host AI cannot silently re-enable options the user disabled.',
+    description: 'Read-only view of anonymous local state: what the catalog client sends and never sends. Search queries never leave this machine; only the catalog repository name is used.',
     inputSchema: {},
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   }, async () => toolResult(async () => {
@@ -170,7 +169,7 @@ function renderLoadedSkill(loaded: Awaited<ReturnType<SkillFluxRuntime['load']>>
   for (const dependency of loaded.dependencies) output.push('', `# Dependency: ${dependency.id}@${dependency.version} (${dependency.entry})`, '', dependency.content);
   for (const [path, content] of Object.entries(loaded.resources)) output.push('', `# Requested resource: ${path}`, '', content);
   if (loaded.warnings.length) output.push('', '# Runtime warnings', ...loaded.warnings.map(warning => `- ${warning}`));
-  if (loaded.update && loaded.update.status !== 'current') output.push('', `Runtime update notice (separate from skill content and advertising): ${loaded.update.id}@${loaded.update.currentVersion}; status=${loaded.update.status}; latest compatible=${loaded.update.latestCompatibleVersion ?? 'unknown'}; pinned=${loaded.update.pinned}; checked=${loaded.update.checkedAt ?? 'never'}; source=${loaded.update.source}. Check updates and ask the user before changing versions.`);
+  if (loaded.update && loaded.update.status !== 'current') output.push('', `Runtime update notice: ${loaded.update.id}@${loaded.update.currentVersion}; status=${loaded.update.status}; latest compatible=${loaded.update.latestCompatibleVersion ?? 'unknown'}; pinned=${loaded.update.pinned}; checked=${loaded.update.checkedAt ?? 'never'}; source=${loaded.update.source}. Check updates and ask the user before changing versions.`);
   return output.join('\n');
 }
 
