@@ -254,7 +254,6 @@ export class SkillFluxRuntime {
             digest: item.digest,
             manifest: bundle.manifest,
             files: bundle.files,
-            indexSha: catalog.commitSha,
             installedAt: new Date().toISOString(),
           };
           await writeInstalledPackage(this.paths, pkg, staged);
@@ -331,21 +330,18 @@ export class SkillFluxRuntime {
     if (!entry) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} is not installed in this project`);
     const warnings: string[] = [];
     let catalogStatusKnown = true;
-    let catalog: CatalogState;
-    const cacheBefore = await readJsonIfExists<CatalogState & { repo?: string }>(this.paths.index);
+    let catalog: CatalogState & { fromCache: boolean };
     try {
-      catalog = await this.getCatalog(true);
+      // load() is the one operation allowed to fall back to a stale cached index:
+      // previously verified content stays usable, but the fallback is disclosed.
+      catalog = await this.getCatalog(true, { staleTolerant: true });
+      if (catalog.fromCache) warnings.push(`Catalog index is a cached copy fetched at ${catalog.fetchedAt}; current catalog status is unknown.`);
     } catch (error) {
-      // A stale cached index may still be returned by the tolerant path; either way
-      // the catalog fetch failed and current status must be disclosed as unknown.
       catalogStatusKnown = false;
-      catalog = cacheBefore?.repo === this.config.repo && cacheBefore.index
-        ? cacheBefore
-        : { index: { schema: 'skillflux-catalog-index/v1', generatedAt: '', skills: [] }, commitSha: '', fetchedAt: '' };
+      catalog = { index: { schema: 'skillflux-catalog-index/v1', generatedAt: '', skills: [] }, commitSha: '', fetchedAt: '', fromCache: true };
       warnings.push(`Current catalog status is unknown: ${(error as Error).message}`);
     }
-    const installed = await this.readAndVerifyInstalled(entry, catalog.index, { offlineTolerant: true });
-    warnings.push(...installed.warnings ?? []);
+    const installed = await this.readAndVerifyInstalled(entry, catalog.index);
     const currentEntry = catalogStatusKnown ? findCatalogEntry(catalog.index, entry.id, entry.version) : undefined;
     if (catalogStatusKnown && currentEntry && (currentEntry.skill.status === 'revoked' || currentEntry.skill.qualification === 'revoked')) {
       throw new SkillFluxError('SKILL_REVOKED', `${entry.id}@${entry.version} was revoked in the current catalog`);
@@ -365,8 +361,7 @@ export class SkillFluxRuntime {
       seen.add(dependencyId);
       const dependency = lock.skills[dependencyId];
       if (!dependency || dependency.version !== expectedVersion) throw new SkillFluxError('LOCK_DEPENDENCY_MISMATCH', `${skillId} requires ${dependencyId}@${expectedVersion}`);
-      const verifiedDep = await this.readAndVerifyInstalled(dependency, catalog.index, { offlineTolerant: true });
-      warnings.push(...verifiedDep.warnings ?? []);
+      const verifiedDep = await this.readAndVerifyInstalled(dependency, catalog.index);
       for (const child of verifiedDep.manifest.dependencies) await loadDependency(child.id, child.version);
       dependencies.push({
         id: dependency.id,
@@ -402,7 +397,7 @@ export class SkillFluxRuntime {
     const lock = await readLock(this.paths);
     const entries = skillId ? [lock.skills[skillId]] : Object.values(lock.skills);
     if (entries.some(entry => !entry)) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} is not installed`);
-    let catalog: CatalogState | null = null;
+    let catalog: (CatalogState & { fromCache: boolean }) | null = null;
     let catalogWarning: string | undefined;
     try {
       catalog = await this.getCatalog(force);
@@ -420,7 +415,8 @@ export class SkillFluxRuntime {
           release: item.skill.release, hosts: item.skill.hosts, dependencies: item.skill.dependencies, createdAt: item.skill.createdAt,
         }))
         : [];
-      const source: UpdateCheckItem['source'] = catalog ? 'catalog' : 'unavailable';
+      // Disclose whether the check came from a live fetch or the local cache.
+      const source: UpdateCheckItem['source'] = catalog ? (catalog.fromCache ? 'cache' : 'catalog') : 'unavailable';
       const available = orderedReleases(releases.filter(item => item.qualification === 'qualified' && item.status === 'approved'));
       const latest = available[0];
       const compatible = available.find(item => releaseCompatibility(item, this.config.host, lock) === 'compatible');
@@ -557,22 +553,22 @@ export class SkillFluxRuntime {
   }
 
   /** Fetch (or reuse cached) catalog index; TTL 24h unless forced. */
-  private async getCatalog(force: boolean, options: { staleTolerant?: boolean } = {}): Promise<CatalogState> {
+  private async getCatalog(force: boolean, options: { staleTolerant?: boolean } = {}): Promise<CatalogState & { fromCache: boolean }> {
     const cached = await readJsonIfExists<CatalogState & { repo?: string }>(this.paths.index);
     const cacheValid = cached?.repo === this.config.repo
       && cached.commitSha
       && Date.parse(cached.fetchedAt) > 0
       && Date.now() - Date.parse(cached.fetchedAt) < UPDATE_CACHE_MS;
-    if (!force && cacheValid && cached) return cached;
+    if (!force && cacheValid && cached) return { ...cached, fromCache: true };
     try {
       const fetched = await this.client.fetchIndex();
       for (const entry of fetched.index.skills) validateIndexEntry(entry);
       const state: CatalogState & { repo: string } = { ...fetched, repo: this.config.repo };
       await assertNoSymlinkPath(this.paths.root, this.paths.index, true);
       await atomicWriteJson(this.paths.index, state);
-      return state;
+      return { ...state, fromCache: false };
     } catch (error) {
-      if (options.staleTolerant && isConnectivityFailure(error) && cached) return cached;
+      if (options.staleTolerant && isConnectivityFailure(error) && cached) return { ...cached, fromCache: true };
       throw error;
     }
   }
@@ -631,7 +627,7 @@ export class SkillFluxRuntime {
     return target;
   }
 
-  private async readAndVerifyInstalled(entry: LockEntry, catalog: CatalogIndex | null, options: { offlineTolerant?: boolean; localOnly?: boolean } = {}): Promise<InstalledPackage> {
+  private async readAndVerifyInstalled(entry: LockEntry, catalog: CatalogIndex | null, options: { localOnly?: boolean } = {}): Promise<InstalledPackage> {
     const root = this.packageRoot(entry.id, entry.version);
     const rootInfo = await lstat(root).catch(() => null);
     if (!rootInfo?.isDirectory() || rootInfo.isSymbolicLink()) throw new SkillFluxError('PACKAGE_NOT_FOUND', `Installed package directory is missing or unsafe: ${entry.id}@${entry.version}`);
@@ -683,7 +679,13 @@ export class SkillFluxRuntime {
 function findCatalogEntry(index: CatalogIndex, id: string, version?: string): CatalogIndexEntry | undefined {
   const versions = index.skills.filter(entry => entry.skill.id === id);
   if (!versions.length) return undefined;
-  if (!version) return versions.reduce((best, entry) => compareVersions(entry.skill.version, best.skill.version) > 0 ? entry : best);
+  if (!version) {
+    // Match search semantics: the newest approved+qualified version, not the
+    // raw newest version (which may be needs-testing or revoked).
+    return versions
+      .filter(entry => entry.skill.status === 'approved' && entry.skill.qualification === 'qualified')
+      .reduce<CatalogIndexEntry | undefined>((best, entry) => !best || compareVersions(entry.skill.version, best.skill.version) > 0 ? entry : best, undefined);
+  }
   return versions.find(entry => entry.skill.version === version);
 }
 

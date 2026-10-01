@@ -5,7 +5,7 @@ Authoritative models, canonical JSON and hashing primitives are in `src/shared.t
 ## Catalog repository layout
 
 ```
-skills/<id>/<version>/
+skills/<category>/<id>/<version>/
 ├── skillflux.json          # declarative manifest (id, version, entry, deps, permissions, hosts, release)
 ├── skillflux.review.json   # review record + evaluation evidence bound to the content hash
 └── SKILL.md and other text content files

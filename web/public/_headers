@@ -24,12 +24,3 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
-/console/*
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store
-  Referrer-Policy: no-referrer
-
-/en/console/*
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store
-  Referrer-Policy: no-referrer

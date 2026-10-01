@@ -1,5 +1,4 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { sha256 } from '../shared.js';
 import { SkillFluxError } from './errors.js';
 import type { CatalogIndex, CatalogIndexEntry } from '../catalog/model.js';
 
@@ -103,13 +102,11 @@ export class CatalogClient {
 
   async fetchFile(sha: string, path: string, expected: { sha256: string; size: number }): Promise<string> {
     const url = this.rawUrl(sha, `/skills/${path}`);
-    const response = await this.fetch(url);
-    const bytes = await readLimitedBody(response, MAX_RESPONSE_BYTES);
+    const bytes = await this.requestBytes(url, MAX_RESPONSE_BYTES);
     const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
     if (bytes.byteLength !== expected.size) {
       throw new SkillFluxError('FILE_SIZE_MISMATCH', `${path}: expected ${expected.size} bytes, downloaded ${bytes.byteLength}`);
     }
-    const { sha256 } = await import('../shared.js');
     if (sha256(bytes) !== expected.sha256) {
       throw new SkillFluxError('FILE_HASH_MISMATCH', `${path}: downloaded content does not match the catalog hash`);
     }
@@ -117,8 +114,7 @@ export class CatalogClient {
   }
 
   private async requestJson<T>(url: string, limit: number): Promise<T> {
-    const response = await this.fetch(url);
-    const bytes = await readLimitedBody(response, limit);
+    const bytes = await this.requestBytes(url, limit);
     try {
       return JSON.parse(new TextDecoder('utf-8').decode(bytes)) as T;
     } catch {
@@ -126,7 +122,9 @@ export class CatalogClient {
     }
   }
 
-  private async fetch(url: string): Promise<Response> {
+  /** Fetch a URL, returning the response together with a completion callback that
+   * keeps the abort timer armed until the body has been fully read. */
+  private async fetch(url: string): Promise<{ response: Response; done: () => void }> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), this.timeoutMs);
     try {
@@ -136,19 +134,32 @@ export class CatalogClient {
         headers: { accept: 'application/json', 'user-agent': 'skillflux-runtime' },
       });
       if (response.status >= 300 && response.status < 400) {
+        clearTimeout(timer);
         throw new SkillFluxError('REDIRECT_REJECTED', `Catalog source redirects are not accepted: ${url}`);
       }
       if (!response.ok) {
+        clearTimeout(timer);
         if (response.status === 404) throw new SkillFluxError('CATALOG_NOT_FOUND', `Catalog resource not found: ${url}`);
         throw new SkillFluxError('SOURCE_UNAVAILABLE', `Catalog source returned HTTP ${response.status} for ${url}`, { status: response.status });
       }
-      return response;
+      return { response, done: () => clearTimeout(timer) };
     } catch (error) {
-      if (error instanceof SkillFluxError) throw error;
-      if ((error as Error).name === 'AbortError') throw new SkillFluxError('SOURCE_TIMEOUT', `Catalog source request timed out: ${url}`);
-      throw new SkillFluxError('SOURCE_UNAVAILABLE', `Catalog source request failed: ${(error as Error).message}`);
-    } finally {
       clearTimeout(timer);
+      if (error instanceof SkillFluxError) throw error;
+      if ((error as Error).name === 'AbortError') throw new SkillFluxError('SOURCE_TIMEOUT', `Catalog source request timed out (headers or body stalled): ${url}`);
+      throw new SkillFluxError('SOURCE_UNAVAILABLE', `Catalog source request failed: ${(error as Error).message}`);
+    }
+  }
+
+  private async requestBytes(url: string, limit: number): Promise<Uint8Array> {
+    const { response, done } = await this.fetch(url);
+    try {
+      return await readLimitedBody(response, limit);
+    } catch (error) {
+      if ((error as Error).name === 'AbortError') throw new SkillFluxError('SOURCE_TIMEOUT', `Catalog source request timed out (headers or body stalled): ${url}`);
+      throw error;
+    } finally {
+      done();
     }
   }
 }
@@ -179,21 +190,4 @@ async function readLimitedBody(response: Response, limit: number): Promise<Uint8
     offset += chunk.byteLength;
   }
   return combined;
-}
-
-/** Load an index from a local catalog directory (tests and offline development). */
-export async function readLocalCatalogIndex(catalogRoot: string): Promise<FetchedIndex> {
-  const { versionContentHash } = await import('../catalog/build.js');
-  const payload = JSON.parse(await readFile(join(catalogRoot, 'index.json'), 'utf8')) as CatalogIndex;
-  if (payload.schema !== 'skillflux-catalog-index/v1' || !Array.isArray(payload.skills)) {
-    throw new SkillFluxError('INVALID_CATALOG_INDEX', `Catalog index at ${catalogRoot} is invalid`);
-  }
-  return { index: payload, commitSha: versionContentHash({} as never, {}) || 'local', fetchedAt: new Date().toISOString() };
-}
-
-export function findEntry(index: CatalogIndex, id: string, version?: string): CatalogIndexEntry | undefined {
-  const versions = index.skills.filter(entry => entry.skill.id === id);
-  if (!versions.length) return undefined;
-  if (!version) return versions[0];
-  return versions.find(entry => entry.skill.version === version);
 }

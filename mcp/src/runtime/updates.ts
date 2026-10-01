@@ -7,7 +7,7 @@ export const UPDATE_CACHE_MS = 24 * 60 * 60 * 1000;
 export const RUNTIME_VERSION: string = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8')).version;
 
 export function releaseCompatibility(release: SkillVersionSummary, host: Host, lock?: ProjectLock): 'compatible' | 'incompatible' | 'unknown' {
-  if (!Array.isArray(release.hosts) || !release.release?.minClientVersion) return 'unknown';
+  if (!Array.isArray(release.hosts)) return 'unknown';
   if (!release.hosts.includes(host) && !release.hosts.includes('generic')) return 'incompatible';
   for (const dependency of release.dependencies ?? []) {
     const selected = lock?.skills[dependency.id];
@@ -17,7 +17,10 @@ export function releaseCompatibility(release: SkillVersionSummary, host: Host, l
       if (current.dependencies.some(item => item.id === dependency.id && item.version !== dependency.version)) return 'incompatible';
     }
   }
-  return compareVersions(RUNTIME_VERSION, release.release.minClientVersion) < 0 ? 'incompatible' : 'compatible';
+  // A release without an explicit minimum client version is treated as compatible;
+  // the check only rejects releases that demand a newer client.
+  if (release.release?.minClientVersion && compareVersions(RUNTIME_VERSION, release.release.minClientVersion) < 0) return 'incompatible';
+  return 'compatible';
 }
 
 export function orderedReleases(items: SkillVersionSummary[]): SkillVersionSummary[] {

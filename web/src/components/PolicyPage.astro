@@ -21,18 +21,17 @@ const documents = {
   privacy: {
     title: t("哪些信息会留下。", "What information is retained."),
     label: t("隐私说明", "Privacy notice"),
-    intro: t("公开浏览无需注册。静态页面、Registry 请求、广告统计和主动提交的咨询资料具有不同的数据范围。", "Public browsing needs no account. Static pages, registry requests, ad accounting and voluntarily submitted inquiries have different data scopes."),
+    intro: t("公开浏览无需注册。静态页面与本地客户端的网络访问范围不同；本站不收集任何表单提交的个人信息。", "Public browsing needs no account. The static site and the local client have different network footprints; this site collects no form-submitted personal data."),
     sections: [
       [t("公开访问与基础日志", "Public access and operational logs"), t("公开页面不要求用户身份，也不在线运行 AI。提供网站或 API 的服务器可能收到 IP、时间、请求路径、浏览器信息和错误日志，用于提供服务、限流和排障。不要把无需账号理解成不产生任何访问数据。", "Public pages do not require identity and do not run AI online. Website and API infrastructure may receive IP addresses, timestamps, request paths, browser information and error logs for delivery, rate limiting and diagnostics. Account-free access does not mean no access data is generated.")],
       [t("本地项目与 Registry", "Local projects and the registry"), t("本地 Runtime 管理项目配置、目录索引缓存和版本锁定。搜索在本地缓存索引上进行，检索词不会离开你的机器；客户端仅连接 GitHub 目录仓库下载索引与技能文件。该机制不要求把整个项目、密钥或完整对话上传到任何服务器。外部模型供应商的数据处理以使用者选择的服务为准。", "The local runtime manages project configuration, the cached catalog index and version locks. Search runs locally over the cached index; queries never leave your machine. The client only contacts the GitHub catalog repository to download the index and skill files. This mechanism does not require uploading an entire project, secrets or full conversations to any server. External model providers process data under the user's chosen service.")],
-      [t("合作咨询的用途与保留期", "Inquiry purpose and retention"), t("咨询表保存产品、公司、HTTPS 官网、联系人、联系方式、需求、用途同意和提交编号，供授权运营人员评估、联系和记录处理进展。完成或标记无效后，个人联系资料将在 180 天保留期届满后由清理流程清除；业务状态与不含个人资料的审计记录可继续保留。跟进中的咨询不从提交日自动起算此期限。", "The inquiry form stores product, company, HTTPS website, contact name and details, request, consent and submission ID for authorized operators to assess, contact and track handling. Once completed or marked invalid, personal contact details are cleared by the cleanup process after a 180-day retention period. Business status and audit records without personal data may remain. This period does not start at submission while an inquiry is being followed up.")],
       [t("内部权限与联系", "Internal access and contact"), t("技能内容由 GitHub 目录仓库管理，访问权限由仓库与 GitHub 账号体系控制。人工实测的原始记录不进入公开目录仓库；公开内容仅包含允许公开的摘要。如需更正目录内容，请通过仓库 Issue 或既有联系渠道说明。", "Skill content is managed in a GitHub catalog repository; access is governed by the repository and GitHub accounts. Raw evaluation records never enter the public catalog repository; only approved summaries are public. To correct catalog content, open a repository issue or use an established contact channel.")]
     ]
   },
   terms: {
-    title: t("服务如何使用，广告如何计量。", "Service use and ad accounting."),
-    label: t("服务与广告条款", "Service and advertising terms"),
-    intro: t("本页解释当前产品机制与使用边界。具体合作报价、付款和退款安排需另行明确；提交咨询不会产生订单。", "This page explains current product behavior and usage limits. Campaign pricing, payment and refund arrangements require separate agreement; submitting an inquiry does not place an order."),
+    title: t("服务如何使用。", "How the service is used."),
+    label: t("服务条款", "Terms of service"),
+    intro: t("本页解释当前产品机制与使用边界。", "This page explains current product behavior and usage limits."),
     sections: [
       [t("目录与软件包", "Directory and packages"), t("来源目录提供第三方入口及简介，权利归原作者。GitHub 目录仓库提供具备版本与质量记录的技能包。使用或再分发前应阅读对应许可证；不可借来源收录声称第三方背书。", "The source directory links to third-party resources and summaries; rights remain with their authors. The GitHub catalog repository provides skill packages with version and quality records. Read each license before using or redistributing it, and do not treat directory inclusion as third-party endorsement.")],
       [t("本地执行边界", "Local execution limits"), t("网站不代替宿主执行 AI。安装需要本地 Runtime、宿主配置及适用权限；外部模型服务可有自己的费用和限制。固定版本、更新检查和主动升级是不同操作，用户应检查变更与破坏性更新。", "The website does not execute AI on behalf of a host. Installation needs the local runtime, host configuration and appropriate permissions. External model services may have separate costs and limits. Version pinning, update checks and explicit upgrades are distinct operations; users should inspect changes and breaking updates.")],
@@ -44,8 +43,8 @@ const documents = {
     label: t("联系与反馈", "Contact and feedback"),
     intro: t("浏览、搜索和本地安装无需登录。以下入口分别接收合作需求与接入问题。", "Browsing, search and local installation require no login. The paths below cover cooperation inquiries and setup questions."),
     sections: [
-      [t("产品与广告合作", "Product and advertising inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the desired collaboration and at least one contact channel.")],
-      [t("广告内容问题", "Ad content concerns"), t("目录内容问题可直接在对应 GitHub 仓库提交 Issue，说明技能 ID、版本和具体问题。", "For catalog content concerns, open an issue in the corresponding GitHub repository with the skill ID, version and the specific problem.")],
+      [t("产品与合作", "Product and cooperation inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the desired collaboration and at least one contact channel.")],
+      [t("目录内容问题", "Catalog content concerns"), t("目录内容问题可直接在对应 GitHub 仓库提交 Issue，说明技能 ID、版本和具体问题。", "For catalog content concerns, open an issue in the corresponding GitHub repository with the skill ID, version and the specific problem.")],
       [t("本地接入与资料请求", "Local setup and data requests"), t("先阅读接入指南，检查本地构建、宿主配置与目录仓库地址。资料更正或删除请求可沿用既有联系渠道说明。不要提交项目密钥或完整私人对话。", "Start with the setup guide and check your local build, host configuration and catalog repository. For data corrections or deletions, use an established contact channel. Do not submit project secrets or complete private conversations.")]
     ]
   }
@@ -55,10 +54,10 @@ const document = documents[kind];
 <BaseLayout lang={lang} canonicalPath={localizePath("/" + kind + "/", lang)} title={document.label} description={document.intro} pageClass="policy-page">
   <main id="main-content" class="policy-shell">
     <a href={localizePath("/",lang)} class="policy-back">← {t("返回首页", "Home")}</a>
-    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 2026-09-06", "Current implementation · Updated 2026-09-06")}</small></header>
+    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 2026-10-01", "Current implementation · Updated 2026-10-01")}</small></header>
     <div class="policy-body">
       <nav aria-label={t("相关说明", "Related information")}>
-        {[["quality",t("质量标准","Quality standards")],["privacy",t("隐私说明","Privacy")],["terms",t("服务与广告条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
+        {[["quality",t("质量标准","Quality standards")],["privacy",t("隐私说明","Privacy")],["terms",t("服务条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
       </nav>
       <article>{document.sections.map(([heading,body],index)=><section><p class="policy-number">{String(index+1).padStart(2,"0")}</p><div><h2>{heading}</h2><p>{body}</p></div></section>)}
         <div class="policy-actions"><a href={localizePath("/install/",lang)}>{t("本地接入指南","Local setup guide")} →</a></div>

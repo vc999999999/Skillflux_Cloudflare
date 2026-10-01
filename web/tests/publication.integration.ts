@@ -181,8 +181,11 @@ test('real static builds publish same-name skills; failed build preserves the li
   fixture.recommit();
   const revoked = await buildPublication({ repo: 'fixture-owner/skillflux-catalog', output: current, source: fixture.base });
   assert.equal(revoked.versions, 1);
-  // Revoked entries publish no skill directory at all in v2.
-  await assert.rejects(readFile(join(revoked.dist, 'skills/published-example/index.html')), { code: 'ENOENT' });
+  // Revoked entries publish a status-only page: no installable content, but the
+  // revocation itself stays visible on the skill detail page.
+  const revokedPage = await readFile(join(revoked.dist, 'skills/published-example/index.html'), 'utf8');
+  assert.ok(!revokedPage.includes('UNIQUE_PRIVATE_PACKAGE_BODY_published-example'), 'revoked page must not contain package content');
+  assert.match(revokedPage, /撤销|revoked/i);
   for (const path of ['index.json', 'skills-index.json', 'llms.txt', 'llms-full.txt']) assert.ok(!(await readFile(join(revoked.dist, path), 'utf8')).includes('UNIQUE_PRIVATE_PACKAGE_BODY_published-example'), `${path} must remove revoked package content`);
   assert.notEqual(await readlink(current), originalPointer);
 });

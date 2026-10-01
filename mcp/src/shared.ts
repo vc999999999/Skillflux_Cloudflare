@@ -1,8 +1,7 @@
 import { createHash } from 'node:crypto';
 
-export const PROTOCOL_VERSION = '2.0';
 export type Host = 'generic' | 'codex' | 'claude' | 'cursor';
-export type ReviewStatus = 'pending' | 'approved' | 'rejected' | 'revoked' | 'needs-testing';
+export type ReviewStatus = 'approved' | 'rejected' | 'revoked' | 'needs-testing';
 export interface SkillFile { path: string; sha256: string; size: number }
 export interface Permissions { network: string[]; shell: boolean; secrets: string[] }
 export interface Dependency { id: string; version: string }
@@ -38,14 +37,6 @@ export interface SkillSummary {
 }
 export interface SkillVersionSummary { id: string; version: string; name: string; digest: string; status: ReviewStatus; qualification: Qualification; reason?: string; release?: ReleaseMetadata; hosts: Host[]; dependencies: Dependency[]; createdAt: string }
 export interface SearchResponse { items: SkillSummary[]; total: number; categories: string[]; offset: number; limit: number }
-export interface SkillDetail { skill: SkillSummary; manifest: Manifest; content: string; resources: string[] }
-export interface Submission {
-  id: string; version: string; name: string; description: string; category: string;
-  tags: string[]; hosts: Host[]; publisher: string; license: string; entry: string;
-  permissions: Permissions; dependencies: Dependency[]; files: Record<string, string>;
-  release?: ReleaseMetadata;
-}
-export interface ApiError { error: { code: string; message: string } }
 
 /** Canonical JSON is shared by content addressing and plan sealing. */
 export function canonical(value: unknown): string {
@@ -73,12 +64,6 @@ export function compareVersions(left: string, right: string): number {
     return x < y ? -1 : 1;
   }
   return 0;
-}
-export function bundleDigest(bundle: Bundle): string { return sha256(canonical(bundle)); }
-/** Stable review target: excludes generated assessment evidence to avoid a digest cycle. */
-export function contentHash(bundle: Bundle): string {
-  const { quality: _quality, ...manifest } = bundle.manifest as Manifest & { quality?: unknown };
-  return sha256(canonical({ manifest, files: bundle.files }));
 }
 export function safeRelativePath(path: string): boolean {
   return typeof path === 'string' && path.length > 0 && path.length <= 240 && !/[\\\x00-\x1f\x7f:]/.test(path) && !path.startsWith('/') && path.split('/').every(part => part !== '' && part !== '.' && part !== '..' && !part.endsWith('.') && !part.endsWith(' ') && !/^(con|prn|aux|nul|com[0-9]|lpt[0-9])(?:\.|$)/i.test(part));

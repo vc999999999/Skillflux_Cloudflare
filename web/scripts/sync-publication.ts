@@ -57,6 +57,11 @@ async function fetchJson<T>(url: string, limit = MAX_RESPONSE_BYTES): Promise<T>
 const GITHUB_API_SOURCE = 'https://api.github.com';
 
 /** Sync a publication snapshot from the GitHub catalog repository at a pinned commit. */
+export interface PublicationStatusEntry {
+  id: string; version: string; name: string; digest: string; status: string;
+  qualification: 'qualified' | 'needs-testing' | 'revoked'; createdAt: string; reason?: string;
+}
+
 export async function synchronizePublication(options: { repo: string; output: string; source?: string; branch?: string }): Promise<PublicationSnapshot> {
   const repo = parseRepoRef(options.repo);
   let previous: PublicationSnapshot | undefined;
@@ -84,7 +89,16 @@ export async function synchronizePublication(options: { repo: string; output: st
     const published = await syncEntry(catalogEntry, raw);
     items.push(published);
   }
-  const snapshot: PublicationSnapshot = { schema: 'skillflux-publication/v2', repo, commitSha: head.sha, fetchedAt: new Date().toISOString(), items };
+  // Status track: every catalog entry contributes a status record; only approved+qualified
+  // entries additionally contribute installable content. Revoked/needs-testing versions stay
+  // visible as status (with the public review note as reason) without publishing their files.
+  const statuses: PublicationStatusEntry[] = index.skills.map(catalogEntry => {
+    const skill = catalogEntry.skill;
+    const base = { id: skill.id, version: skill.version, name: skill.name, digest: skill.digest, status: skill.status, qualification: skill.qualification, createdAt: skill.createdAt };
+    if (skill.qualification === 'qualified') return base;
+    return { ...base, reason: skill.quality.review?.notes };
+  });
+  const snapshot: PublicationSnapshot = { schema: 'skillflux-publication/v2', repo, commitSha: head.sha, fetchedAt: new Date().toISOString(), items, statuses };
   validatePublication(snapshot);
   await mkdir(dirname(options.output), { recursive: true });
   const stat = await lstat(options.output).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return null; throw error; });

@@ -4,7 +4,7 @@
 
 ## 架构
 
-- **技能内容**：GitHub 目录仓库 [vc999999999/skillflux-catalog](https://github.com/vc999999999/skillflux-catalog)，`skills/<id>/<version>/` + 生成式 `index.json`。无自托管服务器。
+- **技能内容**：GitHub 目录仓库 [vc999999999/skillflux-catalog](https://github.com/vc999999999/skillflux-catalog)，`skills/<category>/<id>/<version>/` + 生成式 `index.json`。无自托管服务器。
 - **客户端**：npm CLI + 本地 stdio MCP。搜索在本机缓存的索引上进行；下载钉 commit SHA、逐文件验 sha256。
 - **网站**：Astro 静态构建，部署至 Cloudflare Workers；公开技能内容来自目录仓库快照。
 

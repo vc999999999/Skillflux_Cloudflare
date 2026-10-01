@@ -1,5 +1,5 @@
 // Converts mcp/catalog/seed.json (Submission[]) into a skillflux-catalog directory layout:
-//   <output>/skills/<id>/<version>/{skillflux.json, skillflux.review.json, content files}
+//   <output>/skills/<category>/<id>/<version>/{skillflux.json, skillflux.review.json, content files}
 // and generates index.json via the same catalog builder used in production.
 //
 // Seed entries carry no review evidence, so the generated review sidecars are marked

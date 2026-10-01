@@ -5,12 +5,17 @@ import { latestSkills } from './publication-search';
 
 export interface PublishedSkill { skill: SkillSummary; bundle: Bundle }
 export type PublishedManifest = Bundle['manifest'] & { files: Array<{ path: string; sha256: string; size: number }> };
+export interface PublicationStatusEntry {
+  id: string; version: string; name: string; digest: string; status: string;
+  qualification: 'qualified' | 'needs-testing' | 'revoked'; createdAt: string; reason?: string;
+}
 export interface PublicationSnapshot {
   schema: 'skillflux-publication/v2';
   repo: string | null;
   commitSha: string | null;
   fetchedAt: string | null;
   items: PublishedSkill[];
+  statuses?: PublicationStatusEntry[];
 }
 export interface PublicationStatus {
   id: string; version: string; name: string; digest: string; status: string;
@@ -36,7 +41,7 @@ function catalogContentHash(bundle: { manifest: PublishedManifest; files: Record
 export function validatePublication(value: unknown): Publication {
   const snapshot = value as PublicationSnapshot;
   if (!snapshot || snapshot.schema !== 'skillflux-publication/v2' || !Array.isArray(snapshot.items)) throw new Error('Invalid SkillFlux publication snapshot');
-  if (snapshot.repo === null && snapshot.commitSha === null && snapshot.items.length === 0 && snapshot.fetchedAt === null) {
+  if (snapshot.repo === null && snapshot.commitSha === null && snapshot.items.length === 0 && snapshot.fetchedAt === null && !snapshot.statuses?.length) {
     return { snapshot, items: [], latest: [], statuses: [] };
   }
   if (!snapshot.repo || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(snapshot.repo) || !/^[0-9a-f]{40}$/.test(snapshot.commitSha ?? '') || !snapshot.fetchedAt || !Number.isFinite(Date.parse(snapshot.fetchedAt))) {
@@ -50,7 +55,7 @@ export function validatePublication(value: unknown): Publication {
     identities.add(identity);
     const { skill, bundle } = entry as { skill: SkillSummary; bundle: { manifest: PublishedManifest; files: Record<string, string> } };
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(skill?.id) || !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(skill?.version)) throw new Error(`Invalid published identity: ${identity}`);
-    if (skill.status !== 'approved' || (skill as SkillSummary & { qualification?: string }).qualification !== 'qualified'
+    if (skill.status !== 'approved' || skill.qualification !== 'qualified'
       || !skill.quality?.automated?.passed || !skill.quality.review) throw new Error(`Unqualified content in public snapshot: ${identity}`);
     if (!bundle || bundle.manifest.id !== skill.id || bundle.manifest.version !== skill.version || catalogContentHash(bundle) !== skill.digest) throw new Error(`Publication content does not match its catalog digest: ${identity}`);
     const evidence = skill.quality.evaluation;
@@ -63,16 +68,31 @@ export function validatePublication(value: unknown): Publication {
     for (const file of bundle.manifest.files) if (!safeRelativePath(file.path) || typeof bundle.files[file.path] !== 'string' || sha256(bundle.files[file.path]!) !== file.sha256 || Buffer.byteLength(bundle.files[file.path]!, 'utf8') !== file.size) throw new Error(`Publication file hash mismatch: ${identity}`);
     items.push(entry);
   }
-  const statuses: PublicationStatus[] = items.map(item => ({
-    id: item.skill.id,
-    version: item.skill.version,
-    name: item.skill.name,
-    digest: item.skill.digest,
-    status: item.skill.status,
-    qualification: 'qualified',
-    createdAt: item.skill.createdAt,
-    ...(item.skill.release ? { release: item.skill.release } : {}),
-  }));
+  // Prefer the synced status track (which includes revoked and needs-testing
+  // versions); fall back to deriving it from the published items.
+  const statuses: PublicationStatus[] = snapshot.statuses?.length
+    ? snapshot.statuses
+    : items.map(item => ({
+        id: item.skill.id,
+        version: item.skill.version,
+        name: item.skill.name,
+        digest: item.skill.digest,
+        status: item.skill.status,
+        qualification: 'qualified' as const,
+        createdAt: item.skill.createdAt,
+        ...(item.skill.release ? { release: item.skill.release } : {}),
+      }));
+  if (snapshot.statuses?.length) {
+    for (const status of snapshot.statuses) {
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(status.id) || !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(status.version)
+        || !['approved', 'revoked', 'needs-testing'].includes(status.status) || !['qualified', 'needs-testing', 'revoked'].includes(status.qualification)) {
+        throw new Error('Malformed version in public status index');
+      }
+      if (status.qualification === 'qualified' && !items.some(item => item.skill.id === status.id && item.skill.version === status.version && item.skill.digest === status.digest)) {
+        throw new Error('Qualified status is missing its published content');
+      }
+    }
+  }
   const latestIds = new Set(latestSkills(items.map(item => item.skill)).map(item => `${item.id}@${item.version}`));
   return { snapshot, items, latest: items.filter(item => latestIds.has(`${item.skill.id}@${item.skill.version}`)), statuses };
 }

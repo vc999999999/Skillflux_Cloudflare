@@ -1,6 +1,6 @@
 import { readFile, readdir, rm, stat, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-import { canonical, sha256, safeRelativePath } from '../shared.js';
+import { canonical, compareVersions, sha256, safeRelativePath } from '../shared.js';
 import { SkillFluxError } from '../runtime/errors.js';
 import { catalogManifestSchema, reviewSidecarSchema } from './schemas.js';
 import { scanFiles, scanPermissions } from './scan.js';
@@ -140,7 +140,7 @@ export async function buildCatalogIndex(catalogRoot: string, options: { output?:
     }
   }
 
-  entries.sort((a, b) => a.skill.id.localeCompare(b.skill.id) || (a.skill.version < b.skill.version ? 1 : -1));
+  entries.sort((a, b) => a.skill.id.localeCompare(b.skill.id) || compareVersions(b.skill.version, a.skill.version));
   validateDependencies(entries);
   const index: CatalogIndex = { schema: CATALOG_INDEX_SCHEMA, generatedAt: new Date().toISOString(), skills: entries };
   const output = resolve(options.output ?? catalogRoot, CATALOG_INDEX_FILE);

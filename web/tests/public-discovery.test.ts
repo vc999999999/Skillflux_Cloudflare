@@ -121,7 +121,7 @@ describe('public discovery and URL state', () => {
   });
   it('keeps console outside crawling and avoids unsupported English superlative QA claims', () => {
     expect(renderRobotsTxt()).toContain('Disallow: /console/');
-    expect(renderRobotsTxt()).toContain('Disallow: /en/console/');
+    expect(renderRobotsTxt()).not.toContain('/v1/admin/');
     for (const site of getSites()) { const text = JSON.stringify(getSiteCopy(site, 'en')); expect(text).not.toContain('most complete'); expect(text).toContain('not evidence'); }
   });
 });

@@ -22,7 +22,7 @@ export default {
     if (/^\/console(?:\/(?:index\.html)?)?$/.test(url.pathname)) {
       return Response.redirect(new URL('/registry/', url.origin).href, 301);
     }
-    if (/^\/(?:_nginx-(?:redirects|pagination)\.conf|_worker\.js|_routes\.json|_redirects|_headers|\.assetsignore)\/?$/.test(url.pathname)) {
+    if (/^\/(?:_worker\.js|_routes\.json|_redirects|_headers|\.assetsignore)\/?$/.test(url.pathname)) {
       return new Response('Not found', { status: 404, headers: { 'X-Robots-Tag': 'noindex, follow' } });
     }
     const redirect = redirects[url.pathname] ?? redirects[`${url.pathname.replace(/\/$/, '')}/`];

@@ -1,7 +1,7 @@
 {
   "name": "@skillflux/mcp",
   "version": "1.0.0",
-  "description": "Anonymous curated skill registry, local MCP runtime and sponsored output CLI",
+  "description": "Curated skill marketplace client: local MCP runtime and GitHub catalog tooling for SkillFlux",
   "type": "module",
   "license": "MIT",
   "engines": {

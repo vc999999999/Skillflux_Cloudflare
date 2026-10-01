@@ -33,7 +33,7 @@ SkillFlux 提供两层能力：公开静态网站负责整理和发现；npm + M
 
 自托管 Registry（HTTP API + SQLite + Ed25519 签名 + 广告计费 + 运营台）整体移除，替代架构：
 
-- **GitHub 目录仓库是技能内容唯一来源**。每个版本一个目录 `skills/<id>/<version>/`，含声明性 `skillflux.json`、旁挂审核 `skillflux.review.json` 和内容文件；根级 `index.json` 由 `skillflux catalog build` 从目录内容生成。
+- **GitHub 目录仓库是技能内容唯一来源**。每个版本一个目录 `skills/<category>/<id>/<version>/`，含声明性 `skillflux.json`、旁挂审核 `skillflux.review.json` 和内容文件；根级 `index.json` 由 `skillflux catalog build` 从目录内容生成。
 - **客户端按 commit SHA 钉死下载**。init 时解析默认分支当前 commit，index.json 与全部文件都从 `raw.githubusercontent.com/<owner>/<repo>/<sha>/...` 拉取；历史不可变性由 git 历史与 SHA 不可伪造性保证。
 - **搜索本地化**。客户端缓存 index.json（24 小时）后本地过滤，搜索词不再离开本机。
 - **网站构建从目录仓库取数**。同步脚本拉 index + 文件生成 publication v2 快照，页面渲染逻辑零改动。
@@ -233,7 +233,7 @@ web/ 静态站与目录仓库快照（Cloudflare Workers 部署）
           │ 同步 index + 文件 → 校验 → 构建 → 成功后发布
           │
 GitHub 目录仓库 skillflux-catalog（技能内容唯一来源）
-  ├─ skills/<id>/<version>/  声明 manifest、旁挂审核记录、内容文件
+  ├─ skills/<category>/<id>/<version>/  声明 manifest、旁挂审核记录、内容文件
   └─ index.json              catalog build 生成；commit SHA 为快照锚点
           ▲
           │ HTTPS：index（解析 commit SHA 后拉取）、逐文件按需下载
@@ -268,7 +268,7 @@ skillflux/
 └─ docs/                产品计划、运行说明和验收证据
 
 skillflux-catalog/（独立 GitHub 仓库）
-├─ skills/<id>/<version>/  skillflux.json + skillflux.review.json + 内容文件
+├─ skills/<category>/<id>/<version>/  skillflux.json + skillflux.review.json + 内容文件
 └─ index.json              构建生成，客户端唯一入口
 ```
 

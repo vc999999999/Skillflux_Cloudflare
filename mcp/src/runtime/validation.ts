@@ -100,11 +100,9 @@ export function verifyDownloadedBundle(
 export function validateIndexEntry(entry: CatalogIndexEntry): void {
   const summary = entry.skill;
   if (!/^[a-z0-9][a-z0-9._-]{0,95}$/.test(summary.id)) throw new SkillFluxError('INVALID_INDEX_ENTRY', `Invalid skill id in index: ${summary.id}`);
+  if (!/^[a-f0-9]{64}$/.test(summary.digest)) throw new SkillFluxError('INVALID_INDEX_ENTRY', `Invalid digest in index: ${summary.id}@${summary.version}`);
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(summary.category)) throw new SkillFluxError('INVALID_INDEX_ENTRY', `Invalid category in index: ${summary.category}`);
   if (!isSemanticVersion(summary.version)) throw new SkillFluxError('INVALID_INDEX_ENTRY', `Invalid version in index: ${summary.id}@${summary.version}`);
-  if (summary.digest !== canonicalSummaryDigest(entry)) {
-    // digest is the content hash of manifest+files as computed by catalog build; recompute requires files.
-    // The full check happens at download time; here we only enforce shape.
-  }
   if (!entry.files.length || entry.files.length > MAX_BUNDLE_FILES) {
     throw new SkillFluxError('INVALID_INDEX_ENTRY', `${summary.id}@${summary.version} declares no or too many files`);
   }
@@ -120,10 +118,6 @@ export function validateIndexEntry(entry: CatalogIndexEntry): void {
   if (summary.qualification === 'qualified' && (!summary.quality.automated.passed || !summary.quality.review)) {
     throw new SkillFluxError('INVALID_INDEX_ENTRY', `${summary.id}@${summary.version} is qualified without review evidence`);
   }
-}
-
-function canonicalSummaryDigest(_entry: CatalogIndexEntry): string | null {
-  return null;
 }
 
 /** Local search over cached index entries. */
@@ -164,13 +158,21 @@ export function searchIndex(index: CatalogIndexEntry[], options: { query?: strin
   const sort = options.sort ?? 'relevance';
   scored.sort((a, b) => {
     if (sort === 'name') return a.entry.skill.name.localeCompare(b.entry.skill.name);
-    if (sort === 'newest') return compareVersions(b.entry.skill.version, a.entry.skill.version);
+    // "Newest" compares recency across different skills; version numbers alone are
+    // meaningless there, so order by the release maintenance timestamp.
+    if (sort === 'newest') {
+      const aTime = Date.parse(a.entry.skill.release?.maintainedAt ?? a.entry.skill.createdAt) || 0;
+      const bTime = Date.parse(b.entry.skill.release?.maintainedAt ?? b.entry.skill.createdAt) || 0;
+      if (bTime !== aTime) return bTime - aTime;
+      return a.entry.skill.name.localeCompare(b.entry.skill.name);
+    }
     if (b.score !== a.score) return b.score - a.score;
     return a.entry.skill.name.localeCompare(b.entry.skill.name);
   });
   const limit = Math.max(1, Math.min(50, Math.trunc(options.limit ?? 12)));
   const offset = Math.max(0, Math.trunc(options.offset ?? 0));
-  const categories = [...new Set(index.map(entry => entry.skill.category))].sort();
+  // Categories come from the same qualified pool as the listed results, not from raw index entries.
+  const categories = [...new Set(pool.map(entry => entry.skill.category))].sort();
   const items = scored.slice(offset, offset + limit).map(({ entry, score, reasons }) => ({
     ...entry.skill,
     score: Math.round(score * 100) / 100,

@@ -110,9 +110,7 @@ export interface InstalledPackage {
   digest: string;
   manifest: Manifest;
   files: Record<string, string>;
-  indexSha: string;
   installedAt: string;
-  warnings?: string[];
 }
 
 export interface LoadedSkill {
@@ -219,7 +217,6 @@ export interface RuntimePaths {
   journal: string;
   mutex: string;
   index: string;
-  runs: string;
 }
 
 export type { Bundle, Manifest, SearchResponse, SkillSummary };

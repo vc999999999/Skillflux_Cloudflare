@@ -24,7 +24,6 @@ export function runtimePaths(projectRoot: string): RuntimePaths {
     journal: join(state, 'journal.json'),
     mutex: join(state, 'runtime.lock'),
     index: join(state, 'index.json'),
-    runs: join(state, 'runs'),
   };
 }
 
@@ -44,7 +43,7 @@ export async function ensureStateLayout(paths: RuntimePaths): Promise<void> {
   await assertNoSymlinkPath(paths.root, paths.state, true);
   await mkdir(paths.state, { recursive: true, mode: 0o700 });
   await assertNoSymlinkPath(paths.root, paths.state, false);
-  const directories = [paths.history, paths.plans, paths.skills, paths.cache, paths.staging, paths.runs];
+  const directories = [paths.history, paths.plans, paths.skills, paths.cache, paths.staging];
   for (const directory of directories) {
     await assertNoSymlinkPath(paths.root, directory, true);
     await mkdir(directory, { recursive: true, mode: 0o700 });

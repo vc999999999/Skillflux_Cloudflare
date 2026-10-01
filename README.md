@@ -8,7 +8,7 @@ web/          Astro 网站、静态技能页面、接入指南与机器索引
 docs/         运行恢复、接口边界和实际验证记录
 ```
 
-技能内容仓库：[vc999999999/skillflux-catalog](https://github.com/vc999999999/skillflux-catalog)（`skills/<id>/<version>/` + 生成式 `index.json`，CI 校验一致性）。
+技能内容仓库：[vc999999999/skillflux-catalog](https://github.com/vc999999999/skillflux-catalog)（`skills/<category>/<id>/<version>/` + 生成式 `index.json`，CI 校验一致性）。
 
 ## 前端结构
 
