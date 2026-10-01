@@ -19,6 +19,7 @@ import {
 
 const SKILL_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/;
+const CATEGORY_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /** Content hash of the review target: manifest (declarative fields only) + content files, excluding assessment evidence. */
 export function versionContentHash(manifest: CatalogManifest, files: Record<string, string>): string {
@@ -56,7 +57,7 @@ export async function readVersionDirectory(directory: string): Promise<SkillVers
     throw new SkillFluxError('REVIEW_BINDING_MISMATCH', `${manifest.id}@${manifest.version}: skillflux.review.json evaluation contentHash does not match the version directory content. Rerun 'skillflux catalog build' after content changes.`);
   }
   if (manifest.id !== directoryBasename(join(directory, '..')) || manifest.version !== directoryBasename(directory)) {
-    throw new SkillFluxError('DIRECTORY_MISMATCH', `${manifest.id}@${manifest.version} must live at skills/${manifest.id}/${manifest.version}`);
+    throw new SkillFluxError('DIRECTORY_MISMATCH', `${manifest.id}@${manifest.version} must live at skills/<category>/${manifest.id}/${manifest.version}`);
   }
   return { skillId: manifest.id, version: manifest.version, directory, manifest, review, files };
 }
@@ -77,13 +78,24 @@ export async function buildCatalogIndex(catalogRoot: string, options: { output?:
   if (!rootInfo?.isDirectory()) throw new SkillFluxError('CATALOG_NOT_FOUND', `No skills/ directory under ${catalogRoot}`);
   const warnings: string[] = [];
   const entries: CatalogIndexEntry[] = [];
-  for (const skillId of (await readdir(skillsRoot, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name)) {
-    if (!SKILL_ID_PATTERN.test(skillId)) throw new SkillFluxError('INVALID_SKILL_ID', `Skill directory must be kebab-case: ${skillId}`);
-    const versionsRoot = join(skillsRoot, skillId);
-    const versions = (await readdir(versionsRoot, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name);
-    for (const version of versions) {
-      if (!VERSION_PATTERN.test(version)) throw new SkillFluxError('INVALID_VERSION', `Version directory must be semver: ${skillId}/${version}`);
-      const loaded = await readVersionDirectory(join(versionsRoot, version));
+
+  // Layout: skills/<category>/<id>/<version>/ — the category directory must match
+  // the manifest's declared category, grouping the catalog by capability area.
+  const categories = (await readdir(skillsRoot, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name);
+  if (!categories.length) throw new SkillFluxError('CATALOG_EMPTY', `No category directories under ${skillsRoot}`);
+  for (const category of categories) {
+    if (!CATEGORY_PATTERN.test(category)) throw new SkillFluxError('INVALID_CATEGORY', `Category directory must be kebab-case: ${category}`);
+    const categoryRoot = join(skillsRoot, category);
+    for (const skillId of (await readdir(categoryRoot, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name)) {
+      if (!SKILL_ID_PATTERN.test(skillId)) throw new SkillFluxError('INVALID_SKILL_ID', `Skill directory must be kebab-case: ${category}/${skillId}`);
+      const versionsRoot = join(categoryRoot, skillId);
+      const versions = (await readdir(versionsRoot, { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name);
+      for (const version of versions) {
+        if (!VERSION_PATTERN.test(version)) throw new SkillFluxError('INVALID_VERSION', `Version directory must be semver: ${category}/${skillId}/${version}`);
+        const loaded = await readVersionDirectory(join(versionsRoot, version));
+        if (loaded.manifest.category !== category) {
+          throw new SkillFluxError('CATEGORY_MISMATCH', `${skillId}@${version} declares category "${loaded.manifest.category}" but lives under skills/${category}/`);
+        }
       const scan = scanFiles(loaded.files);
       const permissionFailures = scanPermissions(loaded.manifest.permissions);
       scan.failures.push(...permissionFailures);
@@ -123,6 +135,7 @@ export async function buildCatalogIndex(catalogRoot: string, options: { output?:
       });
       if (qualification !== 'qualified') {
         warnings.push(`${skillId}@${version} qualification is ${qualification}`);
+      }
       }
     }
   }

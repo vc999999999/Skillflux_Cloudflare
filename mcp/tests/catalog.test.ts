@@ -32,7 +32,7 @@ function canonical(value: unknown): string {
 
 async function makeCatalog(): Promise<string> {
   const root = await mkdtemp(join(tmpdir(), 'skillflux-catalog-test-'));
-  const dir = join(root, 'skills', FIXTURE.id, '1.0.0');
+  const dir = join(root, 'skills', FIXTURE.category, FIXTURE.id, '1.0.0');
   await mkdir(dir, { recursive: true });
   const files: Record<string, string> = { 'SKILL.md': '# Fixture\n\nSynthetic content.\n' };
   const manifest = { schema: 'skillflux/v1', ...FIXTURE };
@@ -93,7 +93,7 @@ test('catalog check detects a tampered index and tampered content', async () => 
     assert.equal(tamperedIndex.ok, false, 'tampered index must fail --check');
     // Restore by rebuilding, then tamper content (hash mismatch surfaces through the review binding).
     await buildCatalogIndex(root);
-    await appendFile(join(root, 'skills', FIXTURE.id, '1.0.0', 'SKILL.md'), 'tamper\n');
+    await appendFile(join(root, 'skills', FIXTURE.category, FIXTURE.id, '1.0.0', 'SKILL.md'), 'tamper\n');
     const tamperedContent = await checkCatalogIndex(root).catch(error => ({ ok: false, reason: error.message }));
     assert.equal(tamperedContent.ok, false, 'tampered content must fail --check');
   } finally {
@@ -106,15 +106,15 @@ test('catalog build rejects unsafe permissions and unbound review evidence', asy
   const root = await makeCatalog();
   try {
     // shell permission must fail the scan
-    const manifestPath = join(root, 'skills', FIXTURE.id, '1.0.0', 'skillflux.json');
+    const manifestPath = join(root, 'skills', FIXTURE.category, FIXTURE.id, '1.0.0', 'skillflux.json');
     const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     manifest.permissions.shell = true;
     await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
     await assert.rejects(() => buildCatalogIndex(root), /contentHash does not match|AUTOMATED_SCAN_FAILED|shell permission/);
     // Restore the binding by recomputing the review contentHash; now the permission scan must fail.
-    const files: Record<string, string> = { 'SKILL.md': await readFile(join(root, 'skills', FIXTURE.id, '1.0.0', 'SKILL.md'), 'utf8') };
+    const files: Record<string, string> = { 'SKILL.md': await readFile(join(root, 'skills', FIXTURE.category, FIXTURE.id, '1.0.0', 'SKILL.md'), 'utf8') };
     const contentHash = createHash('sha256').update(canonical({ manifest, files })).digest('hex');
-    const reviewPath = join(root, 'skills', FIXTURE.id, '1.0.0', 'skillflux.review.json');
+    const reviewPath = join(root, 'skills', FIXTURE.category, FIXTURE.id, '1.0.0', 'skillflux.review.json');
     const review = JSON.parse(await readFile(reviewPath, 'utf8'));
     review.evaluation.contentHash = contentHash;
     await writeFile(reviewPath, JSON.stringify(review, null, 2));

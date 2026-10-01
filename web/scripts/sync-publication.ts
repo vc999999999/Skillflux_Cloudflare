@@ -109,7 +109,7 @@ async function syncEntry(entry: CatalogIndexEntry, raw: (path: string) => string
   const files: Record<string, string> = {};
   for (const file of entry.files) {
     if (!safeRelativePath(file.path)) throw new Error(`Unsafe file path in index: ${file.path}`);
-    const bytes = await fetchLimited(raw(`skills/${summary.id}/${summary.version}/${file.path}`), MAX_FILE_BYTES, { headers: { 'user-agent': 'skillflux-web-sync' } });
+    const bytes = await fetchLimited(raw(`skills/${summary.category}/${summary.id}/${summary.version}/${file.path}`), MAX_FILE_BYTES, { headers: { 'user-agent': 'skillflux-web-sync' } });
     const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
     if (bytes.byteLength !== file.size || sha256(text) !== file.sha256) {
       throw new Error(`Downloaded file does not match the catalog hash: ${summary.id}/${summary.version}/${file.path}`);

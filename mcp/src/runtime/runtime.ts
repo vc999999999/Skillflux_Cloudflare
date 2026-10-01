@@ -597,7 +597,7 @@ export class SkillFluxRuntime {
     };
     const files: Record<string, string> = {};
     for (const file of entry.files) {
-      files[file.path] = await this.client.fetchFile(commitSha, `${entry.skill.id}/${entry.skill.version}/${file.path}`, file);
+      files[file.path] = await this.client.fetchFile(commitSha, `${entry.skill.category}/${entry.skill.id}/${entry.skill.version}/${file.path}`, file);
     }
     const bundle: Bundle = { manifest, files };
     verifyDownloadedBundle(bundle, entry, { id: entry.skill.id, version: entry.skill.version, host: this.config.host });

@@ -33,7 +33,7 @@ const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 await rm(output, { recursive: true, force: true });
 let count = 0;
 for (const submission of seed) {
-  const dir = join(output, 'skills', submission.id, submission.version);
+  const dir = join(output, 'skills', submission.category, submission.id, submission.version);
   await mkdir(dir, { recursive: true });
   const { files: _files, ...manifestFields } = submission;
   const manifest = { schema: 'skillflux/v1', ...manifestFields, createdAt: submission.release?.maintainedAt ?? new Date().toISOString() };

@@ -121,9 +121,9 @@ export async function fixtureCatalog(t: TestContext) {
     if (sha !== head) return send({ error: { code: 'not_found', message: 'Fixture only serves its current head SHA' } }, 404);
     if (failDownloads) return send({ error: { code: 'source_unavailable', message: 'Fixture download failure injected' } }, 500);
     if (path === 'index.json') return send(buildIndex());
-    const fileMatch = /^skills\/([^/]+)\/([^/]+)\/(.+)$/.exec(path!);
+    const fileMatch = /^skills\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/.exec(path!);
     if (!fileMatch) return send({ error: { code: 'not_found', message: 'Not a fixture skill path' } }, 404);
-    const [, id, version, filePath] = fileMatch;
+    const [, _category, id, version, filePath] = fileMatch;
     const record = skills.get(`${id}@${version}`);
     if (!record) return send({ error: { code: 'not_found', message: `No fixture skill ${id}@${version}` } }, 404);
     const content = tamperFiles.get(`${id}@${version}/${filePath}`) ?? record.bundle.files[filePath!];

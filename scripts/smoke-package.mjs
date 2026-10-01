@@ -97,7 +97,7 @@ try {
     const [, sha, path] = raw;
     if (sha !== commitSha) return send({ error: { code: 'not_found', message: 'commit not served' } }, 404);
     if (path === 'index.json') return send(index);
-    if (path === 'skills/code-review/1.0.0/SKILL.md') return sendText(skillText);
+    if (path === 'skills/development/code-review/1.0.0/SKILL.md') return sendText(skillText);
     return send({ error: { code: 'not_found', message: 'not found' } }, 404);
   });
   await new Promise(resolveListen => server.listen(0, '127.0.0.1', resolveListen));

@@ -35,9 +35,9 @@ async function catalogServer(t: TestContext, entries: () => CatalogIndexEntry[])
       const index: CatalogIndex = { schema: 'skillflux-catalog-index/v1', generatedAt: new Date().toISOString(), skills: entries() };
       return send(index);
     }
-    const fileMatch = /^skills\/([^/]+)\/([^/]+)\/(.+)$/.exec(path!);
+    const fileMatch = /^skills\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/.exec(path!);
     if (!fileMatch) return send({ error: { code: 'not_found', message: 'Not a fixture skill path' } }, 404);
-    const [, id, version, filePath] = fileMatch;
+    const [, _category, id, version, filePath] = fileMatch;
     const entry = entries().find(item => item.skill.id === id && item.skill.version === version) as FixtureEntry | undefined;
     const content = entry?.bundleFiles?.[filePath!];
     if (content === undefined) return send({ error: { code: 'not_found', message: 'No fixture file' } }, 404);
