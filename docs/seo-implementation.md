@@ -83,7 +83,6 @@ npm run build --workspace @skillflux/web
 | --- | --- | --- |
 | Cloudflare Pages 高级模式 | `web/wrangler.toml`，产物 `web/dist` | `_worker.js` 执行迁移和首响应索引规则；`_routes.json` 让 HTML 请求进入 Worker |
 | Cloudflare Workers 静态资源 | `web/wrangler.workers.jsonc`，生产产物 `web/.publication/production/dist` | 先执行 `npm run build:production --workspace @skillflux/web`；`ASSETS` 绑定、`run_worker_first: true`、尾斜杠规范化、`404-page`；不能绕过 Worker 直接服务筛选页 |
-| Docker + Nginx | `web/Dockerfile`、`web/nginx.conf`、根目录 `compose.yaml` | 构建生成的两份 Nginx 配置复制至 `/etc/nginx/` 并被 include；保留真实 301、自定义真实 404 和筛选响应规则 |
 
 Cloudflare 兼容日期使用 `2026-09-10`，与当前本地 workerd 对齐。升级日期时一并验证本地运行时与部署行为。`build-deployment.ts` 生成 `_worker.js`、路由、迁移及 Nginx 分页配置；这些部署内部文件不应作为公开下载资源。Workers 使用 `.assetsignore` 排除内部文件，Pages 另由 Worker 拒绝访问。
 

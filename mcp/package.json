@@ -4,17 +4,33 @@
   "description": "Anonymous curated skill registry, local MCP runtime and sponsored output CLI",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=22.13.0" },
-  "bin": { "skillflux": "dist/cli.js" },
-  "files": ["dist", "skills", "README.md", "LICENSE"],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "bin": {
+    "skillflux": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "dev": "tsx src/cli.ts registry --dev",
+    "dev": "tsx src/cli.ts --help",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "start": "node dist/cli.js registry",
+    "start": "node dist/cli.js serve",
     "prepack": "npm run build"
   },
-  "dependencies": { "@modelcontextprotocol/sdk": "1.30.0", "zod": "4.5.4" },
-  "devDependencies": { "@types/node": "^24.0.0", "tsx": "^4.19.0", "typescript": "^6.0.3" }
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^6.0.3"
+  }
 }

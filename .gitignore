@@ -21,3 +21,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# Local agent tooling and personal workspaces
+.claude/
+.zcode/
