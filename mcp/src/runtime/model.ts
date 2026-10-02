@@ -5,7 +5,7 @@ export const STATE_SCHEMA = 'skillflux/runtime/v2' as const;
 export const LOCK_SCHEMA = 'skillflux/lock/v1' as const;
 export const PLAN_SCHEMA = 'skillflux/plan/v1' as const;
 
-/** Local install anchor file replacing the old signed envelope. */
+/** Local install anchor file for a catalog release. */
 export const INSTALL_MANIFEST_FILE = '.skillflux-manifest.json';
 
 export interface RuntimeConfig {

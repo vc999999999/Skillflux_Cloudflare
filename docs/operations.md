@@ -39,7 +39,7 @@ Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路�
 
 - 目录仓库备份 = `git clone` / fork；历史回溯依赖 git 历史。
 - 网站重建随时可从目录仓库完整重放。
-- 无服务器数据库需要备份；旧 VPS Registry（SQLite + 签名密钥）已废弃，确认无引用后即可下线。
+- 当前架构没有服务器数据库；目录仓库及其 Git 历史是技能内容的备份来源。
 
 ## 客户端离线与缓存行为
 
@@ -49,4 +49,4 @@ Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路�
 
 ## 国内可达性预留
 
-`raw.githubusercontent.com` 在部分网络环境下不可达。客户端 `init --source URL` 可指定镜像源。如需为 skillflux.app 增加透传缓存路由（Worker `/gh/` 路由回源 raw 并按 SHA 缓存），在 `web/edge/worker.ts` 的 `/console` 重定向之后插入；当前未实现。
+`raw.githubusercontent.com` 在部分网络环境下不可达。客户端 `init --source URL` 可指定镜像源。Worker 目前没有 GitHub 透传缓存路由；如需添加，应按固定 commit SHA 回源并验证缓存行为。

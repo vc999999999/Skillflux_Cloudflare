@@ -14,7 +14,7 @@ const descriptions: Record<string, [string, string]> = {
   "/index.json": ["来源名称、类型、标签、摘要与链接，以及场景和技能发布入口。", "Source names, types, tags, summaries and links, plus scenario and skill-release entry points."],
   "/feed.xml": ["资源来源的 RSS 订阅流，用于跟进收录与更新。", "An RSS feed of source entries for following additions and updates."],
   "/insights/feed.xml": ["编辑解读与工作流分析的 RSS；文章解读不等于安装包实测。", "RSS for editorial analysis and workflows. Articles are not install-package evaluations."],
-  "/skills-index.json": ["签名发布快照中的 Skill 和版本状态，安装前仍需实时检查资格。", "Skills and version states from a signed publication snapshot. Recheck live qualification before installation."],
+  "/skills-index.json": ["构建时从 GitHub 目录仓库生成的 Skill 版本状态；安装前客户端重新检查资格。", "Skill release states generated from the GitHub catalog at build time. The client rechecks eligibility before installation."],
   "/scenarios/index.json": ["按任务组织的场景、选型与维护指南，含中英文页面链接。", "Task-based scenarios, selection and maintenance guides, with Chinese and English page links."]
 };
 const agentPrompt = t(
@@ -28,7 +28,7 @@ const agentPrompt = t(
       <div><p class="eyebrow">{t("面向智能体设计", "BUILT FOR AGENTS")}</p><h1 class="page-title">{t("人类看得懂，Agent 直接读。", "Readable by humans. Native to agents.")}</h1><p class="page-lede">{t("把结构清晰的能力黄页交给 AI。纯文本、JSON 索引与订阅流，均与网站实时数据完全同源。", "Deliver a structured capability directory directly to your agent. Plain text, JSON indexes, and feeds generated from the exact same source.")}</p></div>
     <div class="ai-symbol" aria-hidden="true">
       <span class="ai-symbol-status"></span>
-      <code>/api/live</code>
+      <code>/index.json</code>
     </div>
     </header>
     <section class="ai-start" aria-labelledby="ai-start-title">
@@ -39,7 +39,7 @@ const agentPrompt = t(
       <div class="section-heading-row"><div><p class="eyebrow">02 / OPEN ENDPOINTS</p><h2 id="ai-endpoints-title">{t("选一个适合的格式", "Choose the right format")}</h2></div><span class="ai-open-label">{t("公开读取 · 无需登录", "Public access · No login")}</span></div>
       <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span class:list={['format-tag', endpoint.path.endsWith('.json') && 'is-json', endpoint.path.endsWith('.xml') && 'is-xml']}>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
     </section>
-    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("黄页目录 ≠ 随意安装", "Directory entries and verified installation")}</h3><p>{t("黄页条目用于全景发现和对比。需要安装时，请选择经由审核流水线验证、具备完整签名与测试报告的具体版本。", "Directory entries enable open discovery and comparison. When installing, select verified releases with signed manifests and review records.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("公开端点用于读取。连接项目、安装和升级需由用户明确发起，并遵循项目权限与精确版本计划。", "Public endpoints provide data. Connecting a project, installing and upgrading require explicit user intent, project permissions and exact-version plans.")}</p></div></article></div></section>
+    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("黄页目录 ≠ 随意安装", "Directory entries and verified installation")}</h3><p>{t("黄页条目用于全景发现和对比。需要安装时，请选择 GitHub 目录仓库中有审核记录的具体版本，并检查其权限与限制。", "Directory entries enable open discovery and comparison. For installation, choose an exact release with review records in the GitHub catalog and inspect its permissions and limits.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("公开端点用于读取。连接项目、安装和升级需由用户明确发起，并遵循项目权限与精确版本计划。", "Public endpoints provide data. Connecting a project, installing and upgrading require explicit user intent, project permissions and exact-version plans.")}</p></div></article></div></section>
     <div class="ai-next"><p>{t("想让 AI 直接接入能力？", "Want to equip your agent directly?")}</p><a class="button secondary" href={localizePath("/install/", lang)}>{t("查看运行时接入指南", "Read the setup guide")} <span aria-hidden="true">→</span></a></div>
   </main>
 </BaseLayout>

@@ -25,11 +25,7 @@ export async function buildDeployment(outDir: string): Promise<void> {
   }
   await scan(dist);
   const sorted = Object.entries(redirects).sort(([a], [b]) => a.localeCompare(b));
-  await writeFile(resolve(dist, '_redirects'), sorted.flatMap(([from, to]) => [
-    `${from} ${to} 301`, ...(from.endsWith('/') ? [`${from.slice(0, -1)} ${to} 301`] : [])
-  ]).join('\n') + '\n');
-  await writeFile(resolve(dist, '_routes.json'), JSON.stringify({ version: 1, include: ['/*'], exclude: ['/_astro/*', '/fonts/*', '/og.png', '/skillflux-mark.svg'] }, null, 2));
-  await writeFile(resolve(dist, '.assetsignore'), '_worker.js\n_redirects\n_routes.json\n');
+  await writeFile(resolve(dist, '.assetsignore'), '_worker.js\n');
   await build({
     entryPoints: [resolve(webRoot, 'edge/worker.ts')],
     outfile: resolve(dist, '_worker.js'), bundle: true, format: 'esm', platform: 'browser', target: 'es2022',

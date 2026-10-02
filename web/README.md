@@ -38,4 +38,4 @@ The browser check only exercises the built static site; it performs no productio
 - `/for-ai/`: plain-text, JSON and RSS endpoints with their data boundaries.
 - `/submit/`: prepare a GitHub resource issue in the browser; the user reviews and publishes it on GitHub.
 
-These pages also have `/en/` routes. `src/components/` owns reusable bilingual page layouts; `src/pages/` owns routes. Catalog data stays in `data/`, public assets in `public/`, and content scripts in `scripts/`. See [the cleanup record](../docs/frontend-redesign.md) for the workspace migration history.
+These pages also have `/en/` routes. `src/components/` owns reusable bilingual page layouts; `src/pages/` owns routes. Catalog data stays in `data/`, public assets in `public/`, and content scripts in `scripts/`.

@@ -3,7 +3,7 @@ import { PUBLICATION_PAGE_SIZE, compareSkillVersions, hasPublicationFilters, lat
 import { readDirectoryFilters, writeDirectoryFilters, matchesDirectoryRow } from '../src/lib/directory-search';
 import { discoveryIndex, renderDiscoveryText } from '../src/lib/discovery';
 import { validatePublication } from '../src/lib/publication';
-import { getSites, renderRobotsTxt } from '../src/lib/content';
+import { getSites } from '../src/lib/content';
 import { getAlternateLanguagePath, getSiteCopy } from '../src/lib/i18n';
 import { scenarios } from '../src/lib/scenarios';
 
@@ -119,9 +119,7 @@ describe('public discovery and URL state', () => {
     for (const scenario of scenarios) { expect(text).toContain(scenario.title.zh); expect(getAlternateLanguagePath(`/scenarios/${scenario.slug}/`, 'en')).toBe(`/en/scenarios/${scenario.slug}/`); }
     expect(getAlternateLanguagePath('/skills/demo/versions/1.0.0/', 'en')).toBe('/en/skills/demo/versions/1.0.0/');
   });
-  it('keeps console outside crawling and avoids unsupported English superlative QA claims', () => {
-    expect(renderRobotsTxt()).toContain('Disallow: /console/');
-    expect(renderRobotsTxt()).not.toContain('/v1/admin/');
+  it('avoids unsupported English superlative QA claims', () => {
     for (const site of getSites()) { const text = JSON.stringify(getSiteCopy(site, 'en')); expect(text).not.toContain('most complete'); expect(text).toContain('not evidence'); }
   });
 });

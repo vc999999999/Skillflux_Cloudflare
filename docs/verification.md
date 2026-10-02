@@ -1,43 +1,14 @@
 # 当前验证记录
 
-日期：2026-09-06。本文件只记录本轮 Runtime/MCP 与运行文档收尾中实际执行的验证，不沿用旧版本的页面数量、浏览器结果或依赖审计结论。当前本机 Node.js 为 **v25.2.1**，`node:sqlite` 输出实验功能提示；这不等于已在 Node 22/24 本机复测。
+日期：2026-10-02。本文件只记录 GitHub Catalog + Cloudflare Workers 架构在当前工作区实际执行的检查。它不代表 npm 已对外发布，也不代表本次改动已经部署到生产。
 
-| 实际执行 | 本轮结果 |
+| 检查 | 结果 |
 | --- | --- |
-| `npm test --workspace @skillflux/mcp` | **54/54 通过**；无跳过或待实现测试 |
-| `npm run typecheck --workspace @skillflux/mcp` | TypeScript 检查通过 |
-| `npm run smoke:package` | 真实打包、干净目录安装、编译后 Registry、项目初始化、精确版本安装及编译后的 stdio MCP 加载通过 |
-| `quick_validate.py mcp/skills/skillflux` | Bootstrap Skill 校验通过，显式调用策略保留 |
-| `publication:sync` / `publication:build` / `publication:watch --help` | 命令和本文档所列参数均可运行 |
-| 使用已安装的 YAML 库解析 `compose.yaml` | 语法通过，检查同源 API 参数及 Registry 持久卷配置 |
-| `command -v docker` | 当前环境未发现 Docker；未执行镜像构建或容器启动 |
+| `git diff --check` | 通过，无空白错误 |
+| `npm run typecheck` | MCP TypeScript、Astro 和 Worker TypeScript 通过；Astro 0 errors、0 warnings |
+| `npm test` | MCP 20 项、Web Vitest 56 项、发布集成 4 项全部通过 |
+| `npm run build` | MCP 编译和 Web 静态构建通过；Web 生成 185 个页面，SEO 构建门禁通过 |
 
-## 自动化证据范围
+测试覆盖本地 GitHub 风格目录源、固定 commit SHA 下载、逐文件哈希校验、撤销与更新、真实 stdio MCP 调用、静态站发布失败保留旧版本、双语 Registry 分页、Worker 域名重定向、真实 404 和筛选页索引规则。测试用本地 fixture；本轮没有修改生产目录仓库，也没有发布 npm 包或部署网站。
 
-Runtime/MCP 测试通过真实本地 HTTP、独立临时项目、真实 CLI 子进程和 stdio 协议执行，不用文字匹配代替安装或加载结果。覆盖：
-
-- 更新检查不安装；24 小时普通版本缓存与独立撤销请求；离线状态明确未知。
-- 精确升级计划、CLI 确认、MCP `planId` 边界、安装预授权不能绕过升级确认、锁改变后旧计划失效。
-- 固定版本/依赖冲突、下载失败保持当前锁、本地正文/清单修改保护、回滚与撤销。
-- 历史已公开包补测前拒绝；补测批准后原版本与原 digest 恢复，签名包字节不变；独立证明篡改、跨版本替换及保留文件注入失败。
-- 缓存的资格撤回阻止离线恢复旧授权；合法新证明可恢复；回滚重新检查本地证明和当前云端资格。
-- 长期 MCP 尊重后来关闭广告或撤销安装预授权的本地操作；journal 与 mutex 的符号链接被拒绝。
-- 广告故障无伪造兜底，失败/空输出不投放，敏感/未知上下文抑制，文本输出确认与 JSON 非曝光分离。
-
-同一次全量测试还运行 Registry 回归：真实 HTTP 评测/发布门槛、最新人工失败不能被旧通过记录绕过、公开/私人数据边界、固定依赖级联撤销、暂停 token 失效、预留到期释放、事件幂等、跨 UTC 日期 CTR 口径、独立 SQLite 进程预算/点击并发、超过千条审计分页、商务线索保留清理、举报处理、签名备份恢复与重复迁移。
-
-这些测试使用明确标记的隔离模拟操作员与测试内容，验证代码行为；不代表真实人工对生产技能的质量评测，不会将模拟记录导入生产开发 seed。
-
-## 审计修复
-
-本轮发现长期 Runtime 持有过期本地 policy，可能忽略其他 CLI 进程关闭广告或撤销安装预授权。已在权限使用前刷新 policy，并在广告响应返回后再检查关闭状态；修改偏好时使用项目锁，避免覆盖新策略。`init` 写状态也受项目锁保护，journal/mutex 补充符号链接拒绝。对应行为测试已通过。
-
-Web Dockerfile 原先仅复制 `web/`，缺少静态 publication 构建导入的 `mcp/src/shared`；现已复制所需共享源码，并从 Docker 上下文排除 `.publication` 历史构建目录。此项做了源码与 YAML 核对，不能在无 Docker 环境中声称镜像实测通过。
-
-## 由主流程汇总的全站验证
-
-当前网页内容/双语/交互、浏览器画面、静态站点完整构建、发布快照切换集成及最终统一测试，以主流程在 `docs/implementation-acceptance.md` 中实际收集的证据为准。本文件不把其他代理的进度报告当成本轮独立实测结果，也不延用旧的 156 页面或浏览器“全部通过”结论。
-
-CI 配置包含 Node 22 与 24 矩阵，但未在本文件中宣称远端 CI 已运行。生产依赖审计本轮未独立复测。四种宿主项目配置由实现生成，真实 Codex/Claude/Cursor/通用宿主的特定版本、插件启用及付费模型任务没有在此宣称已完成。
-
-没有执行 npm 外部发布、生产部署、域名绑定、合同签订、账号购买或真实付费广告投放。普通第三方 MCP 宿主控制其最终回答，成功返回广告数据不能作为最终可见广告或真人曝光证据。
+当前网站从 GitHub 目录仓库的构建时快照生成。客户端安装或加载时单独检查目录仓库当前状态；静态网页不应被当作实时资格证明。

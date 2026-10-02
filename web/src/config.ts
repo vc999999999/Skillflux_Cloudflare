@@ -31,6 +31,6 @@ export const ENDPOINTS = [
   { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
   { path: "/feed.xml", label: "RSS feed", description: "新增和更新资源订阅流。" },
   { path: "/insights/feed.xml", label: "Insights RSS", description: "保留的编辑解读订阅流，不代表平台人工实测。" },
-  { path: "/skills-index.json", label: "Curated releases", description: "来自验签发布快照的精品版本索引，安装资格以实时云端检查为准。" },
+  { path: "/skills-index.json", label: "Curated releases", description: "构建时从 GitHub 目录仓库生成的精品版本索引；安装前客户端重新检查仓库状态。" },
   { path: "/scenarios/index.json", label: "Scenarios", description: "场景、选型和维护指南的结构化目录。" }
 ] as const;

@@ -321,9 +321,9 @@ export const pageCopy: Record<Language, PageCopy> = {
       accessA: (name, url) => `点击本页「访问原站」按钮，或直接打开 ${url} 即可进入 ${name} 原站。SkillFlux 只做导航与简介，不代理其内容。`
     },
     cta: {
-      eyebrow: "Cloud Skill Runtime",
+      eyebrow: "Local Skill Runtime",
       title: "先连接一个项目，再让 Skill 按需到达。",
-      body: "目标体验是一条命令安装本地 resolver；之后由 manifest、签名包和 lockfile 管理每一次解析、下载与更新。",
+      body: "安装本地入口后，SkillFlux 从 GitHub 目录仓库读取索引；固定版本、文件哈希和项目锁管理每次下载与更新。",
       command: "skillflux --help",
       copy: "复制",
       note: "先构建并安装当前仓库的 npm 包，再执行命令；详见接入使用"
@@ -505,7 +505,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       accessA: (name, url) => `Use the "Visit source" button on this page, or open ${url} directly to reach ${name}. SkillFlux only provides navigation and summaries; it does not proxy the content.`
     },
     cta: {
-      eyebrow: "Cloud Skill Runtime",
+      eyebrow: "Local Skill Runtime",
       title: "Connect one project, then let skills arrive on demand.",
       body: "Install the local npm entry and explicitly invoke SkillFlux to search qualified skills. Review an exact-version plan, authorize installation, and check updates without modifying project files.",
       command: "skillflux --help",
@@ -617,6 +617,16 @@ const typeTranslations: Record<string, string> = {
   "MCP 服务器目录": "MCP server directory"
 };
 
+const siteNameTranslations: Record<string, string> = {
+  "魔搭 ModelScope Skills": "ModelScope Skills",
+  "阿里云 Skills": "Alibaba Cloud Skills",
+  "腾讯云 SkillHub": "Tencent Cloud SkillHub",
+  "Android Skills(官方)": "Android Skills (Official)",
+  "Expo Skills(官方)": "Expo Skills (Official)",
+  "everything-claude-code 中文版": "everything-claude-code (Chinese Edition)",
+  "接口 AI Skills": "Jiekou AI Skills"
+};
+
 const scaleTranslations: Record<string, string> = {
   推荐合集: "Recommended collection",
   集合入口: "Collection entry",
@@ -626,6 +636,10 @@ const scaleTranslations: Record<string, string> = {
   合集: "Collection",
   "合集(阿里云)": "Alibaba Cloud collection",
   "合集(腾讯云)": "Tencent Cloud collection",
+  "合集(企业)": "Enterprise collection",
+  企业: "Enterprise",
+  "合集(qoder)": "Qoder collection",
+  "合集(tessl)": "Tessl collection",
   合集仓库: "Collection repository"
 };
 
@@ -643,6 +657,11 @@ export function localizePath(path: string, lang: Language): string {
 
 export function getAlternateLanguagePath(currentPath: string, targetLang: Language): string {
   return localizePath(currentPath, targetLang);
+}
+
+export function translateSiteName(name: string, lang: Language): string {
+  if (lang === "zh") return name;
+  return siteNameTranslations[name] ?? name;
 }
 
 export function translateTag(tag: string, lang: Language): string {
@@ -694,17 +713,18 @@ export function getSiteCopy(site: Site, lang: Language) {
     };
   }
 
+  const name = translateSiteName(site.name, lang);
   const tags = translateTags(site.tags, lang);
   const type = translateType(site.type, lang);
   const scale = translateScale(site.scale, lang);
   const primaryTags = tags.slice(0, 3).join(" / ");
 
   return {
-    name: site.name,
+    name,
     type,
     scale,
     tagline: site.editorial?.primaryCapability.en ?? `${type} entry`,
-    summary: site.editorial?.summary.en ?? `${site.name}: source information is being prepared for the English directory.`,
+    summary: site.editorial?.summary.en ?? `${name}: source information is being prepared for the English directory.`,
     aiSummary: `A catalog source indexed by ${primaryTags || "resource"} signals. Directory inclusion is not evidence that its individual skills have passed SkillFlux testing.`,
     tags
   };

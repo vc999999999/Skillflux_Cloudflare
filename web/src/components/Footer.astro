@@ -39,7 +39,7 @@ const groups = [
       {groups.map(group => <div class="sf-footer-column"><h2>{group.title}</h2><ul>{group.links.map(link => <li><a href={'external' in link || 'raw' in link ? link.href : localizePath(link.href, lang)} rel={'external' in link ? 'noopener noreferrer' : undefined}>{link.label}</a></li>)}</ul></div>)}
     </div>
     <div class="sf-footer-bottom">
-      <div class="sf-footer-copyright"><span>© {new Date().getFullYear()} SkillFlux</span><span>砚垚信息科技（上海）有限公司</span></div>
+      <div class="sf-footer-copyright"><span>© {new Date().getFullYear()} SkillFlux</span><span>{zh ? "砚垚信息科技（上海）有限公司" : "Yanyao Information Tech (Shanghai) Co., Ltd."}</span></div>
       <div class="sf-footer-legal"><a href={localizePath("/privacy/", lang)}>{zh ? "隐私政策" : "Privacy"}</a><a href={localizePath("/terms/", lang)}>{zh ? "使用条款" : "Terms"}</a></div>
     </div>
   </div>

@@ -14,7 +14,7 @@ docs/         运行恢复、接口边界和实际验证记录
 
 网站统一维护在 `web/`。来源数据在 `web/data/sites.json`，页面与双语组件在 `web/src/`，分享图、图标和字体在 `web/public/`。
 
-公开页面包括资源目录、使用场景、精选合集、指南、安装说明、`/for-ai/` 机器读取说明与 `/submit/` 资源推荐入口，并提供 `/en/` 对应页面。运营台、广告咨询与举报后端已随 2026-10-01 架构改造下线；旧地址由边缘 Worker 重定向。
+公开页面包括资源目录、使用场景、精选合集、指南、安装说明、`/for-ai/` 机器读取说明与 `/submit/` 资源推荐入口，并提供 `/en/` 对应页面。
 
 ## 本地运行
 
@@ -26,9 +26,9 @@ npm run build
 npm run dev
 ```
 
-网站为 `http://127.0.0.1:4321`（无后端服务；开发模式不再启动 Registry）。
+网站为 `http://127.0.0.1:4321`，无本地后端服务。
 
-`npm run dev:mcp` 与 `npm run dev:web` 可单独运行。开发种子技能在 `mcp/catalog/seed.json`，用 `node mcp/scripts/convert-seed.mjs <dir> --index` 转成本地目录仓库结构；种子自带 simulation 证据，不能获得 qualified 资格。
+`npm run dev:web` 可单独运行网站。开发种子技能在 `mcp/catalog/seed.json`，用 `node mcp/scripts/convert-seed.mjs <dir> --index` 转成本地目录仓库结构；种子自带 simulation 证据，不能获得 qualified 资格。
 
 ## 网站采用静态同步
 
@@ -74,7 +74,7 @@ skillflux check-updates --project /absolute/path/to/project
 skillflux pin SKILL_ID --project /absolute/path/to/project
 ```
 
-搜索在本机缓存的目录索引上进行，检索词不出本机（缓存最长 24 小时）。`check-updates`（别名 `outdated`）只读检查；升级须先 `update SKILL_ID@VERSION` 展示计划，终端确认后执行（非交互需 `--yes`）。MCP `skillflux.update` 只接受明确批准的 `planId`。固定版本须先明确 `unpin`；本地修改、锁冲突或不兼容会阻止执行；离线状态如实标明未知，不宣称「已经最新」。离线可以加载已验签内容，但会披露「当前目录仓库状态未知」。
+搜索在本机缓存的目录索引上进行，检索词不出本机（缓存最长 24 小时）。`check-updates`（别名 `outdated`）只读检查；升级须先 `update SKILL_ID@VERSION` 展示计划，终端确认后执行（非交互需 `--yes`）。MCP `skillflux.update` 只接受明确批准的 `planId`。固定版本须先明确 `unpin`；本地修改、锁冲突或不兼容会阻止执行；离线状态如实标明未知，不宣称「已经最新」。离线可以加载先前验证过的本地内容，但会披露「当前目录仓库状态未知」。
 
 ## 目录仓库维护
 
@@ -104,4 +104,4 @@ npm run build:production --workspace @skillflux/web   # 从真实目录仓库同
 npm run deploy:production --workspace @skillflux/web  # wrangler 部署
 ```
 
-旧 VPS Registry 部署已废弃；服务器已可在确认后下线。备份即 `git clone` / fork 目录仓库。`raw.githubusercontent.com` 在部分网络环境下不可达时，客户端 `--source` 参数可指定镜像源；为 skillflux.app Worker 增加透传缓存路由是预留的后续选项。
+技能内容仓库可通过 `git clone` 或 fork 备份。`raw.githubusercontent.com` 在部分网络环境下不可达时，客户端 `--source` 参数可指定镜像源；为 skillflux.app Worker 增加透传缓存路由是预留的后续选项。

@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 type Props = { sites: Site[]; showControls?: boolean; heading?: string; compact?: boolean; lang?: Language };
 const { sites, showControls = false, heading, compact = false, lang = DEFAULT_LANGUAGE } = Astro.props;
 const zh = lang === 'zh';
-const resolvedHeading = heading ?? (zh ? '全部资源' : 'All resources');
+const resolvedHeading = heading ?? (showControls ? (zh ? '资源目录' : 'Resource directory') : (zh ? '全部资源' : 'All resources'));
 const categories = getCategories();
 const categoryNames = new Map(categories.map(category => [category.slug, translateCategory(category.slug, category.label, lang)]));
 const kindLabels: Record<Site['kinds'][number], string> = { skill: 'Skills', mcp: 'MCP', plugin: zh ? '插件' : 'Plugins' };
@@ -34,7 +34,7 @@ const facets = [
       </div>
     </details>}
     <div class="directory-results">
-      <div class="results-toolbar"><h2>{showControls ? (zh ? '资源目录' : 'Resource directory') : resolvedHeading}<span data-result-count role="status" aria-live="polite">{sites.length} {zh ? '个来源' : 'sources'}</span></h2>{showControls && <label class="directory-sort"><span>{zh ? '排序' : 'Sort'}</span><select data-directory-sort aria-label={zh ? '资源排序' : 'Sort resources'}><option value="recommended">{zh ? '推荐优先' : 'Recommended'}</option><option value="newest">{zh ? '最近更新' : 'Recently updated'}</option><option value="name">{zh ? '名称排序' : 'Name'}</option></select></label>}</div>
+      <div class="results-toolbar"><h2>{resolvedHeading}<span data-result-count role="status" aria-live="polite">{sites.length} {zh ? '个来源' : 'sources'}</span></h2>{showControls && <label class="directory-sort"><span>{zh ? '排序' : 'Sort'}</span><select data-directory-sort aria-label={zh ? '资源排序' : 'Sort resources'}><option value="recommended">{zh ? '推荐优先' : 'Recommended'}</option><option value="newest">{zh ? '最近更新' : 'Recently updated'}</option><option value="name">{zh ? '名称排序' : 'Name'}</option></select></label>}</div>
       <div class="resource-table" role="list" aria-label={resolvedHeading} data-resource-list>
         {sites.map((site, index) => {
           const item = getSiteCopy(site, lang);

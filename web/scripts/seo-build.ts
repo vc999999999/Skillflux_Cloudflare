@@ -99,7 +99,7 @@ export function inspectHtml(file: string, html: string): BuiltPage {
     if (mains.length !== 1 || mainText.length < 40) issues.push('one main with meaningful rendered body text required');
     if (!language) issues.push('HTML language required');
     if (invalidDate) issues.push('invalid JSON-LD dateModified');
-    if (/^\/(?:en\/)?(?:console(?:\/|$)|404(?:\.html|\/|$))/.test(path)) issues.push('private/error page must be noindex');
+    if (/^\/(?:en\/)?404(?:\.html|\/|$)/.test(path)) issues.push('error page must be noindex');
     const detail = /^\/(?:en\/)?(?:resource|guides)\/[^/]+\/$/.test(path);
     if (detail && !schemas.some(value => schemaHasType(value, 'BreadcrumbList'))) issues.push('detail page requires BreadcrumbList JSON-LD');
     if (/^\/(?:en\/)?guides\/[^/]+\/$/.test(path) && !schemas.some(value => schemaHasType(value, 'Article'))) issues.push('guide requires Article JSON-LD');
@@ -153,8 +153,8 @@ export function validatePages(pages: BuiltPage[], site: string, files = new Set(
     const internal = page.links.map(href => parseUrl(href, `${origin}${page.path}`)).filter((url): url is URL => Boolean(url && url.origin === origin && url.pathname !== page.path));
     if (!internal.length) fail('main content requires a real internal link');
     for (const link of internal) {
-      // API downloads/redirect endpoints are HTTP-tested separately; verify static HTML navigation here.
-      if (link.search || /^\/(?:v1|api|r)\//.test(link.pathname) || extname(link.pathname) && !link.pathname.endsWith('.html')) continue;
+      // Query links and non-HTML files are checked by their respective renderers.
+      if (link.search || extname(link.pathname) && !link.pathname.endsWith('.html')) continue;
       const target = byPath.get(link.pathname) ?? byPath.get(`${link.pathname}/`);
       if (!target && !files.has(decodeURIComponent(link.pathname).slice(1))) fail(`internal HTML link has no build target: ${link.pathname}`);
     }

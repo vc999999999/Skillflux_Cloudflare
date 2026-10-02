@@ -642,7 +642,7 @@ export function renderRobotsTxt(): string {
     "Meta-ExternalAgent"
   ];
 
-  const privatePaths = ['Disallow: /console/', 'Disallow: /admin/', 'Disallow: /preview/'];
+  const privatePaths = ['Disallow: /admin/', 'Disallow: /preview/'];
   const lines = ["User-agent: *", "Allow: /", ...privatePaths, ""];
   for (const agent of crawlers) {
     lines.push(`User-agent: ${agent}`, "Allow: /", ...privatePaths, "");

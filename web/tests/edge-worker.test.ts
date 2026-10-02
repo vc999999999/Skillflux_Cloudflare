@@ -37,7 +37,7 @@ function assets() {
 
 describe('production edge routing', () => {
   it.each(['skillflux.app', 'www.skillflux.app', 'skillflux.cn', 'www.skillflux.cn'])('sends public HTTP on %s to the primary HTTPS domain', async host => {
-    for (const path of ['/console/?tab=reports', '/install/', '/setup/?utm_source=docs']) {
+    for (const path of ['/registry/', '/install/', '/setup/?utm_source=docs']) {
       const { fetch, env } = assets();
       const response = await worker.fetch(new Request(`http://${host}${path}`), env);
       expect(response.status).toBe(308);
@@ -99,11 +99,4 @@ describe('production edge routing', () => {
     }
   });
 
-  it.each(['/console', '/console/', '/console/index.html'])('retires the operator page at %s', async path => {
-    const { fetch, env } = assets();
-    const response = await worker.fetch(new Request(`https://skillflux.app${path}?tab=reports`), env);
-    expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('https://skillflux.app/registry/');
-    expect(fetch).not.toHaveBeenCalled();
-  });
 });

@@ -2,7 +2,7 @@
 import { SITE } from '../config';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { absoluteUrl, getDirectoryStats, getSites } from '../lib/content';
-import { DEFAULT_LANGUAGE, localizePath, type Language } from '../lib/i18n';
+import { DEFAULT_LANGUAGE, getSiteCopy, localizePath, type Language } from '../lib/i18n';
 import ResourceTable from './ResourceTable.astro';
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -12,7 +12,7 @@ const stats = getDirectoryStats();
 const canonicalPath = localizePath('/directory/', lang);
 const title = zh ? '功能黄页 · 想给 Agent 增加的能力' : 'Capabilities to Add to Your Agent';
 const description = zh ? '面向 AI Agent 的开放功能黄页：想给你的 Agent 增加什么能力？浏览与检索全网 Skills、MCP 工具、插件与开源生态。按场景和可信度筛选，即插即用。' : 'The yellow pages for everything you want your AI agent to do: discover skills, MCP tools, plugins, and open-source capabilities. Filter by task and trust, then wire into your project.';
-const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: site.name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: getSiteCopy(site, lang).name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
   <main id="main-content" class="page-shell directory-page">

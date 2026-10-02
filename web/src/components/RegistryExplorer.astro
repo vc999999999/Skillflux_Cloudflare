@@ -15,7 +15,7 @@ const categories = [...new Set(skills.map(skill => skill.category))].sort();
 <section class="published-explorer" data-publication-explorer={mode === 'full' ? 'true' : undefined} data-lang={lang}>
   <p class="publication-time">{publication.snapshot.fetchedAt
     ? `${zh ? '目录同步于' : 'Snapshot synchronized'} ${publication.snapshot.fetchedAt.replace('T', ' ').replace(/\.\d+Z$/, ' UTC')}`
-    : zh ? '尚未导入人工实测通过的云端发布快照。' : 'No human-tested registry publication has been synchronized yet.'}</p>
+    : zh ? '尚未从 GitHub 目录仓库同步到可发布的技能版本。' : 'No publishable skill releases have been synced from the GitHub catalog yet.'}</p>
   {mode === 'full' && <form class="publication-filters" data-skill-filters role="search">
     <label>{zh ? '关键词' : 'Keywords'}<input type="search" name="q" maxlength="200" placeholder={zh ? '输入用途、名称或标签' : 'Purpose, name or tag'} /></label>
     <label>{zh ? '能力分类' : 'Category'}<select name="category"><option value="">{zh ? '全部分类' : 'All categories'}</option>{categories.map(category => <option value={category}>{category}</option>)}</select></label>

@@ -54,12 +54,11 @@ describe('generated HTML SEO gate', () => {
     }
   });
 
-  it('ignores noindex and redirect bodies but prevents private/error pages from becoming indexable', () => {
+  it('ignores noindex and redirect bodies but prevents error pages from becoming indexable', () => {
     const noindex = inspectHtml('private/index.html', '<html><head><meta name="robots" content="noindex,follow"></head></html>');
     const redirected = inspectHtml('old/index.html', '<html><head><meta http-equiv="refresh" content="0;url=/directory/"></head></html>');
     expect(() => validatePages([...base(), noindex, redirected], SITE)).not.toThrow();
-    expect(() => validatePages([...base(), page('/console/')], SITE)).toThrow(/private\/error page must be noindex/);
-    expect(() => validatePages([...base(), page('/404/')], SITE)).toThrow(/private\/error page must be noindex/);
+    expect(() => validatePages([...base(), page('/404/')], SITE)).toThrow(/error page must be noindex/);
     const maps = renderSitemaps([...base(), noindex, redirected], SITE);
     expect(Object.values(maps).join('')).not.toContain(`${SITE}/private/`);
     expect(Object.values(maps).join('')).not.toContain(`${SITE}/old/`);
@@ -78,9 +77,9 @@ describe('generated HTML SEO gate', () => {
     expect(() => validatePages([...base(), resource({ head: '<script type="application/ld+json">{invalid}</script>' })], SITE)).toThrow(/invalid JSON-LD/);
   });
 
-  it('rejects missing internal HTML targets without treating API downloads or query links as static pages', () => {
+  it('rejects missing internal HTML targets without treating file and query links as static pages', () => {
     expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/missing/">Missing resource</a>' })], SITE)).toThrow(/internal HTML link has no build target/);
-    expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/v1/skills/editor/bundle">Download bundle</a><a href="/directory/?q=all&amp;sort=name">Filtered directory</a>' })], SITE)).not.toThrow();
+    expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/skills-index.json">Skill index</a><a href="/directory/?q=all&amp;sort=name">Filtered directory</a>' })], SITE)).not.toThrow();
   });
 
   it('requires real language-correct reciprocal alternate targets; x-default never substitutes for an English page', () => {
