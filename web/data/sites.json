@@ -1963,5 +1963,41 @@
     ],
     "addedAt": "2026-07-01",
     "updatedAt": "2026-07-01"
+  },
+  {
+    "id": "github-com-mattpocock-skills",
+    "slug": "github-com-mattpocock-skills",
+    "name": "mattpocock/skills",
+    "canonicalUrl": "https://github.com/mattpocock/skills",
+    "displayUrl": "github.com/mattpocock/skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "工程工作流合集",
+    "pricing": "free",
+    "tagline": "需求澄清、测试与代码审查工作流",
+    "summary": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。",
+    "longSummary": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。\n\n先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
+    "aiSummary": "先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mattpocock/skills",
+      "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/README.md",
+      "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/LICENSE"
+    ],
+    "addedAt": "2026-10-08",
+    "updatedAt": "2026-10-08"
   }
 ]

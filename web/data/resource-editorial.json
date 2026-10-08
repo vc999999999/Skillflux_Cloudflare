@@ -2314,5 +2314,64 @@
     "relatedGuideSlugs": [
       "choosing-a-skill-source"
     ]
+  },
+  "github-com-mattpocock-skills": {
+    "resourceSlug": "mattpocock-skills",
+    "updatedAt": "2026-10-08",
+    "primaryCapability": {
+      "zh": "需求澄清、测试与代码审查工作流",
+      "en": "Requirements, testing and code review workflows"
+    },
+    "summary": {
+      "zh": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。",
+      "en": "mattpocock/skills is an open-source skill repository maintained by Matt Pocock. Its small, composable workflows cover requirements clarification, specification writing, test-driven development, diagnosis and code review, alongside teaching, handoffs and writing documents for agents. Organized into engineering and productivity skills and licensed under MIT, it offers workflows to select and adapt for a specific task."
+    },
+    "bestFor": [
+      {
+        "zh": "希望按需求澄清、测试或调试等具体环节采用 Skill 的开发者。",
+        "en": "Developers selecting skills for a specific step such as requirements clarification, testing or debugging."
+      },
+      {
+        "zh": "愿意阅读原始指令，并结合项目约定调整工作流的团队。",
+        "en": "Teams willing to inspect the original instructions and adapt workflows to project conventions."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "planning",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
+      "en": "Read the selected skill and its referenced files, including calls to other skills and required host tools. This page records the upstream source. Adaptations and review status for SkillFlux selections belong to their individual detail pages; listing the repository does not mean every upstream skill has been tested."
+    },
+    "limitations": [
+      {
+        "zh": "部分工程 Skill 依赖仓库配置、项目词汇表或其他 Skill；应同时检查引用文件和所需工具。",
+        "en": "Some engineering skills depend on repository configuration, a project glossary or other skills; inspect referenced files and required tools together."
+      },
+      {
+        "zh": "不同宿主的插件安装与复制文件方式具有不同更新机制，不能据来源收录推定一键安装或跨宿主兼容。",
+        "en": "Plugin installation and copying files use different update mechanisms across hosts; a source listing does not establish one-click installation or cross-host compatibility."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "zh": "需要比较将规划、执行、调试与测试组织在一起的开发流程时，可查看 Superpowers。",
+        "en": "Compare Superpowers for a development process that connects planning, execution, debugging and testing."
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "zh": "主要需求是跨步骤保存任务计划和进度时，可比较更聚焦文件记录的 planning-with-files。",
+        "en": "Compare planning-with-files when the main requirement is preserving plans and progress across task steps."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
   }
 }
