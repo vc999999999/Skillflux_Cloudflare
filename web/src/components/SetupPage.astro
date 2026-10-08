@@ -13,7 +13,8 @@ const catalogRepo = getPublication().snapshot.repo ?? "vc999999999/skillflux-cat
 const repoArgument = `--repo ${catalogRepo}`;
 const releaseUrl = `${SITE.repoUrl}/releases/tag/v${packageInfo.version}`;
 const releasePackageUrl = `${SITE.repoUrl}/releases/download/v${packageInfo.version}/skillflux-mcp-${packageInfo.version}.tgz`;
-const installCommand = `npm install -g ${releasePackageUrl}`;
+const installCommand = `npm install -g @skillflux/mcp@${packageInfo.version}`;
+const releaseInstallCommand = `npm install -g ${releasePackageUrl}`;
 const sourceInstallCommand = `npm ci\nnpm run pack:mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
 const initCommand = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host codex --update-policy manual`;
 const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
@@ -49,11 +50,12 @@ const sections = [
         <a class="setup-source" href={SITE.repoUrl} target="_blank" rel="noopener noreferrer">{t("查看源码", "View source")} <span aria-hidden="true">↗</span></a>
       </aside>
       <div class="setup-content">
-        <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("安装包通过 GitHub Releases 分发，可使用 npm 直接安装，无需下载源码。", "Install the package directly from GitHub Releases using npm; downloading the source is optional.")} <a href={releaseUrl} target="_blank" rel="noopener noreferrer">{t("版本说明与校验文件", "Release notes and checksums")}</a></p></div>
+        <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("官方 npm 公开包为 @skillflux/mcp，可直接安装，无需下载源码。GitHub Releases 提供备用安装包。", "Install the official public npm package @skillflux/mcp directly, without downloading the source. GitHub Releases provides an alternative download.")} <a href={releaseUrl} target="_blank" rel="noopener noreferrer">{t("版本说明与校验文件", "Release notes and checksums")}</a></p></div>
         <section id="install" class="setup-section">
           <div class="step-heading"><span>01</span><h2>{t("安装本地 CLI", "Install the local CLI")}</h2></div>
           <p>{t("确认 Node.js 版本满足要求后，执行下面的命令安装或升级 skillflux。", "Check your Node.js version, then run this command to install or upgrade skillflux.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
+          <details class="setup-detail"><summary>{t("备用：从 GitHub Releases 安装", "Alternative: install from GitHub Releases")}</summary><p>{t("也可以直接安装 GitHub Releases 中的同版本安装包：", "You can also install the same version directly from GitHub Releases:")}</p><pre><code>{releaseInstallCommand}</code></pre></details>
           <details class="setup-detail"><summary>{t("从源码构建", "Build from source")}</summary><p>{t("也可以在已下载的 SkillFlux 仓库根目录运行：", "Alternatively, run from the downloaded SkillFlux repository root:")}</p><pre><code>{sourceInstallCommand}</code></pre></details>
         </section>
         <section id="catalog" class="setup-section">

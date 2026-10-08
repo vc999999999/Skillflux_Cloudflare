@@ -43,11 +43,17 @@ npm run build --workspace @skillflux/web
 
 ## npm 与 MCP 接入
 
-1.1.0 安装包通过 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.1.0) 分发，可使用 npm 直接安装：
+官方 npm 公开包为 `@skillflux/mcp`，当前版本 1.1.0，可直接安装：
+
+```bash
+npm install -g @skillflux/mcp@1.1.0
+skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
+```
+
+备用安装方式：从 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.1.0) 获取安装包、版本说明与校验文件，也可直接运行：
 
 ```bash
 npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.1.0/skillflux-mcp-1.1.0.tgz
-skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
 ```
 
 也可从本仓库构建并在项目内安装：
