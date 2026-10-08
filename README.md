@@ -43,12 +43,19 @@ npm run build --workspace @skillflux/web
 
 ## npm 与 MCP 接入
 
-仓库可以构建 npm 包，本次没有对外发布 npm：
+1.1.0 安装包通过 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.1.0) 分发，可使用 npm 直接安装：
+
+```bash
+npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.1.0/skillflux-mcp-1.1.0.tgz
+skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
+```
+
+也可从本仓库构建并在项目内安装：
 
 ```bash
 npm run pack:mcp
 # 在使用者项目中安装上一步实际输出的 tgz 文件：
-npm install -D /absolute/path/to/skillflux-mcp-1.0.0.tgz
+npm install -D /absolute/path/to/skillflux-mcp-1.1.0.tgz
 npx --no-install skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex
 ```
 
@@ -63,7 +70,7 @@ npx --no-install skillflux init --project /absolute/path/to/project --repo vc999
 
 宿主需要重新读取项目配置并启用 MCP。Codex 显式使用 `$skillflux`；其他宿主通过其用户触发入口或明确要求使用 SkillFlux，通用宿主可能需手动读取 Bootstrap。Runtime 直接在当前轮返回完整技能入口与所需资源，不依赖新文件自动发现。生成这些配置不等于已经验证所有真实宿主版本。
 
-只有明确使用 `init --preauthorize-reviewed-text` 的项目才允许 MCP 安装已批准、通过用途/边界/宿主测试的纯文本包。否则使用 CLI 安装。该预授权不能替代升级具体版本的确认。
+只有明确使用 `init --preauthorize-reviewed-text` 的项目才允许 MCP 首次安装已批准、通过用途/边界/宿主测试的纯文本包。否则使用 CLI 安装。首次安装预授权和自动更新策略独立：开启其中一项不会自动开启另一项。
 
 ```bash
 skillflux search "code review" --project /absolute/path/to/project
@@ -74,7 +81,29 @@ skillflux check-updates --project /absolute/path/to/project
 skillflux pin SKILL_ID --project /absolute/path/to/project
 ```
 
-搜索在本机缓存的目录索引上进行，检索词不出本机（缓存最长 24 小时）。`check-updates`（别名 `outdated`）只读检查；升级须先 `update SKILL_ID@VERSION` 展示计划，终端确认后执行（非交互需 `--yes`）。MCP `skillflux.update` 只接受明确批准的 `planId`。固定版本须先明确 `unpin`；本地修改、锁冲突或不兼容会阻止执行；离线状态如实标明未知，不宣称「已经最新」。离线可以加载先前验证过的本地内容，但会披露「当前目录仓库状态未知」。
+搜索在本机缓存的目录索引上进行，检索词不出本机（缓存最长 24 小时）。`check-updates`（别名 `outdated`）只读检查。手动升级使用 `update SKILL_ID@VERSION` 展示计划，终端确认后执行（非交互需 `--yes`）；MCP `skillflux.update` 只接受明确批准的 `planId`。
+
+### 一次开启，使用时自动跟随内容更新
+
+新项目可在初始化时明确开启：
+
+```bash
+skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
+```
+
+已有项目可用一条命令开启，也可以随时查看或关闭：
+
+```bash
+skillflux update-policy follow-compatible --project /absolute/path/to/project
+skillflux update-policy --project /absolute/path/to/project
+skillflux update-policy manual --project /absolute/path/to/project
+```
+
+默认是 `manual`，已有项目不会被静默开启。选择 `follow-compatible` 后，CLI 或 MCP 的每次 `load` 会在返回正文前尝试检查并同步已审核、无破坏性变化、兼容当前宿主与客户端的稳定版本。仅在同一 major 内跟随；`0.x` 版本仅跟随同一 minor 的补丁。Skill 正文、参考资料与模板随包一起更新，并校验完整依赖计划、commit SHA 与逐文件哈希。MCP 没有修改这项持久授权的工具。
+
+固定版本、本地修改、跨 major、预发布版本、中间版本的破坏性变化、权限、发布者或维护者变化都会阻止自动更新。冲突或失败不会覆盖已安装内容；离线时仍可读取通过本地完整性校验的旧内容，并标明当前目录状态未知。已知撤销或本地内容被改动时仍拒绝加载。`load` 返回自动更新结果、版本变化和阻止原因。开启跟随时，回滚后恢复的版本会固定，需明确 `unpin` 才能继续跟随。
+
+这是**技能内容更新**，不是 npm/MCP 程序自更新。旧客户端用户需要先安装包含此功能的新 npm 包，再用原来的 `--repo` / `--host` 重新运行 `init` 同步入口并重启 MCP；随后开启策略即可。程序或宿主未运行时不在后台同步，你发布的新版在用户下次联网加载时生效。
 
 ## 目录仓库维护
 

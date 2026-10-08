@@ -10,6 +10,7 @@ import {
   LOCK_SCHEMA,
   PLAN_SCHEMA,
   STATE_SCHEMA,
+  type AutoUpdateResult,
   type CreatePlanOptions,
   type InstallJournal,
   type InstallResult,
@@ -29,8 +30,9 @@ import {
   type TrustRecord,
   type UpdateCheckItem,
   type UpdateCheckResult,
+  type UpdatePolicyMode,
 } from './model.js';
-import { orderedReleases, releaseCompatibility, RUNTIME_VERSION, UPDATE_CACHE_MS } from './updates.js';
+import { followsCompatibleLine, orderedReleases, parseUpdatePolicy, releaseCompatibility, RUNTIME_VERSION, UPDATE_CACHE_MS } from './updates.js';
 import {
   loadRuntimeState,
   moveDirectoryAtomic,
@@ -119,6 +121,23 @@ export class SkillFluxRuntime {
     return this.policyValue;
   }
 
+  async getUpdatePolicy(): Promise<{ mode: UpdatePolicyMode }> {
+    await this.refreshPolicy();
+    return { mode: parseUpdatePolicy(this.policyValue.updatePolicy) };
+  }
+
+  /** Local CLI consent only. This is intentionally not exposed as an MCP tool. */
+  async setUpdatePolicy(mode: UpdatePolicyMode): Promise<{ mode: UpdatePolicyMode }> {
+    const selected = parseUpdatePolicy(mode);
+    return withProjectLock(this.paths, async () => {
+      await this.refreshPolicy();
+      const policy = { ...this.policyValue, updatePolicy: selected, updatedAt: new Date().toISOString() };
+      await atomicWriteJson(this.paths.policy, policy);
+      this.policyValue = policy;
+      return { mode: selected };
+    });
+  }
+
   async search(options: SearchOptions = {}): Promise<SearchResponse> {
     const query = sanitizeCapabilityQuery(options.query ?? '');
     const catalog = await this.getCatalog(false);
@@ -136,6 +155,10 @@ export class SkillFluxRuntime {
     assertSkillId(skillId);
     const lock = await readLock(this.paths);
     const catalog = await this.getCatalog(true);
+    return this.resolvePlan(skillId, options, catalog, lock);
+  }
+
+  private async resolvePlan(skillId: string, options: CreatePlanOptions, catalog: CatalogState, lock: ProjectLock): Promise<ResolutionPlan> {
     const resolved = new Map<string, CatalogIndexEntry>();
     const visiting = new Set<string>();
     const visit = async (id: string, version: string | undefined, direct: boolean): Promise<void> => {
@@ -226,9 +249,13 @@ export class SkillFluxRuntime {
     return this.executePlan(planId, actor, true);
   }
 
-  private async executePlan(planId: string, actor: 'cli' | 'mcp', authorizeUpdate: boolean): Promise<InstallResult> {
+  private async executePlan(planId: string, actor: 'cli' | 'mcp', authorizeUpdate: boolean, automatic?: { resources: string[] }): Promise<InstallResult> {
     return withProjectLock(this.paths, async () => {
+      await recoverJournal(this.paths);
       await this.refreshPolicy();
+      if (automatic && parseUpdatePolicy(this.policyValue.updatePolicy) !== 'follow-compatible') {
+        throw new SkillFluxError('AUTO_UPDATE_DISABLED', 'Automatic updates were disabled before installation');
+      }
       const plan = await readPlan(this.paths, planId);
       await assertNoSymlinkPath(this.paths.root, this.paths.installation, false);
       const installation = await readJson<InstallationState>(this.paths.installation);
@@ -242,12 +269,36 @@ export class SkillFluxRuntime {
       const catalog = await this.getCatalog(true);
       const previous = await readLock(this.paths);
       if (body.baseLockRevision !== undefined && body.baseLockRevision !== previous.revision) throw new SkillFluxError('PLAN_STALE', 'Project lock changed after this plan was created; create and review a new plan');
+      if (automatic) {
+        this.assertAutomaticPlan(body, previous, catalog.index, automatic.resources);
+        // Include dependencies removed by the new release: local edits must not
+        // be orphaned and later swept away by an otherwise safe upgrade.
+        const seen = new Set<string>();
+        const verifyTree = async (id: string): Promise<void> => {
+          if (seen.has(id)) return;
+          seen.add(id);
+          const entry = previous.skills[id];
+          if (!entry) throw new SkillFluxError('LOCK_DEPENDENCY_MISMATCH', `Missing installed dependency ${id}`);
+          await this.readAndVerifyInstalled(entry, null, { localOnly: true });
+          for (const dependency of entry.dependencies) await verifyTree(dependency.id);
+        };
+        await verifyTree(body.rootSkillId);
+      }
       for (const item of body.packages) {
         const current = previous.skills[item.id];
         if (current && current.digest !== item.digest) {
           if (!authorizeUpdate) throw new SkillFluxError('UPDATE_CONFIRMATION_REQUIRED', 'Existing versions can only change through an explicitly confirmed update plan');
           if (current.pinned) throw new SkillFluxError('VERSION_PINNED', `${item.id} is pinned at ${current.version}; explicitly unpin it before upgrading`);
-          await this.readAndVerifyInstalled(current, null, { localOnly: true });
+          const previousPackage = await this.readAndVerifyInstalled(current, null, { localOnly: true });
+          if (automatic) {
+            const target = findCatalogEntry(catalog.index, item.id, item.version)!;
+            if (previousPackage.manifest.release?.maintainedBy !== target.skill.release?.maintainedBy) {
+              throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id} changed maintainer; review it before upgrading`);
+            }
+            if (canonical(previousPackage.manifest.permissions) !== canonical(item.permissions)) {
+              throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id} changed permissions; review it before upgrading`);
+            }
+          }
         }
       }
       assertPlanCompatibleWithLock(body, previous);
@@ -262,6 +313,7 @@ export class SkillFluxRuntime {
           const entry = findCatalogEntry(catalog.index, item.id, item.version);
           if (!entry) throw new SkillFluxError('SKILL_NOT_FOUND', `${item.id}@${item.version} is not in the current catalog index`);
           validateIndexEntry(entry);
+          validateEntryForInstall(entry, this.config.host);
           if (entry.skill.digest !== item.digest) throw new SkillFluxError('PLAN_MISMATCH', `Catalog digest for ${item.id}@${item.version} changed after plan creation`);
           if (entry.skill.status === 'revoked' || entry.skill.qualification === 'revoked') {
             throw new SkillFluxError('SKILL_REVOKED', `${item.id}@${item.version} was revoked`);
@@ -359,11 +411,88 @@ export class SkillFluxRuntime {
     });
   }
 
+  private assertAutomaticPlan(plan: ResolutionPlanBody, lock: ProjectLock, catalog: CatalogIndex, resources: string[]): void {
+    const root = lock.skills[plan.rootSkillId];
+    if (!root?.direct || plan.intent !== 'update') throw new SkillFluxError('AUTO_UPDATE_BLOCKED', 'Only an already installed direct skill can follow updates');
+    const next = buildNextLock(lock, plan);
+    for (const current of Object.values(lock.skills)) {
+      if (current.pinned && next.skills[current.id]?.digest !== current.digest) {
+        throw new SkillFluxError('VERSION_PINNED', `${current.id} is pinned at ${current.version}`);
+      }
+    }
+    for (const item of plan.packages) {
+      const release = findCatalogEntry(catalog, item.id, item.version);
+      if (!release) throw new SkillFluxError('SKILL_NOT_FOUND', `${item.id}@${item.version} is no longer in the catalog`);
+      validateEntryForInstall(release, this.config.host);
+      if (release.skill.digest !== item.digest) throw new SkillFluxError('PLAN_MISMATCH', `${item.id}@${item.version} changed after plan creation`);
+      const current = lock.skills[item.id];
+      if (current?.digest === item.digest) continue;
+      if (item.version.split('+')[0].includes('-') || release.skill.release?.breaking !== false) {
+        throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id}@${item.version} is a prerelease, breaking release, or lacks explicit non-breaking metadata`);
+      }
+      if (current) {
+        if (compareVersions(item.version, current.version) <= 0 || !followsCompatibleLine(current.version, item.version)) {
+          throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id}: ${current.version} → ${item.version} requires explicit version approval`);
+        }
+        if (item.publisher !== current.publisher) throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id} changed publisher; review it before upgrading`);
+        // A later patch cannot silently jump across an earlier breaking release.
+        const breaking = catalog.skills.find(entry => entry.skill.id === item.id
+          && !entry.skill.version.split('+')[0].includes('-')
+          && compareVersions(entry.skill.version, current.version) > 0
+          && compareVersions(entry.skill.version, item.version) <= 0
+          && entry.skill.release?.breaking !== false);
+        if (breaking) throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${item.id}@${breaking.skill.version} introduces breaking or unknown changes between installed and target versions`);
+      }
+    }
+    const target = findCatalogEntry(catalog, plan.rootSkillId, plan.rootSkillVersion)!;
+    for (const path of resources) {
+      if (!target.files.some(file => file.path === path)) throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `The new release removes requested resource ${path}`);
+    }
+  }
+
+  private async followUpdates(entry: LockEntry, lock: ProjectLock, catalog: CatalogState, resources: string[]): Promise<AutoUpdateResult> {
+    const base = { mode: 'follow-compatible' as const, fromVersion: entry.version };
+    const candidates = catalog.index.skills
+      .filter(item => item.skill.id === entry.id && item.skill.status === 'approved' && item.skill.qualification === 'qualified'
+        && compareVersions(item.skill.version, entry.version) > 0)
+      .sort((a, b) => compareVersions(b.skill.version, a.skill.version));
+    if (!candidates.length) return { ...base, status: 'current' };
+    if (entry.pinned) return { ...base, status: 'blocked', reason: `${entry.id} is pinned at ${entry.version}` };
+    if (!entry.direct) return { ...base, status: 'blocked', reason: 'This dependency follows the exact version selected by its parent skill' };
+    let reason = 'No newer release is eligible for automatic updates';
+    for (const candidate of candidates) {
+      let plan: ResolutionPlan | undefined;
+      try {
+        // Reject the common exclusions before writing an internal plan.
+        if (!followsCompatibleLine(entry.version, candidate.skill.version) || candidate.skill.release?.breaking !== false) {
+          throw new SkillFluxError('AUTO_UPDATE_BLOCKED', `${entry.id}@${candidate.skill.version} requires explicit approval (major, prerelease, breaking or unknown changes)`);
+        }
+        plan = await this.resolvePlan(entry.id, { version: candidate.skill.version }, catalog, lock);
+        this.assertAutomaticPlan(plan, lock, catalog.index, resources);
+        // The executor re-reads the consent, lock and live catalog under the
+        // project mutex before installing. The model supplies no approval flag.
+        const result = await this.executePlan(plan.id, 'cli', true, { resources });
+        return { ...base, status: 'updated', toVersion: result.rootSkill.version,
+          changes: result.installed.map(item => ({ id: item.id, from: lock.skills[item.id]?.version ?? 'not installed', to: item.version })) };
+      } catch (error) {
+        reason = error instanceof Error ? error.message : String(error);
+        if (isConnectivityFailure(error)) return { ...base, status: 'unknown', reason };
+        // Do not try another release after a race or interrupted transaction.
+        if (['PLAN_STALE', 'AUTO_UPDATE_DISABLED'].includes((error as SkillFluxError).code)
+          || await readJsonIfExists<InstallJournal>(this.paths.journal)) break;
+      } finally {
+        if (plan) await rm(join(this.paths.plans, `${plan.id}.json`), { force: true });
+      }
+    }
+    return { ...base, status: 'blocked', reason };
+  }
+
   async load(skillId: string, resources: string[] = []): Promise<LoadedSkill> {
     assertSkillId(skillId);
     for (const resource of resources) if (!safeRelativePath(resource)) throw new SkillFluxError('UNSAFE_RESOURCE_PATH', `Unsafe resource path: ${resource}`);
-    const lock = await readLock(this.paths);
-    const entry = lock.skills[skillId];
+    const { mode } = await this.getUpdatePolicy();
+    let lock = await readLock(this.paths);
+    let entry = lock.skills[skillId];
     if (!entry) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} is not installed in this project`);
     const warnings: string[] = [];
     let catalogStatusKnown = true;
@@ -372,56 +501,90 @@ export class SkillFluxRuntime {
       // load() is the one operation allowed to fall back to a stale cached index:
       // previously verified content stays usable, but the fallback is disclosed.
       catalog = await this.getCatalog(true, { staleTolerant: true });
-      if (catalog.fromCache) warnings.push(`Catalog index is a cached copy fetched at ${catalog.fetchedAt}; current catalog status is unknown.`);
+      if (catalog.fromCache) {
+        catalogStatusKnown = false;
+        warnings.push(`Catalog index is a cached copy fetched at ${catalog.fetchedAt}; current catalog status is unknown.`);
+      }
     } catch (error) {
       catalogStatusKnown = false;
       catalog = { index: { schema: 'skillflux-catalog-index/v1', generatedAt: '', skills: [] }, commitSha: '', fetchedAt: '', fromCache: true };
       warnings.push(`Current catalog status is unknown: ${(error as Error).message}`);
     }
-    const installed = await this.readAndVerifyInstalled(entry, catalog.index);
-    const currentEntry = catalogStatusKnown ? findCatalogEntry(catalog.index, entry.id, entry.version) : undefined;
-    if (catalogStatusKnown && currentEntry && (currentEntry.skill.status === 'revoked' || currentEntry.skill.qualification === 'revoked')) {
-      throw new SkillFluxError('SKILL_REVOKED', `${entry.id}@${entry.version} was revoked in the current catalog`);
+    let autoUpdate: AutoUpdateResult = { mode, status: 'manual', fromVersion: entry.version };
+    const beforeFollowing = lock;
+    if (mode === 'follow-compatible') {
+      autoUpdate = catalogStatusKnown
+        ? await this.followUpdates(entry, lock, catalog, resources)
+        : { mode, status: 'unknown', fromVersion: entry.version, reason: 'Current catalog status is unknown; keeping the verified installed version' };
     }
-    if (catalogStatusKnown && currentEntry && currentEntry.skill.digest !== entry.digest) {
-      warnings.push(`Catalog content hash for ${entry.id}@${entry.version} differs from the installed package; the catalog entry may have been republished. Verify before continuing to rely on the installed copy.`);
-    }
-    const selectedResources: Record<string, string> = {};
-    for (const resource of [...new Set(resources)]) {
-      if (!Object.hasOwn(installed.files, resource)) throw new SkillFluxError('RESOURCE_NOT_FOUND', `${resource} is not a declared resource of ${skillId}`);
-      selectedResources[resource] = installed.files[resource];
-    }
-    const dependencies: LoadedSkill['dependencies'] = [];
-    const seen = new Set<string>();
-    const loadDependency = async (dependencyId: string, expectedVersion: string): Promise<void> => {
-      if (seen.has(dependencyId)) return;
-      seen.add(dependencyId);
-      const dependency = lock.skills[dependencyId];
-      if (!dependency || dependency.version !== expectedVersion) throw new SkillFluxError('LOCK_DEPENDENCY_MISMATCH', `${skillId} requires ${dependencyId}@${expectedVersion}`);
-      const verifiedDep = await this.readAndVerifyInstalled(dependency, catalog.index);
-      for (const child of verifiedDep.manifest.dependencies) await loadDependency(child.id, child.version);
-      dependencies.push({
-        id: dependency.id,
-        version: dependency.version,
-        entry: verifiedDep.manifest.entry,
-        content: verifiedDep.files[verifiedDep.manifest.entry],
-      });
-    };
-    for (const dependency of installed.manifest.dependencies) await loadDependency(dependency.id, dependency.version);
-    const result: LoadedSkill = {
-      skill: { id: entry.id, version: entry.version, digest: entry.digest, name: entry.name, publisher: entry.publisher },
-      manifest: installed.manifest,
-      entry: { path: installed.manifest.entry, content: installed.files[installed.manifest.entry] },
-      resources: selectedResources,
-      dependencies,
-      warnings,
-    };
-    try {
-      result.update = (await this.checkUpdates(skillId, false)).items[0];
-    } catch (error) {
-      result.warnings.push(`Update availability is unknown: ${(error as Error).message}`);
-    }
-    return result;
+    // Read one coherent lock and file tree. Another load, rollback or removal
+    // must not replace this graph while its content is being assembled.
+    return withProjectLock(this.paths, async () => {
+      await recoverJournal(this.paths);
+      lock = await readLock(this.paths);
+      entry = lock.skills[skillId];
+      if (!entry) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} was removed during the update check`);
+      if (mode === 'follow-compatible' && entry.version !== (autoUpdate.toVersion ?? autoUpdate.fromVersion)) {
+        autoUpdate = { ...autoUpdate, status: entry.version === autoUpdate.fromVersion ? 'blocked' : 'updated', toVersion: entry.version,
+          changes: Object.values(lock.skills).filter(item => item.digest !== beforeFollowing.skills[item.id]?.digest)
+            .map(item => ({ id: item.id, from: beforeFollowing.skills[item.id]?.version ?? 'not installed', to: item.version })),
+          reason: `Loaded ${entry.version} after transaction recovery or a concurrent version change` };
+      }
+      if (catalogStatusKnown) {
+        // Even a blocked update may have observed a newly revoked installed
+        // dependency. Always use the latest index this operation fetched.
+        try { catalog = await this.getCatalog(false); } catch (error) {
+          catalogStatusKnown = false;
+          warnings.push(`Current catalog status is unknown: ${(error as Error).message}`);
+        }
+      }
+      if (autoUpdate.reason) warnings.push(`Automatic update: ${autoUpdate.reason}`);
+      const installed = await this.readAndVerifyInstalled(entry, catalog.index);
+      const currentEntry = catalogStatusKnown ? findCatalogEntry(catalog.index, entry.id, entry.version) : undefined;
+      if (catalogStatusKnown && currentEntry && (currentEntry.skill.status === 'revoked' || currentEntry.skill.qualification === 'revoked')) {
+        throw new SkillFluxError('SKILL_REVOKED', `${entry.id}@${entry.version} was revoked in the current catalog`);
+      }
+      if (catalogStatusKnown && currentEntry && currentEntry.skill.digest !== entry.digest) {
+        warnings.push(`Catalog content hash for ${entry.id}@${entry.version} differs from the installed package; the catalog entry may have been republished. Verify before continuing to rely on the installed copy.`);
+      }
+      const selectedResources: Record<string, string> = {};
+      for (const resource of [...new Set(resources)]) {
+        if (!Object.hasOwn(installed.files, resource)) throw new SkillFluxError('RESOURCE_NOT_FOUND', `${resource} is not a declared resource of ${skillId}`);
+        selectedResources[resource] = installed.files[resource];
+      }
+      const dependencies: LoadedSkill['dependencies'] = [];
+      const seen = new Set<string>();
+      const loadDependency = async (dependencyId: string, expectedVersion: string): Promise<void> => {
+        if (seen.has(dependencyId)) return;
+        seen.add(dependencyId);
+        const dependency = lock.skills[dependencyId];
+        if (!dependency || dependency.version !== expectedVersion) throw new SkillFluxError('LOCK_DEPENDENCY_MISMATCH', `${skillId} requires ${dependencyId}@${expectedVersion}`);
+        const verifiedDep = await this.readAndVerifyInstalled(dependency, catalog.index);
+        for (const child of verifiedDep.manifest.dependencies) await loadDependency(child.id, child.version);
+        dependencies.push({
+          id: dependency.id,
+          version: dependency.version,
+          entry: verifiedDep.manifest.entry,
+          content: verifiedDep.files[verifiedDep.manifest.entry],
+        });
+      };
+      for (const dependency of installed.manifest.dependencies) await loadDependency(dependency.id, dependency.version);
+      const result: LoadedSkill = {
+        skill: { id: entry.id, version: entry.version, digest: entry.digest, name: entry.name, publisher: entry.publisher },
+        manifest: installed.manifest,
+        entry: { path: installed.manifest.entry, content: installed.files[installed.manifest.entry] },
+        resources: selectedResources,
+        dependencies,
+        warnings,
+        autoUpdate,
+      };
+      try {
+        result.update = this.describeUpdates(lock, [entry], catalog, undefined, catalogStatusKnown).items[0];
+      } catch (error) {
+        result.warnings.push(`Update availability is unknown: ${(error as Error).message}`);
+      }
+      return result;
+    });
   }
 
   async list(): Promise<ListResult> {
@@ -441,6 +604,10 @@ export class SkillFluxRuntime {
     } catch (error) {
       catalogWarning = (error as Error).message;
     }
+    return this.describeUpdates(lock, entries, catalog, catalogWarning);
+  }
+
+  private describeUpdates(lock: ProjectLock, entries: LockEntry[], catalog: (CatalogState & { fromCache: boolean }) | null, catalogWarning?: string, statusKnown = catalog !== null): UpdateCheckResult {
     const items: UpdateCheckItem[] = [];
     for (const entry of entries) {
       const warnings: string[] = [];
@@ -453,24 +620,25 @@ export class SkillFluxRuntime {
         }))
         : [];
       // Disclose whether the check came from a live fetch or the local cache.
-      const source: UpdateCheckItem['source'] = catalog ? (catalog.fromCache ? 'cache' : 'catalog') : 'unavailable';
+      const source: UpdateCheckItem['source'] = catalog?.fetchedAt ? (!statusKnown ? 'stale-cache' : catalog.fromCache ? 'cache' : 'catalog') : 'unavailable';
       const available = orderedReleases(releases.filter(item => item.qualification === 'qualified' && item.status === 'approved'));
       const latest = available[0];
       const compatible = available.find(item => releaseCompatibility(item, this.config.host, lock) === 'compatible');
       const currentRelease = releases.find(item => item.version === entry.version);
       const revoked = currentRelease?.qualification === 'revoked' || currentRelease?.status === 'revoked';
-      const revocationStatus = revoked ? 'revoked' : catalog ? 'clear' : 'unknown';
-      const compatibility = latest ? releaseCompatibility(latest, this.config.host, lock) : 'unknown';
+      const revocationStatus = revoked ? 'revoked' : statusKnown ? 'clear' : 'unknown';
+      const compatibility = latest && statusKnown ? releaseCompatibility(latest, this.config.host, lock) : 'unknown';
       let status: UpdateCheckItem['status'] = 'unknown';
       if (revocationStatus === 'revoked') status = 'revoked';
-      else if (catalog && revocationStatus === 'clear') {
+      else if (statusKnown && revocationStatus === 'clear') {
         if (compatible && compareVersions(compatible.version, entry.version) > 0) status = 'update-available';
         else if (latest && compareVersions(latest.version, entry.version) > 0 && compatibility === 'incompatible') status = 'incompatible';
         else if (currentRelease?.qualification === 'qualified' && compatibility === 'compatible') status = 'current';
       }
-      items.push({ id: entry.id, currentVersion: entry.version, latestVersion: latest?.version ?? null, latestCompatibleVersion: compatible?.version ?? null, status,
+      if (!statusKnown) warnings.push('Current catalog status is unknown; cached versions do not establish freshness.');
+      items.push({ id: entry.id, currentVersion: entry.version, latestVersion: statusKnown ? latest?.version ?? null : null, latestCompatibleVersion: statusKnown ? compatible?.version ?? null : null, status,
         pinned: entry.pinned === true, notes: latest?.release?.notes ?? null, breaking: latest?.release?.breaking ?? null, compatibility,
-        revocationStatus, checkedAt: catalog?.fetchedAt ?? null, source, warnings });
+        revocationStatus, checkedAt: catalog?.fetchedAt || null, source, warnings });
     }
     return { projectRoot: this.paths.root, lockRevision: lock.revision, checkedAt: new Date().toISOString(), cacheTtlHours: 24, items };
   }
@@ -505,7 +673,8 @@ export class SkillFluxRuntime {
       for (const file of files) {
         const candidate = await readJson<ProjectLock>(join(this.paths.history, file));
         if (candidate.schema !== LOCK_SCHEMA) continue;
-        if (!skillId || candidate.skills[skillId]?.version !== current.skills[skillId]?.version) {
+        const versions = (lock: ProjectLock) => Object.fromEntries(Object.values(lock.skills).map(entry => [entry.id, entry.digest]));
+        if (skillId ? candidate.skills[skillId]?.version !== current.skills[skillId]?.version : canonical(versions(candidate)) !== canonical(versions(current))) {
           desired = candidate;
           break;
         }
@@ -517,7 +686,12 @@ export class SkillFluxRuntime {
         if (entry.pinned && desired.skills[entry.id]?.digest !== entry.digest) throw new SkillFluxError('VERSION_PINNED', `${entry.id} is pinned; explicitly unpin it before rolling back`);
       }
       for (const entry of Object.values(desired.skills)) await this.ensurePackageMaterialized(entry, catalog);
-      for (const entry of Object.values(desired.skills)) entry.pinned = current.skills[entry.id]?.pinned ?? false;
+      for (const entry of Object.values(desired.skills)) {
+        // An explicit rollback should survive the next automatic load.
+        const rolledBack = current.skills[entry.id]?.digest !== entry.digest;
+        entry.pinned = (current.skills[entry.id]?.pinned ?? false)
+          || (parseUpdatePolicy(this.policyValue.updatePolicy) === 'follow-compatible' && rolledBack);
+      }
       const next: ProjectLock = { ...desired, revision: current.revision + 1, updatedAt: new Date().toISOString() };
       const journal: InstallJournal = {
         schema: STATE_SCHEMA,
@@ -586,6 +760,7 @@ export class SkillFluxRuntime {
     await assertNoSymlinkPath(this.paths.root, this.paths.policy, false);
     const policy = await readJson<RuntimePolicy>(this.paths.policy);
     if (policy.schema !== STATE_SCHEMA || typeof policy.preauthorizeReviewedText !== 'boolean' || typeof policy.locale !== 'string') throw new SkillFluxError('INVALID_LOCAL_POLICY', 'Project policy is invalid; refusing to use previous permissions');
+    parseUpdatePolicy(policy.updatePolicy);
     this.policyValue = policy;
   }
 

@@ -6,6 +6,7 @@ import { canonical } from '../shared.js';
 import { CatalogClient, normalizeSourceUrl, parseRepoRef } from './catalog-client.js';
 import { installBootstrapSkill } from './bootstrap.js';
 import { SkillFluxError } from './errors.js';
+import { parseUpdatePolicy } from './updates.js';
 import {
   INSTALL_MANIFEST_FILE,
   LOCK_SCHEMA,
@@ -128,6 +129,7 @@ async function mergeMcpConfig(projectRoot: string, cliPath: string, host: Host):
 
 export async function initializeProject(options: InitOptions): Promise<InitResult> {
   validateHost(options.host);
+  if (options.updatePolicy !== undefined) parseUpdatePolicy(options.updatePolicy);
   const projectRoot = await canonicalProjectRoot(options.projectRoot);
   const repo = (() => { const parsed = parseRepoRef(options.repo); return `${parsed.owner}/${parsed.repo}`; })();
   const source = normalizeSourceUrl(options.source);
@@ -163,6 +165,7 @@ export async function initializeProject(options: InitOptions): Promise<InitResul
     const policy: RuntimePolicy = {
       schema: STATE_SCHEMA,
       preauthorizeReviewedText: options.preauthorizeReviewedText ?? previousPolicy?.preauthorizeReviewedText ?? false,
+      updatePolicy: parseUpdatePolicy(options.updatePolicy ?? previousPolicy?.updatePolicy),
       locale: options.locale ?? previousPolicy?.locale ?? 'zh-CN',
       createdAt: previousPolicy?.createdAt ?? now,
       updatedAt: now,
@@ -195,6 +198,7 @@ export async function initializeProject(options: InitOptions): Promise<InitResul
       host: options.host,
       mcpConfigPath,
       bootstrapSkillPath,
+      updatePolicy: policy.updatePolicy!,
       trust,
       trustNotice: `Pinned catalog repository ${repo} at commit ${commitSha.slice(0, 10)} (source ${source}). All downloads anchor to commit SHAs; verify the repository owner out of band before relying on it.`,
     };
@@ -223,6 +227,7 @@ export async function loadRuntimeState(projectRootInput: string): Promise<{
   }
   if (config.projectRoot !== projectRoot) throw new SkillFluxError('PROJECT_BINDING_MISMATCH', 'Runtime configuration is bound to a different canonical project root');
   if (config.repo !== trust.repo) throw new SkillFluxError('TRUST_ORIGIN_MISMATCH', 'Pinned repository does not match the configured catalog repository');
+  parseUpdatePolicy(policy.updatePolicy);
   return { paths, config, policy, trust, installation };
 }
 

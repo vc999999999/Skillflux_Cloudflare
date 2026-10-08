@@ -5,7 +5,8 @@ import type { Host } from '../shared.js';
 import { SkillFluxError } from './errors.js';
 import { assertNoSymlinkPath, atomicWriteText } from './paths.js';
 
-const OWNERSHIP_MARKER = '<!-- skillflux-bootstrap:v1 -->';
+// Upgrade previously managed entry skills while leaving user-owned files alone.
+const OWNERSHIP_MARKER = /^<!-- skillflux-bootstrap:v[123] -->\r?$/m;
 
 function packageRoot(): string {
   return resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -32,7 +33,7 @@ export async function installBootstrapSkill(projectRoot: string, host: Host): Pr
     if (error.code === 'ENOENT') return null;
     throw error;
   });
-  if (existing !== null && !existing.includes(OWNERSHIP_MARKER)) {
+  if (existing !== null && !OWNERSHIP_MARKER.test(existing)) {
     throw new SkillFluxError('BOOTSTRAP_CONFLICT', `Refusing to overwrite a user-owned Skill at ${join(target, 'SKILL.md')}`);
   }
   await atomicWriteText(skillTarget, skill, 0o644);

@@ -63,12 +63,12 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.load', {
     title: 'Load a verified skill into this turn',
-    description: 'Reverify an installed package, check the current catalog for revocations, and return its complete main entry plus explicitly requested resources for immediate use.',
+    description: 'Reverify an installed package and check current catalog qualification and revocations. If the user enabled the local follow-compatible update policy, apply eligible reviewed stable updates before returning the complete entry and requested resources. May write installed files and the project lock. Reports the automatic update outcome; does not change the persistent update policy.',
     inputSchema: {
       skillId: z.string().min(1).max(96),
       resources: z.array(z.string().min(1).max(240)).max(32).optional().default([]),
     },
-    annotations: { readOnlyHint: true, openWorldHint: true },
+    annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
   }, async args => toolResult(async () => {
     const loaded = await runtime.load(args.skillId, args.resources);
     return { value: loaded, text: renderLoadedSkill(loaded) };
@@ -109,7 +109,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.update', {
     title: 'Execute an explicitly authorized fixed update plan',
-    description: 'Call only after the user explicitly approves the exact versions and breaking changes in a skillflux.plan result. Requires that planId; initial reviewed-text preauthorization does not authorize arbitrary upgrades. Does not resolve latest versions. Local edits, pins, stale plans and revoked targets block execution.',
+    description: 'Call only after the user explicitly approves the exact versions and breaking changes in a skillflux.plan result. Requires that planId; neither initial reviewed-text preauthorization nor follow-compatible policy authorizes arbitrary upgrades through this tool. Eligible automatic updates happen during load. Does not resolve latest versions. Local edits, pins, stale plans and revoked targets block execution.',
     inputSchema: { planId: z.string().min(20).max(100) },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   }, async args => toolResult(async () => {
@@ -119,7 +119,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.rollback', {
     title: 'Roll back the project skill lock',
-    description: 'Restore a previous verified, non-revoked lock state. This is available to MCP only under the project local preauthorization policy.',
+    description: 'Restore a previous verified, non-revoked lock state and, when following is enabled, pin restored versions to prevent immediately following them forward again. This is available to MCP only under the project local preauthorization policy.',
     inputSchema: { skillId: z.string().min(1).max(96).optional() },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   }, async args => toolResult(async () => {
@@ -162,15 +162,20 @@ function renderLoadedSkill(loaded: Awaited<ReturnType<SkillFluxRuntime['load']>>
     `Verified SkillFlux skill ${loaded.skill.id}@${loaded.skill.version}`,
     `Publisher: ${loaded.skill.publisher}`,
     `Digest: ${loaded.skill.digest}`,
-    '',
-    `# Main entry: ${loaded.entry.path}`,
-    '',
-    loaded.entry.content,
   ];
+  if (loaded.autoUpdate) {
+    const update = loaded.autoUpdate;
+    output.push(`Automatic update: mode=${update.mode}; status=${update.status}; version=${update.fromVersion}${update.toVersion ? ` → ${update.toVersion}` : ''}.`);
+    if (update.reason) output.push(`Automatic update reason: ${update.reason}`);
+    if (update.changes?.length) output.push(...update.changes.map(change => `Updated ${change.id}: ${change.from} → ${change.to}`));
+    if (update.status === 'blocked') output.push('Automatic update did not apply. Keep the existing policy and pins; obtain explicit approval for an exact manual update plan if a version change is needed.');
+    if (update.status === 'unknown') output.push('Current catalog status is unknown. The returned local content has been verified; this does not establish that it is the latest version.');
+  }
+  output.push('', `# Main entry: ${loaded.entry.path}`, '', loaded.entry.content);
   for (const dependency of loaded.dependencies) output.push('', `# Dependency: ${dependency.id}@${dependency.version} (${dependency.entry})`, '', dependency.content);
   for (const [path, content] of Object.entries(loaded.resources)) output.push('', `# Requested resource: ${path}`, '', content);
   if (loaded.warnings.length) output.push('', '# Runtime warnings', ...loaded.warnings.map(warning => `- ${warning}`));
-  if (loaded.update && loaded.update.status !== 'current') output.push('', `Runtime update notice: ${loaded.update.id}@${loaded.update.currentVersion}; status=${loaded.update.status}; latest compatible=${loaded.update.latestCompatibleVersion ?? 'unknown'}; pinned=${loaded.update.pinned}; checked=${loaded.update.checkedAt ?? 'never'}; source=${loaded.update.source}. Check updates and ask the user before changing versions.`);
+  if (loaded.update && loaded.update.status !== 'current') output.push('', `Runtime update notice: ${loaded.update.id}@${loaded.update.currentVersion}; status=${loaded.update.status}; latest compatible=${loaded.update.latestCompatibleVersion ?? 'unknown'}; pinned=${loaded.update.pinned}; checked=${loaded.update.checkedAt ?? 'never'}; source=${loaded.update.source}. Manual updates require an exact plan and explicit user approval.`);
   return output.join('\n');
 }
 

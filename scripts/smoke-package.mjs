@@ -85,7 +85,8 @@ try {
   };
 
   // Serve the catalog GitHub-style: /api head resolution + raw paths pinned to a commit SHA.
-  const commitSha = createHash('sha1').update(`smoke-${randomUUID()}`).digest('hex');
+  let commitSha = createHash('sha1').update(`smoke-${randomUUID()}`).digest('hex');
+  const publishedFiles = new Map([['skills/development/code-review/1.0.0/SKILL.md', skillText]]);
   const repo = 'fixture-owner/skillflux-catalog';
   server = http.createServer((request, response) => {
     const url = new URL(request.url, 'http://127.0.0.1');
@@ -97,7 +98,7 @@ try {
     const [, sha, path] = raw;
     if (sha !== commitSha) return send({ error: { code: 'not_found', message: 'commit not served' } }, 404);
     if (path === 'index.json') return send(index);
-    if (path === 'skills/development/code-review/1.0.0/SKILL.md') return sendText(skillText);
+    if (publishedFiles.has(path)) return sendText(publishedFiles.get(path));
     return send({ error: { code: 'not_found', message: 'not found' } }, 404);
   });
   await new Promise(resolveListen => server.listen(0, '127.0.0.1', resolveListen));
@@ -125,10 +126,31 @@ try {
   await client.connect(new StdioClientTransport({ command: process.execPath, args: config.mcpServers.skillflux.args, stderr: 'pipe' }));
   const tools = await client.listTools();
   assert.ok(tools.tools.some(tool => tool.name === 'skillflux.load'));
+  assert.equal(tools.tools.find(tool => tool.name === 'skillflux.load').annotations.readOnlyHint, false);
+  // Enable consent through the installed CLI while the MCP process is already
+  // connected, then publish a new immutable release in the fixture catalog.
+  const policy = JSON.parse((await invoke(['update-policy', 'follow-compatible', '--project', project])).stdout);
+  assert.equal(policy.mode, 'follow-compatible');
+  await invoke(['init', '--project', project, '--repo', repo, '--source', origin, '--host', 'generic']);
+  const upgradedText = `${skillText}\nUpdated content from release 1.1.0.\n`;
+  const upgradedManifest = { ...manifest, version: '1.1.0', release: { ...manifest.release, notes: 'Compatible synthetic content update' } };
+  const upgradedDigest = sha256(JSON.stringify(upgradedManifest));
+  const upgradedEntry = structuredClone(index.skills[0]);
+  upgradedEntry.skill = { ...upgradedEntry.skill, ...upgradedManifest, digest: upgradedDigest, size: Buffer.byteLength(upgradedText) };
+  upgradedEntry.skill.quality.evaluation.contentHash = upgradedDigest;
+  upgradedEntry.files = [{ path: 'SKILL.md', sha256: sha256(upgradedText), size: Buffer.byteLength(upgradedText) }];
+  index.skills.push(upgradedEntry);
+  publishedFiles.set('skills/development/code-review/1.1.0/SKILL.md', upgradedText);
+  commitSha = createHash('sha1').update(`smoke-updated-${randomUUID()}`).digest('hex');
   const result = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
   assert.notEqual(result.isError, true);
-  assert.match(JSON.stringify(result), /# Code review/);
-  console.log('Package smoke passed: tarball → clean npm install → local GitHub-style catalog → init --repo → search → exact-version install → compiled stdio MCP load.');
+  assert.equal(result.structuredContent.skill.version, '1.1.0');
+  assert.equal(result.structuredContent.autoUpdate.status, 'updated');
+  assert.match(JSON.stringify(result), /Updated content from release 1\.1\.0/);
+  const repeated = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
+  assert.notEqual(repeated.isError, true);
+  assert.equal(repeated.structuredContent.autoUpdate.status, 'current');
+  console.log('Package smoke passed: tarball → clean npm install → init/search/install → persistent follow consent → re-init → catalog release → running stdio MCP auto-update and same-turn new content.');
 } finally {
   await client?.close();
   if (server) {

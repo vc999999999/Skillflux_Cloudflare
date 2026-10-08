@@ -11,10 +11,14 @@ const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const catalogRepo = getPublication().snapshot.repo ?? "vc999999999/skillflux-catalog";
 const repoArgument = `--repo ${catalogRepo}`;
-const installCommand = `npm ci\nnpm run build --workspace @skillflux/mcp\nnpm pack --workspace @skillflux/mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
-const initCommand = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host codex`;
+const releaseUrl = `${SITE.repoUrl}/releases/tag/v${packageInfo.version}`;
+const releasePackageUrl = `${SITE.repoUrl}/releases/download/v${packageInfo.version}/skillflux-mcp-${packageInfo.version}.tgz`;
+const installCommand = `npm install -g ${releasePackageUrl}`;
+const sourceInstallCommand = `npm ci\nnpm run pack:mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
+const initCommand = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host codex --update-policy manual`;
 const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
-const updateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID';
+const updateCommand = 'skillflux update-policy follow-compatible --project .\nskillflux load SKILL_ID --project .\nskillflux update-policy --project .';
+const manualUpdateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID\nskillflux update-policy manual --project .';
 const hosts = [
   { id: "codex", name: "Codex", config: ".codex/config.toml", skill: ".agents/skills/skillflux/" },
   { id: "claude", name: "Claude Code", config: ".mcp.json", skill: ".claude/skills/skillflux/" },
@@ -30,13 +34,13 @@ const sections = [
   ["faq", t("常见问题", "Common questions")]
 ];
 ---
-<BaseLayout lang={lang} canonicalPath={localizePath("/install/", lang)} title={t("接入能力 · 安装指南", "Connect Capabilities · Setup")} description={t("从源码安装 SkillFlux，为你的 Agent 接入项目所需的各项能力（Skills、MCP 工具、插件）。", "Install SkillFlux to equip your AI agent with whatever capabilities it needs: skills, MCP tools, and plugins.")} pageClass="setup-page">
+<BaseLayout lang={lang} canonicalPath={localizePath("/install/", lang)} title={t("接入能力 · 安装指南", "Connect Capabilities · Setup")} description={t("安装 SkillFlux，为你的 Agent 接入项目所需的各项能力，并自动跟随兼容的技能更新。", "Install SkillFlux to equip your AI agent with capabilities and automatically follow compatible skill updates.")} pageClass="setup-page">
   <main id="main-content" class="page-shell setup-shell" data-catalog-repo={catalogRepo} data-repo-argument={repoArgument}>
     <header class="setup-heading">
       <p class="eyebrow">{t("为 AGENT 扩充能力", "EQUIP YOUR AGENT")}</p>
       <h1 class="page-title">{t("想给 Agent 增加的能力，一键接入。", "Give your AI agent new capabilities.")}</h1>
       <p class="page-lede">{t("为 Claude、Cursor 和 Codex 接入统一的运行时。按需搜索能力、审核版本计划，自动写入宿主配置。", "Equip Claude, Cursor, and Codex with the exact capabilities your project demands. Search, review, and load on demand.")}</p>
-      <div class="setup-pills"><span>Node.js ≥ 22.13.0</span><span>npm + MCP</span><span>{t("当前：源码安装", "Available: source install")}</span></div>
+      <div class="setup-pills"><span>Node.js ≥ 22.13.0</span><span>npm + MCP</span><span>v{packageInfo.version}</span></div>
     </header>
     <div class="setup-layout">
       <aside class="setup-nav">
@@ -45,15 +49,16 @@ const sections = [
         <a class="setup-source" href={SITE.repoUrl} target="_blank" rel="noopener noreferrer">{t("查看源码", "View source")} <span aria-hidden="true">↗</span></a>
       </aside>
       <div class="setup-content">
-        <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("当前提供源码与本地构建包。以下命令从已下载的 SkillFlux 仓库根目录执行；暂不以公开 npm 发布为安装前提。", "Source and local build packages are available. Run the first commands from your downloaded SkillFlux repository root; a public npm release is not assumed.")}</p></div>
+        <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("安装包通过 GitHub Releases 分发，可使用 npm 直接安装，无需下载源码。", "Install the package directly from GitHub Releases using npm; downloading the source is optional.")} <a href={releaseUrl} target="_blank" rel="noopener noreferrer">{t("版本说明与校验文件", "Release notes and checksums")}</a></p></div>
         <section id="install" class="setup-section">
           <div class="step-heading"><span>01</span><h2>{t("安装本地 CLI", "Install the local CLI")}</h2></div>
-          <p>{t("构建当前版本并安装 skillflux 命令。确认 Node.js 版本满足要求后，再执行下面四条命令。", "Build the current version and install the skillflux command. Check your Node.js version, then run these four commands.")}</p>
-          <div class="command-block"><div class="command-label"><span>TERMINAL · {t("仓库根目录", "REPOSITORY ROOT")}</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
+          <p>{t("确认 Node.js 版本满足要求后，执行下面的命令安装或升级 skillflux。", "Check your Node.js version, then run this command to install or upgrade skillflux.")}</p>
+          <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
+          <details class="setup-detail"><summary>{t("从源码构建", "Build from source")}</summary><p>{t("也可以在已下载的 SkillFlux 仓库根目录运行：", "Alternatively, run from the downloaded SkillFlux repository root:")}</p><pre><code>{sourceInstallCommand}</code></pre></details>
         </section>
         <section id="catalog" class="setup-section">
           <div class="step-heading"><span>02</span><h2>{t("连接技能目录仓库", "Connect the skill catalog")}</h2></div>
-          <p>{t("SkillFlux 的精选技能保存在 GitHub 目录仓库中。init 会解析仓库当前 commit 并固定它，之后所有下载都来自这个 commit 地址，并逐一校验文件哈希。", "SkillFlux curated skills live in a GitHub catalog repository. init resolves the repository's current commit and pins it; every download then anchors to that commit and verifies per-file hashes.")}</p>
+          <p>{t("SkillFlux 的精选技能保存在 GitHub 目录仓库中。init 固定目录仓库身份。每次同步会解析当前 commit，本次下载都来自同一 commit 地址，并逐一校验文件哈希。", "SkillFlux curated skills live in a GitHub catalog repository. init pins the catalog repository identity. Each sync resolves the current commit, anchors its downloads to that commit and verifies per-file hashes.")}</p>
           <p><code>{catalogRepo}</code></p>
           <p class="step-hint">{t("只有完成真实评测并获批准的版本才可安装。当前可用版本以精品库和客户端搜索结果为准。", "Only evaluated and approved releases can be installed. Check the curated registry or search with the client for available versions.")}</p>
         </section>
@@ -61,10 +66,12 @@ const sections = [
           <div class="step-heading"><span>03</span><h2>{t("选择你的 AI 工具", "Choose your AI tool")}</h2></div>
           <p>{t("进入目标项目，选择宿主后复制命令。init 合并项目内的 MCP 配置，保留已有服务器，并固定目录仓库身份。", "Open your target project, choose a host and copy the command. init merges the project's MCP configuration, preserves existing servers and pins the catalog repository identity.")}</p>
           <div class="host-switch" role="group" aria-label={t("AI 工具", "AI host")}>{hosts.map(host => <button type="button" data-setup-host={host.id} aria-pressed={host.id === "codex"}>{host.name}</button>)}</div>
+          <p>{t("选择更新方式。默认手动更新；开启自动跟随后，下次加载时会同步已审核、兼容的稳定版本，无需每次确认。", "Choose an update policy. Manual is the default. Enable automatic following to receive reviewed, compatible stable releases when you next load a skill, without approving each eligible update.")}</p>
+          <div class="host-switch" role="group" aria-label={t("更新方式", "Update policy")}><button type="button" data-setup-update-policy="manual" aria-pressed="true">{t("手动更新（默认）", "Manual (default)")}</button><button type="button" data-setup-update-policy="follow-compatible" aria-pressed="false">{t("自动跟随兼容版本", "Follow compatible releases")}</button></div>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-init-copy data-copy-text={initCommand}>{t("复制", "Copy")}</button></div><pre><code data-init-command>{initCommand}</code></pre></div>
           <div class="host-paths">{hosts.map(host => <div data-host-path={host.id} hidden={host.id !== "codex"}><p><span>{t("MCP 配置", "MCP config")}</span><code>{host.config}</code></p><p><span>{t("入口 Skill", "Entry skill")}</span><code>{host.skill}</code></p></div>)}</div>
           <p class="step-hint">{t("替换 /path/to/your-project 为真实项目路径。宿主重新读取 MCP 配置后，再显式调用 SkillFlux；Codex 中使用 $skillflux。通用宿主可能需要手动加载入口。", "Replace /path/to/your-project with your real project path. Reload MCP configuration, then explicitly invoke SkillFlux. Use $skillflux in Codex; generic hosts may need the entry loaded manually.")}</p>
-          <details class="setup-detail"><summary>{t("允许 MCP 直接安装已审核的纯文本包", "Allow MCP to install reviewed text bundles")}</summary><p>{t("只有明确在 init 命令中加入 --preauthorize-reviewed-text，MCP 才能直接安装已批准、完成用途与边界测试且无网络、Shell 或密钥权限的纯文本包。默认通过 CLI 安装；具体版本升级仍需明确确认。", "Only an explicit --preauthorize-reviewed-text flag on init allows MCP to install approved text bundles with completed purpose and boundary tests and no network, shell or secret capabilities. CLI installation is the default; exact-version upgrades still need approval.")}</p></details>
+          <details class="setup-detail"><summary>{t("允许 MCP 直接安装已审核的纯文本包", "Allow MCP to install reviewed text bundles")}</summary><p>{t("只有明确在 init 命令中加入 --preauthorize-reviewed-text，MCP 才能首次安装已批准、完成用途与边界测试且无网络、Shell 或密钥权限的纯文本包。它与自动更新策略独立，需要分别选择；手动指定版本升级仍需明确确认。", "An explicit --preauthorize-reviewed-text flag on init lets MCP initially install approved text bundles with completed purpose and boundary tests and no network, shell or secret capabilities. Initial installation consent and automatic following are separate choices; manual exact-version upgrades still need approval.")}</p></details>
         </section>
         <section id="first-skill" class="setup-section">
           <div class="step-heading"><span>04</span><h2>{t("搜索、看计划，再安装", "Search, review, install")}</h2></div>
@@ -73,10 +80,12 @@ const sections = [
           <p class="step-hint">{t("将 SKILL_ID、VERSION 和 PLAN_ID 替换为实际返回值。安装时逐文件下载并校验哈希、资格与撤销状态；load 在当前轮提供技能入口和所需资源。", "Replace SKILL_ID, VERSION and PLAN_ID with actual values. Installation downloads each file at the pinned commit and rechecks hashes, qualification and revocations. load provides the skill entry and needed resources in the current turn.")}</p>
         </section>
         <section id="updates" class="setup-section">
-          <div class="step-heading"><span>05</span><h2>{t("版本变化，由你决定", "You decide when to update")}</h2></div>
-          <p>{t("check-updates 只检查；update 指定精确版本后展示计划并等待终端确认。pin 可固定版本，升级前需先 unpin。", "check-updates is read-only. update with an exact version shows a plan and waits for terminal confirmation. pin locks a version; unpin it before upgrading.")}</p>
+          <div class="step-heading"><span>05</span><h2>{t("开启一次，使用时跟随更新", "Enable once, update when you use it")}</h2></div>
+          <p>{t("已有项目运行第一条命令即可开启自动跟随。每次 load 在返回正文前同步符合策略的新版，正文、参考资料和模板一起更新，并返回更新结果与版本变化。", "For an existing project, enable following with the first command. Each load syncs eligible releases before returning the skill body, including references and templates, and reports the outcome and version changes.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={updateCommand}>{t("复制", "Copy")}</button></div><pre><code>{updateCommand}</code></pre></div>
-          <p class="step-hint">{t("目录索引缓存最长 24 小时，手动检查默认刷新。离线状态会标明缓存时间与未知项；安装、升级和回滚需要在线检查资格与撤销。", "The catalog index cache lasts up to 24 hours; manual checks refresh by default. Offline results show cache age and unknown states. Installation, upgrades and rollback require online qualification and revocation checks.")}</p>
+          <p>{t("自动跟随限于同一大版本的稳定、兼容、无破坏性变化的已审核内容；0.x 仅跟随同一小版本的补丁。固定版本、本地修改、权限、发布者或维护者变化以及依赖冲突都会阻止自动更新，load 会说明原因。离线可加载通过本地校验的旧内容，并标明当前目录状态未知。", "Following accepts reviewed, compatible stable releases without breaking changes within the same major version; 0.x stays within the same minor. Pins, local edits, publisher, maintainer or permission changes and dependency conflicts block automatic updates, with a reason in the load response. Offline loading can return locally verified content while reporting the current catalog status as unknown.")}</p>
+          <details class="setup-detail"><summary>{t("固定版本、手动升级或关闭自动跟随", "Pin, update manually or turn following off")}</summary><p>{t("check-updates 只检查；update 指定精确版本后展示计划并等待终端确认。pin 固定版本，unpin 解除固定。开启跟随时，回滚后会固定恢复的版本，避免下次立即升回。最后一条命令关闭自动跟随。", "check-updates is read-only; update with an exact version shows a plan for terminal approval. pin fixes a version and unpin releases it. With following enabled, rollback pins restored versions to prevent an immediate automatic upgrade. The last command turns following off.")}</p><pre><code>{manualUpdateCommand}</code></pre></details>
+          <p class="step-hint">{t("自动更新的是技能内容，不是 npm/MCP 程序。旧客户端需先安装新包，再使用原来的仓库与宿主重新运行 init 同步入口并重启 MCP，之后开启策略。应用未运行时不会后台同步；更新在下次联网加载时生效。", "Following updates skill content, not the npm/MCP program. Existing clients must first install the new package, rerun init with their original repository and host to refresh the entry, restart MCP, then enable following. There is no background sync while the app is stopped; updates happen on the next online load.")}</p>
         </section>
         <section id="faq" class="setup-section setup-faq">
           <div class="step-heading"><span>06</span><h2>{t("常见问题", "Common questions")}</h2></div>
@@ -93,15 +102,27 @@ const sections = [
   const repoArgument = document.querySelector<HTMLElement>("[data-repo-argument]")?.dataset.repoArgument;
   const command = document.querySelector<HTMLElement>("[data-init-command]");
   const copy = document.querySelector<HTMLButtonElement>("[data-init-copy]");
+  function renderInitCommand() {
+    const host = document.querySelector<HTMLButtonElement>('[data-setup-host][aria-pressed="true"]')?.dataset.setupHost;
+    const updatePolicy = document.querySelector<HTMLButtonElement>('[data-setup-update-policy][aria-pressed="true"]')?.dataset.setupUpdatePolicy;
+    if (!host || !updatePolicy || !repoArgument || !command || !copy) return;
+    const value = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host ${host} --update-policy ${updatePolicy}`;
+    command.textContent = value;
+    copy.dataset.copyText = value;
+  }
   document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(button => {
     button.addEventListener("click", () => {
       const host = button.dataset.setupHost;
-      if (!host || !repoArgument || !command || !copy) return;
-      const value = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host ${host}`;
-      command.textContent = value;
-      copy.dataset.copyText = value;
+      if (!host) return;
       document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
       document.querySelectorAll<HTMLElement>("[data-host-path]").forEach(item => { item.hidden = item.dataset.hostPath !== host; });
+      renderInitCommand();
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>("[data-setup-update-policy]").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll<HTMLButtonElement>("[data-setup-update-policy]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+      renderInitCommand();
     });
   });
 </script>

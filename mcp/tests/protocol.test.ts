@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { fixtureCatalog } from './runtime-fixture.js';
+import { SkillFluxRuntime } from '../src/runtime/runtime.js';
 
 function waitable(): { promise: Promise<void>; resolve: () => void } {
   let resolve: () => void;
@@ -80,5 +81,58 @@ test('same-turn load returns the entry content through MCP', async t => {
   const text = (loaded.content as { text: string }[])[0]!.text;
   assert.match(text, /Synthetic test fixture version 1\.0\.0/);
   assert.match(text, /Main entry: SKILL\.md/);
+  assert.match(text, /Automatic update: mode=manual; status=manual/);
   void waitable;
+});
+
+test('MCP load follows local update policy and explains updates, blocks and offline fallback', async t => {
+  const fixture = await fixtureCatalog(t);
+  const runtime = await SkillFluxRuntime.open(fixture.project);
+  const plan = await runtime.createPlan('code-review', { version: '1.0.0' });
+  await runtime.installPlan(plan.id, 'cli');
+  await runtime.setUpdatePolicy('follow-compatible');
+  fixture.add('1.1.0');
+
+  const transport = new StdioClientTransport({
+    command: process.execPath,
+    args: ['--import', 'tsx', 'dist/cli.js', 'serve', '--project', fixture.project],
+    cwd: process.cwd(),
+  });
+  const client = new Client({ name: 'skillflux-follow-protocol-test', version: '1.1.0' });
+  await client.connect(transport);
+  t.after(() => client.close());
+
+  const toolList = await client.listTools();
+  assert.equal(toolList.tools.find(tool => tool.name === 'skillflux.load')?.annotations?.readOnlyHint, false);
+  assert.ok(!toolList.tools.some(tool => /update.?policy/i.test(tool.name)), 'MCP must not expose persistent follow consent');
+
+  const updated = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
+  assert.ok(!updated.isError, JSON.stringify(updated.content));
+  const updatedValue = updated.structuredContent as { skill: { version: string }; autoUpdate: { mode: string; status: string; fromVersion: string; toVersion: string } };
+  assert.equal(updatedValue.skill.version, '1.1.0');
+  assert.equal(updatedValue.autoUpdate.mode, 'follow-compatible');
+  assert.equal(updatedValue.autoUpdate.status, 'updated');
+  assert.equal(updatedValue.autoUpdate.fromVersion, '1.0.0');
+  assert.equal(updatedValue.autoUpdate.toVersion, '1.1.0');
+  const updatedText = (updated.content as { text: string }[])[0]!.text;
+  assert.match(updatedText, /Automatic update: mode=follow-compatible; status=updated; version=1\.0\.0 → 1\.1\.0/);
+  assert.match(updatedText, /Synthetic test fixture version 1\.1\.0/);
+  assert.ok(updatedText.indexOf('Automatic update:') < updatedText.indexOf('# Main entry:'), 'update disclosure must precede skill instructions');
+
+  await runtime.setPinned('code-review', true);
+  fixture.add('1.2.0');
+  const blocked = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
+  assert.ok(!blocked.isError, JSON.stringify(blocked.content));
+  assert.equal((blocked.structuredContent as { autoUpdate: { status: string } }).autoUpdate.status, 'blocked');
+  const blockedText = (blocked.content as { text: string }[])[0]!.text;
+  assert.match(blockedText, /Automatic update reason:.*pin/i);
+  assert.match(blockedText, /Synthetic test fixture version 1\.1\.0/);
+
+  fixture.setOffline(true);
+  const offline = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
+  assert.ok(!offline.isError, JSON.stringify(offline.content));
+  assert.equal((offline.structuredContent as { autoUpdate: { status: string } }).autoUpdate.status, 'unknown');
+  const offlineText = (offline.content as { text: string }[])[0]!.text;
+  assert.match(offlineText, /Current catalog status is unknown/);
+  assert.match(offlineText, /Synthetic test fixture version 1\.1\.0/);
 });

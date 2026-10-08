@@ -1,6 +1,6 @@
 {
   "name": "@skillflux/mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Curated skill marketplace client: local MCP runtime and GitHub catalog tooling for SkillFlux",
   "type": "module",
   "license": "MIT",
@@ -18,8 +18,9 @@
   ],
   "scripts": {
     "dev": "tsx src/cli.ts --help",
-    "build": "tsc -p tsconfig.json",
+    "build": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true });\" && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "pretest": "npm run build",
     "test": "tsx --test tests/*.test.ts",
     "start": "node dist/cli.js serve",
     "prepack": "npm run build"

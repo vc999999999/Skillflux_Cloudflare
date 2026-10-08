@@ -19,10 +19,13 @@ export interface RuntimeConfig {
 }
 
 export type Host = 'generic' | 'codex' | 'claude' | 'cursor';
+export type UpdatePolicyMode = 'manual' | 'follow-compatible';
 
 export interface RuntimePolicy {
   schema: typeof STATE_SCHEMA;
   preauthorizeReviewedText: boolean;
+  /** Missing in older projects means manual; installation consent is separate. */
+  updatePolicy?: UpdatePolicyMode;
   locale: string;
   createdAt: string;
   updatedAt: string;
@@ -127,6 +130,16 @@ export interface LoadedSkill {
   dependencies: { id: string; version: string; entry: string; content: string }[];
   warnings: string[];
   update?: UpdateCheckItem;
+  autoUpdate?: AutoUpdateResult;
+}
+
+export interface AutoUpdateResult {
+  mode: UpdatePolicyMode;
+  status: 'manual' | 'current' | 'updated' | 'blocked' | 'unknown';
+  fromVersion: string;
+  toVersion?: string;
+  reason?: string;
+  changes?: { id: string; from: string; to: string }[];
 }
 
 export interface InstallResult {
@@ -188,6 +201,7 @@ export interface InitOptions {
   cliPath: string;
   source?: string;
   preauthorizeReviewedText?: boolean;
+  updatePolicy?: UpdatePolicyMode;
   locale?: string;
 }
 
@@ -197,6 +211,7 @@ export interface InitResult {
   host: Host;
   mcpConfigPath: string;
   bootstrapSkillPath: string;
+  updatePolicy: UpdatePolicyMode;
   trust: TrustRecord;
   trustNotice: string;
 }

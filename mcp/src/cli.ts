@@ -13,6 +13,9 @@ import { errorMessage, SkillFluxError } from './runtime/errors.js';
 import { SkillFluxRuntime } from './runtime/runtime.js';
 import { buildCatalogIndex, checkCatalogIndex } from './catalog/build.js';
 import { DEFAULT_CATALOG_REPO } from './runtime/catalog-client.js';
+import type { UpdatePolicyMode } from './runtime/model.js';
+import { runtimePaths } from './runtime/paths.js';
+import { parseUpdatePolicy } from './runtime/updates.js';
 
 export async function main(argv = process.argv.slice(2)): Promise<number> {
   const [command, ...args] = argv;
@@ -29,6 +32,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
   if (command === 'load') return loadCommand(args);
   if (command === 'list') return listCommand(args);
   if (command === 'update') return updateCommand(args);
+  if (command === 'update-policy') return updatePolicyCommand(args);
   if (command === 'check-updates' || command === 'outdated') return checkUpdatesCommand(args);
   if (command === 'pin' || command === 'unpin') return pinCommand(args, command === 'pin');
   if (command === 'rollback') return rollbackCommand(args);
@@ -75,18 +79,37 @@ async function initCommand(args: string[]): Promise<number> {
       host: { type: 'string' },
       locale: { type: 'string' },
       'preauthorize-reviewed-text': { type: 'boolean' },
+      'update-policy': { type: 'string' },
     },
   });
   const host = parseHost(parsed.values.host ?? 'generic');
+  const projectRoot = parsed.values.project ?? process.cwd();
+  let updatePolicy: UpdatePolicyMode | undefined = parsed.values['update-policy'] === undefined
+    ? undefined : parseUpdatePolicy(parsed.values['update-policy']);
   const cliPath = await compiledCliPath();
+  if (updatePolicy === undefined && process.stdin.isTTY && process.stderr.isTTY) {
+    const existingConfig = await stat(runtimePaths(projectRoot).config).catch((error: NodeJS.ErrnoException) => {
+      if (error.code === 'ENOENT') return null;
+      throw error;
+    });
+    if (!existingConfig) {
+      process.stderr.write('Follow mode automatically installs reviewed, compatible skill updates when you load them. Pinned versions and local edits are preserved; breaking changes still need approval.\n');
+      const input = createInterface({ input: process.stdin, output: process.stderr });
+      try {
+        const answer = (await input.question('Enable automatic follow updates for this project? [y/N] ')).trim().toLowerCase();
+        updatePolicy = answer === 'y' || answer === 'yes' ? 'follow-compatible' : 'manual';
+      } finally { input.close(); }
+    }
+  }
   const result = await initializeProject({
-    projectRoot: parsed.values.project ?? process.cwd(),
+    projectRoot,
     repo: parsed.values.repo ?? process.env.SKILLFLUX_CATALOG_REPO ?? DEFAULT_CATALOG_REPO,
     source: parsed.values.source,
     host,
     cliPath,
     locale: parsed.values.locale,
     preauthorizeReviewedText: parsed.values['preauthorize-reviewed-text'],
+    updatePolicy,
   });
   process.stderr.write(`${result.trustNotice}\n`);
   printJson(result);
@@ -196,6 +219,15 @@ async function checkUpdatesCommand(args: string[]): Promise<number> {
   if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'check-updates accepts at most one skill id');
   const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
   printJson(await runtime.checkUpdates(parsed.positionals[0], !parsed.values.cached));
+  return 0;
+}
+
+async function updatePolicyCommand(args: string[]): Promise<number> {
+  const parsed = parseArgs({ args, strict: true, allowPositionals: true, options: { project: { type: 'string' } } });
+  if (parsed.positionals.length > 1) throw new SkillFluxError('INVALID_ARGUMENTS', 'update-policy accepts at most one mode: manual or follow-compatible');
+  const mode = parsed.positionals[0] === undefined ? undefined : parseUpdatePolicy(parsed.positionals[0]);
+  const runtime = await SkillFluxRuntime.open(parsed.values.project ?? process.cwd());
+  printJson(mode === undefined ? await runtime.getUpdatePolicy() : await runtime.setUpdatePolicy(mode));
   return 0;
 }
 
@@ -316,7 +348,7 @@ function usage(): string {
 
 Usage:
   skillflux catalog PATH [--check] [--output FILE]      build or verify a catalog repository index
-  skillflux init --project PATH [--repo OWNER/NAME] [--source URL] --host codex|claude|cursor|generic [--preauthorize-reviewed-text]
+  skillflux init --project PATH [--repo OWNER/NAME] [--source URL] --host codex|claude|cursor|generic [--preauthorize-reviewed-text] [--update-policy manual|follow-compatible]
   skillflux serve --project PATH
   skillflux search [QUERY...] [--project PATH] [--category CATEGORY]
   skillflux plan SKILL_ID [--version VERSION] [--project PATH]
@@ -324,6 +356,7 @@ Usage:
   skillflux load SKILL_ID [--resource PATH] [--project PATH]
   skillflux list [--project PATH]
   skillflux check-updates [SKILL_ID] [--cached] [--project PATH]
+  skillflux update-policy [manual|follow-compatible] [--project PATH]
   skillflux pin|unpin SKILL_ID [--project PATH]
   skillflux update [SKILL_ID@VERSION] [--plan PLAN_ID] [--yes] [--project PATH]
   skillflux rollback [SKILL_ID] [--yes] [--project PATH]
@@ -333,6 +366,8 @@ Usage:
 Catalog content comes from a GitHub repository (default ${DEFAULT_CATALOG_REPO}).
 The client resolves the default branch to a commit SHA and downloads every file at that SHA;
 search runs locally over a cached index, so capability queries never leave this machine.
+Automatic follow updates require opt-in with --update-policy follow-compatible during init
+or update-policy follow-compatible afterward. Omit the mode to read the saved policy.
 `;
 }
 
