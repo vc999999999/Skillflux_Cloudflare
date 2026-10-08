@@ -2373,5 +2373,241 @@
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
     ]
+  },
+  "github-com-morluto-rea": {
+    "resourceSlug": "morluto-rea",
+    "updatedAt": "2026-10-08",
+    "primaryCapability": {
+      "zh": "二进制、应用与运行行为的逆向分析",
+      "en": "Reverse engineering of binaries, applications and runtime behavior"
+    },
+    "summary": {
+      "zh": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。",
+      "en": "REA connects reverse-engineering tools to agents through MCP and a CLI, with a reverse-engineer-anything skill. It supports investigations of native binaries, JavaScript and Electron applications, .NET assemblies and runtime behavior, collecting code relationships and behavioral evidence. The MIT-licensed repository suits developers inspecting specific software artifacts."
+    },
+    "bestFor": [
+      {
+        "zh": "需要分析应用包、二进制或运行行为，并追溯结论证据的开发者。",
+        "en": "Developers investigating application packages, binaries or runtime behavior with traceable evidence."
+      },
+      {
+        "zh": "已经准备好对应分析工具，愿意按目标平台配置 REA 的用户。",
+        "en": "Users prepared to configure REA and the analysis tools needed for their target platform."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "security",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
+      "en": "Start with the installation and tool requirements for the target being analyzed. This page lists the upstream source. A candidate instruction bundle kept by SkillFlux is not an approved installable release and does not install the REA tools themselves."
+    },
+    "limitations": [
+      {
+        "zh": "需要符合上游版本要求的 Node.js 与 REA MCP 或 CLI；原生二进制、网站和 Android 等目标分别需要额外分析器、浏览器或 JDK。",
+        "en": "Requires a supported Node.js version and the REA MCP server or CLI; targets such as native binaries, websites and Android apps need additional analyzers, a browser or a JDK."
+      },
+      {
+        "zh": "静态读取与运行时捕获具有不同效果；运行时工作流会运行或操作目标程序，不能将它当作只读源码审查。",
+        "en": "Static inspection and runtime capture have different effects. Runtime workflows run or interact with the target and are not equivalent to a read-only source review."
+      }
+    ],
+    "alternativeSlugs": [
+      "mcpservers-org",
+      "github-com-obra-superpowers"
+    ],
+    "alternativeReasons": {
+      "mcpservers-org": {
+        "zh": "主要需求是发现其他 MCP 工具连接时，可查看 MCP Servers。",
+        "en": "Use MCP Servers when the main need is discovering other MCP tool integrations."
+      },
+      "github-com-obra-superpowers": {
+        "zh": "如果任务是自己项目的规划、调试和测试，可比较 Superpowers 的开发工作流。",
+        "en": "Compare Superpowers for planning, debugging and testing workflows in your own project."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-qingyuna-answer-me-with-html": {
+    "resourceSlug": "answer-me-with-html",
+    "updatedAt": "2026-10-08",
+    "primaryCapability": {
+      "zh": "将解释、流程与对比生成交互 HTML 页面",
+      "en": "Interactive HTML pages for explanations, flows and comparisons"
+    },
+    "summary": {
+      "zh": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。",
+      "en": "Answer me with HTML turns an agent-written Markdown draft with diagram syntax into a local HTML explanation through its bundled Node.js CLI. It supports concepts, call relationships, process flows and comparisons, with explainer videos available on explicit request. The MIT-licensed repository includes English and Chinese documentation."
+    },
+    "bestFor": [
+      {
+        "zh": "希望把多步骤解释或多方案对比整理成可浏览页面的用户。",
+        "en": "Users turning multi-step explanations or comparisons into browsable pages."
+      },
+      {
+        "zh": "使用支持本地文件写入和命令执行的 Agent，愿意核对渲染配置的开发者。",
+        "en": "Developers using an agent with local file and command access who can review rendering settings."
+      }
+    ],
+    "useCases": [
+      "writing",
+      "coding",
+      "video"
+    ],
+    "skillFluxNote": {
+      "zh": "页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
+      "en": "Page generation depends on the bundled CLI, so inspect both the skill and renderer instructions. This source and candidate listing does not grant SkillFlux curated-installation approval. Choose the invocation scope, update checks and video voice settings for the intended use."
+    },
+    "limitations": [
+      {
+        "zh": "需要 Node.js 20 或更新版本，并执行本地命令；生成后的页面可离线浏览，生成流程的后台版本检查可能访问 GitHub。",
+        "en": "Requires Node.js 20 or later and local command execution. Generated pages can be viewed offline, while background version checks during generation may contact GitHub."
+      },
+      {
+        "zh": "视频、语音和导出格式有额外要求；自动语音设置在环境已有相应 API 密钥时可能调用外部服务，MP4 导出需要 ffmpeg。",
+        "en": "Video, narration and export formats have additional requirements. Automatic voice selection may use an external service when its API key is present; MP4 export requires ffmpeg."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-bradautomates-claude-video",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-bradautomates-claude-video": {
+        "zh": "主要目标是制作视频时，可比较专门围绕视频工作流组织的 Claude Video。",
+        "en": "Compare Claude Video when video production is the main task."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "需要同时比较文档、设计与其他通用能力时，可查看 Anthropic 的技能合集。",
+        "en": "Review Anthropic’s collection when comparing document, design and other general-purpose skills."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-k-dense-ai-scientific-agent-skills": {
+    "resourceSlug": "scientific-agent-skills",
+    "updatedAt": "2026-10-08",
+    "primaryCapability": {
+      "zh": "科学计算、数据库检索与研究写作工作流",
+      "en": "Scientific computing, database retrieval and research writing workflows"
+    },
+    "summary": {
+      "zh": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。",
+      "en": "K-Dense’s Scientific Agent Skills, formerly Claude Scientific Skills, organizes skills around scientific packages, databases and research workflows. It covers biology, chemistry, physics, engineering, data analysis and scientific communication. The repository root uses MIT, while individual skills have their own license and dependency details to check."
+    },
+    "bestFor": [
+      {
+        "zh": "已经明确研究方法或软件包，希望查找操作流程与验证步骤的研究者。",
+        "en": "Researchers with a chosen method or software package who need workflow and validation guidance."
+      },
+      {
+        "zh": "能够准备科学计算环境、数据访问权限，并核查结果的研究开发团队。",
+        "en": "Research engineering teams able to prepare computation environments, data access and result checks."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "writing",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
+      "en": "Select a skill for the specific research question, then check its assumptions, software versions, data provenance and validation scope. This is a source listing; candidate inclusion or tests of individual skills do not establish that the whole repository was tested or that research conclusions are valid."
+    },
+    "limitations": [
+      {
+        "zh": "不少工作流需要 Python 或其他科学软件、命令执行和联网；部分数据库或服务还需要账号、API 密钥或付费访问。",
+        "en": "Many workflows require Python or other scientific software, command execution and network access. Some databases or services also require accounts, API keys or paid access."
+      },
+      {
+        "zh": "根目录 MIT 许可不能代替逐项许可检查；涉及临床、实验室或设备的工作流还需遵守原 Skill 的用途边界与人工复核要求。",
+        "en": "The root MIT license does not replace per-skill license checks. Clinical, laboratory and equipment workflows also carry purpose boundaries and human-review requirements in their own instructions."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-brycewang-stanford-auto-empirical-research-skills",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-brycewang-stanford-auto-empirical-research-skills": {
+        "zh": "研究主要涉及社会科学、因果识别和实证论文时，可比较 AERS 的方法与工作流目录。",
+        "en": "Compare AERS for social-science methods, causal identification and empirical-paper workflows."
+      },
+      "github-com-anthropics-skills": {
+        "zh": "需求主要是通用文档和演示交付时，可比较 Anthropic 的技能合集。",
+        "en": "Compare Anthropic’s collection when general document and presentation deliverables are the main need."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-brycewang-stanford-auto-empirical-research-skills": {
+    "resourceSlug": "auto-empirical-research-skills",
+    "updatedAt": "2026-10-08",
+    "primaryCapability": {
+      "zh": "社会科学实证研究与论文工作流发现",
+      "en": "Discover workflows for empirical social-science research and papers"
+    },
+    "summary": {
+      "zh": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。",
+      "en": "Auto-Empirical Research Skills (AERS) gathers skills from multiple sources for literature work, data preparation, causal analysis, reproducibility review and paper writing, including Python, R and Stata workflows. Its root license is CC BY-SA 4.0; subcollections have different terms and some unresolved provenance, requiring item-by-item checks."
+    },
+    "bestFor": [
+      {
+        "zh": "需要围绕社会科学实证研究阶段发现方法与工具的研究者。",
+        "en": "Researchers seeking methods and tools for stages of an empirical social-science project."
+      },
+      {
+        "zh": "愿意追溯原始项目，核对统计环境、研究假设与复制许可的团队。",
+        "en": "Teams willing to trace original projects and check statistical environments, research assumptions and reuse terms."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "coding",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
+      "en": "Use the repository to find candidates by research stage, then trace each skill’s author, pinned version and license. This page records the source; upstream collection counts or scores are not SkillFlux test results and do not mean the entire collection is installable through SkillFlux."
+    },
+    "limitations": [
+      {
+        "zh": "合集许可不统一：上游审计列出非商业限制、相同方式共享及许可未知的条目，不能把根许可证视为全库复制或商业使用许可。",
+        "en": "Licenses vary across the collection. The upstream audit includes non-commercial restrictions, share-alike terms and unknown licenses; the root license is not blanket permission to redistribute or commercially use every entry."
+      },
+      {
+        "zh": "具体流程可能需要 Python、R、Stata、命令执行、文献检索服务或外部 API；数据权限、识别假设与结果复现仍需逐项确认。",
+        "en": "Individual workflows may need Python, R, Stata, command execution, literature services or external APIs. Data access, identification assumptions and reproducibility still need to be checked for each task."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-k-dense-ai-scientific-agent-skills",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-k-dense-ai-scientific-agent-skills": {
+        "zh": "研究重心是自然科学软件包、实验数据或科研数据库时，可比较 Scientific Agent Skills。",
+        "en": "Compare Scientific Agent Skills for natural-science packages, experimental data and scientific databases."
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "zh": "主要困难是长任务中的计划、发现和进度记录时，可比较 planning-with-files。",
+        "en": "Compare planning-with-files when preserving plans, findings and progress is the main difficulty."
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
   }
 }

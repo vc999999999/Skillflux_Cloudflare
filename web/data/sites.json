@@ -1999,5 +1999,156 @@
     ],
     "addedAt": "2026-10-08",
     "updatedAt": "2026-10-08"
+  },
+  {
+    "id": "github-com-morluto-rea",
+    "slug": "github-com-morluto-rea",
+    "name": "REA: Reverse Engineer Anything",
+    "canonicalUrl": "https://github.com/morluto/rea",
+    "displayUrl": "github.com/morluto/rea",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "MCP"
+    ],
+    "category": "repo",
+    "language": [
+      "en",
+      "zh"
+    ],
+    "region": "global",
+    "type": "开源 Skill 与 MCP 项目",
+    "scale": "逆向分析工作流与工具",
+    "pricing": "free",
+    "tagline": "二进制、应用与运行行为的逆向分析",
+    "summary": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。",
+    "longSummary": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。\n\n先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
+    "aiSummary": "先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/morluto/rea",
+      "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/README.md",
+      "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/LICENSE",
+      "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/SKILL.md"
+    ],
+    "addedAt": "2026-10-08",
+    "updatedAt": "2026-10-08"
+  },
+  {
+    "id": "github-com-qingyuna-answer-me-with-html",
+    "slug": "github-com-qingyuna-answer-me-with-html",
+    "name": "Answer me with HTML",
+    "canonicalUrl": "https://github.com/QingYunA/answer-me-with-html",
+    "displayUrl": "github.com/QingYunA/answer-me-with-html",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "中文"
+    ],
+    "category": "repo",
+    "language": [
+      "en",
+      "zh"
+    ],
+    "region": "global",
+    "type": "开源可视化讲解 Skill",
+    "scale": "单项 Skill 与渲染工具",
+    "pricing": "free",
+    "tagline": "将解释、流程与对比生成交互 HTML 页面",
+    "summary": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。",
+    "longSummary": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。\n\n页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
+    "aiSummary": "页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/QingYunA/answer-me-with-html",
+      "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/README.md",
+      "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/LICENSE",
+      "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md"
+    ],
+    "addedAt": "2026-10-08",
+    "updatedAt": "2026-10-08"
+  },
+  {
+    "id": "github-com-k-dense-ai-scientific-agent-skills",
+    "slug": "github-com-k-dense-ai-scientific-agent-skills",
+    "name": "Scientific Agent Skills",
+    "canonicalUrl": "https://github.com/K-Dense-AI/scientific-agent-skills",
+    "displayUrl": "github.com/K-Dense-AI/scientific-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "开源",
+      "GitHub",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "科研 Agent Skill 仓库",
+    "scale": "跨学科科研工作流合集",
+    "pricing": "free",
+    "tagline": "科学计算、数据库检索与研究写作工作流",
+    "summary": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。",
+    "longSummary": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。\n\n优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
+    "aiSummary": "优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/K-Dense-AI/scientific-agent-skills",
+      "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/README.md",
+      "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/LICENSE.md",
+      "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/docs/skills.md"
+    ],
+    "addedAt": "2026-10-08",
+    "updatedAt": "2026-10-08"
+  },
+  {
+    "id": "github-com-brycewang-stanford-auto-empirical-research-skills",
+    "slug": "github-com-brycewang-stanford-auto-empirical-research-skills",
+    "name": "Auto-Empirical Research Skills (AERS)",
+    "canonicalUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+    "displayUrl": "github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "合集",
+      "中文"
+    ],
+    "category": "repo",
+    "language": [
+      "zh",
+      "en"
+    ],
+    "region": "global",
+    "type": "实证研究 Skill 来源合集",
+    "scale": "多来源研究工作流合集",
+    "pricing": "free",
+    "tagline": "社会科学实证研究与论文工作流发现",
+    "summary": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。",
+    "longSummary": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。\n\n把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
+    "aiSummary": "把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/README.md",
+      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/LICENSE",
+      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/docs/LICENSE_AUDIT.md"
+    ],
+    "addedAt": "2026-10-08",
+    "updatedAt": "2026-10-08"
   }
 ]
