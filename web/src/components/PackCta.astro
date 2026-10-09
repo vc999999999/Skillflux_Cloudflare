@@ -11,12 +11,12 @@ const isZh = lang === "zh";
     <p class="eyebrow"><span></span>CURATED REGISTRY</p>
     <h2>{isZh ? "来源目录之外，还有真正可验证的安装链路。" : "Beyond the source map, there is a verifiable install path."}</h2>
     <p>{isZh
-      ? "在精品 Registry 查看审核证据与权限，再按安装指南从本地构建 CLI。当前不宣称存在已发布的 npm 快捷安装包。"
-      : "Inspect review evidence and permissions in the curated Registry, then build the CLI locally using the setup guide. No published npm shortcut is claimed today."}</p>
+      ? "通过公开 npm 包 @skillflux/mcp 接入工具，再用 MCP 搜索已审核的 Skill。从 GitHub 下载完整发布包、加载所需内容后，由你的 AI 执行任务。"
+      : "Connect with the public @skillflux/mcp npm package, then search reviewed skills through MCP. Download complete releases from GitHub, load the needed content, and let your AI carry out the task."}</p>
   </div>
   <div class="pack-cta-actions">
     <a href={localizePath("/registry/", lang)}>{isZh ? "搜索精品 Skill" : "Search curated skills"}<span>→</span></a>
-    <a href={localizePath("/install/", lang)}>{isZh ? "本地安装指南" : "Local setup guide"}<span>↗</span></a>
+    <a href={localizePath("/install/", lang)}>{isZh ? "安装与使用指南" : "Setup and usage guide"}<span>↗</span></a>
   </div>
 </section>
 

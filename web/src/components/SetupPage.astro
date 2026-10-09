@@ -17,7 +17,15 @@ const installCommand = `npm install -g @skillflux/mcp@${packageInfo.version}`;
 const releaseInstallCommand = `npm install -g ${releasePackageUrl}`;
 const sourceInstallCommand = `npm ci\nnpm run pack:mcp\nnpm install -g ./skillflux-mcp-${packageInfo.version}.tgz`;
 const initCommand = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host codex --update-policy manual`;
-const useCommand = 'skillflux search "code review"\nskillflux plan SKILL_ID --version VERSION\nskillflux install PLAN_ID\nskillflux load SKILL_ID';
+const useCommand = 'skillflux search "grill-me" --project .\nskillflux plan grill-me --version 1.0.0 --project .\nskillflux install PLAN_ID --project .\nskillflux load grill-me --resource agents/openai.yaml --resource LICENSE.txt --project .';
+const mcpPrompt = t('使用 SkillFlux 搜索 grill-me，查看它的版本与依赖计划。按项目授权安装后，加载正文、依赖与所需资源，再帮我梳理一个项目方案。', 'Use SkillFlux to search for grill-me and inspect its version and dependency plan. Install under the project’s authorization, load its instructions, dependencies and needed resources, then help me work through a project plan.');
+const verificationUrl = `${SITE.repoUrl}/blob/main/docs/verification-clean-project-2026-10-09.md`;
+const flow = [
+  t('MCP 搜索', 'Search via MCP'), t('查看版本与依赖计划', 'Review the plan'),
+  t('从 GitHub 下载完整包并校验', 'Download and verify from GitHub'),
+  t('加载正文、依赖与所需资源', 'Load instructions and resources'),
+  t('AI 按 Skill 执行任务', 'AI carries out the task')
+];
 const updateCommand = 'skillflux update-policy follow-compatible --project .\nskillflux load SKILL_ID --project .\nskillflux update-policy --project .';
 const manualUpdateCommand = 'skillflux check-updates\nskillflux update SKILL_ID@VERSION\nskillflux pin SKILL_ID\nskillflux update-policy manual --project .';
 const hosts = [
@@ -39,8 +47,8 @@ const sections = [
   <main id="main-content" class="page-shell setup-shell" data-catalog-repo={catalogRepo} data-repo-argument={repoArgument}>
     <header class="setup-heading">
       <p class="eyebrow">{t("为 AGENT 扩充能力", "EQUIP YOUR AGENT")}</p>
-      <h1 class="page-title">{t("想给 Agent 增加的能力，一键接入。", "Give your AI agent new capabilities.")}</h1>
-      <p class="page-lede">{t("为 Claude、Cursor 和 Codex 接入统一的运行时。按需搜索能力、审核版本计划，自动写入宿主配置。", "Equip Claude, Cursor, and Codex with the exact capabilities your project demands. Search, review, and load on demand.")}</p>
+      <h1 class="page-title">{t("为 Agent 接入所需能力，从空项目开始。", "Give your AI agent new capabilities.")}</h1>
+      <p class="page-lede">{t("先安装 SkillFlux 并初始化项目，再用 MCP 搜索、安装和加载技能。npm 提供本地工具，GitHub 提供技能内容，AI 按加载的说明执行任务。", "Install SkillFlux and initialize your project, then use MCP to search, install and load skills. npm supplies the local tool, GitHub supplies skill content, and your AI follows the loaded instructions.")}</p>
       <div class="setup-pills"><span>Node.js ≥ 22.13.0</span><span>npm + MCP</span><span>v{packageInfo.version}</span></div>
     </header>
     <div class="setup-layout">
@@ -53,7 +61,7 @@ const sections = [
         <div class="setup-note"><strong>{t("开始之前", "Before you start")}</strong><p>{t("官方 npm 公开包为 @skillflux/mcp，可直接安装，无需下载源码。GitHub Releases 提供备用安装包。", "Install the official public npm package @skillflux/mcp directly, without downloading the source. GitHub Releases provides an alternative download.")} <a href={releaseUrl} target="_blank" rel="noopener noreferrer">{t("版本说明与校验文件", "Release notes and checksums")}</a></p></div>
         <section id="install" class="setup-section">
           <div class="step-heading"><span>01</span><h2>{t("安装本地 CLI", "Install the local CLI")}</h2></div>
-          <p>{t("确认 Node.js 版本满足要求后，执行下面的命令安装或升级 skillflux。", "Check your Node.js version, then run this command to install or upgrade skillflux.")}</p>
+          <p>{t("确认 Node.js 版本满足要求后，执行下面的命令安装或升级 skillflux。安装这个公开包和读取公开目录无需 npm 或 GitHub 登录。", "Check your Node.js version, then run this command to install or upgrade skillflux. Installing this public package and reading the public catalog do not require npm or GitHub login.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL</span><button type="button" data-copy-text={installCommand}>{t("复制", "Copy")}</button></div><pre><code>{installCommand}</code></pre></div>
           <details class="setup-detail"><summary>{t("备用：从 GitHub Releases 安装", "Alternative: install from GitHub Releases")}</summary><p>{t("也可以直接安装 GitHub Releases 中的同版本安装包：", "You can also install the same version directly from GitHub Releases:")}</p><pre><code>{releaseInstallCommand}</code></pre></details>
           <details class="setup-detail"><summary>{t("从源码构建", "Build from source")}</summary><p>{t("也可以在已下载的 SkillFlux 仓库根目录运行：", "Alternatively, run from the downloaded SkillFlux repository root:")}</p><pre><code>{sourceInstallCommand}</code></pre></details>
@@ -62,12 +70,14 @@ const sections = [
           <div class="step-heading"><span>02</span><h2>{t("连接技能目录仓库", "Connect the skill catalog")}</h2></div>
           <p>{t("SkillFlux 的精选技能保存在 GitHub 目录仓库中。init 固定目录仓库身份。每次同步会解析当前 commit，本次下载都来自同一 commit 地址，并逐一校验文件哈希。", "SkillFlux curated skills live in a GitHub catalog repository. init pins the catalog repository identity. Each sync resolves the current commit, anchors its downloads to that commit and verifies per-file hashes.")}</p>
           <p><code>{catalogRepo}</code></p>
-          <p class="step-hint">{t("只有完成真实评测并获批准的版本才可安装。当前可用版本以精品库和客户端搜索结果为准。", "Only evaluated and approved releases can be installed. Check the curated registry or search with the client for available versions.")}</p>
+          <p class="step-hint">{t("来源登记、完整包收录和开放安装是三个阶段。选中的包会保留脚本、模板、引用资源和许可证；只有通过审核且兼容当前宿主的发布版本，才会出现在 MCP 搜索和安装结果中。", "Source listing, complete collection and installation approval are separate stages. Selected packages preserve scripts, templates, references and licenses; MCP search and installation expose only approved releases compatible with the current host.")}</p>
         </section>
         <section id="project" class="setup-section">
           <div class="step-heading"><span>03</span><h2>{t("选择你的 AI 工具", "Choose your AI tool")}</h2></div>
           <p>{t("进入目标项目，选择宿主后复制命令。init 合并项目内的 MCP 配置，保留已有服务器，并固定目录仓库身份。", "Open your target project, choose a host and copy the command. init merges the project's MCP configuration, preserves existing servers and pins the catalog repository identity.")}</p>
           <div class="host-switch" role="group" aria-label={t("AI 工具", "AI host")}>{hosts.map(host => <button type="button" data-setup-host={host.id} aria-pressed={host.id === "codex"}>{host.name}</button>)}</div>
+          <label class="setup-install-choice"><input type="checkbox" data-setup-preauthorize aria-describedby="install-choice-hint" /><span>{t("允许 MCP 在本项目安装已审核的纯文本技能包", "Allow MCP to install reviewed text bundles in this project")}</span></label>
+          <p id="install-choice-hint" class="step-hint">{t("勾选后，初始化命令会加入 --preauthorize-reviewed-text。未勾选不会新增授权：新项目通过终端安装，已有项目保留此前的授权设置。首次安装授权与下面的更新方式分别设置。", "Selecting this adds --preauthorize-reviewed-text to init. Leaving it unchecked grants no new consent: new projects install through the terminal, while existing projects retain their previous authorization. Initial installation consent and the update policy below are separate choices.")}</p>
           <p>{t("选择更新方式。默认手动更新；开启自动跟随后，下次加载时会同步已审核、兼容的稳定版本，无需每次确认。", "Choose an update policy. Manual is the default. Enable automatic following to receive reviewed, compatible stable releases when you next load a skill, without approving each eligible update.")}</p>
           <div class="host-switch" role="group" aria-label={t("更新方式", "Update policy")}><button type="button" data-setup-update-policy="manual" aria-pressed="true">{t("手动更新（默认）", "Manual (default)")}</button><button type="button" data-setup-update-policy="follow-compatible" aria-pressed="false">{t("自动跟随兼容版本", "Follow compatible releases")}</button></div>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-init-copy data-copy-text={initCommand}>{t("复制", "Copy")}</button></div><pre><code data-init-command>{initCommand}</code></pre></div>
@@ -76,10 +86,14 @@ const sections = [
           <details class="setup-detail"><summary>{t("允许 MCP 直接安装已审核的纯文本包", "Allow MCP to install reviewed text bundles")}</summary><p>{t("只有明确在 init 命令中加入 --preauthorize-reviewed-text，MCP 才能首次安装已批准、完成用途与边界测试且无网络、Shell 或密钥权限的纯文本包。它与自动更新策略独立，需要分别选择；手动指定版本升级仍需明确确认。", "An explicit --preauthorize-reviewed-text flag on init lets MCP initially install approved text bundles with completed purpose and boundary tests and no network, shell or secret capabilities. Initial installation consent and automatic following are separate choices; manual exact-version upgrades still need approval.")}</p></details>
         </section>
         <section id="first-skill" class="setup-section">
-          <div class="step-heading"><span>04</span><h2>{t("搜索、看计划，再安装", "Search, review, install")}</h2></div>
-          <p>{t("搜索在本地缓存的目录索引上进行，检索词不会离开你的机器。从返回结果中选择 Skill 和精确版本，查看 plan 输出的权限、依赖和文件，确认后使用它返回的计划 ID 安装。", "Search runs locally over a cached catalog index; queries never leave your machine. Choose a skill and exact version, review the plan's capabilities, dependencies and files, then install using its returned plan ID.")}</p>
+          <div class="step-heading"><span>04</span><h2>{t("搜索、安装、加载，再使用", "Search, install, load and use")}</h2></div>
+          <ol class="setup-flow">{flow.map(step => <li>{step}</li>)}</ol>
+          <p>{t("宿主重新读取 MCP 配置后，显式调用 SkillFlux；Codex 中先输入 $skillflux，再描述任务。搜索在本地缓存的目录索引上进行，检索词不会离开你的机器。查看计划的版本、权限与依赖后，按项目授权安装。", "After your host reloads MCP configuration, explicitly invoke SkillFlux; in Codex, enter $skillflux and describe the task. Search runs over a locally cached catalog index, keeping queries on your machine. Review the plan’s versions, capabilities and dependencies, then install under the project’s authorization.")}</p>
+          <div class="command-block"><div class="command-label"><span>{t("发给 AI 的示例", "EXAMPLE PROMPT FOR YOUR AI")}</span><button type="button" data-copy-text={mcpPrompt}>{t("复制", "Copy")}</button></div><pre class="prompt-text"><code>{mcpPrompt}</code></pre></div>
+          <p>{t("也可以在终端逐步操作。以下用 grill-me@1.0.0 演示；它会一起安装 grilling@1.0.0 依赖。其他技能请采用搜索结果中的实际版本。", "You can also work through the steps in a terminal. This example uses grill-me@1.0.0, which also installs its grilling@1.0.0 dependency. For other skills, use a version returned by search.")}</p>
           <div class="command-block"><div class="command-label"><span>TERMINAL · {t("你的项目", "YOUR PROJECT")}</span><button type="button" data-copy-text={useCommand}>{t("复制", "Copy")}</button></div><pre><code>{useCommand}</code></pre></div>
-          <p class="step-hint">{t("将 SKILL_ID、VERSION 和 PLAN_ID 替换为实际返回值。安装时逐文件下载并校验哈希、资格与撤销状态；load 在当前轮提供技能入口和所需资源。", "Replace SKILL_ID, VERSION and PLAN_ID with actual values. Installation downloads each file at the pinned commit and rechecks hashes, qualification and revocations. load provides the skill entry and needed resources in the current turn.")}</p>
+          <p class="step-hint">{t("将 PLAN_ID 替换为上一条命令返回的计划 ID。安装会下载发布包清单中的全部文件及依赖，并核验哈希和安装资格；load 将入口、依赖正文与请求的资源返回当前轮。随后由 AI 按这些说明执行任务。", "Replace PLAN_ID with the plan ID returned by the preceding command. Installation downloads every file in the release inventory and its dependencies, verifying hashes and eligibility. load returns entry instructions, dependency instructions and requested resources in the current turn. Your AI then follows those instructions to perform the task.")}</p>
+          <div class="setup-note setup-verification"><strong>{t("空项目流程已实测", "Verified from an empty project")}</strong><p>{t("2026-10-09 使用公开 npm 包 1.1.0 和真实 GitHub 目录，通过 stdio MCP 安装上述两包。6 个内容文件的大小与 SHA-256 全部一致，重启 MCP 后仍能完整加载。此次更新检查返回当前版本，未发生版本升级。", "On 2026-10-09, the public npm package 1.1.0 installed both packages through stdio MCP using the live GitHub catalog. All six content files matched their sizes and SHA-256 hashes, and a restarted MCP server loaded them successfully. The update check reported current versions; no upgrade occurred.")} <a href={verificationUrl} target="_blank" rel="noopener noreferrer">{t("查看验证范围与记录", "View verification scope and record")}</a></p></div>
         </section>
         <section id="updates" class="setup-section">
           <div class="step-heading"><span>05</span><h2>{t("开启一次，使用时跟随更新", "Enable once, update when you use it")}</h2></div>
@@ -92,6 +106,7 @@ const sections = [
         <section id="faq" class="setup-section setup-faq">
           <div class="step-heading"><span>06</span><h2>{t("常见问题", "Common questions")}</h2></div>
           <details><summary>{t("目录里的来源，都能一键安装吗？", "Can I install every directory source?")}</summary><p>{t("来源目录帮助你发现第三方资源。SkillFlux 的安装命令只用于当前目录仓库已批准的版本；第三方 MCP 服务器或合集请查看原站的接入说明。", "The source directory helps you discover third-party resources. SkillFlux installation commands apply to approved versions in your catalog repository. Follow the original instructions for other MCP servers and collections.")}</p></details>
+          <details><summary>{t("以后更新 Skill，还需要重新安装 npm 吗？", "Do skill updates require reinstalling npm?")}</summary><p>{t("已发布到目录仓库的技能内容由本地 Runtime 从 GitHub 获取。开启自动跟随后，加载时同步符合策略的版本。新增客户端功能或修复程序时，才需要升级 @skillflux/mcp；网站页面会在重新构建部署后显示更新。", "The local runtime fetches released skill content from GitHub. With following enabled, loading syncs releases that meet the policy. Upgrade @skillflux/mcp for new client features or program fixes. Website pages reflect changes after a rebuild and deployment.")}</p></details>
           <details><summary>{t("是否修改全局 AI 工具配置？", "Does setup modify global AI settings?")}</summary><p>{t("init 只写入指定项目的 MCP 配置与入口文件，保留已有服务器，遇到用户自有入口文件时不会直接覆盖。", "init writes only the specified project's MCP configuration and entry files, preserves existing servers and does not overwrite user-owned entry files.")}</p></details>
           <details><summary>{t("接入后会自动运行所有 Skill 吗？", "Will every skill run automatically?")}</summary><p>{t("需要用户显式调用。宿主读取轻量入口后，由本地 MCP Runtime 搜索、校验和加载；网站不替你运行模型。", "An explicit user invocation is required. After reading the lightweight entry, the host uses the local MCP runtime to search, verify and load. The website does not run your model.")}</p></details>
         </section>
@@ -104,14 +119,16 @@ const sections = [
   const repoArgument = document.querySelector<HTMLElement>("[data-repo-argument]")?.dataset.repoArgument;
   const command = document.querySelector<HTMLElement>("[data-init-command]");
   const copy = document.querySelector<HTMLButtonElement>("[data-init-copy]");
+  const preauthorize = document.querySelector<HTMLInputElement>("[data-setup-preauthorize]");
   function renderInitCommand() {
     const host = document.querySelector<HTMLButtonElement>('[data-setup-host][aria-pressed="true"]')?.dataset.setupHost;
     const updatePolicy = document.querySelector<HTMLButtonElement>('[data-setup-update-policy][aria-pressed="true"]')?.dataset.setupUpdatePolicy;
     if (!host || !updatePolicy || !repoArgument || !command || !copy) return;
-    const value = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host ${host} --update-policy ${updatePolicy}`;
+    const value = `cd /path/to/your-project\nskillflux init --project . ${repoArgument} --host ${host}${preauthorize?.checked ? ' --preauthorize-reviewed-text' : ''} --update-policy ${updatePolicy}`;
     command.textContent = value;
     copy.dataset.copyText = value;
   }
+  preauthorize?.addEventListener("change", renderInitCommand);
   document.querySelectorAll<HTMLButtonElement>("[data-setup-host]").forEach(button => {
     button.addEventListener("click", () => {
       const host = button.dataset.setupHost;
@@ -161,6 +178,11 @@ const sections = [
   .host-switch button { padding: 8px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); font-size: .84rem; font-weight: 500; color: var(--muted); transition: all .15s ease; box-shadow: var(--shadow-sm); }
   .host-switch button:hover { color: var(--ink); border-color: rgba(23, 21, 15, 0.3); }
   .host-switch button[aria-pressed="true"] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); font-weight: 600; }
+  .setup-install-choice { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; line-height: 1.6; cursor: pointer; }
+  .setup-install-choice input { margin-top: 5px; accent-color: var(--ink); }
+  .setup-flow { padding-left: 24px; margin: 20px 0; color: var(--ink); font-size: .92rem; line-height: 1.9; }
+  .command-block pre.prompt-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .setup-verification { margin-top: 24px; }
   .host-paths { margin-top: 18px; padding: 6px 18px; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius-md); }
   .host-paths p { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .8rem; margin: 10px 0; }
   .host-paths p span { width: 90px; flex-shrink: 0; color: var(--muted); font-weight: 500; }

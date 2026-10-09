@@ -47,9 +47,9 @@ const description = isZh
     <section class="registry-process" aria-labelledby="registry-process-title">
       <div class="registry-section-heading"><span>02 / HOW IT WORKS</span><h2 id="registry-process-title">{isZh ? '从候选项目，到可安装版本。' : 'From candidate to installable release.'}</h2></div>
       <div class="registry-process-steps">
-        <article><span>01</span><h3>{isZh ? '核对来源与文件' : 'Check source and files'}</h3><p>{isZh ? '确认来源、版本、文件、权限和依赖；自动检查先拦下明显风险。' : 'Verify source, version, files, permissions and dependencies. Automated checks catch obvious risks.'}</p></article>
+        <article><span>01</span><h3>{isZh ? '核对来源与完整包' : 'Check source and complete packages'}</h3><p>{isZh ? '按选定 Skill 收集完整目录、资源和必要依赖，保留来源与许可证；完整收录后仍需审核安装资格。' : 'Collect each selected skill’s complete directory, resources and required dependencies with provenance and licenses. Complete collection still requires a separate installation review.'}</p></article>
         <article><span>02</span><h3>{isZh ? '真实使用与记录' : 'Test and record usage'}</h3><p>{isZh ? '在声明支持的宿主中实际使用，记录用途、边界、结果和限制。' : 'Run it in a declared host and record its purpose, outcome and limits.'}</p></article>
-        <article><span>03</span><h3>{isZh ? '审核后发布' : 'Approve and publish'}</h3><p>{isZh ? '只有通过审核的具体版本才能进入目录；安装时客户端再次核验。' : 'Only the approved version enters the catalog. The client checks it again when installing.'}</p></article>
+        <article><span>03</span><h3>{isZh ? '审核后发布' : 'Approve and publish'}</h3><p>{isZh ? '只有通过审核的具体版本才能进入可安装 Registry；安装时客户端再次核验完整发布包。' : 'Only approved releases enter the installable Registry. The client verifies the complete release again during installation.'}</p></article>
       </div>
       <a class="registry-process-link" href={localizePath('/quality/', lang)}>{isZh ? '阅读完整收录与质检标准 ↗' : 'Read the full quality standards ↗'}</a>
     </section>

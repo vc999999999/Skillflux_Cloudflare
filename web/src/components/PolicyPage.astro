@@ -45,16 +45,17 @@ const documents = {
     sections: [
       [t("产品与合作", "Product and cooperation inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the desired collaboration and at least one contact channel.")],
       [t("目录内容问题", "Catalog content concerns"), t("目录内容问题可直接在对应 GitHub 仓库提交 Issue，说明技能 ID、版本和具体问题。", "For catalog content concerns, open an issue in the corresponding GitHub repository with the skill ID, version and the specific problem.")],
-      [t("本地接入与资料请求", "Local setup and data requests"), t("先阅读接入指南，检查本地构建、宿主配置与目录仓库地址。资料更正或删除请求可沿用既有联系渠道说明。不要提交项目密钥或完整私人对话。", "Start with the setup guide and check your local build, host configuration and catalog repository. For data corrections or deletions, use an established contact channel. Do not submit project secrets or complete private conversations.")]
+      [t("本地接入与资料请求", "Local setup and data requests"), t("先阅读接入指南，检查客户端安装与版本、宿主配置和目录仓库地址。资料更正或删除请求可沿用既有联系渠道说明。不要提交项目密钥或完整私人对话。", "Start with the setup guide and check your client installation and version, host configuration and catalog repository. For data corrections or deletions, use an established contact channel. Do not submit project secrets or complete private conversations.")]
     ]
   }
 };
 const document = documents[kind];
+const updatedAt = kind === "contact" ? "2026-10-09" : "2026-10-01";
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/" + kind + "/", lang)} title={document.label} description={document.intro} pageClass="policy-page">
   <main id="main-content" class="policy-shell">
     <a href={localizePath("/",lang)} class="policy-back">← {t("返回首页", "Home")}</a>
-    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 2026-10-01", "Current implementation · Updated 2026-10-01")}</small></header>
+    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 ", "Current implementation · Updated ")}{updatedAt}</small></header>
     <div class="policy-body">
       <nav aria-label={t("相关说明", "Related information")}>
         {[["quality",t("质量标准","Quality standards")],["privacy",t("隐私说明","Privacy")],["terms",t("服务条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}

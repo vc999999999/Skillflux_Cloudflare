@@ -5,8 +5,8 @@ import { scenarios } from './scenarios';
 
 export function discoveryIndex(publication: Publication = getPublication()) {
   return {
-    qualificationNote: 'Source listings and editorial articles are not usage-test approvals. Curated releases require separate safety checks and human evaluation.',
-    freshness: 'Static build snapshot, not live installation authority. npm/MCP verifies current eligibility and revocations before installation and loading.',
+    qualificationNote: 'Source listings, complete candidate collection and editorial articles are not installation approvals. Curated releases require separate safety checks and human evaluation.',
+    freshness: 'Static build snapshot, not live installation authority. The local SkillFlux runtime checks current eligibility and revocations before installation and loading; offline loads disclose unknown current status.',
     curated: {
       repo: publication.snapshot.repo, snapshotAt: publication.snapshot.fetchedAt,
       skills: publication.latest.map(({ skill }) => ({ ...skill, url: absoluteUrl(skillPath(skill.id)), versionUrl: absoluteUrl(skillPath(skill.id, skill.version)) })),
@@ -33,8 +33,11 @@ export function renderDiscoveryText(full = false, publication: Publication = get
     }
   }
   lines.push('## Public release states', ...index.curated.versions.map(version => `- ${version.id}@${version.version}: ${version.qualification}${version.reason ? ` — ${version.reason}` : ''}; ${version.url}`), '', '## Local project workflow',
-    'Install the SkillFlux npm entry and local MCP server using the setup guide. Explicitly invoke SkillFlux to search a locally cached catalog index; authorize an exact-version installation plan before files are downloaded at a pinned catalog commit.',
-    'check-updates is read-only. Normal update notices are cached for 24 hours; revocation checks have a separate freshness policy. A pinned version is not silently upgraded. Offline or stopped clients cannot receive real-time push notifications.',
+    'Install @skillflux/mcp from npm, then run init in the target project to create the SkillFlux entry point and local MCP configuration. MCP installation requires explicit local init consent with --preauthorize-reviewed-text; without it, the user can install through the CLI.',
+    'Explicitly invoke SkillFlux, then search the locally cached GitHub catalog, plan exact versions and dependencies, and install. Installation downloads and verifies every declared file in each planned release from a pinned GitHub commit, including supporting resources and licenses. npm supplies the local tools; GitHub supplies skill content.',
+    'load re-verifies local packages and returns the selected entry, dependency instructions and requested resources in the current turn. The host AI uses these instructions to perform the task. SkillFlux does not execute the skill scripts itself.',
+    'check-updates reports status without installing updates; ordinary cached results have a 24-hour lifetime. Users may explicitly enable follow-compatible through the local CLI or init. Subsequent load calls check for and apply reviewed, stable, compatible releases before returning content. Pins, local edits and breaking changes block automatic replacement. Manual MCP update still requires an approved exact-version plan.',
+    'Automatic following updates GitHub skill content, not the npm client. It has no background scheduler or real-time push while the client is stopped. Offline loads disclose unknown current catalog status.',
     `Setup: ${absoluteUrl('/install/')}`, `Quality: ${absoluteUrl('/quality/')}`, '');
   return lines.join('\n');
 }
