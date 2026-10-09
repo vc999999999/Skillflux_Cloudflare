@@ -1982,12 +1982,12 @@
     ],
     "region": "global",
     "type": "开源 skill 仓库",
-    "scale": "工程工作流合集",
+    "scale": "固定提交全部 38 个 Skill",
     "pricing": "free",
     "tagline": "需求澄清、测试与代码审查工作流",
-    "summary": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。",
-    "longSummary": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。\n\n先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
-    "aiSummary": "先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
+    "summary": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。",
+    "longSummary": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。\n\n完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
+    "aiSummary": "完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1995,10 +1995,12 @@
     "sourceUrls": [
       "https://github.com/mattpocock/skills",
       "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/README.md",
-      "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/LICENSE"
+      "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/LICENSE",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/mattpocock-all-2026-10-09.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/mattpocock-all-2026-10-09.json"
     ],
     "addedAt": "2026-10-08",
-    "updatedAt": "2026-10-08"
+    "updatedAt": "2026-10-09"
   },
   {
     "id": "github-com-morluto-rea",
@@ -2019,12 +2021,12 @@
     ],
     "region": "global",
     "type": "开源 Skill 与 MCP 项目",
-    "scale": "逆向分析工作流与工具",
+    "scale": "完整 Skill 包与独立分析工具",
     "pricing": "free",
     "tagline": "二进制、应用与运行行为的逆向分析",
-    "summary": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。",
-    "longSummary": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。\n\n先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
-    "aiSummary": "先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
+    "summary": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。",
+    "longSummary": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。\n\n完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
+    "aiSummary": "完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2033,10 +2035,12 @@
       "https://github.com/morluto/rea",
       "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/README.md",
       "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/LICENSE",
-      "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/SKILL.md"
+      "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/SKILL.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/morluto-rea-2026-10-08.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/morluto-rea-2026-10-08.json"
     ],
     "addedAt": "2026-10-08",
-    "updatedAt": "2026-10-08"
+    "updatedAt": "2026-10-09"
   },
   {
     "id": "github-com-qingyuna-answer-me-with-html",
@@ -2057,12 +2061,12 @@
     ],
     "region": "global",
     "type": "开源可视化讲解 Skill",
-    "scale": "单项 Skill 与渲染工具",
+    "scale": "完整 Skill 与捆绑渲染器",
     "pricing": "free",
     "tagline": "将解释、流程与对比生成交互 HTML 页面",
-    "summary": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。",
-    "longSummary": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。\n\n页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
-    "aiSummary": "页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
+    "summary": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。",
+    "longSummary": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。\n\n完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
+    "aiSummary": "完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2071,10 +2075,12 @@
       "https://github.com/QingYunA/answer-me-with-html",
       "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/README.md",
       "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/LICENSE",
-      "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md"
+      "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/qingyuna-answer-me-with-html-2026-10-08.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/qingyuna-answer-me-with-html-2026-10-08.json"
     ],
     "addedAt": "2026-10-08",
-    "updatedAt": "2026-10-08"
+    "updatedAt": "2026-10-09"
   },
   {
     "id": "github-com-k-dense-ai-scientific-agent-skills",
@@ -2094,12 +2100,12 @@
     ],
     "region": "global",
     "type": "科研 Agent Skill 仓库",
-    "scale": "跨学科科研工作流合集",
+    "scale": "精选 2 个主技能 + 1 个支持技能",
     "pricing": "free",
     "tagline": "科学计算、数据库检索与研究写作工作流",
-    "summary": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。",
-    "longSummary": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。\n\n优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
-    "aiSummary": "优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
+    "summary": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。",
+    "longSummary": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。\n\n本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
+    "aiSummary": "本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2108,10 +2114,12 @@
       "https://github.com/K-Dense-AI/scientific-agent-skills",
       "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/README.md",
       "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/LICENSE.md",
-      "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/docs/skills.md"
+      "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/docs/skills.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/scientific-agent-skills-complete-2026-10-09.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/scientific-agent-skills-complete-2026-10-09.json"
     ],
     "addedAt": "2026-10-08",
-    "updatedAt": "2026-10-08"
+    "updatedAt": "2026-10-09"
   },
   {
     "id": "github-com-brycewang-stanford-auto-empirical-research-skills",
@@ -2132,12 +2140,12 @@
     ],
     "region": "global",
     "type": "实证研究 Skill 来源合集",
-    "scale": "多来源研究工作流合集",
+    "scale": "精选 3 个主技能 + 3 个支持技能",
     "pricing": "free",
     "tagline": "社会科学实证研究与论文工作流发现",
-    "summary": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。",
-    "longSummary": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。\n\n把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
-    "aiSummary": "把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
+    "summary": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。",
+    "longSummary": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。\n\n主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
+    "aiSummary": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2146,9 +2154,11 @@
       "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/README.md",
       "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/LICENSE",
-      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/docs/LICENSE_AUDIT.md"
+      "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/docs/LICENSE_AUDIT.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/auto-empirical-research-skills-complete-2026-10-09.md",
+      "https://github.com/vc999999999/skillflux-catalog/blob/main/imports/auto-empirical-research-skills-complete-2026-10-09.json"
     ],
     "addedAt": "2026-10-08",
-    "updatedAt": "2026-10-08"
+    "updatedAt": "2026-10-09"
   }
 ]

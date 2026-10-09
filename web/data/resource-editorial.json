@@ -2317,14 +2317,14 @@
   },
   "github-com-mattpocock-skills": {
     "resourceSlug": "mattpocock-skills",
-    "updatedAt": "2026-10-08",
+    "updatedAt": "2026-10-09",
     "primaryCapability": {
       "zh": "需求澄清、测试与代码审查工作流",
       "en": "Requirements, testing and code review workflows"
     },
     "summary": {
-      "zh": "mattpocock/skills 是 Matt Pocock 维护的开源 Skill 仓库，以可组合的小型工作流覆盖需求澄清、规格编写、测试驱动开发、问题诊断和代码审查，并包含教学、交接与 agent 文档写作工具。仓库按 engineering 与 productivity 组织，采用 MIT 许可证，适合按当前任务选择和适配。",
-      "en": "mattpocock/skills is an open-source skill repository maintained by Matt Pocock. Its small, composable workflows cover requirements clarification, specification writing, test-driven development, diagnosis and code review, alongside teaching, handoffs and writing documents for agents. Organized into engineering and productivity skills and licensed under MIT, it offers workflows to select and adapt for a specific task."
+      "zh": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。",
+      "en": "Matt Pocock’s engineering and productivity skills cover requirements, specifications, testing, debugging, reviews and handoffs. SkillFlux has collected all 38 skills at a pinned commit, preserving the complete directories with instructions, references, scripts, configuration and licenses."
     },
     "bestFor": [
       {
@@ -2342,8 +2342,8 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "先阅读目标 Skill 的完整说明及其引用文件，核对其他 Skill 调用和宿主工具要求。此页记录上游来源；SkillFlux 精选条目的适配内容与审核状态以各自详情为准，收录仓库不表示全仓技能均已测试。",
-      "en": "Read the selected skill and its referenced files, including calls to other skills and required host tools. This page records the upstream source. Adaptations and review status for SkillFlux selections belong to their individual detail pages; listing the repository does not mean every upstream skill has been tested."
+      "zh": "完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
+      "en": "The collection inventory linked below records all engineering, productivity, misc and in-progress skills with file verification. Complete collection does not grant new MCP installation approval: new snapshots remain candidates, and existing releases keep their individual review status."
     },
     "limitations": [
       {
@@ -2376,14 +2376,14 @@
   },
   "github-com-morluto-rea": {
     "resourceSlug": "morluto-rea",
-    "updatedAt": "2026-10-08",
+    "updatedAt": "2026-10-09",
     "primaryCapability": {
       "zh": "二进制、应用与运行行为的逆向分析",
       "en": "Reverse engineering of binaries, applications and runtime behavior"
     },
     "summary": {
-      "zh": "REA 是把逆向分析工具接入 Agent 的 MCP 与 CLI 项目，并提供 reverse-engineer-anything Skill。它面向原生二进制、JavaScript 与 Electron 应用、.NET 程序及运行行为，帮助收集代码关系和行为证据。仓库采用 MIT 许可证，适合需要检查具体软件制品的开发者。",
-      "en": "REA connects reverse-engineering tools to agents through MCP and a CLI, with a reverse-engineer-anything skill. It supports investigations of native binaries, JavaScript and Electron applications, .NET assemblies and runtime behavior, collecting code relationships and behavioral evidence. The MIT-licensed repository suits developers inspecting specific software artifacts."
+      "zh": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。",
+      "en": "REA provides binary, application-package and runtime analysis through MCP and a CLI. SkillFlux has preserved the complete reverse-engineer-anything skill: its entry, five local reference guides and MIT license, for developers tracing evidence about software behavior."
     },
     "bestFor": [
       {
@@ -2401,8 +2401,8 @@
       "mcp"
     ],
     "skillFluxNote": {
-      "zh": "先按分析对象查看 REA 的安装和工具要求，再选择对应工作流。本页收录上游来源；SkillFlux 保存的候选指令包尚不等于已审核可安装版本，也不包含 REA 工具本身的安装。",
-      "en": "Start with the installation and tool requirements for the target being analyzed. This page lists the upstream source. A candidate instruction bundle kept by SkillFlux is not an approved installable release and does not install the REA tools themselves."
+      "zh": "完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
+      "en": "The collection links below contain the complete skill package and file verification. It remains in intake pending MCP installation review. REA’s MCP server, CLI and target-specific analysis engines are separate runtime dependencies."
     },
     "limitations": [
       {
@@ -2435,14 +2435,14 @@
   },
   "github-com-qingyuna-answer-me-with-html": {
     "resourceSlug": "answer-me-with-html",
-    "updatedAt": "2026-10-08",
+    "updatedAt": "2026-10-09",
     "primaryCapability": {
       "zh": "将解释、流程与对比生成交互 HTML 页面",
       "en": "Interactive HTML pages for explanations, flows and comparisons"
     },
     "summary": {
-      "zh": "Answer me with HTML 让 Agent 编写带图表语法的 Markdown，再通过随 Skill 提供的 Node.js CLI 生成本地 HTML 讲解页。它适合展示概念、调用关系、流程和方案对比，并支持在明确要求时生成讲解视频。仓库采用 MIT 许可证，提供中英文文档。",
-      "en": "Answer me with HTML turns an agent-written Markdown draft with diagram syntax into a local HTML explanation through its bundled Node.js CLI. It supports concepts, call relationships, process flows and comparisons, with explainer videos available on explicit request. The MIT-licensed repository includes English and Chinese documentation."
+      "zh": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。",
+      "en": "Answer me with HTML renders Markdown drafts as local HTML explainers for flows, architecture and comparisons, with video on explicit request. SkillFlux has preserved the complete skill, settings and video guides, bundled Node.js renderer and licenses."
     },
     "bestFor": [
       {
@@ -2460,8 +2460,8 @@
       "video"
     ],
     "skillFluxNote": {
-      "zh": "页面生成依赖随包 CLI；应同时阅读 Skill 与渲染说明。本页记录来源和候选包，未授予 SkillFlux 精品安装资格。默认自动触发范围、更新检查和视频语音设置，应按实际需要选择。",
-      "en": "Page generation depends on the bundled CLI, so inspect both the skill and renderer instructions. This source and candidate listing does not grant SkillFlux curated-installation approval. Choose the invocation scope, update checks and video voice settings for the intended use."
+      "zh": "完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
+      "en": "The complete package includes scripts/am.mjs with its templates, CSS and JavaScript, plus the required third-party license notices. See the collection inventory below. The package remains in intake pending MCP installation review."
     },
     "limitations": [
       {
@@ -2494,14 +2494,14 @@
   },
   "github-com-k-dense-ai-scientific-agent-skills": {
     "resourceSlug": "scientific-agent-skills",
-    "updatedAt": "2026-10-08",
+    "updatedAt": "2026-10-09",
     "primaryCapability": {
       "zh": "科学计算、数据库检索与研究写作工作流",
       "en": "Scientific computing, database retrieval and research writing workflows"
     },
     "summary": {
-      "zh": "K-Dense 的 Scientific Agent Skills 原名 Claude Scientific Skills，围绕科研软件包、数据库和研究流程组织技能，覆盖生物、化学、物理、工程、数据分析及科学表达。仓库根许可证为 MIT，各 Skill 仍需核对自己的许可和依赖。适合按具体方法或工具选择研究工作流。",
-      "en": "K-Dense’s Scientific Agent Skills, formerly Claude Scientific Skills, organizes skills around scientific packages, databases and research workflows. It covers biology, chemistry, physics, engineering, data analysis and scientific communication. The repository root uses MIT, while individual skills have their own license and dependency details to check."
+      "zh": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。",
+      "en": "K-Dense’s collection covers scientific software, databases and research workflows. SkillFlux selected scientific-critical-thinking and scientific-brainstorming, plus the directly referenced scientific-schematics support skill, preserving their complete directories, references, scripts and licenses."
     },
     "bestFor": [
       {
@@ -2519,17 +2519,17 @@
       "planning"
     ],
     "skillFluxNote": {
-      "zh": "优先选择与当前研究问题相关的具体 Skill，再核对方法假设、软件版本、数据来源和验证范围。本页是来源收录，SkillFlux 的候选收录或个别测试不能代表整个仓库均已实测，也不保证研究结论成立。",
-      "en": "Select a skill for the specific research question, then check its assumptions, software versions, data provenance and validation scope. This is a source listing; candidate inclusion or tests of individual skills do not establish that the whole repository was tested or that research conclusions are valid."
+      "zh": "本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
+      "en": "This selection contains the two main skills and one support skill named above. The inventory below records the full files and preserved directory layout. All remain in intake pending MCP installation review; Python packages and external APIs are separate runtime requirements."
     },
     "limitations": [
       {
-        "zh": "不少工作流需要 Python 或其他科学软件、命令执行和联网；部分数据库或服务还需要账号、API 密钥或付费访问。",
-        "en": "Many workflows require Python or other scientific software, command execution and network access. Some databases or services also require accounts, API keys or paid access."
+        "zh": "所选工作流涉及命令执行、Python 或绘图服务，部分分支需要 API 密钥和联网；收录文件不表示这些依赖已安装或获准使用。",
+        "en": "Selected workflows involve command execution, Python or diagram services, with API keys and network access required by some branches. Collecting the files does not install or authorize those dependencies."
       },
       {
-        "zh": "根目录 MIT 许可不能代替逐项许可检查；涉及临床、实验室或设备的工作流还需遵守原 Skill 的用途边界与人工复核要求。",
-        "en": "The root MIT license does not replace per-skill license checks. Clinical, laboratory and equipment workflows also carry purpose boundaries and human-review requirements in their own instructions."
+        "zh": "完整性核验覆盖所选目录的文件，不代表科研方法、输出结论或宿主运行已经验收；安装前仍需完成内容与实际行为审查。",
+        "en": "Completeness checks cover the selected directories’ files, not research validity, output accuracy or host execution. Content and behavioral review are still required before installation."
       }
     ],
     "alternativeSlugs": [
@@ -2553,14 +2553,14 @@
   },
   "github-com-brycewang-stanford-auto-empirical-research-skills": {
     "resourceSlug": "auto-empirical-research-skills",
-    "updatedAt": "2026-10-08",
+    "updatedAt": "2026-10-09",
     "primaryCapability": {
       "zh": "社会科学实证研究与论文工作流发现",
       "en": "Discover workflows for empirical social-science research and papers"
     },
     "summary": {
-      "zh": "Auto-Empirical Research Skills（AERS）汇集实证研究相关的多来源技能，围绕文献、数据处理、因果分析、复现审查和论文写作组织内容，并提供 Python、R 与 Stata 工作流。根许可证标为 CC BY-SA 4.0，子合集包含不同许可及待确认来源，应按具体条目核对后采用。",
-      "en": "Auto-Empirical Research Skills (AERS) gathers skills from multiple sources for literature work, data preparation, causal analysis, reproducibility review and paper writing, including Python, R and Stata workflows. Its root license is CC BY-SA 4.0; subcollections have different terms and some unresolved provenance, requiring item-by-item checks."
+      "zh": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。",
+      "en": "AERS gathers empirical-research workflows from multiple sources. From its MIT-licensed AER-skills subcollection, SkillFlux selected preregistration, identification and replication, preserving three direct support skills, required templates, shared scripts, references and related examples."
     },
     "bestFor": [
       {
@@ -2578,17 +2578,17 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "把该仓库作为按研究阶段查找候选的入口，并追溯每项技能的原始作者、固定版本和许可。本页收录来源，不将上游汇集数量或评分转述为 SkillFlux 的实测结论，也不表示全库已经开放安装。",
-      "en": "Use the repository to find candidates by research stage, then trace each skill’s author, pinned version and license. This page records the source; upstream collection counts or scores are not SkillFlux test results and do not mean the entire collection is installable through SkillFlux."
+      "zh": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
+      "en": "Main selections: aer-preregistration, aer-identification and aer-replication. Support skills: aer-robustness, aer-statspai and aer-tables-figures. The inventory below covers these skills and their shared resources. All remain in intake pending MCP installation review."
     },
     "limitations": [
       {
-        "zh": "合集许可不统一：上游审计列出非商业限制、相同方式共享及许可未知的条目，不能把根许可证视为全库复制或商业使用许可。",
-        "en": "Licenses vary across the collection. The upstream audit includes non-commercial restrictions, share-alike terms and unknown licenses; the root license is not blanket permission to redistribute or commercially use every entry."
+        "zh": "本次所选 AER-skills 子合集为 MIT；外围 AERS 合集的其他来源许可各异，不在本次完整包收录范围。",
+        "en": "The selected AER-skills subcollection uses MIT. Other sources in the surrounding AERS collection have different terms and are outside this package selection."
       },
       {
-        "zh": "具体流程可能需要 Python、R、Stata、命令执行、文献检索服务或外部 API；数据权限、识别假设与结果复现仍需逐项确认。",
-        "en": "Individual workflows may need Python, R, Stata, command execution, literature services or external APIs. Data access, identification assumptions and reproducibility still need to be checked for each task."
+        "zh": "模板和示例依赖 Python、R 或 Stata；StatsPAI MCP 等服务属于外部运行依赖。研究注册、数据上传和结果验证仍需按具体任务处理。",
+        "en": "Templates and examples require Python, R or Stata. Services such as StatsPAI MCP are external runtime dependencies. Research registration, data uploads and result verification remain task-specific actions."
       }
     ],
     "alternativeSlugs": [
