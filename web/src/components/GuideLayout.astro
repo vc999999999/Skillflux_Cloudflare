@@ -55,7 +55,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} articleDates={{ published: guide.datePublished, modified: guide.dateModified }}>
   <main id="main-content" class="page-shell">
     <article class="guide">
       <header class="guide-head">

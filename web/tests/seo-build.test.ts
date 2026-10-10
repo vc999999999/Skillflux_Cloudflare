@@ -39,6 +39,39 @@ describe('generated HTML SEO gate', () => {
     expect(pages[2]?.lastmod).toBe('2026-08-14');
   });
 
+  it.each(['2026-10-10', '2026-10-10T09:30:00+08:00'])('reads an authored TechArticle dateModified of %s', dateModified => {
+    const article = page('/insights/skill-workflow/', {
+      head: jsonLd({ '@type': 'TechArticle', url: SITE + '/insights/skill-workflow/', dateModified }),
+    });
+    expect(() => validatePages([...base(), article], SITE)).not.toThrow();
+    expect(article.lastmod).toBe(dateModified);
+  });
+
+  it.each(['2026-02-31', 'recently', 20261010])('rejects an invalid TechArticle dateModified of %s', dateModified => {
+    const article = page('/insights/skill-workflow/', {
+      head: jsonLd({ '@type': 'TechArticle', url: SITE + '/insights/skill-workflow/', dateModified }),
+    });
+    expect(article.lastmod).toBeUndefined();
+    expect(() => validatePages([...base(), article], SITE)).toThrow(/invalid JSON-LD dateModified/);
+  });
+
+  it('ignores dates from other TechArticle URLs, including invalid dates', () => {
+    const otherArticles = [
+      { '@type': 'TechArticle', url: SITE + '/insights/another-skill/', dateModified: '2026-10-11' },
+      { '@type': 'TechArticle', url: 'https://upstream.example/article/', dateModified: 'invalid' },
+    ];
+    const article = page('/insights/skill-workflow/', {
+      head: jsonLd({ '@graph': [
+        ...otherArticles,
+        { '@type': ['Article', 'TechArticle'], url: SITE + '/insights/skill-workflow/', dateModified: '2026-10-10' },
+      ] }),
+    });
+    const undated = page('/insights/undated/', { head: jsonLd(otherArticles) });
+    expect(() => validatePages([...base(), article, undated], SITE)).not.toThrow();
+    expect(article.lastmod).toBe('2026-10-10');
+    expect(undated.lastmod).toBeUndefined();
+  });
+
   it('rejects absent metadata, duplicate H1s, empty bodies, and duplicate titles', () => {
     const invalid = inspectHtml('broken/index.html', '<html lang="en"><head><title></title></head><body><main><h1></h1><h1>Extra</h1></main></body></html>');
     expect(() => validatePages([...base(), invalid], SITE)).toThrow(/nonempty title/);
@@ -95,6 +128,24 @@ describe('generated HTML SEO gate', () => {
 });
 
 describe('canonical sitemap generation', () => {
+  it('carries TechArticle dates into the insight, scenario, and skill sitemaps', () => {
+    const articles = [
+      { path: '/insights/skill-workflow/', group: 'guides', dateModified: '2026-10-08' },
+      { path: '/scenarios/connect-a-project/', group: 'static', dateModified: '2026-10-09' },
+      { path: '/skills/grill-me/', group: 'resources', dateModified: '2026-10-10' },
+    ];
+    const pages = [...base(), ...articles.map(({ path, dateModified }) => page(path, {
+      head: jsonLd({ '@type': 'TechArticle', url: SITE + path, dateModified }),
+    }))];
+    expect(() => validatePages(pages, SITE)).not.toThrow();
+    const files = renderSitemaps(pages, SITE);
+    expect(() => validateSitemaps(files, pages, SITE)).not.toThrow();
+    for (const { path, group, dateModified } of articles) {
+      expect(files[`sitemap-${group}.xml`]).toContain(`<url><loc>${SITE}${path}</loc><lastmod>${dateModified}</lastmod></url>`);
+    }
+    expect(Object.values(files).join('').match(/<lastmod>/g)).toHaveLength(articles.length);
+  });
+
   it('rejects sitemap pollution, duplicate URLs, missing pages, and a broken sitemap index', () => {
     const pages = [...base(), resource()];
     const files = renderSitemaps(pages, SITE);

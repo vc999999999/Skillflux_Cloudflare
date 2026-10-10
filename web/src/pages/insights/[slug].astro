@@ -65,7 +65,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout lang={lang} title={data.title} description={data.description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+<BaseLayout lang={lang} title={data.title} description={data.description} canonicalPath={canonicalPath} jsonLd={jsonLd} articleDates={{ published: data.datePublished, modified: data.dateModified }}>
   <main id="main-content" class="page-shell">
     <article class="insight">
       <header class="insight-head">
@@ -75,7 +75,7 @@ const jsonLd = [
         <p class="page-lede">{data.description}</p>
         <p class="content-disclosure">本文是基于原始资料的编辑分析，不是 SkillFlux 人工实测报告，也不代表该 Skill 已进入精品库。需要可安装、受维护的版本，请查看<a href="/registry/">精品 Skill 目录</a>及其公开质检记录。</p>
         <p class="insight-meta">
-          {t.industryLabel}: {data.industry} · {t.updatedPrefix} {data.dateModified} · {t.sourceAuthor}: {data.source.author}
+          {t.industryLabel}: {data.industry} · {t.updatedPrefix} <time datetime={data.dateModified}>{data.dateModified}</time> · {t.sourceAuthor}: {data.source.author}
         </p>
       </header>
 
@@ -298,6 +298,10 @@ const jsonLd = [
   .insight-prose :global(a) {
     color: var(--green);
     text-decoration: underline;
+  }
+
+  .insight-prose :global(:not(pre) > code) {
+    overflow-wrap: anywhere;
   }
 
   .insight-prose :global(blockquote) {

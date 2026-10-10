@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { absoluteUrl, getCategoryBySlug, getRelatedSites, getSiteBySlug, getTagIndex, type Site } from "../lib/content";
@@ -55,6 +56,8 @@ const relatedGuides = (editorial?.relatedGuideSlugs ?? []).flatMap(slug => {
   const guide = getGuideBySlug(slug);
   return guide ? [guide] : [];
 });
+const relatedInsights = (await getCollection('insights', entry => !entry.data.draft && entry.data.relatedSites.includes(site.slug)))
+  .sort((a, b) => b.data.dateModified.localeCompare(a.data.dateModified) || a.id.localeCompare(b.id));
 const sourceUrls = [...new Set([site.canonicalUrl, ...site.sourceUrls])];
 const tagSlugByName = new Map(getTagIndex().map(entry => [entry.tag, entry.slug]));
 const tagLinks = site.tags.map((tag, index) => ({ label: siteCopy.tags[index] ?? tag, slug: tagSlugByName.get(tag) }));
@@ -120,6 +123,18 @@ const jsonLd = [
             <h2 id="overview-heading">{zh ? '资源介绍' : 'Overview'}</h2>
             <p>{summary}</p>
           </section>
+          {editorial?.capabilityBreakdown?.length && <section class="prose-block" aria-labelledby="capabilities-heading">
+            <h2 id="capabilities-heading">{zh ? 'Skill 能力拆解' : 'What the skills help you do'}</h2>
+            <p class="analysis-note">{zh ? '根据已收录版本的原始说明，梳理输入、工作方法与产出。' : 'Inputs, methods and outputs described in the collected source version.'}</p>
+            <div class="capability-list">{editorial.capabilityBreakdown.map(item => <article>
+              <h3>{item.title[lang]}</h3><p>{item.description[lang]}</p>
+              <a href={item.sourceUrl} rel="noopener noreferrer">{zh ? '阅读对应原始说明' : 'Read the source instructions'} ↗</a>
+            </article>)}</div>
+          </section>}
+          {editorial?.workflowSteps?.length && <section class="prose-block" aria-labelledby="workflow-heading">
+            <h2 id="workflow-heading">{zh ? '典型使用流程' : 'A typical workflow'}</h2>
+            <ol class="resource-workflow">{editorial.workflowSteps.map(item => <li><h3>{item.title[lang]}</h3><p>{item.description[lang]}</p></li>)}</ol>
+          </section>}
           {editorial && <>
             <section class="prose-block" data-seo-section="best-for" aria-labelledby="best-for-heading">
               <h2 id="best-for-heading">{zh ? '适合谁' : 'Best for'}</h2>
@@ -155,6 +170,11 @@ const jsonLd = [
           </section>
         </div>
         <aside class="detail-side">
+          {relatedInsights.length > 0 && <section class="side-box" aria-labelledby="related-insights-heading">
+            <h2 id="related-insights-heading">{zh ? '深入了解这个 Skill' : 'Skill deep-dives'}</h2>
+            {!zh && <p class="analysis-note">These articles are available in Chinese.</p>}
+            <ul class="editorial-links">{relatedInsights.map(entry => <li><a href={`/insights/${entry.id}/`} lang="zh-CN" hreflang="zh-CN">{entry.data.title}</a></li>)}</ul>
+          </section>}
           {relatedGuides.length > 0 && <section class="side-box">
             <h2>{zh ? '相关指南' : 'Related guides'}</h2>
             <ul class="editorial-links">{relatedGuides.map(guide => <li><a href={localizePath(`/guides/${guide.slug}/`, lang)}>{guide.title[lang]}</a></li>)}</ul>
@@ -187,4 +207,11 @@ const jsonLd = [
   .editorial-links p { margin: 5px 0 0; }
   .side-box .editorial-links { font-size: .8rem; }
   .source-list a { overflow-wrap: anywhere; }
+  .analysis-note { color: var(--muted); font-size: .82rem; line-height: 1.8; }
+  .capability-list { display: grid; gap: 22px; margin-top: 22px; }
+  .capability-list h3, .resource-workflow h3 { font-size: 1rem; line-height: 1.6; margin: 0 0 8px; color: var(--ink); }
+  .capability-list p, .resource-workflow p { margin: 0 0 8px; }
+  .capability-list a { font-size: .8rem; text-underline-offset: 4px; }
+  .resource-workflow { padding-left: 24px; }
+  .resource-workflow li { padding-left: 7px; margin-bottom: 22px; }
 </style>

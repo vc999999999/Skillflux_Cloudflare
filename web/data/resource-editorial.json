@@ -2317,23 +2317,23 @@
   },
   "github-com-mattpocock-skills": {
     "resourceSlug": "mattpocock-skills",
-    "updatedAt": "2026-10-09",
+    "updatedAt": "2026-10-10",
     "primaryCapability": {
-      "zh": "需求澄清、测试与代码审查工作流",
-      "en": "Requirements, testing and code review workflows"
+      "zh": "把需求访谈转为规格、任务依赖和代码审查",
+      "en": "Turn requirements interviews into specifications, task dependencies and code reviews"
     },
     "summary": {
-      "zh": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。",
-      "en": "Matt Pocock’s engineering and productivity skills cover requirements, specifications, testing, debugging, reviews and handoffs. SkillFlux has collected all 38 skills at a pinned commit, preserving the complete directories with instructions, references, scripts, configuration and licenses."
+      "zh": "Matt Pocock 的 Skill 合集把开发协作拆成可组合的环节：先追问未定决策，再整理规格、划分可验证的任务，最后分别检查代码规范与需求符合度。SkillFlux 已完整收录固定提交中的全部 38 个 Skill；这里按正文拆解其中的工程工作流，帮助选择当前项目需要的环节。",
+      "en": "Matt Pocock’s collection breaks development collaboration into composable steps: resolve open decisions, write a specification, divide work into verifiable tasks, then review coding standards and specification compliance separately. SkillFlux has collected all 38 skills at a pinned commit. This analysis explains the engineering workflow from its instructions so readers can choose the steps their project needs."
     },
     "bestFor": [
       {
-        "zh": "希望按需求澄清、测试或调试等具体环节采用 Skill 的开发者。",
-        "en": "Developers selecting skills for a specific step such as requirements clarification, testing or debugging."
+        "zh": "需求仍有隐含假设，希望先厘清决策、验收方式和项目术语的开发者。",
+        "en": "Developers who need to clarify hidden assumptions, acceptance criteria and project vocabulary before implementation."
       },
       {
-        "zh": "愿意阅读原始指令，并结合项目约定调整工作流的团队。",
-        "en": "Teams willing to inspect the original instructions and adapt workflows to project conventions."
+        "zh": "已有规格或工单，希望按依赖推进实现，并分开检查“写得是否规范”和“是否做对需求”的团队。",
+        "en": "Teams with specifications or tickets that want to implement in dependency order and distinguish coding standards from requirement coverage."
       }
     ],
     "useCases": [
@@ -2342,17 +2342,17 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
-      "en": "The collection inventory linked below records all engineering, productivity, misc and in-progress skills with file verification. Complete collection does not grant new MCP installation approval: new snapshots remain candidates, and existing releases keep their individual review status."
+      "zh": "全部 38 个 Skill 的正文、引用、脚本、配置与许可证均已按固定提交保存，覆盖 engineering、productivity、misc 和 in-progress。本页依据文件分析能力，不代表全部工作流已经运行验收；新增快照仍待 MCP 安装审核，已发布版本保留各自审核状态。",
+      "en": "All 38 skills’ instructions, references, scripts, configuration and licenses are preserved at a pinned commit across engineering, productivity, misc and in-progress. This page analyzes the files; it does not claim execution testing of every workflow. New snapshots remain pending MCP installation review, while existing releases retain their individual review status."
     },
     "limitations": [
       {
-        "zh": "部分工程 Skill 依赖仓库配置、项目词汇表或其他 Skill；应同时检查引用文件和所需工具。",
-        "en": "Some engineering skills depend on repository configuration, a project glossary or other skills; inspect referenced files and required tools together."
+        "zh": "部分流程需要预先配置工单系统、项目词汇表和架构决策；实现与审查还可能依赖其他 Skill、Git 和子代理能力。",
+        "en": "Some workflows require a configured issue tracker, domain glossary and architecture decisions. Implementation and review may also depend on other skills, Git and subagents."
       },
       {
-        "zh": "不同宿主的插件安装与复制文件方式具有不同更新机制，不能据来源收录推定一键安装或跨宿主兼容。",
-        "en": "Plugin installation and copying files use different update mechanisms across hosts; a source listing does not establish one-click installation or cross-host compatibility."
+        "zh": "访谈、规格发布和任务确认都有不同交互边界；不能把 38 个 Skill 当成一次调用就自动完成开发的单一程序。in-progress 目录还包含上游开发中的流程。",
+        "en": "Interviews, specification publication and ticket approval have different interaction boundaries. The 38 skills are not one program that completes development in a single call; in-progress also contains workflows under development upstream."
       }
     ],
     "alternativeSlugs": [
@@ -2361,38 +2361,126 @@
     ],
     "alternativeReasons": {
       "github-com-obra-superpowers": {
-        "zh": "需要比较将规划、执行、调试与测试组织在一起的开发流程时，可查看 Superpowers。",
-        "en": "Compare Superpowers for a development process that connects planning, execution, debugging and testing."
+        "zh": "如果希望比较另一套串联规划、实现、调试与测试的开发工作流，可查看 Superpowers；重点比较触发方式和任务交接。",
+        "en": "Compare Superpowers for another workflow connecting planning, implementation, debugging and testing, with attention to activation and handoff."
       },
       "github-com-othmanadi-planning-with-files": {
-        "zh": "主要需求是跨步骤保存任务计划和进度时，可比较更聚焦文件记录的 planning-with-files。",
-        "en": "Compare planning-with-files when the main requirement is preserving plans and progress across task steps."
+        "zh": "如果主要问题是长任务中丢失计划和发现，而非访谈、规格与工单衔接，可先比较 planning-with-files。",
+        "en": "Compare planning-with-files when the main problem is losing plans and findings during long tasks rather than linking interviews, specifications and tickets."
       }
     },
     "relatedGuideSlugs": [
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
+    ],
+    "capabilityBreakdown": [
+      {
+        "title": {
+          "zh": "按决策依赖追问需求",
+          "en": "Interview by decision dependencies"
+        },
+        "description": {
+          "zh": "grilling 把想法展开为决策树；每轮只询问前提已明确的问题，并给出建议，避免在未定假设上继续设计。",
+          "en": "grilling maps an idea into a decision tree. Each round asks only questions whose prerequisites are settled and offers recommendations, avoiding downstream design based on unresolved assumptions."
+        },
+        "sourceUrl": "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/productivity/grilling/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "把已有讨论整理成规格",
+          "en": "Synthesize a specification"
+        },
+        "description": {
+          "zh": "to-spec 从现有对话和代码库整理问题、用户故事、实现决策、测试边界与排除范围；适用于已经澄清需求后的交接。",
+          "en": "to-spec synthesizes the conversation and codebase into a problem statement, user stories, implementation decisions, testing boundaries and exclusions for handoff after clarification."
+        },
+        "sourceUrl": "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/to-spec/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "把规格拆成可验证的任务",
+          "en": "Divide a specification into verifiable tasks"
+        },
+        "description": {
+          "zh": "to-tickets 以贯穿数据、接口、界面和测试的纵向小任务为单位，标明阻塞依赖；任务完成后应能独立演示或验证。",
+          "en": "to-tickets creates small vertical slices across data, interfaces, UI and tests, with explicit blocking dependencies. Each completed ticket should be independently demonstrable or verifiable."
+        },
+        "sourceUrl": "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/to-tickets/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "把规范审查与需求审查分开",
+          "en": "Separate standards and specification reviews"
+        },
+        "description": {
+          "zh": "code-review 以固定 Git 比较点为起点，分别检查仓库规范与原始需求；两个维度独立报告，避免代码整洁掩盖功能遗漏。",
+          "en": "code-review starts from a fixed Git comparison point and separately checks repository standards and the originating specification, so clean code does not hide missing requirements."
+        },
+        "sourceUrl": "https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/code-review/SKILL.md"
+      }
+    ],
+    "workflowSteps": [
+      {
+        "title": {
+          "zh": "选定当前环节",
+          "en": "Choose the current step"
+        },
+        "description": {
+          "zh": "输入一个待澄清的想法、已经讨论的需求或现成规格；先核对所选 Skill 的触发条件和宿主依赖。",
+          "en": "Start with an unresolved idea, discussed requirements or an existing specification. Check the selected skill’s trigger and host dependencies."
+        }
+      },
+      {
+        "title": {
+          "zh": "固定需求和验收边界",
+          "en": "Set requirements and acceptance boundaries"
+        },
+        "description": {
+          "zh": "需要访谈时先解决决策依赖；共识形成后，用 to-spec 保存用户故事、测试边界和范围外事项。",
+          "en": "Resolve decision dependencies when an interview is needed, then use to-spec to record user stories, testing boundaries and exclusions."
+        }
+      },
+      {
+        "title": {
+          "zh": "按阻塞关系推进任务",
+          "en": "Work through task dependencies"
+        },
+        "description": {
+          "zh": "用 to-tickets 拆分可验证的纵向任务；实现阶段只推进前置条件已完成的任务，并保留验证结果。",
+          "en": "Use to-tickets to divide work into verifiable vertical slices. During implementation, advance tasks with completed prerequisites and retain validation results."
+        }
+      },
+      {
+        "title": {
+          "zh": "对照规格和规范交付",
+          "en": "Review against specifications and standards"
+        },
+        "description": {
+          "zh": "从确定的 Git 比较点审查改动，分别记录需求缺口和规范问题，再处理交接。",
+          "en": "Review changes against a fixed Git comparison point, record specification gaps and standards issues separately, then prepare the handoff."
+        }
+      }
     ]
   },
   "github-com-morluto-rea": {
     "resourceSlug": "morluto-rea",
-    "updatedAt": "2026-10-09",
+    "updatedAt": "2026-10-10",
     "primaryCapability": {
-      "zh": "二进制、应用与运行行为的逆向分析",
-      "en": "Reverse engineering of binaries, applications and runtime behavior"
+      "zh": "从应用制品与运行证据解释软件行为",
+      "en": "Explain software behavior from shipped artifacts and runtime evidence"
     },
     "summary": {
-      "zh": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。",
-      "en": "REA provides binary, application-package and runtime analysis through MCP and a CLI. SkillFlux has preserved the complete reverse-engineer-anything skill: its entry, five local reference guides and MIT license, for developers tracing evidence about software behavior."
+      "zh": "REA 的 reverse-engineer-anything Skill 先根据目标选择分析路径：二进制、应用包、Electron/JavaScript、Android 或已有运行捕获，再把发现整理成带证据编号的结论。它适合解释已交付软件的行为、对比版本或支持重建；普通完整源码仓库的架构阅读应使用常规仓库工具。",
+      "en": "REA’s reverse-engineer-anything skill routes a target to binary, package, Electron/JavaScript, Android or recorded-runtime analysis, then ties conclusions to evidence identifiers. It suits investigations of shipped software, version comparisons and reconstruction. Ordinary architecture analysis of a complete source repository belongs with standard repository tools."
     },
     "bestFor": [
       {
-        "zh": "需要分析应用包、二进制或运行行为，并追溯结论证据的开发者。",
-        "en": "Developers investigating application packages, binaries or runtime behavior with traceable evidence."
+        "zh": "手中有应用包或二进制，需要判断某个功能如何工作、版本间改变了什么的开发者。",
+        "en": "Developers with a package or binary who need to explain a feature or determine what changed between versions."
       },
       {
-        "zh": "已经准备好对应分析工具，愿意按目标平台配置 REA 的用户。",
-        "en": "Users prepared to configure REA and the analysis tools needed for their target platform."
+        "zh": "需要把静态线索、实际观察与仍未解决的问题分开记录的调查与兼容性工作。",
+        "en": "Investigation and compatibility work that needs to distinguish static clues, observed behavior and unresolved questions."
       }
     ],
     "useCases": [
@@ -2401,17 +2489,17 @@
       "mcp"
     ],
     "skillFluxNote": {
-      "zh": "完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
-      "en": "The collection links below contain the complete skill package and file verification. It remains in intake pending MCP installation review. REA’s MCP server, CLI and target-specific analysis engines are separate runtime dependencies."
+      "zh": "已完整保存 Skill 入口、五份本地引用和 MIT 许可证。这里分析的是固定快照的目标路由与证据工作流，未声称执行过这些目标；包仍在 intake，尚未通过 MCP 安装审核。REA MCP、CLI 和分析引擎需要另外准备。",
+      "en": "The skill entry, five local guides and MIT license are fully preserved. This page analyzes target routing and evidence workflows at a pinned snapshot; it does not claim those targets were tested. The package remains in intake pending MCP installation review. REA’s MCP server, CLI and analysis engines must be prepared separately."
     },
     "limitations": [
       {
-        "zh": "需要符合上游版本要求的 Node.js 与 REA MCP 或 CLI；原生二进制、网站和 Android 等目标分别需要额外分析器、浏览器或 JDK。",
-        "en": "Requires a supported Node.js version and the REA MCP server or CLI; targets such as native binaries, websites and Android apps need additional analyzers, a browser or a JDK."
+        "zh": "Skill 文件只提供指令，不会注册 REA MCP 或安装分析器。原生、Android、固件和浏览器目标各有依赖，应以已连接服务器实际公布的工具为准。",
+        "en": "The skill files provide instructions; they do not register REA MCP or install analyzers. Native, Android, firmware and browser targets have different dependencies, and the connected server’s actual tools determine availability."
       },
       {
-        "zh": "静态读取与运行时捕获具有不同效果；运行时工作流会运行或操作目标程序，不能将它当作只读源码审查。",
-        "en": "Static inspection and runtime capture have different effects. Runtime workflows run or interact with the target and are not equivalent to a read-only source review."
+        "zh": "静态差异不能直接证明运行因果；浏览器与 Electron 被动观察也不等于点击或执行脚本。需要执行目标的捕获流程应单独确认目标和范围。",
+        "en": "Static differences do not prove runtime causality, and passive browser or Electron observation does not mean clicking or executing scripts. Captures that execute a target need an explicit target and scope."
       }
     ],
     "alternativeSlugs": [
@@ -2420,38 +2508,126 @@
     ],
     "alternativeReasons": {
       "mcpservers-org": {
-        "zh": "主要需求是发现其他 MCP 工具连接时，可查看 MCP Servers。",
-        "en": "Use MCP Servers when the main need is discovering other MCP tool integrations."
+        "zh": "若尚未确定分析工具，主要需要查找其他 MCP 连接，可从 MCP Servers 比较工具入口；它不替代 REA 的证据工作流。",
+        "en": "Use MCP Servers to discover alternative MCP integrations when the analysis tool is not yet chosen; it does not replace REA’s evidence workflow."
       },
       "github-com-obra-superpowers": {
-        "zh": "如果任务是自己项目的规划、调试和测试，可比较 Superpowers 的开发工作流。",
-        "en": "Compare Superpowers for planning, debugging and testing workflows in your own project."
+        "zh": "若拥有完整项目源码，任务是开发、调试与测试，可比较 Superpowers；REA 的优势集中在制品和运行证据。",
+        "en": "Compare Superpowers for development, debugging and testing when complete project source is available; REA focuses on artifacts and runtime evidence."
       }
     },
     "relatedGuideSlugs": [
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
+    ],
+    "capabilityBreakdown": [
+      {
+        "title": {
+          "zh": "先识别目标，再选分析入口",
+          "en": "Route by target type"
+        },
+        "description": {
+          "zh": "ASAR 和 JavaScript 树、托管程序集、Android 包与原生二进制走不同入口；避免给只需静态 JavaScript 检查的任务配置原生反编译器。",
+          "en": "ASAR or JavaScript trees, managed assemblies, Android packages and native binaries use different entry points, avoiding native decompiler setup for a static JavaScript task."
+        },
+        "sourceUrl": "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "从问题清单建立证据链",
+          "en": "Build evidence around investigation questions"
+        },
+        "description": {
+          "zh": "把跨功能问题拆成检查清单，先读取最小必要概览，再沿入口、数据和状态变化追踪；结论同时记录依据与覆盖缺口。",
+          "en": "Turn cross-feature questions into a checklist, start with the smallest useful overview, and trace entry points, data and state changes while recording evidence and coverage gaps."
+        },
+        "sourceUrl": "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "约束版本比较的结论",
+          "en": "Bound version-comparison claims"
+        },
+        "description": {
+          "zh": "比较制品、函数或证据集合时保留比较范围；静态变化只是行为变化的候选线索，缺失或不完整结果继续记为未知。",
+          "en": "Artifact, function and evidence-set comparisons retain their scope. Static changes are candidate behavioral clues, while missing or incomplete coverage remains unknown."
+        },
+        "sourceUrl": "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/references/evidence-workflows.md"
+      },
+      {
+        "title": {
+          "zh": "核对静态线索与被动观察",
+          "en": "Reconcile static clues with passive observations"
+        },
+        "description": {
+          "zh": "对已经打开的浏览器或 Electron 目标采集被动证据，再与静态应用证据核对；脚本出现不代表其中每个模块都执行过。",
+          "en": "Collect passive evidence from an already-open browser or Electron target and reconcile it with static application evidence. Seeing a script does not prove every module executed."
+        },
+        "sourceUrl": "https://github.com/morluto/rea/blob/c701376777212ec9acfd10c97f45b1eaf0c885c6/skill-src/reverse-engineer-anything/references/runtime-observation.md"
+      }
+    ],
+    "workflowSteps": [
+      {
+        "title": {
+          "zh": "确定制品和调查问题",
+          "en": "Identify the artifact and question"
+        },
+        "description": {
+          "zh": "提供明确的本地制品、目标应用或已有捕获，并列出要回答的行为问题。",
+          "en": "Provide a specific local artifact, target application or existing capture and list the behavior questions to answer."
+        }
+      },
+      {
+        "title": {
+          "zh": "选择可用的分析入口",
+          "en": "Choose an available analysis route"
+        },
+        "description": {
+          "zh": "按目标类型检查对应工具；只在连接缺失或过期时诊断配置，复用匹配的已有证据。",
+          "en": "Choose tools by target type. Diagnose configuration only when the connection is absent or stale, and reuse matching evidence."
+        }
+      },
+      {
+        "title": {
+          "zh": "围绕证据缺口补充分析",
+          "en": "Investigate specific evidence gaps"
+        },
+        "description": {
+          "zh": "先看摘要与证据，只有问题尚未回答时才做聚焦查询或所需的运行观察。",
+          "en": "Read summaries and evidence first, then make focused queries or runtime observations only for questions that remain unanswered."
+        }
+      },
+      {
+        "title": {
+          "zh": "交付带边界的调查结论",
+          "en": "Deliver findings with explicit limits"
+        },
+        "description": {
+          "zh": "把每个问题标为已回答、部分回答或未解决，关联证据编号，区分观察、推断和未知。",
+          "en": "Mark each question answered, partially answered or unresolved; link evidence identifiers and distinguish observations, inferences and unknowns."
+        }
+      }
     ]
   },
   "github-com-qingyuna-answer-me-with-html": {
     "resourceSlug": "answer-me-with-html",
-    "updatedAt": "2026-10-09",
+    "updatedAt": "2026-10-10",
     "primaryCapability": {
-      "zh": "将解释、流程与对比生成交互 HTML 页面",
-      "en": "Interactive HTML pages for explanations, flows and comparisons"
+      "zh": "用 Markdown 草稿生成可修订的 HTML 讲解页",
+      "en": "Turn Markdown drafts into editable HTML explainers"
     },
     "summary": {
-      "zh": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。",
-      "en": "Answer me with HTML renders Markdown drafts as local HTML explainers for flows, architecture and comparisons, with video on explicit request. SkillFlux has preserved the complete skill, settings and video guides, bundled Node.js renderer and licenses."
+      "zh": "Answer me with HTML 让模型负责内容草稿，由捆绑的 Node.js CLI 完成页面布局与图示。流程、时序、目录、时间线和方案比较可用专用语法表达，生成后还能按面板局部修订。适合把复杂回答整理成可浏览的单页，而不是手写整套 HTML 与 CSS。",
+      "en": "Answer me with HTML leaves the content draft to the model and delegates layout and diagrams to a bundled Node.js CLI. Dedicated syntax covers flows, sequences, trees, timelines and comparisons, with panel-level edits after generation. It suits complex answers that benefit from a browsable page without hand-writing the HTML and CSS."
     },
     "bestFor": [
       {
-        "zh": "希望把多步骤解释或多方案对比整理成可浏览页面的用户。",
-        "en": "Users turning multi-step explanations or comparisons into browsable pages."
+        "zh": "要解释调用链、架构、状态变化或多维方案取舍，希望读者看清关系的开发者与写作者。",
+        "en": "Developers and writers explaining call chains, architecture, state changes or multidimensional trade-offs where relationships need to be visible."
       },
       {
-        "zh": "使用支持本地文件写入和命令执行的 Agent，愿意核对渲染配置的开发者。",
-        "en": "Developers using an agent with local file and command access who can review rendering settings."
+        "zh": "需要反复修改讲解材料，希望只更新一个面板并保留页面主题的用户。",
+        "en": "Users iterating on explainers who want to update one panel while retaining the page’s theme."
       }
     ],
     "useCases": [
@@ -2460,17 +2636,17 @@
       "video"
     ],
     "skillFluxNote": {
-      "zh": "完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
-      "en": "The complete package includes scripts/am.mjs with its templates, CSS and JavaScript, plus the required third-party license notices. See the collection inventory below. The package remains in intake pending MCP installation review."
+      "zh": "已完整收录 Skill 正文、设置和视频引用，以及内含模板、CSS、JavaScript 的 scripts/am.mjs，并保留许可证。以下为固定版本的文件分析，未宣称本次已渲染页面或视频；包仍在 intake，尚未通过 MCP 安装审核。",
+      "en": "The complete skill includes its instructions, settings and video guides, and scripts/am.mjs with bundled templates, CSS and JavaScript, plus licenses. This is a file-based analysis of a pinned version, not a claim that pages or videos were rendered in this review. The package remains in intake pending MCP installation review."
     },
     "limitations": [
       {
-        "zh": "需要 Node.js 20 或更新版本，并执行本地命令；生成后的页面可离线浏览，生成流程的后台版本检查可能访问 GitHub。",
-        "en": "Requires Node.js 20 or later and local command execution. Generated pages can be viewed offline, while background version checks during generation may contact GitHub."
+        "zh": "页面生成需要 Node.js 20+ 和本地命令权限；其他宿主需正确解析 Skill 所在路径。生成结果可离线查看，后台版本检查可能访问 GitHub。",
+        "en": "Page generation needs Node.js 20+ and local command access. Other hosts must resolve the skill directory correctly. Generated pages work offline, while background version checks may contact GitHub."
       },
       {
-        "zh": "视频、语音和导出格式有额外要求；自动语音设置在环境已有相应 API 密钥时可能调用外部服务，MP4 导出需要 ffmpeg。",
-        "en": "Video, narration and export formats have additional requirements. Automatic voice selection may use an external service when its API key is present; MP4 export requires ffmpeg."
+        "zh": "视频仅用于明确的视频请求；文件导出需要 Chrome 和 Node.js 22+，MP4 还需 ffmpeg。语音设置可能选择外部服务；引用本地代码后，应检查页面是否包含不宜分享的内容。",
+        "en": "Video is for explicit video requests. File export needs Chrome and Node.js 22+, with ffmpeg also required for MP4. Voice settings may select an external service; inspect pages containing local code before sharing."
       }
     ],
     "alternativeSlugs": [
@@ -2479,38 +2655,126 @@
     ],
     "alternativeReasons": {
       "github-com-bradautomates-claude-video": {
-        "zh": "主要目标是制作视频时，可比较专门围绕视频工作流组织的 Claude Video。",
-        "en": "Compare Claude Video when video production is the main task."
+        "zh": "如果主要交付物是视频，优先比较 Claude Video 的视频流程；此 Skill 的主要入口仍是 HTML 讲解页。",
+        "en": "Compare Claude Video when video is the main deliverable; this skill’s primary entry point is the HTML explainer."
       },
       "github-com-anthropics-skills": {
-        "zh": "需要同时比较文档、设计与其他通用能力时，可查看 Anthropic 的技能合集。",
-        "en": "Review Anthropic’s collection when comparing document, design and other general-purpose skills."
+        "zh": "如果需要文档、演示等多种交付格式，可比较 Anthropic 的对应技能；此 Skill 更聚焦单页讲解。",
+        "en": "Compare the relevant Anthropic skills for multiple document or presentation formats; this skill focuses on single-page explanations."
       }
     },
     "relatedGuideSlugs": [
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
+    ],
+    "capabilityBreakdown": [
+      {
+        "title": {
+          "zh": "让信息形状决定组件",
+          "en": "Choose components by information structure"
+        },
+        "description": {
+          "zh": "关系用 flow，参与方消息用 sequence，目录用 tree，演变用 timeline，多维取舍用表格；先拆问题，再选择表达方式。",
+          "en": "Use flow for relationships, sequence for messages, tree for hierarchy, timeline for evolution and tables for multidimensional trade-offs. Decompose the question before choosing its representation."
+        },
+        "sourceUrl": "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "把草稿交给捆绑渲染器",
+          "en": "Render with the bundled CLI"
+        },
+        "description": {
+          "zh": "模型写扩展 Markdown 和面板标题，CLI 处理布局、主题、深浅色与图示坐标，并报告格式错误或写作警告。",
+          "en": "The model writes extended Markdown and panel titles. The CLI handles layout, themes, light/dark mode and diagram coordinates, then reports syntax errors or writing warnings."
+        },
+        "sourceUrl": "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "局部改稿与结构对比",
+          "en": "Patch a panel and show structural changes"
+        },
+        "description": {
+          "zh": "patch 可按面板标题或编号更新已有页面；流程与目录支持新增、删除和修改标记，帮助说明重构或方案变化。",
+          "en": "patch updates an existing page by panel title or identifier. Flow and tree components support addition, deletion and change markers for explaining refactors or plan changes."
+        },
+        "sourceUrl": "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "按需扩展为讲解视频",
+          "en": "Extend an explainer into video on request"
+        },
+        "description": {
+          "zh": "明确要求视频时使用分场景草稿，生成带章节和播放控制的页面；语音与 MP4/WebM 导出属于额外分支。",
+          "en": "An explicit video request uses a scene-based draft to produce a player with chapters and playback controls. Narration and MP4/WebM export are additional branches."
+        },
+        "sourceUrl": "https://github.com/QingYunA/answer-me-with-html/blob/d0add7ec67fd51704321ec0295ede1563f8297be/skills/answer-me-with-html/references/video.md"
+      }
+    ],
+    "workflowSteps": [
+      {
+        "title": {
+          "zh": "界定页面要回答的问题",
+          "en": "Define the page’s questions"
+        },
+        "description": {
+          "zh": "把复杂问题拆成几个面板，每个面板只回答一个子问题，开头写清主要结论。",
+          "en": "Divide the complex question into panels, each answering one sub-question, and state the main conclusion first."
+        }
+      },
+      {
+        "title": {
+          "zh": "编写结构化草稿",
+          "en": "Write a structured draft"
+        },
+        "description": {
+          "zh": "根据关系、时序、层级或比较选择组件语法；使用真实数据，标明示例与引用代码。",
+          "en": "Choose syntax for relationships, sequences, hierarchy or comparisons. Use real data and label illustrative examples and quoted code."
+        }
+      },
+      {
+        "title": {
+          "zh": "渲染并检查反馈",
+          "en": "Render and inspect feedback"
+        },
+        "description": {
+          "zh": "运行捆绑 CLI，检查输出路径、组件错误和写作警告；必要时修订草稿并重新渲染。",
+          "en": "Run the bundled CLI and inspect the output path, component errors and writing warnings. Revise and render again when needed."
+        }
+      },
+      {
+        "title": {
+          "zh": "交付页面并按面板迭代",
+          "en": "Share the page and iterate by panel"
+        },
+        "description": {
+          "zh": "用生成文件路径交付页面；后续只改相关面板，分享前检查嵌入的本地代码和材料。",
+          "en": "Deliver the generated file path, update only the relevant panel during later revisions, and inspect embedded local code and material before sharing."
+        }
+      }
     ]
   },
   "github-com-k-dense-ai-scientific-agent-skills": {
     "resourceSlug": "scientific-agent-skills",
-    "updatedAt": "2026-10-09",
+    "updatedAt": "2026-10-10",
     "primaryCapability": {
-      "zh": "科学计算、数据库检索与研究写作工作流",
-      "en": "Scientific computing, database retrieval and research writing workflows"
+      "zh": "评估科研证据，并筛选可追溯的研究方向",
+      "en": "Appraise scientific evidence and prioritize traceable research directions"
     },
     "summary": {
-      "zh": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。",
-      "en": "K-Dense’s collection covers scientific software, databases and research workflows. SkillFlux selected scientific-critical-thinking and scientific-brainstorming, plus the directly referenced scientific-schematics support skill, preserving their complete directories, references, scripts and licenses."
+      "zh": "本次从 K-Dense 合集中精选两项研究方法 Skill：scientific-critical-thinking 用于检查主张、设计和证据边界，scientific-brainstorming 用于独立生成想法、明确评价标准并记录决策。另完整保存 scientific-schematics 作为可选图示支持；本页分析这组已选能力，不将整个科研工具库视为已收录。",
+      "en": "This selection from K-Dense covers two research-method skills: scientific-critical-thinking examines claims, study design and evidence limits, while scientific-brainstorming supports independent idea generation, explicit criteria and decision records. scientific-schematics is preserved as optional diagram support. This page analyzes that selection without implying the entire scientific toolkit was collected."
     },
     "bestFor": [
       {
-        "zh": "已经明确研究方法或软件包，希望查找操作流程与验证步骤的研究者。",
-        "en": "Researchers with a chosen method or software package who need workflow and validation guidance."
+        "zh": "拿到论文或科学主张后，需要定位证据、区分偏倚风险与证据确定性的研究者。",
+        "en": "Researchers who need to locate evidence behind a paper or scientific claim and distinguish risk of bias from certainty of evidence."
       },
       {
-        "zh": "能够准备科学计算环境、数据访问权限，并核查结果的研究开发团队。",
-        "en": "Research engineering teams able to prepare computation environments, data access and result checks."
+        "zh": "处于选题阶段，需要保留不同意见、评价依据和后续验证任务的研究团队。",
+        "en": "Research teams choosing directions who need to preserve dissent, evaluation reasons and follow-up validation tasks."
       }
     ],
     "useCases": [
@@ -2519,17 +2783,17 @@
       "planning"
     ],
     "skillFluxNote": {
-      "zh": "本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
-      "en": "This selection contains the two main skills and one support skill named above. The inventory below records the full files and preserved directory layout. All remain in intake pending MCP installation review; Python packages and external APIs are separate runtime requirements."
+      "zh": "完整收录范围为两个主技能及 scientific-schematics 支持技能，包含引用、脚本和 MIT 许可证，保留原始目录关系。三项均在 intake，未完成 MCP 安装与行为审核；本页是固定快照分析，不能作为科研结论或运行验收。",
+      "en": "The complete selection contains the two main skills and scientific-schematics, including references, scripts and MIT licenses with the original directory layout. All three remain in intake pending MCP installation and behavioral review. This pinned-snapshot analysis is not a scientific finding or execution acceptance test."
     },
     "limitations": [
       {
-        "zh": "所选工作流涉及命令执行、Python 或绘图服务，部分分支需要 API 密钥和联网；收录文件不表示这些依赖已安装或获准使用。",
-        "en": "Selected workflows involve command execution, Python or diagram services, with API keys and network access required by some branches. Collecting the files does not install or authorize those dependencies."
+        "zh": "核心分析指引可离线使用；头脑风暴的可选本地工具需要 Python 3.11+，只做结构与评分记录检查，不验证科学真实性。",
+        "en": "Core analytical guidance works offline. Optional brainstorming utilities need Python 3.11+ and check structure or scoring records, not scientific truth."
       },
       {
-        "zh": "完整性核验覆盖所选目录的文件，不代表科研方法、输出结论或宿主运行已经验收；安装前仍需完成内容与实际行为审查。",
-        "en": "Completeness checks cover the selected directories’ files, not research validity, output accuracy or host execution. Content and behavioral review are still required before installation."
+        "zh": "图示支持需 Python、requests、OpenRouter 密钥和联网，并向外部服务发送内容。生成的是 PNG 草图，仍需人工核查标签与关系；想法评分也不能代替验证或专业审查。",
+        "en": "Diagram support needs Python, requests, an OpenRouter key and network access, and sends content to an external service. It produces PNG drafts whose labels and relationships need human checking; idea scores do not replace validation or expert review."
       }
     ],
     "alternativeSlugs": [
@@ -2538,38 +2802,126 @@
     ],
     "alternativeReasons": {
       "github-com-brycewang-stanford-auto-empirical-research-skills": {
-        "zh": "研究主要涉及社会科学、因果识别和实证论文时，可比较 AERS 的方法与工作流目录。",
-        "en": "Compare AERS for social-science methods, causal identification and empirical-paper workflows."
+        "zh": "若问题已经落到实证经济学的识别策略、分析计划和复现包，可比较 AERS 本次精选的阶段性工作流。",
+        "en": "Compare the selected AERS workflows when the task concerns empirical-economics identification, analysis planning and replication packages."
       },
       "github-com-anthropics-skills": {
-        "zh": "需求主要是通用文档和演示交付时，可比较 Anthropic 的技能合集。",
-        "en": "Compare Anthropic’s collection when general document and presentation deliverables are the main need."
+        "zh": "若研究内容已经确定，主要需要整理文档或演示交付，可比较 Anthropic 的格式与文档技能。",
+        "en": "Compare Anthropic’s document and presentation skills when research content is settled and the main need is preparing deliverables."
       }
     },
     "relatedGuideSlugs": [
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
+    ],
+    "capabilityBreakdown": [
+      {
+        "title": {
+          "zh": "先提取证据，再评价主张",
+          "en": "Extract evidence before judging a claim"
+        },
+        "description": {
+          "zh": "从研究问题、样本单位、结果、分母和不确定性开始，检查设计与分析是否支持所声称的结论，并区分未报告与未执行。",
+          "en": "Start with the question, sampling unit, results, denominators and uncertainty. Check whether design and analysis support the claim, while distinguishing missing reporting from a procedure not performed."
+        },
+        "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/skills/scientific-critical-thinking/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "输出可追溯的研究批评",
+          "en": "Write a traceable critique"
+        },
+        "description": {
+          "zh": "按严重程度整理问题，每项写明来源位置、观察、对结论的影响和可行补救；报告完整性、偏倚风险与证据确定性分别处理。",
+          "en": "Organize concerns by severity with a source location, observation, effect on the claim and feasible remedy. Treat reporting completeness, risk of bias and evidence certainty separately."
+        },
+        "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/skills/scientific-critical-thinking/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "让研究选题保留分歧与依据",
+          "en": "Preserve reasoning and dissent in ideation"
+        },
+        "description": {
+          "zh": "先独立生成想法，再归类、定义评价标准、进行反对性审视并查证文献；记录原始评分、假设、异议和最终决策理由。",
+          "en": "Generate ideas independently before clustering, defining criteria, adversarial review and literature checks. Retain raw ratings, assumptions, dissent and the final decision rationale."
+        },
+        "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/skills/scientific-brainstorming/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "可选生成科研图示草稿",
+          "en": "Optionally draft scientific diagrams"
+        },
+        "description": {
+          "zh": "scientific-schematics 接收有依据的图示描述，保存 PNG 草稿和审查日志；模型评分只辅助修订，不等于期刊质量验收。",
+          "en": "scientific-schematics accepts source-backed diagram descriptions and saves PNG drafts with review logs. Model scores help guide revision rather than establish journal acceptance."
+        },
+        "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/92ace75ac21efe19a620434e0ca4e356081fe807/skills/scientific-schematics/SKILL.md"
+      }
+    ],
+    "workflowSteps": [
+      {
+        "title": {
+          "zh": "选择评估或选题入口",
+          "en": "Choose appraisal or ideation"
+        },
+        "description": {
+          "zh": "提供要评价的主张和材料，或一个明确的研究选题问题；记录目标、已知信息与未知项。",
+          "en": "Provide a claim and its materials for appraisal or a focused question for ideation, recording goals, known information and unknowns."
+        }
+      },
+      {
+        "title": {
+          "zh": "保留证据和想法来源",
+          "en": "Preserve evidence and idea provenance"
+        },
+        "description": {
+          "zh": "评估时提取结果及其位置；选题时先独立生成，给想法稳定编号并标明假设、预测和来源。",
+          "en": "For appraisal, extract results with their locations. For ideation, generate independently and assign stable IDs with assumptions, predictions and provenance."
+        }
+      },
+      {
+        "title": {
+          "zh": "应用对应的评价规则",
+          "en": "Apply the appropriate evaluation process"
+        },
+        "description": {
+          "zh": "按研究设计选择评估框架，或事先定义选题标准，再检查替代解释、分歧和证据缺口。",
+          "en": "Choose appraisal frameworks for the study design or define ideation criteria in advance, then examine alternative explanations, disagreement and evidence gaps."
+        }
+      },
+      {
+        "title": {
+          "zh": "形成有边界的下一步",
+          "en": "Record a bounded next step"
+        },
+        "description": {
+          "zh": "交付可追溯批评或决策记录，列出仍需检索、验证和专业审查的事项；图示仅在需要时另行生成。",
+          "en": "Deliver a traceable critique or decision log with remaining searches, validation and expert review tasks. Generate diagrams separately when needed."
+        }
+      }
     ]
   },
   "github-com-brycewang-stanford-auto-empirical-research-skills": {
     "resourceSlug": "auto-empirical-research-skills",
-    "updatedAt": "2026-10-09",
+    "updatedAt": "2026-10-10",
     "primaryCapability": {
-      "zh": "社会科学实证研究与论文工作流发现",
-      "en": "Discover workflows for empirical social-science research and papers"
+      "zh": "串联实证研究的识别、分析计划与复现交付",
+      "en": "Connect empirical identification, analysis planning and replication delivery"
     },
     "summary": {
-      "zh": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。",
-      "en": "AERS gathers empirical-research workflows from multiple sources. From its MIT-licensed AER-skills subcollection, SkillFlux selected preregistration, identification and replication, preserving three direct support skills, required templates, shared scripts, references and related examples."
+      "zh": "SkillFlux 从 AERS 中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能。它们把研究问题连接到估计目标、分析计划、诊断检查与复现包；同时收录稳健性、StatsPAI 和图表三个支持技能，以及所需模板、公共脚本、引用与示例。",
+      "en": "SkillFlux selected preregistration, identification and replication from the MIT-licensed AER-skills subcollection within AERS. These skills connect research questions to estimands, analysis plans, diagnostics and replication packages. The selection also preserves robustness, StatsPAI and tables/figures support skills with required templates, shared scripts, references and examples."
     },
     "bestFor": [
       {
-        "zh": "需要围绕社会科学实证研究阶段发现方法与工具的研究者。",
-        "en": "Researchers seeking methods and tools for stages of an empirical social-science project."
+        "zh": "已有实证经济学研究问题，需要明确识别假设、估计方法与诊断报告的研究者。",
+        "en": "Empirical-economics researchers who need to specify identifying assumptions, estimators and diagnostic reports for an existing question."
       },
       {
-        "zh": "愿意追溯原始项目，核对统计环境、研究假设与复制许可的团队。",
-        "en": "Teams willing to trace original projects and check statistical environments, research assumptions and reuse terms."
+        "zh": "准备实验分析计划，或需要把数据来源、脚本和论文图表整理成可复现交付的团队。",
+        "en": "Teams preparing an experimental analysis plan or organizing data provenance, scripts and manuscript exhibits into a reproducible deliverable."
       }
     ],
     "useCases": [
@@ -2578,17 +2930,17 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
-      "en": "Main selections: aer-preregistration, aer-identification and aer-replication. Support skills: aer-robustness, aer-statspai and aer-tables-figures. The inventory below covers these skills and their shared resources. All remain in intake pending MCP installation review."
+      "zh": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。已完整保存这组技能及所需公共资源，目前均为 intake，未通过 MCP 安装审核。本页依据固定版本正文拆解，不表示已验证估计结果或完成研究注册。",
+      "en": "Main selections are aer-preregistration, aer-identification and aer-replication, supported by aer-robustness, aer-statspai and aer-tables-figures. These skills and required shared resources are fully preserved and remain in intake pending MCP installation review. This analysis of pinned instructions does not claim validated estimates or completed research registration."
     },
     "limitations": [
       {
-        "zh": "本次所选 AER-skills 子合集为 MIT；外围 AERS 合集的其他来源许可各异，不在本次完整包收录范围。",
-        "en": "The selected AER-skills subcollection uses MIT. Other sources in the surrounding AERS collection have different terms and are outside this package selection."
+        "zh": "MIT 许可只对应本次选定的 AER-skills 子合集；外围 AERS 的其他来源许可各异。StatsPAI MCP、统计软件、数据访问与注册服务均不是收录目录自带的运行环境。",
+        "en": "MIT applies to the selected AER-skills subcollection, while other sources in AERS have different terms. StatsPAI MCP, statistical software, data access and registration services are separate from the collected files."
       },
       {
-        "zh": "模板和示例依赖 Python、R 或 Stata；StatsPAI MCP 等服务属于外部运行依赖。研究注册、数据上传和结果验证仍需按具体任务处理。",
-        "en": "Templates and examples require Python, R or Stata. Services such as StatsPAI MCP are external runtime dependencies. Research registration, data uploads and result verification remain task-specific actions."
+        "zh": "模板与方法分支是研究起点，须结合数据和识别假设核查；不能据清单完成情况保证因果有效性或期刊接受。注册和提交要求还需以实际平台与期刊当时的规则为准。",
+        "en": "Templates and method branches are starting points to assess against the data and identifying assumptions. Completing a checklist cannot guarantee causal validity or journal acceptance; registration and submission requirements must be checked with the relevant platform and journal."
       }
     ],
     "alternativeSlugs": [
@@ -2597,17 +2949,105 @@
     ],
     "alternativeReasons": {
       "github-com-k-dense-ai-scientific-agent-skills": {
-        "zh": "研究重心是自然科学软件包、实验数据或科研数据库时，可比较 Scientific Agent Skills。",
-        "en": "Compare Scientific Agent Skills for natural-science packages, experimental data and scientific databases."
+        "zh": "若仍在研究选题或证据批判阶段，可比较 K-Dense 本次精选的 brainstorming 与 critical-thinking，再进入具体实证设计。",
+        "en": "Compare the selected K-Dense brainstorming and critical-thinking skills when the task is still research ideation or evidence appraisal, before a specific empirical design."
       },
       "github-com-othmanadi-planning-with-files": {
-        "zh": "主要困难是长任务中的计划、发现和进度记录时，可比较 planning-with-files。",
-        "en": "Compare planning-with-files when preserving plans, findings and progress is the main difficulty."
+        "zh": "若暂不需要统计方法，只想长期保存研究计划、发现和进度，可比较 planning-with-files。",
+        "en": "Compare planning-with-files when the need is persistent research plans, findings and progress rather than statistical-method guidance."
       }
     },
     "relatedGuideSlugs": [
       "choosing-a-skill-source",
       "how-to-download-claude-skills"
+    ],
+    "capabilityBreakdown": [
+      {
+        "title": {
+          "zh": "把研究设计映射到识别策略",
+          "en": "Map the design to an identification strategy"
+        },
+        "description": {
+          "zh": "aer-identification 按处理分配、阈值、政策时点或外生变化组织 DiD、IV、RDD、合成控制等分支，同时要求记录估计目标、诊断与推断方式。",
+          "en": "aer-identification organizes DiD, IV, RDD, synthetic control and other branches around assignment, thresholds, policy timing or exogenous variation, with estimands, diagnostics and inference recorded."
+        },
+        "sourceUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/skills/50-brycewang-aer-skills/skills/aer-identification/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "将实验决策写成分析计划",
+          "en": "Turn experimental decisions into an analysis plan"
+        },
+        "description": {
+          "zh": "aer-preregistration 提供 PAP 提纲，覆盖假设、主要结果、估计式、纳入规则、功效与多重检验；输出用于后续核对计划和偏离。",
+          "en": "aer-preregistration provides a PAP outline covering hypotheses, primary outcomes, estimating equations, inclusion rules, power and multiplicity, supporting later comparison of the plan with deviations."
+        },
+        "sourceUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/skills/50-brycewang-aer-skills/skills/aer-preregistration/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "围绕主结果设计补充检查",
+          "en": "Plan checks around the main result"
+        },
+        "description": {
+          "zh": "aer-robustness 将规格、样本、结果定义和推断方式的敏感性，与异质性、机制和安慰剂检查分开组织，便于说明每项检查回答什么问题。",
+          "en": "aer-robustness separates sensitivity to specifications, samples, outcome definitions and inference from heterogeneity, mechanism and placebo checks, making each check’s question explicit."
+        },
+        "sourceUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/skills/50-brycewang-aer-skills/skills/aer-robustness/SKILL.md"
+      },
+      {
+        "title": {
+          "zh": "把论文结果连接到复现文件",
+          "en": "Connect manuscript results to replication files"
+        },
+        "description": {
+          "zh": "aer-replication 用数据来源登记、环境说明、主脚本和图表索引组织交付；每张图表应能追溯到生成脚本与输出文件。",
+          "en": "aer-replication organizes provenance records, environment instructions, a master script and exhibit mappings so tables and figures can be traced to generating scripts and output files."
+        },
+        "sourceUrl": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills/blob/9fa87d86e34d6c9a1c7cdb0db755c83c780537a0/skills/50-brycewang-aer-skills/skills/aer-replication/SKILL.md"
+      }
+    ],
+    "workflowSteps": [
+      {
+        "title": {
+          "zh": "写清研究问题与数据条件",
+          "en": "State the question and data conditions"
+        },
+        "description": {
+          "zh": "提供处理分配方式、可用数据、时间结构和目标效应；先记录识别假设，再选择方法分支。",
+          "en": "Describe assignment, available data, time structure and the target effect. Record identifying assumptions before choosing a method branch."
+        }
+      },
+      {
+        "title": {
+          "zh": "固定计划和执行环境",
+          "en": "Record the plan and execution environment"
+        },
+        "description": {
+          "zh": "对适用的实验或前瞻性研究准备分析计划；同时检查统计软件、包版本与可用的外部工具。",
+          "en": "Prepare an analysis plan for applicable experimental or prospective work and check statistical software, package versions and available external tools."
+        }
+      },
+      {
+        "title": {
+          "zh": "运行分析并保留诊断",
+          "en": "Run the analysis and retain diagnostics"
+        },
+        "description": {
+          "zh": "由准备好的环境执行估计与相应检查，保存结果、图表、假设变化和计划偏离记录。",
+          "en": "Use the prepared environment for estimation and relevant checks, retaining results, exhibits, assumption changes and deviations from the plan."
+        }
+      },
+      {
+        "title": {
+          "zh": "从干净环境核对复现包",
+          "en": "Check replication from a clean environment"
+        },
+        "description": {
+          "zh": "用主脚本重建输出，核对论文图表映射与数据来源；记录运行条件、受限数据获取方式和未解决的问题。",
+          "en": "Rebuild outputs with the master script, check exhibit mappings and data provenance, and document runtime requirements, restricted-data access and unresolved issues."
+        }
+      }
     ]
   }
 }

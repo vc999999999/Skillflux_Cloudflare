@@ -13,7 +13,7 @@ const copy = getPageCopy(lang);
 const canonicalPath = localizePath("/insights/", lang);
 
 const entries = (await getCollection("insights", (entry) => !entry.data.draft)).sort((a, b) =>
-  b.data.datePublished.localeCompare(a.data.datePublished)
+  b.data.dateModified.localeCompare(a.data.dateModified) || a.id.localeCompare(b.id)
 );
 
 const breadcrumbItems = [
@@ -29,6 +29,7 @@ const jsonLd = [
     url: absoluteUrl(canonicalPath),
     description: copy.insightsPage.indexDescription,
     inLanguage: copy.locale,
+    ...(entries[0] ? { dateModified: entries[0].data.dateModified } : {}),
     isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
     mainEntity: {
       "@type": "ItemList",
@@ -80,10 +81,10 @@ const jsonLd = [
         <a class="insight-card" href={`/insights/${entry.id}/`}>
           <p class="insight-card-meta">
             <span class="insight-card-industry">{entry.data.industry}</span>
-            <span>{copy.insightsPage.updatedPrefix} {entry.data.dateModified}</span>
+            <span>{copy.insightsPage.updatedPrefix} <time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></span>
           </p>
-          <h2>{entry.data.title}</h2>
-          <p class="insight-card-desc">{entry.data.description}</p>
+          <h2 lang="zh-CN">{entry.data.title}</h2>
+          <p class="insight-card-desc" lang="zh-CN">{entry.data.description}</p>
           <span class="insight-card-more">{copy.insightsPage.readMore} →</span>
         </a>
       ))}

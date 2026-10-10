@@ -14,6 +14,8 @@ export type ResourceEditorial = {
   alternativeSlugs: string[];
   alternativeReasons: Record<string, ResourceText>;
   relatedGuideSlugs: string[];
+  capabilityBreakdown?: Array<{ title: ResourceText; description: ResourceText; sourceUrl: string }>;
+  workflowSteps?: Array<{ title: ResourceText; description: ResourceText }>;
 };
 
 const records: Record<string, ResourceEditorial> = editorialData;

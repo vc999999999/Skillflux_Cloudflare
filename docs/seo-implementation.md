@@ -10,6 +10,14 @@ Directory 和 Registry 的搜索、筛选、排序 URL 在首个 HTTP 响应中�
 
 构建后的 `web/scripts/seo-build.ts` 检查标题、描述、H1、正文、内部链接、canonical、hreflang、JSON-LD 和 sitemap 一致性。`lastmod` 使用内容维护日期，缺少可靠日期时省略。不要用构建时间伪造内容更新时间。
 
+## 持续更新内容
+
+资源详情可在 `web/data/resource-editorial.json` 中补充双语 `capabilityBreakdown` 和 `workflowSteps`。能力拆解的 `sourceUrl` 应指向实际阅读的固定版本原始说明，正文写清输入、方法、产出与使用条件。修改编辑内容后更新该条 `updatedAt`，无需把上游固定提交改成尚未收录的新版本。
+
+首页的最近更新模块从可索引资源的内容日期和已发布专题的修改日期生成，源码分析与可安装版本仍分别展示。专题使用 `relatedSites` 关联资源的原始 slug，资源详情会自动反向显示对应专题；英文资源页链接中文文章时明确标注语言。
+
+专题与指南提供文章分享元数据。`WebPage`、`Article`、`TechArticle`、`CollectionPage` 的有效 `dateModified` 可进入 sitemap，其中带 URL 的记录必须与当前页面 canonical 一致。专题索引使用实际文章的最新修改日期；首页保留自身编辑日期并结合所展示内容的日期。改动栏目布局或固定文案时也应维护首页的编辑日期，不能用部署时间替代。
+
 ## 验证与发布
 
 在仓库根目录运行：

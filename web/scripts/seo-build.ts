@@ -87,7 +87,7 @@ export function inspectHtml(file: string, html: string): BuiltPage {
     try { schemas.push(...schemaObjects(JSON.parse(textContent(node, true)))); }
     catch { if (indexable) issues.push('invalid JSON-LD'); }
   }
-  const dates = schemas.filter(value => ['WebPage', 'Article', 'CollectionPage'].some(type => schemaHasType(value, type)))
+  const dates = schemas.filter(value => ['WebPage', 'Article', 'TechArticle', 'CollectionPage'].some(type => schemaHasType(value, type)))
     .filter(value => !value.url || value.url === canonical).map(value => value.dateModified).filter(value => value !== undefined);
   const invalidDate = dates.some(value => !validDate(value));
   const lastmod = dates.filter(validDate).sort((left, right) => Date.parse(left) - Date.parse(right)).at(-1);

@@ -1,8 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ContentUpdates from './ContentUpdates.astro';
 import Icon from './Icon.astro';
 import RegistryExplorer from './RegistryExplorer.astro';
-import { absoluteUrl, getCategories, getDirectoryStats, getSiteBySlug, getTagIndex } from '../lib/content';
+import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getSiteBySlug, getTagIndex } from '../lib/content';
 import { localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
@@ -11,6 +13,11 @@ const { lang = 'zh' } = Astro.props as { lang?: Language };
 const zh = lang === 'zh';
 const href = (path: string) => localizePath(path, lang);
 const stats = getDirectoryStats();
+const updatedSites = getIndexableSites().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.resourceSlug.localeCompare(b.resourceSlug)).slice(0, 5);
+const latestInsights = (await getCollection('insights', entry => !entry.data.draft))
+  .sort((a, b) => b.data.dateModified.localeCompare(a.data.dateModified) || a.id.localeCompare(b.id)).slice(0, 2);
+// Keep the editorial date of this page and the dates of the content shown on it.
+const homeUpdatedAt = ['2026-10-10', stats.updatedAt, ...latestInsights.map(entry => entry.data.dateModified), ...getGuides().map(guide => guide.dateModified), ...scenarios.slice(1).map(scenario => scenario.updatedAt)].sort().at(-1);
 const categories = getCategories();
 const tags = getTagIndex().slice(0, 9);
 const title = zh ? '想给你的 Agent 增加什么能力？· AI Agent 功能黄页' : 'Capabilities You Want to Add to Your AI Agent · Yellow Pages';
@@ -34,7 +41,10 @@ const categoryNotes: Record<string, [string, string]> = {
 const publication = getPublication();
 const command = 'skillflux search "code review"';
 ---
-<BaseLayout lang={lang} title={title} description={description} canonicalPath={href('/')} pageClass="sf-home" jsonLd={{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description }}>
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={href('/')} pageClass="sf-home" jsonLd={[
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description },
+  { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: absoluteUrl(href('/')), description, dateModified: homeUpdatedAt }
+]}>
   <main id="main-content">
     <section class="home-hero">
       <div class="home-container">
@@ -59,17 +69,18 @@ const command = 'skillflux search "code review"';
     </section>
     <div class="home-container">
       <dl class="home-stats">
-        {[[stats.resourceCount, zh ? '已收录能力' : 'Indexed capabilities', zh ? 'Skills、MCP、工具与插件' : 'Skills, MCP, tools & sources'], [stats.labelCount, zh ? '能力主题' : 'Topics & categories', zh ? '按场景与技术栈发现' : 'Explore by task & domain'], [stats.recommendedCount, zh ? '精选推荐' : 'Curated picks', zh ? '有入选理由与评测' : 'High-signal recommendations'], [categories.length, zh ? '来源类别' : 'Source categories', zh ? '从官方厂商到开源社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
+        {[[stats.resourceCount, zh ? '已收录能力' : 'Indexed capabilities', zh ? 'Skills、MCP、工具与插件' : 'Skills, MCP, tools & sources'], [stats.labelCount, zh ? '能力主题' : 'Topics & categories', zh ? '按场景与技术栈发现' : 'Explore by task & domain'], [stats.recommendedCount, zh ? '精选推荐' : 'Curated picks', zh ? '有选用理由与适用边界' : 'High-signal recommendations'], [categories.length, zh ? '来源类别' : 'Source categories', zh ? '从官方厂商到开源社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
       </dl>
+      <ContentUpdates sites={updatedSites} insights={latestInsights} lang={lang} />
       <section class="home-section" aria-labelledby="picks-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? '精选推荐 · 高价值能力' : 'EDITORIAL · CURATED CAPABILITIES'}</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '从经过实测、适用度高的能力来源开始。推荐理由和任务场景一目了然。' : 'High-signal starting points with transparent rationale and practical use cases.'}</p></div><a href={href('/directory/')}>{zh ? '浏览黄页' : 'Browse yellow pages'} <Icon size={16} /></a></div>
+        <div class="section-top"><div><p class="eyebrow">{zh ? '精选推荐 · 高价值能力' : 'EDITORIAL · CURATED CAPABILITIES'}</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '从用途明确、资料可追溯的能力来源开始。查看推荐理由和适用场景，再决定是否采用。' : 'High-signal starting points with transparent rationale and practical use cases.'}</p></div><a href={href('/directory/')}>{zh ? '浏览黄页' : 'Browse yellow pages'} <Icon size={16} /></a></div>
         <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE RECOMMEND IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{zh ? '来源推荐' : 'Source recommendation'}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
         <p class="quiet-note">{zh ? '功能黄页帮助你发现来源；可安装的审核版本请查看' : 'The yellow pages help you discover sources. For reviewed, installable releases, visit the'} <a href={href('/registry/')}>{zh ? '精品能力库' : 'curated registry'} ↗</a></p>
       </section>
     </div>
     <section class="install-section" aria-labelledby="install-title">
       <div class="home-container">
-        <div class="install-grid"><div class="install-intro"><p class="eyebrow">{zh ? '接入运行时 · LOCAL CLI & MCP' : 'CONNECT · RUNTIME LAYER'}</p><h2 id="install-title">{zh ? <>从黄页发现，<br />走向项目落地。</> : <>From discovery<br />to a working project.</>}</h2><p>{zh ? '为项目配置 SkillFlux 入口。按需检索、审核安装计划，随时扩展 Agent 所需的能力。' : 'Connect one SkillFlux runtime to your project. Search, inspect an installation plan, and load reviewed capabilities on demand.'}</p><a class="button primary" href={href('/install/')}>{zh ? '查看安装指南' : 'Open setup guide'} <Icon size={16} /></a><p class="source-note">{zh ? '当前提供源码与本地构建包。需要 Node.js ≥ 22.13。' : 'Available from source and local builds. Requires Node.js ≥ 22.13.'}</p><div class="install-flow"><span>{zh ? '发现' : 'Discover'}</span><Icon size={13} /><span>{zh ? '选择' : 'Select'}</span><Icon size={13} /><span>{zh ? '检查' : 'Review'}</span><Icon size={13} /><span>{zh ? '加载' : 'Load'}</span></div></div>
+        <div class="install-grid"><div class="install-intro"><p class="eyebrow">{zh ? '接入运行时 · LOCAL CLI & MCP' : 'CONNECT · RUNTIME LAYER'}</p><h2 id="install-title">{zh ? <>从黄页发现，<br />走向项目落地。</> : <>From discovery<br />to a working project.</>}</h2><p>{zh ? '为项目配置 SkillFlux 入口。按需检索、审核安装计划，随时扩展 Agent 所需的能力。' : 'Connect one SkillFlux runtime to your project. Search, inspect an installation plan, and load reviewed capabilities on demand.'}</p><a class="button primary" href={href('/install/')}>{zh ? '查看安装指南' : 'Open setup guide'} <Icon size={16} /></a><p class="source-note">{zh ? '通过 npm 安装 SkillFlux，需 Node.js ≥ 22.13。' : 'Install SkillFlux from npm. Requires Node.js ≥ 22.13.'}</p><div class="install-flow"><span>{zh ? '发现' : 'Discover'}</span><Icon size={13} /><span>{zh ? '选择' : 'Select'}</span><Icon size={13} /><span>{zh ? '检查' : 'Review'}</span><Icon size={13} /><span>{zh ? '加载' : 'Load'}</span></div></div>
           <div class="terminal-demo"><div class="terminal-title"><span><i></i><i></i><i></i></span><span>~/my-project</span><span>CLI</span></div><div class="terminal-body"><p class="terminal-comment"># {zh ? '完成本地安装和初始化之后' : 'After local installation and project init'}</p><p><span>$</span> skillflux search "code review"</p><p class="terminal-comment"># {zh ? '选定搜索结果中的能力与版本' : 'Choose a capability and version from the results'}</p><p><span>$</span> skillflux plan &lt;skill-id&gt;@&lt;version&gt;</p><p class="terminal-comment"># {zh ? '检查计划，然后使用返回的 plan ID' : 'Inspect the plan, then use its returned ID'}</p><p><span>$</span> skillflux install &lt;plan-id&gt;</p><p><span>$</span> skillflux load &lt;skill-id&gt;</p><div class="terminal-foot"><span class="tiny-dot"></span>{zh ? '项目内安装 · 固定版本 · 显式加载' : 'Project scoped · versioned · explicitly invoked'}</div></div></div>
         </div>
         <div class="install-benefits">{[["terminal", zh ? '一个接入入口' : 'One entry point', zh ? 'CLI 与 MCP 共用同一套版本流程。' : 'One version workflow for CLI and MCP.'], ['layers', zh ? '按项目管理' : 'Per-project installation', zh ? '能力与配置跟随需要它们的项目。' : 'Keep capabilities with the project that uses them.'], ['book', zh ? '可查看的审核记录' : 'Reviewable evidence', zh ? '发布版本附带公开的测试摘要。' : 'Published releases include public test summaries.'], ['code', zh ? '宿主配置适配' : 'Host-specific setup', zh ? '为 Claude、Cursor 和 Codex 生成配置。' : 'Configuration for Claude, Cursor and Codex.']].map(([icon, title, note]) => <div><Icon name={icon} size={19} /><h3>{title}</h3><p>{note}</p></div>)}</div>
