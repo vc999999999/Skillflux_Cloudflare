@@ -30,7 +30,11 @@ const secretPatterns: Array<{ name: string; pattern: RegExp }> = [
 const unsafeInstructionPatterns: Array<{ name: string; pattern: RegExp }> = [
   { name: 'instruction-override', pattern: /ignore\s+(?:all\s+)?(?:previous|prior|system)\s+instructions?/i },
   { name: 'secret-exfiltration', pattern: /(?:upload|send|exfiltrat\w*)[^\n]{0,80}(?:secret|credential|token|private key)/i },
-  { name: 'safety-bypass', pattern: /(?:disable|bypass|evade)[^\n]{0,50}(?:safety|policy|guardrail|permission)/i },
+  // Imperative verb forms only: gerunds ("bypassing safety controls" inside a
+  // misuse red-flag list) describe conduct to escalate on, and hyphenated
+  // compounds ("disable-model-invocation: true") are configuration keys —
+  // neither is an instruction to act.
+  { name: 'safety-bypass', pattern: /(?:disable|bypass|evade)(?![\w-])[^\n]{0,50}?(?:safety|policy|guardrail|permission)/i },
   { name: 'hidden-sponsorship', pattern: /(?:hide|omit|do not disclose)[^\n]{0,80}(?:advertis|sponsor|paid|\u5e7f\u544a|\u8d5e\u52a9)/i },
 ];
 
