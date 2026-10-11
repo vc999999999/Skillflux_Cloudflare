@@ -2,6 +2,16 @@
 
 Authoritative models, canonical JSON and hashing primitives are in `src/shared.ts`. The catalog directory format and index schema are in `src/catalog/model.ts` with zod validation in `src/catalog/schemas.ts`. Node >=22.13.0 is required. The terminal user is anonymous and needs no account. There is no self-hosted server: skill content is distributed from a GitHub catalog repository.
 
+## Hybrid retrieval (phased)
+
+Search is a local, two-channel operation over the cached catalog index. Channel one is keyword scoring over each entry's summary (id, name, description, category, tags). Channel two is semantic vector scoring, shipped as an optional `semantic` section inside `index.json`:
+
+- Vectorized inputs: the skill's capability text (name, description, tags, category, weighted heaviest) and its body text (entry file plus bundled text files). Source URLs — GitHub addresses and any other links — are stripped before tokenization and never contribute to vectors; they remain source metadata in manifests and audit records only.
+- Phase 1 model (`hashed-tfidf/v1`): deterministic, dependency-free hashed TF-IDF projection into 128 signed dimensions, plus a term-centroid table. `skillflux catalog build` computes it from version-directory content; `--check` reproduces it byte-for-byte.
+- Query embedding is offline: query terms are embedded by summing stored term centroids, so no model ships with the client and no network call is ever made for search. A query term with morphology shifted from the indexed form still lands near its target because tokenizer prefixes and CJK n-grams share centroids.
+- Scoring: `0.45 × keyword + 0.55 × semantic` when a query vector exists; a semantic hit alone (>= 0.18 cosine) can surface a skill the keyword pass missed. Indexes without a `semantic` section, and clients that predate the field, degrade to unchanged keyword-only behavior — the section is additive and ignored by `fetchIndex`'s schema check.
+- Phase 2 (reserved): the `model.kind` string versions the scheme. A future `embedding/v1` section may replace vectors with real embedding-model output computed at catalog build time; the same offline term-centroid query path keeps working because centroids are rebuilt in that space. Client search code needs no change.
+
 ## Catalog repository layout
 
 ```

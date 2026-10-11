@@ -4,6 +4,7 @@ import { canonical, compareVersions, sha256, safeRelativePath } from '../shared.
 import { SkillFluxError } from '../runtime/errors.js';
 import { catalogManifestSchema, reviewSidecarSchema } from './schemas.js';
 import { scanFiles, scanPermissions } from './scan.js';
+import { buildSemanticSection, semanticDocFor, type SemanticDoc } from './semantic.js';
 import {
   CATALOG_INDEX_FILE,
   CATALOG_INDEX_SCHEMA,
@@ -78,6 +79,7 @@ export async function buildCatalogIndex(catalogRoot: string, options: { output?:
   if (!rootInfo?.isDirectory()) throw new SkillFluxError('CATALOG_NOT_FOUND', `No skills/ directory under ${catalogRoot}`);
   const warnings: string[] = [];
   const entries: CatalogIndexEntry[] = [];
+  const semanticDocs: SemanticDoc[] = [];
 
   // Layout: skills/<category>/<id>/<version>/ — the category directory must match
   // the manifest's declared category, grouping the catalog by capability area.
@@ -136,13 +138,16 @@ export async function buildCatalogIndex(catalogRoot: string, options: { output?:
       if (qualification !== 'qualified') {
         warnings.push(`${skillId}@${version} qualification is ${qualification}`);
       }
+      semanticDocs.push(semanticDocFor(loaded.manifest, loaded.files));
       }
     }
   }
 
   entries.sort((a, b) => a.skill.id.localeCompare(b.skill.id) || compareVersions(b.skill.version, a.skill.version));
   validateDependencies(entries);
-  const index: CatalogIndex = { schema: CATALOG_INDEX_SCHEMA, generatedAt: new Date().toISOString(), skills: entries };
+  const generatedAt = new Date().toISOString();
+  const semantic = buildSemanticSection({ docs: semanticDocs });
+  const index: CatalogIndex = { schema: CATALOG_INDEX_SCHEMA, generatedAt, skills: entries, semantic };
   const output = resolve(options.output ?? catalogRoot, CATALOG_INDEX_FILE);
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, `${JSON.stringify(index, null, 2)}\n`);

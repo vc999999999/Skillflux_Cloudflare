@@ -38,7 +38,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
 
   server.registerTool('skillflux.search', {
     title: 'Search the curated SkillFlux catalog',
-    description: 'Search the curated SkillFlux skill marketplace (a reviewed GitHub-hosted catalog) using a short capability description. Search runs locally over a cached catalog index. Do not include source, secrets, full prompts or personal data.',
+    description: 'Search the curated SkillFlux skill marketplace (a reviewed GitHub-hosted catalog) using a short capability description. Scoring combines keyword matching with semantic vectors over each skill\u2019s capability and body text (source URLs are never vectorized); catalogs without vectors fall back to keyword-only. Search runs locally over a cached catalog index. Do not include source, secrets, full prompts or personal data.',
     inputSchema: {
       query: z.string().max(500).optional().default(''),
       category: z.string().max(80).optional(),

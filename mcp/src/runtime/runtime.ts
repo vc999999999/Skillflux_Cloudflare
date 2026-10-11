@@ -149,6 +149,7 @@ export class SkillFluxRuntime {
       sort: options.sort ?? 'relevance',
       limit: options.limit,
       offset: options.offset,
+      ...(catalog.index.semantic ? { semantic: catalog.index.semantic } : {}),
     });
   }
 

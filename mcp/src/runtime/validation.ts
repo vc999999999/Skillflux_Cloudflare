@@ -2,6 +2,7 @@ import { canonical, compareVersions, safeRelativePath, sha256 } from '../shared.
 import { RUNTIME_VERSION } from './updates.js';
 import { SkillFluxError } from './errors.js';
 import type { CatalogIndexEntry } from '../catalog/model.js';
+import { embedQuery, semanticScore, type SemanticSection } from '../catalog/semantic.js';
 import type { Bundle, Host, SkillSummary } from '../shared.js';
 
 export const MAX_BUNDLE_BYTES = 512 * 1024;
@@ -120,8 +121,11 @@ export function validateIndexEntry(entry: CatalogIndexEntry): void {
   }
 }
 
-/** Local search over cached index entries. */
-export function searchIndex(index: CatalogIndexEntry[], options: { query?: string; category?: string; host?: Host; sort?: 'relevance' | 'newest' | 'name'; limit?: number; offset?: number }): {
+/** Local search over cached index entries. When a semantic section is present
+ * (catalogs built with hybrid retrieval), keyword and semantic scores combine;
+ * catalogs without one degrade to pure keyword scoring, so older indexes and
+ * older catalogs keep working unchanged. */
+export function searchIndex(index: CatalogIndexEntry[], options: { query?: string; category?: string; host?: Host; sort?: 'relevance' | 'newest' | 'name'; limit?: number; offset?: number; semantic?: SemanticSection }): {
   items: SkillSummary[]; total: number; categories: string[]; offset: number; limit: number;
 } {
   const query = (options.query ?? '').trim().toLowerCase();
@@ -135,24 +139,34 @@ export function searchIndex(index: CatalogIndexEntry[], options: { query?: strin
   let matched = [...latestPerSkill.values()];
   if (options.category) matched = matched.filter(entry => entry.skill.category === options.category);
   if (options.host) matched = matched.filter(entry => entry.skill.hosts.includes(options.host!) || entry.skill.hosts.includes('generic'));
+  // A query vector exists only when the semantic section is present and at least
+  // one query term has a stored centroid; otherwise this is keyword-only search.
+  const queryVector = terms.length && options.semantic ? embedQuery(options.semantic, query) : null;
+  const keywordWeight = queryVector ? 0.45 : 1;
+  const semanticWeight = queryVector ? 0.55 : 0;
+  const semanticFloor = queryVector ? 0.18 : 0;
   const scored = matched.map(entry => {
     const summary = entry.skill;
-    let score = 0;
-    const reasons: string[] = [];
+    let keywordScore = 0;
+    let matchedTerms = 0;
     if (terms.length) {
       const haystack = [summary.name, summary.description, summary.id, summary.category, ...summary.tags].join(' ').toLowerCase();
-      let matchedTerms = 0;
       for (const term of terms) {
         if (haystack.includes(term)) matchedTerms += 1;
         else if (summary.name.toLowerCase().includes(term.slice(0, Math.max(3, term.length - 2)))) matchedTerms += 0.5;
       }
-      if (matchedTerms === 0) return null;
-      score = matchedTerms / terms.length;
-      if (summary.name.toLowerCase().includes(terms[0]!)) score += 0.5;
-      reasons.push(`matched ${matchedTerms}/${terms.length} terms`);
-    } else {
-      reasons.push('listed');
+      keywordScore = Math.min(1, matchedTerms / terms.length + (summary.name.toLowerCase().includes(terms[0]!) ? 0.25 : 0));
     }
+    const semanticResult = queryVector ? semanticScore(options.semantic!, summary, queryVector) : null;
+    const semanticValue = semanticResult?.score ?? 0;
+    // With a query vector, a semantic hit alone can surface a skill the keyword
+    // pass missed; without one the original keyword-only gate applies.
+    if (terms.length && matchedTerms === 0 && (!queryVector || semanticValue < semanticFloor)) return null;
+    const score = !terms.length ? 0 : keywordWeight * keywordScore + semanticWeight * semanticValue;
+    const reasons: string[] = [];
+    if (!terms.length) reasons.push('listed');
+    else if (queryVector) reasons.push(`hybrid keyword=${matchedTerms}/${terms.length} semantic=${semanticValue.toFixed(2)}`);
+    else reasons.push(`matched ${matchedTerms}/${terms.length} terms`);
     return { entry, score, reasons };
   }).filter((item): item is { entry: CatalogIndexEntry; score: number; reasons: string[] } => item !== null);
   const sort = options.sort ?? 'relevance';

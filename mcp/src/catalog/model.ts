@@ -89,6 +89,9 @@ export interface CatalogIndex {
   schema: typeof CATALOG_INDEX_SCHEMA;
   generatedAt: string;
   skills: CatalogIndexEntry[];
+  /** Optional semantic retrieval section (hybrid search phase 1). Additive and
+   * ignored by clients that predate it; never changes entry semantics. */
+  semantic?: import('./semantic.js').SemanticSection;
 }
 
 export type { Bundle };
