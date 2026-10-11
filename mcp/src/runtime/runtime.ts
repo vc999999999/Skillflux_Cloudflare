@@ -74,6 +74,7 @@ export class SkillFluxRuntime {
   private policyValue: RuntimePolicy;
   readonly trust: TrustRecord;
   readonly client: CatalogClient;
+  private catalogRefresh?: Promise<CatalogState & { fromCache: boolean }>;
 
   private constructor(state: Awaited<ReturnType<typeof loadRuntimeState>>) {
     this.paths = state.paths;
@@ -592,18 +593,23 @@ export class SkillFluxRuntime {
     return { projectRoot: this.paths.root, revision: lock.revision, skills: Object.values(lock.skills).sort((a, b) => a.id.localeCompare(b.id)) };
   }
 
-  async checkUpdates(skillId?: string, force = true): Promise<UpdateCheckResult> {
+  async checkUpdates(skillId?: string, force = true, signal?: AbortSignal): Promise<UpdateCheckResult> {
     if (skillId) assertSkillId(skillId);
-    const lock = await readLock(this.paths);
-    const entries = skillId ? [lock.skills[skillId]] : Object.values(lock.skills);
+    let lock = await readLock(this.paths);
+    let entries = skillId ? [lock.skills[skillId]] : Object.values(lock.skills);
     if (entries.some(entry => !entry)) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} is not installed`);
+    if (!entries.length) return this.describeUpdates(lock, entries, null);
     let catalog: (CatalogState & { fromCache: boolean }) | null = null;
     let catalogWarning: string | undefined;
     try {
-      catalog = await this.getCatalog(force);
+      catalog = await this.getCatalog(force, { signal });
     } catch (error) {
       catalogWarning = (error as Error).message;
     }
+    // A foreground install/update may have completed during this network check.
+    lock = await readLock(this.paths);
+    entries = skillId ? [lock.skills[skillId]] : Object.values(lock.skills);
+    if (entries.some(entry => !entry)) throw new SkillFluxError('SKILL_NOT_INSTALLED', `${skillId} is not installed`);
     return this.describeUpdates(lock, entries, catalog, catalogWarning);
   }
 
@@ -765,7 +771,7 @@ export class SkillFluxRuntime {
   }
 
   /** Fetch (or reuse cached) catalog index; TTL 24h unless forced. */
-  private async getCatalog(force: boolean, options: { staleTolerant?: boolean } = {}): Promise<CatalogState & { fromCache: boolean }> {
+  private async getCatalog(force: boolean, options: { staleTolerant?: boolean; signal?: AbortSignal } = {}): Promise<CatalogState & { fromCache: boolean }> {
     const cached = await readJsonIfExists<CatalogState & { repo?: string }>(this.paths.index);
     const cacheValid = cached?.repo === this.config.repo
       && cached.commitSha
@@ -773,16 +779,25 @@ export class SkillFluxRuntime {
       && Date.now() - Date.parse(cached.fetchedAt) < UPDATE_CACHE_MS;
     if (!force && cacheValid && cached) return { ...cached, fromCache: true };
     try {
-      const fetched = await this.client.fetchIndex();
-      for (const entry of fetched.index.skills) validateIndexEntry(entry);
-      const state: CatalogState & { repo: string } = { ...fetched, repo: this.config.repo };
-      await assertNoSymlinkPath(this.paths.root, this.paths.index, true);
-      await atomicWriteJson(this.paths.index, state);
-      return { ...state, fromCache: false };
+      // Only overlap is coalesced. A later load still attempts a live revocation check.
+      if (!this.catalogRefresh) {
+        this.catalogRefresh = this.refreshCatalog(options.signal).finally(() => { this.catalogRefresh = undefined; });
+      }
+      return await this.catalogRefresh;
     } catch (error) {
       if (options.staleTolerant && isConnectivityFailure(error) && cached) return { ...cached, fromCache: true };
       throw error;
     }
+  }
+
+  private async refreshCatalog(signal?: AbortSignal): Promise<CatalogState & { fromCache: boolean }> {
+    const fetched = await this.client.fetchIndex({ signal });
+    for (const entry of fetched.index.skills) validateIndexEntry(entry);
+    const state: CatalogState & { repo: string } = { ...fetched, repo: this.config.repo };
+    await assertNoSymlinkPath(this.paths.root, this.paths.index, true);
+    if (signal?.aborted) throw new SkillFluxError('SOURCE_CANCELLED', 'Catalog check cancelled');
+    await atomicWriteJson(this.paths.index, state);
+    return { ...state, fromCache: false };
   }
 
   private async downloadBundle(commitSha: string, entry: CatalogIndexEntry): Promise<Bundle> {

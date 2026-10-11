@@ -20,13 +20,15 @@ Directory 和 Registry 的搜索、筛选、排序 URL 在首个 HTTP 响应中�
 
 ## RSS 更新订阅
 
-`/feed.xml` 合并可索引资源与已发布的 Skill 拆解；`/insights/feed.xml` 只提供拆解文章。两条订阅保留原地址，按资源 `updatedAt`、文章 `dateModified` 排序，展示最近 30 条；草稿和不可索引资源不进入订阅。页面同时提供两种 RSS 的自动发现链接。
+`/feed.xml` 合并可索引资源、已发布的 Skill 拆解与合格 Skill 包版本；`/insights/feed.xml` 只提供拆解文章，`/releases/feed.xml` 只提供合格版本。分别按资源 `updatedAt`、文章 `dateModified`、版本 `release.maintainedAt`（缺失时使用 `createdAt`）排序，各展示最近 30 条；草稿、不可索引资源和待验证收录不进入对应订阅。页面提供三种 RSS 自动发现链接。
 
-RSS 条目代表页面的最新内容修订。`web/src/lib/rss.ts` 根据实际内容及维护日期生成稳定的修订 GUID，设置 `isPermaLink="false"`；同一文章在两个订阅中的 GUID 相同。同日修改正文也会形成新标识，而重新构建、调整对象字段顺序不会造成重复更新。`lastBuildDate` 来自最新条目的维护日期，不使用构建时钟。实际编辑后仍须正确填写维护日期，供阅读器排序。
+资源和文章 RSS 条目代表页面的最新内容修订。`web/src/lib/rss.ts` 根据实际内容及维护日期生成稳定的修订 GUID，设置 `isPermaLink="false"`；同一文章在两个订阅中的 GUID 相同。同日修改正文也会形成新标识，而重新构建、调整对象字段顺序不会造成重复更新。`lastBuildDate` 来自最新条目的维护日期，不使用构建时钟。实际编辑后仍须正确填写维护日期，供阅读器排序。
 
 2026-10-11 从旧的页面 URL GUID 切换为修订 GUID，首次刷新可能把已有条目识别为未读，这是一次迁移。静态订阅仅保留各页面当前修订，不能补齐两次抓取之间的所有历史编辑。阅读器何时抓取及是否弹出通知由其设置决定。RSS GUID 语义见 [RSS 2.0 规范](https://www.rssboard.org/rss-specification#ltguidgtSubelementOfLtitemgt)。
 
-发布验收需检查两个地址返回 `application/rss+xml`、真实文章和资源条目、GUID 稳定性、XML 解析、条件请求及内容日期。Cloudflare 静态资源的响应头由 `web/public/_headers` 声明；只设置 Astro 预渲染函数的响应头不足以验证线上 MIME。
+包版本 GUID 单独按目录仓库、Skill ID 与版本生成，不使用构建时间；同版本重复部署不会重复公告。RSS 不计算用户项目的升级兼容性。流程见 [更新交付说明](update-delivery.md)。
+
+发布验收需检查三个地址返回 `application/rss+xml`、真实文章和资源条目、GUID 稳定性、XML 解析、条件请求及内容日期。Cloudflare 静态资源的响应头由 `web/public/_headers` 声明；只设置 Astro 预渲染函数的响应头不足以验证线上 MIME。
 
 ## 验证与发布
 

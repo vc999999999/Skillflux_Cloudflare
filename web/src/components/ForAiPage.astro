@@ -12,8 +12,9 @@ const descriptions: Record<string, [string, string]> = {
   "/llms.txt": ["先读这一份。了解站点定位、主要入口和数据的使用边界。", "Start here for the site's purpose, main entry points and data boundaries."],
   "/llms-full.txt": ["完整来源目录的纯文本版本，适合直接阅读、检索和引用。", "The complete source catalog in plain text, ready to read, search and cite."],
   "/index.json": ["来源名称、类型、标签、摘要与链接，以及场景和技能发布入口。", "Source names, types, tags, summaries and links, plus scenario and skill-release entry points."],
-  "/feed.xml": ["资源与文章的 RSS 订阅流，用于跟进收录、能力说明修订与最新 Skill 拆解。", "An RSS feed for resource additions, capability updates and new or revised skill deep-dives."],
+  "/feed.xml": ["合并版本发布、资源收录、能力说明修订与 Skill 拆解的 RSS 订阅流。", "A combined RSS feed for package releases, resource additions, capability updates and skill deep-dives."],
   "/insights/feed.xml": ["编辑解读与工作流分析的 RSS；文章解读不等于安装包实测。", "RSS for editorial analysis and workflows. Articles are not install-package evaluations."],
+  "/releases/feed.xml": ["仅推送合格 Skill 包的版本与更新说明。RSS 不安装内容，也不判断项目兼容性；在项目内检查更新后再按策略升级。", "Qualified Skill package versions and release notes only. RSS neither installs content nor checks project compatibility; use the project's update check and policy before upgrading."],
   "/skills-index.json": ["构建时从 GitHub 目录仓库生成的 Skill 版本状态；安装前客户端重新检查资格。", "Skill release states generated from the GitHub catalog at build time. The client rechecks eligibility before installation."],
   "/scenarios/index.json": ["按任务组织的场景、选型与维护指南，含中英文页面链接。", "Task-based scenarios, selection and maintenance guides, with Chinese and English page links."]
 };

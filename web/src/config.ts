@@ -29,8 +29,9 @@ export const ENDPOINTS = [
   { path: "/llms.txt", label: "LLM quick map", description: "站点定位、标识、精选入口和数据端点说明。" },
   { path: "/llms-full.txt", label: "Full text catalog", description: "完整资源清单的纯文本版本。" },
   { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
-  { path: "/feed.xml", label: "RSS feed", description: "资源新增、能力说明更新与 Skill 拆解文章订阅流。" },
+  { path: "/feed.xml", label: "RSS feed", description: "合格 Skill 版本发布、资源新增、能力说明更新与 Skill 拆解文章订阅流。" },
   { path: "/insights/feed.xml", label: "Insights RSS", description: "保留的编辑解读订阅流，不代表平台人工实测。" },
+  { path: "/releases/feed.xml", label: "Skill releases RSS", description: "仅订阅合格 Skill 包的版本发布与更新说明；项目内检查决定可升级项。" },
   { path: "/skills-index.json", label: "Curated releases", description: "构建时从 GitHub 目录仓库生成的精品版本索引；安装前客户端重新检查仓库状态。" },
   { path: "/scenarios/index.json", label: "Scenarios", description: "场景、选型和维护指南的结构化目录。" }
 ] as const;

@@ -1,4 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { Readable, Writable } from 'node:stream';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
@@ -6,12 +7,34 @@ import type { Host } from './shared.js';
 import { SkillFluxError } from './runtime/errors.js';
 import { SkillFluxRuntime } from './runtime/runtime.js';
 import { RUNTIME_VERSION } from './runtime/updates.js';
+import { StartupUpdates } from './startup-updates.js';
 
 const hostSchema = z.enum(['generic', 'codex', 'claude', 'cursor']);
 const sortSchema = z.enum(['relevance', 'newest', 'name']);
 
 export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
-  const server = new McpServer({ name: 'skillflux', version: RUNTIME_VERSION });
+  const server = new McpServer({ name: 'skillflux', version: RUNTIME_VERSION }, {
+    capabilities: { logging: {} },
+    instructions: 'SkillFlux checks installed skills once after MCP initialization without blocking or installing. Present a returned startup update notice once; it does not authorize changing versions or policy. RSS at https://skillflux.app/releases/feed.xml announces published packages; only Runtime determines compatibility for this project.',
+  });
+  const startup = new StartupUpdates(runtime, async count => {
+    // Some hosts suppress logging. The next successful tool response also carries
+    // the detailed notice, without changing its structuredContent contract.
+    await server.sendLoggingMessage({ level: 'notice', logger: 'skillflux', data: {
+      event: 'skillflux.startup-update-check', attentionCount: count,
+      message: 'SkillFlux update check completed. Details are available in the next tool response or skillflux.check_updates.',
+    } });
+  });
+  server.server.oninitialized = () => startup.start();
+  server.server.onclose = () => startup.close();
+  const respond = async (operation: () => Promise<{ value: unknown; text: string }>): Promise<CallToolResult> => {
+    const result = await toolResult(operation);
+    if (!result.isError) {
+      const notice = await startup.takeNotice();
+      if (notice) result.content.push({ type: 'text', text: notice });
+    }
+    return result;
+  };
 
   server.registerTool('skillflux.search', {
     title: 'Search the curated SkillFlux catalog',
@@ -25,7 +48,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
       offset: z.number().int().min(0).optional().default(0),
     },
     annotations: { readOnlyHint: true, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.search({ ...args, host: args.host as Host | undefined });
     return {
       value: result,
@@ -43,7 +66,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
       version: z.string().max(128).optional(),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const plan = await runtime.createPlan(args.skillId, { version: args.version });
     return {
       value: plan,
@@ -56,7 +79,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Install only a Runtime-generated plan id. Each file is downloaded from a pinned catalog commit and verified against its sha256. MCP installation works only when reviewed text packages were explicitly preauthorized during local init.',
     inputSchema: { planId: z.string().min(20).max(100) },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.installPlan(args.planId, 'mcp');
     return { value: result, text: `Installed ${result.rootSkill.id}@${result.rootSkill.version}; project lock revision is ${result.lockRevision}.` };
   }));
@@ -69,8 +92,9 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
       resources: z.array(z.string().min(1).max(240)).max(32).optional().default([]),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const loaded = await runtime.load(args.skillId, args.resources);
+    if (loaded.update) startup.cover([loaded.update]);
     return { value: loaded, text: renderLoadedSkill(loaded) };
   }));
 
@@ -79,7 +103,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'List the exact SkillFlux versions selected by the current project lock.',
     inputSchema: {},
     annotations: { readOnlyHint: true, openWorldHint: false, idempotentHint: true },
-  }, async () => toolResult(async () => {
+  }, async () => respond(async () => {
     const result = await runtime.list();
     return {
       value: result,
@@ -92,8 +116,9 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Read current and available versions, change notes, compatibility, pins and revocations from the catalog index. Cached checks have a 24-hour lifetime. Offline or failed checks report unknown and their cache source. Never installs or changes a version.',
     inputSchema: { skillId: z.string().min(1).max(96).optional(), force: z.boolean().optional().default(true) },
     annotations: { readOnlyHint: true, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.checkUpdates(args.skillId, args.force);
+    startup.cover(result.items);
     return { value: result, text: JSON.stringify(result, null, 2) };
   }));
 
@@ -102,7 +127,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Explicitly change the local fixed-version policy. A pinned version blocks all updates and rollback version changes until the user asks to unpin it.',
     inputSchema: { skillId: z.string().min(1).max(96), pinned: z.boolean() },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.setPinned(args.skillId, args.pinned);
     return { value: result, text: `${result.id}@${result.version} is ${result.pinned ? 'pinned' : 'unpinned'}.` };
   }));
@@ -112,7 +137,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Call only after the user explicitly approves the exact versions and breaking changes in a skillflux.plan result. Requires that planId; neither initial reviewed-text preauthorization nor follow-compatible policy authorizes arbitrary upgrades through this tool. Eligible automatic updates happen during load. Does not resolve latest versions. Local edits, pins, stale plans and revoked targets block execution.',
     inputSchema: { planId: z.string().min(20).max(100) },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.installUpdatePlan(args.planId, 'mcp');
     return { value: result, text: `Updated ${result.rootSkill.id}@${result.rootSkill.version}; project lock revision is ${result.lockRevision}.` };
   }));
@@ -122,7 +147,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Restore a previous verified, non-revoked lock state and, when following is enabled, pin restored versions to prevent immediately following them forward again. This is available to MCP only under the project local preauthorization policy.',
     inputSchema: { skillId: z.string().min(1).max(96).optional() },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.rollback(args.skillId, 'mcp');
     return { value: result, text: `Restored project lock revision ${result.revision}.` };
   }));
@@ -132,7 +157,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Remove one project skill and orphaned dependencies. Locally edited files are always preserved for MCP callers.',
     inputSchema: { skillId: z.string().min(1).max(96) },
     annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: false, openWorldHint: false },
-  }, async args => toolResult(async () => {
+  }, async args => respond(async () => {
     const result = await runtime.remove(args.skillId, { actor: 'mcp', force: false });
     return { value: result, text: `Removed ${result.removed.join(', ')}; project lock revision is ${result.lockRevision}.` };
   }));
@@ -142,7 +167,7 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
     description: 'Read-only view of anonymous local state: what the catalog client sends and never sends. Search queries never leave this machine; only the catalog repository name is used.',
     inputSchema: {},
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
-  }, async () => toolResult(async () => {
+  }, async () => respond(async () => {
     const result = await runtime.privacyState();
     return { value: result, text: JSON.stringify(result, null, 2) };
   }));
@@ -150,11 +175,27 @@ export function createSkillFluxMcpServer(runtime: SkillFluxRuntime): McpServer {
   return server;
 }
 
-export async function serveSkillFluxStdio(projectRoot: string): Promise<void> {
+export async function serveSkillFluxStdio(projectRoot: string, streams: { input: Readable; output: Writable } = { input: process.stdin, output: process.stdout }): Promise<void> {
   const runtime = await SkillFluxRuntime.open(projectRoot);
   const server = createSkillFluxMcpServer(runtime);
-  const transport = new StdioServerTransport(process.stdin, process.stdout, { maxBufferSize: 2 * 1024 * 1024 });
-  await server.connect(transport);
+  const transport = new StdioServerTransport(streams.input, streams.output, { maxBufferSize: 2 * 1024 * 1024 });
+  const onClose = server.server.onclose;
+  const disconnect = () => { void server.close().catch(() => { onClose?.(); }); };
+  server.server.onclose = () => {
+    streams.input.off('end', disconnect);
+    streams.input.off('close', disconnect);
+    onClose?.();
+  };
+  // The SDK transport handles data/error, but does not translate stdin EOF to close.
+  streams.input.once('end', disconnect);
+  streams.input.once('close', disconnect);
+  try {
+    await server.connect(transport);
+    if (streams.input.readableEnded || streams.input.destroyed) disconnect();
+  } catch (error) {
+    await server.close();
+    throw error;
+  }
 }
 
 function renderLoadedSkill(loaded: Awaited<ReturnType<SkillFluxRuntime['load']>>): string {

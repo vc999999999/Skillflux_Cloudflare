@@ -1,6 +1,6 @@
 # SkillFlux 运行说明
 
-更新日期：2026-10-01（GitHub 目录仓库架构）
+更新日期：2026-10-11（GitHub 目录仓库架构）
 
 ## 架构
 
@@ -20,6 +20,10 @@ git diff && git add -A && git commit && git push       # 审查后提交
 
 CI（目录仓库 `.github/workflows/verify.yml`）运行 `skillflux catalog --check .`：`index.json` 与目录内容不一致即失败。
 
+目录 main 的 `index.json` 变更通过验证后，CI 使用仓库 secret `CLOUDFLARE_DEPLOY_HOOK_URL` 触发主站生产构建。Deploy Hook 绑定主站 main；站点构建自行固定目录 SHA 并验证快照。主站代码推送也会触发其现有 Cloudflare 构建。Hook URL 是部署凭据，不能写入仓库、日志或公开文档。
+
+需要手动重试时，在目录仓库 `Verify catalog` 工作流选择 `main` 运行；它仍先完整验证目录，再复用同一刷新任务。
+
 审核流程：`skillflux.review.json` 的 `status` 字段决定发布状态；人工评测（`kind: "human"`）的 `contentHash` 必须绑定当前目录内容——`skillflux catalog build` 会校验该绑定。`simulation` 证据不能使版本 qualified。撤销 = 将 review status 改为 `revoked` + 重建 index，依赖者派生状态随之失效。
 
 ## 网站发布
@@ -32,6 +36,8 @@ npm run deploy:production --workspace @skillflux/web    # wrangler 部署到 Clo
 `publication:build --watch --repo ... --interval 60` 持续同步；相同 commit SHA 跳过重建。失败保留上一份有效站点与快照。
 
 发布构建只接受 GitHub Catalog v2 快照；构建完成后才切换生产产物指针。目录仓库身份固定，不能在同一产物路径下悄悄更换仓库。
+
+发布后检查版本页面、`/releases/feed.xml` 与 `/feed.xml`；重复构建不得改变已有版本的 RSS GUID。启动提醒、显式检查、加载更新与 RSS 的职责和回归范围见 [更新交付说明](update-delivery.md)。
 
 Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路由与产物路径已指向生产配置。紧急撤销还需处理部署端/CDN 缓存；不能声称已追回用户下载或模型已经读入的旧文字。
 

@@ -75,10 +75,10 @@ export class CatalogClient {
     this.timeoutMs = options.timeoutMs ?? 15_000;
   }
 
-  async resolveHead(): Promise<string> {
+  async resolveHead(signal?: AbortSignal): Promise<string> {
     // GitHub API path; custom sources fall back to resolving through the raw service below.
     const url = `${this.apiBase}/repos/${this.repo}/commits/${this.branch}`;
-    const payload = await this.requestJson<{ sha?: string }>(url, MAX_RESPONSE_BYTES);
+    const payload = await this.requestJson<{ sha?: string }>(url, MAX_RESPONSE_BYTES, signal);
     if (!payload?.sha || !SHA_PATTERN.test(payload.sha)) {
       throw new SkillFluxError('INVALID_REPO_RESPONSE', `Could not resolve ${this.repo}@${this.branch} to a commit SHA`);
     }
@@ -91,9 +91,9 @@ export class CatalogClient {
     return `${this.source}/${this.repo}/${sha}${path}`;
   }
 
-  async fetchIndex(options: { sha?: string } = {}): Promise<FetchedIndex> {
-    const sha = options.sha ?? await this.resolveHead();
-    const payload = await this.requestJson<CatalogIndex>(this.rawUrl(sha, '/index.json'), MAX_INDEX_BYTES);
+  async fetchIndex(options: { sha?: string; signal?: AbortSignal } = {}): Promise<FetchedIndex> {
+    const sha = options.sha ?? await this.resolveHead(options.signal);
+    const payload = await this.requestJson<CatalogIndex>(this.rawUrl(sha, '/index.json'), MAX_INDEX_BYTES, options.signal);
     if (!payload || payload.schema !== 'skillflux-catalog-index/v1' || !Array.isArray(payload.skills)) {
       throw new SkillFluxError('INVALID_CATALOG_INDEX', `Catalog index at ${this.repo}@${sha.slice(0, 10)} is invalid`);
     }
@@ -113,8 +113,8 @@ export class CatalogClient {
     return text;
   }
 
-  private async requestJson<T>(url: string, limit: number): Promise<T> {
-    const bytes = await this.requestBytes(url, limit);
+  private async requestJson<T>(url: string, limit: number, signal?: AbortSignal): Promise<T> {
+    const bytes = await this.requestBytes(url, limit, signal);
     try {
       return JSON.parse(new TextDecoder('utf-8').decode(bytes)) as T;
     } catch {
@@ -124,13 +124,13 @@ export class CatalogClient {
 
   /** Fetch a URL, returning the response together with a completion callback that
    * keeps the abort timer armed until the body has been fully read. */
-  private async fetch(url: string): Promise<{ response: Response; done: () => void }> {
+  private async fetch(url: string, signal?: AbortSignal): Promise<{ response: Response; done: () => void }> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), this.timeoutMs);
     try {
       const response = await fetch(url, {
         redirect: 'manual',
-        signal: controller.signal,
+        signal: signal ? AbortSignal.any([controller.signal, signal]) : controller.signal,
         headers: { accept: 'application/json', 'user-agent': 'skillflux-runtime' },
       });
       if (response.status >= 300 && response.status < 400) {
@@ -145,17 +145,19 @@ export class CatalogClient {
       return { response, done: () => clearTimeout(timer) };
     } catch (error) {
       clearTimeout(timer);
+      if (signal?.aborted) throw new SkillFluxError('SOURCE_CANCELLED', 'Catalog check cancelled');
       if (error instanceof SkillFluxError) throw error;
       if ((error as Error).name === 'AbortError') throw new SkillFluxError('SOURCE_TIMEOUT', `Catalog source request timed out (headers or body stalled): ${url}`);
       throw new SkillFluxError('SOURCE_UNAVAILABLE', `Catalog source request failed: ${(error as Error).message}`);
     }
   }
 
-  private async requestBytes(url: string, limit: number): Promise<Uint8Array> {
-    const { response, done } = await this.fetch(url);
+  private async requestBytes(url: string, limit: number, signal?: AbortSignal): Promise<Uint8Array> {
+    const { response, done } = await this.fetch(url, signal);
     try {
       return await readLimitedBody(response, limit);
     } catch (error) {
+      if (signal?.aborted) throw new SkillFluxError('SOURCE_CANCELLED', 'Catalog check cancelled');
       if ((error as Error).name === 'AbortError') throw new SkillFluxError('SOURCE_TIMEOUT', `Catalog source request timed out (headers or body stalled): ${url}`);
       throw error;
     } finally {

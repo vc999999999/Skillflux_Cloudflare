@@ -43,17 +43,17 @@ npm run build --workspace @skillflux/web
 
 ## npm 与 MCP 接入
 
-官方 npm 公开包为 `@skillflux/mcp`，当前版本 1.1.0，可直接安装：
+官方 npm 公开包为 `@skillflux/mcp`，当前版本 1.2.0，可直接安装：
 
 ```bash
-npm install -g @skillflux/mcp@1.1.0
+npm install -g @skillflux/mcp@1.2.0
 skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
 ```
 
-备用安装方式：从 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.1.0) 获取安装包、版本说明与校验文件，也可直接运行：
+备用安装方式：从 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.2.0) 获取安装包、版本说明与校验文件，也可直接运行：
 
 ```bash
-npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.1.0/skillflux-mcp-1.1.0.tgz
+npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.2.0/skillflux-mcp-1.2.0.tgz
 ```
 
 也可从本仓库构建并在项目内安装：
@@ -61,7 +61,7 @@ npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/down
 ```bash
 npm run pack:mcp
 # 在使用者项目中安装上一步实际输出的 tgz 文件：
-npm install -D /absolute/path/to/skillflux-mcp-1.1.0.tgz
+npm install -D /absolute/path/to/skillflux-mcp-1.2.0.tgz
 npx --no-install skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex
 ```
 
@@ -88,6 +88,12 @@ skillflux pin SKILL_ID --project /absolute/path/to/project
 ```
 
 搜索在本机缓存的目录索引上进行，检索词不出本机（缓存最长 24 小时）。`check-updates`（别名 `outdated`）只读检查。手动升级使用 `update SKILL_ID@VERSION` 展示计划，终端确认后执行（非交互需 `--yes`）；MCP `skillflux.update` 只接受明确批准的 `planId`。
+
+### 启动提醒与版本订阅
+
+MCP 完成初始化后会在后台检查已安装 Skill，不阻塞握手、不安装内容。空项目不发请求；一次连接只检查一次。需要关注的结果通过 MCP 日志通知，并在下一次成功工具响应中提供一次详细提示；宿主决定日志是否展示。主动检查和加载已报告的技能不会重复附加启动提示，安装状态变化后旧提示会被丢弃。离线结果显示未知。
+
+订阅 [Skill 版本更新](https://skillflux.app/releases/feed.xml) 可获取正式发布公告；[全部更新](https://skillflux.app/feed.xml) 也包含这些版本。RSS 不知道用户的安装版本，不自动升级项目。职责、去重与维护流程见 [更新交付说明](docs/update-delivery.md)。
 
 ### 一次开启，使用时自动跟随内容更新
 

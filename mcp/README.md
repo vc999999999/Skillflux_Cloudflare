@@ -36,6 +36,12 @@ skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-
 | `cursor` | `.cursor/mcp.json` | `.cursor/skills/skillflux/` |
 | `generic` | `.mcp.json` | `.skillflux/bootstrap/skillflux/` |
 
+### 启动检查与提醒
+
+MCP 初始化完成后后台检查一次已安装技能；空项目不联网，握手和工具不会等待这次网络检查。启动检查只读，不升级内容。需要关注的结果发送一次 MCP 日志通知，下一次成功工具响应附带一次详细提示；具体展示取决于宿主。`load` 或主动检查已经报告的技能不会再次附加启动提示，安装状态变化后的旧结果会被丢弃。离线状态为 `unknown`，不能当作已经最新。
+
+公开版本公告：[Skill 版本 RSS](https://skillflux.app/releases/feed.xml)。RSS 使用目录仓库中合格发布版本生成，不负责判断当前项目兼容性。
+
 ### 自动跟随技能内容更新
 
 初始化默认使用 `manual`，保留逐次确认升级的行为。用户可通过 `init --update-policy follow-compatible` 一次开启，或在已有项目运行：

@@ -72,8 +72,9 @@ const organizationJsonLd = {
       {alternateLanguages.includes("en") && <link rel="alternate" hreflang="en" href={enAlternate} />}
       <link rel="alternate" hreflang="x-default" href={alternateLanguages.includes("en") ? enAlternate : zhAlternate} />
     </>}
-    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} · ${lang === 'zh' ? '资源与文章更新' : 'Resource and article updates'}`} href={absoluteUrl("/feed.xml")} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} · ${lang === 'zh' ? '版本与内容更新' : 'Release and content updates'}`} href={absoluteUrl("/feed.xml")} />
     <link rel="alternate" type="application/rss+xml" title={`${SITE.name} · ${lang === 'zh' ? 'Skill 拆解' : 'Skill deep-dives'}`} href={absoluteUrl("/insights/feed.xml")} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} · ${lang === 'zh' ? 'Skill 版本发布' : 'Skill releases'}`} href={absoluteUrl("/releases/feed.xml")} />
     <link rel="icon" href="/skillflux-mark.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />

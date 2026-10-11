@@ -16,6 +16,10 @@
   Content-Type: application/rss+xml; charset=utf-8
   Cache-Control: public, max-age=0, must-revalidate
 
+/releases/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=0, must-revalidate
+
 /robots.txt
   Content-Type: text/plain; charset=utf-8
 

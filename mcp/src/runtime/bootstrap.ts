@@ -6,7 +6,7 @@ import { SkillFluxError } from './errors.js';
 import { assertNoSymlinkPath, atomicWriteText } from './paths.js';
 
 // Upgrade previously managed entry skills while leaving user-owned files alone.
-const OWNERSHIP_MARKER = /^<!-- skillflux-bootstrap:v[123] -->\r?$/m;
+const OWNERSHIP_MARKER = /^<!-- skillflux-bootstrap:v[1234] -->\r?$/m;
 
 function packageRoot(): string {
   return resolve(dirname(fileURLToPath(import.meta.url)), '../..');

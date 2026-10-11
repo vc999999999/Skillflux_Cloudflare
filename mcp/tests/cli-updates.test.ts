@@ -86,11 +86,11 @@ test('CLI follow opt-in upgrades on load without enabling install preauthorizati
 test('bootstrap upgrades managed entry generations and preserves unmarked user files', async t => {
   const fixture = await fixtureCatalog(t);
   const target = await installBootstrapSkill(fixture.project, 'generic');
-  for (const generation of [1, 2, 3]) {
+  for (const generation of [1, 2, 3, 4]) {
     await writeFile(target, `---\nname: skillflux\n---\n\n<!-- skillflux-bootstrap:v${generation} -->\n\nOlder managed entry.\n`);
     assert.equal(await installBootstrapSkill(fixture.project, 'generic'), target);
     const upgraded = await readFile(target, 'utf8');
-    assert.match(upgraded, /<!-- skillflux-bootstrap:v3 -->/);
+    assert.match(upgraded, /<!-- skillflux-bootstrap:v4 -->/);
     assert.match(upgraded, /follow-compatible/);
     assert.doesNotMatch(upgraded, /Older managed entry/);
   }
@@ -108,6 +108,6 @@ test('bootstrap preserves explicit invocation requirements after a managed upgra
     const content = await readFile(target, 'utf8');
     assert.match(content, /^disable-model-invocation: true$/m);
     assert.match(content, /^user-invocable: true$/m);
-    assert.match(content, /<!-- skillflux-bootstrap:v3 -->/);
+    assert.match(content, /<!-- skillflux-bootstrap:v4 -->/);
   }
 });

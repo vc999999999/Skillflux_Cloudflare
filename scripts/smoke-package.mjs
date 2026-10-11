@@ -10,6 +10,7 @@ import { promisify } from 'node:util';
 import { once } from 'node:events';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { LoggingMessageNotificationSchema } from '@modelcontextprotocol/sdk/types.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const temporary = await mkdtemp(join(tmpdir(), 'skillflux-package-smoke-'));
@@ -142,6 +143,23 @@ try {
   index.skills.push(upgradedEntry);
   publishedFiles.set('skills/development/code-review/1.1.0/SKILL.md', upgradedText);
   commitSha = createHash('sha1').update(`smoke-updated-${randomUUID()}`).digest('hex');
+  await client.close();
+  client = new Client({ name: 'packed-startup-check', version: '1.0.0' });
+  let finishNotice;
+  const noticed = new Promise(resolve => { finishNotice = resolve; });
+  client.setNotificationHandler(LoggingMessageNotificationSchema, notification => {
+    if (notification.params.data?.event === 'skillflux.startup-update-check') finishNotice();
+  });
+  await client.connect(new StdioClientTransport({ command: process.execPath, args: config.mcpServers.skillflux.args, stderr: 'pipe' }));
+  let timeout;
+  try {
+    await Promise.race([noticed, new Promise((_, reject) => { timeout = setTimeout(() => reject(new Error('Startup check did not notify')), 10_000); })]);
+  } finally { clearTimeout(timeout); }
+  const firstList = await client.callTool({ name: 'skillflux.list', arguments: {} });
+  assert.equal(firstList.structuredContent.skills[0].version, '1.0.0', 'Startup check must not install even with follow enabled');
+  assert.match(JSON.stringify(firstList.content), /SkillFlux startup update check/);
+  const secondList = await client.callTool({ name: 'skillflux.list', arguments: {} });
+  assert.doesNotMatch(JSON.stringify(secondList.content), /SkillFlux startup update check/);
   const result = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
   assert.notEqual(result.isError, true);
   assert.equal(result.structuredContent.skill.version, '1.1.0');
@@ -150,7 +168,7 @@ try {
   const repeated = await client.callTool({ name: 'skillflux.load', arguments: { skillId: 'code-review' } });
   assert.notEqual(repeated.isError, true);
   assert.equal(repeated.structuredContent.autoUpdate.status, 'current');
-  console.log('Package smoke passed: tarball → clean npm install → init/search/install → persistent follow consent → re-init → catalog release → running stdio MCP auto-update and same-turn new content.');
+  console.log('Package smoke passed: tarball → clean npm install → init/search/install → follow consent → catalog release → restarted MCP read-only startup notice once → load auto-update and same-turn new content.');
 } finally {
   await client?.close();
   if (server) {

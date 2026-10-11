@@ -3,7 +3,7 @@ name: skillflux
 description: Explicitly search, install, load, and manage updates for SkillFlux project skills from a curated GitHub-hosted skill marketplace when the user invokes $skillflux or directly asks SkillFlux to manage a skill.
 ---
 
-<!-- skillflux-bootstrap:v3 -->
+<!-- skillflux-bootstrap:v4 -->
 
 # SkillFlux
 
@@ -20,6 +20,8 @@ Use SkillFlux only for this explicit invocation. Do not invoke it implicitly for
 Automatic follow updates are enabled only after the user opts in locally with `skillflux init --update-policy follow-compatible` or `skillflux update-policy follow-compatible`. Read the saved setting with `skillflux update-policy`; use `skillflux update-policy manual` to turn following off. Never change this setting without the user's request. There is no MCP tool that grants this authorization.
 
 With `follow-compatible`, `skillflux.load` checks the catalog and lets Runtime install eligible reviewed, stable, compatible updates before returning the loaded content. This local policy authorizes those upgrades without asking again; install preauthorization is a separate setting and does not need to be enabled. Report any update result or blocked update returned by Runtime. Do not imitate this mechanism by approving an update plan yourself.
+
+After MCP initialization, Runtime checks installed skills once in the background. A startup notice is read-only; report it once when returned. Do not run another check just to repeat it, and do not treat it as permission to install, change pins, or change policy. Hosts may suppress logging, so the next successful tool response also carries a pending notice. If an explicit check or load already reports a skill, its startup notice is omitted. RSS at https://skillflux.app/releases/feed.xml announces qualified package releases; it does not know which versions this project uses or whether an upgrade is compatible.
 
 For update requests, call read-only `skillflux.check_updates` with `force: true`. Report current and latest compatible versions, release notes, breaking changes, pins, check time, cache source, and unknown or revoked status. In every mode, `load` attempts a live catalog refresh; search and cached update checks use a 24-hour index cache. Offline cache data cannot establish that an installed version is current. Checking alone never authorizes installation.
 
