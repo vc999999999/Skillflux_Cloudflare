@@ -9,6 +9,7 @@ const { lang = "zh" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const descriptions: Record<string, [string, string]> = {
+  "/AGENTS.md": ["给 AI agent 的站点说明书：阅读顺序、端点用途、路由规则与数据边界。", "The site manual for AI agents: reading order, endpoint usage, routing rules and data boundaries."],
   "/llms.txt": ["先读这一份。了解站点定位、主要入口和数据的使用边界。", "Start here for the site's purpose, main entry points and data boundaries."],
   "/llms-full.txt": ["完整来源目录的纯文本版本，适合直接阅读、检索和引用。", "The complete source catalog in plain text, ready to read, search and cite."],
   "/index.json": ["来源名称、类型、标签、摘要与链接，以及场景和技能发布入口。", "Source names, types, tags, summaries and links, plus scenario and skill-release entry points."],

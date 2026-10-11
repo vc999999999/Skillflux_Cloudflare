@@ -26,6 +26,7 @@ export const SITE = {
 } as const;
 
 export const ENDPOINTS = [
+  { path: "/AGENTS.md", label: "Agent entry point", description: "写给 AI agent 的站点说明书：阅读顺序、端点用途、路由规则与数据边界。" },
   { path: "/llms.txt", label: "LLM quick map", description: "站点定位、标识、精选入口和数据端点说明。" },
   { path: "/llms-full.txt", label: "Full text catalog", description: "完整资源清单的纯文本版本。" },
   { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
