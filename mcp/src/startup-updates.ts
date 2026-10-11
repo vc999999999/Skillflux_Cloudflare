@@ -8,6 +8,7 @@ export class StartupUpdates {
   private consumed = false;
   private readonly controller = new AbortController();
   private readonly covered = new Set<string>();
+  private readonly reportedLive = new Map<string, number>();
   private pending?: UpdateCheckResult;
 
   constructor(
@@ -39,7 +40,15 @@ export class StartupUpdates {
 
   /** Suppress the same result, never a newer live result for the same skill. */
   cover(items: UpdateCheckItem[]): void {
-    for (const item of items) this.covered.add(resultKey(item));
+    if (this.closed || this.consumed) return;
+    for (const item of items) {
+      this.covered.add(resultKey(item));
+      // Remember live results even when an older background result arrives late.
+      if (item.source === 'catalog' && item.checkedAt) {
+        const checkedAt = Date.parse(item.checkedAt);
+        if (Number.isFinite(checkedAt)) this.reportedLive.set(item.id, Math.max(this.reportedLive.get(item.id) ?? 0, checkedAt));
+      }
+    }
   }
 
   async takeNotice(): Promise<string | undefined> {
@@ -61,7 +70,11 @@ export class StartupUpdates {
   }
 
   private remaining() {
-    return this.pending?.items.filter(item => item.status !== 'current' && !this.covered.has(resultKey(item))) ?? [];
+    return this.pending?.items.filter(item => {
+      if (item.status === 'current' || this.covered.has(resultKey(item))) return false;
+      const reportedAt = this.reportedLive.get(item.id);
+      return reportedAt === undefined || (item.checkedAt !== null && Date.parse(item.checkedAt) > reportedAt);
+    }) ?? [];
   }
 
   private async isCurrent(): Promise<boolean> {

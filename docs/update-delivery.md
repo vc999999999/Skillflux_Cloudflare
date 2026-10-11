@@ -43,7 +43,7 @@ RSS 不知道用户安装了哪些技能，也不计算项目兼容性。启动�
 ## 升级已有客户端
 
 ```bash
-npm install -g @skillflux/mcp@1.2.0
+npm install -g @skillflux/mcp@1.2.1
 skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex
 ```
 

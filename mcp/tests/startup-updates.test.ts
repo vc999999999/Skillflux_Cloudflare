@@ -165,6 +165,62 @@ test('covering an older cached status preserves fresh changes; matching status i
   });
 });
 
+test('an older live foreground result cannot cover a newer pending startup result', async () => {
+  const fixture = coordinatorFixture();
+  fixture.startup.start();
+  fixture.checked.resolve(checkResult());
+  await nextTurn();
+  fixture.startup.cover([{
+    ...item('code-review', 'current'), latestVersion: '1.0.0', latestCompatibleVersion: '1.0.0',
+    source: 'catalog', checkedAt: '2026-10-10T00:00:00.000Z',
+  }]);
+  assert.match((await fixture.startup.takeNotice())!, /status=update-available; latest=1\.1\.0/);
+});
+
+test('a late older startup update is suppressed by a fresh foreground result already reported', async () => {
+  const fixture = coordinatorFixture();
+  fixture.startup.start();
+  const current = {
+    ...item('code-review', 'current'), latestVersion: '1.0.0', latestCompatibleVersion: '1.0.0',
+    checkedAt: '2026-10-12T00:00:00.000Z',
+  };
+  fixture.startup.cover([current]);
+  // Concurrent foreground checks may themselves finish out of order; retain
+  // the newest reported observation instead of regressing to the latest arrival.
+  fixture.startup.cover([{ ...current, checkedAt: '2026-10-10T00:00:00.000Z' }]);
+  assert.equal(await fixture.startup.takeNotice(), undefined);
+  fixture.checked.resolve(checkResult([item()]));
+  await nextTurn();
+  assert.deepEqual(fixture.notifications, []);
+  assert.equal(await fixture.startup.takeNotice(), undefined);
+});
+
+test('a late unknown startup result does not contradict a fresh foreground result already reported', async () => {
+  const fixture = coordinatorFixture();
+  fixture.startup.start();
+  fixture.startup.cover([{
+    ...item('code-review', 'current'), latestVersion: '1.0.0', latestCompatibleVersion: '1.0.0',
+  }]);
+  fixture.checked.resolve(checkResult([item('code-review', 'unknown')]));
+  await nextTurn();
+  assert.deepEqual(fixture.notifications, []);
+  assert.equal(await fixture.startup.takeNotice(), undefined);
+});
+
+test('a late newer startup update remains visible after an older live foreground result', async () => {
+  const fixture = coordinatorFixture();
+  fixture.startup.start();
+  fixture.startup.cover([{
+    ...item('code-review', 'current'), latestVersion: '1.0.0', latestCompatibleVersion: '1.0.0',
+    checkedAt: '2026-10-10T00:00:00.000Z',
+  }]);
+  fixture.checked.resolve(checkResult([item()]));
+  await nextTurn();
+  assert.deepEqual(fixture.notifications, [1]);
+  assert.match((await fixture.startup.takeNotice())!, /status=update-available; latest=1\.1\.0/);
+  assert.equal(await fixture.startup.takeNotice(), undefined);
+});
+
 test('changed project lock discards a startup snapshot before notification or before delivery', async t => {
   for (const timing of ['before-check', 'before-delivery']) {
     await t.test(timing, async () => {
@@ -344,6 +400,63 @@ test('a cached MCP check does not swallow the newer startup result that arrives 
   assert.match(delivered[0]!, /code-review@1\.0\.0: status=update-available; latest=1\.1\.0/);
   const repeated = await client.callTool({ name: 'skillflux.list', arguments: {} });
   assert.equal(notices(repeated as CallToolResult).length, 0);
+});
+
+test('a successful fresh MCP check supersedes a pending startup failure after connectivity returns', { timeout: 5_000 }, async t => {
+  const { fixture, runtime } = await installedFixture(t);
+  const originalCheck = runtime.checkUpdates.bind(runtime);
+  const checkedResults: UpdateCheckResult[] = [];
+  runtime.checkUpdates = async (...args) => {
+    const checked = await originalCheck(...args);
+    checkedResults.push(checked);
+    return checked;
+  };
+  fixture.setOffline(true);
+  const { client, notified } = await connectMcp(t, runtime);
+  await notified.promise;
+  assert.equal(checkedResults[0]?.items[0]?.status, 'unknown');
+  assert.equal(checkedResults[0]?.items[0]?.source, 'unavailable');
+  assert.equal(checkedResults[0]?.items[0]?.checkedAt, null);
+
+  fixture.setOffline(false);
+  const fresh = await client.callTool({ name: 'skillflux.check_updates', arguments: { force: true } });
+  assert.ok(!fresh.isError);
+  const result = fresh.structuredContent as unknown as UpdateCheckResult;
+  assert.equal(result.items[0]?.status, 'current');
+  assert.equal(result.items[0]?.source, 'catalog');
+  assert.equal(notices(fresh as CallToolResult).length, 0, 'fresh current response must not also report the superseded startup failure');
+  const later = await client.callTool({ name: 'skillflux.list', arguments: {} });
+  assert.equal(notices(later as CallToolResult).length, 0);
+});
+
+test('a fresh MCP check supersedes a pending update notice when that newer release is withdrawn', { timeout: 5_000 }, async t => {
+  const { fixture, runtime } = await installedFixture(t);
+  fixture.add('1.1.0');
+  const originalCheck = runtime.checkUpdates.bind(runtime);
+  const checkedResults: UpdateCheckResult[] = [];
+  runtime.checkUpdates = async (...args) => {
+    const checked = await originalCheck(...args);
+    checkedResults.push(checked);
+    return checked;
+  };
+  const { client, notified } = await connectMcp(t, runtime);
+  await notified.promise;
+  const startup = checkedResults[0]!;
+  assert.equal(startup.items[0]?.status, 'update-available');
+  assert.equal(startup.items[0]?.latestVersion, '1.1.0');
+  fixture.revoke('code-review', '1.1.0');
+
+  const fresh = await client.callTool({ name: 'skillflux.check_updates', arguments: { force: true } });
+  assert.ok(!fresh.isError);
+  const result = fresh.structuredContent as unknown as UpdateCheckResult;
+  assert.equal(result.lockRevision, startup.lockRevision, 'this race concerns catalog changes, not local version changes');
+  assert.equal(result.items[0]?.status, 'current');
+  assert.equal(result.items[0]?.latestVersion, '1.0.0');
+  assert.equal(result.items[0]?.source, 'catalog');
+  assert.ok(Date.parse(result.items[0]!.checkedAt!) >= Date.parse(startup.items[0]!.checkedAt!));
+  assert.equal(notices(fresh as CallToolResult).length, 0, 'fresh catalog result must not also recommend the withdrawn release');
+  const later = await client.callTool({ name: 'skillflux.list', arguments: {} });
+  assert.equal(notices(later as CallToolResult).length, 0);
 });
 
 test('offline startup exposes unknown instead of claiming the installed version is latest', { timeout: 5_000 }, async t => {
