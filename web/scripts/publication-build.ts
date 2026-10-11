@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { readFile, writeFile, lstat, mkdir, mkdtemp, readdir, rename, symlink, unlink, rm } from 'node:fs/promises';
+import { readFile, writeFile, lstat, mkdir, mkdtemp, readdir, rename, stat, symlink, unlink, rm } from 'node:fs/promises';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs, promisify } from 'node:util';
@@ -40,9 +40,13 @@ async function lockBuild(path: string): Promise<() => Promise<void>> {
 const RELEASE_RETENTION = 10;
 
 async function pruneReleases(releases: string): Promise<void> {
-  const entries = (await readdir(releases).catch(() => [])).filter(name => !name.startsWith('.')).sort();
-  for (const stale of entries.slice(0, Math.max(0, entries.length - RELEASE_RETENTION))) {
-    await rm(join(releases, stale), { recursive: true, force: true }).catch(() => undefined);
+  // Release names start with the catalog commit SHA, so name order is not recency order;
+  // sorting by name once deleted a freshly-switched release whose SHA sorted earliest.
+  const names = (await readdir(releases).catch(() => [])).filter(name => !name.startsWith('.'));
+  const byAge = await Promise.all(names.map(async name => ({ name, mtime: (await stat(join(releases, name))).mtimeMs })));
+  byAge.sort((a, b) => b.mtime - a.mtime);
+  for (const stale of byAge.slice(RELEASE_RETENTION)) {
+    await rm(join(releases, stale.name), { recursive: true, force: true }).catch(() => undefined);
   }
 }
 

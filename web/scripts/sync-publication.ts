@@ -67,7 +67,11 @@ async function fetchLimited(url: string, limit: number, init?: { headers?: Recor
 }
 
 async function fetchJson<T>(url: string, limit = MAX_RESPONSE_BYTES): Promise<T> {
-  const bytes = await fetchLimited(url, limit, { headers: { accept: 'application/json', 'user-agent': 'skillflux-web-sync' } });
+  const headers: Record<string, string> = { accept: 'application/json', 'user-agent': 'skillflux-web-sync' };
+  // Unauthenticated GitHub API allows 60 req/hr per IP, which shared proxy exits exhaust.
+  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
+  if (token) headers.authorization = `Bearer ${token}`;
+  const bytes = await fetchLimited(url, limit, { headers });
   return JSON.parse(new TextDecoder().decode(bytes)) as T;
 }
 
