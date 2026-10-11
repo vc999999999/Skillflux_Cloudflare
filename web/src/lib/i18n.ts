@@ -747,7 +747,7 @@ const endpointCopy: Record<Language, Record<string, { label: string; description
     },
     "/feed.xml": {
       label: "RSS feed",
-      description: "A feed for newly added and updated resources."
+      description: "A feed for resource additions, capability updates and new or revised skill deep-dives."
     },
     "/insights/feed.xml": {
       label: "Insights RSS",

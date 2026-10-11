@@ -18,6 +18,16 @@ Directory 和 Registry 的搜索、筛选、排序 URL 在首个 HTTP 响应中�
 
 专题与指南提供文章分享元数据。`WebPage`、`Article`、`TechArticle`、`CollectionPage` 的有效 `dateModified` 可进入 sitemap，其中带 URL 的记录必须与当前页面 canonical 一致。专题索引使用实际文章的最新修改日期；首页保留自身编辑日期并结合所展示内容的日期。改动栏目布局或固定文案时也应维护首页的编辑日期，不能用部署时间替代。
 
+## RSS 更新订阅
+
+`/feed.xml` 合并可索引资源与已发布的 Skill 拆解；`/insights/feed.xml` 只提供拆解文章。两条订阅保留原地址，按资源 `updatedAt`、文章 `dateModified` 排序，展示最近 30 条；草稿和不可索引资源不进入订阅。页面同时提供两种 RSS 的自动发现链接。
+
+RSS 条目代表页面的最新内容修订。`web/src/lib/rss.ts` 根据实际内容及维护日期生成稳定的修订 GUID，设置 `isPermaLink="false"`；同一文章在两个订阅中的 GUID 相同。同日修改正文也会形成新标识，而重新构建、调整对象字段顺序不会造成重复更新。`lastBuildDate` 来自最新条目的维护日期，不使用构建时钟。实际编辑后仍须正确填写维护日期，供阅读器排序。
+
+2026-10-11 从旧的页面 URL GUID 切换为修订 GUID，首次刷新可能把已有条目识别为未读，这是一次迁移。静态订阅仅保留各页面当前修订，不能补齐两次抓取之间的所有历史编辑。阅读器何时抓取及是否弹出通知由其设置决定。RSS GUID 语义见 [RSS 2.0 规范](https://www.rssboard.org/rss-specification#ltguidgtSubelementOfLtitemgt)。
+
+发布验收需检查两个地址返回 `application/rss+xml`、真实文章和资源条目、GUID 稳定性、XML 解析、条件请求及内容日期。Cloudflare 静态资源的响应头由 `web/public/_headers` 声明；只设置 Astro 预渲染函数的响应头不足以验证线上 MIME。
+
 ## 验证与发布
 
 在仓库根目录运行：

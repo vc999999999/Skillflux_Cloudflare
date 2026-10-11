@@ -575,48 +575,6 @@ export function renderLlmsFullText(generatedAt = new Date().toISOString()): stri
   return lines.join("\n");
 }
 
-function escapeXml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
-}
-
-export function renderFeedXml(generatedAt = new Date().toISOString()): string {
-  const items = getIndexableSites()
-    .slice()
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-    .slice(0, 30)
-    .map((site) => {
-      const pageUrl = absoluteUrl(`/resource/${site.resourceSlug}/`);
-      return [
-        "    <item>",
-        `      <title>${escapeXml(site.name)}</title>`,
-        `      <link>${escapeXml(pageUrl)}</link>`,
-        `      <guid>${escapeXml(pageUrl)}</guid>`,
-        `      <description>${escapeXml(`${site.tagline} ${site.summary}`)}</description>`,
-        `      <pubDate>${new Date(`${site.updatedAt}T00:00:00.000Z`).toUTCString()}</pubDate>`,
-        "    </item>"
-      ].join("\n");
-    })
-    .join("\n");
-
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0">',
-    "  <channel>",
-    `    <title>${escapeXml(SITE.name)}</title>`,
-    `    <link>${escapeXml(SITE.url)}</link>`,
-    `    <description>${escapeXml(SITE.description)}</description>`,
-    `    <lastBuildDate>${new Date(generatedAt).toUTCString()}</lastBuildDate>`,
-    items,
-    "  </channel>",
-    "</rss>"
-  ].join("\n");
-}
-
 export function renderRobotsTxt(): string {
   // Explicitly welcome the crawlers that feed CN and global AI search.
   // The wildcard already allows everyone; the named blocks document intent
