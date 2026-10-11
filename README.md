@@ -43,17 +43,17 @@ npm run build --workspace @skillflux/web
 
 ## npm 与 MCP 接入
 
-官方 npm 公开包为 `@skillflux/mcp`，当前版本 1.2.1，可直接安装：
+官方 npm 公开包为 `@skillflux/mcp`，当前版本 1.3.0，可直接安装：
 
 ```bash
-npm install -g @skillflux/mcp@1.2.1
+npm install -g @skillflux/mcp@1.3.0
 skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex --update-policy follow-compatible
 ```
 
-备用安装方式：从 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.2.1) 获取安装包、版本说明与校验文件，也可直接运行：
+备用安装方式：从 [GitHub Releases](https://github.com/vc999999999/Skillflux_Cloudflare/releases/tag/v1.3.0) 获取安装包、版本说明与校验文件，也可直接运行：
 
 ```bash
-npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.2.1/skillflux-mcp-1.2.1.tgz
+npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/download/v1.3.0/skillflux-mcp-1.3.0.tgz
 ```
 
 也可从本仓库构建并在项目内安装：
@@ -61,7 +61,7 @@ npm install -g https://github.com/vc999999999/Skillflux_Cloudflare/releases/down
 ```bash
 npm run pack:mcp
 # 在使用者项目中安装上一步实际输出的 tgz 文件：
-npm install -D /absolute/path/to/skillflux-mcp-1.2.1.tgz
+npm install -D /absolute/path/to/skillflux-mcp-1.3.0.tgz
 npx --no-install skillflux init --project /absolute/path/to/project --repo vc999999999/skillflux-catalog --host codex
 ```
 
