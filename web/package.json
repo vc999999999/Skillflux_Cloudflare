@@ -14,7 +14,9 @@
     "typecheck": "astro check && tsc --project tsconfig.worker.json",
     "types:worker": "wrangler types edge/worker-env.d.ts --config wrangler.workers.jsonc",
     "validate": "tsx scripts/validate-data.ts",
-    "deploy": "SITE_URL=https://skillflux.app npm run build && wrangler deploy --config wrangler.workers.jsonc --keep-vars"
+    "deploy": "npm run build:production && npm run deploy:production",
+    "build:production": "SITE_URL=https://skillflux.app npm run build",
+    "deploy:production": "wrangler deploy --config wrangler.workers.jsonc --keep-vars"
   },
   "dependencies": {
     "astro": "^7.0.10",
