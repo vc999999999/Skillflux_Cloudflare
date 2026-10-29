@@ -15,7 +15,7 @@
     "types:worker": "wrangler types edge/worker-env.d.ts --config wrangler.workers.jsonc",
     "validate": "tsx scripts/validate-data.ts",
     "deploy": "npm run build:production && npm run deploy:production",
-    "build:production": "SITE_URL=https://skillflux.app npm run build",
+    "build:production": "SITE_URL=https://skillflux.app npm run build && node scripts/legacy-output.mjs",
     "deploy:production": "wrangler deploy --config wrangler.workers.jsonc --keep-vars"
   },
   "dependencies": {

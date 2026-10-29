@@ -24,3 +24,6 @@ __pycache__/
 # Benchmark snapshots, raw runs and transcripts (published as release assets)
 bench/cache/
 bench/runs/
+
+# Legacy production output path mirrored for Cloudflare Workers Builds
+web/.publication/
