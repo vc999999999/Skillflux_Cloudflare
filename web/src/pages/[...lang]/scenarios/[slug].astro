@@ -1,0 +1,12 @@
+---
+import ScenarioDetailPage from "../../../components/ScenarioDetailPage.astro";
+import { scenarios } from "../../../lib/scenarios";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => scenarios.map(({ slug }) => ({ params: { ...params, slug }, props: { ...props, slug } })));
+}
+
+const { slug, lang } = Astro.props;
+---
+<ScenarioDetailPage slug={slug} lang={lang} />

@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-frontend-design",
+  "name": "frontend-design",
+  "displayName": {
+    "en": "Frontend design",
+    "zh": "前端设计"
+  },
+  "summary": {
+    "en": "Anthropic’s guidance for giving new or reworked interfaces a deliberate visual direction — typography, color and layout choices that avoid generic defaults.",
+    "zh": "Anthropic 出品的界面设计指引，帮助新界面或改版界面确立明确的视觉方向，在字体、配色和布局上避开千篇一律的默认样式。"
+  },
+  "upstreamDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/frontend-design",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/frontend-design/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "design",
+  "tags": [
+    "ui",
+    "css",
+    "frontend"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

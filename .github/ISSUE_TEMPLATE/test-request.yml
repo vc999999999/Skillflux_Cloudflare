@@ -1,0 +1,30 @@
+name: Request a benchmark
+description: Suggest a skill for SkillFlux to health-check or benchmark.
+title: "Benchmark request: "
+labels: ["benchmark-request"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Skill repository
+      description: GitHub URL of the repository, and the path to the skill directory if it is not at the root.
+      placeholder: https://github.com/owner/repo/tree/main/skills/name
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What should it be tested on?
+      description: A realistic task where the skill should help, and how a correct result could be checked by a script (files produced, tests passing, values in a spreadsheet…).
+    validations:
+      required: true
+  - type: dropdown
+    id: relation
+    attributes:
+      label: Your relation to the skill
+      options:
+        - I am a user
+        - I am the author or a maintainer
+        - Other
+    validations:
+      required: true

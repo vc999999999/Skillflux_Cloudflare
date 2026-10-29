@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-expo-upgrade",
+  "name": "expo-upgrade",
+  "displayName": {
+    "en": "Expo SDK upgrade",
+    "zh": "Expo SDK 升级"
+  },
+  "summary": {
+    "en": "Expo’s official guidance for upgrading between Expo SDK versions and resolving dependency conflicts.",
+    "zh": "Expo 官方指引，用于在 Expo SDK 版本之间升级并解决依赖冲突。"
+  },
+  "upstreamDescription": "Guidelines for upgrading Expo SDK versions and fixing dependency issues",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/expo-upgrade",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [
+    "expo",
+    "upgrade"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

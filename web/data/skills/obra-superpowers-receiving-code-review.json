@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-receiving-code-review",
+  "name": "receiving-code-review",
+  "displayName": {
+    "en": "receiving-code-review",
+    "zh": "receiving-code-review"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/receiving-code-review",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

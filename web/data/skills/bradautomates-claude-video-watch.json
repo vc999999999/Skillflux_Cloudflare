@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "bradautomates-claude-video-watch",
+  "name": "watch",
+  "displayName": {
+    "en": "Watch video (claude-video)",
+    "zh": "看视频（claude-video）"
+  },
+  "summary": {
+    "en": "Lets an agent “watch” a video: downloads it with yt-dlp, extracts frames with ffmpeg and pulls a transcript, with an optional Gemini path.",
+    "zh": "让 Agent “看”视频：用 yt-dlp 下载、用 ffmpeg 抽帧并提取字幕或转写，也可选用 Gemini。"
+  },
+  "upstreamDescription": "Watch a video (URL or local path). Downloads with yt-dlp, extracts auto-scaled frames with ffmpeg, pulls the transcript from captions (or local WhisperX / cloud Whisper fallback), and hands the result to the agent so it can answer questions about what's in the video. With a Gemini API key, Google's agentic video model watches the full video instead.",
+  "source": {
+    "repo": "https://github.com/bradautomates/claude-video",
+    "path": "skills/watch",
+    "commitSha": "03ceb42f7fa2c4439aca01752118044baabffb8f",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "bradautomates",
+    "url": "https://github.com/bradautomates"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-bradautomates-claude-video",
+  "category": "media",
+  "tags": [
+    "video",
+    "ffmpeg",
+    "yt-dlp"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -6,7 +6,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const children = [];
 let closing = false;
 console.error('SkillFlux web: http://127.0.0.1:4321');
-console.error('No backend service: curated content comes from data/registry-publication.json');
+console.error('Static content site: no backend service');
 
 function start(args, cwd, env) {
   const child = spawn(process.execPath, args, {cwd, env:{...process.env,...env}, stdio:'inherit', shell:false});
@@ -24,4 +24,4 @@ function stop(code = 0) {
 }
 process.on('SIGINT', () => stop(0));
 process.on('SIGTERM', () => stop(0));
-start([resolve(root, 'scripts/web-dev.mjs')], resolve(root, 'web'), {SKILLFLUX_CATALOG_REPO: process.env.SKILLFLUX_CATALOG_REPO});
+start([resolve(root, 'scripts/web-dev.mjs')], resolve(root, 'web'), {});

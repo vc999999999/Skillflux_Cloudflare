@@ -30,7 +30,7 @@ const facets = [
           <button type="button" {...{ [`data-${facet.key}-filter`]: 'all' }} aria-pressed="true"><span class="filter-checkbox" aria-hidden="true"></span><span>{zh ? '全部' : 'All'}</span><small>{sites.length}</small></button>
           {facet.options.filter(option => option.count > 0).map(option => <button type="button" {...{ [`data-${facet.key}-filter`]: option.value }} aria-pressed="false"><span class="filter-checkbox" aria-hidden="true"></span><span>{option.label}</span><small>{option.count}</small></button>)}
         </div>)}
-        <p class="filter-help">{zh ? '目录收录外部来源；可安装的审核版本见精品 Registry。' : 'The directory lists external sources. Reviewed, installable releases live in the curated Registry.'}</p>
+        <p class="filter-help">{zh ? '目录收录外部来源，详情页链接到原始网站。' : 'The directory lists external sources; detail pages link to the originals.'}</p>
       </div>
     </details>}
     <div class="directory-results">

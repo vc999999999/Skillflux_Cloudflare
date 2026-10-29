@@ -1,6 +1,0 @@
----
-import ScenarioDetailPage from '../../../components/ScenarioDetailPage.astro';
-import { scenarios } from '../../../lib/scenarios';
-export function getStaticPaths() { return scenarios.map(({ slug }) => ({ params: { slug }, props: { slug } })); }
----
-<ScenarioDetailPage slug={Astro.props.slug} lang="en" />

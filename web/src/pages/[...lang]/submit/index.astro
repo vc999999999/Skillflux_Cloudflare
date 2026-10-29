@@ -1,0 +1,8 @@
+---
+import SubmitPage from "../../../components/SubmitPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<SubmitPage lang={lang} />

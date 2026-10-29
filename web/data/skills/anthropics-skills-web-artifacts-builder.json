@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-web-artifacts-builder",
+  "name": "web-artifacts-builder",
+  "displayName": {
+    "en": "Web artifacts builder",
+    "zh": "Web Artifact 构建"
+  },
+  "summary": {
+    "en": "Anthropic’s tooling for multi-component claude.ai HTML artifacts built with React, Tailwind CSS and shadcn/ui, bundled into a single file.",
+    "zh": "Anthropic 出品，用 React、Tailwind CSS 和 shadcn/ui 构建多组件的 claude.ai HTML Artifact，并打包成单个文件。"
+  },
+  "upstreamDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/web-artifacts-builder",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/web-artifacts-builder/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "engineering",
+  "tags": [
+    "react",
+    "tailwind",
+    "artifacts"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

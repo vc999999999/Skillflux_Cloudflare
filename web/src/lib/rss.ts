@@ -2,7 +2,10 @@ import { createHash } from 'node:crypto';
 import type { CollectionEntry } from 'astro:content';
 import { SITE } from '../config';
 import { absoluteUrl, getIndexableSites, type Site } from './content';
-import { skillPath, type Publication } from './publication';
+import { getSiteCopy, insightPath, localizePath, type Language } from './i18n';
+import { keyFinding } from './skill-data';
+import { getRuns, getSkillView } from './skills';
+import type { RunRecord } from '@skillflux/bench/schema';
 
 type Insight = Pick<CollectionEntry<'insights'>, 'id' | 'data' | 'body'>;
 type FeedItem = {
@@ -43,75 +46,57 @@ function contentDate(date: string): string {
   return date;
 }
 
-function releaseDate(date: string): string {
-  // Catalog releases can have date-only values or full timestamps with offsets.
-  // Normalize only the presentation; the release identity never depends on time.
-  // A datetime without a zone would make the RSS depend on the build machine.
-  const isoDate = /^\d{4}-\d{2}-\d{2}$/;
-  const isoTimestamp = /^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/;
-  if (!isoDate.test(date) && !isoTimestamp.test(date)) throw new Error(`Invalid RSS release date: ${date}`);
-  const value = new Date(date);
-  if (!Number.isFinite(value.getTime())) throw new Error(`Invalid RSS release date: ${date}`);
-  contentDate(date.slice(0, 10));
-  return value.toISOString();
-}
-
 function feedDate(date: string): string {
   return new Date(date).toUTCString();
 }
 
-export function resourceFeedItems(sites: Site[] = getIndexableSites()): FeedItem[] {
+export function resourceFeedItems(sites: Site[] = getIndexableSites(), lang: Language = 'en'): FeedItem[] {
   return sites.filter(site => site.indexable).map(site => {
-    const url = absoluteUrl(`/resource/${site.resourceSlug}/`);
+    const url = absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang));
+    const copy = getSiteCopy(site, lang);
     return {
-      title: site.name,
+      title: copy.name,
       url,
-      description: `${site.tagline} ${site.summary}`,
-      category: '资源更新',
+      description: `${copy.tagline} ${copy.summary}`,
+      category: lang === 'zh' ? '资源更新' : 'Resource update',
       updatedAt: contentDate(site.updatedAt),
       guid: revisionGuid(url, site)
     };
   });
 }
 
-export function insightFeedItems(entries: Insight[]): FeedItem[] {
+/** Articles keep the language they were written in, whichever feed carries them. */
+export function insightFeedItems(entries: Insight[], lang: Language = 'en'): FeedItem[] {
   return entries.filter(entry => !entry.data.draft).map(entry => {
-    const url = absoluteUrl(`/insights/${entry.id}/`);
+    const url = absoluteUrl(insightPath(entry));
     return {
       title: entry.data.title,
       url,
-      description: `${entry.data.tldr} 来源: ${entry.data.source.repo}`,
-      category: 'Skill 拆解',
+      description: `${entry.data.tldr} ${lang === 'zh' ? '来源' : 'Source'}: ${entry.data.source.repo}`,
+      category: lang === 'zh' ? 'Skill 拆解' : 'Skill deep-dive',
       updatedAt: contentDate(entry.data.dateModified),
       guid: revisionGuid(url, { data: entry.data, body: entry.body ?? '' })
     };
   });
 }
 
-/** Only the qualified, integrity-checked publication items become release announcements. */
-export function releaseFeedItems(publication: Publication): FeedItem[] {
-  const repo = publication.snapshot.repo;
-  if (!repo) return [];
-  return publication.items.map(({ skill }) => ({
-    title: `${skill.name} · v${skill.version}`,
-    url: absoluteUrl(skillPath(skill.id, skill.version)),
-    description: [
-      skill.description,
-      `更新说明：${skill.release?.notes ?? '此版本未提供单独更新说明，请查看版本详情。'}`,
-      `破坏性变更：${skill.release ? (skill.release.breaking ? '有，请先审阅更新说明。' : '发布者未标记破坏性变更。') : '未声明。'}`,
-      `最低客户端版本：${skill.release?.minClientVersion ?? '未声明'}。`,
-      '这是已发布版本公告；是否适合升级，请在项目内执行 skillflux.check_updates 检查已安装版本、宿主与依赖。',
-      `目录来源：https://github.com/${repo}`
-    ].join('\n'),
-    category: 'Skill 版本发布',
-    updatedAt: releaseDate(skill.release?.maintainedAt ?? skill.createdAt),
-    // Versions are immutable. Rebuilding, changing catalog commits or editing
-    // editorial descriptions must not announce the same package a second time.
-    guid: `urn:skillflux:release:${repo.toLowerCase()}:${encodeURIComponent(skill.id)}:${encodeURIComponent(skill.version)}`
+/** One item per skill in each published run. Runs are immutable, so the GUID never changes. */
+export function benchmarkFeedItems(runs: RunRecord[] = getRuns(), lang: Language = 'en'): FeedItem[] {
+  return runs.filter(run => run.status === 'published').flatMap(run => run.skills.flatMap(result => {
+    const view = getSkillView(result.skillId);
+    if (!view?.indexable || view.result?.run.runId !== run.runId) return [];
+    return [{
+      title: lang === 'zh' ? `${view.skill.displayName.zh} 实测结果（批次 ${run.runId}）` : `${view.skill.displayName.en} benchmark results (run ${run.runId})`,
+      url: absoluteUrl(localizePath(`/skills/${result.skillId}/`, lang)),
+      description: keyFinding(view, lang),
+      category: lang === 'zh' ? '实测报告' : 'Benchmark report',
+      updatedAt: contentDate(run.publishedAt),
+      guid: `urn:skillflux:bench:${run.runId}:${result.skillId}:${lang}`,
+    }];
   }));
 }
 
-function renderRss(items: FeedItem[], feedPath: string, title: string, description: string, pagePath: string): string {
+function renderRss(items: FeedItem[], feedPath: string, title: string, description: string, pagePath: string, language = 'en'): string {
   const unique = [...new Map(items.map(item => [item.guid, item])).values()];
   const ordered = unique.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)
     || a.url.localeCompare(b.url) || a.guid.localeCompare(b.guid)).slice(0, 30);
@@ -122,7 +107,7 @@ function renderRss(items: FeedItem[], feedPath: string, title: string, descripti
     `    <title>${escapeXml(title)}</title>`,
     `    <link>${escapeXml(absoluteUrl(pagePath))}</link>`,
     `    <description>${escapeXml(description)}</description>`,
-    '    <language>zh-CN</language>',
+    `    <language>${language}</language>`,
     `    <atom:link href="${escapeXml(absoluteUrl(feedPath))}" rel="self" type="application/rss+xml" />`,
     ...(ordered[0] ? [`    <lastBuildDate>${feedDate(ordered[0].updatedAt)}</lastBuildDate>`] : []),
     ...ordered.map(item => [
@@ -140,17 +125,20 @@ function renderRss(items: FeedItem[], feedPath: string, title: string, descripti
   ].join('\n');
 }
 
-export function renderUpdatesFeed(entries: Insight[], sites: Site[] = getIndexableSites(), publication?: Publication): string {
-  return renderRss([...resourceFeedItems(sites), ...insightFeedItems(entries), ...(publication ? releaseFeedItems(publication) : [])], '/feed.xml',
-    `${SITE.name} · 内容更新`, 'Skill 合格版本发布、资源新增、能力说明更新与 Skill 拆解文章。', '/');
+export function renderUpdatesFeed(entries: Insight[], sites: Site[] = getIndexableSites(), lang: Language = 'en'): string {
+  const items = [...benchmarkFeedItems(undefined, lang), ...resourceFeedItems(sites, lang), ...insightFeedItems(entries, lang)];
+  return lang === 'zh'
+    ? renderRss(items, '/zh/feed.xml', `${SITE.name} · 内容更新`, '实测报告、新收录来源与 Skill 拆解文章。', '/zh/', 'zh-CN')
+    : renderRss(items, '/feed.xml', `${SITE.name} · Updates`, 'Benchmark reports, new sources and skill deep-dives.', '/');
 }
 
 export function renderInsightsFeed(entries: Insight[]): string {
-  return renderRss(insightFeedItems(entries), '/insights/feed.xml', `${SITE.name} · Skill 拆解`,
-    'Skill 拆解文章的发布与修订：工作流程、判断依据、使用局限与原始来源。', '/insights/');
+  return renderRss(insightFeedItems(entries, 'zh'), '/insights/feed.xml', `${SITE.name} · Skill 拆解`,
+    'Skill 拆解文章的发布与修订：工作流程、判断依据、使用局限与原始来源。', '/zh/insights/', 'zh-CN');
 }
 
-export function renderReleasesFeed(publication: Publication): string {
-  return renderRss(releaseFeedItems(publication), '/releases/feed.xml', `${SITE.name} · Skill 版本发布`,
-    '仅订阅已通过资格验证的 Skill 包版本、更新说明与兼容性声明；项目内的更新检查决定具体可升级项。', '/registry/');
+export function renderBenchmarksFeed(lang: Language = 'en'): string {
+  return lang === 'zh'
+    ? renderRss(benchmarkFeedItems(undefined, 'zh'), '/zh/benchmarks/feed.xml', `${SITE.name} · 实测报告`, '每个已发布测试批次中每个 Skill 的结果。', '/zh/benchmarks/', 'zh-CN')
+    : renderRss(benchmarkFeedItems(undefined, 'en'), '/benchmarks/feed.xml', `${SITE.name} · Benchmark reports`, 'Results for each skill in each published benchmark run.', '/benchmarks/');
 }

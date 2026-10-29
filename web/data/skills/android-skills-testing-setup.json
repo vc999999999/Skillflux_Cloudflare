@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "android-skills-testing-setup",
+  "name": "testing-setup",
+  "displayName": {
+    "en": "testing-setup",
+    "zh": "testing-setup"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Analyze and create a testing strategy for Android apps - install testing libraries, set up test infrastructure, create harnesses for unit tests, UI tests, screenshot tests, and end-to-end tests.",
+  "source": {
+    "repo": "https://github.com/android/skills",
+    "path": "testing/testing-setup",
+    "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Android",
+    "url": "https://github.com/android"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-android-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

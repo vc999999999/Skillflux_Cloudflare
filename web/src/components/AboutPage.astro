@@ -1,17 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { localizePath, type Language } from '../lib/i18n';
-const { lang = 'zh' } = Astro.props as { lang?: Language };
+const { lang = 'en' } = Astro.props as { lang?: Language };
 const zh = lang === 'zh';
 const title = zh ? '关于 SkillFlux' : 'About SkillFlux';
-const description = zh ? 'SkillFlux 整理 Agent Skills、MCP 与工具来源，用场景、编辑说明和原始链接帮助人和 AI 选择资源。' : 'SkillFlux organizes agent skills, MCP resources and tool sources through use cases, editorial notes and original links for people and AI agents.';
+const description = zh ? 'SkillFlux 测试 Agent Skill 并公开数据，同时整理 Skill 来源目录，用可复核的证据帮助人和 AI 选择 Skill。' : 'SkillFlux tests agent skills and publishes the data, and keeps a directory of skill sources, so people and AI agents can choose skills on verifiable evidence.';
 ---
 <BaseLayout lang={lang} title={title} description={description}>
   <main id="main-content" class="page-shell about-page"><p class="eyebrow">ABOUT SKILLFLUX</p><h1>{title}</h1><p>{description}</p>
     <h2>{zh ? '我们整理什么' : 'What we organize'}</h2><p>{zh ? '资源目录包含官方来源、公开仓库、市场与社区清单。每个详情页说明资源定位、适合的任务、编辑判断、局限与替代方向，并链接原始资料。指南与场景文章帮助你围绕具体需求比较候选。' : 'The directory covers vendor sources, public repositories, marketplaces and community lists. Detail pages explain positioning, intended tasks, editorial judgment, limitations and alternatives, with links to the original material. Guides and scenario articles help compare candidates for a concrete need.'}</p>
-    <h2>{zh ? '来源收录与版本审核' : 'Source listings and release qualification'}</h2><p>{zh ? '收录来源不代表其中每个 Skill 都通过实测。精品 Registry 根据 GitHub 目录仓库中的版本级审核记录生成；安装前客户端重新检查当前仓库状态。编辑内容来自目录资料与来源说明，不能代替对你所在环境的验证。' : 'A source listing does not certify every skill it contains. The curated Registry is built from release-level review records in the GitHub catalog; the client rechecks the current repository state before installation. Editorial content is based on catalog material and source documentation; verify behavior in your own environment.'}</p>
+    <h2>{zh ? '我们测量什么' : 'What we measure'}</h2><p>{zh ? '每个收录的 Skill 都钉定到一个 Git 提交并做静态体检；选定的 Skill 会在 Claude Code 中与不装 Skill 的基线对照实测。方法有版本号且公开，数据以 CC BY 4.0 发布。收录一个来源不代表其中每个 Skill 都经过测试。' : 'Every listed skill is pinned to a Git commit and health-checked; selected skills are benchmarked in Claude Code against a no-skill baseline. The method is versioned and public, and the data is released under CC BY 4.0. Listing a source does not mean every skill in it was tested.'}</p>
+    <h2>{zh ? '独立性' : 'Independence'}</h2><p>{zh ? 'SkillFlux 不分发也不安装 Skill，不接受付费收录、排序或测试。发布前不征求 Skill 作者意见，异议在 GitHub 上公开处理。' : 'SkillFlux does not distribute or install skills and takes no payment for listing, ranking or testing. Authors are not consulted before publication; disputes are handled in public on GitHub.'}</p>
     <h2>{zh ? '联系与纠错' : 'Contact and corrections'}</h2><p>{zh ? '发现描述有误或链接变化，可以通过联系页面提供原始资料；推荐新来源可使用资源提交入口。' : 'Use the contact page to report a description error or changed link with the original source. Suggest a new source through the submission page.'}</p>
-    <ul>{[['/directory/', zh ? '浏览资源目录' : 'Browse the directory'],['/quality/', zh ? '收录与质检标准' : 'Curation and quality standards'],['/contact/', zh ? '联系 SkillFlux' : 'Contact SkillFlux'],['/submit/', zh ? '推荐资源' : 'Suggest a source'],['/for-ai/', zh ? '机器可读入口' : 'Machine-readable endpoints']].map(([path,label]) => <li><a href={localizePath(path,lang)}>{label}</a></li>)}</ul>
+    <ul>{[['/directory/', zh ? '浏览资源目录' : 'Browse the directory'],['/methodology/', zh ? '测试方法' : 'How we test'],['/data/', zh ? '开放数据集' : 'Open dataset'],['/quality/', zh ? '收录标准' : 'Listing policy'],['/contact/', zh ? '联系 SkillFlux' : 'Contact SkillFlux'],['/submit/', zh ? '推荐资源' : 'Suggest a source'],['/for-ai/', zh ? '机器可读入口' : 'Machine-readable endpoints']].map(([path,label]) => <li><a href={localizePath(path,lang)}>{label}</a></li>)}</ul>
   </main>
 </BaseLayout>
 <style>.about-page{padding-block:60px 80px;max-width:880px}.about-page h1{font-size:2.5rem}.about-page h2{margin-top:36px;font-size:1.4rem}.about-page p{color:var(--muted);line-height:1.9}.about-page li{margin-block:12px}</style>

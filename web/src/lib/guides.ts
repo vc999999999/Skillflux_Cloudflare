@@ -14,7 +14,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-download-claude-skills",
     datePublished: "2026-06-30",
-    dateModified: "2026-09-29",
+    dateModified: "2026-10-29",
     title: {
       zh: "Claude Skills 从哪里下载：来源与安装指南",
       en: "Where to download Claude Skills: sources and installation"
@@ -27,7 +27,7 @@ export const guides: Guide[] = [
   {
     slug: "choosing-a-skill-source",
     datePublished: "2026-06-30",
-    dateModified: "2026-09-29",
+    dateModified: "2026-10-29",
     title: {
       zh: "如何挑选 skill 来源：合集、市场、仓库怎么选",
       en: "How to choose a skill source: collections vs marketplaces vs repos"

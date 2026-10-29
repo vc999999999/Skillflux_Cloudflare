@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-verification-before-completion",
+  "name": "verification-before-completion",
+  "displayName": {
+    "en": "Verification before completion (Superpowers)",
+    "zh": "完成前验证（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ rule that the agent must run verification commands and read their output before claiming work is done.",
+    "zh": "Superpowers 的规则：Agent 在宣称完成之前，必须运行验证命令并读取输出。"
+  },
+  "upstreamDescription": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/verification-before-completion",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "verification",
+    "testing"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

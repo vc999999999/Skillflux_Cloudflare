@@ -1,0 +1,37 @@
+---
+import CollectionListPage from "../../../components/CollectionListPage.astro";
+import { getTagIndex } from "../../../lib/content";
+import { getPageCopy, langStaticPaths, localizePath, translateTag } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => getTagIndex().map((entry) => ({
+    params: { ...params, tag: entry.slug },
+    props: { ...props, entry }
+  })));
+}
+
+const { entry, lang } = Astro.props;
+const copy = getPageCopy(lang);
+const canonicalPath = localizePath(`/tag/${entry.slug}/`, lang);
+const label = translateTag(entry.tag, lang);
+---
+
+<CollectionListPage
+  noindex={!entry.indexable}
+  lang={lang}
+  title={copy.collections.tagTitle(label)}
+  description={copy.collections.tagDescription(label, entry.count)}
+  canonicalPath={canonicalPath}
+  eyebrow={copy.collections.tagEyebrow}
+  heading={copy.collections.tagHeading(label)}
+  lede={entry.intro?.[lang] ?? copy.collections.tagLede(label, entry.count)}
+  metaText={lang === "zh" ? `${entry.count} 个来源` : `${entry.count} sources`}
+  sites={entry.sites}
+  breadcrumbItems={[
+    { label: copy.breadcrumb.home, href: localizePath("/", lang) },
+    { label: copy.breadcrumb.directory, href: localizePath("/directory/", lang) },
+    { label }
+  ]}
+  collectionName={copy.collections.tagTitle(label)}
+  collectionDescription={copy.collections.tagDescription(label, entry.count)}
+/>

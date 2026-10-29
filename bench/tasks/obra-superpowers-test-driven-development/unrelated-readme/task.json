@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "unrelated-readme",
+  "version": 1,
+  "skillId": "obra-superpowers-test-driven-development",
+  "kind": "negative-control",
+  "title": {
+    "en": "Unrelated task: describe the project",
+    "zh": "无关任务：写项目简介"
+  },
+  "prompt": "Replace README.md with two or three sentences explaining that this package is a small collection of JavaScript helper functions and how to run its checks with npm test.",
+  "limits": {
+    "maxTurns": 10,
+    "timeoutSec": 300
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "README.md has at least two sentences and mentions npm test",
+      "zh": "README.md 至少两句话且提到 npm test"
+    }
+  ],
+  "requires": [
+    "node"
+  ]
+}

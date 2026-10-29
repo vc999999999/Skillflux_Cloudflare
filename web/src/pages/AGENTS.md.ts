@@ -1,11 +1,9 @@
-import { renderAgentsMd } from "../lib/content";
+import { renderAgentsMd } from "../lib/data-discovery";
 
 export const prerender = true;
 
-export async function GET() {
+export function GET() {
   return new Response(renderAgentsMd(), {
-    headers: {
-      "Content-Type": "text/markdown; charset=utf-8"
-    }
+    headers: { "Content-Type": "text/markdown; charset=utf-8" }
   });
 }

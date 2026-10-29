@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-systematic-debugging",
+  "name": "systematic-debugging",
+  "displayName": {
+    "en": "Systematic debugging (Superpowers)",
+    "zh": "系统化调试（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ four-phase debugging process that requires finding the root cause before proposing a fix.",
+    "zh": "Superpowers 的四阶段调试流程，要求先找到根因，再提出修复。"
+  },
+  "upstreamDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/systematic-debugging",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "debugging"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

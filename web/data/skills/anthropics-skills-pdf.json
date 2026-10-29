@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-pdf",
+  "name": "pdf",
+  "displayName": {
+    "en": "PDF processing",
+    "zh": "PDF 处理"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for PDF work: extracting text and tables, merging and splitting, filling forms and creating new PDFs with Python libraries and bundled scripts.",
+    "zh": "Anthropic 出品的 PDF 处理 Skill：提取文字和表格、合并拆分、填写表单，并用 Python 库和附带脚本生成新 PDF。"
+  },
+  "upstreamDescription": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/pdf",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Proprietary. LICENSE.txt has complete terms",
+    "file": "skills/pdf/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "documents",
+  "tags": [
+    "pdf",
+    "office",
+    "forms"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-publication/v1",
+  "registry": "https://8.210.176.19",
+  "fetchedAt": "2026-10-01T00:39:00.922Z",
+  "key": {
+    "keyId": "ed25519:ac13c5c0db4d0e5bfc003cdd",
+    "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA1z1T7Z3Yi9Qzjq0uP5/AVaJb2kNqX6+fwoBSZQ/rBt4=\n-----END PUBLIC KEY-----\n"
+  },
+  "pages": [
+    {
+      "payload": {
+        "items": [],
+        "total": 0,
+        "offset": 0,
+        "limit": 10,
+        "revision": "6f50d84ffa292a90a6f69bb83a172120d7bd703f7fe1b8472a377ee42e8c55b5",
+        "generatedAt": "2026-10-01T00:39:00.899Z",
+        "expiresAt": "2026-10-01T00:54:00.899Z"
+      },
+      "keyId": "ed25519:ac13c5c0db4d0e5bfc003cdd",
+      "signature": "SGhRoBoOFH380YXePIBViLP8eY9Vj+4KaCYXwhAiOb0cx2+u8ORVbajGqgHO44ytJEQk6NJZk60r5wljwbC2AA=="
+    }
+  ],
+  "statusPages": [
+    {
+      "payload": {
+        "items": [],
+        "total": 0,
+        "offset": 0,
+        "limit": 100,
+        "revision": "6f50d84ffa292a90a6f69bb83a172120d7bd703f7fe1b8472a377ee42e8c55b5",
+        "generatedAt": "2026-10-01T00:39:00.945Z",
+        "expiresAt": "2026-10-01T00:54:00.945Z"
+      },
+      "keyId": "ed25519:ac13c5c0db4d0e5bfc003cdd",
+      "signature": "Q1X357Fq6GKhy8T1ZcPVMdpWlZiPFB35zaQD2q7iBDzbxjJZ3HeGcLs8F1nKu8Wi7CPeWCpcpOt6l1T7WXVZBg=="
+    }
+  ]
+}

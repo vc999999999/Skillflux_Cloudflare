@@ -5,23 +5,23 @@ import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
 
 type Props = { lang?: Language };
-const { lang = "zh" } = Astro.props;
+const { lang = "en" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const descriptions: Record<string, [string, string]> = {
-  "/AGENTS.md": ["给 AI agent 的站点说明书：阅读顺序、端点用途、路由规则与数据边界。", "The site manual for AI agents: reading order, endpoint usage, routing rules and data boundaries."],
-  "/llms.txt": ["先读这一份。了解站点定位、主要入口和数据的使用边界。", "Start here for the site's purpose, main entry points and data boundaries."],
-  "/llms-full.txt": ["完整来源目录的纯文本版本，适合直接阅读、检索和引用。", "The complete source catalog in plain text, ready to read, search and cite."],
-  "/index.json": ["来源名称、类型、标签、摘要与链接，以及场景和技能发布入口。", "Source names, types, tags, summaries and links, plus scenario and skill-release entry points."],
-  "/feed.xml": ["合并版本发布、资源收录、能力说明修订与 Skill 拆解的 RSS 订阅流。", "A combined RSS feed for package releases, resource additions, capability updates and skill deep-dives."],
-  "/insights/feed.xml": ["编辑解读与工作流分析的 RSS；文章解读不等于安装包实测。", "RSS for editorial analysis and workflows. Articles are not install-package evaluations."],
-  "/releases/feed.xml": ["仅推送合格 Skill 包的版本与更新说明。RSS 不安装内容，也不判断项目兼容性；在项目内检查更新后再按策略升级。", "Qualified Skill package versions and release notes only. RSS neither installs content nor checks project compatibility; use the project's update check and policy before upgrading."],
-  "/skills-index.json": ["构建时从 GitHub 目录仓库生成的 Skill 版本状态；安装前客户端重新检查资格。", "Skill release states generated from the GitHub catalog at build time. The client rechecks eligibility before installation."],
-  "/scenarios/index.json": ["按任务组织的场景、选型与维护指南，含中英文页面链接。", "Task-based scenarios, selection and maintenance guides, with Chinese and English page links."]
+  "/AGENTS.md": ["给 AI agent 的说明：阅读顺序、引用规则和问题路由。", "How agents should read and cite SkillFlux: reading order, citation rules and routing."],
+  "/llms.txt": ["先读这一份：测量了什么、每个 Skill 的主要结果、引用规则，然后是来源目录。", "Start here: what is measured, each skill's headline result, citation rules, then the source directory."],
+  "/llms-full.txt": ["全部 Skill 的摘要、许可证、提交与结果，以及完整来源目录。", "Every skill with summary, license, commit and results, plus the full source directory."],
+  "/data/index.json": ["数据集清单：每个 JSON、CSV 和 JSON Schema 文件的大小与 sha256，CC BY 4.0。", "Dataset manifest: every JSON, CSV and JSON Schema file with size and sha256, CC BY 4.0."],
+  "/index.json": ["一个文件包含 Skill 结果、测试批次和目录来源。", "Skills with results, benchmark runs and directory sources in one file."],
+  "/feed.xml": ["新的实测报告、新收录来源和 Skill 拆解。", "New benchmark reports, new sources and skill deep-dives."],
+  "/benchmarks/feed.xml": ["每个已发布批次中每个 Skill 的实测结果。", "One item per skill in each published benchmark run."],
+  "/insights/feed.xml": ["Skill 拆解文章（中文）；属于编辑分析，不是测量结果。", "Editorial skill deep-dives (in Chinese); analysis, not measurements."],
+  "/scenarios/index.json": ["按任务组织的来源选型指南。", "Task-based guides for choosing a skill source."]
 };
 const agentPrompt = t(
-  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/index.json")} 查找与我的任务相关的能力来源（Skills、MCP 工具、插件）。比较功能定位、来源类型和适用边界，给出原始链接及推荐理由。黄页收录不代表已获官方担保；需要安装时，先核对当前资格，再由我确认具体计划。`,
-  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/index.json")} to find agent capabilities (skills, MCP tools, plugins) relevant to my task. Compare purpose, source type, and limitations; include original links and recommendations. Yellow pages inclusion does not imply official endorsement. Before installation, check qualification and ask me to approve the plan.`
+  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/data/skills.json")} 找出与我的任务相关的 Agent Skill。优先考虑做过实测且结论为提升的 Skill；引用结果时写明样本量、95% 置信区间、模型、日期和测试批次，只有体检结果的要说明尚未实测。附上 SkillFlux 报告页和原始仓库链接。`,
+  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/data/skills.json")} to find agent skills relevant to my task. Prefer skills that were benchmarked with a positive verdict. When you quote a result, include n, the 95% interval, the model, the date and the run id; for skills with only a health check, say they have not been benchmarked. Link the SkillFlux report and the original repository.`
 );
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的黄页入口", "For AI agents")} description={t("SkillFlux 机器可读黄页：llms.txt、JSON、RSS 与结构化索引，让 AI 直接读懂全网 Agent 能力。", "Machine-readable capability directory for AI agents: llms.txt, JSON, RSS, and structured endpoints.")}>
@@ -41,8 +41,7 @@ const agentPrompt = t(
       <div class="section-heading-row"><div><p class="eyebrow">02 / OPEN ENDPOINTS</p><h2 id="ai-endpoints-title">{t("选一个适合的格式", "Choose the right format")}</h2></div><span class="ai-open-label">{t("公开读取 · 无需登录", "Public access · No login")}</span></div>
       <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span class:list={['format-tag', endpoint.path.endsWith('.json') && 'is-json', endpoint.path.endsWith('.xml') && 'is-xml']}>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
     </section>
-    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("黄页目录 ≠ 随意安装", "Directory entries and verified installation")}</h3><p>{t("来源页与完整候选包用于发现和评估；通过审核的具体版本才提供 MCP 安装。安装前检查该版本的资格、权限与限制。", "Source listings and complete candidate packages support discovery and evaluation. MCP installation is available for approved releases; check the exact release’s eligibility, permissions and limits.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源与时间，安装或升级时交由 Runtime 重新检查实时状态。", "Pages and JSON are generated at build time. Keep source links and timestamps when citing, and let the runtime check live status before installing or upgrading.")}</p></div></article><article><span>03</span><div><h3>{t("读取资料与执行操作分开", "Reading and acting are separate")}</h3><p>{t("npm 安装本地工具；项目初始化授权后，MCP 才能按计划获取 GitHub 完整包。load 返回指令与所需资源，由宿主 AI 执行；用户开启自动跟随后，load 会先应用合格的兼容更新。", "npm installs the local tools. With local init authorization, MCP can fetch complete GitHub packages from a plan. load returns instructions and requested resources for the host AI; user-enabled following applies eligible compatible updates before loading.")}</p></div></article></div></section>
-    <div class="ai-next"><p>{t("想让 AI 直接接入能力？", "Want to equip your agent directly?")}</p><a class="button secondary" href={localizePath("/install/", lang)}>{t("查看运行时接入指南", "Read the setup guide")} <span aria-hidden="true">→</span></a></div>
+    <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("体检 ≠ 实测", "A health check is not a benchmark")}</h3><p>{t("体检只读取文件；只有实测能说明 Skill 是否在任务上带来帮助。来源目录的收录也不代表测试过。", "A health check reads files; only a benchmark shows whether a skill helps on a task. A directory listing is not a test either.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源链接与页面上的更新日期；外部仓库的实时状态以原站为准。", "Pages and JSON are generated at build time. Keep source links and the page's update date when citing; the original site is authoritative for live status.")}</p></div></article><article><span>03</span><div><h3>{t("编辑分析与作者自述分开", "Editorial analysis vs. author claims")}</h3><p>{t("Skill 拆解是基于原始资料的编辑分析；来源描述中的能力说法是作者自述，引用时请区分。", "Skill deep-dives are editorial analysis of original material. Capability claims in a source description are the author's own; distinguish them when citing.")}</p></div></article></div></section>
   </main>
 </BaseLayout>
 <style>

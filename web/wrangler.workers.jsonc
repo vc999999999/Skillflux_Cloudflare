@@ -9,11 +9,11 @@
     { "pattern": "skillflux.cn/*", "zone_name": "skillflux.cn" },
     { "pattern": "www.skillflux.cn/*", "zone_name": "skillflux.cn" }
   ],
-  "main": "./.publication/production/dist/_worker.js",
+  "main": "./dist/_worker.js",
   "compatibility_date": "2026-09-10",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": "./.publication/production/dist",
+    "directory": "./dist",
     "binding": "ASSETS",
     "run_worker_first": true,
     "html_handling": "force-trailing-slash",

@@ -1,0 +1,12 @@
+---
+import RunPage from "../../../components/RunPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+import { getRuns } from "../../../lib/skills";
+
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => getRuns().map(run => ({ params: { ...params, runId: run.runId }, props: { ...props, run } })));
+}
+
+const { run, lang } = Astro.props;
+---
+<RunPage lang={lang} run={run} />

@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-brainstorming",
+  "name": "brainstorming",
+  "displayName": {
+    "en": "Brainstorming (Superpowers)",
+    "zh": "头脑风暴（Superpowers）"
+  },
+  "summary": {
+    "en": "Part of Jesse Vincent’s Superpowers set: turns a rough idea into a design through one-question-at-a-time dialogue before any implementation starts.",
+    "zh": "Jesse Vincent 的 Superpowers 套件之一：在动手实现之前，通过一次只问一个问题的对话，把模糊想法变成设计方案。"
+  },
+  "upstreamDescription": "You MUST use this before any creative work - creating features, building components, adding functionality, modifying behavior, or planning anything new, in software or out of it (a talk, a business, a renovation).",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/brainstorming",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "design",
+    "planning"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -1,0 +1,8 @@
+---
+import DirectoryPage from "../../components/DirectoryPage.astro";
+import { langStaticPaths } from "../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<DirectoryPage lang={lang} />

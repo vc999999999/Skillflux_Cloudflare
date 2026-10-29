@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-doc-coauthoring",
+  "name": "doc-coauthoring",
+  "displayName": {
+    "en": "Document co-authoring",
+    "zh": "文档协作撰写"
+  },
+  "summary": {
+    "en": "Anthropic’s structured workflow for writing specs, proposals and decision documents with the user: gathering context, drafting in stages and testing the document on a fresh reader.",
+    "zh": "Anthropic 出品的结构化写作流程，适合与用户一起写技术规格、提案和决策文档：先收集背景，分阶段起草，再找“新读者”检验。"
+  },
+  "upstreamDescription": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/doc-coauthoring",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": null,
+    "file": null
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "writing",
+  "tags": [
+    "docs",
+    "specs",
+    "writing"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

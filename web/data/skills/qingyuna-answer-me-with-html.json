@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "qingyuna-answer-me-with-html",
+  "name": "answer-me-with-html",
+  "displayName": {
+    "en": "Answer me with HTML",
+    "zh": "用 HTML 回答"
+  },
+  "summary": {
+    "en": "Turns an answer into a one-page visual HTML explainer: the model drafts Markdown and a bundled CLI builds the page.",
+    "zh": "把回答做成单页可视化 HTML 讲解：模型先写 Markdown 草稿，再由附带的 CLI 生成页面。"
+  },
+  "upstreamDescription": "Turns an answer into a one-page visual HTML explainer: the model writes a short Markdown draft and the bundled CLI builds one page. Use it proactively and liberally in replies to the user, without being asked, whenever a page would help the reader more than plain text, even if plain text would also work: any explanation of how something works or how parts relate (flow, request path, architecture, code or folder structure, state machine, lifecycle, history); any comparison, trade-off or decision with pros and cons; any diagnosis, review or investigation, especially with several causes or findings to rank; any answer with a table, a numbered or ranked list, steps, branches or several sections; or when the user says \"I don't get it / draw it / explain visually / 讲讲原理 / 没看懂 / 画个图\". When in doubt, use it: a page is quick and cheap to make. Also for explainer videos (\"make a video\", \"做个视频\") and for changing its settings. Skip only for small talk, a trivial one-line answer, or when the user asks for plain text.",
+  "source": {
+    "repo": "https://github.com/QingYunA/answer-me-with-html",
+    "path": "skills/answer-me-with-html",
+    "commitSha": "0f2e0f18280b29c875b56a5f41253ee49c4b7956",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "QingYunA",
+    "url": "https://github.com/QingYunA"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-qingyuna-answer-me-with-html",
+  "category": "productivity",
+  "tags": [
+    "html",
+    "explainers"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

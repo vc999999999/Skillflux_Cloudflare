@@ -1,0 +1,47 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "extract-text",
+  "version": 1,
+  "skillId": "anthropics-skills-pdf",
+  "kind": "positive",
+  "title": {
+    "en": "Extract text in page order",
+    "zh": "按页序提取文字"
+  },
+  "prompt": "Extract all of the text from notice.pdf into a plain-text file named notice.txt, keeping the pages in order.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "notice.txt exists",
+      "zh": "notice.txt 存在"
+    },
+    {
+      "en": "It contains the marker lines from both pages",
+      "zh": "包含两页中的标记行"
+    },
+    {
+      "en": "Page one's text comes before page two's",
+      "zh": "第一页文字在第二页之前"
+    }
+  ],
+  "requires": [
+    "python3"
+  ]
+}

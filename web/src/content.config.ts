@@ -24,6 +24,10 @@ const insights = defineCollection({
       authorUrl: z.url().optional(),
       license: z.string().min(2)
     }),
+    // Articles are written in one language and published only at that
+    // language's URL; translations share a translationKey.
+    lang: z.enum(["en", "zh"]).default("zh"),
+    translationKey: z.string().optional(),
     tags: z.array(z.string().min(1)).min(1),
     // 内链到 data/sites.json 里的收录站 slug
     relatedSites: z.array(z.string()).default([]),

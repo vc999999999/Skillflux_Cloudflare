@@ -1,6 +1,6 @@
 # SkillFlux SEO 与部署规则
 
-网站由 Astro 生成静态 HTML，并通过 Cloudflare Worker 发布。资源来源数据位于 `web/data/sites.json`，双语编辑内容位于 `web/data/resource-editorial.json`；精品 Skill 页面由构建时读取的 GitHub 目录仓库快照生成。浏览网页不调用技能下载接口，静态页面的发布状态以构建时间为准。
+网站由 Astro 生成静态 HTML，并通过 Cloudflare Worker 发布。资源来源数据位于 `web/data/sites.json`，双语编辑内容位于 `web/data/resource-editorial.json`；Skill 报告页由 `web/data/skills`、`web/data/health` 与 `web/data/benchmarks/runs` 生成，报告页必须包含首句结论（key-finding）、日期、方法论链接和引用块，数据页必须有带 license 和 distribution 的 Dataset JSON-LD，均由 `seo-build.ts` 校验。英文在根路径，中文在 `/zh/`。
 
 ## URL 与索引
 

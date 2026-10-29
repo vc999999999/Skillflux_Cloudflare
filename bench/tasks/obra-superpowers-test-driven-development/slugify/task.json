@@ -1,0 +1,43 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "slugify",
+  "version": 1,
+  "skillId": "obra-superpowers-test-driven-development",
+  "kind": "positive",
+  "title": {
+    "en": "New function: slugify",
+    "zh": "新增函数：slugify"
+  },
+  "prompt": "Add a slugify(title) function exported from src/slugify.js. It should lowercase the text, replace each run of characters that are not letters or digits with a single hyphen, and remove hyphens from both ends. For example \"  Hello, World! \" becomes \"hello-world\".",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "Hidden tests of slugify pass (punctuation, repeated separators, digits, empty string)",
+      "zh": "隐藏的 slugify 测试通过（标点、连续分隔符、数字、空字符串）"
+    },
+    {
+      "en": "The project has its own test file for the function, and npm test passes",
+      "zh": "项目中有针对该函数的测试文件，且 npm test 通过"
+    }
+  ],
+  "requires": [
+    "node"
+  ]
+}

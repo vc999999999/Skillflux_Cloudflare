@@ -1,0 +1,43 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "chunk",
+  "version": 1,
+  "skillId": "mattpocock-skills-tdd",
+  "kind": "positive",
+  "title": {
+    "en": "New function: chunk",
+    "zh": "新增函数：chunk"
+  },
+  "prompt": "Add chunk(items, size) to src/chunk.js. It splits an array into consecutive groups of at most size items (the last group may be shorter) and throws a RangeError when size is not a positive integer. It must not modify the input array.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "Hidden tests of chunk pass (even and uneven splits, empty input, invalid sizes, no mutation)",
+      "zh": "隐藏的 chunk 测试通过（整除与不整除、空输入、非法 size、不修改输入）"
+    },
+    {
+      "en": "The project has its own test file for the function, and npm test passes",
+      "zh": "项目中有针对该函数的测试文件，且 npm test 通过"
+    }
+  ],
+  "requires": [
+    "node"
+  ]
+}

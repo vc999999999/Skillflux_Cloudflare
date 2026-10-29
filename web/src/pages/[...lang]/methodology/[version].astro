@@ -1,0 +1,15 @@
+---
+import MethodologyPage from "../../../components/MethodologyPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+import { METHODOLOGY_VERSIONS } from "../../../lib/methodology";
+
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => METHODOLOGY_VERSIONS.map(version => ({
+    params: { ...params, version: `v${version.version}` },
+    props: { ...props, version }
+  })));
+}
+
+const { version, lang } = Astro.props;
+---
+<MethodologyPage lang={lang} version={version} />

@@ -16,8 +16,6 @@ const href = {
   aggregator: localizePath("/source-type/directory/", lang),
   download: localizePath("/guides/how-to-download-claude-skills/", lang),
   discovery: localizePath("/scenarios/choose-a-source/", lang),
-  connect: localizePath("/scenarios/connect-a-project/", lang),
-  maintain: localizePath("/scenarios/maintain-project-skills/", lang),
   mcp: localizePath("/directory/?kind=mcp", lang),
   anthropic: localizePath(`/resource/${getSiteBySlug('github-com-anthropics-skills')!.resourceSlug}/`, lang),
 };
@@ -47,7 +45,7 @@ const href = {
       </ol>
       <p>维护情况需要结合原项目的说明、变更记录和问题处理情况判断。SkillFlux 的资料日期用于说明条目何时整理，不能用来证明上游刚刚更新；长期未修改也不必然代表项目不可用。</p>
       <h2>按你要完成的任务继续筛选</h2>
-      <p>还在寻找方向时，阅读 <a href={href.discovery}>来源选型场景指南</a>；已有代码项目时，对照 <a href={href.connect}>项目接入场景</a>；接入后的维护方式见 <a href={href.maintain}>项目技能维护场景</a>。如果真正需要连接外部工具，可在 <a href={href.mcp}>资源目录按 MCP 类型筛选</a>。</p>
+      <p>还在寻找方向时，阅读 <a href={href.discovery}>来源选型场景指南</a>。如果真正需要连接外部工具，可在 <a href={href.mcp}>资源目录按 MCP 类型筛选</a>。</p>
       <div class="guide-callout"><p>选择来源后，继续阅读 <a href={href.download}>Claude Skills 获取与安装指南</a>。需要查看更多候选项，可以返回 <a href={href.directory}>完整资源目录</a>。</p></div>
     </Fragment>
   ) : (
@@ -73,7 +71,7 @@ const href = {
       </ol>
       <p>Assess maintenance through the project’s own documentation, change history and issue handling. A SkillFlux record date describes our catalog material; it does not prove a recent upstream release. An unchanged project is not necessarily unusable either.</p>
       <h2>Continue with the task you need to complete</h2>
-      <p>For open-ended discovery, read the <a href={href.discovery}>source selection scenario</a>. For an existing codebase, see the <a href={href.connect}>project connection scenario</a>, and for post-setup maintenance the <a href={href.maintain}>project skills maintenance scenario</a>. If the goal is an external tool connection, filter the <a href={href.mcp}>directory by MCP resources</a>.</p>
+      <p>For open-ended discovery, read the <a href={href.discovery}>source selection scenario</a>. If the goal is an external tool connection, filter the <a href={href.mcp}>directory by MCP resources</a>.</p>
       <div class="guide-callout"><p>After choosing a source, continue to the <a href={href.download}>Claude Skills download and installation guide</a>, or return to the <a href={href.directory}>full resource directory</a> for more candidates.</p></div>
     </Fragment>
   )}

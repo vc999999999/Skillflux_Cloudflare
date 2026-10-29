@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-xlsx",
+  "name": "xlsx",
+  "displayName": {
+    "en": "Spreadsheets (xlsx)",
+    "zh": "电子表格（xlsx）"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for spreadsheet files: reading and cleaning data, writing live formulas instead of hard-coded values, formatting and recalculating workbooks.",
+    "zh": "Anthropic 出品的电子表格 Skill：读取与清洗数据、写入真实公式而不是硬编码数值、设置格式并重新计算工作簿。"
+  },
+  "upstreamDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/xlsx",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Proprietary. LICENSE.txt has complete terms",
+    "file": "skills/xlsx/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "documents",
+  "tags": [
+    "xlsx",
+    "office",
+    "spreadsheets"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -1,0 +1,9 @@
+[
+  { "slug": "documents", "label": { "en": "Documents & office files", "zh": "文档与办公文件" }, "description": { "en": "Skills that read, create or edit Word, PDF, PowerPoint and spreadsheet files.", "zh": "读取、生成或编辑 Word、PDF、PowerPoint 和表格文件的 Skill。" } },
+  { "slug": "engineering", "label": { "en": "Software engineering", "zh": "软件工程" }, "description": { "en": "Workflows for planning, testing, debugging, reviewing and shipping code.", "zh": "用于规划、测试、调试、评审和交付代码的工作流。" } },
+  { "slug": "design", "label": { "en": "Design & visuals", "zh": "设计与视觉" }, "description": { "en": "Visual design, theming, generative art and UI direction.", "zh": "视觉设计、主题样式、生成艺术与界面方向。" } },
+  { "slug": "mobile", "label": { "en": "Mobile apps", "zh": "移动应用" }, "description": { "en": "Android, Jetpack Compose and Expo / React Native development.", "zh": "Android、Jetpack Compose 与 Expo / React Native 开发。" } },
+  { "slug": "productivity", "label": { "en": "Planning & productivity", "zh": "规划与效率" }, "description": { "en": "Keeping context, plans and explanations organized across long tasks.", "zh": "在长任务中整理上下文、计划与讲解。" } },
+  { "slug": "writing", "label": { "en": "Writing", "zh": "写作" }, "description": { "en": "Editing, rewriting and tailoring text such as articles and résumés.", "zh": "编辑、改写与定制文本，例如文章与简历。" } },
+  { "slug": "media", "label": { "en": "Audio & video", "zh": "音视频" }, "description": { "en": "Skills that process video, audio or animated media.", "zh": "处理视频、音频或动图的 Skill。" } }
+]

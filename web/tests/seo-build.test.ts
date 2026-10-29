@@ -112,7 +112,7 @@ describe('generated HTML SEO gate', () => {
 
   it('rejects missing internal HTML targets without treating file and query links as static pages', () => {
     expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/missing/">Missing resource</a>' })], SITE)).toThrow(/internal HTML link has no build target/);
-    expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/skills-index.json">Skill index</a><a href="/directory/?q=all&amp;sort=name">Filtered directory</a>' })], SITE)).not.toThrow();
+    expect(() => validatePages([...base(), page('/extra/', { body: '<a href="/index.json">JSON index</a><a href="/directory/?q=all&amp;sort=name">Filtered directory</a>' })], SITE)).not.toThrow();
   });
 
   it('requires real language-correct reciprocal alternate targets; x-default never substitutes for an English page', () => {
@@ -127,15 +127,28 @@ describe('generated HTML SEO gate', () => {
   });
 });
 
+describe('skill reports and datasets', () => {
+  it('requires a skill report to lead with its finding, method, date and citation', () => {
+    const missing = page('/skills/example/', { head: jsonLd([breadcrumb, { '@type': 'TechArticle', dateModified: '2026-10-10' }]) });
+    expect(() => validatePages([...base(), missing], SITE)).toThrow(/skill report requires key-finding/);
+  });
+  it('requires Dataset JSON-LD with a license and downloads on the data page', () => {
+    const noLicense = page('/data/', { head: jsonLd({ '@type': 'Dataset', dateModified: '2026-10-10', distribution: [{ '@type': 'DataDownload' }] }) });
+    expect(() => validatePages([...base(), noLicense], SITE)).toThrow(/Dataset JSON-LD with license/);
+  });
+});
+
 describe('canonical sitemap generation', () => {
   it('carries TechArticle dates into the insight, scenario, and skill sitemaps', () => {
     const articles = [
       { path: '/insights/skill-workflow/', group: 'guides', dateModified: '2026-10-08' },
       { path: '/scenarios/connect-a-project/', group: 'static', dateModified: '2026-10-09' },
-      { path: '/skills/grill-me/', group: 'resources', dateModified: '2026-10-10' },
+      { path: '/skills/grill-me/', group: 'skills', dateModified: '2026-10-10' },
     ];
+    const report = '<p data-seo-field="key-finding">Health check recorded 16 passes.</p><time datetime="2026-10-10">2026-10-10</time><a data-seo-field="methodology-link" href="/directory/">Methodology v1</a><section data-seo-field="how-to-cite"><p>SkillFlux (2026-10-10).</p></section>';
     const pages = [...base(), ...articles.map(({ path, dateModified }) => page(path, {
-      head: jsonLd({ '@type': 'TechArticle', url: SITE + path, dateModified }),
+      head: jsonLd(path.startsWith('/skills/') ? [breadcrumb, { '@type': 'TechArticle', url: SITE + path, dateModified }] : { '@type': 'TechArticle', url: SITE + path, dateModified }),
+      ...(path.startsWith('/skills/') ? { body: report } : {}),
     }))];
     expect(() => validatePages(pages, SITE)).not.toThrow();
     const files = renderSitemaps(pages, SITE);

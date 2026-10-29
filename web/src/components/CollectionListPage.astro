@@ -5,7 +5,6 @@ import { absoluteUrl, type Site } from "../lib/content";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
 import Breadcrumb from "./Breadcrumb.astro";
 import ResourceTable from "./ResourceTable.astro";
-import PackCta from "./PackCta.astro";
 
 type Crumb = { label: string; href?: string };
 
@@ -107,6 +106,5 @@ const jsonLd = [
       </ul>
     </section>
 
-    <PackCta lang={lang} />
   </main>
 </BaseLayout>

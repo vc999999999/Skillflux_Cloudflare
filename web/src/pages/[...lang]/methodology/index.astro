@@ -1,0 +1,8 @@
+---
+import MethodologyPage from "../../../components/MethodologyPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<MethodologyPage lang={lang} />

@@ -5,28 +5,30 @@ type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const zh = lang === "zh";
 const groups = [
-  { title: zh ? "探索" : "Explore", links: [
-    { href: "/directory/", label: zh ? "资源目录" : "Resource directory" },
-    { href: "/scenarios/", label: zh ? "实践指南" : "Scenarios" },
-    { href: "/registry/", label: zh ? "精品 Skill" : "Curated skills" },
+  { title: zh ? "数据" : "Data", links: [
+    { href: "/skills/", label: zh ? "Skill 体检与实测" : "Skill health & benchmarks" },
+    { href: "/benchmarks/", label: zh ? "实测排行" : "Benchmark leaderboard" },
+    { href: "/methodology/", label: zh ? "方法论" : "Methodology" },
+    { href: "/data/", label: zh ? "开放数据集" : "Open dataset" },
+    { href: "/runs/", label: zh ? "测试批次" : "Benchmark runs" },
+    { href: "/for-ai/", label: "For AI" }
+  ] },
+  { title: zh ? "目录与阅读" : "Directory & reading", links: [
+    { href: "/directory/", label: zh ? "来源目录" : "Source directory" },
+    { href: "/insights/", label: zh ? "Skill 拆解" : "Skill deep-dives" },
+    { href: "/guides/", label: zh ? "使用指南" : "Guides" },
+    { href: "/scenarios/", label: zh ? "选型场景" : "Scenarios" },
     { href: "/agents/claude/", label: "Claude" },
     { href: "/agents/codex/", label: "Codex" },
     { href: "/agents/cursor/", label: "Cursor" }
   ] },
-  { title: zh ? "资源" : "Resources", links: [
-    { href: "/guides/", label: zh ? "使用指南" : "Guides" },
-    { href: "/insights/", label: zh ? "Skill 拆解" : "Skill deep-dives" },
-    { href: "/install/", label: zh ? "安装与接入" : "Installation & setup" },
-    { href: "/for-ai/", label: "For AI" },
-    { href: "/quality/", label: zh ? "收录与质检标准" : "Curation & quality" }
-  ] },
   { title: zh ? "参与" : "Connect", links: [
     { href: "/about/", label: zh ? "关于 SkillFlux" : "About SkillFlux" },
-    { href: "/submit/", label: zh ? "提交资源" : "Submit a resource" },
+    { href: "/submit/", label: zh ? "推荐与纠错" : "Suggest or correct" },
+    { href: "/quality/", label: zh ? "收录标准" : "Listing policy" },
     { href: SITE.repoUrl, label: "GitHub ↗", external: true },
     { href: "/contact/", label: zh ? "联系我们" : "Contact" },
-    { href: "/feed.xml", label: zh ? "全部更新 RSS" : "All updates RSS", raw: true },
-    { href: "/releases/feed.xml", label: zh ? "版本发布 RSS" : "Skill releases RSS", raw: true }
+    { href: zh ? "/zh/feed.xml" : "/feed.xml", label: zh ? "全部更新 RSS" : "All updates RSS", raw: true }
   ] }
 ];
 ---

@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-algorithmic-art",
+  "name": "algorithmic-art",
+  "displayName": {
+    "en": "Algorithmic art (p5.js)",
+    "zh": "算法艺术（p5.js）"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for generative art in p5.js with seeded randomness, producing interactive pieces whose parameters can be explored.",
+    "zh": "Anthropic 出品，用 p5.js 和带种子的随机数创作生成艺术，产出可调参数的交互作品。"
+  },
+  "upstreamDescription": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/algorithmic-art",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/algorithmic-art/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "design",
+  "tags": [
+    "p5js",
+    "generative-art"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

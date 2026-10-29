@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-using-git-worktrees",
+  "name": "using-git-worktrees",
+  "displayName": {
+    "en": "Using git worktrees (Superpowers)",
+    "zh": "使用 git worktree（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ steps for creating an isolated git worktree before feature work so the main checkout stays clean.",
+    "zh": "Superpowers 的步骤：开发功能前先创建独立的 git worktree，让主工作区保持干净。"
+  },
+  "upstreamDescription": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/using-git-worktrees",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "git"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

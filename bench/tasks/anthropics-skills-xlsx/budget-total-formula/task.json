@@ -1,0 +1,48 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "budget-total-formula",
+  "version": 1,
+  "skillId": "anthropics-skills-xlsx",
+  "kind": "positive",
+  "title": {
+    "en": "Budget sheet with a live total",
+    "zh": "带实时合计的预算表"
+  },
+  "prompt": "This folder contains expenses.csv. Create budget.xlsx with the expenses on a sheet named \"Budget\": columns Category and Amount, one row per expense, followed by a row labelled \"Total\". The total must be calculated by a spreadsheet formula, not typed in as a number, so it updates if an amount changes.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "budget.xlsx opens as a workbook with a sheet named Budget",
+      "zh": "budget.xlsx 可以作为工作簿打开，且有名为 Budget 的工作表"
+    },
+    {
+      "en": "All eight expense categories appear with their amounts as numbers",
+      "zh": "8 个支出类别全部出现，金额为数值"
+    },
+    {
+      "en": "A Total row exists and its amount cell is a SUM formula over the amount cells",
+      "zh": "存在 Total 行，金额单元格是对金额列求和的 SUM 公式"
+    }
+  ],
+  "requires": [
+    "python3",
+    "openpyxl"
+  ]
+}

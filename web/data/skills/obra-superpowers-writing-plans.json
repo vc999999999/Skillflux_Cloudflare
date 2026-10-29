@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-writing-plans",
+  "name": "writing-plans",
+  "displayName": {
+    "en": "Writing plans (Superpowers)",
+    "zh": "编写计划（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ method for turning a spec into a step-by-step implementation plan with small, testable tasks.",
+    "zh": "Superpowers 的方法：把需求规格拆成由小而可验证的任务组成的逐步实施计划。"
+  },
+  "upstreamDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/writing-plans",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "planning"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

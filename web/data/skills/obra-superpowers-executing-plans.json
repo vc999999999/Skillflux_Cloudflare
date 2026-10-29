@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-executing-plans",
+  "name": "executing-plans",
+  "displayName": {
+    "en": "Executing plans (Superpowers)",
+    "zh": "执行计划（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ procedure for working through a written plan in batches with review checkpoints.",
+    "zh": "Superpowers 的流程：按批次执行书面计划，并在检查点停下来复核。"
+  },
+  "upstreamDescription": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/executing-plans",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "planning",
+    "execution"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

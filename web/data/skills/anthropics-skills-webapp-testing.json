@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-webapp-testing",
+  "name": "webapp-testing",
+  "displayName": {
+    "en": "Web app testing (Playwright)",
+    "zh": "Web 应用测试（Playwright）"
+  },
+  "summary": {
+    "en": "Anthropic’s toolkit for driving a local web app with Playwright: checking frontend behavior, capturing screenshots and reading browser logs.",
+    "zh": "Anthropic 出品，用 Playwright 驱动本地 Web 应用：检查前端行为、截图并读取浏览器日志。"
+  },
+  "upstreamDescription": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/webapp-testing",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/webapp-testing/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "engineering",
+  "tags": [
+    "playwright",
+    "testing",
+    "browser"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

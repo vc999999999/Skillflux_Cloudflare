@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-tdd",
+  "name": "tdd",
+  "displayName": {
+    "en": "TDD (Matt Pocock)",
+    "zh": "TDD（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s test-first workflow built around red-green-refactor and integration tests.",
+    "zh": "Matt Pocock 的测试先行工作流，围绕“红-绿-重构”和集成测试展开。"
+  },
+  "upstreamDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/tdd",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "tdd",
+    "testing",
+    "typescript"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

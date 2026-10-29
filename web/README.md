@@ -1,41 +1,25 @@
-# SkillFlux Web
+# @skillflux/web
 
-Astro static website for the curated skill catalog snapshot (synced from the GitHub catalog repository), source directory, use cases, editorial collections, and the setup guide. This is the only active frontend workspace.
-
-## Local development
-
-Run from the repository root:
+Astro static site for SkillFlux: skill reports, benchmark leaderboard, methodology, open dataset, the source directory and skill deep-dives. English at `/`, Chinese at `/zh/`.
 
 ```bash
-npm ci
-npm run dev
-```
-
-The web app serves on `http://127.0.0.1:4321`. There is no local backend; curated content comes from the synced publication snapshot (`data/registry-publication.json`). To sync real catalog content:
-
-```bash
-npm run publication:sync --workspace @skillflux/web -- --repo vc999999999/skillflux-catalog
-SITE_URL=https://skillflux.app npm run build --workspace @skillflux/web
-```
-
-## Verification
-
-```bash
-npm run typecheck --workspace @skillflux/web
+npm run dev --workspace @skillflux/web     # http://127.0.0.1:4321
+npm run build --workspace @skillflux/web   # validate → astro build → SEO gate → worker bundle
 npm test --workspace @skillflux/web
-npm run build --workspace @skillflux/web
-python web/scripts/public-ui-check.py
 ```
 
-The browser check only exercises the built static site; it performs no production writes.
+## Routes
 
-## Public entry points
+- `/skills/`, `/skills/<id>/`: skill index and per-skill reports (health check, benchmark, how to cite).
+- `/benchmarks/`, `/runs/`, `/runs/<runId>/`: leaderboard and immutable benchmark runs.
+- `/methodology/`, `/methodology/v1/`: versioned method.
+- `/data/` and `/data/*.json|csv`: open dataset with a sha256 manifest at `/data/index.json`.
+- `/directory/`, `/resource/<slug>/`, `/source-type/`, `/tag/`, `/agents/`: the source directory.
+- `/insights/`, `/guides/`, `/scenarios/`: editorial content.
+- `/llms.txt`, `/llms-full.txt`, `/AGENTS.md`, `/index.json`, RSS feeds: machine entry points.
 
-- `/directory/`: filter the source catalog.
-- `/registry/` and `/skills/:id/`: curated skill pages from the catalog snapshot.
-- `/scenarios/`: task guides.
-- `/install/`: source installation, project host selection and exact-version workflow.
-- `/for-ai/`: plain-text, JSON and RSS endpoints with their data boundaries.
-- `/submit/`: prepare a GitHub resource issue in the browser; the user reviews and publishes it on GitHub.
+Pages in both languages are single route files under `src/pages/[...lang]/` using `langStaticPaths()`.
 
-These pages also have `/en/` routes. `src/components/` owns reusable bilingual page layouts; `src/pages/` owns routes. Catalog data stays in `data/`, public assets in `public/`, and content scripts in `scripts/`.
+## Data
+
+`src/lib/skills.ts` loads `data/skills`, `data/health` and `data/benchmarks/runs` at build time and validates them with `src/lib/skill-data.ts`. `scripts/validate-data.ts` runs the same checks. `scripts/seo-build.ts` checks canonical, hreflang, JSON-LD and report structure on the built HTML, then writes the sitemaps.

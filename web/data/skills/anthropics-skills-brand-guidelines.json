@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-brand-guidelines",
+  "name": "brand-guidelines",
+  "displayName": {
+    "en": "Brand guidelines (Anthropic)",
+    "zh": "品牌规范（Anthropic）"
+  },
+  "summary": {
+    "en": "Applies Anthropic’s own brand colors and typography to artifacts; useful mainly as an example of packaging a brand guide as a skill.",
+    "zh": "把 Anthropic 自家的品牌色和字体应用到产出物上；主要价值在于示范如何把品牌规范做成 Skill。"
+  },
+  "upstreamDescription": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/brand-guidelines",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/brand-guidelines/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "design",
+  "tags": [
+    "branding",
+    "example"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

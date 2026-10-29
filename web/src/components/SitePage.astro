@@ -1,22 +1,13 @@
 ---
+import { skillsForSite } from "../lib/skills";
 import { getCollection } from 'astro:content';
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { absoluteUrl, getCategoryBySlug, getRelatedSites, getSiteBySlug, getTagIndex, type Site } from "../lib/content";
 import { getGuideBySlug } from "../lib/guides";
 import { getResourceEditorial } from "../lib/resource-editorial";
-import {
-  DEFAULT_LANGUAGE,
-  getPageCopy,
-  getSiteCopy,
-  localizePath,
-  translateCategory,
-  translatePricing,
-  translateTrust,
-  type Language
-} from "../lib/i18n";
+import { HREFLANG, insightPath, DEFAULT_LANGUAGE, getPageCopy, getSiteCopy, localizePath, translateCategory, translatePricing, translateTrust, type Language } from "../lib/i18n";
 import ResourceTable from "./ResourceTable.astro";
-import PackCta from "./PackCta.astro";
 import Breadcrumb from "./Breadcrumb.astro";
 
 type Props = { site: Site; lang?: Language };
@@ -58,6 +49,7 @@ const relatedGuides = (editorial?.relatedGuideSlugs ?? []).flatMap(slug => {
 });
 const relatedInsights = (await getCollection('insights', entry => !entry.data.draft && entry.data.relatedSites.includes(site.slug)))
   .sort((a, b) => b.data.dateModified.localeCompare(a.data.dateModified) || a.id.localeCompare(b.id));
+const checkedSkills = skillsForSite(site.slug);
 const sourceUrls = [...new Set([site.canonicalUrl, ...site.sourceUrls])];
 const tagSlugByName = new Map(getTagIndex().map(entry => [entry.tag, entry.slug]));
 const tagLinks = site.tags.map((tag, index) => ({ label: siteCopy.tags[index] ?? tag, slug: tagSlugByName.get(tag) }));
@@ -116,7 +108,7 @@ const jsonLd = [
         </div>
       </section>
 
-      <p class="content-disclosure">{zh ? '本页是来源收录与编辑说明；推荐和来源信任标签不代表每个 Skill 已通过人工实测。精品库采用独立的版本级质检标准。' : 'This page provides source information and editorial guidance. Recommendations and source trust labels do not mean every skill has passed human testing. The curated registry uses a separate qualification process for each version.'} <a href={localizePath('/quality/', lang)}>{zh ? '查看质检标准' : 'Read the qualification standard'}</a></p>
+      <p class="content-disclosure">{zh ? '本页是来源收录与编辑说明；推荐和来源信任标签不代表其中每个 Skill 都经过测试。单个 Skill 的体检与实测结果见 Skill 数据页。' : 'This page provides source information and editorial guidance. Recommendations and trust labels do not mean every skill here was tested. Results for individual skills are on the skill data pages.'} <a href={localizePath('/skills/', lang)}>{zh ? '查看 Skill 数据' : 'See skill data'}</a> · <a href={localizePath('/quality/', lang)}>{zh ? '收录标准' : 'Listing policy'}</a></p>
       <section class="detail-grid">
         <div class="resource-editorial">
           <section class="prose-block" aria-labelledby="overview-heading">
@@ -170,10 +162,15 @@ const jsonLd = [
           </section>
         </div>
         <aside class="detail-side">
+          {checkedSkills.length > 0 && <section class="side-box" aria-labelledby="checked-skills-heading">
+            <h2 id="checked-skills-heading">{zh ? `已体检的 Skill（${checkedSkills.length}）` : `Skills we checked (${checkedSkills.length})`}</h2>
+            <ul class="editorial-links">{checkedSkills.slice(0, 12).map(view => <li><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a> <small>{view.result ? (zh ? '已实测' : 'benchmarked') : `${view.counts.pass}/${view.counts.warn}/${view.counts.fail}`}</small></li>)}</ul>
+            {checkedSkills.length > 12 && <p><a href={localizePath('/skills/', lang)}>{zh ? '查看全部' : 'See all'} →</a></p>}
+          </section>}
           {relatedInsights.length > 0 && <section class="side-box" aria-labelledby="related-insights-heading">
             <h2 id="related-insights-heading">{zh ? '深入了解这个 Skill' : 'Skill deep-dives'}</h2>
             {!zh && <p class="analysis-note">These articles are available in Chinese.</p>}
-            <ul class="editorial-links">{relatedInsights.map(entry => <li><a href={`/insights/${entry.id}/`} lang="zh-CN" hreflang="zh-CN">{entry.data.title}</a></li>)}</ul>
+            <ul class="editorial-links">{relatedInsights.map(entry => <li><a href={insightPath(entry)} lang={HREFLANG[entry.data.lang]} hreflang={HREFLANG[entry.data.lang]}>{entry.data.title}</a></li>)}</ul>
           </section>}
           {relatedGuides.length > 0 && <section class="side-box">
             <h2>{zh ? '相关指南' : 'Related guides'}</h2>
@@ -193,7 +190,6 @@ const jsonLd = [
       </section>
     </article>
     {related.length > 0 && <ResourceTable sites={related} heading={copy.detail.related} compact={true} lang={lang} />}
-    <PackCta lang={lang} />
   </main>
 </BaseLayout>
 <style>

@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-slack-gif-creator",
+  "name": "slack-gif-creator",
+  "displayName": {
+    "en": "Slack GIF creator",
+    "zh": "Slack 动图制作"
+  },
+  "summary": {
+    "en": "Anthropic’s utilities and constraints for making animated GIFs sized and optimized for Slack.",
+    "zh": "Anthropic 提供的工具与约束，用于制作尺寸和体积符合 Slack 要求的动图。"
+  },
+  "upstreamDescription": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/slack-gif-creator",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/slack-gif-creator/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "media",
+  "tags": [
+    "gif",
+    "animation",
+    "slack"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}
