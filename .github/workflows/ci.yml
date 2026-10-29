@@ -1,4 +1,4 @@
-name: Verify SkillFlux
+name: Verify SkillFlux site
 on:
   push:
   pull_request:
@@ -14,9 +14,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Task graders inspect .xlsx and .pdf output with these.
+      - run: pip install openpyxl pypdf
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - run: npm pack --workspace @skillflux/mcp --dry-run
-      - run: npm run smoke:package
+      - run: npm run bench -- lint-tasks

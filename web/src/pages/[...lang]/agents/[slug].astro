@@ -1,0 +1,12 @@
+---
+import AgentPage from "../../../components/AgentPage.astro";
+import { agents } from "../../../lib/agents";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => agents.map((entry) => ({ params: { ...params, slug: entry.slug }, props: { ...props, entry } })));
+}
+
+const { entry, lang } = Astro.props;
+---
+<AgentPage entry={entry} lang={lang} />

@@ -1,0 +1,154 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "anthropics-skills-xlsx",
+  "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "9a5e8d89a640f90d0c3bfa8ae6de62e218c5cae4cedec5f0317ef5c44f3c62a8",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "xlsx",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 948,
+      "detail": "948 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "pass",
+      "value": true,
+      "detail": "states when to use the skill"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "pass",
+      "value": 1876,
+      "detail": "within budget"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 94,
+      "detail": "94 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "pass",
+      "value": 0,
+      "detail": "all relative links resolve"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 53,
+      "detail": "53 files, 1102893 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 12,
+      "detail": "scripts/office/helpers/__init__.py, scripts/office/helpers/pptx_chart.py, scripts/office/helpers/pptx_slide.py, scripts/office/helpers/pptx_theme.py, scripts/office/soffice.py"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "Proprietary. LICENSE.txt has complete terms",
+      "detail": "declared in frontmatter"
+    },
+    {
+      "id": "repo.activity",
+      "status": "pass",
+      "value": 103,
+      "detail": "last changed 103 days before the check"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 948,
+    "bodyTokensApprox": 1876,
+    "bodyLines": 94,
+    "fileCount": 53,
+    "totalBytes": 1102893,
+    "scriptCount": 12,
+    "lastCommitAt": "2026-07-17T02:47:37Z",
+    "commitsSincePin": 0
+  },
+  "repo": {
+    "stars": 184681,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": [
+    "executes-code"
+  ]
+}

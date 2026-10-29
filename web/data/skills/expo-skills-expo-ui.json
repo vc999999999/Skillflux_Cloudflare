@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-expo-ui",
+  "name": "expo-ui",
+  "displayName": {
+    "en": "expo-ui",
+    "zh": "expo-ui"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Build native UI with the @expo/ui package: real SwiftUI on iOS and Jetpack Compose on Android. Default to @expo/ui for sheets (BottomSheet), pickers, sliders, toggles, menus, and grouped-form sections — do NOT reach for Reanimated, @gorhom/bottom-sheet, or RN built-in Picker/Switch; use @expo/ui instead. Fall back to RN built-ins only when @expo/ui is missing the component. NOTE: @expo/ui List renders native grouped rows like an iOS Settings screen — it is NOT a virtualized list; use FlatList/FlashList for large datasets. Covers universal components (Host, Column, Row, Button, Text, List, BottomSheet, FieldGroup, Switch, Slider, Picker, Menu), drop-in replacements for RN community libraries, and platform-specific SwiftUI/Jetpack Compose trees. Not for Expo Router navigation, Reanimated, or data fetching.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/expo-ui",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

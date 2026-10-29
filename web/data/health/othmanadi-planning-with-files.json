@@ -1,0 +1,155 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "othmanadi-planning-with-files",
+  "commitSha": "5d29800bf8b919ca9a88ee7885b90050b5cb64ed",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "b482dc45813e5179e490d96f0ed6e55a17a30025525cd20ff930a6aca2d50734",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "planning-with-files",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 606,
+      "detail": "606 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "pass",
+      "value": true,
+      "detail": "states when to use the skill"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "warn",
+      "value": 8756,
+      "detail": "large body; consider moving detail into referenced files"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 481,
+      "detail": "481 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "pass",
+      "value": 0,
+      "detail": "all relative links resolve"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 32,
+      "detail": "32 files, 470223 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 22,
+      "detail": "scripts/attest-plan.ps1, scripts/attest-plan.sh, scripts/check-complete.ps1, scripts/check-complete.sh, scripts/gate-stop.sh"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "warn",
+      "value": 1,
+      "detail": "scripts/inject-plan.sh (rm-rf)"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "MIT",
+      "detail": "repository license"
+    },
+    {
+      "id": "repo.activity",
+      "status": "pass",
+      "value": 0,
+      "detail": "last changed 0 days before the check"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 606,
+    "bodyTokensApprox": 8756,
+    "bodyLines": 481,
+    "fileCount": 32,
+    "totalBytes": 470223,
+    "scriptCount": 22,
+    "lastCommitAt": "2026-10-28T17:19:23Z",
+    "commitsSincePin": 0
+  },
+  "repo": {
+    "stars": 27750,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": [
+    "destructive-commands",
+    "executes-code"
+  ]
+}

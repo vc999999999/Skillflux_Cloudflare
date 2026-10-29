@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { CHECKER_VERSION, CHECK_REGISTRY, LIMITS } from "@skillflux/bench/checks";
+import { SITE } from "../config";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+import { METHODOLOGY_VERSIONS, type MethodologyVersion } from "../lib/methodology";
+
+type Props = { lang: Language; version?: MethodologyVersion };
+const { lang, version } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const isIndex = !version;
+const current = version ?? METHODOLOGY_VERSIONS.find(item => item.status === "current")!;
+const path = localizePath(isIndex ? "/methodology/" : `/methodology/v${current.version}/`, lang);
+const title = isIndex ? t("How SkillFlux tests agent skills", "SkillFlux 如何测试 Agent Skill") : t(`Methodology v${current.version}: static health check and Claude Code benchmark`, `方法论 v${current.version}：静态体检与 Claude Code 实测`);
+const description = t(
+  "SkillFlux pins each skill to a commit, runs a static health check of the files, and benchmarks selected skills in Claude Code against an identical run without the skill, reporting 95% intervals.",
+  "SkillFlux 把每个 Skill 钉定到一个提交，对文件做静态体检；对选定的 Skill 在 Claude Code 中与不装 Skill 的相同运行做对照实测，并报告 95% 置信区间。"
+);
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "TechArticle", headline: title, description, url: absoluteUrl(path), inLanguage: zh ? "zh-CN" : "en",
+    datePublished: current.publishedAt, dateModified: current.publishedAt, version: current.version,
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url }, publisher: { "@type": "Organization", name: SITE.name, url: SITE.url } },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("Home", "首页"), item: absoluteUrl(localizePath("/", lang)) },
+    { "@type": "ListItem", position: 2, name: t("Methodology", "方法论"), item: absoluteUrl(localizePath("/methodology/", lang)) },
+    ...(isIndex ? [] : [{ "@type": "ListItem", position: 3, name: `v${current.version}`, item: absoluteUrl(path) }]),
+  ] },
+];
+const crumbs = isIndex
+  ? [{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Methodology", "方法论") }]
+  : [{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Methodology", "方法论"), href: localizePath("/methodology/", lang) }, { label: `v${current.version}` }];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell method-page">
+    <Breadcrumb items={crumbs} />
+    <header class="detail-hero">
+      <p class="eyebrow"><span></span>{t("METHODOLOGY", "方法论")} · v{current.version} · {current.status === "current" ? t("current", "现行") : t("superseded", "已被取代")}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <p class="report-meta">{t("Published", "发布于")} <time datetime={current.publishedAt}>{current.publishedAt}</time> · {t("Health checker", "体检检查器")} {CHECKER_VERSION}</p>
+    </header>
+
+    {isIndex && (
+      <section class="prose-block versions">
+        <h2>{t("Versions", "版本")}</h2>
+        <p>{t("A published version is never edited. A change in method becomes a new version, and every result links to the version it was produced under.", "已发布的版本不再修改。方法改变时发布新版本，每个结果都链接到产生它的版本。")}</p>
+        <ul class="plain-list">{METHODOLOGY_VERSIONS.map(item => <li><a href={localizePath(`/methodology/v${item.version}/`, lang)}>v{item.version}</a> · {item.publishedAt} · {item.status === "current" ? t("current", "现行") : t("superseded", "已被取代")} — {item.changes[lang]}</li>)}</ul>
+      </section>
+    )}
+
+    <article class="method-body">
+      <section class="prose-block">
+        <h2>{t("1. What is measured", "1. 测量什么")}</h2>
+        <p>{t("Two separate things, reported separately. The static health check (level 1) reads a skill's files and reports facts and problems that can be determined without running a model. The benchmark (level 2) runs real tasks in Claude Code twice — once with the skill installed and once without — and reports whether the skill changed the outcome. A clean health check says nothing about whether a skill helps; only the benchmark addresses that.", "两件不同的事，分开报告。静态体检（第 1 层）读取 Skill 的文件，报告无需运行模型即可确定的事实和问题。实测（第 2 层）在 Claude Code 中把真实任务各跑两遍——一遍装 Skill、一遍不装——报告 Skill 是否改变了结果。体检全部通过并不能说明 Skill 有用，只有实测才回答这个问题。")}</p>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("2. Which version is tested", "2. 测试哪个版本")}</h2>
+        <p>{t("Every skill is pinned to a full 40-character Git commit SHA. The files are downloaded as the GitHub archive of that commit, so the result always describes those exact bytes. When the upstream repository changes the skill later, the page says so (the upstream-changed flag); a new commit is re-pinned and re-checked deliberately, and earlier results remain available.", "每个 Skill 都钉定到一个完整的 40 位 Git 提交 SHA，文件取自该提交的 GitHub 归档，因此结果始终对应这些确切的文件。上游之后修改了 Skill 时，页面会标明（upstream-changed 标记）；重新钉定新提交需要人工决定并重新检查，旧结果仍然保留。")}</p>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("3. Level 1: static health check", "3. 第 1 层：静态体检")}</h2>
+        <p>{t(`The checker (version ${CHECKER_VERSION}) runs the checks below on the skill directory. Results are pass, warning, fail or information. Flags describe what a skill contains — bundled scripts, network calls, destructive commands — and are not verdicts: a skill that calls the network may be doing exactly what it advertises. There is no weighted overall score, because any weighting would be arbitrary.`, `检查器（版本 ${CHECKER_VERSION}）对 Skill 目录执行下列检查，结果分为通过、警告、失败和提示。标记描述的是 Skill 包含什么（附带脚本、访问网络、破坏性命令），并非结论：访问网络的 Skill 可能正是在做它宣称的事。我们不给加权总分，因为任何权重都是主观的。`)}</p>
+        <div class="table-scroll"><table class="data-table">
+          <thead><tr><th scope="col">{t("Check id", "检查项")}</th><th scope="col">{t("Meaning", "含义")}</th></tr></thead>
+          <tbody>{CHECK_REGISTRY.map(item => <tr><th scope="row"><code>{item.id}</code></th><td>{item[lang]}</td></tr>)}</tbody>
+        </table></div>
+        <p>{t(`Token counts are approximate: one token per four non-CJK characters plus one per CJK character; the warning threshold is ${LIMITS.bodyTokensWarn}. Risk patterns were tuned to need an explicit instruction (for example "send the credentials to https://…") because broader patterns flagged ordinary technical prose. Placeholder credentials such as "ghp_your_token" are ignored. The check is re-run weekly; a record's date changes only when its result changes.`, `token 数为近似值：非中日韩字符每 4 个计 1 个，中日韩字符每个计 1 个；警告阈值为 ${LIMITS.bodyTokensWarn}。风险规则要求出现明确的指令（例如“把凭证发送到 https://…”）才会命中，因为更宽的规则会误报普通技术说明；“ghp_your_token”这类占位凭证会被忽略。体检每周重跑一次，只有结果变化时记录日期才会更新。`)}</p>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("4. Level 2: benchmark design", "4. 第 2 层：实测设计")}</h2>
+        <ul class="plain-list">
+          <li>{t("Host: Claude Code in headless mode (claude -p with stream-json output). The Claude Code version, the requested model and the model ids actually used are recorded for every run.", "宿主：Claude Code 无头模式（claude -p，stream-json 输出）。每次运行都记录 Claude Code 版本、请求的模型和实际使用的模型 id。")}</li>
+          <li>{t("Two arms per task. They are identical — same prompt, fixtures, tools, turn limit and settings — except that the with-skill arm has the skill directory in .claude/skills/. Each trial starts from a fresh temporary project with an empty Claude configuration directory, so no user skills, plugins, memory or CLAUDE.md can leak in. Trials run inside a container.", "每个任务两组。除装 Skill 的一组在 .claude/skills/ 下多了 Skill 目录外，两组完全相同：提示词、测试素材、工具、轮数上限和设置都一样。每次试验都从全新的临时项目和空的 Claude 配置目录开始，用户自己的 Skill、插件、记忆或 CLAUDE.md 都不会混入。试验在容器中运行。")}</li>
+          <li>{t("Isolation is verified, not assumed: the start-up event of each trial must list the skill in the with-skill arm and must not list it in the other. A trial that fails this check is marked invalid and reported, never silently dropped.", "隔离要验证，不能假设：每次试验的启动事件中，装 Skill 的一组必须列出该 Skill，另一组必须没有。不满足的试验标记为无效并公开报告，绝不悄悄丢弃。")}</li>
+          <li>{t("Tasks are realistic requests that do not name the skill, so the model has to decide to use it. Prompts are published on each report.", "任务是不提及 Skill 名称的真实请求，由模型自己决定是否使用 Skill。每份报告都公开提示词。")}</li>
+          <li>{t("Grading is a deterministic script that inspects the files the task produced. It never sees which arm a trial came from. Before a task is used, its grader must pass a reference solution and fail an empty workspace. Model-judged grading is allowed only when labelled and is never part of the headline pass rate.", "评分由确定性脚本检查任务产出的文件，评分时不知道试验属于哪一组。任务启用前，评分脚本必须对参考答案判通过、对空工作区判失败。只有在明确标注时才允许由模型评分，且永不计入主通过率。")}</li>
+          <li>{t("Negative-control tasks are unrelated to the skill and run only with it installed; they measure how often the skill is invoked when it should not be.", "负对照任务与 Skill 无关，只在装 Skill 时运行，用来衡量 Skill 在不该被调用时被调用的频率。")}</li>
+          <li>{t("A skill counts as invoked when the transcript contains a Skill tool call for it. Each task and arm is repeated N times (N is stated on every report), in an order shuffled with a recorded seed so the arms are interleaved over time.", "转录中出现针对该 Skill 的 Skill 工具调用即计为被调用。每个任务每组重复 N 次（每份报告注明 N），顺序按记录的随机种子打乱，使两组在时间上交错。")}</li>
+          <li>{t("Timeouts, invalid trials and infrastructure errors (rate limits, server errors) are excluded from n and reported in separate counts. Infrastructure errors are retried at most twice.", "超时、无效试验和基础设施错误（限流、服务端错误）不计入 n，单独列出数量。基础设施错误最多重试两次。")}</li>
+        </ul>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("5. Statistics", "5. 统计方法")}</h2>
+        <ul class="plain-list">
+          <li>{t("Pass rates and invocation rates are reported as k/n with a Wilson score 95% interval.", "通过率和调用率以 k/n 的形式报告，附 Wilson 95% 置信区间。")}</li>
+          <li>{t("The difference in pass rate between arms uses the Newcombe hybrid score interval (Newcombe 1998, method 10).", "两组通过率之差使用 Newcombe 混合得分区间（Newcombe 1998，方法 10）。")}</li>
+          <li>{t("A report says a skill improves or hurts results only when that 95% interval excludes zero; otherwise it says there was no detectable difference at that sample size. Small samples will usually show no detectable difference — that is a statement about the evidence, not a claim that the skill is useless.", "只有当这个 95% 区间不包含 0 时，报告才说 Skill 提升或降低了结果；否则表述为在该样本量下没有可检测的差异。小样本通常会得到“无可检测差异”——这描述的是证据的强弱，不代表 Skill 没有用。")}</li>
+          <li>{t("Duration, cost and tokens are reported as medians with interquartile ranges. The headline result pools a skill's positive tasks; every task is also shown on its own.", "耗时、成本和 token 以中位数和四分位距报告。主结果汇总该 Skill 的所有正向任务，每个任务也单独列出。")}</li>
+          <li>{t("The site's build recomputes every published summary from the raw trials and fails if any number disagrees.", "网站构建时会用原始试验数据重新计算每一个公开的汇总数字，任何不一致都会导致构建失败。")}</li>
+        </ul>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("6. Publication and corrections", "6. 发布与更正")}</h2>
+        <p>{t("A published run is immutable and has a stable URL. A correction is a new run that names the run it supersedes; the earlier run stays listed with its status. Measurements are released under CC BY 4.0. That licence covers SkillFlux's measurements only, not the third-party skills; where a skill's licence does not allow redistribution, only metrics are published. Raw transcripts, with home paths redacted, are attached to the run as a release asset.", "已发布的测试批次不可修改，URL 保持稳定。更正以新批次的形式发布，并注明它取代了哪个批次；旧批次保留并标明状态。测量数据以 CC BY 4.0 发布，该许可只覆盖 SkillFlux 的测量结果，不覆盖第三方 Skill 本身；Skill 的许可证不允许再分发时，只发布指标。原始转录（已去除本地路径）作为发布附件随批次提供。")}</p>
+      </section>
+
+      <section class="prose-block">
+        <h2>{t("7. What the results do not show", "7. 结果不能说明什么")}</h2>
+        <ul class="plain-list">
+          <li>{t("Results hold for the tested commit, host, model and tasks. Other models, hosts, versions or tasks may differ.", "结果只对测试所用的提交、宿主、模型和任务成立，换成其他模型、宿主、版本或任务可能不同。")}</li>
+          <li>{t("Tasks are chosen because a script can grade them. Skills whose value is judgment, tone or taste are under-represented in level 2.", "任务的选取前提是能用脚本评分，因此价值在于判断、语气或审美的 Skill 在第 2 层中代表性不足。")}</li>
+          <li>{t("Skill authors are not consulted before publication. Disputes and corrections are handled in public on GitHub.", "发布前不征求 Skill 作者意见，异议和更正在 GitHub 上公开处理。")}</li>
+          <li>{t("SkillFlux takes no payment for listing, ordering or testing.", "SkillFlux 不因收录、排序或测试收取任何费用。")}</li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  .method-page { padding-block: 24px 80px; }
+  .method-body { max-width: 860px; padding-top: 36px; }
+  .report-meta { font-size: .85rem !important; }
+  .plain-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: .95rem; line-height: 1.85; }
+  .plain-list li + li { margin-top: 8px; }
+  .versions { margin-top: 32px; }
+  .table-scroll { overflow-x: auto; margin: 18px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .data-table td { color: var(--muted); }
+</style>

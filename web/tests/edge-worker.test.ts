@@ -11,8 +11,9 @@ beforeAll(async () => {
     entryPoints: [fileURLToPath(new URL('../edge/worker.ts', import.meta.url))],
     write: false, bundle: true, format: 'cjs', platform: 'neutral', target: 'es2022',
     define: {
-      __SEO_REDIRECTS__: JSON.stringify({ '/setup/': '/install/' }),
-      __SEO_PAGES__: JSON.stringify(['/', '/install/', '/registry/', '/registry/page/2/', '/404.html'])
+      __SEO_REDIRECTS__: JSON.stringify({ '/registry/': '/directory/', '/en/registry/': '/directory/', '/site/legacy/': '/zh/resource/legacy/', '/en/site/legacy/': '/resource/legacy/' }),
+      __SEO_PAGES__: JSON.stringify(['/', '/directory/', '/guides/', '/404.html']),
+      __SEO_GONE__: JSON.stringify({ exact: ['/install/', '/setup/', '/releases/feed.xml', '/skills/tdd/'], prefixes: ['/registry/page/', '/skills/tdd/versions/'] })
     }
   });
   const module: { exports: { default?: TestWorker } } = { exports: {} };
@@ -36,8 +37,8 @@ function assets() {
 }
 
 describe('production edge routing', () => {
-  it.each(['skillflux.app', 'www.skillflux.app', 'skillflux.cn', 'www.skillflux.cn'])('sends public HTTP on %s to the primary HTTPS domain', async host => {
-    for (const path of ['/registry/', '/install/', '/setup/?utm_source=docs']) {
+  it.each(['skillflux.app', 'www.skillflux.app'])('sends public HTTP on %s to the primary HTTPS domain', async host => {
+    for (const path of ['/registry/', '/directory/', '/guides/?utm_source=docs']) {
       const { fetch, env } = assets();
       const response = await worker.fetch(new Request(`http://${host}${path}`), env);
       expect(response.status).toBe(308);
@@ -46,17 +47,37 @@ describe('production edge routing', () => {
     }
   });
 
-  it.each(['www.skillflux.app', 'skillflux.cn', 'www.skillflux.cn'])('redirects %s to the primary domain without fetching assets', async host => {
+  it('redirects www.skillflux.app to the primary domain without fetching assets', async () => {
     const { fetch, env } = assets();
-    const response = await worker.fetch(new Request(`https://${host}/directory/?q=agent`), env);
+    const response = await worker.fetch(new Request('https://www.skillflux.app/directory/?q=agent'), env);
     expect(response.status).toBe(308);
     expect(response.headers.get('Location')).toBe('https://skillflux.app/directory/?q=agent');
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it.each(['skillflux.cn', 'www.skillflux.cn'])('keeps %s readers on Chinese pages and machine files on their path', async host => {
+    for (const [from, to] of [
+      ['/', '/zh/'],
+      ['/directory/?q=agent', '/zh/directory/?q=agent'],
+      ['/resource/anthropic-skills/', '/zh/resource/anthropic-skills/'],
+      ['/zh/guides/', '/zh/guides/'],
+      ['/en/guides/', '/en/guides/'],
+      ['/llms.txt', '/llms.txt'],
+      ['/feed.xml', '/feed.xml']
+    ]) {
+      for (const scheme of ['http', 'https']) {
+        const { fetch, env } = assets();
+        const response = await worker.fetch(new Request(`${scheme}://${host}${from}`), env);
+        expect(response.status).toBe(308);
+        expect(response.headers.get('Location')).toBe(`https://skillflux.app${to}`);
+        expect(fetch).not.toHaveBeenCalled();
+      }
+    }
+  });
+
   it.each(['localhost', '127.0.0.1', '[::1]'])('keeps local HTTP development working on %s', async host => {
     const { fetch, env } = assets();
-    const response = await worker.fetch(new Request(`http://${host}:4321/install/`), env);
+    const response = await worker.fetch(new Request(`http://${host}:4321/directory/`), env);
     expect(response.status).toBe(200);
     expect(await response.text()).toBe('Existing page');
     expect(fetch).toHaveBeenCalledOnce();
@@ -84,12 +105,18 @@ describe('production edge routing', () => {
     expect(await missing.text()).toBe('Missing page');
   });
 
-  it('preserves legacy, extension, trailing-slash and existing-page pagination redirects', async () => {
+  it('preserves legacy, extension and trailing-slash redirects', async () => {
     for (const [from, to] of [
-      ['/setup/?utm_source=docs', '/install/?utm_source=docs'],
-      ['/install', '/install/'],
-      ['/install/index.html', '/install/'],
-      ['/registry/?page=2&utm_source=docs', '/registry/page/2/?utm_source=docs']
+      ['/registry/?utm_source=docs', '/directory/?utm_source=docs'],
+      ['/site/legacy', '/zh/resource/legacy/'],
+      ['/guides', '/guides/'],
+      ['/guides/index.html', '/guides/'],
+      ['/en/', '/'],
+      ['/en', '/'],
+      ['/en/guides/', '/guides/'],
+      ['/en/directory/?category=repo', '/directory/?category=repo'],
+      ['/en/registry/', '/directory/'],
+      ['/en/site/legacy/', '/resource/legacy/']
     ]) {
       const { fetch, env } = assets();
       const response = await worker.fetch(new Request(`https://skillflux.app${from}`), env);
@@ -97,6 +124,23 @@ describe('production edge routing', () => {
       expect(response.headers.get('Location')).toBe(`https://skillflux.app${to}`);
       expect(fetch).not.toHaveBeenCalled();
     }
+  });
+
+  it('answers retired tool URLs with 410 Gone in both locales without fetching assets', async () => {
+    for (const path of ['/install/', '/install', '/en/install/', '/setup/?utm_source=docs', '/releases/feed.xml', '/registry/page/3/', '/en/registry/page/2/', '/skills/tdd/', '/skills/tdd/versions/1.0.0/']) {
+      const { fetch, env } = assets();
+      const response = await worker.fetch(new Request(`https://skillflux.app${path}`), env);
+      expect(response.status, path).toBe(410);
+      expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+      expect(await response.text()).toContain('v1.3.0-tool-final');
+      expect(fetch).not.toHaveBeenCalled();
+    }
+    const { env } = assets();
+    const head = await worker.fetch(new Request('https://skillflux.app/install/', { method: 'HEAD' }), env);
+    expect(head.status).toBe(410);
+    expect(await head.text()).toBe('');
+    const unrelated = await worker.fetch(new Request('https://skillflux.app/skills/tddx/'), env);
+    expect(unrelated.status).toBe(200);
   });
 
 });

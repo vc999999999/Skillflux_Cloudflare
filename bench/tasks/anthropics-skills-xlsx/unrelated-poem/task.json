@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "unrelated-poem",
+  "version": 1,
+  "skillId": "anthropics-skills-xlsx",
+  "kind": "negative-control",
+  "title": {
+    "en": "Unrelated task: a short poem",
+    "zh": "无关任务：写一首短诗"
+  },
+  "prompt": "Write a four-line poem about the sea and save it as poem.txt.",
+  "limits": {
+    "maxTurns": 10,
+    "timeoutSec": 300
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "poem.txt exists with at least four non-empty lines",
+      "zh": "poem.txt 存在且至少有 4 行非空内容"
+    }
+  ],
+  "requires": []
+}

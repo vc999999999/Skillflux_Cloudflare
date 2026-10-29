@@ -1,7 +1,6 @@
 node_modules/
 dist/
 .astro/
-web/.publication/
 artifacts/
 .wrangler/
 
@@ -9,10 +8,6 @@ artifacts/
 *.log
 npm-debug.log*
 
-# Local registry data includes private signing keys and operator metadata.
-mcp/var/
-.skillflux-registry/
-.skillflux/
 *.tgz
 coverage/
 __pycache__/
@@ -25,3 +20,7 @@ __pycache__/
 # Local agent tooling and personal workspaces
 .claude/
 .zcode/
+
+# Benchmark snapshots, raw runs and transcripts (published as release assets)
+bench/cache/
+bench/runs/

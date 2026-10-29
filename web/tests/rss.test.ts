@@ -1,9 +1,7 @@
 import { decodeXML } from 'entities';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { absoluteUrl, getIndexableSites, type Site } from '../src/lib/content';
-import { canonical, sha256, type Manifest, type ReleaseMetadata } from '../../mcp/src/shared';
-import { validatePublication, type PublicationSnapshot, type PublishedManifest, type PublishedSkill } from '../src/lib/publication';
-import { renderInsightsFeed, renderReleasesFeed, renderUpdatesFeed } from '../src/lib/rss';
+import { renderInsightsFeed, renderUpdatesFeed } from '../src/lib/rss';
 
 type Insight = Parameters<typeof renderUpdatesFeed>[0][number];
 
@@ -19,6 +17,7 @@ function insight(id = 'published-article', overrides: Partial<Insight['data']> =
       industry: 'Engineering',
       skillName: 'Example skill',
       source: { repo: 'https://github.com/example/skill', author: 'Example author', license: 'MIT' },
+      lang: 'zh',
       tags: ['engineering'],
       relatedSites: [],
       tldr: 'This skill separates requirements, implementation and verification into explicit steps.',
@@ -50,45 +49,6 @@ function resource(): Site {
   return { ...structuredClone(site), updatedAt: '2026-10-10' };
 }
 
-function publishedSkill(options: { version?: string; createdAt?: string; release?: Partial<ReleaseMetadata> | null; body?: string } = {}): PublishedSkill {
-  const createdAt = options.createdAt ?? '2026-10-09T08:00:00.000Z';
-  const files = { 'SKILL.md': options.body ?? '# Synthetic release\nA fixture for RSS delivery, not a real Skill.' };
-  const manifest: Manifest = {
-    schema: 'skillflux/v1', id: 'synthetic-skill', version: options.version ?? '1.0.0',
-    name: 'Synthetic Skill', description: 'Synthetic package release for RSS regression testing.',
-    category: 'development', tags: ['test'], hosts: ['generic'], publisher: 'RSS tests', license: 'MIT',
-    entry: 'SKILL.md', permissions: { network: [], shell: false, secrets: [] }, dependencies: [], createdAt,
-    ...(options.release === null ? {} : { release: {
-      notes: 'Explain the newly supported workflow.', breaking: false, minClientVersion: '1.1.0',
-      maintainedAt: '2026-10-11T09:30:00+08:00', maintainedBy: 'RSS tests', ...options.release
-    } })
-  };
-  const fileRecords = Object.entries(files).map(([path, content]) => ({ path, sha256: sha256(content), size: Buffer.byteLength(content) }));
-  const digest = sha256(canonical({ manifest, files }));
-  const publishedManifest: PublishedManifest = { ...manifest, files: fileRecords };
-  return {
-    skill: {
-      ...manifest, digest, size: fileRecords.reduce((sum, file) => sum + file.size, 0), status: 'approved', qualification: 'qualified',
-      quality: {
-        automated: { passed: true, checks: ['synthetic fixture'], checkedAt: createdAt },
-        review: { reviewer: 'RSS tests', reviewedAt: createdAt, notes: 'Synthetic review' },
-        evaluation: {
-          evaluationId: 'rss-fixture', contentHash: digest, testedAt: createdAt,
-          summary: 'Synthetic test evidence only.', hosts: ['generic'], purposePassed: true, boundaryPassed: true
-        }
-      }
-    },
-    bundle: { manifest: publishedManifest, files }
-  };
-}
-
-function publication(entries: PublishedSkill[], overrides: Partial<PublicationSnapshot> = {}) {
-  return validatePublication({
-    schema: 'skillflux-publication/v2', repo: 'fixture-owner/catalog', commitSha: 'a'.repeat(40),
-    fetchedAt: '2026-10-11T10:00:00.000Z', items: entries, ...overrides
-  });
-}
-
 function element(xml: string, name: string): string {
   const value = xml.match(new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`))?.[1];
   if (value === undefined) throw new Error(`Missing RSS element: ${name}`);
@@ -108,6 +68,18 @@ function items(xml: string) {
 afterEach(() => vi.useRealTimers());
 
 describe('RSS content update delivery', () => {
+  it('serves English at /feed.xml and Chinese at /zh/feed.xml, keeping each article at its own language URL', () => {
+    const article = insight();
+    const site = resource();
+    const english = renderUpdatesFeed([article], [site]);
+    const chinese = renderUpdatesFeed([article], [site], 'zh');
+    expect(element(english, 'language')).toBe('en');
+    expect(element(chinese, 'language')).toBe('zh-CN');
+    expect(items(english).map(item => item.link)).toContain(absoluteUrl(`/resource/${site.resourceSlug}/`));
+    expect(items(chinese).map(item => item.link)).toContain(absoluteUrl(`/zh/resource/${site.resourceSlug}/`));
+    for (const xml of [english, chinese]) expect(items(xml).map(item => item.link)).toContain(absoluteUrl(`/zh/insights/${article.id}/`));
+  });
+
   it('includes published articles alongside resources, while excluding drafts and non-indexable resources', () => {
     const published = insight();
     const draft = insight('unpublished-draft', { draft: true, dateModified: '2026-10-11' });
@@ -116,11 +88,11 @@ describe('RSS content update delivery', () => {
 
     const main = items(renderUpdatesFeed([draft, published], [hidden, visible]));
     expect(main.map(item => item.link).sort()).toEqual([
-      absoluteUrl(`/insights/${published.id}/`),
+      absoluteUrl(`/zh/insights/${published.id}/`),
       absoluteUrl(`/resource/${visible.resourceSlug}/`)
     ].sort());
     expect(items(renderInsightsFeed([draft, published])).map(item => item.link)).toEqual([
-      absoluteUrl(`/insights/${published.id}/`)
+      absoluteUrl(`/zh/insights/${published.id}/`)
     ]);
   });
 
@@ -131,7 +103,7 @@ describe('RSS content update delivery', () => {
     expect(items(main)[0]!.guid).toBe(items(focused)[0]!.guid);
     expect(main).toContain('<guid isPermaLink="false">');
     expect(focused).toContain('<guid isPermaLink="false">');
-    expect(items(main)[0]!.link).toBe(absoluteUrl(`/insights/${article.id}/`));
+    expect(items(main)[0]!.link).toBe(absoluteUrl(`/zh/insights/${article.id}/`));
   });
 
   it.each(['article body', 'resource capability'] as const)('delivers exactly one new item to an existing reader after a same-day edit to %s', (change) => {
@@ -143,7 +115,7 @@ describe('RSS content update delivery', () => {
 
     if (change === 'article body') {
       article.body = `${article.body ?? ''}\nA new example explains an additional failure case.`;
-      changedUrl = absoluteUrl(`/insights/${article.id}/`);
+      changedUrl = absoluteUrl(`/zh/insights/${article.id}/`);
     } else {
       const capability = site.editorial?.capabilityBreakdown?.[0];
       if (!capability) throw new Error('Missing capability fixture.');
@@ -198,7 +170,7 @@ describe('RSS content update delivery', () => {
 
     for (const xml of [renderUpdatesFeed([newer, revised], []), renderInsightsFeed([newer, revised])]) {
       const entries = items(xml);
-      expect(entries[0]!.link).toBe(absoluteUrl(`/insights/${revised.id}/`));
+      expect(entries[0]!.link).toBe(absoluteUrl(`/zh/insights/${revised.id}/`));
       expect(entries[0]!.guid).not.toBe(initialGuid);
       expect(entries[0]!.pubDate).toBe('Sun, 11 Oct 2026 00:00:00 GMT');
       expect(element(xml, 'lastBuildDate')).toBe(entries[0]!.pubDate);
@@ -211,7 +183,7 @@ describe('RSS content update delivery', () => {
     const xml = renderUpdatesFeed(articles, []);
     expect(renderUpdatesFeed([...articles].reverse(), [])).toBe(xml);
     expect(items(xml)).toHaveLength(30);
-    expect(items(xml)[0]!.link).toBe(absoluteUrl('/insights/article-34/'));
+    expect(items(xml)[0]!.link).toBe(absoluteUrl('/zh/insights/article-34/'));
     expect(new Set(items(xml).map(item => item.guid)).size).toBe(30);
     expect(items(renderInsightsFeed(articles))).toHaveLength(30);
   });
@@ -247,7 +219,8 @@ describe('RSS content update delivery', () => {
   it('renders discoverable empty feeds without inventing an update time', () => {
     for (const [xml, path] of [
       [renderUpdatesFeed([], []), '/feed.xml'],
-      [renderInsightsFeed([]), '/insights/feed.xml']
+      [renderInsightsFeed([]), '/insights/feed.xml'],
+      [renderUpdatesFeed([], [], 'zh'), '/zh/feed.xml']
     ] as const) {
       expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
       expect(xml).toContain('xmlns:atom="http://www.w3.org/2005/Atom"');
@@ -259,112 +232,5 @@ describe('RSS content update delivery', () => {
       expect(items(xml)).toEqual([]);
       expect(xml).toContain('</channel>\n</rss>');
     }
-  });
-});
-
-describe('RSS qualified Skill version delivery', () => {
-  it('announces the same package identity in the main and release-only feeds with actionable release details', () => {
-    const catalog = publication([publishedSkill({ release: {
-      notes: 'Adds <structured> output & removes the old field.', breaking: true, minClientVersion: '1.2.0'
-    } })]);
-    const main = items(renderUpdatesFeed([insight()], [resource()], catalog));
-    const xml = renderReleasesFeed(catalog);
-    const focused = items(xml);
-    expect(main).toHaveLength(3);
-    expect(focused).toHaveLength(1);
-    expect(main.find(item => item.guid === focused[0]!.guid)).toEqual(focused[0]);
-    expect(focused[0]!.guid).toBe('urn:skillflux:release:fixture-owner/catalog:synthetic-skill:1.0.0');
-    expect(focused[0]!.title).toContain('v1.0.0');
-    expect(focused[0]!.link).toBe(absoluteUrl('/skills/synthetic-skill/versions/1.0.0/'));
-    expect(focused[0]!.description).toContain('Adds <structured> output & removes the old field.');
-    expect(focused[0]!.description).toContain('破坏性变更：有');
-    expect(focused[0]!.description).toContain('最低客户端版本：1.2.0');
-    expect(focused[0]!.description).toContain('skillflux.check_updates');
-    expect(focused[0]!.pubDate).toBe('Sun, 11 Oct 2026 01:30:00 GMT');
-    expect(xml).toContain('Adds &lt;structured&gt; output &amp; removes the old field.');
-    expect(xml).toContain(`<atom:link href="${absoluteUrl('/releases/feed.xml')}" rel="self" type="application/rss+xml" />`);
-    expect(element(xml, 'link')).toBe(absoluteUrl('/registry/'));
-  });
-
-  it('retains multiple versions and delivers exactly one new release after a catalog update', () => {
-    const old = publishedSkill({ release: { maintainedAt: '2026-10-10T12:00:00Z' } });
-    const first = items(renderReleasesFeed(publication([old])));
-    const next = publishedSkill({ version: '1.1.0', release: { maintainedAt: '2026-10-11T09:30:00+08:00' } });
-    const catalog = publication([old, next]);
-    const second = items(renderReleasesFeed(catalog));
-    const read = new Set(first.map(item => item.guid));
-    expect(second).toHaveLength(2);
-    expect(second.filter(item => !read.has(item.guid)).map(item => item.title)).toEqual(['Synthetic Skill · v1.1.0']);
-    expect(second[0]!.link).toBe(absoluteUrl('/skills/synthetic-skill/versions/1.1.0/'));
-    expect(renderReleasesFeed(publication([next, old]))).toBe(renderReleasesFeed(catalog));
-  });
-
-  it('keeps package GUIDs stable across rebuild times, commit changes and descriptive metadata changes', () => {
-    const original = publishedSkill();
-    const changed = publishedSkill({ release: { notes: 'An editorial clarification.' }, body: '# Changed fixture body' });
-    const before = publication([original]);
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date('2030-01-01T00:00:00Z'));
-    const rebuilt = publication([original], { commitSha: 'b'.repeat(40), fetchedAt: '2030-01-01T00:00:00Z' });
-    expect(renderReleasesFeed(rebuilt)).toBe(renderReleasesFeed(before));
-    const guid = items(renderReleasesFeed(before))[0]!.guid;
-    expect(items(renderReleasesFeed(publication([changed])))[0]!.guid).toBe(guid);
-    expect(items(renderReleasesFeed(publication([original], { repo: 'Fixture-Owner/Catalog' })))[0]!.guid).toBe(guid);
-    expect(items(renderReleasesFeed(publication([original], { repo: 'another-owner/catalog' })))[0]!.guid).not.toBe(guid);
-  });
-
-  it('uses authored date-only or timestamp values, sorts by actual instants and falls back to creation time for legacy releases', () => {
-    const catalog = publication([
-      publishedSkill({ version: '1.0.0', release: null, createdAt: '2026-10-11' }),
-      publishedSkill({ version: '1.1.0', release: { maintainedAt: '2026-10-11T02:00:00Z' } }),
-      publishedSkill({ version: '1.2.0', release: { maintainedAt: '2026-10-11T09:30:00+08:00' } })
-    ]);
-    const result = items(renderReleasesFeed(catalog));
-    expect(result.map(item => item.title)).toEqual([
-      'Synthetic Skill · v1.1.0', 'Synthetic Skill · v1.2.0', 'Synthetic Skill · v1.0.0'
-    ]);
-    expect(result[2]!.pubDate).toBe('Sun, 11 Oct 2026 00:00:00 GMT');
-    expect(result[2]!.description).toContain('此版本未提供单独更新说明');
-    expect(element(renderReleasesFeed(catalog), 'lastBuildDate')).toBe(result[0]!.pubDate);
-    const combined = items(renderUpdatesFeed([insight('same-day', { dateModified: '2026-10-11' })], [], catalog));
-    expect(combined[0]!.guid).toBe(result[0]!.guid);
-    const dateOnlyRelease = items(renderReleasesFeed(publication([publishedSkill({ release: { maintainedAt: '2026-10-11' } })])));
-    expect(dateOnlyRelease[0]!.pubDate).toBe('Sun, 11 Oct 2026 00:00:00 GMT');
-  });
-
-  it('excludes needs-testing and revoked status entries, and refuses unqualified or tampered public content at the existing validation boundary', () => {
-    const qualified = publishedSkill();
-    const catalog = publication([qualified], { statuses: [
-      { id: 'not-tested', version: '1.0.0', name: 'Not tested', digest: '1'.repeat(64), status: 'approved', qualification: 'needs-testing', createdAt: '2026-10-11T12:00:00Z' },
-      { id: 'withdrawn', version: '1.0.0', name: 'Withdrawn', digest: '2'.repeat(64), status: 'revoked', qualification: 'revoked', createdAt: '2026-10-11T12:00:00Z' }
-    ] });
-    expect(items(renderReleasesFeed(catalog)).map(item => item.title)).toEqual(['Synthetic Skill · v1.0.0']);
-    const unqualified = structuredClone(qualified);
-    unqualified.skill.qualification = 'needs-testing';
-    expect(() => renderReleasesFeed(publication([unqualified]))).toThrow('Unqualified content');
-    const tampered = structuredClone(qualified);
-    tampered.bundle.files['SKILL.md'] = '# Altered after approval';
-    expect(() => renderReleasesFeed(publication([tampered]))).toThrow('catalog digest');
-  });
-
-  it('deduplicates announcements before the shared feed window is applied', () => {
-    const article = insight();
-    const site = resource();
-    const catalog = publication([publishedSkill()]);
-    const unique = items(renderUpdatesFeed([article, article], [site, site], catalog));
-    expect(unique).toHaveLength(3);
-    expect(new Set(unique.map(item => item.guid)).size).toBe(3);
-  });
-
-  it.each(['not-a-date', '2026-02-30T10:00:00Z', '2026-10-11T09:30:00', '2026-10-11T24:00:00Z'])('rejects an invalid release timestamp %s rather than inventing a publication date', (date) => {
-    expect(() => renderReleasesFeed(publication([publishedSkill({ release: { maintainedAt: date } })]))).toThrow('Invalid RSS');
-  });
-
-  it('supports a truly empty catalog without claiming a publication time', () => {
-    const empty = validatePublication({ schema: 'skillflux-publication/v2', repo: null, commitSha: null, fetchedAt: null, items: [] });
-    const xml = renderReleasesFeed(empty);
-    expect(items(xml)).toEqual([]);
-    expect(xml).not.toContain('<lastBuildDate>');
-    expect(renderUpdatesFeed([], [], empty)).not.toContain('<lastBuildDate>');
   });
 });

@@ -1,0 +1,16 @@
+---
+import SkillReportPage from "../../../components/SkillReportPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+import { getIndexableSkillViews } from "../../../lib/skills";
+
+// Only published skills get a page; drafts stay in the data folder until curated.
+export function getStaticPaths() {
+  return langStaticPaths().flatMap(({ params, props }) => getIndexableSkillViews().map(view => ({
+    params: { ...params, id: view.skill.id },
+    props: { ...props, view }
+  })));
+}
+
+const { view, lang } = Astro.props;
+---
+<SkillReportPage view={view} lang={lang} />

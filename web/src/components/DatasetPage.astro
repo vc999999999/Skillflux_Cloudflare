@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { SITE } from "../config";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+import { DATASET, datasetModified, getDatasetFiles } from "../lib/dataset";
+import { getIndexableSkillViews, getRuns } from "../lib/skills";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const path = localizePath("/data/", lang);
+const files = getDatasetFiles();
+const manifest = JSON.parse(files.find(file => file.path === "index.json")!.body) as { files: Array<{ path: string; url: string; contentType: string; bytes: number; sha256: string; description: string }> };
+const topLevel = manifest.files.filter(file => !/^\/data\/(?:skills|runs|schema)\//.test(file.path));
+const schemas = manifest.files.filter(file => file.path.startsWith("/data/schema/"));
+const views = getIndexableSkillViews();
+const runs = getRuns();
+const modified = datasetModified();
+const title = t("SkillFlux open dataset: agent skill health checks and benchmarks", "SkillFlux 开放数据集：Agent Skill 体检与实测");
+const description = t(
+  `Download SkillFlux's measurements of ${views.length} agent skills as JSON or CSV under CC BY 4.0: pinned commits, licenses, ${files.length} files with sha256 checksums, and benchmark trials when available.`,
+  `以 CC BY 4.0 下载 SkillFlux 对 ${views.length} 个 Agent Skill 的测量数据（JSON 或 CSV）：钉定提交、许可证、带 sha256 校验的 ${files.length} 个文件，以及已有的实测试验数据。`
+);
+const dictionary: Array<[string, string, string]> = [
+  ["id", t("Stable SkillFlux id: owner-repo-skill.", "SkillFlux 稳定 id：owner-repo-skill。"), "string"],
+  ["commitSha", t("Git commit the data describes.", "数据对应的 Git 提交。"), "string (40 hex)"],
+  ["licenseSpdx", t("SPDX id detected at that commit; empty when the skill has its own license file.", "该提交中检测到的 SPDX 许可证；Skill 有单独许可证文件时为空。"), "string | null"],
+  ["healthPass / healthWarn / healthFail", t("Counts of static checks by result.", "按结果统计的静态检查项数量。"), "integer"],
+  ["flags", t("Descriptive flags such as executes-code or network-calls.", "描述性标记，例如 executes-code、network-calls。"), "string[]"],
+  ["passRateWith / passRateWithout", t("Pooled pass rate in the latest published run, per arm.", "最近一次发布批次中两组的汇总通过率。"), "0–1 | null"],
+  ["passRateDelta", t("With minus without.", "装 Skill 组减去不装组。"), "−1–1 | null"],
+  ["verdict", t("improves, hurts or no-detectable-difference, from the 95% Newcombe interval.", "依据 95% Newcombe 区间给出：improves、hurts 或 no-detectable-difference。"), "string | null"],
+];
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "Dataset", name: DATASET.name, description,
+    url: absoluteUrl(path), identifier: absoluteUrl("/data/index.json"), version: DATASET.version,
+    license: DATASET.license, isAccessibleForFree: true, inLanguage: "en",
+    creator: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    datePublished: "2026-10-29", dateModified: modified,
+    keywords: ["agent skills", "Claude Code", "SKILL.md", "benchmark", "LLM evaluation"],
+    measurementTechnique: ["Static analysis of SKILL.md packages at a pinned Git commit", "Controlled with/without-skill comparison in Claude Code headless mode"],
+    variableMeasured: ["static health check results", "license", "pass rate with skill", "pass rate without skill", "skill invocation rate", "median cost per run", "median duration"],
+    distribution: topLevel.map(file => ({ "@type": "DataDownload", encodingFormat: file.contentType, contentUrl: file.url, name: file.path })),
+  },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("Home", "首页"), item: absoluteUrl(localizePath("/", lang)) },
+    { "@type": "ListItem", position: 2, name: t("Data", "数据"), item: absoluteUrl(path) },
+  ] },
+];
+const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KB`;
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell dataset-page">
+    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Data", "数据") }]} />
+    <header class="detail-hero">
+      <p class="eyebrow"><span></span>{t("OPEN DATA · CC BY 4.0", "开放数据 · CC BY 4.0")}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <p class="report-meta">{t("Updated", "更新于")} <time datetime={modified}>{modified}</time> · {views.length} {t("skills", "个 Skill")} · {runs.length} {t("benchmark runs", "个测试批次")} · <a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a></p>
+    </header>
+    <div class="detail-grid">
+      <article>
+        <section class="prose-block">
+          <h2>{t("Files", "文件")}</h2>
+          <p>{t("Static files, regenerated on every site build from the same data as the pages. /data/index.json lists every file with its size and sha256.", "静态文件，每次网站构建时用与页面相同的数据重新生成。/data/index.json 列出每个文件的大小和 sha256。")}</p>
+          <div class="table-scroll"><table class="data-table">
+            <thead><tr><th scope="col">{t("File", "文件")}</th><th scope="col">{t("Contents", "内容")}</th><th scope="col">{t("Size", "大小")}</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><a href="/data/index.json">/data/index.json</a></th><td>{t("Manifest with checksums.", "带校验值的清单。")}</td><td>—</td></tr>
+              {topLevel.map(file => <tr><th scope="row"><a href={file.path}>{file.path}</a></th><td>{file.description}<small><code>sha256 {file.sha256.slice(0, 16)}…</code></small></td><td>{kb(file.bytes)}</td></tr>)}
+            </tbody>
+          </table></div>
+          <p>{t("Per-skill files live at /data/skills/<id>.json and per-run files at /data/runs/<runId>.json. JSON Schemas:", "单个 Skill 的文件位于 /data/skills/<id>.json，单个批次位于 /data/runs/<runId>.json。JSON Schema：")} {schemas.map((file, index) => <>{index > 0 && ", "}<a href={file.path}>{file.path.replace("/data/schema/", "")}</a></>)}</p>
+        </section>
+        <section class="prose-block">
+          <h2>{t("Main columns", "主要字段")}</h2>
+          <div class="table-scroll"><table class="data-table">
+            <thead><tr><th scope="col">{t("Column", "字段")}</th><th scope="col">{t("Meaning", "含义")}</th><th scope="col">{t("Type", "类型")}</th></tr></thead>
+            <tbody>{dictionary.map(([column, meaning, type]) => <tr><th scope="row"><code>{column}</code></th><td>{meaning}</td><td><code>{type}</code></td></tr>)}</tbody>
+          </table></div>
+        </section>
+        <section class="prose-block" id="how-to-cite">
+          <h2>{t("How to cite", "如何引用")}</h2>
+          <pre class="cite-text">{`SkillFlux (${modified}). ${DATASET.name}, version ${DATASET.version}. ${absoluteUrl("/data/")}. CC BY 4.0.`}</pre>
+          <p>{t("For a single result, cite the skill's report page or the run id it names. A machine-readable citation is in CITATION.cff in the repository.", "引用单个结果时，请引用对应 Skill 的报告页或其中给出的批次 id。仓库中的 CITATION.cff 提供机器可读的引用信息。")}</p>
+        </section>
+      </article>
+      <aside class="detail-side">
+        <div class="side-box">
+          <h2>{t("Licence", "许可")}</h2>
+          <p>{t("CC BY 4.0 covers SkillFlux's measurements. The skills themselves belong to their authors under their own licences.", "CC BY 4.0 适用于 SkillFlux 的测量数据。Skill 本身归作者所有，遵循各自的许可证。")}</p>
+        </div>
+        <div class="side-box">
+          <h2>{t("Corrections", "更正")}</h2>
+          <p>{t("Found an error? Open an issue with the file, row and what is wrong.", "发现错误？请在 Issue 中注明文件、行和具体问题。")} <a href={`${SITE.repoUrl}/issues/new?template=dispute.yml`} rel="noopener noreferrer">GitHub ↗</a></p>
+        </div>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .dataset-page { padding-block: 24px 80px; }
+  .report-meta { font-size: .85rem !important; }
+  .table-scroll { overflow-x: auto; margin: 18px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .data-table small { display: block; color: var(--faint); margin-top: 4px; }
+  .cite-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.6; padding: 12px 14px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+</style>

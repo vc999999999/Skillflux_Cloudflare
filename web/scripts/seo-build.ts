@@ -19,11 +19,13 @@ export type BuiltPage = {
   issues: string[];
 };
 
-export const SITEMAP_GROUPS = ['resources', 'guides', 'agents', 'static', 'tags'] as const;
+export const SITEMAP_GROUPS = ['skills', 'data', 'resources', 'guides', 'agents', 'static', 'tags'] as const;
 type SitemapGroup = typeof SITEMAP_GROUPS[number];
 type SitemapFiles = Record<string, string>;
 const RESOURCE_SECTIONS = ['best-for', 'use-cases', 'notes', 'limitations', 'alternatives'];
 const RESOURCE_FIELDS = ['resource-type', 'source-type', 'source-url'];
+// A report is citable only if it states its finding up front, names its method and says how to cite it.
+const REPORT_FIELDS = ['key-finding', 'methodology-link', 'how-to-cite'];
 const WEB_ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 function textContent(node: Node, includeScripts = false): string {
@@ -87,7 +89,7 @@ export function inspectHtml(file: string, html: string): BuiltPage {
     try { schemas.push(...schemaObjects(JSON.parse(textContent(node, true)))); }
     catch { if (indexable) issues.push('invalid JSON-LD'); }
   }
-  const dates = schemas.filter(value => ['WebPage', 'Article', 'TechArticle', 'CollectionPage'].some(type => schemaHasType(value, type)))
+  const dates = schemas.filter(value => ['WebPage', 'Article', 'TechArticle', 'CollectionPage', 'Dataset'].some(type => schemaHasType(value, type)))
     .filter(value => !value.url || value.url === canonical).map(value => value.dateModified).filter(value => value !== undefined);
   const invalidDate = dates.some(value => !validDate(value));
   const lastmod = dates.filter(validDate).sort((left, right) => Date.parse(left) - Date.parse(right)).at(-1);
@@ -99,11 +101,11 @@ export function inspectHtml(file: string, html: string): BuiltPage {
     if (mains.length !== 1 || mainText.length < 40) issues.push('one main with meaningful rendered body text required');
     if (!language) issues.push('HTML language required');
     if (invalidDate) issues.push('invalid JSON-LD dateModified');
-    if (/^\/(?:en\/)?404(?:\.html|\/|$)/.test(path)) issues.push('error page must be noindex');
-    const detail = /^\/(?:en\/)?(?:resource|guides)\/[^/]+\/$/.test(path);
+    if (/^\/(?:zh\/)?404(?:\.html|\/|$)/.test(path)) issues.push('error page must be noindex');
+    const detail = /^\/(?:zh\/)?(?:resource|guides|skills)\/[^/]+\/$/.test(path);
     if (detail && !schemas.some(value => schemaHasType(value, 'BreadcrumbList'))) issues.push('detail page requires BreadcrumbList JSON-LD');
-    if (/^\/(?:en\/)?guides\/[^/]+\/$/.test(path) && !schemas.some(value => schemaHasType(value, 'Article'))) issues.push('guide requires Article JSON-LD');
-    if (/^\/(?:en\/)?resource\/[^/]+\/$/.test(path)) {
+    if (/^\/(?:zh\/)?guides\/[^/]+\/$/.test(path) && !schemas.some(value => schemaHasType(value, 'Article'))) issues.push('guide requires Article JSON-LD');
+    if (/^\/(?:zh\/)?resource\/[^/]+\/$/.test(path)) {
       for (const section of RESOURCE_SECTIONS) {
         if (!mainElements.some(node => attribute(node, 'data-seo-section') === section && compact(textContent(node)).length >= 5)) issues.push(`resource requires meaningful ${section} section`);
       }
@@ -113,7 +115,17 @@ export function inspectHtml(file: string, html: string): BuiltPage {
         else if (field === 'source-url' && (node.name !== 'a' || !/^https?:\/\//.test(attribute(node, 'href')))) issues.push('resource source-url must be a real external link');
       }
     }
-    if (/^\/(?:en\/)?tag\/[^/]+\/$/.test(path)) {
+    if (/^\/(?:zh\/)?skills\/[^/]+\/$/.test(path)) {
+      for (const field of REPORT_FIELDS) {
+        if (!mainElements.some(node => attribute(node, 'data-seo-field') === field && compact(textContent(node)).length >= 5)) issues.push(`skill report requires ${field}`);
+      }
+      if (!schemas.some(value => schemaHasType(value, 'TechArticle'))) issues.push('skill report requires TechArticle JSON-LD');
+      if (!mainElements.some(node => node.name === 'time' && attribute(node, 'datetime'))) issues.push('skill report requires a <time datetime> date');
+    }
+    if (/^\/(?:zh\/)?(?:data|runs\/[^/]+)\/$/.test(path) && !schemas.some(value => schemaHasType(value, 'Dataset') && value.license && Array.isArray(value.distribution) && value.distribution.length > 0)) {
+      issues.push('dataset page requires Dataset JSON-LD with license and distribution');
+    }
+    if (/^\/(?:zh\/)?tag\/[^/]+\/$/.test(path)) {
       const resources = new Set(links.map(href => href.match(/\/resource\/([^/?#]+)\/?(?:[?#]|$)/)?.[1]).filter(Boolean));
       if (resources.size < 3) issues.push('indexable tag requires at least three resource links');
     }
@@ -176,8 +188,10 @@ export function validatePages(pages: BuiltPage[], site: string, files = new Set(
 
 function xml(value: string): string { return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;'); }
 function groupFor(path: string): SitemapGroup {
-  const base = path.replace(/^\/en\//, '/');
-  if (base.startsWith('/resource/') || base.startsWith('/skills/')) return 'resources';
+  const base = path.replace(/^\/zh\//, '/');
+  if (base.startsWith('/skills/')) return 'skills';
+  if (/^\/(data|methodology|benchmarks|runs)\//.test(base)) return 'data';
+  if (base.startsWith('/resource/')) return 'resources';
   if (/^\/(guides|insights)\/[^/]+\/$/.test(base)) return 'guides';
   if (base.startsWith('/agents/')) return 'agents';
   if (base.startsWith('/tag/')) return 'tags';

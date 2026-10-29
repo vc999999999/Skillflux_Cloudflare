@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-grill-me",
+  "name": "grill-me",
+  "displayName": {
+    "en": "Grill me (Matt Pocock)",
+    "zh": "拷问我（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s interview skill: the agent questions a plan or design relentlessly until its weak points are exposed.",
+    "zh": "Matt Pocock 的追问式 Skill：Agent 持续追问一个计划或设计，直到暴露出薄弱环节。"
+  },
+  "upstreamDescription": "A relentless interview to sharpen a plan or design.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/grill-me",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "planning",
+    "design"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

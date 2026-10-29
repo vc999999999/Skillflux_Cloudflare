@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import type { RunRecord } from "@skillflux/bench/schema";
+import { SITE } from "../config";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+import { DATASET } from "../lib/dataset";
+import { armLine, signedPoints, usd } from "../lib/skill-data";
+import { getRuns, getSkillView } from "../lib/skills";
+
+type Props = { lang: Language; run?: RunRecord };
+const { lang, run } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const runs = getRuns();
+const path = localizePath(run ? `/runs/${run.runId}/` : "/runs/", lang);
+const statusText = (status: RunRecord["status"]) => ({ published: t("published", "已发布"), superseded: t("superseded", "已被取代"), withdrawn: t("withdrawn", "已撤回") })[status];
+const title = run
+  ? t(`Benchmark run ${run.runId}`, `测试批次 ${run.runId}`)
+  : t("Benchmark runs", "测试批次");
+const description = run
+  ? t(`${run.skills.length} skills, ${run.totals.trials} trials in Claude Code ${run.environment.claudeCodeVersion} with ${run.environment.modelRequested}, published ${run.publishedAt}; total model cost ${usd(run.totals.costUsd)}.`, `${run.skills.length} 个 Skill，${run.totals.trials} 次试验，Claude Code ${run.environment.claudeCodeVersion}，模型 ${run.environment.modelRequested}，${run.publishedAt} 发布，模型总成本 ${usd(run.totals.costUsd)}。`)
+  : runs.length ? t(`Every published SkillFlux benchmark run (${runs.length}), with environment, scope and status. Runs are immutable; corrections supersede them.`, `SkillFlux 已发布的全部测试批次（${runs.length} 个），含环境、范围和状态。批次不可修改，更正以新批次取代。`)
+  : t("No benchmark run has been published yet.", "尚未发布任何测试批次。");
+const jsonLd = run ? [{
+  "@context": "https://schema.org", "@type": "Dataset", name: `${DATASET.name} — run ${run.runId}`, description, url: absoluteUrl(path),
+  identifier: run.runId, license: DATASET.license, isAccessibleForFree: true, datePublished: run.publishedAt, dateModified: run.publishedAt,
+  temporalCoverage: `${run.startedAt}/${run.finishedAt}`,
+  creator: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  isPartOf: { "@type": "Dataset", name: DATASET.name, url: absoluteUrl("/data/") },
+  measurementTechnique: "Controlled with/without-skill comparison in Claude Code headless mode",
+  distribution: [{ "@type": "DataDownload", encodingFormat: "application/json", contentUrl: absoluteUrl(`/data/runs/${run.runId}.json`) }],
+}] : [{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, description, url: absoluteUrl(path) }];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!run && runs.length === 0}>
+  <main id="main-content" class="page-shell run-page">
+    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, ...(run ? [{ label: t("Runs", "批次"), href: localizePath("/runs/", lang) }, { label: run.runId }] : [{ label: t("Runs", "批次") }])]} />
+    <header class="detail-hero">
+      <p class="eyebrow"><span></span>{run ? `${t("RUN", "批次")} · ${statusText(run.status)}` : t("RUNS", "批次")}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      {run?.supersededBy && <p class="content-disclosure">{t("Superseded by", "已被以下批次取代：")} <a href={localizePath(`/runs/${run.supersededBy}/`, lang)}>{run.supersededBy}</a></p>}
+    </header>
+    {run ? (
+      <div class="detail-grid">
+        <article>
+          <section class="prose-block">
+            <h2>{t("Results", "结果")}</h2>
+            <div class="table-scroll"><table class="data-table">
+              <thead><tr><th scope="col">{t("Skill", "Skill")}</th><th scope="col">{t("With", "装")}</th><th scope="col">{t("Without", "不装")}</th><th scope="col">{t("Change", "变化")}</th></tr></thead>
+              <tbody>{run.skills.map(result => { const view = getSkillView(result.skillId); return (
+                <tr id={result.skillId}><th scope="row"><a href={localizePath(`/skills/${result.skillId}/`, lang)}>{view?.skill.displayName[lang] ?? result.skillId}</a></th><td>{armLine(result.pooled.with, lang)}</td><td>{armLine(result.pooled.without, lang)}</td><td>{signedPoints(result.pooled.comparison.passRateDelta)}</td></tr>); })}</tbody>
+            </table></div>
+          </section>
+          <section class="prose-block">
+            <h2>{t("Deviations from the method", "与方法论的偏差")}</h2>
+            {run.deviations.length ? <ul class="plain-list">{run.deviations.map(item => <li>{item}</li>)}</ul> : <p>{t("None.", "无。")}</p>}
+          </section>
+        </article>
+        <aside class="detail-side"><div class="detail-panel"><dl>
+          <div><dt>{t("Methodology", "方法论")}</dt><dd><a href={localizePath(`/methodology/v${run.methodologyVersion}/`, lang)}>v{run.methodologyVersion}</a></dd></div>
+          <div><dt>Claude Code</dt><dd>{run.environment.claudeCodeVersion}</dd></div>
+          <div><dt>{t("Model requested", "请求模型")}</dt><dd><code>{run.environment.modelRequested}</code></dd></div>
+          <div><dt>{t("Models used", "实际模型")}</dt><dd>{run.environment.modelsResolved.join(", ")}</dd></div>
+          <div><dt>{t("Repetitions", "重复次数")}</dt><dd>{run.config.repeats}</dd></div>
+          <div><dt>{t("Seed", "随机种子")}</dt><dd>{run.config.seed}</dd></div>
+          <div><dt>{t("Trials", "试验数")}</dt><dd>{run.totals.trials}</dd></div>
+          <div><dt>{t("Total cost", "总成本")}</dt><dd>{usd(run.totals.costUsd)}</dd></div>
+          <div><dt>{t("Window", "运行时间")}</dt><dd>{run.startedAt.slice(0, 16)} → {run.finishedAt.slice(0, 16)} UTC</dd></div>
+          {run.supersedes && <div><dt>{t("Supersedes", "取代")}</dt><dd><a href={localizePath(`/runs/${run.supersedes}/`, lang)}>{run.supersedes}</a></dd></div>}
+        </dl>
+        <ul class="plain-list"><li><a href={`/data/runs/${run.runId}.json`}>{`/data/runs/${run.runId}.json`}</a></li>{run.artifacts.transcriptsUrl && <li><a href={run.artifacts.transcriptsUrl} rel="noopener noreferrer">{t("Transcripts", "原始转录")} ↗</a></li>}</ul>
+        </div></aside>
+      </div>
+    ) : runs.length ? (
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th scope="col">{t("Run", "批次")}</th><th scope="col">{t("Published", "发布")}</th><th scope="col">{t("Status", "状态")}</th><th scope="col">{t("Skills", "Skill 数")}</th><th scope="col">{t("Model", "模型")}</th><th scope="col">{t("Cost", "成本")}</th></tr></thead>
+        <tbody>{runs.map(item => <tr><th scope="row"><a href={localizePath(`/runs/${item.runId}/`, lang)}><code>{item.runId}</code></a></th><td>{item.publishedAt}</td><td>{statusText(item.status)}</td><td>{item.skills.length}</td><td><code>{item.environment.modelRequested}</code></td><td>{usd(item.totals.costUsd)}</td></tr>)}</tbody>
+      </table></div>
+    ) : <p class="page-lede"><a href={localizePath("/methodology/v1/", lang)}>{t("Read how runs are conducted", "了解批次如何进行")}</a></p>}
+  </main>
+</BaseLayout>
+<style>
+  .run-page { padding-block: 24px 80px; }
+  .table-scroll { overflow-x: auto; margin: 18px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .74rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .plain-list { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: .88rem; line-height: 1.8; }
+</style>

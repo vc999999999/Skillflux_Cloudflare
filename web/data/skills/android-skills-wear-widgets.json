@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "android-skills-wear-widgets",
+  "name": "wear-widgets",
+  "displayName": {
+    "en": "wear-widgets",
+    "zh": "wear-widgets"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Create, migrate, update, and verify Wear OS widgets using Glance Wear and Remote Compose in an Android project. Use this skill when implementing GlanceWearWidget, GlanceWearWidgetService, WearWidgetDocument, Remote Compose UI primitives (RemoteColumn, RemoteRow, RemoteBox, RemoteText, RemoteImage, RemoteButton), local state with rememberMutableRemoteInt and valueChange, click actions with pendingIntentAction, widget provider XML containers (SMALL and LARGE), rectangular widget picker PNG previews, or migrating legacy ProtoLayout TileService tiles to Wear OS widgets. Don't use for mobile home screen AppWidgetProvider or GlanceAppWidget implementations, watch face complications, or full-screen Wear OS activities.",
+  "source": {
+    "repo": "https://github.com/android/skills",
+    "path": "wear/wear-widgets",
+    "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Android",
+    "url": "https://github.com/android"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-android-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

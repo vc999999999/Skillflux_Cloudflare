@@ -1,0 +1,8 @@
+---
+import InsightsIndexPage from "../../../components/InsightsIndexPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<InsightsIndexPage lang={lang} />

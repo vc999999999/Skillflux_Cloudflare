@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-eas-hosting",
+  "name": "eas-hosting",
+  "displayName": {
+    "en": "eas-hosting",
+    "zh": "eas-hosting"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Deploy Expo websites and Expo Router API routes to EAS Hosting - export the web bundle, run eas deploy for production and PR preview URLs, manage environment secrets and custom domains, and work within the Cloudflare Workers runtime. Also covers authoring API routes (+api.ts handlers, HTTP methods, request handling, CORS). Use when deploying an Expo web app or API routes, setting up EAS Hosting, or configuring hosting environments and domains. Not for native builds or store releases - use the eas-app-stores skill for those.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/eas-hosting",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

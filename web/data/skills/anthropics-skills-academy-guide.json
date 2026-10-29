@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-academy-guide",
+  "name": "academy-guide",
+  "displayName": {
+    "en": "academy-guide",
+    "zh": "academy-guide"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", \"what can Claude do\", \"teach me\", \"learn to use\"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/academy-guide",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/academy-guide/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "productivity",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

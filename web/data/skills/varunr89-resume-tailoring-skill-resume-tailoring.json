@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "varunr89-resume-tailoring-skill-resume-tailoring",
+  "name": "resume-tailoring",
+  "displayName": {
+    "en": "Resume tailoring",
+    "zh": "简历定制"
+  },
+  "summary": {
+    "en": "Builds a tailored résumé for a specific job from the user’s own résumé library, researching the role and asking questions to surface relevant experience.",
+    "zh": "基于用户已有的简历素材为特定职位定制简历，会调研岗位并通过提问挖掘相关经历。"
+  },
+  "upstreamDescription": "Use when creating tailored resumes for job applications - researches company/role, creates optimized templates, conducts branching experience discovery to surface undocumented skills, and generates professional multi-format resumes from user's resume library while maintaining factual integrity",
+  "source": {
+    "repo": "https://github.com/varunr89/resume-tailoring-skill",
+    "path": "skills/resume-tailoring",
+    "commitSha": "9a4a0f20f5983d1b533627b8c5191acd1ca0cd89",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "varunr89",
+    "url": "https://github.com/varunr89"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-varunr89-resume-tailoring-skill",
+  "category": "writing",
+  "tags": [
+    "resume",
+    "career"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

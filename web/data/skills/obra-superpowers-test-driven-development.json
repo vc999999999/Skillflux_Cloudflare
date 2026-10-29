@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-test-driven-development",
+  "name": "test-driven-development",
+  "displayName": {
+    "en": "Test-driven development (Superpowers)",
+    "zh": "测试驱动开发（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ strict red-green-refactor discipline: write a failing test, watch it fail, then write the minimum code to pass.",
+    "zh": "Superpowers 的严格“红-绿-重构”纪律：先写失败的测试，确认它失败，再写最少的代码让它通过。"
+  },
+  "upstreamDescription": "Use when implementing any feature or bugfix, before writing implementation code",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/test-driven-development",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "tdd",
+    "testing"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "mattpocock-skills-codebase-design",
+  "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "1871824c1b5378408c2f091a8a3cffb8a03106e6d8047aa5561b394eb26043ee",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "codebase-design",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 265,
+      "detail": "265 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "pass",
+      "value": true,
+      "detail": "states when to use the skill"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "pass",
+      "value": 1440,
+      "detail": "within budget"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 110,
+      "detail": "110 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "pass",
+      "value": 0,
+      "detail": "all relative links resolve"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 4,
+      "detail": "4 files, 11800 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 0,
+      "detail": "no scripts"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "MIT",
+      "detail": "repository license"
+    },
+    {
+      "id": "repo.activity",
+      "status": "pass",
+      "value": -1,
+      "detail": "last changed -1 days before the check"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 265,
+    "bodyTokensApprox": 1440,
+    "bodyLines": 110,
+    "fileCount": 4,
+    "totalBytes": 11800,
+    "scriptCount": 0,
+    "lastCommitAt": "2026-10-29T10:24:04Z",
+    "commitsSincePin": 0
+  },
+  "repo": {
+    "stars": 306295,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": []
+}

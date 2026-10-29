@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { CHECK_REGISTRY } from "@skillflux/bench/checks";
+import { SITE } from "../config";
+import { absoluteUrl, getSiteBySlug } from "../lib/content";
+import { getSiteCopy, localizePath, type Language } from "../lib/i18n";
+import { armLine, ci, keyFinding, pct, seconds, shortSha, signedPoints, usd, type SkillView } from "../lib/skill-data";
+import { citationBibtex, citationText } from "../lib/citation";
+
+type Props = { view: SkillView; lang: Language };
+const { view, lang } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const { skill, health, result, counts, category } = view;
+const name = skill.displayName[lang];
+const path = localizePath(`/skills/${skill.id}/`, lang);
+const finding = keyFinding(view, lang);
+const methodologyVersion = result?.run.methodologyVersion ?? "1";
+const methodologyPath = localizePath(`/methodology/v${methodologyVersion}/`, lang);
+const treeUrl = `${skill.source.repo}/tree/${skill.source.commitSha}${skill.source.path ? `/${skill.source.path}` : ""}`;
+const site = getSiteBySlug(skill.sourceSiteSlug);
+const siteName = site ? getSiteCopy(site, lang).name : skill.sourceSiteSlug;
+const checkText = new Map(CHECK_REGISTRY.map(item => [item.id, zh ? item.zh : item.en]));
+const title = result ? t(`${name} benchmark: results with Claude Code`, `${name} 实测：Claude Code 下的对照结果`) : t(`${name}: skill health check`, `${name}：Skill 体检报告`);
+const description = finding.length > 300 ? `${finding.slice(0, 297)}…` : finding;
+const statusLabel: Record<string, [string, string]> = { pass: ["Pass", "通过"], warn: ["Warning", "警告"], fail: ["Fail", "失败"], info: ["Info", "提示"] };
+const flagLabel: Record<string, [string, string]> = {
+  "executes-code": ["Bundles scripts the agent may run", "附带 Agent 可能执行的脚本"],
+  "network-calls": ["Scripts call the network", "脚本会访问网络"],
+  "destructive-commands": ["Scripts contain rm -rf, sudo or similar", "脚本含 rm -rf、sudo 等命令"],
+  "risky-instructions": ["Instructions match a risk pattern", "指令命中风险规则"],
+  "possible-secret": ["Possible credential in files", "文件中疑似包含凭证"],
+  "no-license": ["No license found", "未找到许可证"],
+  "stale": ["Unchanged for over a year", "超过一年未更新"],
+  "archived-repo": ["Repository archived", "仓库已归档"],
+  "upstream-changed": ["Upstream changed after the tested commit", "测试版本之后上游有改动"],
+};
+const verdictLabel = (verdict: string | null) => verdict === "improves" ? t("Improves", "提升") : verdict === "hurts" ? t("Hurts", "变差") : t("No detectable difference", "无可检测差异");
+const cite = { text: citationText(view, lang), bibtex: citationBibtex(view) };
+const faqs = [
+  { q: t(`What does SkillFlux's data say about ${name}?`, `SkillFlux 的数据如何评价 ${name}？`), a: finding },
+  { q: t(`Has ${name} been benchmarked?`, `${name} 做过实测吗？`), a: result
+    ? t(`Yes. Run ${result.run.runId}, published ${result.run.publishedAt}, compared ${result.skill.pooled.with.n} runs with the skill against ${result.skill.pooled.without.n} without it on ${result.skill.tasks.filter(task => task.kind === "positive").length} tasks.`, `做过。${result.run.publishedAt} 发布的测试批次 ${result.run.runId} 在 ${result.skill.tasks.filter(task => task.kind === "positive").length} 个任务上，比较了装 Skill 的 ${result.skill.pooled.with.n} 次运行与不装的 ${result.skill.pooled.without.n} 次运行。`)
+    : t(`Not yet. Only the static health check has been run. You can request a benchmark on GitHub.`, `还没有，目前只做了静态体检。可以在 GitHub 上申请实测。`) },
+  { q: t(`What license is ${name} under?`, `${name} 使用什么许可证？`), a: skill.license.spdx
+    ? t(`${skill.license.spdx}, as detected at commit ${shortSha(skill.source.commitSha)}. Check the repository for the authoritative terms.`, `在提交 ${shortSha(skill.source.commitSha)} 中检测到的许可证是 ${skill.license.spdx}，以仓库中的原文为准。`)
+    : skill.license.file ? t(`The skill ships its own license file (${skill.license.file}); read it before reuse.`, `该 Skill 附带单独的许可证文件（${skill.license.file}），复用前请阅读原文。`) : t("No license was found, so reuse terms are unclear.", "未找到许可证，复用条款不明确。") },
+];
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "TechArticle", headline: title, description,
+    url: absoluteUrl(path), inLanguage: zh ? "zh-CN" : "en", datePublished: skill.addedAt, dateModified: view.dateModified,
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: { "@type": "Organization", name: SITE.name, url: SITE.url, logo: { "@type": "ImageObject", url: absoluteUrl("/skillflux-mark.svg") } },
+    isBasedOn: absoluteUrl(`/data/skills/${skill.id}.json`),
+    about: {
+      "@type": "SoftwareSourceCode", name: skill.name, codeRepository: skill.source.repo, version: skill.source.commitSha,
+      ...(skill.license.spdx ? { license: `https://spdx.org/licenses/${skill.license.spdx}.html` } : {}),
+      author: { "@type": "Organization", name: skill.author.name, ...(skill.author.url ? { url: skill.author.url } : {}) },
+      description: skill.upstreamDescription.slice(0, 500),
+    },
+  },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("Home", "首页"), item: absoluteUrl(localizePath("/", lang)) },
+    { "@type": "ListItem", position: 2, name: t("Skills", "Skill 数据"), item: absoluteUrl(localizePath("/skills/", lang)) },
+    { "@type": "ListItem", position: 3, name, item: absoluteUrl(path) },
+  ] },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) },
+];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable}>
+  <main id="main-content" class="page-shell report-page">
+    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]} />
+    <header class="detail-hero">
+      <p class="eyebrow"><span></span>{result ? t("BENCHMARK REPORT", "实测报告") : t("HEALTH CHECK", "体检报告")} · {category.label[lang]}</p>
+      <h1>{title}</h1>
+      <p class="key-finding" data-seo-field="key-finding">{finding}</p>
+      <p class="report-meta">
+        {t("Updated", "更新于")} <time datetime={view.dateModified}>{view.dateModified}</time> ·
+        <a href={methodologyPath} data-seo-field="methodology-link">{t(`Methodology v${methodologyVersion}`, `方法论 v${methodologyVersion}`)}</a> ·
+        <a href="#how-to-cite">{t("How to cite", "如何引用")}</a> ·
+        <a href={`/data/skills/${skill.id}.json`}>JSON</a>
+      </p>
+      {view.healthStale && <p class="content-disclosure">{t("The pinned commit changed after the last health check; results below describe the earlier commit.", "钉定提交在上次体检后发生变化，下方结果对应的是之前的提交。")}</p>}
+    </header>
+
+    <div class="detail-grid">
+      <article>
+        <section class="prose-block">
+          <h2>{t("What it is", "这是什么")}</h2>
+          <p>{skill.summary[lang]}</p>
+          <figure class="upstream-quote">
+            <blockquote cite={treeUrl} lang="en"><p>{skill.upstreamDescription}</p></blockquote>
+            <figcaption>{t("The author's description, quoted from SKILL.md at the tested commit.", "作者在测试版本 SKILL.md 中的原始描述（原文引用）。")}</figcaption>
+          </figure>
+        </section>
+
+        <section class="prose-block" id="results" aria-labelledby="results-title">
+          <h2 id="results-title">{t("Benchmark results", "实测结果")}</h2>
+          {result ? (
+            <>
+              <p>{t(`Run ${result.run.runId}: ${result.run.environment.modelRequested}, Claude Code ${result.run.environment.claudeCodeVersion}, ${result.run.config.repeats} repetitions per task and arm, published ${result.run.publishedAt}.`, `测试批次 ${result.run.runId}：${result.run.environment.modelRequested}，Claude Code ${result.run.environment.claudeCodeVersion}，每个任务每组重复 ${result.run.config.repeats} 次，${result.run.publishedAt} 发布。`)} <a href={localizePath(`/runs/${result.run.runId}/`, lang)}>{t("Run details", "批次详情")}</a></p>
+              <div class="table-scroll"><table class="data-table">
+                <thead><tr><th scope="col"></th><th scope="col">{t("With skill", "装 Skill")}</th><th scope="col">{t("Without skill", "不装 Skill")}</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">{t("Tasks passed", "任务通过")}</th><td>{armLine(result.skill.pooled.with, lang)}</td><td>{armLine(result.skill.pooled.without, lang)}</td></tr>
+                  <tr><th scope="row">{t("Skill invoked", "Skill 被调用")}</th><td>{result.skill.pooled.with.triggered}/{result.skill.pooled.with.n} ({pct(result.skill.pooled.with.triggerRate)})</td><td>—</td></tr>
+                  <tr><th scope="row">{t("Median duration", "耗时中位数")}</th><td>{seconds(result.skill.pooled.with.medianDurationMs)}</td><td>{seconds(result.skill.pooled.without.medianDurationMs)}</td></tr>
+                  <tr><th scope="row">{t("Median cost per run", "单次成本中位数")}</th><td>{usd(result.skill.pooled.with.medianCostUsd)}</td><td>{usd(result.skill.pooled.without.medianCostUsd)}</td></tr>
+                  <tr><th scope="row">{t("Difference in pass rate", "通过率差值")}</th><td colspan="2">{signedPoints(result.skill.pooled.comparison.passRateDelta)} · 95% CI {result.skill.pooled.comparison.newcombe95 ? `${signedPoints(result.skill.pooled.comparison.newcombe95[0])} to ${signedPoints(result.skill.pooled.comparison.newcombe95[1])}` : "—"} · <strong>{verdictLabel(result.skill.pooled.comparison.verdict)}</strong></td></tr>
+                  {result.skill.falseTrigger && <tr><th scope="row">{t("Invoked on unrelated tasks", "无关任务误调用")}</th><td colspan="2">{result.skill.falseTrigger.triggered}/{result.skill.falseTrigger.n} ({pct(result.skill.falseTrigger.rate)}, 95% CI {ci(result.skill.falseTrigger.wilson95)})</td></tr>}
+                </tbody>
+              </table></div>
+              <h3 id="tasks">{t("Tasks", "测试任务")}</h3>
+              {result.skill.tasks.map(task => (
+                <details class="task-card">
+                  <summary><strong>{task.title[lang]}</strong> <span>{task.kind === "positive" ? `${task.arms.with.passes}/${task.arms.with.n} vs ${task.arms.without?.passes ?? 0}/${task.arms.without?.n ?? 0}` : t("negative control", "负对照")}</span></summary>
+                  <p class="task-prompt-label">{t("Prompt given to Claude Code (both arms)", "交给 Claude Code 的提示词（两组相同）")}</p>
+                  <pre class="task-prompt">{task.prompt}</pre>
+                  <p class="task-prompt-label">{t("What the grader checks", "评分脚本检查的内容")}</p>
+                  <ul>{task.checks.map(item => <li>{item[lang]}</li>)}</ul>
+                </details>
+              ))}
+            </>
+          ) : (
+            <p>{t("This skill has not been benchmarked yet. Only the static health check below has been run.", "该 Skill 尚未实测，目前只完成了下面的静态体检。")} <a href={localizePath("/submit/", lang)}>{t("Request a benchmark", "申请实测")}</a></p>
+          )}
+        </section>
+
+        <section class="prose-block" id="health" aria-labelledby="health-title">
+          <h2 id="health-title">{t("Static health check", "静态体检")}</h2>
+          {health ? (
+            <>
+              <p>{t(`Checker ${health.checkerVersion} at commit ${shortSha(health.commitSha)}: ${counts.pass} pass, ${counts.warn} warning, ${counts.fail} fail, ${counts.info} informational. Result last changed ${health.changedAt}.`, `检查器 ${health.checkerVersion}，提交 ${shortSha(health.commitSha)}：${counts.pass} 项通过、${counts.warn} 项警告、${counts.fail} 项失败、${counts.info} 项提示。结果最近一次变化于 ${health.changedAt}。`)}</p>
+              {health.flags.length > 0 && <ul class="flag-list">{health.flags.map(flag => <li>{flagLabel[flag]?.[zh ? 1 : 0] ?? flag}</li>)}</ul>}
+              <div class="table-scroll"><table class="data-table checks-table">
+                <thead><tr><th scope="col">{t("Check", "检查项")}</th><th scope="col">{t("Result", "结果")}</th><th scope="col">{t("Detail", "详情")}</th></tr></thead>
+                <tbody>{health.checks.map(item => <tr class={`status-${item.status}`}><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class="status-pill">{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
+              </table></div>
+            </>
+          ) : <p>{t("Not checked yet.", "尚未体检。")}</p>}
+        </section>
+
+        <section class="prose-block" aria-labelledby="limits-title">
+          <h2 id="limits-title">{t("Limits of this report", "这份报告的局限")}</h2>
+          <ul class="plain-list">
+            <li>{t("Results describe one commit of the skill. Later versions may behave differently.", "结果只对应该 Skill 的一个提交版本，之后的版本可能表现不同。")}</li>
+            <li>{t("The static check reads files; it does not show whether the skill helps on a task.", "静态体检只读取文件，不能说明 Skill 能否在任务上带来帮助。")}</li>
+            {result && <li>{t("The benchmark uses one host (Claude Code) and one model, with a small number of tasks. Intervals are wide at this sample size.", "实测只用了一个宿主（Claude Code）和一个模型，任务数量有限；在这个样本量下置信区间较宽。")}</li>}
+            <li>{t("The skill's author was not consulted before publication. Corrections are welcome.", "发布前未征求作者意见，欢迎指正。")} <a href={localizePath("/submit/", lang)}>{t("Report an error", "报告错误")}</a></li>
+          </ul>
+        </section>
+
+        <section class="detail-faq">
+          <h2>{t("Questions", "常见问题")}</h2>
+          <dl class="faq-list">{faqs.map(item => <div class="faq-item"><dt>{item.q}</dt><dd>{item.a}</dd></div>)}</dl>
+        </section>
+
+        <section class="prose-block cite-block" id="how-to-cite" data-seo-field="how-to-cite">
+          <h2>{t("How to cite", "如何引用")}</h2>
+          <pre class="cite-text">{cite.text}</pre>
+          <details><summary>BibTeX</summary><pre class="cite-text">{cite.bibtex}</pre></details>
+        </section>
+      </article>
+
+      <aside class="detail-side">
+        <div class="detail-panel">
+          <dl>
+            <div><dt>{t("Skill", "Skill")}</dt><dd><code>{skill.name}</code></dd></div>
+            <div><dt>{t("Author", "作者")}</dt><dd>{skill.author.url ? <a href={skill.author.url} rel="noopener noreferrer">{skill.author.name}</a> : skill.author.name}</dd></div>
+            <div><dt>{t("Tested commit", "测试提交")}</dt><dd><a href={treeUrl} rel="noopener noreferrer"><code>{shortSha(skill.source.commitSha)}</code></a></dd></div>
+            <div><dt>{t("Pinned", "钉定日期")}</dt><dd>{skill.source.pinnedAt}</dd></div>
+            <div><dt>{t("License", "许可证")}</dt><dd>{skill.license.spdx ?? (skill.license.file ? t("See license file", "见许可证文件") : t("None found", "未找到"))}</dd></div>
+            <div><dt>{t("Category", "分类")}</dt><dd><a href={localizePath(`/skills/?category=${category.slug}`, lang)}>{category.label[lang]}</a></dd></div>
+            <div><dt>{t("Source", "来源")}</dt><dd>{site?.indexable ? <a href={localizePath(`/resource/${site.resourceSlug}/`, lang)}>{siteName}</a> : siteName}</dd></div>
+          </dl>
+          <a class="button secondary" href={treeUrl} rel="noopener noreferrer">{t("View source on GitHub", "在 GitHub 查看源码")} ↗</a>
+        </div>
+        <div class="side-box" id="data">
+          <h2>{t("Data", "数据")}</h2>
+          <p>{t("Every number on this page is in the open dataset (CC BY 4.0).", "本页所有数字都在公开数据集中（CC BY 4.0）。")}</p>
+          <ul class="plain-list">
+            <li><a href={`/data/skills/${skill.id}.json`}>{`/data/skills/${skill.id}.json`}</a></li>
+            <li><a href="/data/health.csv">/data/health.csv</a></li>
+            {result && <li><a href={`/data/runs/${result.run.runId}.json`}>{`/data/runs/${result.run.runId}.json`}</a></li>}
+            <li><a href={localizePath("/data/", lang)}>{t("About the dataset", "关于数据集")}</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .report-page { padding-block: 24px 80px; }
+  .key-finding { font-size: 1.12rem !important; line-height: 1.75 !important; color: var(--ink) !important; max-width: 72ch !important; }
+  .report-meta { font-size: .85rem !important; }
+  .upstream-quote { margin: 22px 0 0; padding: 16px 20px; border-left: 3px solid var(--line-strong); background: var(--paper-strong); }
+  .upstream-quote blockquote { margin: 0; }
+  .upstream-quote blockquote p { color: var(--ink); font-size: .92rem; }
+  .upstream-quote figcaption { margin-top: 10px; color: var(--faint); font-size: .78rem; }
+  .table-scroll { overflow-x: auto; margin: 18px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .checks-table th small { display: block; margin-top: 4px; color: var(--faint); font-weight: 400; line-height: 1.5; }
+  .status-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: .74rem; font-weight: 600; background: var(--cream); }
+  .status-pass .status-pill { background: var(--green-subtle); color: var(--green); }
+  .status-warn .status-pill { background: #fbefd5; color: #7a4b00; }
+  .status-fail .status-pill { background: #fbe1dc; color: #9b2412; }
+  .flag-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 14px 0; list-style: none; }
+  .flag-list li { padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; font-size: .78rem; background: var(--paper-strong); }
+  .task-card { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px 16px; margin: 10px 0; background: var(--paper-strong); }
+  .task-card summary { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
+  .task-card summary span { font: .8rem var(--font-mono); color: var(--muted); }
+  .task-prompt-label { margin-top: 14px !important; font-size: .78rem !important; color: var(--faint) !important; }
+  .task-prompt, .cite-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.6; padding: 12px 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+  .plain-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9rem; line-height: 1.8; }
+  .detail-panel .button { margin-top: 4px; width: 100%; justify-content: center; }
+  h3 { margin: 26px 0 8px; font-size: 1.05rem; }
+</style>

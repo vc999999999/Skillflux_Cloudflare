@@ -3,13 +3,15 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContentUpdates from './ContentUpdates.astro';
 import Icon from './Icon.astro';
-import RegistryExplorer from './RegistryExplorer.astro';
 import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getSiteBySlug, getTagIndex } from '../lib/content';
 import { localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
-import { getPublication } from '../lib/publication';
-const { lang = 'zh' } = Astro.props as { lang?: Language };
+import { CHECK_REGISTRY } from '@skillflux/bench/checks';
+import { aggregateFindings, keyFinding, pct } from '../lib/skill-data';
+import { getIndexableSkillViews, getRuns } from '../lib/skills';
+import { datasetModified } from '../lib/dataset';
+const { lang = 'en' } = Astro.props as { lang?: Language };
 const zh = lang === 'zh';
 const href = (path: string) => localizePath(path, lang);
 const stats = getDirectoryStats();
@@ -17,11 +19,19 @@ const updatedSites = getIndexableSites().sort((a, b) => b.updatedAt.localeCompar
 const latestInsights = (await getCollection('insights', entry => !entry.data.draft))
   .sort((a, b) => b.data.dateModified.localeCompare(a.data.dateModified) || a.id.localeCompare(b.id)).slice(0, 2);
 // Keep the editorial date of this page and the dates of the content shown on it.
-const homeUpdatedAt = ['2026-10-10', stats.updatedAt, ...latestInsights.map(entry => entry.data.dateModified), ...getGuides().map(guide => guide.dateModified), ...scenarios.slice(1).map(scenario => scenario.updatedAt)].sort().at(-1);
+const homeUpdatedAt = ['2026-10-10', stats.updatedAt, datasetModified(), ...latestInsights.map(entry => entry.data.dateModified), ...getGuides().map(guide => guide.dateModified), ...scenarios.slice(1).map(scenario => scenario.updatedAt)].sort().at(-1);
 const categories = getCategories();
 const tags = getTagIndex().slice(0, 9);
-const title = zh ? '想给你的 Agent 增加什么能力？· AI Agent 功能黄页' : 'Capabilities You Want to Add to Your AI Agent · Yellow Pages';
-const description = zh ? 'AI Agent 开放功能黄页：想给你的 Agent 增加什么能力？涵盖全网 Skills、MCP 工具、插件与开源生态。按需检索、透明选型，即插即用。' : 'What capabilities do you want to add to your AI agent? The open yellow pages for skills, MCP tools, plugins, and workflows. Search by task, verify quality, and connect on demand.';
+const skillViews = getIndexableSkillViews();
+const benchmarkedCount = skillViews.filter(view => view.result).length;
+const findings = aggregateFindings(skillViews);
+const dataDate = datasetModified();
+const featuredReports = [...skillViews].sort((a, b) => Number(Boolean(b.result)) - Number(Boolean(a.result)) || b.dateModified.localeCompare(a.dateModified) || a.skill.id.localeCompare(b.skill.id)).slice(0, 6);
+const runCount = getRuns().filter(run => run.status === 'published').length;
+const title = zh ? 'Agent Skill 实测数据与来源目录' : 'Agent skill test data and source directory';
+const description = zh
+  ? `哪些 Agent Skill 真的有用？SkillFlux 把 ${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，并在 Claude Code 中与不装 Skill 的基线对照实测，以 CC BY 4.0 公开全部数据。`
+  : `Which agent skills actually help? SkillFlux pins ${skillViews.length} public skills to exact commits, runs a static health check, benchmarks them in Claude Code against a no-skill baseline, and publishes all the data under CC BY 4.0.`;
 const picks = [
   { slug: 'github-com-anthropics-skills', name: 'Anthropic Skills', badge: zh ? '参考实现' : 'Reference', reason: zh ? '从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。' : 'Read the skill structure and implementations directly in Anthropic’s open-source repository.', best: zh ? '了解 Skill 格式，建立自己的技能库' : 'Learning the format and building a skill library' },
   { slug: 'modelscope-cn-skills', name: 'ModelScope Skills', badge: zh ? '编辑推荐' : 'Recommended', reason: zh ? '中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。' : 'A starting point for discovering Chinese-language skills and comparing their original sources.', best: zh ? '中文资源发现与场景选型' : 'Finding Chinese-language skill resources' },
@@ -38,8 +48,6 @@ const categoryNotes: Record<string, [string, string]> = {
   community: ['社区整理的榜单与推荐。', 'Community lists and discovery signals.'],
   directory: ['跨来源聚合的导航入口。', 'Directories spanning multiple sources.'],
 };
-const publication = getPublication();
-const command = 'skillflux search "code review"';
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={href('/')} pageClass="sf-home" jsonLd={[
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description },
@@ -48,46 +56,42 @@ const command = 'skillflux search "code review"';
   <main id="main-content">
     <section class="home-hero">
       <div class="home-container">
-        <p class="hero-label"><span></span> {zh ? '为你的 AI AGENT 扩充能力' : 'CAPABILITIES TO ADD TO YOUR AGENT'}</p>
-        <h1>{zh ? <>想给你的 Agent <span class="keep-together">增加什么能力？</span></> : 'Capabilities you want to add to your AI agent.'}<br /><span class="hero-secondary">{zh ? '全网功能黄页 · 按需查找，即插即用。' : 'The open yellow pages · Find and connect on demand.'}</span></h1>
+        <p class="hero-label"><span></span> {zh ? 'AGENT SKILL 开放数据' : 'OPEN DATA ON AGENT SKILLS'}</p>
+        <h1>{zh ? <>哪些 Agent Skill <span class="keep-together">真的有用？</span></> : 'Which agent skills actually help?'}<br /><span class="hero-secondary">{zh ? '我们逐个测试，并公开数据。' : 'We test them and publish the data.'}</span></h1>
         <p class="hero-description">{description}</p>
         <div class="hero-actions">
-          <a class="button primary" href={href('/directory/')}>{zh ? '查找想增加的能力' : 'Find capabilities for your agent'} <Icon size={16} /></a>
-          <a class="button secondary" href={href('/install/')}>{zh ? '接入项目' : 'Connect to project'}</a>
-          <div class="command-bar"><span aria-hidden="true">$</span><code>{command}</code><button type="button" data-copy-text={command} aria-label={zh ? '复制搜索命令' : 'Copy search command'}><Icon name="copy" size={16} /></button></div>
+          <a class="button primary" href={href('/skills/')}>{zh ? '查看 Skill 报告' : 'Browse skill reports'} <Icon size={16} /></a>
+          <a class="button secondary" href={href('/data/')}>{zh ? '下载数据集' : 'Download the dataset'}</a>
         </div>
-        <div class="works-with"><span>{zh ? '项目接入' : 'Connect with'}</span><span><Icon name="spark" size={15} /> Claude</span><span><Icon name="external" size={15} /> Cursor</span><span><Icon name="terminal" size={15} /> Codex</span><a href={href('/install/')}>{zh ? '查看安装步骤' : 'Setup required'} <span aria-hidden="true">↗</span></a></div>
-        <div class="decision-signals"><span>{zh ? '选择线索' : 'DECISION SIGNALS'}</span>{[zh ? '精选推荐' : 'Curated', zh ? '官方来源' : 'Official sources', zh ? '开源生态' : 'Open source', zh ? '按任务选型' : 'Choose by task', zh ? '版本级审核' : 'Reviewed releases'].map(label => <span class="signal">{label}</span>)}<a href={href('/quality/')}>{zh ? '了解标准' : 'How we review'} ↗</a></div>
-        <div class="value-steps">
-          {[
-            ['01 · Discover', zh ? '想增加能力？' : 'Need Capabilities?', zh ? '无论是编程 Skill、MCP 工具、外部插件还是特定工作流，全网一站式查找。' : 'Whether you need specialized coding skills, database MCP tools, or automation plugins, find them here.'],
-            ['02 · Verify', zh ? '透明决策' : 'Verify First', zh ? '按任务场景、来源背景与可信度，直观比较与挑选，杜绝劣质垃圾。' : 'Inspect provenance, task fit, and review records before giving anything to your agent.'],
-            ['03 · Connect', zh ? '即插即用' : 'Plug & Play', zh ? '通过统一 CLI 与 MCP，将能力安全按需接入 Claude、Cursor、Codex 等项目。' : 'Wire capabilities directly into Claude, Cursor, and Codex on demand with a single runtime.'],
-          ].map(([label, name, note], index) => <article><div><span>{label}</span>{index === 1 && <small>{zh ? '核心' : 'core'}</small>}</div><h2>{name}</h2><p>{note}</p></article>)}
-        </div>
+        <dl class="home-stats data-stats">
+          {[[skillViews.length, zh ? '个 Skill 已体检' : 'skills health-checked', zh ? `每个 ${CHECK_REGISTRY.length} 项检查` : `${CHECK_REGISTRY.length} checks each`], [benchmarkedCount, zh ? '个 Skill 已实测' : 'skills benchmarked', zh ? `${runCount} 个已发布批次` : `${runCount} published runs`], [stats.resourceCount, zh ? '个来源已收录' : 'sources in the directory', zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos']].map(([value, label, note]) => <div><dt>{label}</dt><dd>{value}</dd><small>{note}</small></div>)}
+        </dl>
       </div>
     </section>
     <div class="home-container">
-      <dl class="home-stats">
-        {[[stats.resourceCount, zh ? '已收录能力' : 'Indexed capabilities', zh ? 'Skills、MCP、工具与插件' : 'Skills, MCP, tools & sources'], [stats.labelCount, zh ? '能力主题' : 'Topics & categories', zh ? '按场景与技术栈发现' : 'Explore by task & domain'], [stats.recommendedCount, zh ? '精选推荐' : 'Curated picks', zh ? '有选用理由与适用边界' : 'High-signal recommendations'], [categories.length, zh ? '来源类别' : 'Source categories', zh ? '从官方厂商到开源社区' : 'Vendors to communities']].map(([count, name, note]) => <div><dd>{count}</dd><dt>{name}</dt><p>{note}</p></div>)}
-      </dl>
+      <section class="home-section" aria-labelledby="findings-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? `体检发现 · 截至 ${dataDate}` : `FINDINGS · AS OF ${dataDate}`}</p><h2 id="findings-title">{zh ? `${skillViews.length} 个公开 Skill 的静态体检` : `What the health check found in ${skillViews.length} public skills`}</h2><p>{zh ? '每项都是可复核的计数，原始记录见 /data/health.csv。标记描述 Skill 包含什么，不是结论。' : 'Each line is a count you can verify in /data/health.csv. Flags describe what a skill contains; they are not verdicts.'}</p></div><a href={href('/methodology/v1/')}>{zh ? '检查方法' : 'How we check'} <Icon size={16} /></a></div>
+        <ul class="findings-grid">{findings.map(item => <li><strong>{item.count}<small>/{item.total}</small></strong><span>{zh ? `个 Skill ${item.zh}` : `skills ${item.en}`}</span></li>)}</ul>
+      </section>
+      <section class="home-section" aria-labelledby="method-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? '方法' : 'METHOD'}</p><h2 id="method-title">{zh ? '两层测试，分开报告' : 'Two kinds of evidence, reported separately'}</h2></div><a href={href('/methodology/v1/')}>{zh ? '方法论 v1' : 'Methodology v1'} <Icon size={16} /></a></div>
+        <div class="value-steps">
+          <article><div><span>L1</span></div><h2>{zh ? '静态体检' : 'Static health check'}</h2><p>{zh ? `把 Skill 钉定到一个 Git 提交，检查 frontmatter、体积、断链、附带脚本、网络调用、破坏性命令、疑似密钥、许可证和维护状态，共 ${CHECK_REGISTRY.length} 项。不调用模型。` : `Each skill is pinned to a Git commit and checked for frontmatter, size, broken links, bundled scripts, network calls, destructive commands, secrets, license and maintenance — ${CHECK_REGISTRY.length} checks, no model calls.`}</p></article>
+          <article><div><span>L2</span><small>{zh ? '核心' : 'core'}</small></div><h2>{zh ? '有/无 Skill 对照实测' : 'With vs without benchmark'}</h2><p>{zh ? '同样的任务在 Claude Code 中各跑多次：一组装 Skill，一组不装。确定性脚本评分，报告通过率、95% 置信区间、调用率与成本。' : 'The same tasks run several times in Claude Code, once with the skill installed and once without. Scripts grade the output; reports give pass rates with 95% intervals, invocation rate and cost.'}</p></article>
+          <article><div><span>CC BY</span></div><h2>{zh ? '开放可引用' : 'Open and citable'}</h2><p>{zh ? '每个数字都能下载、校验 sha256，并从原始试验重新计算。每份报告都给出引用格式和不可变的批次 id。' : 'Every number can be downloaded, checked against a sha256 and recomputed from raw trials. Each report gives a citation and an immutable run id.'}</p></article>
+        </div>
+      </section>
+      <section class="home-section" aria-labelledby="reports-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? 'Skill 报告' : 'SKILL REPORTS'}</p><h2 id="reports-title">{zh ? '最新报告' : 'Latest reports'}</h2></div><a href={href('/skills/')}>{zh ? `全部 ${skillViews.length} 个` : `All ${skillViews.length}`} <Icon size={16} /></a></div>
+        <div class="reading-grid">{featuredReports.map(view => <a href={href(`/skills/${view.skill.id}/`)}><small>{view.result ? (zh ? `实测 · ${pct(view.result.skill.pooled.with.passRate)} vs ${pct(view.result.skill.pooled.without.passRate)}` : `BENCHMARK · ${pct(view.result.skill.pooled.with.passRate)} vs ${pct(view.result.skill.pooled.without.passRate)}`) : (zh ? `体检 · ${view.counts.pass} 通过 · ${view.counts.warn} 警告 · ${view.counts.fail} 失败` : `HEALTH · ${view.counts.pass} pass · ${view.counts.warn} warn · ${view.counts.fail} fail`)}</small><h3>{view.skill.displayName[lang]}</h3><p>{keyFinding(view, lang)}</p><span>{zh ? '查看报告' : 'Read report'} <Icon size={14} /></span></a>)}</div>
+      </section>
       <ContentUpdates sites={updatedSites} insights={latestInsights} lang={lang} />
       <section class="home-section" aria-labelledby="picks-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? '精选推荐 · 高价值能力' : 'EDITORIAL · CURATED CAPABILITIES'}</p><h2 id="picks-title">SkillFlux Picks</h2><p>{zh ? '从用途明确、资料可追溯的能力来源开始。查看推荐理由和适用场景，再决定是否采用。' : 'High-signal starting points with transparent rationale and practical use cases.'}</p></div><a href={href('/directory/')}>{zh ? '浏览黄页' : 'Browse yellow pages'} <Icon size={16} /></a></div>
+        <div class="section-top"><div><p class="eyebrow">{zh ? '来源目录 · 编辑推荐' : 'DIRECTORY · EDITOR’S PICKS'}</p><h2 id="picks-title">{zh ? '从哪里找 Skill' : 'Where to find skills'}</h2><p>{zh ? '从用途明确、资料可追溯的能力来源开始。查看推荐理由和适用场景，再决定是否采用。' : 'High-signal starting points with transparent rationale and practical use cases.'}</p></div><a href={href('/directory/')}>{zh ? '浏览黄页' : 'Browse yellow pages'} <Icon size={16} /></a></div>
         <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE RECOMMEND IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{zh ? '来源推荐' : 'Source recommendation'}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
-        <p class="quiet-note">{zh ? '功能黄页帮助你发现来源；可安装的审核版本请查看' : 'The yellow pages help you discover sources. For reviewed, installable releases, visit the'} <a href={href('/registry/')}>{zh ? '精品能力库' : 'curated registry'} ↗</a></p>
       </section>
     </div>
-    <section class="install-section" aria-labelledby="install-title">
-      <div class="home-container">
-        <div class="install-grid"><div class="install-intro"><p class="eyebrow">{zh ? '接入运行时 · LOCAL CLI & MCP' : 'CONNECT · RUNTIME LAYER'}</p><h2 id="install-title">{zh ? <>从黄页发现，<br />走向项目落地。</> : <>From discovery<br />to a working project.</>}</h2><p>{zh ? '为项目配置 SkillFlux 入口。按需检索、审核安装计划，随时扩展 Agent 所需的能力。' : 'Connect one SkillFlux runtime to your project. Search, inspect an installation plan, and load reviewed capabilities on demand.'}</p><a class="button primary" href={href('/install/')}>{zh ? '查看安装指南' : 'Open setup guide'} <Icon size={16} /></a><p class="source-note">{zh ? '通过 npm 安装 SkillFlux，需 Node.js ≥ 22.13。' : 'Install SkillFlux from npm. Requires Node.js ≥ 22.13.'}</p><div class="install-flow"><span>{zh ? '发现' : 'Discover'}</span><Icon size={13} /><span>{zh ? '选择' : 'Select'}</span><Icon size={13} /><span>{zh ? '检查' : 'Review'}</span><Icon size={13} /><span>{zh ? '加载' : 'Load'}</span></div></div>
-          <div class="terminal-demo"><div class="terminal-title"><span><i></i><i></i><i></i></span><span>~/my-project</span><span>CLI</span></div><div class="terminal-body"><p class="terminal-comment"># {zh ? '完成本地安装和初始化之后' : 'After local installation and project init'}</p><p><span>$</span> skillflux search "code review"</p><p class="terminal-comment"># {zh ? '选定搜索结果中的能力与版本' : 'Choose a capability and version from the results'}</p><p><span>$</span> skillflux plan &lt;skill-id&gt;@&lt;version&gt;</p><p class="terminal-comment"># {zh ? '检查计划，然后使用返回的 plan ID' : 'Inspect the plan, then use its returned ID'}</p><p><span>$</span> skillflux install &lt;plan-id&gt;</p><p><span>$</span> skillflux load &lt;skill-id&gt;</p><div class="terminal-foot"><span class="tiny-dot"></span>{zh ? '项目内安装 · 固定版本 · 显式加载' : 'Project scoped · versioned · explicitly invoked'}</div></div></div>
-        </div>
-        <div class="install-benefits">{[["terminal", zh ? '一个接入入口' : 'One entry point', zh ? 'CLI 与 MCP 共用同一套版本流程。' : 'One version workflow for CLI and MCP.'], ['layers', zh ? '按项目管理' : 'Per-project installation', zh ? '能力与配置跟随需要它们的项目。' : 'Keep capabilities with the project that uses them.'], ['book', zh ? '可查看的审核记录' : 'Reviewable evidence', zh ? '发布版本附带公开的测试摘要。' : 'Published releases include public test summaries.'], ['code', zh ? '宿主配置适配' : 'Host-specific setup', zh ? '为 Claude、Cursor 和 Codex 生成配置。' : 'Configuration for Claude, Cursor and Codex.']].map(([icon, title, note]) => <div><Icon name={icon} size={19} /><h3>{title}</h3><p>{note}</p></div>)}</div>
-      </div>
-    </section>
     <div class="home-container">
-      {publication.latest.length > 0 && <section class="home-section"><div class="section-top"><div><p class="eyebrow">REVIEWED RELEASES</p><h2>{zh ? '经过审核的能力版本' : 'Reviewed capability releases'}</h2></div><a href={href('/registry/')}>{zh ? '全部版本' : 'All releases'} <Icon size={16} /></a></div><RegistryExplorer lang={lang} mode="preview" /></section>}
       <section class="home-section sources-section" aria-labelledby="sources-title">
         <div class="section-top"><div><p class="eyebrow">NAVIGATE THE ECOSYSTEM</p><h2 id="sources-title">{zh ? '来源类别与主题' : 'Source categories & topics'}</h2><p>{zh ? '了解能力从哪里来，再决定从哪里开始。' : 'Understand where capabilities come from, then decide where to start.'}</p></div><a href={href('/directory/')}>{zh ? '全部黄页来源' : 'All sources'} <Icon size={16} /></a></div>
         <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon name="external" size={13} /></small></a>)}</div>
@@ -97,7 +101,7 @@ const command = 'skillflux search "code review"';
         <div class="section-top"><div><p class="eyebrow">GUIDES</p><h2 id="guides-title">{zh ? 'Agent 能力选型与实战指南' : 'Learn the agent ecosystem'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
         <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
       </section>
-      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '功能黄页、选型指南与审核版本均有机器可读入口，让能力发现直接融入智能体工作流。' : 'Structured access to the capability directory, guides, and reviewed releases. Make capability discovery native to your agent.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '简明站点与能力黄页索引' : 'A concise map for LLM context'], ['/llms-full.txt', zh ? '完整能力黄页，纯文本' : 'Full capability yellow pages, plain text'], ['/index.json', zh ? '结构化能力发现数据' : 'Structured discovery data'], ['/feed.xml', zh ? '版本发布、资源与文章更新订阅' : 'Release, resource and article updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
+      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '体检与实测数据、来源目录都有机器可读入口，并附明确的引用规则。' : 'Health checks, benchmarks and the directory are all machine-readable, with explicit citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '测量内容、各 Skill 结果与引用规则' : 'What is measured, each result, citation rules'], ['/data/index.json', zh ? '数据集清单与 sha256' : 'Dataset manifest with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources'], ['/feed.xml', zh ? '资源与文章更新订阅' : 'Resource and article updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
     </div>
   </main>
 </BaseLayout>
@@ -222,4 +226,12 @@ const command = 'skillflux search "code review"';
   @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .install-grid { gap: 32px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
   @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .hero-actions { gap: 10px; } .command-bar { flex-basis: 100%; justify-content: flex-start; margin-top: 4px; } .command-bar button { margin-left: auto; } .works-with { gap: 14px; font-size: .8rem; } .decision-signals { margin-top: 24px; } .value-steps { margin-top: 32px; grid-template-columns: 1fr; } .value-steps article + article { border-left: 0; border-top: 1px solid var(--line); } .value-steps article { padding: 20px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.8rem; } .home-stats p { font-size: .75rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid, .install-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .install-section { padding-block: 48px 36px; margin-top: 48px; } .install-grid { gap: 28px; } .install-benefits { grid-template-columns: 1fr 1fr; gap: 24px 20px; margin-top: 32px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
   @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .7rem; } .command-bar code { font-size: .74rem; } }
+  .data-stats { margin-top: 40px; grid-template-columns: repeat(3, 1fr); }
+  .findings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .findings-grid li { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .findings-grid strong { display: block; font: 600 2rem var(--font-mono); letter-spacing: -.04em; }
+  .findings-grid strong small { font-size: .9rem; color: var(--faint); margin-left: 2px; }
+  .findings-grid span { display: block; margin-top: 6px; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+  @media (max-width: 800px) { .findings-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .findings-grid { grid-template-columns: 1fr; } }
 </style>

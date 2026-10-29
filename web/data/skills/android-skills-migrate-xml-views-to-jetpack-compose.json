@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "android-skills-migrate-xml-views-to-jetpack-compose",
+  "name": "migrate-xml-views-to-jetpack-compose",
+  "displayName": {
+    "en": "Migrate XML views to Compose",
+    "zh": "XML 视图迁移到 Compose"
+  },
+  "summary": {
+    "en": "Google’s step-by-step workflow for migrating an Android XML view to Jetpack Compose, from dependencies to cleanup.",
+    "zh": "Google 官方的分步流程，把 Android XML 视图迁移到 Jetpack Compose，从依赖配置到清理旧代码。"
+  },
+  "upstreamDescription": "Provides a structured workflow for migrating an Android XML View to Jetpack Compose. This skill details the step-by-step process, from planning and dependency setup, to theming and layout migration, validation and XML cleanup. Use this skill when you need to migrate an XML View to Jetpack Compose in an Android project. It solves the problem of converting the UI of a legacy XML View into modern, declarative Compose components while maintaining interoperability.",
+  "source": {
+    "repo": "https://github.com/android/skills",
+    "path": "jetpack-compose/migration/migrate-xml-views-to-jetpack-compose",
+    "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Android",
+    "url": "https://github.com/android"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-android-skills",
+  "category": "mobile",
+  "tags": [
+    "android",
+    "compose",
+    "migration"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

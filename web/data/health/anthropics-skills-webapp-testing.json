@@ -1,0 +1,154 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "anthropics-skills-webapp-testing",
+  "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "e8277da237f5da42d1be1fcedd2c0ea7854149ed732b5abab7566ea40afcaab9",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "webapp-testing",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 204,
+      "detail": "204 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "warn",
+      "value": false,
+      "detail": "does not say when the skill should be used"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "pass",
+      "value": 894,
+      "detail": "within budget"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 91,
+      "detail": "91 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "pass",
+      "value": 0,
+      "detail": "all relative links resolve"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 6,
+      "detail": "6 files, 22394 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 4,
+      "detail": "examples/console_logging.py, examples/element_discovery.py, examples/static_html_automation.py, scripts/with_server.py"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "Complete terms in LICENSE.txt",
+      "detail": "declared in frontmatter"
+    },
+    {
+      "id": "repo.activity",
+      "status": "pass",
+      "value": 191,
+      "detail": "last changed 191 days before the check"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 204,
+    "bodyTokensApprox": 894,
+    "bodyLines": 91,
+    "fileCount": 6,
+    "totalBytes": 22394,
+    "scriptCount": 4,
+    "lastCommitAt": "2026-04-20T21:38:16Z",
+    "commitsSincePin": 0
+  },
+  "repo": {
+    "stars": 184681,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": [
+    "executes-code"
+  ]
+}

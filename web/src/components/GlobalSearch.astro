@@ -69,7 +69,7 @@ const zh = lang === 'zh';
     const retry = dialog.querySelector<HTMLButtonElement>('.sf-search-retry')!;
     const lang = dialog.dataset.lang === 'en' ? 'en' : 'zh';
     const zh = lang === 'zh';
-    const kinds: Record<SearchKind, string> = zh ? { source: '资源', guide: '指南', skill: '精品 Skill', page: '页面' } : { source: 'Resource', guide: 'Guide', skill: 'Curated skill', page: 'Page' };
+    const kinds: Record<SearchKind, string> = zh ? { source: '资源', guide: '指南', skill: 'Skill 报告', page: '页面' } : { source: 'Resource', guide: 'Guide', skill: 'Skill report', page: 'Page' };
     let entries: GlobalSearchEntry[] | undefined;
     let pending: Promise<void> | undefined;
     let results: GlobalSearchEntry[] = [];

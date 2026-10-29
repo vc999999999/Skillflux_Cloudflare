@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-expo-design-system",
+  "name": "expo-design-system",
+  "displayName": {
+    "en": "expo-design-system",
+    "zh": "expo-design-system"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Build and maintain a design system inside an Expo app - a reusable theme of design tokens (color, spacing, typography, radius, shadow, motion), reusable component structure with variant/size/state prop conventions, and rules for when to extract a repeated view into a shared component. Use when creating or organizing theme files and design tokens (theme.ts / theme/), extending an existing theme or styling library (NativeWind, Tamagui, Restyle, Unistyles) in its own idiom, standardizing styles so screens (including AI-generated ones) look consistent and polished, fixing an app that looks AI-generated or generic instead of native (the named native-slop tells), building an in-app component library, or auditing an app for design-system drift (hardcoded colors, spacing, fonts). For platform styling specifics (semantic colors, HIG rules, native controls) use expo-native-ui; for folder layout of a new app use expo-project-structure.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/expo-design-system",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

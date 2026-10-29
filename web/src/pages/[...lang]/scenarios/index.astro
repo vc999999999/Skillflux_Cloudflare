@@ -1,0 +1,8 @@
+---
+import ScenariosPage from "../../../components/ScenariosPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<ScenariosPage lang={lang} />

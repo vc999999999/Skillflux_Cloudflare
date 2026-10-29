@@ -1,0 +1,152 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "android-skills-adaptive",
+  "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "a2dfc4150e5eca3df675e8a9017f4481e9e1fc0d2425fe7b42eff7eeaa653f93",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "adaptive",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 834,
+      "detail": "834 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "warn",
+      "value": false,
+      "detail": "does not say when the skill should be used"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "warn",
+      "value": 5238,
+      "detail": "large body; consider moving detail into referenced files"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 464,
+      "detail": "464 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "pass",
+      "value": 0,
+      "detail": "all relative links resolve"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 17,
+      "detail": "17 files, 129206 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 0,
+      "detail": "no scripts"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "Complete terms in LICENSE.txt",
+      "detail": "declared in frontmatter"
+    },
+    {
+      "id": "repo.activity",
+      "status": "info",
+      "value": null,
+      "detail": "last change unknown"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": null,
+      "detail": "unknown"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 834,
+    "bodyTokensApprox": 5238,
+    "bodyLines": 464,
+    "fileCount": 17,
+    "totalBytes": 129206,
+    "scriptCount": 0,
+    "lastCommitAt": null,
+    "commitsSincePin": null
+  },
+  "repo": {
+    "stars": 10016,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": []
+}

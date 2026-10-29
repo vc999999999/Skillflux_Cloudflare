@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "othmanadi-planning-with-files",
+  "name": "planning-with-files",
+  "displayName": {
+    "en": "Planning with files",
+    "zh": "文件化规划"
+  },
+  "summary": {
+    "en": "Keeps task_plan.md, findings.md and progress.md on disk so a long agent task can survive context loss, with hooks that re-inject the plan.",
+    "zh": "在磁盘上维护 task_plan.md、findings.md 和 progress.md，让长任务在上下文丢失后仍能继续，并通过钩子重新注入计划。"
+  },
+  "upstreamDescription": "Persistent file-based planning for multi-step AI-agent work. Keeps task_plan.md, findings.md, and progress.md on disk; lifecycle hooks inject selected project planning context. Automatic recovery reads project planning files only. Explicit session-catchup.py --metadata reads same-project local agent session records and emits aggregate counts only; --replay may emit bounded nonce-framed excerpts. Optional gated mode can request continuation only when the host supports it and never runs commands declared in Markdown. The skill has no network upload path. Use for research or work needing 5+ tool calls.",
+  "source": {
+    "repo": "https://github.com/OthmanAdi/planning-with-files",
+    "path": ".agents/skills/planning-with-files",
+    "commitSha": "5d29800bf8b919ca9a88ee7885b90050b5cb64ed",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "OthmanAdi",
+    "url": "https://github.com/OthmanAdi"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-othmanadi-planning-with-files",
+  "category": "productivity",
+  "tags": [
+    "planning",
+    "context",
+    "hooks"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

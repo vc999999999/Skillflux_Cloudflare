@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language };
-const { lang = "zh" } = Astro.props;
+const { lang = "en" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
@@ -11,6 +11,11 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
 <BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过 GitHub 提交供编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then submit through GitHub for editorial review.")}>
   <main id="main-content" class="page-shell submit-shell">
     <header class="page-hero"><div><p class="eyebrow">CONTRIBUTE TO THE DIRECTORY</p><h1 class="page-title">{t("好资源，值得被更多人发现。", "Good resources deserve to be found.")}</h1><p class="page-lede">{t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")}</p></div></header>
+    <nav class="submit-paths" aria-label={t("其他反馈方式", "Other ways to contribute")}>
+      <a href={`${issueUrl}?template=test-request.yml`} rel="noopener noreferrer"><strong>{t("申请实测某个 Skill", "Request a benchmark")}</strong><span>{t("告诉我们哪个 Skill 值得测、在什么任务上测。", "Tell us which skill to test, and on what kind of task.")}</span></a>
+      <a href={`${issueUrl}?template=dispute.yml`} rel="noopener noreferrer"><strong>{t("对结果提出异议", "Dispute a result")}</strong><span>{t("体检或实测结果有误？注明页面、数字和原因，我们会公开处理。", "Think a health check or benchmark is wrong? Name the page, the number and why; we handle it in public.")}</span></a>
+      <a href={localizePath("/methodology/v1/", lang)}><strong>{t("先读方法论", "Read the method first")}</strong><span>{t("了解我们测什么、怎么测、结果意味着什么。", "What we measure, how, and what the results mean.")}</span></a>
+    </nav>
     <div class="submit-layout">
       <section class="submission-panel" aria-labelledby="submission-title">
         <div class="form-heading"><h2 id="submission-title">{t("介绍一下这个资源", "Tell us about the resource")}</h2><span>{t("* 为必填", "* Required")}</span></div>
@@ -30,7 +35,7 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
       <aside class="submission-sidebar">
         <section><p class="eyebrow">WHAT WE LOOK FOR</p><h2>{t("我们想收录这样的资源", "What makes a useful entry")}</h2><ul><li><span aria-hidden="true">✓</span><div><strong>{t("用途清楚", "Clear purpose")}</strong><p>{t("能说清解决什么问题，适合什么任务。", "Explain the problem it solves and the tasks it suits.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("来源可查", "Traceable source")}</strong><p>{t("有可访问的官网、仓库或作者页面。", "Link to an accessible website, repository or author page.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("说明完整", "Useful documentation")}</strong><p>{t("包含使用方法、适用工具与已知限制。", "Include usage instructions, compatible tools and known limitations.")}</p></div></li></ul></section>
         <section class="review-flow"><p class="eyebrow">AFTER YOU SUBMIT</p><h2>{t("接下来会发生什么", "What happens next")}</h2><ol><li>{t("在 GitHub 发布推荐信息", "Publish your recommendation on GitHub")}</li><li>{t("编辑核对来源与收录信息", "Editors check the source and entry details")}</li><li>{t("通过后更新目录，并在 Issue 跟进", "Approved entries appear in the directory, with follow-up in the issue")}</li></ol><p class="review-note">{t("目录收录与可安装包审核是两个流程。提交推荐不代表自动发布、通过评测或可安装。", "Directory inclusion and install-package review are separate processes. A recommendation does not automatically publish or qualify a package.")}</p></section>
-        <a class="submission-help" href={localizePath("/quality/", lang)}>{t("查看完整质量标准", "Read our quality standards")} <span aria-hidden="true">→</span></a>
+        <a class="submission-help" href={localizePath("/quality/", lang)}>{t("查看收录标准", "Read the listing policy")} <span aria-hidden="true">→</span></a>
       </aside>
     </div>
   </main>
@@ -98,4 +103,9 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
   .submission-help { display: flex; justify-content: space-between; font-size: .8rem; text-decoration: none; }
   @media(max-width: 900px) { .submit-layout { gap: 32px; grid-template-columns: minmax(0, 1fr) 250px; } }
   @media(max-width: 700px) { .submit-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 26px; } .submission-panel { padding: 22px 18px; } .submission-sidebar > section { padding-top: 0; } }
+  .submit-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0 0 36px; }
+  .submit-paths a { display: block; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); text-decoration: none; }
+  .submit-paths strong { display: block; margin-bottom: 6px; }
+  .submit-paths span { color: var(--muted); font-size: .88rem; line-height: 1.6; }
+  @media (max-width: 800px) { .submit-paths { grid-template-columns: 1fr; } }
 </style>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { CHECK_REGISTRY } from "@skillflux/bench/checks";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+import { pct, signedPoints } from "../lib/skill-data";
+import { getIndexableSkillViews, getSkillCategories } from "../lib/skills";
+import { datasetModified } from "../lib/dataset";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const views = getIndexableSkillViews().sort((a, b) => Number(Boolean(b.result)) - Number(Boolean(a.result)) || a.skill.displayName[lang].localeCompare(b.skill.displayName[lang]));
+const categories = getSkillCategories().map(category => ({ ...category, count: views.filter(view => view.skill.category === category.slug).length })).filter(category => category.count > 0);
+const benchmarked = views.filter(view => view.result).length;
+const flagged = views.filter(view => (view.health?.flags.length ?? 0) > 0).length;
+const path = localizePath("/skills/", lang);
+const title = t("Agent skill health checks and benchmarks", "Agent Skill 体检与实测数据");
+const description = t(
+  `${views.length} agent skills from public repositories, each pinned to a commit and checked against ${CHECK_REGISTRY.length} static rules; ${benchmarked} benchmarked with Claude Code against a no-skill baseline.`,
+  `${views.length} 个来自公开仓库的 Agent Skill，均钉定到具体提交并按 ${CHECK_REGISTRY.length} 条静态规则体检；其中 ${benchmarked} 个在 Claude Code 中与不装 Skill 的基线做过对照实测。`
+);
+const modified = datasetModified();
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "CollectionPage", name: title, description, url: absoluteUrl(path), inLanguage: zh ? "zh-CN" : "en", dateModified: modified,
+    mainEntity: { "@type": "ItemList", numberOfItems: views.length, itemListElement: views.map((view, index) => ({ "@type": "ListItem", position: index + 1, url: absoluteUrl(localizePath(`/skills/${view.skill.id}/`, lang)), name: view.skill.displayName[lang] })) } },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("Home", "首页"), item: absoluteUrl(localizePath("/", lang)) },
+    { "@type": "ListItem", position: 2, name: t("Skills", "Skill 数据"), item: absoluteUrl(path) },
+  ] },
+];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell skills-index">
+    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据") }]} />
+    <header class="page-hero">
+      <div>
+        <p class="eyebrow"><span></span>{t("OPEN DATA · UPDATED ", "公开数据 · 更新于 ")}<time datetime={modified}>{modified}</time></p>
+        <h1 class="page-title">{title}</h1>
+        <p class="page-lede">{description} {t("Every skill page links to its pinned source and to the raw data.", "每个 Skill 页面都链接到钉定的源码和原始数据。")}</p>
+        <p class="page-lede"><a href={localizePath("/methodology/v1/", lang)}>{t("How we test", "测试方法")}</a> · <a href={localizePath("/data/", lang)}>{t("Download the dataset", "下载数据集")}</a></p>
+      </div>
+      <dl class="page-meta-panel stats-panel">
+        <div><strong>{views.length}</strong><span>{t("skills checked", "个 Skill 已体检")}</span></div>
+        <div><strong>{benchmarked}</strong><span>{t("benchmarked", "个已实测")}</span></div>
+        <div><strong>{flagged}</strong><span>{t("with at least one flag", "个至少有一项标记")}</span></div>
+      </dl>
+    </header>
+    <nav class="category-filter" aria-label={t("Filter by category", "按分类筛选")}>
+      <a href={path} data-category-link="all" aria-current="true">{t("All", "全部")} <small>{views.length}</small></a>
+      {categories.map(category => <a href={`${path}?category=${category.slug}`} data-category-link={category.slug}>{category.label[lang]} <small>{category.count}</small></a>)}
+    </nav>
+    <div class="table-scroll">
+      <table class="data-table skills-table">
+        <thead><tr>
+          <th scope="col">{t("Skill", "Skill")}</th>
+          <th scope="col">{t("Health check", "体检")}</th>
+          <th scope="col">{t("Benchmark (with vs without)", "实测（装 vs 不装）")}</th>
+          <th scope="col">{t("License", "许可证")}</th>
+        </tr></thead>
+        <tbody>
+          {views.map(view => (
+            <tr data-skill-row data-category={view.skill.category}>
+              <th scope="row"><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a><small>{view.skill.author.name} · {view.category.label[lang]}</small></th>
+              <td><span class="mini pass">{view.counts.pass}</span> <span class="mini warn">{view.counts.warn}</span> <span class="mini fail">{view.counts.fail}</span>{(view.health?.flags.length ?? 0) > 0 && <small>{view.health!.flags.join(", ")}</small>}</td>
+              <td>{view.result ? <span>{pct(view.result.skill.pooled.with.passRate)} vs {pct(view.result.skill.pooled.without.passRate)} <small>{signedPoints(view.result.skill.pooled.comparison.passRateDelta)} · n={view.result.skill.pooled.with.n}</small></span> : <span class="muted">{t("Not yet", "暂未")}</span>}</td>
+              <td>{view.skill.license.spdx ?? (view.skill.license.file ? t("Own file", "单独文件") : "—")}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="section-note">{t("Health check columns: passes · warnings · failures. A flag describes what a skill contains (for example, bundled scripts); it is not a verdict.", "体检列依次为：通过 · 警告 · 失败。标记描述 Skill 包含什么（例如附带脚本），并非结论。")}</p>
+  </main>
+</BaseLayout>
+<script>
+  const apply = () => {
+    const category = new URL(location.href).searchParams.get('category') ?? 'all';
+    document.querySelectorAll<HTMLElement>('[data-skill-row]').forEach(row => { row.hidden = category !== 'all' && row.dataset.category !== category; });
+    document.querySelectorAll<HTMLAnchorElement>('[data-category-link]').forEach(link => link.setAttribute('aria-current', String(link.dataset.categoryLink === category)));
+  };
+  document.querySelectorAll<HTMLAnchorElement>('[data-category-link]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    history.pushState(null, '', link.href);
+    apply();
+  }));
+  window.addEventListener('popstate', apply);
+  apply();
+</script>
+<style>
+  .skills-index { padding-block: 24px 80px; }
+  .stats-panel { display: grid; gap: 14px; margin: 0; }
+  .stats-panel div { margin: 0; }
+  .category-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 8px; }
+  .category-filter a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; font-size: .84rem; background: var(--paper-strong); }
+  .category-filter a[aria-current="true"] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); }
+  .category-filter small { color: inherit; opacity: .6; margin-left: 4px; }
+  .table-scroll { overflow-x: auto; margin: 18px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .data-table small { display: block; margin-top: 4px; color: var(--faint); font-weight: 400; font-size: .76rem; }
+  .data-table tbody th a { font-weight: 600; }
+  .mini { display: inline-block; min-width: 26px; text-align: center; padding: 1px 6px; border-radius: 8px; font: .76rem var(--font-mono); }
+  .mini.pass { background: var(--green-subtle); color: var(--green); }
+  .mini.warn { background: #fbefd5; color: #7a4b00; }
+  .mini.fail { background: #fbe1dc; color: #9b2412; }
+  .muted { color: var(--faint); }
+</style>

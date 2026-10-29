@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "unrelated-count",
+  "version": 1,
+  "skillId": "anthropics-skills-pdf",
+  "kind": "negative-control",
+  "title": {
+    "en": "Unrelated task: count even numbers",
+    "zh": "无关任务：统计偶数"
+  },
+  "prompt": "numbers.txt has one integer per line. Count how many of them are even and write just that count to count.txt.",
+  "limits": {
+    "maxTurns": 10,
+    "timeoutSec": 300
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "count.txt contains the correct count",
+      "zh": "count.txt 中的数字正确"
+    }
+  ],
+  "requires": []
+}

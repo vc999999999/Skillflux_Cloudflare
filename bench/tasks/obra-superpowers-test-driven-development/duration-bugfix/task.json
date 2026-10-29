@@ -1,0 +1,43 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "duration-bugfix",
+  "version": 1,
+  "skillId": "obra-superpowers-test-driven-development",
+  "kind": "positive",
+  "title": {
+    "en": "Bug fix: parseDuration",
+    "zh": "修复 Bug：parseDuration"
+  },
+  "prompt": "parseDuration in src/duration.js returns the wrong number of minutes when the input has both hours and minutes: \"1h30m\" should be 90. Fix it without changing how single-unit inputs like \"2h\" and \"45m\" behave.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "Hidden tests pass for combined, hour-only and minute-only inputs, and invalid input still throws",
+      "zh": "隐藏测试通过：时分组合、仅小时、仅分钟，且无效输入仍会抛错"
+    },
+    {
+      "en": "The project has its own test file for the function, and npm test passes",
+      "zh": "项目中有针对该函数的测试文件，且 npm test 通过"
+    }
+  ],
+  "requires": [
+    "node"
+  ]
+}

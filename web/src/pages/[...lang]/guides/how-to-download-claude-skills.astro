@@ -1,0 +1,8 @@
+---
+import HowToDownloadSkills from "../../../components/guides/HowToDownloadSkills.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<HowToDownloadSkills lang={lang} />

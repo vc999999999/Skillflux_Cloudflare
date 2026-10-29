@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-internal-comms",
+  "name": "internal-comms",
+  "displayName": {
+    "en": "Internal communications",
+    "zh": "内部沟通"
+  },
+  "summary": {
+    "en": "Anthropic’s templates for internal writing such as status reports, leadership updates, newsletters and incident reports.",
+    "zh": "Anthropic 提供的内部写作模板，包括状态报告、管理层更新、内部通讯和事故报告。"
+  },
+  "upstreamDescription": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/internal-comms",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/internal-comms/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "writing",
+  "tags": [
+    "templates",
+    "reports"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

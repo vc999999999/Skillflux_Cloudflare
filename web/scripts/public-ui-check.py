@@ -33,8 +33,7 @@ def main():
 
             payload = context.request.get(args.base + '/index.json').json()
             source_count = len(payload['sites'])
-            curated_count = len(payload['curated']['skills'])
-            evidence.update({'sources': source_count, 'curated': curated_count})
+            evidence.update({'sources': source_count})
             page.goto(args.base + '/directory/?q=anthropics', wait_until='networkidle')
             print(json.dumps({'directory_controls': page.locator('button').all_text_contents(), 'visible_sources': page.locator('[data-site-row]:visible').all_text_contents()}, ensure_ascii=False))
             expect(page.locator('[data-directory-search]')).to_have_value('anthropics')
@@ -49,55 +48,21 @@ def main():
             first_facet.click()
             assert parse_qs(urlparse(page.url).query)['category'] == [facet_value]
             assert all(value == facet_value for value in page.locator('[data-site-row]:visible').evaluate_all('(rows) => rows.map(row => row.dataset.category)'))
-            assert 'category=' in page.locator('[data-language-link][lang="en"]').get_attribute('href')
+            assert 'category=' in page.locator('[data-language-link][lang="zh-CN"]').get_attribute('href')
             page.reload(wait_until='networkidle')
             expect(page.locator(f'[data-category-filter="{facet_value}"]')).to_have_attribute('aria-pressed', 'true')
-            page.locator('[data-language-link][lang="en"]').click()
+            page.locator('[data-language-link][lang="zh-CN"]').click()
             page.wait_for_load_state('networkidle')
-            assert '/en/directory/' in page.url and 'category=' in page.url
+            assert '/zh/directory/' in page.url and 'category=' in page.url
             page.locator('[data-directory-reset]:visible').first.click()
             page.go_back(wait_until='networkidle')
             expect(page.locator(f'[data-category-filter="{facet_value}"]')).to_have_attribute('aria-pressed', 'true')
             evidence['checks'].append('directory search, empty, clear, facets, URL reload, language and back navigation')
 
-            page.goto(args.base + '/registry/', wait_until='networkidle')
-            print(json.dumps({'registry_controls': page.locator('button,select').all_text_contents(), 'cards': page.locator('[data-skill-id]').count()}, ensure_ascii=False))
-            expect(page.locator('[data-skill-id]')).to_have_count(curated_count)
-            if curated_count:
-                page.locator('[data-skill-filters] input[name="q"]').fill('zzqxv987654321zzq')
-                page.locator('[data-skill-filters] button[type="submit"]').click()
-                expect(page.locator('[data-skill-empty]')).to_be_visible()
-                assert 'q=' in page.locator('[data-language-link][lang="en"]').get_attribute('href')
-                page.locator('[data-skill-filters] button[type="reset"]').click()
-                expect(page.locator('[data-skill-id]:visible')).to_have_count(min(curated_count, 12))
-                if curated_count > 12:
-                    page.locator('[data-skill-next]').click()
-                    assert parse_qs(urlparse(page.url).query)['page'] == ['2']
-                    page.go_back(wait_until='networkidle')
-                    expect(page.locator('[data-skill-prev]')).to_be_disabled()
-                evidence['checks'].append('curated search, reset, empty results and pagination when populated')
-            else:
-                expect(page.locator('.registry-empty')).to_be_visible()
-                expect(page.locator('[data-skill-filters]')).to_have_count(0)
-                assert '00' in page.locator('.registry-status-count').inner_text()
-                evidence['checks'].append('empty catalog shows honest zero-state without search controls')
-
-            if curated_count:
-                page.locator('[data-skill-id] h3 a').first.click()
-                page.wait_for_load_state('networkidle')
-                expect(page.locator('.skill-file')).not_to_have_count(0)
-                expect(page.locator('.skill-file[open] pre')).to_be_visible()
-                page.context.grant_permissions(['clipboard-read', 'clipboard-write'])
-                page.locator('[data-copy-text]').first.click()
-                expect(page.locator('[data-copy-feedback]')).to_be_visible()
-                assert 'skillflux install' in page.evaluate('navigator.clipboard.readText()')
-                evidence['checks'].append('populated exact release, original text and clipboard command')
-
-            routes = ['/', '/en/', '/directory/', '/en/directory/', '/registry/', '/en/registry/', '/scenarios/', '/en/scenarios/', '/install/', '/en/install/', '/quality/', '/en/quality/', '/privacy/', '/terms/', '/contact/', '/submit/', '/en/submit/', '/404.html', '/en/404/', '/guides/', '/insights/']
-            routes += ['/for-ai/', '/en/for-ai/']
+            routes = ['/', '/zh/', '/directory/', '/zh/directory/', '/scenarios/', '/zh/scenarios/', '/quality/', '/zh/quality/', '/privacy/', '/terms/', '/contact/', '/submit/', '/zh/submit/', '/404.html', '/zh/404/', '/guides/', '/insights/']
+            routes += ['/for-ai/', '/zh/for-ai/']
             for section in ['scenarios']:
-                routes += [urlparse(item[key]).path for item in payload[section] for key in ['url', 'englishUrl']]
-            routes += [urlparse(item['versionUrl']).path for item in payload['curated']['skills']]
+                routes += [urlparse(item[key]).path for item in payload[section] for key in ['url', 'chineseUrl']]
             for width in [1440, 768, 390, 320]:
                 page.set_viewport_size({'width': width, 'height': 920})
                 for route in routes:
@@ -133,24 +98,18 @@ def main():
 
             nojs = browser.new_context(java_script_enabled=False, viewport={'width': 1280, 'height': 900})
             static_page = nojs.new_page()
-            for route in ['/directory/', '/en/directory/']:
+            for route in ['/directory/', '/zh/directory/']:
                 static_page.goto(args.base + route, wait_until='networkidle')
                 expect(static_page.locator('[data-site-row]:visible')).to_have_count(source_count)
                 expect(static_page.locator('main#main-content')).to_have_count(1)
-            for route in ['/registry/', '/en/registry/']:
-                static_page.goto(args.base + route, wait_until='networkidle')
-                expect(static_page.locator('[data-skill-id]:visible')).to_have_count(curated_count)
-            for item in payload['curated']['skills']:
-                static_page.goto(args.base + urlparse(item['versionUrl']).path, wait_until='networkidle')
-                expect(static_page.locator('.skill-file[open] pre')).to_be_visible()
             static_page.goto(args.base + '/scenarios/', wait_until='networkidle')
             for item in payload['scenarios']:
                 assert item['title']['zh'] in static_page.locator('main').inner_text()
-            evidence['checks'].append('JavaScript disabled: all source rows, curated cards/text and scenarios remain server-rendered')
+            evidence['checks'].append('JavaScript disabled: all source rows and scenarios remain server-rendered')
             nojs.close()
 
             all_links = set()
-            for route in ['/', '/en/', '/directory/', '/scenarios/', '/registry/', '/for-ai/']:
+            for route in ['/', '/zh/', '/directory/', '/scenarios/', '/for-ai/']:
                 page.goto(args.base + route, wait_until='networkidle')
                 for href in page.locator('a[href]').evaluate_all('(links) => links.map(link => link.href)'):
                     if href.startswith(args.base):

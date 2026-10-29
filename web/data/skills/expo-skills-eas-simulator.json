@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-eas-simulator",
+  "name": "eas-simulator",
+  "displayName": {
+    "en": "eas-simulator",
+    "zh": "eas-simulator"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Run and control a user's app on a remote iOS/Android simulator hosted on EAS cloud. Read before running any `eas simulator:*` commands - it has the current syntax for this experimental API. Use whenever the user needs a simulator they can't run locally - 'run my app on a cloud simulator', 'use eas simulator to run/install/screenshot my app', 'I'm on Linux/Cursor and need an iOS device', 'no sim on this box / headless CI', 'let an agent click through my app and screenshot it', 'test my dev build on a remote sim with live reload', 'stream a sim to my browser' - even when they don't say 'EAS Simulator' or 'cloud'. On a host WITHOUT a local simulator (Linux, CI, cloud sandbox) it's the default; on macOS, do NOT auto-trigger for a plain 'run on the simulator' - use it only for a cloud/remote/shareable sim, an iOS version they lack, or an agent-driven session. NOT for local sims (expo run:ios, Xcode, Android Studio), EAS Build/Update, web preview, or physical devices.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/eas-simulator",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

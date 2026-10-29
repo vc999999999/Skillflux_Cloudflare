@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-to-spec",
+  "name": "to-spec",
+  "displayName": {
+    "en": "To spec (Matt Pocock)",
+    "zh": "整理成需求（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s skill for turning the current conversation into a spec and filing it in the project’s issue tracker.",
+    "zh": "Matt Pocock 的 Skill：把当前对话整理成需求规格，并提交到项目的 issue 系统。"
+  },
+  "upstreamDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/to-spec",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "specs",
+    "issues"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

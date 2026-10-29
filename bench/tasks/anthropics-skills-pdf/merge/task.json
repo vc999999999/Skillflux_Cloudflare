@@ -1,0 +1,44 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "merge",
+  "version": 1,
+  "skillId": "anthropics-skills-pdf",
+  "kind": "positive",
+  "title": {
+    "en": "Merge two PDFs in order",
+    "zh": "按顺序合并两个 PDF"
+  },
+  "prompt": "Combine part-a.pdf followed by part-b.pdf into a single file named combined.pdf.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "combined.pdf opens and has exactly three pages",
+      "zh": "combined.pdf 可打开且正好 3 页"
+    },
+    {
+      "en": "Pages one and two come from part-a.pdf and page three from part-b.pdf",
+      "zh": "第 1、2 页来自 part-a.pdf，第 3 页来自 part-b.pdf"
+    }
+  ],
+  "requires": [
+    "python3",
+    "pypdf"
+  ]
+}

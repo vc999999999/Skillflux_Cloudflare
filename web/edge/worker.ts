@@ -1,9 +1,12 @@
 import { isFacetedUrl } from '../src/lib/indexing-policy';
+import { GONE_HEADERS, renderGonePage, resolveRoute, type GoneRules } from '../src/lib/route-rules';
 
 declare const __SEO_REDIRECTS__: Record<string, string>;
 declare const __SEO_PAGES__: string[];
+declare const __SEO_GONE__: GoneRules;
 const redirects = __SEO_REDIRECTS__;
 const pages = new Set(__SEO_PAGES__);
+const gone = __SEO_GONE__;
 const primaryHost = 'skillflux.app';
 
 export default {
@@ -11,8 +14,13 @@ export default {
     const url = new URL(request.url);
     const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
     if (['skillflux.cn', 'www.skillflux.cn', 'www.skillflux.app'].includes(url.hostname)) {
+      // The .cn domain served Chinese pages at the root; keep that reader on Chinese.
+      // Machine files (.txt, .json, .xml) keep their path.
+      const chinese = url.hostname.endsWith('skillflux.cn') && !/\.[a-z0-9]+$/i.test(url.pathname)
+        && !/^\/(?:zh|en)(?:\/|$)/.test(url.pathname);
       url.protocol = 'https:';
       url.hostname = primaryHost;
+      if (chinese) url.pathname = `/zh${url.pathname}`;
       return Response.redirect(url.href, 308);
     }
     if (url.protocol === 'http:' && !loopback) {
@@ -22,21 +30,14 @@ export default {
     if (/^\/(?:_worker\.js|\.assetsignore)\/?$/.test(url.pathname)) {
       return new Response('Not found', { status: 404, headers: { 'X-Robots-Tag': 'noindex, follow' } });
     }
-    const redirect = redirects[url.pathname] ?? redirects[`${url.pathname.replace(/\/$/, '')}/`];
-    if (redirect) return Response.redirect(new URL(redirect + url.search, url.origin).href, 301);
+    const decision = resolveRoute(url.pathname, redirects, gone);
+    if (decision?.kind === 'redirect') return Response.redirect(new URL(decision.location + url.search, url.origin).href, 301);
+    if (decision?.kind === 'gone') return new Response(request.method === 'HEAD' ? null : renderGonePage(), { status: 410, statusText: 'Gone', headers: GONE_HEADERS });
 
     const indexPath = url.pathname.replace(/index\.html$/, '');
     const canonicalPath = indexPath.endsWith('/') ? indexPath : `${indexPath}/`;
     if (pages.has(canonicalPath) && canonicalPath !== url.pathname) {
       return Response.redirect(new URL(canonicalPath + url.search, url.origin).href, 301);
-    }
-    if (/^\/(?:en\/)?registry\/$/.test(url.pathname) && url.searchParams.has('page') && !isFacetedUrl(url)) {
-      const number = Number(url.searchParams.get('page'));
-      const path = number === 1 ? url.pathname : `${url.pathname}page/${number}/`;
-      if (Number.isSafeInteger(number) && number >= 1 && pages.has(path)) {
-        url.searchParams.delete('page');
-        return Response.redirect(new URL(path + url.search, url.origin).href, 301);
-      }
     }
 
     // force-trailing-slash serves the 404.html asset at /404/ with status 200.

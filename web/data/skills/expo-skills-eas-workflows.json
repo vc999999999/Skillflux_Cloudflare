@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-eas-workflows",
+  "name": "eas-workflows",
+  "displayName": {
+    "en": "eas-workflows",
+    "zh": "eas-workflows"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Helps understand and write EAS workflow YAML files for Expo projects. Use this skill when the user asks about CI/CD or workflows in an Expo or EAS context, mentions .eas/workflows/, or wants help with EAS build pipelines or deployment automation.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/eas-workflows",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT License",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

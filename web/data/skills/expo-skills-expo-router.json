@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "expo-skills-expo-router",
+  "name": "expo-router",
+  "displayName": {
+    "en": "Expo Router",
+    "zh": "Expo Router"
+  },
+  "summary": {
+    "en": "Expo’s official skill for file-based navigation with Expo Router: routes, stacks, tabs, modals and headers.",
+    "zh": "Expo 官方 Skill，介绍基于文件的 Expo Router 导航：路由、栈、标签页、模态框与标题栏。"
+  },
+  "upstreamDescription": "Navigation and routing for Expo Router. Covers file-based routes, groups and dynamic routes, folder organization, Link with previews and context menus, native Stack, page titles, modals and form sheets, NativeTabs, headers and toolbars, and header search bars.",
+  "source": {
+    "repo": "https://github.com/expo/skills",
+    "path": "plugins/expo/skills/expo-router",
+    "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Expo",
+    "url": "https://github.com/expo"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": "MIT",
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-expo-skills",
+  "category": "mobile",
+  "tags": [
+    "expo",
+    "react-native",
+    "navigation"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-pptx",
+  "name": "pptx",
+  "displayName": {
+    "en": "PowerPoint decks (pptx)",
+    "zh": "PowerPoint 演示文稿（pptx）"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for building and editing PowerPoint decks, from reading existing slides to generating new ones from templates or HTML layouts.",
+    "zh": "Anthropic 出品，用于创建和编辑 PowerPoint 演示文稿，可读取已有幻灯片，也可基于模板或 HTML 版式生成新稿。"
+  },
+  "upstreamDescription": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/pptx",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Proprietary. LICENSE.txt has complete terms",
+    "file": "skills/pptx/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "documents",
+  "tags": [
+    "pptx",
+    "office",
+    "slides"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

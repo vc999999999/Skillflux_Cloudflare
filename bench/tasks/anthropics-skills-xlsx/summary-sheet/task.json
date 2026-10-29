@@ -1,0 +1,48 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "summary-sheet",
+  "version": 1,
+  "skillId": "anthropics-skills-xlsx",
+  "kind": "positive",
+  "title": {
+    "en": "Summary sheet referencing the data sheet",
+    "zh": "引用数据表的汇总表"
+  },
+  "prompt": "Build orders.xlsx from orders.csv with two sheets: \"Orders\" holding the rows from the CSV, and \"Summary\" showing total units and total revenue (units multiplied by price, summed over all orders). Both totals must be formulas that reference the Orders sheet.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "orders.xlsx has an Orders sheet with all six products",
+      "zh": "orders.xlsx 有包含全部 6 种产品的 Orders 表"
+    },
+    {
+      "en": "A Summary sheet exists with at least two formulas that reference the Orders sheet",
+      "zh": "存在 Summary 表，且至少有两个引用 Orders 表的公式"
+    },
+    {
+      "en": "One Summary formula multiplies units by price (SUMPRODUCT, or a per-row revenue column that is summed)",
+      "zh": "Summary 中有一个公式把数量乘以单价（SUMPRODUCT，或先算每行收入再求和）"
+    }
+  ],
+  "requires": [
+    "python3",
+    "openpyxl"
+  ]
+}

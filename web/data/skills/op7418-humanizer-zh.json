@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "op7418-humanizer-zh",
+  "name": "humanizer-zh",
+  "displayName": {
+    "en": "Humanizer-zh",
+    "zh": "Humanizer-zh（中文去模板化）"
+  },
+  "summary": {
+    "en": "Edits Chinese articles and documents to remove filler, repetition and template phrasing while keeping facts and the author’s voice.",
+    "zh": "编辑中文文章和文档里的空话、重复和模板化表达，同时保留事实、确定程度和作者的语气。"
+  },
+  "upstreamDescription": "编辑中文文章、评论和文档中的空话、重复及模板化表达，让文字更自然，同时保留事实、确定程度和作者声音。适用于润色已有文本，不用于判断作者身份或保证通过 AI 检测器。",
+  "source": {
+    "repo": "https://github.com/op7418/Humanizer-zh",
+    "path": "",
+    "commitSha": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "op7418",
+    "url": "https://github.com/op7418"
+  },
+  "license": {
+    "spdx": null,
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-op7418-humanizer-zh",
+  "category": "writing",
+  "tags": [
+    "chinese",
+    "editing"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

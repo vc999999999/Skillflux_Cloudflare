@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-handoff",
+  "name": "handoff",
+  "displayName": {
+    "en": "Handoff (Matt Pocock)",
+    "zh": "交接（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s skill for compacting a conversation into a handoff document another agent can pick up.",
+    "zh": "Matt Pocock 的 Skill：把对话压缩成交接文档，供另一个 Agent 接手。"
+  },
+  "upstreamDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/productivity/handoff",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "context",
+    "handoff"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

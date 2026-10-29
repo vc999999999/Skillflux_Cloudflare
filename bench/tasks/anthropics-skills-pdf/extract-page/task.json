@@ -1,0 +1,48 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "extract-page",
+  "version": 1,
+  "skillId": "anthropics-skills-pdf",
+  "kind": "positive",
+  "title": {
+    "en": "Pull out a single page",
+    "zh": "抽取单独一页"
+  },
+  "prompt": "Create page-two.pdf containing only the second page of report.pdf. Leave report.pdf unchanged.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "page-two.pdf opens and has exactly one page",
+      "zh": "page-two.pdf 可打开且只有 1 页"
+    },
+    {
+      "en": "That page is report.pdf's second page",
+      "zh": "该页是 report.pdf 的第 2 页"
+    },
+    {
+      "en": "report.pdf still has three pages",
+      "zh": "report.pdf 仍为 3 页"
+    }
+  ],
+  "requires": [
+    "python3",
+    "pypdf"
+  ]
+}

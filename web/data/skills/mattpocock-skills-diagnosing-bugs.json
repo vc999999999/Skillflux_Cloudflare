@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-diagnosing-bugs",
+  "name": "diagnosing-bugs",
+  "displayName": {
+    "en": "Diagnosing bugs (Matt Pocock)",
+    "zh": "诊断 Bug（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s diagnosis loop for hard bugs and performance regressions.",
+    "zh": "Matt Pocock 针对疑难 Bug 和性能回退的诊断循环。"
+  },
+  "upstreamDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/diagnosing-bugs",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "debugging",
+    "performance"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

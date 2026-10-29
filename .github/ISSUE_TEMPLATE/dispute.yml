@@ -1,0 +1,26 @@
+name: Dispute a result
+description: Report a health check finding or benchmark number you believe is wrong.
+title: "Dispute: "
+labels: ["dispute"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Report page or data file
+      placeholder: https://skillflux.app/skills/<id>/
+    validations:
+      required: true
+  - type: input
+    id: item
+    attributes:
+      label: Which result
+      description: The check id (for example scripts.destructive), or the run id and task.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why it is wrong
+      description: What you expected instead and the evidence (file and line in the skill, a reproduction, etc.). Published runs are never edited; a confirmed problem leads to a corrected record or a new run that supersedes the old one.
+    validations:
+      required: true

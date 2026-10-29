@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-improve-codebase-architecture",
+  "name": "improve-codebase-architecture",
+  "displayName": {
+    "en": "Improve codebase architecture (Matt Pocock)",
+    "zh": "改进代码架构（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s scan for places where modules could be deepened, presented as an HTML report you then work through.",
+    "zh": "Matt Pocock 的扫描流程：找出可以“加深”的模块，输出 HTML 报告后逐项推进。"
+  },
+  "upstreamDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/improve-codebase-architecture",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "architecture",
+    "refactoring"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

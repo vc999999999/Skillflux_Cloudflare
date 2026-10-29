@@ -1,14 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { absoluteUrl, getCategories } from '../lib/content';
-import { getPublication, skillPath } from '../lib/publication';
 import { getScenario } from '../lib/scenarios';
 import { localizePath, translateCategory, type Language } from '../lib/i18n';
-const { slug, lang = 'zh' } = Astro.props as { slug: string; lang?: Language };
+const { slug, lang = 'en' } = Astro.props as { slug: string; lang?: Language };
 const scenario = getScenario(slug)!;
 const zh = lang === 'zh';
 const categories = getCategories();
-const related = getPublication().latest.slice(0, 3);
 const canonicalPath = localizePath(`/scenarios/${slug}/`, lang);
 ---
 <BaseLayout lang={lang} title={scenario.title[lang]} description={scenario.summary[lang]} canonicalPath={canonicalPath} jsonLd={{ '@context': 'https://schema.org', '@type': 'TechArticle', headline: scenario.title[lang], description: scenario.summary[lang], dateModified: scenario.updatedAt, inLanguage: zh ? 'zh-CN' : 'en', url: absoluteUrl(canonicalPath) }}>
@@ -17,7 +15,7 @@ const canonicalPath = localizePath(`/scenarios/${slug}/`, lang);
     <article><header><h1>{scenario.title[lang]}</h1><p class="page-lede">{scenario.summary[lang]}</p><p class="section-note">{zh ? '维护于' : 'Maintained'} <time datetime={scenario.updatedAt}>{scenario.updatedAt}</time> · {zh ? '产品使用与选型说明，不是外部 Skill 实测报告' : 'Product guidance, not an external skill evaluation'}</p></header>
       {scenario.sections.map(section => <section><h2>{section.title[lang]}</h2><p>{section.body[lang]}</p>{section.command && <div class="scenario-command"><code>{section.command}</code><button type="button" data-copy-text={section.command}>{zh ? '复制' : 'Copy'}</button></div>}</section>)}
     </article>
-    <aside><h2>{zh ? '继续查找与接入' : 'Continue exploring'}</h2><ul><li><a href={localizePath('/directory/', lang)}>{zh ? '完整来源黄页' : 'Full source directory'}</a></li>{categories.map(category => <li><a href={localizePath(`/source-type/${category.slug}/`, lang)}>{translateCategory(category.slug, category.label, lang)} ({category.count})</a></li>)}<li><a href={localizePath('/registry/', lang)}>{zh ? '查看精品 Skill 与实际质检记录' : 'Curated skills and recorded evidence'}</a></li>{related.map(({ skill }) => <li><a href={localizePath(skillPath(skill.id), lang)}>{skill.name}</a></li>)}<li><a href={localizePath('/install/', lang)}>{zh ? 'npm/MCP 完整接入步骤' : 'Complete npm/MCP setup'}</a></li></ul></aside>
+    <aside><h2>{zh ? '继续查找' : 'Continue exploring'}</h2><ul><li><a href={localizePath('/directory/', lang)}>{zh ? '完整来源黄页' : 'Full source directory'}</a></li>{categories.map(category => <li><a href={localizePath(`/source-type/${category.slug}/`, lang)}>{translateCategory(category.slug, category.label, lang)} ({category.count})</a></li>)}<li><a href={localizePath('/insights/', lang)}>{zh ? 'Skill 拆解' : 'Skill deep-dives'}</a></li></ul></aside>
   </main>
 </BaseLayout>
 <style>

@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-theme-factory",
+  "name": "theme-factory",
+  "displayName": {
+    "en": "Theme factory",
+    "zh": "主题工厂"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for applying one of ten preset color-and-font themes, or a generated one, to slides, documents and web pages.",
+    "zh": "Anthropic 出品，为幻灯片、文档和网页套用十套预设配色字体主题之一，或现场生成新主题。"
+  },
+  "upstreamDescription": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/theme-factory",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/theme-factory/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "design",
+  "tags": [
+    "themes",
+    "styling"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

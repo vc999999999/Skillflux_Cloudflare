@@ -2,66 +2,65 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language; kind: "quality" | "privacy" | "terms" | "contact" };
-const { lang = "zh", kind } = Astro.props;
+const { lang = "en", kind } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const documents = {
   quality: {
-    title: t("怎样才算通过审核。", "What approval requires."),
-    label: t("质量标准", "Quality standards"),
-    intro: t("审核针对一个确定版本和它的内容指纹。自动扫描与人工实测分别记录；发布索引由 GitHub 目录仓库生成。", "Review applies to an exact version and content fingerprint. Automated checks and human evaluation are recorded separately; the publication index is generated from the GitHub catalog."),
+    title: t("一个来源怎样被收录。", "How a source gets listed."),
+    label: t("收录标准", "Listing policy"),
+    intro: t("黄页收录的是 Skill 的来源：官方合集、市场、开源仓库、社区榜单和导航站。收录说明来源存在、可访问且用途清楚，不代表其中每个 Skill 都经过测试。", "The directory lists skill sources: vendor collections, marketplaces, open-source repositories, community lists and directories. Listing means a source exists, is reachable and has a clear purpose. It does not mean every skill in it was tested."),
     sections: [
-      [t("先检查全部包内容", "Inspect the complete package"), t("入库需提供文本文件、入口、权限、依赖、许可证、发布者及版本维护信息。当前 Registry 仅接受无网络、Shell 或密钥权限的文本包。自动检查记录可见；纯文本不等于安全，检查不能代替人工实测。", "Submissions include all text files, an entry point, permissions, dependencies, license, publisher and release metadata. The current registry accepts text packages without network, shell or secret capabilities. Automated check results are visible; text alone is not proof of safety, and checks do not replace human testing.")],
-      [t("真实运行主要用途和边界场景", "Run the purpose and boundary cases"), t("发布前需由人实际执行主要用途成功场景和边界场景，并在全部声明支持的宿主中成功安装和读取。记录测试者、测试时间、环境与模型、输入、预期、实际结果、步骤、限制和证据。模拟结果不能充当人工实测。", "Before publication, a person must execute a successful primary-purpose case and a boundary case, and successfully install and read the package in every declared host. Records capture the tester, time, environment and model, input, expected and actual results, steps, limitations and evidence. Simulations do not qualify as human tests.")],
-      [t("公开脱敏摘要，保留原始记录", "Publish a redacted summary"), t("公开详情展示质量结论、适用宿主、测试时间及脱敏摘要。原始测试记录供内部复核，不进入公开目录仓库。批准、拒绝、撤销应在仓库审核记录中注明理由。", "Public details show qualification, tested hosts, test time and a redacted summary. Raw test records remain available for internal review and do not enter the public catalog. Approval, rejection and revocation should include reasons in the repository review records.")],
-      [t("每个版本都需重新确认", "Review each version independently"), t("更新需说明变更、是否破坏兼容、最低客户端版本、维护时间和维护者。审批不会改写已发布的旧版本。已撤销版本从可安装集合移除，客户端在线检查撤销信息；离线状态不能保证已知最新撤销。", "Updates declare changes, breaking compatibility, minimum client version, maintenance time and maintainer. Approval does not overwrite an older published version. Revoked versions are removed from the installable set, and online clients check revocations; offline operation cannot guarantee knowledge of the latest revocations.")],
-      [t("标准的边界", "Limits of the standard"), t("审核提高可追溯性，不保证模型每次执行正确，也不保证第三方服务、宿主更新后仍兼容。使用者仍需检查权限、输入适用性和模型输出；声明的限制是选择 Skill 的一部分。", "Review improves traceability. It does not guarantee correct model output on every run or compatibility after third-party service or host changes. Users still need to inspect capabilities, suitability of inputs and model outputs. Declared limitations matter when choosing a skill.")]
+      [t("收录条件", "What qualifies"), t("来源需要公开可访问，能说明提供什么类型的 Skill、面向哪些宿主，并能找到作者或维护方。只做转载、没有原始来源的页面不收录。", "A source must be publicly reachable, say what kind of skills it offers and for which hosts, and identify an author or maintainer. Pages that only repost content without an original source are not listed.")],
+      [t("我们写什么", "What we write"), t("每个来源页包含编辑整理的用途、适用场景、局限和替代选择，并链接原始网站。这些是编辑判断；来源中的能力说法属于作者自述。", "Each source page has an editorial summary of purpose, fit, limitations and alternatives, and links to the original. These are editorial judgments; capability claims made by the source belong to its author.")],
+      [t("复核与下架", "Review and delisting"), t("来源页标注最后复核日期。失效、长期无人维护或内容与描述明显不符的来源会被标为观察中或归档。发现错误可以通过提交页或 GitHub Issue 反馈。", "Source pages show their last review date. Sources that go offline, stop being maintained or clearly differ from their description are marked as watching or archived. Report errors through the submit page or a GitHub issue.")],
+      [t("没有付费收录", "No paid placement"), t("收录、排序和推荐不接受付费。编辑推荐只表示值得优先阅读，不是官方背书。", "Listing, ordering and recommendations are not paid for. An editorial pick means a source is worth reading first; it is not an official endorsement.")],
+      [t("标准的边界", "Limits of this policy"), t("收录标准帮助你更快找到可追溯的来源，不保证某个 Skill 在你的模型、宿主和任务上有效。使用前请在不含生产密钥的测试项目中验证。", "This policy helps you find traceable sources faster. It does not guarantee that a skill works with your model, host or task. Verify in a test project without production secrets before relying on one.")]
     ]
   },
   privacy: {
     title: t("哪些信息会留下。", "What information is retained."),
     label: t("隐私说明", "Privacy notice"),
-    intro: t("公开浏览无需注册。静态页面与本地客户端的网络访问范围不同；本站不收集任何表单提交的个人信息。", "Public browsing needs no account. The static site and the local client have different network footprints; this site collects no form-submitted personal data."),
+    intro: t("本站是静态内容站，浏览无需注册，不收集表单提交的个人信息。", "This is a static content site. Browsing needs no account, and the site collects no form-submitted personal information."),
     sections: [
-      [t("公开访问与基础日志", "Public access and operational logs"), t("公开页面不要求用户身份，也不在线运行 AI。Cloudflare 和 GitHub 可能收到 IP、时间、请求路径、浏览器信息和错误日志，用于提供服务和排障。无需账号不等于不产生访问数据。", "Public pages do not require identity and do not run AI online. Cloudflare and GitHub may receive IP addresses, timestamps, request paths, browser information and error logs for delivery and diagnostics. Account-free access does not mean no access data is generated.")],
-      [t("本地项目与 Registry", "Local projects and the registry"), t("本地 Runtime 管理项目配置、目录索引缓存和版本锁定。搜索在本地缓存索引上进行，检索词不会离开你的机器；客户端仅连接 GitHub 目录仓库下载索引与技能文件。该机制不要求把整个项目、密钥或完整对话上传到任何服务器。外部模型供应商的数据处理以使用者选择的服务为准。", "The local runtime manages project configuration, the cached catalog index and version locks. Search runs locally over the cached index; queries never leave your machine. The client only contacts the GitHub catalog repository to download the index and skill files. This mechanism does not require uploading an entire project, secrets or full conversations to any server. External model providers process data under the user's chosen service.")],
-      [t("内部权限与联系", "Internal access and contact"), t("技能内容由 GitHub 目录仓库管理，访问权限由仓库与 GitHub 账号体系控制。人工实测的原始记录不进入公开目录仓库；公开内容仅包含允许公开的摘要。如需更正目录内容，请通过仓库 Issue 或既有联系渠道说明。", "Skill content is managed in a GitHub catalog repository; access is governed by the repository and GitHub accounts. Raw evaluation records never enter the public catalog repository; only approved summaries are public. To correct catalog content, open a repository issue or use an established contact channel.")]
+      [t("基础访问日志", "Operational logs"), t("Cloudflare 可能收到 IP、时间、请求路径、浏览器信息和错误日志，用于提供服务和排障。我们不在页面中嵌入广告或第三方追踪脚本。", "Cloudflare may receive IP addresses, timestamps, request paths, browser details and error logs to serve the site and troubleshoot. Pages embed no ads or third-party tracking scripts.")],
+      [t("站内搜索", "On-site search"), t("站内搜索在浏览器中对静态索引进行，检索词不会发送到服务器。", "On-site search runs in your browser over a static index; queries are not sent to a server.")],
+      [t("反馈与更正", "Feedback and corrections"), t("通过 GitHub 提交反馈时，你的 GitHub 账号与内容由 GitHub 按其政策处理。请不要在反馈中提交密钥或私人对话。", "Feedback submitted through GitHub is handled by GitHub under its own policy, including your account details. Do not include secrets or private conversations in feedback.")]
     ]
   },
   terms: {
-    title: t("服务如何使用。", "How the service is used."),
+    title: t("内容如何使用。", "How the content may be used."),
     label: t("服务条款", "Terms of service"),
-    intro: t("本页解释当前产品机制与使用边界。", "This page explains current product behavior and usage limits."),
+    intro: t("本页说明站内内容的性质与使用边界。", "This page explains what the site's content is and how it may be used."),
     sections: [
-      [t("目录与软件包", "Directory and packages"), t("来源目录提供第三方入口及简介，权利归原作者。GitHub 目录仓库提供具备版本与质量记录的技能包。使用或再分发前应阅读对应许可证；不可借来源收录声称第三方背书。", "The source directory links to third-party resources and summaries; rights remain with their authors. The GitHub catalog repository provides skill packages with version and quality records. Read each license before using or redistributing it, and do not treat directory inclusion as third-party endorsement.")],
-      [t("本地执行边界", "Local execution limits"), t("网站不代替宿主执行 AI。安装需要本地 Runtime、宿主配置及适用权限；外部模型服务可有自己的费用和限制。固定版本、更新检查和主动升级是不同操作，用户应检查变更与破坏性更新。", "The website does not execute AI on behalf of a host. Installation needs the local runtime, host configuration and appropriate permissions. External model services may have separate costs and limits. Version pinning, update checks and explicit upgrades are distinct operations; users should inspect changes and breaking updates.")],
-      [t("内容责任与问题处理", "Content responsibility and review"), t("目录仓库维护者应提供真实且有权使用的内容与许可证声明，不得提交误导、侵权或恶意内容。我们不保证被搜索引擎或 AI 收录，也不承诺审核等同于零风险。", "Catalog maintainers should provide truthful, authorized content and license statements, without misleading, infringing or malicious material. We do not guarantee search-engine or AI indexing, or risk-free outcomes from review.")]
+      [t("第三方来源", "Third-party sources"), t("目录收录第三方入口及简介，相关权利归原作者。使用或再分发第三方 Skill 前，请阅读其许可证；不可借本站收录声称第三方背书。", "The directory lists third-party sources with summaries; rights belong to their authors. Read each license before using or redistributing a third-party skill, and do not present a listing as an endorsement.")],
+      [t("本站内容", "Our content"), t("编辑摘要与分析文章可以在注明来源和链接的前提下引用。引用时请保留页面上的更新日期。", "Editorial summaries and analyses may be quoted with attribution and a link. Keep the page's update date when citing.")],
+      [t("不作保证", "No warranty"), t("内容按发布时的资料整理，外部仓库可能随时变化。我们不保证被搜索引擎或 AI 收录，也不保证某个 Skill 适合你的任务。", "Content reflects sources as of publication, and external repositories can change at any time. We do not guarantee search or AI inclusion, or that any skill fits your task.")]
     ]
   },
   contact: {
     title: t("把问题交给合适的入口。", "Choose the right contact path."),
     label: t("联系与反馈", "Contact and feedback"),
-    intro: t("浏览、搜索和本地安装无需登录。以下入口分别接收合作需求与接入问题。", "Browsing, search and local installation require no login. The paths below cover cooperation inquiries and setup questions."),
+    intro: t("浏览和搜索无需登录。以下入口分别接收合作需求、内容更正与收录推荐。", "Browsing and search require no login. The paths below cover cooperation inquiries, corrections and listing suggestions."),
     sections: [
-      [t("产品与合作", "Product and cooperation inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the desired collaboration and at least one contact channel.")],
-      [t("目录内容问题", "Catalog content concerns"), t("目录内容问题可直接在对应 GitHub 仓库提交 Issue，说明技能 ID、版本和具体问题。", "For catalog content concerns, open an issue in the corresponding GitHub repository with the skill ID, version and the specific problem.")],
-      [t("本地接入与资料请求", "Local setup and data requests"), t("先阅读接入指南，检查客户端安装与版本、宿主配置和目录仓库地址。资料更正或删除请求可沿用既有联系渠道说明。不要提交项目密钥或完整私人对话。", "Start with the setup guide and check your client installation and version, host configuration and catalog repository. For data corrections or deletions, use an established contact channel. Do not submit project secrets or complete private conversations.")]
+      [t("产品与合作", "Product and cooperation inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the kind of cooperation you want and at least one way to reach you.")],
+      [t("内容更正", "Corrections"), t("发现来源信息过期或描述有误，请在 GitHub Issue 中注明页面地址和具体问题，最好附上原始来源链接。", "If a source page is outdated or wrong, open a GitHub issue with the page URL, the specific problem and ideally a link to the original source.")],
+      [t("推荐收录", "Suggest a source"), t("通过提交页推荐值得收录的来源，说明它提供什么、面向哪些宿主以及作者是谁。", "Use the submit page to suggest a source, with what it offers, which hosts it targets and who maintains it.")]
     ]
   }
 };
 const document = documents[kind];
-const updatedAt = kind === "contact" ? "2026-10-09" : "2026-10-01";
+const updatedAt = "2026-10-29";
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/" + kind + "/", lang)} title={document.label} description={document.intro} pageClass="policy-page">
   <main id="main-content" class="policy-shell">
     <a href={localizePath("/",lang)} class="policy-back">← {t("返回首页", "Home")}</a>
-    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("适用当前实现 · 更新于 ", "Current implementation · Updated ")}{updatedAt}</small></header>
+    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("更新于 ", "Updated ")}{updatedAt}</small></header>
     <div class="policy-body">
       <nav aria-label={t("相关说明", "Related information")}>
-        {[["quality",t("质量标准","Quality standards")],["privacy",t("隐私说明","Privacy")],["terms",t("服务条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
+        {[["quality",t("收录标准","Listing policy")],["privacy",t("隐私说明","Privacy")],["terms",t("服务条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
       </nav>
       <article>{document.sections.map(([heading,body],index)=><section><p class="policy-number">{String(index+1).padStart(2,"0")}</p><div><h2>{heading}</h2><p>{body}</p></div></section>)}
-        <div class="policy-actions"><a href={localizePath("/install/",lang)}>{t("本地接入指南","Local setup guide")} →</a></div>
       </article>
     </div>
   </main>

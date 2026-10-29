@@ -1,17 +1,18 @@
 ---
 import GlobalSearch from "./GlobalSearch.astro";
 import { SITE } from "../config";
-import { DEFAULT_LANGUAGE, getAlternateLanguagePath, localizePath, type Language } from "../lib/i18n";
+import { DEFAULT_LANGUAGE, getAlternateLanguagePath, localizePath, stripLanguagePrefix, type Language } from "../lib/i18n";
 type Props = { lang?: Language; currentPath?: string; showLanguage?: boolean };
 const { lang = DEFAULT_LANGUAGE, currentPath = "/", showLanguage = true } = Astro.props;
 const zh = lang === "zh";
-const path = currentPath.replace(/^\/en(?=\/)/, "");
+const path = stripLanguagePrefix(currentPath);
 const showLanguageSwitcher = showLanguage;
 const links = [
-  { href: "/directory/", label: zh ? "资源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
-  { href: "/registry/", label: zh ? "精品 Skill" : "Registry", active: /^\/(registry|skill)(\/|$)/.test(path) },
-  { href: "/guides/", label: zh ? "指南" : "Guides", active: /^\/(guides|scenarios|insights)(\/|$)/.test(path) },
-  { href: "/for-ai/", label: "For AI", active: path.startsWith("/for-ai") }
+  { href: "/skills/", label: zh ? "Skill 数据" : "Skills", active: /^\/(skills)(\/|$)/.test(path) },
+  { href: "/benchmarks/", label: zh ? "实测" : "Benchmarks", active: /^\/(benchmarks|runs)(\/|$)/.test(path) },
+  { href: "/directory/", label: zh ? "来源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
+  { href: "/insights/", label: zh ? "Skill 拆解" : "Insights", active: /^\/(insights|guides|scenarios)(\/|$)/.test(path) },
+  { href: "/data/", label: zh ? "数据" : "Data", active: /^\/(data|methodology|for-ai)(\/|$)/.test(path) }
 ];
 ---
 <header class="sf-header">
@@ -29,9 +30,9 @@ const links = [
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.58 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
       </a>
       {showLanguageSwitcher && <div class="sf-language" aria-label={zh ? "切换语言" : "Language"}>
-        <a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a>
+        <a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a>
       </div>}
-      <a class="sf-header-cta" href={localizePath("/install/", lang)}>{zh ? "开始使用" : "Get started"}<span aria-hidden="true">↗</span></a>
+      <a class="sf-header-cta" href={localizePath("/data/", lang)}>{zh ? "获取数据" : "Get the data"}<span aria-hidden="true">↗</span></a>
       <button class="sf-menu-toggle" type="button" aria-controls="sf-mobile-nav" aria-expanded="false" aria-label={zh ? "打开导航菜单" : "Open navigation"} data-open-label={zh ? "打开导航菜单" : "Open navigation"} data-close-label={zh ? "关闭导航菜单" : "Close navigation"}>
         <svg class="sf-menu-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="sf-menu-close" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
@@ -39,7 +40,7 @@ const links = [
   </div>
   <nav class="sf-mobile-nav" id="sf-mobile-nav" aria-label={zh ? "移动端导航" : "Mobile navigation"} hidden>
     {links.map(link => <a href={localizePath(link.href, lang)} aria-current={link.active ? "page" : undefined}>{link.label}<span aria-hidden="true">↗</span></a>)}
-    <a href={localizePath("/install/", lang)}>{zh ? "开始使用 SkillFlux" : "Get started with SkillFlux"}<span aria-hidden="true">↗</span></a><a href={SITE.repoUrl} rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a>
+    <a href={SITE.repoUrl} rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a>
   </nav>
 </header>
 <style>

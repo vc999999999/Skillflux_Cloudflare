@@ -1,9 +1,12 @@
 import type { Site } from "./content";
 
-export const SUPPORTED_LANGUAGES = ["zh", "en"] as const;
+export const SUPPORTED_LANGUAGES = ["en", "zh"] as const;
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 
-export const DEFAULT_LANGUAGE: Language = "zh";
+export const DEFAULT_LANGUAGE: Language = "en";
+
+/** English lives at the root; every other language under its own prefix. */
+export const LANGUAGE_PREFIX: Record<Language, string> = { en: "", zh: "/zh" };
 
 type PageCopy = {
   htmlLang: string;
@@ -14,7 +17,6 @@ type PageCopy = {
     homeLabel: string;
     directory: string;
     llms: string;
-    pack: string;
     languageLabel: string;
   };
   home: {
@@ -23,7 +25,6 @@ type PageCopy = {
     browseDirectory: string;
     readForAi: string;
     rssSubscribe: string;
-    packEntry: string;
     statsLabel: string;
     stats: {
       resources: string;
@@ -31,21 +32,6 @@ type PageCopy = {
       featured: string;
       updated: string;
     };
-    panelAria: string;
-    panelTitle: string;
-    panelVersion: string;
-    panelTagline: string;
-    ledger: {
-      install: string;
-      installValue: string;
-      scope: string;
-      scopeValue: string;
-      maintenance: string;
-      maintenanceValue: string;
-      adapters: string;
-      adaptersValue: string;
-    };
-    viewPack: string;
     featuredEyebrow: string;
     featuredTitle: string;
     featuredNote: string;
@@ -134,14 +120,6 @@ type PageCopy = {
     accessQ: (name: string) => string;
     accessA: (name: string, url: string) => string;
   };
-  cta: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    command: string;
-    copy: string;
-    note: string;
-  };
   resource: {
     recommended: string;
     details: string;
@@ -185,7 +163,6 @@ type PageCopy = {
     forAi: string;
     brand: string;
     directory: string;
-    pack: string;
     copyrightNote: string;
   };
 };
@@ -200,7 +177,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       homeLabel: "SkillFlux 首页",
       directory: "目录",
       llms: "llms.txt",
-      pack: "连接项目",
       languageLabel: "语言切换"
     },
     home: {
@@ -209,7 +185,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       browseDirectory: "查找想增加的能力",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
-      packEntry: "精装包入口",
       statsLabel: "站点统计",
       stats: {
         resources: "可选能力",
@@ -217,21 +192,6 @@ export const pageCopy: Record<Language, PageCopy> = {
         featured: "精选推荐",
         updated: "最近更新"
       },
-      panelAria: "SkillFlux 安装",
-      panelTitle: "skillflux",
-      panelVersion: "v0.1.1",
-      panelTagline: "为你的 Agent 扩充任何能力的统一入口——按需选配，自动写入配置，无须手动复制粘贴。",
-      ledger: {
-        install: "安装方式",
-        installValue: "一键安装",
-        scope: "安装范围",
-        scopeValue: "按项目按需",
-        maintenance: "更新维护",
-        maintenanceValue: "版本管理 · 持续更新",
-        adapters: "已适配",
-        adaptersValue: "Claude · Cursor · Codex"
-      },
-      viewPack: "立即查看精装包",
       featuredEyebrow: "Curated",
       featuredTitle: "常用且高频的能力推荐入口。",
       featuredNote: "首位是官方与核心能力推荐，其余按高频场景排序。每条都能进入详情页，查看如何给 Agent 接入。",
@@ -320,14 +280,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       accessQ: (name) => `如何访问 ${name}？`,
       accessA: (name, url) => `点击本页「访问原站」按钮，或直接打开 ${url} 即可进入 ${name} 原站。SkillFlux 只做导航与简介，不代理其内容。`
     },
-    cta: {
-      eyebrow: "Local Skill Runtime",
-      title: "先连接一个项目，再让 Skill 按需到达。",
-      body: "安装本地入口后，SkillFlux 从 GitHub 目录仓库读取索引；固定版本、文件哈希和项目锁管理每次下载与更新。",
-      command: "skillflux --help",
-      copy: "复制",
-      note: "先构建并安装当前仓库的 npm 包，再执行命令；详见接入使用"
-    },
     resource: {
       recommended: "推荐",
       details: "详情",
@@ -371,7 +323,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       forAi: "给 AI",
       brand: "品牌",
       directory: "功能黄页",
-      pack: "安装 SkillFlux",
       copyrightNote: "本站仅做导航与简介，内容版权归各集合站所有。"
     }
   },
@@ -384,7 +335,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       homeLabel: "SkillFlux home",
       directory: "Directory",
       llms: "llms.txt",
-      pack: "Connect project",
       languageLabel: "Language switcher"
     },
     home: {
@@ -393,7 +343,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       browseDirectory: "Find capabilities for your agent",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",
-      packEntry: "Pack entry",
       statsLabel: "Catalog metrics",
       stats: {
         resources: "Available capabilities",
@@ -401,21 +350,6 @@ export const pageCopy: Record<Language, PageCopy> = {
         featured: "Curated",
         updated: "Updated"
       },
-      panelAria: "SkillFlux install",
-      panelTitle: "skillflux",
-      panelVersion: "v0.1.1",
-      panelTagline: "The easiest way to give your AI agent new capabilities — pick what you need, configuration is handled automatically.",
-      ledger: {
-        install: "Installation",
-        installValue: "Single command",
-        scope: "Scope",
-        scopeValue: "Per project, on demand",
-        maintenance: "Maintenance",
-        maintenanceValue: "Versioned · verified",
-        adapters: "Adapters",
-        adaptersValue: "Claude · Cursor · Codex"
-      },
-      viewPack: "View runtime pack",
       featuredEyebrow: "Curated",
       featuredTitle: "Popular capabilities to add to your agent.",
       featuredNote: "Curated capabilities with transparent reasoning, task fit, and clear documentation. Jump into details or connect to your agent.",
@@ -504,14 +438,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       accessQ: (name) => `How do I access ${name}?`,
       accessA: (name, url) => `Use the "Visit source" button on this page, or open ${url} directly to reach ${name}. SkillFlux only provides navigation and summaries; it does not proxy the content.`
     },
-    cta: {
-      eyebrow: "Local Skill Runtime",
-      title: "Connect one project, then let skills arrive on demand.",
-      body: "Install the local npm entry and explicitly invoke SkillFlux to search qualified skills. Review an exact-version plan, authorize installation, and check updates without modifying project files.",
-      command: "skillflux --help",
-      copy: "Copy",
-      note: "Build the currently provided local package before using this command"
-    },
     resource: {
       recommended: "Recommended",
       details: "Details",
@@ -555,7 +481,6 @@ export const pageCopy: Record<Language, PageCopy> = {
       forAi: "For AI",
       brand: "Brand",
       directory: "Yellow Pages",
-      pack: "Install SkillFlux",
       copyrightNote: "SkillFlux is an open navigation and summary layer. Rights belong to the original resource owners."
     }
   }
@@ -648,11 +573,37 @@ export function getPageCopy(lang: Language = DEFAULT_LANGUAGE): PageCopy {
 }
 
 
-export function localizePath(path: string, lang: Language): string {
+/** Removes a language prefix. The retired /en/ prefix is accepted for old links. */
+export function stripLanguagePrefix(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  const withoutEnglishPrefix = normalized === "/en" ? "/" : normalized.replace(/^\/en(?=\/)/, "");
-  if (lang === "zh") return withoutEnglishPrefix;
-  return withoutEnglishPrefix === "/" ? "/en/" : `/en${withoutEnglishPrefix}`;
+  if (normalized === "/zh" || normalized === "/en") return "/";
+  return normalized.replace(/^\/(?:zh|en)(?=\/)/, "");
+}
+
+export function localizePath(path: string, lang: Language): string {
+  const bare = stripLanguagePrefix(path);
+  const prefix = LANGUAGE_PREFIX[lang];
+  if (!prefix) return bare;
+  return bare === "/" ? `${prefix}/` : `${prefix}${bare}`;
+}
+
+export function languageOfPath(path: string): Language {
+  return /^\/zh(?:\/|$)/.test(path) ? "zh" : "en";
+}
+
+/** An article lives only at the URL of the language it was written in. */
+export function insightPath(entry: { id: string; data: { lang?: Language } }): string {
+  return localizePath(`/insights/${entry.id}/`, entry.data.lang ?? "zh");
+}
+
+export const HREFLANG: Record<Language, string> = { en: "en", zh: "zh-CN" };
+
+/** getStaticPaths for pages that exist in every language: `/x/` and `/zh/x/`. */
+export function langStaticPaths() {
+  return SUPPORTED_LANGUAGES.map((lang) => ({
+    params: { lang: LANGUAGE_PREFIX[lang].slice(1) || undefined },
+    props: { lang }
+  }));
 }
 
 export function getAlternateLanguagePath(currentPath: string, targetLang: Language): string {

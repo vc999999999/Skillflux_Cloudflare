@@ -5,7 +5,6 @@ import { absoluteUrl } from "../lib/content";
 import { getGuides } from "../lib/guides";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
 import Breadcrumb from "./Breadcrumb.astro";
-import PackCta from "./PackCta.astro";
 
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -79,7 +78,6 @@ const jsonLd = [
       ))}
     </section>
 
-    <PackCta lang={lang} />
   </main>
 </BaseLayout>
 

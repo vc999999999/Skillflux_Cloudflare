@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "mattpocock-skills-prototype",
+  "name": "prototype",
+  "displayName": {
+    "en": "Prototype (Matt Pocock)",
+    "zh": "原型（Matt Pocock）"
+  },
+  "summary": {
+    "en": "Matt Pocock’s skill for building a throwaway prototype to answer one design question about logic, state or UI.",
+    "zh": "Matt Pocock 的 Skill：做一个用完即弃的原型，只回答一个关于逻辑、状态或界面的设计问题。"
+  },
+  "upstreamDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+  "source": {
+    "repo": "https://github.com/mattpocock/skills",
+    "path": "skills/engineering/prototype",
+    "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Matt Pocock",
+    "url": "https://github.com/mattpocock"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-mattpocock-skills",
+  "category": "engineering",
+  "tags": [
+    "prototyping",
+    "design"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

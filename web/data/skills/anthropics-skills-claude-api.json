@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-claude-api",
+  "name": "claude-api",
+  "displayName": {
+    "en": "Claude API reference",
+    "zh": "Claude API 参考"
+  },
+  "summary": {
+    "en": "Anthropic’s reference skill for building with the Claude API and SDKs across languages — models, tool use, streaming, caching and managed agents.",
+    "zh": "Anthropic 出品的 Claude API 参考 Skill，覆盖多种语言 SDK，包括模型、工具调用、流式输出、缓存与托管 Agent。"
+  },
+  "upstreamDescription": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration.\nTRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens).\nSKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/claude-api",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/claude-api/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "engineering",
+  "tags": [
+    "api",
+    "sdk",
+    "anthropic"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

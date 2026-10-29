@@ -3,9 +3,8 @@ import { getCollection } from "astro:content";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { absoluteUrl } from "../lib/content";
-import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
+import { HREFLANG, insightPath, DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
 import Breadcrumb from "./Breadcrumb.astro";
-import PackCta from "./PackCta.astro";
 
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -38,7 +37,7 @@ const jsonLd = [
         "@type": "ListItem",
         position: index + 1,
         name: entry.data.title,
-        url: absoluteUrl(`/insights/${entry.id}/`)
+        url: absoluteUrl(insightPath(entry))
       }))
     }
   },
@@ -78,19 +77,18 @@ const jsonLd = [
 
     <section class="insight-list">
       {entries.map((entry) => (
-        <a class="insight-card" href={`/insights/${entry.id}/`}>
+        <a class="insight-card" href={insightPath(entry)}>
           <p class="insight-card-meta">
             <span class="insight-card-industry">{entry.data.industry}</span>
             <span>{copy.insightsPage.updatedPrefix} <time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></span>
           </p>
-          <h2 lang="zh-CN">{entry.data.title}</h2>
-          <p class="insight-card-desc" lang="zh-CN">{entry.data.description}</p>
+          <h2 lang={HREFLANG[entry.data.lang]}>{entry.data.title}</h2>
+          <p class="insight-card-desc" lang={HREFLANG[entry.data.lang]}>{entry.data.description}</p>
           <span class="insight-card-more">{copy.insightsPage.readMore} →</span>
         </a>
       ))}
     </section>
 
-    <PackCta lang={lang} />
   </main>
 </BaseLayout>
 

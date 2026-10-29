@@ -1,0 +1,48 @@
+{
+  "schema": "skillflux-bench-task/v1",
+  "id": "growth-column",
+  "version": 1,
+  "skillId": "anthropics-skills-xlsx",
+  "kind": "positive",
+  "title": {
+    "en": "Growth column as formulas",
+    "zh": "用公式计算增长列"
+  },
+  "prompt": "Turn quarterly.csv into quarterly.xlsx. Keep the Region, Q1 and Q2 columns and add a Growth column that computes the change from Q1 to Q2 for each region. Growth must be a formula in every row and displayed as a percentage.",
+  "limits": {
+    "maxTurns": 40,
+    "timeoutSec": 900
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Skill"
+  ],
+  "grader": {
+    "type": "script",
+    "entry": "grade.mjs",
+    "timeoutSec": 120
+  },
+  "checks": [
+    {
+      "en": "quarterly.xlsx opens and keeps all five regions with Q1 and Q2 as numbers",
+      "zh": "quarterly.xlsx 可打开，5 个地区及 Q1、Q2 数值都保留"
+    },
+    {
+      "en": "Every region row has a Growth formula that references that row's Q1 and Q2 cells",
+      "zh": "每个地区行都有引用本行 Q1 和 Q2 的增长公式"
+    },
+    {
+      "en": "The Growth cells use a percentage number format",
+      "zh": "增长列单元格使用百分比格式"
+    }
+  ],
+  "requires": [
+    "python3",
+    "openpyxl"
+  ]
+}

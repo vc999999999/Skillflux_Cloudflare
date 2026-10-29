@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "android-skills-appfunctions",
+  "name": "appfunctions",
+  "displayName": {
+    "en": "appfunctions",
+    "zh": "appfunctions"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Analyzes Android apps to find user workflows to expose as AppFunctions, such as creating a note, playing media, or sending a message. AI agents, voice commands, and system shortcuts then run them without opening the app UI. Generates Kotlin code with the androidx.appfunctions library, and refines KDoc and the app description so that agents choose and call functions correctly. Use this skill when discovering, implementing, documenting, testing, or upgrading AppFunctions in an Android app, including @AppFunctionDeclaration, @AppFunctionSerializable, @AppFunctionServiceEntryPoint, AppFunctionService, app_metadata.xml, appfn:instructions, adb shell cmd app_function, and legacy @AppFunction or AppFunctionConfiguration.Provider code. Don't use for building agents that call AppFunctions or for remote MCP servers.",
+  "source": {
+    "repo": "https://github.com/android/skills",
+    "path": "device-ai/appfunctions",
+    "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Android",
+    "url": "https://github.com/android"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-android-skills",
+  "category": "mobile",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

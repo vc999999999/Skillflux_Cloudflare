@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below. For a single result, cite the skill's report page and the run id or commit it names."
+type: dataset
+title: "SkillFlux agent skill health and benchmark dataset"
+version: "1.0.0"
+date-released: "2026-10-29"
+authors:
+  - name: "SkillFlux"
+    website: "https://skillflux.app"
+url: "https://skillflux.app/data/"
+repository-code: "https://github.com/vc999999999/Skillflux_Cloudflare"
+license: CC-BY-4.0
+keywords:
+  - agent skills
+  - Claude Code
+  - SKILL.md
+  - LLM evaluation
+  - benchmark
+abstract: >-
+  Static health checks of public agent skills (SKILL.md packages) pinned to
+  exact Git commits, and controlled with/without-skill benchmarks run in
+  Claude Code headless mode, with Wilson and Newcombe 95% intervals.
+  Methodology: https://skillflux.app/methodology/v1/

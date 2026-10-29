@@ -16,9 +16,9 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
   <main id="main-content" class="page-shell directory-page">
-    <header class="directory-heading"><div><p class="eyebrow">{zh ? 'AI AGENT 功能黄页' : 'THE AGENT CAPABILITY YELLOW PAGES'}</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div><a href={localizePath('/registry/', lang)}>{zh ? '查看可安装的精品能力' : 'Explore installable curated capabilities'} <span aria-hidden="true">↗</span></a></header>
+    <header class="directory-heading"><div><p class="eyebrow">{zh ? 'AI AGENT 功能黄页' : 'THE AGENT CAPABILITY YELLOW PAGES'}</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div></header>
     <ResourceTable sites={sites} showControls heading={title} lang={lang} />
-    <aside class="source-note"><strong>{zh ? '从黄页到落地' : 'From discovery to execution'}</strong><p>{zh ? '本黄页收录全网开放来源。进入详情可追溯原始网站；通过 SkillFlux 安装的审核版本与测试记录，请前往精品库。' : 'This yellow pages directory lists open ecosystem sources. Follow each detail page to original sources; find releases and review records ready for installation in the curated Registry.'}</p><a href={localizePath('/registry/', lang)}>{zh ? '精品能力库 →' : 'Curated Registry →'}</a></aside>
+    <aside class="source-note"><strong>{zh ? '收录不等于测试' : 'Listed is not tested'}</strong><p>{zh ? '本黄页收录全网开放来源，进入详情可追溯原始网站。收录说明来源存在且可访问，不代表其中每个 Skill 都经过测试；使用前请核对原始说明、许可证与维护状态。' : 'This directory lists open ecosystem sources; each detail page links to the original. Listing means a source exists and is reachable, not that every skill in it was tested. Check the original instructions, license and maintenance before use.'}</p><a href={localizePath('/quality/', lang)}>{zh ? '收录标准 →' : 'Listing policy →'}</a></aside>
   </main>
 </BaseLayout>
 <style>

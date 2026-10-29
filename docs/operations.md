@@ -1,58 +1,49 @@
 # SkillFlux 运行说明
 
-更新日期：2026-10-11（GitHub 目录仓库架构）
+更新日期：2026-10-29（内容站 + 实测数据架构）
 
 ## 架构
 
-- **技能内容**：GitHub 目录仓库 [vc999999999/skillflux-catalog](https://github.com/vc999999999/skillflux-catalog)，`skills/<category>/<id>/<version>/` + 生成式 `index.json`。无自托管服务器。
-- **客户端**：npm CLI + 本地 stdio MCP。搜索在本机缓存的索引上进行；下载钉 commit SHA、逐文件验 sha256。
-- **网站**：Astro 静态构建，部署至 Cloudflare Workers；公开技能内容来自目录仓库快照。
+- **网站**：`web/` 下的 Astro 静态站。构建产物在 `web/dist`，Cloudflare Worker（`web/edge/worker.ts`）负责：
+  - 域名统一；
+  - 旧 URL 的重定向和 410；
+  - 筛选页的 noindex。
+- **数据**：全部以 JSON 文件形式放在 `web/data/`，随代码一起评审和提交，没有数据库也没有后端。
+- **工具**：`bench/` 负责导入 Skill、L1 体检、L2 实测和发布，网站通过 `@skillflux/bench/*` 共享 schema 和统计函数。
 
-免签名信任模型：GitHub 账号 2FA + 分支保护 + commit SHA 钉扎 + 逐文件 sha256 + 目录仓库 CI 一致性检查。
+## 例行维护
 
-## 目录仓库维护
+| 任务 | 频率 | 方式 |
+| --- | --- | --- |
+| L1 体检 | 每周一 | `.github/workflows/health.yml`：只有结果变化时才开 PR，人工评审后合并 |
+| 新收录 Skill | 按需 | `bench import` → 写摘要 → `status: listed` → `npm run validate` |
+| L2 实测 | 按批次 | 在容器中执行 `bench run` → 复核 → `bench publish` → 转录作为 GitHub Release 附件 |
+| 结果更正 | 有 dispute 时 | 体检记录修正后重跑；实测发新批次并 `--supersedes` 旧批次，旧批次不删除 |
+| 上游变化 | 出现 `upstream-changed` 标记时 | 人工决定是否重新钉定提交，并重新体检、实测 |
+
+## URL 规则
+
+- 英文在根路径，中文在 `/zh/`。旧的 `/en/*` 一律 301 到对应的根路径。
+- 语言切换前，旧的无前缀 `/site/x/`、`/category/x/` 是中文页，现在 301 到 `/zh/resource/…`、`/zh/source-type/…`。
+- `skillflux.cn` 的 HTML 请求 308 到 `skillflux.app/zh/…`，机器文件（`.txt`、`.json`、`.xml`）保持原路径。
+- 只有中文版本的文章，英文地址 301 到 `/zh/insights/<slug>/`。这些规则由 `build-deployment.ts` 根据构建产物生成。
+- 已下线的工具页返回 410：
+  - `/install/`、`/setup/`、`/registry/page/*`、`/releases/feed.xml`、`/skills-index.json`；
+  - 旧工具里的 `/skills/<旧 id>/` 及其版本页（列表见 `web/data/legacy-tool-urls.json`）；
+  - 两个工具专用场景页。
+- `/registry/` 301 到 `/directory/`。
+
+上线语言切换后，需要在 Google Search Console、Bing 和百度重新提交 `sitemap.xml`。
+
+## 部署
 
 ```bash
-# 修改技能内容后（同一 <id>/<version>/ 目录内容不可变）：
-skillflux catalog /path/to/skillflux-catalog           # 重新生成 index.json
-git diff && git add -A && git commit && git push       # 审查后提交
+npm run deploy
 ```
 
-CI（目录仓库 `.github/workflows/verify.yml`）运行 `skillflux catalog --check .`：`index.json` 与目录内容不一致即失败。
+Cloudflare Workers Builds 的构建命令为 `npm run build`，产物目录为 `web/dist`。原先由目录仓库触发的 Deploy Hook 已废弃，可以在 Cloudflare 中删除。
 
-目录 main 的 `index.json` 变更通过验证后，CI 使用仓库 secret `CLOUDFLARE_DEPLOY_HOOK_URL` 触发主站生产构建。Deploy Hook 绑定主站 main；站点构建自行固定目录 SHA 并验证快照。主站代码推送也会触发其现有 Cloudflare 构建。Hook URL 是部署凭据，不能写入仓库、日志或公开文档。
+## 已归档
 
-需要手动重试时，在目录仓库 `Verify catalog` 工作流选择 `main` 运行；它仍先完整验证目录，再复用同一刷新任务。
-
-审核流程：`skillflux.review.json` 的 `status` 字段决定发布状态；人工评测（`kind: "human"`）的 `contentHash` 必须绑定当前目录内容——`skillflux catalog build` 会校验该绑定。`simulation` 证据不能使版本 qualified。撤销 = 将 review status 改为 `revoked` + 重建 index，依赖者派生状态随之失效。
-
-## 网站发布
-
-```bash
-npm run build:production --workspace @skillflux/web    # 同步真实目录仓库快照 + 构建
-npm run deploy:production --workspace @skillflux/web    # wrangler 部署到 Cloudflare
-```
-
-`publication:build --watch --repo ... --interval 60` 持续同步；相同 commit SHA 跳过重建。失败保留上一份有效站点与快照。
-
-发布构建只接受 GitHub Catalog v2 快照；构建完成后才切换生产产物指针。目录仓库身份固定，不能在同一产物路径下悄悄更换仓库。
-
-发布后检查版本页面、`/releases/feed.xml` 与 `/feed.xml`；重复构建不得改变已有版本的 RSS GUID。启动提醒、显式检查、加载更新与 RSS 的职责和回归范围见 [更新交付说明](update-delivery.md)。
-
-Wrangler 需要已登录的 Cloudflare 账号；`wrangler.workers.jsonc` 的路由与产物路径已指向生产配置。紧急撤销还需处理部署端/CDN 缓存；不能声称已追回用户下载或模型已经读入的旧文字。
-
-## 备份与恢复
-
-- 目录仓库备份 = `git clone` / fork；历史回溯依赖 git 历史。
-- 网站重建随时可从目录仓库完整重放。
-- 当前架构没有服务器数据库；目录仓库及其 Git 历史是技能内容的备份来源。
-
-## 客户端离线与缓存行为
-
-- 目录索引缓存最长 24 小时；主动检查刷新。
-- 离线加载：可加载此前已验证的已安装内容，但明确披露「当前目录仓库状态未知」；离线安装、升级、回滚不允许。
-- 已知撤销不会因离线而被绕过：本地锁与安装记录保留最近一次已知状态。
-
-## 国内可达性预留
-
-`raw.githubusercontent.com` 在部分网络环境下不可达。客户端 `init --source URL` 可指定镜像源。Worker 目前没有 GitHub 透传缓存路由；如需添加，应按固定 commit SHA 回源并验证缓存行为。
+- npm 包 `@skillflux/mcp` 与目录仓库 `skillflux-catalog` 的代码保存在 tag `v1.3.0-tool-final`。
+- 建议对 npm 包执行 `npm deprecate`，并把目录仓库设为 archived。这两步需要账号权限，由维护者手动完成。

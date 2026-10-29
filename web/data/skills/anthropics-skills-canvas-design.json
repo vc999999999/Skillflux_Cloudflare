@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-canvas-design",
+  "name": "canvas-design",
+  "displayName": {
+    "en": "Canvas design",
+    "zh": "画布设计"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for producing static visual pieces such as posters as PNG or PDF, guided by a written design philosophy for each piece.",
+    "zh": "Anthropic 出品，用于生成海报等静态视觉作品（PNG 或 PDF），每件作品先写设计理念再动手。"
+  },
+  "upstreamDescription": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/canvas-design",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/canvas-design/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "design",
+  "tags": [
+    "poster",
+    "png",
+    "pdf"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

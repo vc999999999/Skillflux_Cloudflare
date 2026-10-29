@@ -1,0 +1,30 @@
+{
+  "name": "@skillflux/bench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SkillFlux skill health checks and Claude Code benchmarks",
+  "exports": {
+    "./schema": "./src/schema.ts",
+    "./stats": "./src/stats.ts",
+    "./checks": "./src/health/checks.ts",
+    "./summarize": "./src/summarize.ts"
+  },
+  "scripts": {
+    "bench": "tsx src/cli.ts",
+    "health": "tsx src/cli.ts health",
+    "lint-tasks": "tsx src/cli.ts lint-tasks",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^6.0.3",
+    "vitest": "^3.0.0"
+  }
+}

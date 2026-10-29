@@ -1,0 +1,152 @@
+{
+  "schema": "skillflux-health/v1",
+  "skillId": "mattpocock-skills-wayfinder",
+  "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+  "checkerVersion": "1.0.0",
+  "changedAt": "2026-10-29",
+  "resultHash": "9ffe7584874d9e3234e33b4acc7343f6e888f1a9e89a0b85331e552ce63790d4",
+  "checks": [
+    {
+      "id": "skillmd.present",
+      "status": "pass",
+      "value": true,
+      "detail": "SKILL.md found"
+    },
+    {
+      "id": "frontmatter.parse",
+      "status": "pass",
+      "value": true,
+      "detail": "frontmatter parsed"
+    },
+    {
+      "id": "frontmatter.name",
+      "status": "pass",
+      "value": "wayfinder",
+      "detail": "valid name"
+    },
+    {
+      "id": "frontmatter.nameMatchesDir",
+      "status": "pass",
+      "value": true,
+      "detail": "name matches its directory"
+    },
+    {
+      "id": "frontmatter.description",
+      "status": "pass",
+      "value": 197,
+      "detail": "197 characters"
+    },
+    {
+      "id": "frontmatter.descriptionTrigger",
+      "status": "warn",
+      "value": false,
+      "detail": "does not say when the skill should be used"
+    },
+    {
+      "id": "frontmatter.descriptionVoice",
+      "status": "pass",
+      "value": true,
+      "detail": "third person, no XML"
+    },
+    {
+      "id": "frontmatter.unknownKeys",
+      "status": "info",
+      "value": null,
+      "detail": "none"
+    },
+    {
+      "id": "body.tokensApprox",
+      "status": "pass",
+      "value": 3036,
+      "detail": "within budget"
+    },
+    {
+      "id": "body.lines",
+      "status": "pass",
+      "value": 123,
+      "detail": "123 lines"
+    },
+    {
+      "id": "refs.brokenLinks",
+      "status": "warn",
+      "value": 1,
+      "detail": "missing: link"
+    },
+    {
+      "id": "files.inventory",
+      "status": "info",
+      "value": 2,
+      "detail": "2 files, 12552 bytes"
+    },
+    {
+      "id": "files.binary",
+      "status": "pass",
+      "value": 0,
+      "detail": "no executables or archives"
+    },
+    {
+      "id": "scripts.present",
+      "status": "info",
+      "value": 0,
+      "detail": "no scripts"
+    },
+    {
+      "id": "scripts.network",
+      "status": "info",
+      "value": 0,
+      "detail": "no network calls found"
+    },
+    {
+      "id": "scripts.destructive",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "secrets.scan",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "instructions.risk",
+      "status": "pass",
+      "value": 0,
+      "detail": "none found"
+    },
+    {
+      "id": "license.detected",
+      "status": "pass",
+      "value": "MIT",
+      "detail": "repository license"
+    },
+    {
+      "id": "repo.activity",
+      "status": "pass",
+      "value": -1,
+      "detail": "last changed -1 days before the check"
+    },
+    {
+      "id": "pinned.drift",
+      "status": "info",
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
+    }
+  ],
+  "metrics": {
+    "descriptionChars": 197,
+    "bodyTokensApprox": 3036,
+    "bodyLines": 123,
+    "fileCount": 2,
+    "totalBytes": 12552,
+    "scriptCount": 0,
+    "lastCommitAt": "2026-10-29T10:24:04Z",
+    "commitsSincePin": 0
+  },
+  "repo": {
+    "stars": 306296,
+    "archived": false,
+    "checkedAt": "2026-10-29"
+  },
+  "flags": []
+}

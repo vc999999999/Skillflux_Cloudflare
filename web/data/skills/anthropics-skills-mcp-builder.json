@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-mcp-builder",
+  "name": "mcp-builder",
+  "displayName": {
+    "en": "MCP server builder",
+    "zh": "MCP 服务构建"
+  },
+  "summary": {
+    "en": "Anthropic’s guide to designing and implementing MCP servers in Python (FastMCP) or TypeScript, covering tool design, testing and evaluation.",
+    "zh": "Anthropic 出品，指导用 Python（FastMCP）或 TypeScript 设计和实现 MCP 服务，涵盖工具设计、测试与评估。"
+  },
+  "upstreamDescription": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/mcp-builder",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": "Complete terms in LICENSE.txt",
+    "file": "skills/mcp-builder/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "engineering",
+  "tags": [
+    "mcp",
+    "typescript",
+    "python"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

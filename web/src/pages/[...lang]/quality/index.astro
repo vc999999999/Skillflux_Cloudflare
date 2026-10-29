@@ -1,0 +1,8 @@
+---
+import PolicyPage from "../../../components/PolicyPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<PolicyPage lang={lang} kind="quality" />

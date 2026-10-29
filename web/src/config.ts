@@ -1,9 +1,9 @@
 export const SITE = {
   name: "SkillFlux",
   shortName: "SkillFlux",
-  description: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？一站式检索全网 Agent Skills、MCP 工具、插件与开源生态。按需选型、透明验证，即插即用。",
+  description: "SkillFlux tests AI agent skills and publishes the results as open data, alongside a directory of skill sources for Claude Code, Codex and Cursor.",
   url: process.env.SITE_URL || "https://skillflux.app",
-  locale: "zh-CN",
+  locale: "en",
   author: "SkillFlux",
   repoUrl: "https://github.com/vc999999999/Skillflux_Cloudflare",
   schemaVersion: "2026-06-24",
@@ -26,13 +26,13 @@ export const SITE = {
 } as const;
 
 export const ENDPOINTS = [
-  { path: "/AGENTS.md", label: "Agent entry point", description: "写给 AI agent 的站点说明书：阅读顺序、端点用途、路由规则与数据边界。" },
-  { path: "/llms.txt", label: "LLM quick map", description: "站点定位、标识、精选入口和数据端点说明。" },
-  { path: "/llms-full.txt", label: "Full text catalog", description: "完整资源清单的纯文本版本。" },
-  { path: "/index.json", label: "JSON index", description: "与 data/sites.json 保持一致的结构化索引。" },
-  { path: "/feed.xml", label: "RSS feed", description: "合格 Skill 版本发布、资源新增、能力说明更新与 Skill 拆解文章订阅流。" },
-  { path: "/insights/feed.xml", label: "Insights RSS", description: "保留的编辑解读订阅流，不代表平台人工实测。" },
-  { path: "/releases/feed.xml", label: "Skill releases RSS", description: "仅订阅合格 Skill 包的版本发布与更新说明；项目内检查决定可升级项。" },
-  { path: "/skills-index.json", label: "Curated releases", description: "构建时从 GitHub 目录仓库生成的精品版本索引；安装前客户端重新检查仓库状态。" },
-  { path: "/scenarios/index.json", label: "Scenarios", description: "场景、选型和维护指南的结构化目录。" }
+  { path: "/AGENTS.md", label: "Agent entry point", description: "How agents should read and cite SkillFlux: reading order, citation rules and routing." },
+  { path: "/llms.txt", label: "LLM quick map", description: "What SkillFlux measures, every skill's headline result, citation rules, then the source directory." },
+  { path: "/llms-full.txt", label: "Full text", description: "Every skill with summary, license, commit and results, plus the complete source directory." },
+  { path: "/data/index.json", label: "Dataset manifest", description: "Every data file (JSON, CSV, JSON Schema) with size and sha256. CC BY 4.0." },
+  { path: "/index.json", label: "JSON index", description: "Skills with results, benchmark runs, and directory sources in one structured file." },
+  { path: "/feed.xml", label: "RSS feed", description: "New benchmark reports, new sources and skill deep-dives." },
+  { path: "/benchmarks/feed.xml", label: "Benchmarks RSS", description: "One item per skill in each published benchmark run." },
+  { path: "/insights/feed.xml", label: "Insights RSS", description: "Editorial skill deep-dives (in Chinese); analysis, not measurements." },
+  { path: "/scenarios/index.json", label: "Scenarios", description: "Task-based guides for choosing a skill source." }
 ] as const;

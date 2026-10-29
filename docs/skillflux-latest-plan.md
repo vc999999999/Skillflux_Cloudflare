@@ -1,3 +1,5 @@
+> **已被取代（2026-10-29）**：SkillFlux 不再分发 Skill，转为实测数据站 + 来源黄页，见 [README](../README.md) 与 [运维说明](operations.md)。本文描述的 npm/MCP 架构保存在 tag `v1.3.0-tool-final`，仅作历史参考。
+
 # SkillFlux 最新完整计划
 
 更新日期：2026-10-08（增加项目级授权自动跟随内容更新）

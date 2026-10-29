@@ -1,0 +1,38 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-subagent-driven-development",
+  "name": "subagent-driven-development",
+  "displayName": {
+    "en": "Subagent-driven development (Superpowers)",
+    "zh": "子 Agent 驱动开发（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ pattern of dispatching a fresh subagent for each plan task, with review between tasks.",
+    "zh": "Superpowers 的模式：每个计划任务交给一个新的子 Agent，任务之间进行评审。"
+  },
+  "upstreamDescription": "Use when executing implementation plans with independent tasks in the current session",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/subagent-driven-development",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "subagents",
+    "execution"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

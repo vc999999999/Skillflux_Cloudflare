@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "./Breadcrumb.astro";
+import { absoluteUrl } from "../lib/content";
+import { localizePath, type Language } from "../lib/i18n";
+import { armLine, pct, signedPoints, usd } from "../lib/skill-data";
+import { getBenchmarkedViews, getRuns } from "../lib/skills";
+
+type Props = { lang: Language };
+const { lang } = Astro.props;
+const zh = lang === "zh";
+const t = (en: string, cn: string) => zh ? cn : en;
+const path = localizePath("/benchmarks/", lang);
+// Ranked by the lower bound of the difference interval: a skill ranks high
+// only when the evidence that it helps is strong, not when a small sample was lucky.
+const views = getBenchmarkedViews().sort((a, b) => (b.result!.skill.pooled.comparison.newcombe95?.[0] ?? -2) - (a.result!.skill.pooled.comparison.newcombe95?.[0] ?? -2));
+const runs = getRuns().filter(run => run.status === "published");
+const title = t("Agent skill benchmark leaderboard (Claude Code)", "Agent Skill 实测排行（Claude Code）");
+const description = views.length
+  ? t(`${views.length} agent skills benchmarked in Claude Code against a no-skill baseline, ranked by the lower bound of the 95% interval for the change in pass rate.`, `${views.length} 个 Agent Skill 在 Claude Code 中与不装 Skill 的基线对照实测，按通过率变化 95% 区间的下界排序。`)
+  : t("No benchmark run has been published yet. This page will rank skills by the measured change in task pass rate once the first run is out.", "尚未发布任何测试批次。首个批次发布后，本页将按实测的任务通过率变化对 Skill 排序。");
+const modified = runs[0]?.publishedAt ?? "2026-10-29";
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "CollectionPage", name: title, description, url: absoluteUrl(path), inLanguage: zh ? "zh-CN" : "en", dateModified: modified,
+    mainEntity: { "@type": "ItemList", itemListOrder: "https://schema.org/ItemListOrderDescending", numberOfItems: views.length, itemListElement: views.map((view, index) => ({ "@type": "ListItem", position: index + 1, url: absoluteUrl(localizePath(`/skills/${view.skill.id}/`, lang)), name: view.skill.displayName[lang] })) } },
+];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={views.length === 0}>
+  <main id="main-content" class="page-shell bench-page">
+    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Benchmarks", "实测排行") }]} />
+    <header class="detail-hero">
+      <p class="eyebrow"><span></span>{t("BENCHMARKS", "实测")}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <p class="report-meta"><a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a> · <a href={localizePath("/runs/", lang)}>{t("All runs", "全部批次")}</a> · <a href="/data/trials.csv">trials.csv</a></p>
+    </header>
+    {views.length ? (
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th scope="col">#</th><th scope="col">{t("Skill", "Skill")}</th><th scope="col">{t("With skill", "装 Skill")}</th><th scope="col">{t("Without", "不装")}</th><th scope="col">{t("Change (95% CI)", "变化（95% CI）")}</th><th scope="col">{t("Invoked", "调用率")}</th><th scope="col">{t("Median cost", "成本中位数")}</th><th scope="col">{t("Run", "批次")}</th></tr></thead>
+        <tbody>{views.map((view, index) => { const pooled = view.result!.skill.pooled; return (
+          <tr>
+            <td>{index + 1}</td>
+            <th scope="row"><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a></th>
+            <td>{armLine(pooled.with, lang)}</td>
+            <td>{armLine(pooled.without, lang)}</td>
+            <td>{signedPoints(pooled.comparison.passRateDelta)}<small>{pooled.comparison.newcombe95 ? `${signedPoints(pooled.comparison.newcombe95[0])} … ${signedPoints(pooled.comparison.newcombe95[1])}` : "—"}</small></td>
+            <td>{pct(pooled.with.triggerRate)}</td>
+            <td>{usd(pooled.with.medianCostUsd)}<small>{t("vs", "对比")} {usd(pooled.without.medianCostUsd)}</small></td>
+            <td><a href={localizePath(`/runs/${view.result!.run.runId}/`, lang)}><code>{view.result!.run.runId}</code></a></td>
+          </tr>); })}</tbody>
+      </table></div>
+    ) : (
+      <section class="prose-block empty-state">
+        <h2>{t("What will appear here", "这里将展示什么")}</h2>
+        <p>{t("Each benchmarked skill gets the same tasks run in Claude Code with and without the skill installed, repeated several times. The table will show pass rates for both arms, the difference with a 95% interval, how often the skill was invoked, and the median cost per run. Until then, every listed skill has a static health check.", "每个实测的 Skill 都会在 Claude Code 中用相同任务分别在装与不装 Skill 的条件下重复运行。表格将展示两组通过率、差值及其 95% 区间、Skill 被调用的频率和单次成本中位数。在此之前，每个已收录的 Skill 都有静态体检结果。")}</p>
+        <p><a class="button secondary" href={localizePath("/skills/", lang)}>{t("See health checks", "查看体检结果")}</a></p>
+      </section>
+    )}
+  </main>
+</BaseLayout>
+<style>
+  .bench-page { padding-block: 24px 80px; }
+  .report-meta { font-size: .85rem !important; }
+  .table-scroll { overflow-x: auto; margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .data-table thead th { font-size: .74rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .data-table small { display: block; color: var(--faint); margin-top: 4px; font-size: .76rem; }
+  .empty-state { margin-top: 32px; max-width: 760px; }
+</style>

@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import type { Site } from '../lib/content';
-import { getSiteCopy, localizePath, type Language } from '../lib/i18n';
+import { HREFLANG, insightPath, getSiteCopy, localizePath, type Language } from '../lib/i18n';
 import Icon from './Icon.astro';
 
 const { sites, insights, lang } = Astro.props as { sites: Site[]; insights: CollectionEntry<'insights'>[]; lang: Language };
@@ -25,10 +25,10 @@ const zh = lang === 'zh';
       <div class="updates-label"><h3>{zh ? '最新 Skill 拆解' : 'Latest skill deep-dives'}</h3><a href={localizePath('/insights/', lang)}>{zh ? '全部拆解' : 'All deep-dives'} <Icon size={14} /></a></div>
       {!zh && <p class="language-note">The original articles are in Chinese.</p>}
       {insights.map(entry => <article>
-        <div class="insight-label"><span lang="zh-CN">{entry.data.industry}</span><time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></div>
-        <h4><a href={`/insights/${entry.id}/`} lang="zh-CN" hreflang="zh-CN">{entry.data.title}</a></h4>
-        <p lang="zh-CN">{entry.data.description}</p>
-        <a class="read-more" href={`/insights/${entry.id}/`} hreflang="zh-CN">{zh ? '阅读拆解' : 'Read the deep-dive'} <Icon size={14} /></a>
+        <div class="insight-label"><span lang={HREFLANG[entry.data.lang]}>{entry.data.industry}</span><time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></div>
+        <h4><a href={insightPath(entry)} lang={HREFLANG[entry.data.lang]} hreflang={HREFLANG[entry.data.lang]}>{entry.data.title}</a></h4>
+        <p lang={HREFLANG[entry.data.lang]}>{entry.data.description}</p>
+        <a class="read-more" href={insightPath(entry)} hreflang={HREFLANG[entry.data.lang]}>{zh ? '阅读拆解' : 'Read the deep-dive'} <Icon size={14} /></a>
       </article>)}
     </div>
   </div>

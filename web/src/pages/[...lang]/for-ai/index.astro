@@ -1,0 +1,8 @@
+---
+import ForAiPage from "../../../components/ForAiPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+
+export const getStaticPaths = langStaticPaths;
+const { lang } = Astro.props;
+---
+<ForAiPage lang={lang} />

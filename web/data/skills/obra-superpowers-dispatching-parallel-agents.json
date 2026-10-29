@@ -1,0 +1,35 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-dispatching-parallel-agents",
+  "name": "dispatching-parallel-agents",
+  "displayName": {
+    "en": "dispatching-parallel-agents",
+    "zh": "dispatching-parallel-agents"
+  },
+  "summary": {
+    "en": "Draft: SkillFlux has not written a summary for this skill yet.",
+    "zh": "草稿：SkillFlux 尚未为该 Skill 撰写摘要。"
+  },
+  "upstreamDescription": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/dispatching-parallel-agents",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [],
+  "status": "draft",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

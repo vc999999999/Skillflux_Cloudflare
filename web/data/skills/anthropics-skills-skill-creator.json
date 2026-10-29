@@ -1,0 +1,39 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "anthropics-skills-skill-creator",
+  "name": "skill-creator",
+  "displayName": {
+    "en": "Skill creator",
+    "zh": "Skill 创建器"
+  },
+  "summary": {
+    "en": "Anthropic’s skill for writing new skills and improving existing ones, including running evaluations and tuning a skill’s description so it triggers when it should.",
+    "zh": "Anthropic 出品，用于编写新 Skill、改进已有 Skill，包括运行评测和调整 description，让 Skill 在该触发时触发。"
+  },
+  "upstreamDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+  "source": {
+    "repo": "https://github.com/anthropics/skills",
+    "path": "skills/skill-creator",
+    "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Anthropic",
+    "url": "https://github.com/anthropics"
+  },
+  "license": {
+    "spdx": null,
+    "raw": null,
+    "file": "skills/skill-creator/LICENSE.txt"
+  },
+  "sourceSiteSlug": "github-com-anthropics-skills",
+  "category": "engineering",
+  "tags": [
+    "skills",
+    "evals",
+    "meta"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

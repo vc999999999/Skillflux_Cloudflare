@@ -1,0 +1,37 @@
+{
+  "schema": "skillflux-skill/v1",
+  "id": "obra-superpowers-requesting-code-review",
+  "name": "requesting-code-review",
+  "displayName": {
+    "en": "Requesting code review (Superpowers)",
+    "zh": "发起代码评审（Superpowers）"
+  },
+  "summary": {
+    "en": "Superpowers’ checklist for asking a reviewer subagent to check finished work against its requirements.",
+    "zh": "Superpowers 的清单：请评审子 Agent 对照需求检查已完成的工作。"
+  },
+  "upstreamDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+  "source": {
+    "repo": "https://github.com/obra/superpowers",
+    "path": "skills/requesting-code-review",
+    "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+    "pinnedAt": "2026-10-29"
+  },
+  "author": {
+    "name": "Jesse Vincent",
+    "url": "https://github.com/obra"
+  },
+  "license": {
+    "spdx": "MIT",
+    "raw": null,
+    "file": "LICENSE"
+  },
+  "sourceSiteSlug": "github-com-obra-superpowers",
+  "category": "engineering",
+  "tags": [
+    "code-review"
+  ],
+  "status": "listed",
+  "addedAt": "2026-10-29",
+  "updatedAt": "2026-10-29"
+}

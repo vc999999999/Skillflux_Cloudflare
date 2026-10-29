@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  DEFAULT_LANGUAGE,
   SUPPORTED_LANGUAGES,
+  langStaticPaths,
+  stripLanguagePrefix,
   getAlternateLanguagePath,
   getPageCopy,
   getSiteCopy,
@@ -10,24 +13,38 @@ import {
 } from "../src/lib/i18n";
 
 describe("SkillFlux i18n", () => {
-  it("supports Chinese and English page copy", () => {
-    expect(SUPPORTED_LANGUAGES).toEqual(["zh", "en"]);
+  it("supports English and Chinese page copy, English first", () => {
+    expect(SUPPORTED_LANGUAGES).toEqual(["en", "zh"]);
+    expect(DEFAULT_LANGUAGE).toBe("en");
     expect(getPageCopy("zh").nav.directory).toBe("目录");
     expect(getPageCopy("en").nav.directory).toBe("Directory");
   });
 
-  it("keeps Chinese on root paths and prefixes English paths", () => {
-    expect(localizePath("/", "zh")).toBe("/");
-    expect(localizePath("/directory/", "zh")).toBe("/directory/");
-    expect(localizePath("/", "en")).toBe("/en/");
-    expect(localizePath("/directory/", "en")).toBe("/en/directory/");
-    expect(localizePath("/site/modelscope-cn-skills/", "en")).toBe("/en/site/modelscope-cn-skills/");
+  it("keeps English on root paths and prefixes Chinese paths", () => {
+    expect(localizePath("/", "en")).toBe("/");
+    expect(localizePath("/directory/", "en")).toBe("/directory/");
+    expect(localizePath("/", "zh")).toBe("/zh/");
+    expect(localizePath("/directory/", "zh")).toBe("/zh/directory/");
+    expect(localizePath("/zh/", "en")).toBe("/");
+    expect(localizePath("/zh/directory/", "zh")).toBe("/zh/directory/");
+    // The retired /en/ prefix is understood but never produced.
+    expect(localizePath("/en/directory/", "en")).toBe("/directory/");
+    expect(localizePath("/en/", "zh")).toBe("/zh/");
   });
 
   it("maps between alternate language paths for the same page", () => {
-    expect(getAlternateLanguagePath("/directory/", "en")).toBe("/en/directory/");
-    expect(getAlternateLanguagePath("/en/directory/", "zh")).toBe("/directory/");
-    expect(getAlternateLanguagePath("/en/site/modelscope-cn-skills/", "zh")).toBe("/site/modelscope-cn-skills/");
+    expect(getAlternateLanguagePath("/directory/", "zh")).toBe("/zh/directory/");
+    expect(getAlternateLanguagePath("/zh/directory/", "en")).toBe("/directory/");
+    expect(getAlternateLanguagePath("/zh/resource/modelscope-skills/", "en")).toBe("/resource/modelscope-skills/");
+    expect(stripLanguagePrefix("/zh")).toBe("/");
+    expect(stripLanguagePrefix("/zhuanlan/")).toBe("/zhuanlan/");
+  });
+
+  it("generates one static path per language", () => {
+    expect(langStaticPaths()).toEqual([
+      { params: { lang: undefined }, props: { lang: "en" } },
+      { params: { lang: "zh" }, props: { lang: "zh" } }
+    ]);
   });
 
   it("translates Chinese site names and scale in English mode", () => {
