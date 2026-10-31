@@ -8,6 +8,15 @@ SkillFlux 是一个 Agent Skill 的**实测数据站 + 来源黄页**。
 
 网站以英文为主（`/`），中文在 `/zh/`。
 
+## 两类读者
+
+| 读者 | 入口 | 内容原则 |
+| --- | --- | --- |
+| 人 | 首页、`/directory/`、`/skills/`、来源详情页 | 黄页式浏览：按任务找 Skill、按类型找来源、编辑推荐；首页搜索同时命中来源和 Skill 报告 |
+| AI | `/AGENTS.md`、`/llms.txt`、`/data/index.json`、`/data/skills/<id>.json` | 只放可复核的东西：钉定提交与源码永久链接、逐项检查结果、检查器版本、原始 trial、sha256 清单、引用规则；机器文件统一英文 |
+
+实测还没有发布批次时，页面不显示「0」，而显示「筹备中」；机器文件照实写 0。
+
 SkillFlux 不分发、不安装 Skill。原来的 npm/MCP 分发工具已在 tag `v1.3.0-tool-final` 存档并从主线移除。
 
 ```text

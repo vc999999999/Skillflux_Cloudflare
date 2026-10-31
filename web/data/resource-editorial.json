@@ -2317,13 +2317,13 @@
   },
   "github-com-mattpocock-skills": {
     "resourceSlug": "mattpocock-skills",
-    "updatedAt": "2026-10-10",
+    "updatedAt": "2026-10-31",
     "primaryCapability": {
       "zh": "把需求访谈转为规格、任务依赖和代码审查",
       "en": "Turn requirements interviews into specifications, task dependencies and code reviews"
     },
     "summary": {
-      "zh": "Matt Pocock 的 Skill 合集把开发协作拆成可组合的环节：先追问未定决策，再整理规格、划分可验证的任务，最后分别检查代码规范与需求符合度。SkillFlux 已完整收录固定提交中的全部 38 个 Skill；这里按正文拆解其中的工程工作流，帮助选择当前项目需要的环节。",
+      "zh": "Matt Pocock 的 Skill 合集把开发协作拆成可组合的环节：先追问未定决策，再整理规格、划分可验证的任务，最后分别检查代码规范与需求符合度。这里依据固定提交中的 38 个 Skill 正文拆解其中的工程工作流，帮助选择当前项目需要的环节。",
       "en": "Matt Pocock’s collection breaks development collaboration into composable steps: resolve open decisions, write a specification, divide work into verifiable tasks, then review coding standards and specification compliance separately. SkillFlux has collected all 38 skills at a pinned commit. This analysis explains the engineering workflow from its instructions so readers can choose the steps their project needs."
     },
     "bestFor": [
@@ -2342,8 +2342,8 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "全部 38 个 Skill 的正文、引用、脚本、配置与许可证均已按固定提交保存，覆盖 engineering、productivity、misc 和 in-progress。本页依据文件分析能力，不代表全部工作流已经运行验收；新增快照仍待 MCP 安装审核，已发布版本保留各自审核状态。",
-      "en": "All 38 skills’ instructions, references, scripts, configuration and licenses are preserved at a pinned commit across engineering, productivity, misc and in-progress. This page analyzes the files; it does not claim execution testing of every workflow. New snapshots remain pending MCP installation review, while existing releases retain their individual review status."
+      "zh": "本页依据固定提交中 38 个 Skill 的正文、引用与脚本做文件分析，范围覆盖 engineering、productivity、misc 和 in-progress，不代表这些工作流已经运行验收。其中已收录的 Skill 各有体检报告，安装请按原仓库说明进行。",
+      "en": "This page analyzes the instructions, references and scripts of the 38 skills at a pinned commit, across engineering, productivity, misc and in-progress; it does not claim execution testing of these workflows. Listed skills each have a health check report; install them by following the original repository."
     },
     "limitations": [
       {
@@ -2464,7 +2464,7 @@
   },
   "github-com-morluto-rea": {
     "resourceSlug": "morluto-rea",
-    "updatedAt": "2026-10-10",
+    "updatedAt": "2026-10-31",
     "primaryCapability": {
       "zh": "从应用制品与运行证据解释软件行为",
       "en": "Explain software behavior from shipped artifacts and runtime evidence"
@@ -2489,8 +2489,8 @@
       "mcp"
     ],
     "skillFluxNote": {
-      "zh": "已完整保存 Skill 入口、五份本地引用和 MIT 许可证。这里分析的是固定快照的目标路由与证据工作流，未声称执行过这些目标；包仍在 intake，尚未通过 MCP 安装审核。REA MCP、CLI 和分析引擎需要另外准备。",
-      "en": "The skill entry, five local guides and MIT license are fully preserved. This page analyzes target routing and evidence workflows at a pinned snapshot; it does not claim those targets were tested. The package remains in intake pending MCP installation review. REA’s MCP server, CLI and analysis engines must be prepared separately."
+      "zh": "这里依据固定快照中的 Skill 入口、五份本地引用和 MIT 许可证，分析目标路由与证据工作流，未声称执行过这些目标。REA 的 MCP、CLI 和分析引擎属于独立运行依赖，需按目标平台另外准备。",
+      "en": "This page analyzes target routing and evidence workflows from the skill entry, five local guides and MIT license at a pinned snapshot; it does not claim those targets were tested. REA’s MCP server, CLI and analysis engines are separate runtime dependencies to prepare for your platform."
     },
     "limitations": [
       {
@@ -2611,7 +2611,7 @@
   },
   "github-com-qingyuna-answer-me-with-html": {
     "resourceSlug": "answer-me-with-html",
-    "updatedAt": "2026-10-10",
+    "updatedAt": "2026-10-31",
     "primaryCapability": {
       "zh": "用 Markdown 草稿生成可修订的 HTML 讲解页",
       "en": "Turn Markdown drafts into editable HTML explainers"
@@ -2636,8 +2636,8 @@
       "video"
     ],
     "skillFluxNote": {
-      "zh": "已完整收录 Skill 正文、设置和视频引用，以及内含模板、CSS、JavaScript 的 scripts/am.mjs，并保留许可证。以下为固定版本的文件分析，未宣称本次已渲染页面或视频；包仍在 intake，尚未通过 MCP 安装审核。",
-      "en": "The complete skill includes its instructions, settings and video guides, and scripts/am.mjs with bundled templates, CSS and JavaScript, plus licenses. This is a file-based analysis of a pinned version, not a claim that pages or videos were rendered in this review. The package remains in intake pending MCP installation review."
+      "zh": "以下依据固定版本的 Skill 正文、设置、视频引用和 scripts/am.mjs（内含模板、CSS、JavaScript）做文件分析，未宣称本次已渲染页面或视频。该 Skill 的体检结果见其报告页。",
+      "en": "This is a file-based analysis of a pinned version: the instructions, settings, video guides and scripts/am.mjs with bundled templates, CSS and JavaScript. It does not claim that pages or videos were rendered. The skill’s health check results are on its report page."
     },
     "limitations": [
       {
@@ -2758,7 +2758,7 @@
   },
   "github-com-k-dense-ai-scientific-agent-skills": {
     "resourceSlug": "scientific-agent-skills",
-    "updatedAt": "2026-10-10",
+    "updatedAt": "2026-10-31",
     "primaryCapability": {
       "zh": "评估科研证据，并筛选可追溯的研究方向",
       "en": "Appraise scientific evidence and prioritize traceable research directions"
@@ -2783,8 +2783,8 @@
       "planning"
     ],
     "skillFluxNote": {
-      "zh": "完整收录范围为两个主技能及 scientific-schematics 支持技能，包含引用、脚本和 MIT 许可证，保留原始目录关系。三项均在 intake，未完成 MCP 安装与行为审核；本页是固定快照分析，不能作为科研结论或运行验收。",
-      "en": "The complete selection contains the two main skills and scientific-schematics, including references, scripts and MIT licenses with the original directory layout. All three remain in intake pending MCP installation and behavioral review. This pinned-snapshot analysis is not a scientific finding or execution acceptance test."
+      "zh": "分析范围为两个主技能及 scientific-schematics 支持技能，依据固定快照中的正文、引用、脚本和 MIT 许可证，未做行为测试。本页不能作为科研结论或运行验收；Python 软件包和外部 API 等运行依赖需另行准备。",
+      "en": "The analysis covers the two main skills and the scientific-schematics support skill, based on their instructions, references, scripts and MIT licenses at a pinned snapshot, without behavioral testing. It is not a scientific finding or an execution test; Python packages and external APIs must be prepared separately."
     },
     "limitations": [
       {
@@ -2905,7 +2905,7 @@
   },
   "github-com-brycewang-stanford-auto-empirical-research-skills": {
     "resourceSlug": "auto-empirical-research-skills",
-    "updatedAt": "2026-10-10",
+    "updatedAt": "2026-10-31",
     "primaryCapability": {
       "zh": "串联实证研究的识别、分析计划与复现交付",
       "en": "Connect empirical identification, analysis planning and replication delivery"
@@ -2930,8 +2930,8 @@
       "writing"
     ],
     "skillFluxNote": {
-      "zh": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。已完整保存这组技能及所需公共资源，目前均为 intake，未通过 MCP 安装审核。本页依据固定版本正文拆解，不表示已验证估计结果或完成研究注册。",
-      "en": "Main selections are aer-preregistration, aer-identification and aer-replication, supported by aer-robustness, aer-statspai and aer-tables-figures. These skills and required shared resources are fully preserved and remain in intake pending MCP installation review. This analysis of pinned instructions does not claim validated estimates or completed research registration."
+      "zh": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。本页依据固定版本正文拆解，不表示已验证估计结果或完成研究注册。",
+      "en": "Main selections are aer-preregistration, aer-identification and aer-replication, supported by aer-robustness, aer-statspai and aer-tables-figures. This analysis of pinned instructions does not claim validated estimates or completed research registration."
     },
     "limitations": [
       {

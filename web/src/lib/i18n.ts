@@ -171,7 +171,7 @@ export const pageCopy: Record<Language, PageCopy> = {
   zh: {
     htmlLang: "zh-CN",
     locale: "zh-CN",
-    siteDescription: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？一站式检索全网 Agent Skills、MCP 工具、插件与开源生态。按需选型、透明验证，即插即用。",
+    siteDescription: "Agent Skill 黄页与实测数据：按任务找 Skill，按类型找市场、官方合集与开源仓库；每个条目链接原始出处，体检数据以 CC BY 4.0 公开。",
     titleSuffix: "想给你的 Agent 增加什么能力？· 功能黄页",
     nav: {
       homeLabel: "SkillFlux 首页",
@@ -181,7 +181,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "capabilities to add to your agent",
-      heroLead: "想给你的 AI Agent 增加新能力？无论是编程 Skill、MCP 工具、外部插件还是特定工作流，全网你想给 Agent 扩展的本领都在这份功能黄页里。按需查找、透明挑选、一键接入你的项目。",
+      heroLead: "按任务找 Agent Skill，按类型找它们的发布来源。每个条目都链接原始出处；收录不代表测试，体检与实测结果单独公开。",
       browseDirectory: "查找想增加的能力",
       readForAi: "给 AI 读取",
       rssSubscribe: "RSS 订阅",
@@ -211,7 +211,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       jsonLdDescription: "AI Agent 功能黄页：想给你的 Agent 增加什么能力？全网能力目录。",
       eyebrow: "Yellow Pages",
       heading: "想给你的 Agent 增加什么能力？",
-      lede: "全网 Agent 功能黄页：浏览与检索你想为 Agent 增加的所有能力——覆盖 Skills、MCP 工具、插件与开源项目。静态呈现，人类与 AI 均可免 JS 读取。",
+      lede: "Agent Skill 来源黄页：浏览与检索发布 Skill、MCP 工具与插件的市场、官方合集和开源仓库。静态呈现，人和 AI 均可免 JS 读取。",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} resources · ${labelCount} labels · updated ${updatedAt}`
     },
     breadcrumb: {
@@ -318,7 +318,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       machineText: "此条目同步出现在 `/index.json` 和 `/llms-full.txt`，便于搜索工具和 AI agent 直接消费。"
     },
     footer: {
-      summary: "AI Agent 开放功能黄页。汇集全网能力与工具来源，按需发现，随时接入。",
+      summary: "Agent Skill 黄页与开放实测数据。收录来源，链接原始出处，公开可复核的结果。",
       labels: "来源类别",
       forAi: "给 AI",
       brand: "品牌",
@@ -329,7 +329,7 @@ export const pageCopy: Record<Language, PageCopy> = {
   en: {
     htmlLang: "en",
     locale: "en",
-    siteDescription: "The open yellow pages for AI agent capabilities. Find what capabilities you want to add to your agent — skills, MCP servers, plugins, and tools. Discover by task, verify quality, and connect on demand.",
+    siteDescription: "Agent skill directory and open test data: find skills by task and their sources by type — marketplaces, vendor collections and open-source repos. Every entry links to the original; health check data is open under CC BY 4.0.",
     titleSuffix: "Capabilities to Add to Your AI Agent",
     nav: {
       homeLabel: "SkillFlux home",
@@ -339,7 +339,7 @@ export const pageCopy: Record<Language, PageCopy> = {
     },
     home: {
       eyebrow: "capabilities to add to your agent",
-      heroLead: "What capabilities do you want to add to your AI agent? Whether you need coding skills, database MCP tools, automation plugins, or specialized workflows — find everything you want your agent to do in this open yellow pages. Search by task, verify quality, and wire capabilities into your project on demand.",
+      heroLead: "Find agent skills by task and the sources that publish them by type. Every entry links to the original; a listing is not a test result, and health checks and benchmarks are published separately.",
       browseDirectory: "Find capabilities for your agent",
       readForAi: "Read for AI",
       rssSubscribe: "RSS feed",
@@ -369,7 +369,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       jsonLdDescription: "Capabilities you want to add to your AI agent: skills, MCP tools, plugins, and frameworks.",
       eyebrow: "Yellow Pages",
       heading: "What capabilities do you want to add to your agent?",
-      lede: "The open yellow pages for everything your agent can learn or do. Discover skills, MCP tools, plugins, and workflows across the ecosystem.",
+      lede: "A directory of the marketplaces, vendor collections and open-source repos that publish agent skills, MCP tools and plugins. Static pages that people and AI can read without JavaScript.",
       meta: (resourceCount, labelCount, updatedAt) => `${resourceCount} capabilities · ${labelCount} topics · updated ${updatedAt}`
     },
     breadcrumb: {
@@ -476,7 +476,7 @@ export const pageCopy: Record<Language, PageCopy> = {
       machineText: "This entry is also available in `/index.json` and `/llms-full.txt` for search tools and AI agents."
     },
     footer: {
-      summary: "The yellow pages for AI agent capabilities. Discover what agents can do, inspect provenance, and connect on demand.",
+      summary: "Agent skill directory and open test data. Sources listed, originals linked, results you can verify.",
       labels: "Source categories",
       forAi: "For AI",
       brand: "Brand",
@@ -536,6 +536,10 @@ const typeTranslations: Record<string, string> = {
   "skill 合集": "Skill collection",
   "单项 skill": "Single skill",
   "开源 skill 仓库": "Open-source skill repository",
+  "开源可视化讲解 Skill": "Open-source explainer skill",
+  "实证研究 Skill 来源合集": "Empirical research skill collection",
+  "开源 Skill 与 MCP 项目": "Open-source skill and MCP project",
+  "科研 Agent Skill 仓库": "Scientific agent skill repository",
   "skill 文档": "Skill documentation",
   "skill 下载包": "Skill download package",
   "npm skill 包": "npm skill package",
@@ -554,6 +558,11 @@ const siteNameTranslations: Record<string, string> = {
 
 const scaleTranslations: Record<string, string> = {
   推荐合集: "Recommended collection",
+  "单个 Skill 与渲染脚本": "Single skill with renderer script",
+  "3 个主技能 + 3 个支持技能": "3 main + 3 support skills",
+  "38 个 Skill": "38 skills",
+  "Skill 包与独立分析工具": "Skill package with separate analysis tools",
+  "2 个主技能 + 1 个支持技能": "2 main + 1 support skill",
   集合入口: "Collection entry",
   开源项目: "Open-source project",
   下载包: "Download package",

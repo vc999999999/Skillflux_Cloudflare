@@ -4,19 +4,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { absoluteUrl, getDirectoryStats, getSites } from '../lib/content';
 import { DEFAULT_LANGUAGE, getSiteCopy, localizePath, type Language } from '../lib/i18n';
 import ResourceTable from './ResourceTable.astro';
+import { getIndexableSkillViews } from '../lib/skills';
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const zh = lang === 'zh';
 const sites = getSites();
 const stats = getDirectoryStats();
 const canonicalPath = localizePath('/directory/', lang);
-const title = zh ? '功能黄页 · 想给 Agent 增加的能力' : 'Capabilities to Add to Your Agent';
-const description = zh ? '面向 AI Agent 的开放功能黄页：想给你的 Agent 增加什么能力？浏览与检索全网 Skills、MCP 工具、插件与开源生态。按场景和可信度筛选，即插即用。' : 'The yellow pages for everything you want your AI agent to do: discover skills, MCP tools, plugins, and open-source capabilities. Filter by task and trust, then wire into your project.';
+// Searching the directory also surfaces individual skill reports, so a task
+// query such as "PDF" finds the skill even when no source mentions it.
+const skillViews = getIndexableSkillViews();
+const title = zh ? 'Agent Skill 来源黄页' : 'Agent skill source directory';
+const description = zh ? `收录 ${stats.resourceCount} 个发布 Agent Skill、MCP 工具与插件的来源：市场、官方合集、开源仓库与社区榜单。按类型、语言、用途筛选，每个条目都链接原始出处和编辑说明。` : `${stats.resourceCount} places where agent skills, MCP tools and plugins are published: marketplaces, vendor collections, open-source repos and community lists. Filter by type, language and use case; every entry links to the original source with editorial notes.`;
 const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en', isPartOf: { '@type': 'WebSite', name: SITE.name, url: SITE.url }, mainEntity: { '@type': 'ItemList', numberOfItems: sites.length, itemListElement: sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: getSiteCopy(site, lang).name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } };
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
   <main id="main-content" class="page-shell directory-page">
-    <header class="directory-heading"><div><p class="eyebrow">{zh ? 'AI AGENT 功能黄页' : 'THE AGENT CAPABILITY YELLOW PAGES'}</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div></header>
+    <header class="directory-heading"><div><p class="eyebrow">{zh ? 'AGENT SKILL 黄页' : 'THE AGENT SKILL YELLOW PAGES'}</p><h1>{title}<span>{stats.resourceCount}</span></h1><p>{description}</p></div></header>
+    <section class="skill-matches" data-skill-matches hidden aria-labelledby="skill-matches-title">
+      <h2 id="skill-matches-title">{zh ? '匹配的 Skill 报告' : 'Matching skill reports'}</h2>
+      <ul>{skillViews.map(view => <li data-skill-match data-search={[view.skill.name, view.skill.displayName.en, view.skill.displayName.zh, view.skill.author.name, view.category.label.en, view.category.label.zh, view.skill.summary.en, view.skill.summary.zh, ...view.skill.tags].join(' ').normalize('NFKC').toLocaleLowerCase()} hidden><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a><small>{view.skill.author.name} · {view.category.label[lang]}</small></li>)}</ul>
+    </section>
     <ResourceTable sites={sites} showControls heading={title} lang={lang} />
     <aside class="source-note"><strong>{zh ? '收录不等于测试' : 'Listed is not tested'}</strong><p>{zh ? '本黄页收录全网开放来源，进入详情可追溯原始网站。收录说明来源存在且可访问，不代表其中每个 Skill 都经过测试；使用前请核对原始说明、许可证与维护状态。' : 'This directory lists open ecosystem sources; each detail page links to the original. Listing means a source exists and is reachable, not that every skill in it was tested. Check the original instructions, license and maintenance before use.'}</p><a href={localizePath('/quality/', lang)}>{zh ? '收录标准 →' : 'Listing policy →'}</a></aside>
   </main>
@@ -31,6 +39,12 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
   .directory-heading > a { flex-shrink: 0; font-size: .84rem; font-weight: 550; text-decoration: none; margin-bottom: 4px; color: var(--ink); }
   .directory-heading > a:hover { color: var(--accent); }
   .directory-heading > a span { margin-left: 6px; }
+  .skill-matches { margin: 28px 0 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .skill-matches h2 { margin: 0 0 12px; font-size: .9rem; font-weight: 620; }
+  .skill-matches ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px 20px; }
+  .skill-matches li { display: flex; flex-direction: column; font-size: .86rem; }
+  .skill-matches li[hidden] { display: none; }
+  .skill-matches small { color: var(--faint); font-size: .75rem; }
   .source-note { display: flex; align-items: center; gap: 28px; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--cream); margin-top: 48px; }
   .source-note strong { font-size: .9rem; white-space: nowrap; color: var(--ink); }
   .source-note p { margin: 0; font-size: .86rem; line-height: 1.75; color: var(--muted); flex: 1; }
@@ -78,6 +92,14 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
         list.append(row);
       }
       count.textContent = `${visible} ${root.dataset.countSuffix ?? ''}`;
+      const terms = state.q.normalize('NFKC').trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+      let skillHits = 0;
+      document.querySelectorAll<HTMLElement>('[data-skill-match]').forEach(item => {
+        item.hidden = terms.length === 0 || skillHits >= 8 || !terms.every(term => (item.dataset.search ?? '').includes(term));
+        if (!item.hidden) skillHits++;
+      });
+      const matches = document.querySelector<HTMLElement>('[data-skill-matches]');
+      if (matches) matches.hidden = skillHits === 0;
       empty.hidden = visible > 0;
     }
     function commit(replace = false) {

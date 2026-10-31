@@ -39,12 +39,15 @@ function skillRow(view: SkillView) {
     repo: skill.source.repo,
     path: skill.source.path,
     commitSha: skill.source.commitSha,
+    sourceUrl: `${skill.source.repo}/tree/${skill.source.commitSha}${skill.source.path ? `/${skill.source.path}` : ''}`,
     pinnedAt: skill.source.pinnedAt,
     author: skill.author.name,
     licenseSpdx: skill.license.spdx,
     licenseFile: skill.license.file,
     sourceSite: skill.sourceSiteSlug,
     healthCheckedCommit: health?.commitSha ?? null,
+    healthCheckerVersion: health?.checkerVersion ?? null,
+    healthChangedAt: health?.changedAt ?? null,
     healthPass: counts.pass,
     healthWarn: counts.warn,
     healthFail: counts.fail,
@@ -55,10 +58,11 @@ function skillRow(view: SkillView) {
     passRateDelta: pooled?.comparison.passRateDelta ?? null,
     verdict: pooled?.comparison.verdict ?? null,
     reportUrl: absoluteUrl(reportPath(skill.id)),
+    recordUrl: absoluteUrl(`/data/skills/${skill.id}.json`),
   };
 }
 
-const SKILL_COLUMNS = ['id', 'name', 'displayName', 'category', 'status', 'repo', 'path', 'commitSha', 'pinnedAt', 'author', 'licenseSpdx', 'licenseFile', 'sourceSite', 'healthCheckedCommit', 'healthPass', 'healthWarn', 'healthFail', 'flags', 'latestRun', 'passRateWith', 'passRateWithout', 'passRateDelta', 'verdict', 'reportUrl'];
+const SKILL_COLUMNS = ['id', 'name', 'displayName', 'category', 'status', 'repo', 'path', 'commitSha', 'sourceUrl', 'pinnedAt', 'author', 'licenseSpdx', 'licenseFile', 'sourceSite', 'healthCheckedCommit', 'healthCheckerVersion', 'healthChangedAt', 'healthPass', 'healthWarn', 'healthFail', 'flags', 'latestRun', 'passRateWith', 'passRateWithout', 'passRateDelta', 'verdict', 'reportUrl', 'recordUrl'];
 
 function json(value: unknown): string { return `${JSON.stringify(value, null, 2)}\n`; }
 
@@ -67,7 +71,7 @@ function render(): DatasetFile[] {
   const rows = views.map(skillRow);
   const runs = getRuns();
   const files: DatasetFile[] = [
-    { path: 'skills.json', contentType: 'application/json', description: 'One row per published skill: source, pinned commit, license, health counts and latest benchmark headline.', body: json({ schema: 'skillflux-dataset-skills/v1', items: rows }) },
+    { path: 'skills.json', contentType: 'application/json', description: 'One row per published skill: source permalink at the pinned commit, license, health counts with checker version, latest benchmark headline, and links to the report and full record.', body: json({ schema: 'skillflux-dataset-skills/v1', items: rows }) },
     { path: 'skills.csv', contentType: 'text/csv', description: 'skills.json as CSV; flags are separated by semicolons.', body: toCsv(SKILL_COLUMNS, rows.map(row => SKILL_COLUMNS.map(column => { const value = row[column as keyof typeof row]; return Array.isArray(value) ? value.join(';') : value; }))) },
     { path: 'health.json', contentType: 'application/json', description: 'Full static health check records for published skills.', body: json({ schema: 'skillflux-dataset-health/v1', checkerVersion: CHECKER_VERSION, items: views.flatMap(view => view.health ? [view.health] : []) }) },
     { path: 'health.csv', contentType: 'text/csv', description: 'One row per skill and check: status, value and detail.', body: toCsv(['skill_id', 'commit_sha', 'checker_version', 'changed_at', 'check_id', 'status', 'value', 'detail'], views.flatMap(view => (view.health?.checks ?? []).map(check => [view.skill.id, view.health!.commitSha, view.health!.checkerVersion, view.health!.changedAt, check.id, check.status, check.value, check.detail]))) },

@@ -2,9 +2,11 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { getDirectoryStats, validateCatalog } from "../src/lib/content";
 import { buildSkillViews, validateSkillData } from "../src/lib/skill-data";
+import { getHomePicks } from "../src/lib/home-picks";
 
 const catalog = validateCatalog();
 const stats = getDirectoryStats();
+getHomePicks();
 
 console.log(
   `Validated ${catalog.sites.length} SkillFlux resources across ${stats.labelCount} labels. Updated ${stats.updatedAt}.`

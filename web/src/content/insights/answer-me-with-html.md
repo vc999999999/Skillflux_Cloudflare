@@ -2,7 +2,7 @@
 title: "Answer me with HTML 拆解：把复杂回答整理成可阅读的本地讲解页"
 description: "拆解 Answer me with HTML 的 Markdown 草稿、组件选择、单面板修改和讲解视频流程，说明它适合哪些技术解释与方案比较，以及本地 HTML、语音和视频导出的运行依赖与使用边界。"
 datePublished: "2026-10-10"
-dateModified: "2026-10-10"
+dateModified: "2026-10-31"
 industry: "技术沟通 / 可视化讲解"
 skillName: "answer-me-with-html"
 source:
@@ -44,7 +44,7 @@ limitations:
   - "普通 HTML 生成依赖 Node.js；MP4 与 WebM 导出额外需要 Chrome 和 Node.js 22 或更高版本，MP4 还需要 ffmpeg。"
   - "语音后端取决于配置，使用 ElevenLabs 等外部服务时需要相应凭据；生成本地文件不等于整个流程完全离线。"
   - "页面可能嵌入项目代码与图像，分享前应检查实际内容；内置原始 HTML 或 SVG 的扩展能力也需要审查输入。"
-  - "SkillFlux 已保存完整 Skill 与捆绑渲染器，当前属于收录候选，尚未完成 MCP 安装审核。"
+  - "本文依据固定版本的 Skill 正文与捆绑渲染器做文件分析，未实际渲染页面或视频；该 Skill 的体检结果见其报告页。"
 draft: false
 ---
 

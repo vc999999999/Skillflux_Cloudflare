@@ -25,6 +25,7 @@ const checkText = new Map(CHECK_REGISTRY.map(item => [item.id, zh ? item.zh : it
 const title = result ? t(`${name} benchmark: results with Claude Code`, `${name} 实测：Claude Code 下的对照结果`) : t(`${name}: skill health check`, `${name}：Skill 体检报告`);
 const description = finding.length > 300 ? `${finding.slice(0, 297)}…` : finding;
 const statusLabel: Record<string, [string, string]> = { pass: ["Pass", "通过"], warn: ["Warning", "警告"], fail: ["Fail", "失败"], info: ["Info", "提示"] };
+const statusOrder = ["fail", "warn", "info", "pass"];
 const flagLabel: Record<string, [string, string]> = {
   "executes-code": ["Bundles scripts the agent may run", "附带 Agent 可能执行的脚本"],
   "network-calls": ["Scripts call the network", "脚本会访问网络"],
@@ -136,7 +137,7 @@ const jsonLd = [
               {health.flags.length > 0 && <ul class="flag-list">{health.flags.map(flag => <li>{flagLabel[flag]?.[zh ? 1 : 0] ?? flag}</li>)}</ul>}
               <div class="table-scroll"><table class="data-table checks-table">
                 <thead><tr><th scope="col">{t("Check", "检查项")}</th><th scope="col">{t("Result", "结果")}</th><th scope="col">{t("Detail", "详情")}</th></tr></thead>
-                <tbody>{health.checks.map(item => <tr class={`status-${item.status}`}><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class="status-pill">{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
+                <tbody>{[...health.checks].sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)).map(item => <tr class={`status-${item.status}`}><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class="status-pill">{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
               </table></div>
             </>
           ) : <p>{t("Not checked yet.", "尚未体检。")}</p>}

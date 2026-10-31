@@ -1,7 +1,7 @@
 import sitesData from "../../data/sites.json";
 import categoriesData from "../../data/categories.json";
 import { ENDPOINTS, SITE } from "../config";
-import { getSiteCopy, translateTag } from "./i18n";
+import { getSiteCopy, translateCategory, translateTag } from "./i18n";
 import { getGuides } from "./guides";
 import { getResourceEditorial, isResourceIndexable, type ResourceEditorial } from "./resource-editorial";
 import { getTagEditorial } from "./taxonomy";
@@ -96,7 +96,7 @@ type IndexPayload = {
     recommended: number;
   };
   endpoints: typeof ENDPOINTS;
-  labels: CatalogLabel[];
+  labels: (CatalogLabel & { label: string })[];
   sites: Site[];
 };
 
@@ -468,7 +468,8 @@ export function buildIndexPayload(generatedAt = new Date().toISOString()): Index
       recommended: sites.filter((site) => site.recommended).length
     },
     endpoints: ENDPOINTS,
-    labels,
+    // `tag` is the stored (often Chinese) value; `label` is its English display name.
+    labels: labels.map((label) => ({ ...label, label: translateTag(label.tag, "en") })),
     sites
   };
 }
@@ -502,17 +503,17 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
     `Labels: ${stats.labelCount}`,
     `Updated: ${stats.updatedAt}`,
     "",
-    "## Main Labels",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Main labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
     "## Featured Entrypoints",
     ...featured.map((site) => { const copy = getSiteCopy(site, "en"); return `- ${site.recommended ? "[Editor's pick] " : ""}${copy.name}: ${copy.tagline} ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`; }),
     "",
     "## Browse by source type",
-    ...categories.map((category) => `- ${category.label} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
+    ...categories.map((category) => `- ${translateCategory(category.slug, category.label, "en")} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
     "",
     "## Browse by tag",
-    ...tagIndex.map((entry) => `- ${entry.tag} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
+    ...tagIndex.map((entry) => `- ${translateTag(entry.tag, "en")} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
     "",
     "## Guides",
     ...getGuides().map((guide) => `- ${guide.title.en}: ${guide.description.en} ${absoluteUrl(`/guides/${guide.slug}/`)}`),
@@ -531,35 +532,34 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
 export function renderLlmsFullText(generatedAt = new Date().toISOString()): string {
   const labels = getPopularTags();
   const lines = [
-    "## Complete directory of skill sources / 完整来源目录",
+    "## Complete directory of skill sources",
     "",
     `Generated: ${generatedAt}`,
     `Schema Version: ${SITE.schemaVersion}`,
     "",
-    "## 标签",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
-    "## 完整资源",
+    "## All sources",
     ""
   ];
 
   for (const site of getIndexableSites()) {
+    const copy = getSiteCopy(site, "en");
     lines.push(
-      `### ${site.recommended ? "[推荐] " : ""}${site.name}`,
+      `### ${site.recommended ? "[Editor's pick] " : ""}${copy.name}`,
+      ...(copy.name !== site.name ? [`Original name: ${site.name}`] : []),
       `URL: ${site.canonicalUrl}`,
       `SkillFlux: ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`,
-      `中文: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
-      `Type: ${site.type}`,
+      `Chinese page: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
+      `Type: ${copy.type}`,
       `Kinds: ${site.kinds.join(", ")}`,
-      `Scale: ${site.scale}`,
+      `Scale: ${copy.scale}`,
       `Language: ${site.language.join(", ")}`,
-      `Tags: ${site.tags.join(", ")}`,
-      `Tagline: ${site.tagline}`,
-      `Summary: ${site.summary}`,
-      ...(site.longSummary ? [`Details: ${site.longSummary.replace(/\n+/g, " ")}`] : []),
-      `AI Summary: ${site.aiSummary}`,
+      `Tags: ${copy.tags.join(", ")}`,
+      `Capability: ${copy.tagline}`,
+      `Summary: ${copy.summary}`,
       ...(site.editorial ? [
-        `English summary: ${site.editorial.summary.en}`,
         `Best for: ${site.editorial.bestFor.map(item => item.en).join("; ")}`,
         `Use cases: ${site.editorial.useCases.join(", ")}`,
         `SkillFlux note: ${site.editorial.skillFluxNote.en}`,

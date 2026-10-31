@@ -108,7 +108,7 @@ describe("SkillFlux catalog", () => {
     const text = renderLlmsFullText("2026-06-24T00:00:00.000Z");
 
     expect(text).toContain("## Complete directory of skill sources");
-    expect(text).toContain("## 标签");
+    expect(text).toContain("## Labels");
     for (const site of getSites()) {
       expect(text).toContain(site.name);
     }
