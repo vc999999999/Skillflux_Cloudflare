@@ -1,0 +1,39 @@
+---
+// A directory source summarized for comparison pages.
+import type { Site } from '../lib/content';
+import { getSiteCopy, localizePath, translateCategory, type Language } from '../lib/i18n';
+import { getSourceAudit } from '../lib/source-audits';
+import { auditLine, pct, sampleScore } from '../lib/source-compare';
+const { site, lang, rank, note } = Astro.props as { site: Site; lang: Language; rank?: number; note?: string };
+const zh = lang === 'zh';
+const copy = getSiteCopy(site, lang);
+const audit = getSourceAudit(site.slug);
+const score = sampleScore(audit);
+---
+<article class="source-card">
+  <header>
+    {rank !== undefined && <span class="rank">{rank}</span>}
+    <div>
+      <h3><a href={localizePath(`/resource/${site.resourceSlug}/`, lang)}>{copy.name}</a></h3>
+      <p class="meta">{translateCategory(site.category, site.category, lang)} · {copy.tagline}</p>
+    </div>
+    {score !== null && <span class="score" title={zh ? '抽样中无失败项、说明何时使用且有许可证的比例' : 'Share of sampled entries with no failing check, a "when to use" description and a license'}>{pct(score)}</span>}
+  </header>
+  {note && <p class="why">{note}</p>}
+  <p>{site.editorial?.bestFor[0]?.[lang]}</p>
+  <p class="audit">{audit ? auditLine(audit, lang) : (/^https:\/\/github\.com\//.test(site.canonicalUrl) ? (zh ? '尚未抽样' : 'Not sampled yet') : (zh ? '网站，未抽样' : 'Website; not sampled'))}</p>
+</article>
+<style>
+  .source-card { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .source-card header { display: flex; gap: 12px; align-items: start; }
+  .source-card header > div { flex: 1; min-width: 0; }
+  .source-card h3 { margin: 0; font-size: 1.02rem; font-weight: 620; }
+  .source-card h3 a { text-decoration: none; }
+  .source-card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .rank { font: 600 .8rem var(--font-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 50%; width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; }
+  .score { font: 600 .9rem var(--font-mono); color: var(--green); background: var(--green-subtle); padding: 3px 8px; border-radius: var(--radius-sm); }
+  .meta { margin: 4px 0 0; font-size: .78rem; color: var(--faint); }
+  .source-card p { margin: 10px 0 0; font-size: .86rem; line-height: 1.7; color: var(--muted); }
+  .source-card .why { color: var(--ink); }
+  .source-card .audit { font-size: .76rem; font-family: var(--font-mono); color: var(--faint); }
+</style>

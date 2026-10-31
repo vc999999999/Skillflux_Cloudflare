@@ -52,6 +52,8 @@ export type Site = {
   aiSummary: string;
   // Optional hand-written FAQ. Falls back to auto-generated questions when absent.
   faqs?: Faq[];
+  // Statements about the source that SkillFlux could not verify itself, with where and when they were observed.
+  claims?: SourceClaim[];
   featured: boolean;
   recommended: boolean;
   trustLevel: TrustLevel;
@@ -60,6 +62,8 @@ export type Site = {
   addedAt: string;
   updatedAt: string;
 };
+
+export type SourceClaim = { en: string; zh: string; sourceUrl: string; observedAt: string; method: "web-search" | "readme" };
 
 export type CatalogLabel = {
   tag: string;
@@ -192,6 +196,25 @@ function optionalFaqs(record: Record<string, unknown>, context: string): Faq[] |
   });
 }
 
+function optionalClaims(record: Record<string, unknown>, context: string): SourceClaim[] | undefined {
+  const value = record.claims;
+  if (value === undefined || value === null) return undefined;
+  assert(Array.isArray(value), `${context}.claims must be an array`);
+  return value.map((item, index) => {
+    const itemContext = `${context}.claims[${index}]`;
+    assert(isRecord(item), `${itemContext} must be an object`);
+    const method = requireString(item, "method", itemContext);
+    assert(method === "web-search" || method === "readme", `${itemContext}.method has unsupported value`);
+    return {
+      en: requireString(item, "en", itemContext),
+      zh: requireString(item, "zh", itemContext),
+      sourceUrl: requireUrl(requireString(item, "sourceUrl", itemContext), `${itemContext}.sourceUrl`),
+      observedAt: requireDate(requireString(item, "observedAt", itemContext), `${itemContext}.observedAt`),
+      method
+    } satisfies SourceClaim;
+  });
+}
+
 function requireUrl(value: string, context: string): string {
   try {
     const url = new URL(value);
@@ -227,6 +250,7 @@ function normalizeSite(raw: unknown, index: number): Site {
   const type = requireString(raw, "type", context);
   const longSummary = optionalString(raw, "longSummary", context);
   const faqs = optionalFaqs(raw, context);
+  const claims = optionalClaims(raw, context);
 
   const slug = requireString(raw, "slug", context);
   const editorial = getResourceEditorial(slug);
@@ -254,6 +278,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     ...(editorial ? { longSummary: editorial.summary.zh } : longSummary ? { longSummary } : {}),
     aiSummary: editorial?.skillFluxNote.zh ?? requireString(raw, "aiSummary", context),
     ...(!editorial && faqs ? { faqs } : {}),
+    ...(claims ? { claims } : {}),
     featured: requireBoolean(raw, "featured", context),
     recommended: requireBoolean(raw, "recommended", context),
     trustLevel,

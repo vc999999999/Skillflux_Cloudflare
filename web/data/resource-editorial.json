@@ -3049,5 +3049,5037 @@
         }
       }
     ]
+  },
+  "github-com-lambdatest-agent-skills": {
+    "resourceSlug": "lambdatest-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "跨框架测试自动化",
+      "en": "Test automation across frameworks"
+    },
+    "summary": {
+      "zh": "TestMu AI（原 LambdaTest）发布的测试自动化 Skill，覆盖 API 设计与测试、无障碍检查、CI/CD 流水线，以及 Selenium、Appium、Playwright 等框架的专项指导。每个 Skill 是仓库根目录下的一个文件夹。",
+      "en": "TestMu AI (formerly LambdaTest) publishes skills for test automation work: API design and testing, accessibility checks, CI/CD pipelines and framework-specific guidance for Selenium, Appium, Playwright and others. Each skill is a folder in the repository root."
+    },
+    "bestFor": [
+      {
+        "zh": "希望在编码 Agent 中获得具体测试框架指导的 QA 工程师。",
+        "en": "QA engineers who want framework-specific test guidance inside a coding agent."
+      }
+    ],
+    "useCases": [
+      "testing",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先挑选与你现有测试框架对应的 Skill，并确认步骤是依赖 TestMu AI 云端设备网格，还是可以在本地运行。",
+      "en": "Pick the skill for the framework you already run, and check whether its steps assume the TestMu AI cloud grid or work locally."
+    },
+    "limitations": [
+      {
+        "zh": "部分 Skill 围绕该厂商的云测试平台编写。",
+        "en": "Some skills are written around the vendor's cloud testing platform."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-cypress-io-ai-toolkit",
+      "github-com-mailtrap-mailtrap-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-cypress-io-ai-toolkit": {
+        "en": "Compare Cypress AI Toolkit — Writing and explaining Cypress tests.",
+        "zh": "如果更需要「编写与解释 Cypress 测试」，可以对比 Cypress AI Toolkit。"
+      },
+      "github-com-mailtrap-mailtrap-skills": {
+        "en": "Compare Mailtrap Skills — Sending and testing email with Mailtrap.",
+        "zh": "如果更需要「用 Mailtrap 发送与测试邮件」，可以对比 Mailtrap Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-minimax-ai-skills": {
+    "resourceSlug": "minimax-ai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "前端、移动端与多模态开发",
+      "en": "Frontend, mobile and multimodal development"
+    },
+    "summary": {
+      "zh": "MiniMax 的 Skill 合集为编码 Agent 提供前端、全栈、Android、iOS 与着色器开发的结构化指导，并包含调用 MiniMax 多模态、音乐和文档能力的 Skill。README 标注项目处于 Beta 阶段。",
+      "en": "MiniMax's skill collection gives coding agents structured guidance for frontend, fullstack, Android, iOS and shader development, plus skills that call MiniMax's own multimodal, music and document tools. The README marks the project as beta."
+    },
+    "bestFor": [
+      {
+        "zh": "需要开发指导、并考虑使用 MiniMax 模型 API 的开发者。",
+        "en": "Developers who want development guidance and are open to MiniMax's model APIs."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "ai",
+      "design"
+    ],
+    "skillFluxNote": {
+      "zh": "批量安装前，先区分通用开发类 Skill 与需要 MiniMax API Key 的 Skill。",
+      "en": "Separate the general development skills from the ones that need a MiniMax API key before installing a batch."
+    },
+    "limitations": [
+      {
+        "zh": "README 提示 Beta 阶段的 Skill 与格式可能变化。",
+        "en": "The README warns that skills and formats may change while the project is in beta."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wordpress-agent-skills",
+      "github-com-voltagent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      },
+      "github-com-voltagent-skills": {
+        "en": "Compare VoltAgent Skills — Building agents with VoltAgent.",
+        "zh": "如果更需要「用 VoltAgent 构建 Agent」，可以对比 VoltAgent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-nvidia-skills": {
+    "resourceSlug": "nvidia-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "NVIDIA 软件、CUDA-X 与 AI Blueprint",
+      "en": "NVIDIA software, CUDA-X and AI blueprints"
+    },
+    "summary": {
+      "zh": "NVIDIA 官方验证的 Agent Skill 目录，教 Agent 使用 NVIDIA 软件：CUDA-X 库、机器人与仿真流程、BioNeMo、RAG Blueprint 与平台工具。该仓库是镜像，Skill 本身在各产品仓库维护。",
+      "en": "NVIDIA's catalog of verified agent skills teaches agents to use NVIDIA software: CUDA-X libraries, robotics and simulation workflows, BioNeMo, RAG blueprints and platform tools. The repository mirrors skills that are maintained in individual product repositories."
+    },
+    "bestFor": [
+      {
+        "zh": "基于 NVIDIA GPU、NIM 微服务或 BioNeMo 开发的团队。",
+        "en": "Teams building on NVIDIA GPUs, NIM microservices or BioNeMo."
+      }
+    ],
+    "useCases": [
+      "ai",
+      "research",
+      "cloud"
+    ],
+    "skillFluxNote": {
+      "zh": "这是镜像仓库，权威版本和硬件要求请回到对应产品仓库查看。",
+      "en": "Because this is a mirror, check the linked product repository for the authoritative version and its hardware requirements."
+    },
+    "limitations": [
+      {
+        "zh": "很多 Skill 默认需要 NVIDIA 硬件、账号或 NGC 访问权限。",
+        "en": "Many skills assume NVIDIA hardware, accounts or NGC access."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-huggingface-skills",
+      "github-com-veniceai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-huggingface-skills": {
+        "en": "Compare Hugging Face Skills — Datasets, training and evaluation on the Hub.",
+        "zh": "如果更需要「Hub 上的数据集、训练与评测」，可以对比 Hugging Face Skills。"
+      },
+      "github-com-veniceai-skills": {
+        "en": "Compare Venice.ai Skills — The Venice API surface.",
+        "zh": "如果更需要「Venice API 各项能力」，可以对比 Venice.ai Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-angular-skills": {
+    "resourceSlug": "angular-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "现代 Angular 应用开发",
+      "en": "Modern Angular application code"
+    },
+    "summary": {
+      "zh": "Angular 团队的 Skill 帮助编码 Agent 按当前版本编写 Angular：一个生成组件、服务和基于 signals 的响应式代码，另一个按当前默认配置创建新项目。",
+      "en": "The Angular team's skills help coding agents write Angular aligned with current versions: one skill generates components, services and reactivity code with signals, the other scaffolds new projects using current defaults."
+    },
+    "bestFor": [
+      {
+        "zh": "希望 Agent 遵循当前 Angular 写法的开发者。",
+        "en": "Angular developers who want agents to follow current framework idioms."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "design"
+    ],
+    "skillFluxNote": {
+      "zh": "让 Skill 改写旧代码前，先对比它面向的 Angular 版本与项目版本。",
+      "en": "Compare the Angular version the skill targets with your project before letting it migrate older code."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "We could not find a license file at the repository root."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wordpress-agent-skills",
+      "github-com-vercel-labs-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      },
+      "github-com-vercel-labs-agent-skills": {
+        "en": "Compare Vercel Agent Skills — React patterns and Vercel deployment.",
+        "zh": "如果更需要「React 写法与 Vercel 部署」，可以对比 Vercel Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-apollographql-skills": {
+    "resourceSlug": "apollographql-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "GraphQL 客户端、服务端与联邦",
+      "en": "GraphQL clients, servers and federation"
+    },
+    "summary": {
+      "zh": "Apollo 为其 GraphQL 技术栈发布的 Skill：Apollo Client、Server、Router、Federation、Connectors、iOS 与 Kotlin 客户端、MCP Server 和 Rover CLI。README 推荐用 skills CLI 安装。",
+      "en": "Apollo publishes skills for its GraphQL stack: Apollo Client, Server, Router, Federation, Connectors, the iOS and Kotlin clients, the MCP server and Rover CLI. The README recommends installing them with the skills CLI."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Apollo Client、Router 或 Federation 的团队。",
+        "en": "Teams running Apollo Client, Router or Federation."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "data"
+    ],
+    "skillFluxNote": {
+      "zh": "只安装与你使用的 Apollo 产品对应的 Skill，仓库正是按产品拆分的。",
+      "en": "Install only the skills for the Apollo products you run; they are split per product for that reason."
+    },
+    "limitations": [
+      {
+        "zh": "指导围绕 Apollo 自家工具，未必适用于其他 GraphQL 服务端。",
+        "en": "Guidance follows Apollo's own tools and may not fit other GraphQL servers."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wordpress-agent-skills",
+      "github-com-voltagent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      },
+      "github-com-voltagent-skills": {
+        "en": "Compare VoltAgent Skills — Building agents with VoltAgent.",
+        "zh": "如果更需要「用 VoltAgent 构建 Agent」，可以对比 VoltAgent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-better-auth-skills": {
+    "resourceSlug": "better-auth-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "使用 Better Auth 实现认证",
+      "en": "Authentication with Better Auth"
+    },
+    "summary": {
+      "zh": "Better Auth 团队的 Skill，用 Better Auth TypeScript 库实现认证：初始化、邮箱密码登录、组织、双因素认证、安全与最佳实践。",
+      "en": "Skills from the Better Auth team for adding authentication with the Better Auth TypeScript library: setup, email and password, organizations, two-factor authentication, security and best practices."
+    },
+    "bestFor": [
+      {
+        "zh": "正在使用或评估 Better Auth 的 TypeScript 项目。",
+        "en": "TypeScript projects that use or are evaluating Better Auth."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "security"
+    ],
+    "skillFluxNote": {
+      "zh": "对照实际安装的库版本复核生成的认证代码，认证出错代价很高。",
+      "en": "Review generated auth code against the library version you install; authentication mistakes are costly."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "We could not find a license file at the repository root."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-getsentry-skills",
+      "github-com-coderabbitai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-getsentry-skills": {
+        "en": "Compare Sentry Skills — Engineering workflows used inside Sentry.",
+        "zh": "如果更需要「Sentry 内部的工程工作流」，可以对比 Sentry Skills。"
+      },
+      "github-com-coderabbitai-skills": {
+        "en": "Compare CodeRabbit Skills — AI code review from the agent.",
+        "zh": "如果更需要「在 Agent 中调用 AI 代码审查」，可以对比 CodeRabbit Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-browserbase-skills": {
+    "resourceSlug": "browserbase-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "使用 Browserbase 做浏览器自动化",
+      "en": "Browser automation with Browserbase"
+    },
+    "summary": {
+      "zh": "Browserbase 提供的 Claude Code 插件，让 Agent 通过 browse CLI 操作云端浏览器，包含抓取页面、会话追踪、把浏览器流程转成 API 以及调研类 Skill。",
+      "en": "A Claude Code plugin from Browserbase that lets agents drive cloud browsers through the browse CLI, with skills for fetching pages, tracing sessions, turning browser flows into APIs and research tasks."
+    },
+    "bestFor": [
+      {
+        "zh": "需要托管浏览器进行抓取或测试的 Agent。",
+        "en": "Agents that need a hosted browser for scraping or testing."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "安装整个插件前，先确认哪些 Skill 需要 Browserbase 账号。",
+      "en": "Check which skills need a Browserbase account before installing the whole plugin."
+    },
+    "limitations": [
+      {
+        "zh": "多数 Skill 依赖付费的 Browserbase 服务；仓库根目录未找到许可证文件。",
+        "en": "Most skills depend on the paid Browserbase service; no root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sanity-io-agent-toolkit",
+      "github-com-resend-resend-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-sanity-io-agent-toolkit": {
+        "en": "Compare Sanity Agent Toolkit — Sanity content modeling and Studio.",
+        "zh": "如果更需要「Sanity 内容建模与 Studio」，可以对比 Sanity Agent Toolkit。"
+      },
+      "github-com-resend-resend-skills": {
+        "en": "Compare Resend Skills — Transactional email and React Email.",
+        "zh": "如果更需要「事务邮件与 React Email」，可以对比 Resend Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-cloudflare-skills": {
+    "resourceSlug": "cloudflare-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "在 Cloudflare Workers 与开发者平台上构建",
+      "en": "Building on Cloudflare Workers and the developer platform"
+    },
+    "summary": {
+      "zh": "Cloudflare 的 Skill 覆盖 Workers、Durable Objects、Agents SDK、Cloudflare One、邮件与沙箱产品。仓库同时提供插件，可连同 Cloudflare MCP Server 一起安装。",
+      "en": "Cloudflare's skills cover Workers, Durable Objects, the Agents SDK, Cloudflare One, email and sandbox products. The repository also ships a plugin that installs the skills together with Cloudflare's MCP server."
+    },
+    "bestFor": [
+      {
+        "zh": "部署到 Cloudflare Workers 或使用 Agents SDK 的开发者。",
+        "en": "Developers deploying to Cloudflare Workers or using the Agents SDK."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先决定只装 Skill，还是装带 MCP Server 的插件；插件会让 Agent 访问你的账号。",
+      "en": "Decide whether you want the skills only or the plugin with the MCP server; the plugin gives the agent account access."
+    },
+    "limitations": [
+      {
+        "zh": "Skill 面向 Cloudflare 产品和 wrangler 约定。",
+        "en": "Skills target Cloudflare products and wrangler conventions."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-microsoft-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-coderabbitai-skills": {
+    "resourceSlug": "coderabbitai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "在 Agent 中调用 AI 代码审查",
+      "en": "AI code review from the agent"
+    },
+    "summary": {
+      "zh": "CodeRabbit 的 Skill 通过 CodeRabbit CLI 把 AI 代码审查和自动修复接入编码 Agent，让 Agent 在合并前检查变更中的缺陷与安全问题。",
+      "en": "CodeRabbit's skills add its AI code review and autofix to coding agents through the CodeRabbit CLI, so an agent can review changes for bugs and security issues before merging."
+    },
+    "bestFor": [
+      {
+        "zh": "已在 PR 审查中使用 CodeRabbit 的团队。",
+        "en": "Teams that already use CodeRabbit for pull request review."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "security"
+    ],
+    "skillFluxNote": {
+      "zh": "这些 Skill 会调用外部服务，先确认会发送哪些代码、使用哪个账号。",
+      "en": "The skills call an external service; confirm what code is sent and under which account."
+    },
+    "limitations": [
+      {
+        "zh": "需要 CodeRabbit CLI 和已认证账号。",
+        "en": "Requires the CodeRabbit CLI and an authenticated account."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-getsentry-skills",
+      "github-com-better-auth-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-getsentry-skills": {
+        "en": "Compare Sentry Skills — Engineering workflows used inside Sentry.",
+        "zh": "如果更需要「Sentry 内部的工程工作流」，可以对比 Sentry Skills。"
+      },
+      "github-com-better-auth-skills": {
+        "en": "Compare Better Auth Skills — Authentication with Better Auth.",
+        "zh": "如果更需要「使用 Better Auth 实现认证」，可以对比 Better Auth Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-trycourier-courier-skills": {
+    "resourceSlug": "trycourier-courier-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "跨邮件、短信、推送与聊天的通知",
+      "en": "Notifications across email, SMS, push and chat"
+    },
+    "summary": {
+      "zh": "Courier 的单个 Skill，教 Agent 使用其通知 API：选择合适的能力、SDK 写法，以及 OTP、隐私数据和营销订阅的规则，覆盖邮件、短信、推送、站内信、Slack、Teams 和 WhatsApp。",
+      "en": "A single skill from Courier that teaches agents its notification API: choosing the right primitive, SDK shapes, and rules for OTPs, PII and marketing opt-in across email, SMS, push, inbox, Slack, Teams and WhatsApp."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Courier 发送通知的产品。",
+        "en": "Products sending notifications through Courier."
+      }
+    ],
+    "useCases": [
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "即使只部分使用 Courier，规则部分也值得先读，再生成通知代码。",
+      "en": "The rules section is the useful part even if you only partly use Courier; read it before generating notification code."
+    },
+    "limitations": [
+      {
+        "zh": "只有通过 Courier 发送通知时才有用。",
+        "en": "Only useful if you send notifications through Courier."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wordpress-agent-skills",
+      "github-com-voltagent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      },
+      "github-com-voltagent-skills": {
+        "en": "Compare VoltAgent Skills — Building agents with VoltAgent.",
+        "zh": "如果更需要「用 VoltAgent 构建 Agent」，可以对比 VoltAgent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-cypress-io-ai-toolkit": {
+    "resourceSlug": "cypress-io-ai-toolkit",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "编写与解释 Cypress 测试",
+      "en": "Writing and explaining Cypress tests"
+    },
+    "summary": {
+      "zh": "Cypress 团队的开源 Skill，用于编写测试、解释失败原因、查询 Cypress 文档以及使用 Cypress Cloud CLI。",
+      "en": "Open-source skills from the Cypress team for authoring tests, explaining failures, looking up Cypress documentation and using the Cypress Cloud CLI."
+    },
+    "bestFor": [
+      {
+        "zh": "已有 Cypress 测试套件的团队。",
+        "en": "Teams with an existing Cypress suite."
+      }
+    ],
+    "useCases": [
+      "testing",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先用 explain Skill 分析一个真实失败的测试，再让 author Skill 编写新测试。",
+      "en": "Start with the explain skill on a real failing test before letting the authoring skill write new ones."
+    },
+    "limitations": [
+      {
+        "zh": "Cloud 相关 Skill 需要 Cypress Cloud 账号。",
+        "en": "Cloud skills need a Cypress Cloud account."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-lambdatest-agent-skills",
+      "github-com-mailtrap-mailtrap-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-lambdatest-agent-skills": {
+        "en": "Compare TestMu AI Agent Skills — Test automation across frameworks.",
+        "zh": "如果更需要「跨框架测试自动化」，可以对比 TestMu AI Agent Skills。"
+      },
+      "github-com-mailtrap-mailtrap-skills": {
+        "en": "Compare Mailtrap Skills — Sending and testing email with Mailtrap.",
+        "zh": "如果更需要「用 Mailtrap 发送与测试邮件」，可以对比 Mailtrap Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-firebase-skills": {
+    "resourceSlug": "firebase-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Firebase 配置、Firestore 与安全规则",
+      "en": "Firebase setup, Firestore and security rules"
+    },
+    "summary": {
+      "zh": "Firebase 团队的 Skill 覆盖项目基础、Authentication、Firestore、Data Connect、Hosting、App Hosting、Crashlytics、Remote Config、AI Logic 以及安全规则审计。",
+      "en": "The Firebase team's skills cover project basics, Authentication, Firestore, Data Connect, Hosting, App Hosting, Crashlytics, Remote Config, AI Logic and a security-rules auditor."
+    },
+    "bestFor": [
+      {
+        "zh": "基于 Firebase 开发应用的开发者。",
+        "en": "App developers building on Firebase."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "mobile",
+      "data"
+    ],
+    "skillFluxNote": {
+      "zh": "让 Agent 编写新规则前，先用安全规则审计 Skill 检查现有规则。",
+      "en": "Run the security-rules auditor skill on existing rules before asking agents to write new ones."
+    },
+    "limitations": [
+      {
+        "zh": "指导限定于 Firebase 产品与 CLI。",
+        "en": "Guidance is specific to Firebase products and CLI."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-google-skills",
+      "github-com-netlify-context-and-tools"
+    ],
+    "alternativeReasons": {
+      "github-com-google-skills": {
+        "en": "Compare Google Agent Skills — Google Cloud products and the agent platform.",
+        "zh": "如果更需要「Google Cloud 产品与 Agent 平台」，可以对比 Google Agent Skills。"
+      },
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-firecrawl-skills": {
+    "resourceSlug": "firecrawl-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "网页抓取、爬取与调研",
+      "en": "Web scraping, crawling and research"
+    },
+    "summary": {
+      "zh": "Firecrawl 基于其 API 的抓取、爬取、搜索与调研 Skill 目录，打包为 Claude Code、Cursor 和 Codex 插件。该仓库是 CI 同步的分发镜像。",
+      "en": "Firecrawl's catalog of skills for scraping, crawling, searching and research workflows built on its API, packaged as plugins for Claude Code, Cursor and Codex. The repository is a CI-synced distribution mirror."
+    },
+    "bestFor": [
+      {
+        "zh": "需要结构化网页数据的 Agent。",
+        "en": "Agents that need structured web data."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "修改要提交到源仓库；可以在这里阅读，问题请反馈到上游。",
+      "en": "Contributions go to the source repository; read skills here but report issues upstream."
+    },
+    "limitations": [
+      {
+        "zh": "需要 Firecrawl API Key，用量由该服务计费。",
+        "en": "Requires a Firecrawl API key; usage is billed by the service."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-oaustegard-claude-skills",
+      "github-com-muratcankoylan-agent-skills-for-context-engineering"
+    ],
+    "alternativeReasons": {
+      "github-com-oaustegard-claude-skills": {
+        "en": "Compare Claude Skills (Oskar Austegard) — Skills for the Claude.ai skill environment.",
+        "zh": "如果更需要「面向 Claude.ai Skill 环境的 Skill」，可以对比 Claude Skills (Oskar Austegard)。"
+      },
+      "github-com-muratcankoylan-agent-skills-for-context-engineering": {
+        "en": "Compare Agent Skills for Context Engineering — Context and harness engineering principles.",
+        "zh": "如果更需要「上下文与运行框架工程原则」，可以对比 Agent Skills for Context Engineering。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-flutter-skills": {
+    "resourceSlug": "flutter-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Flutter 与 Dart 开发",
+      "en": "Flutter and Dart development"
+    },
+    "summary": {
+      "zh": "Flutter 团队维护的 Agent 插件，把 Skill、MCP 配置和规则打包用于 Dart 与 Flutter 开发：测试、mock、静态分析、FFI、依赖冲突与代码审查。",
+      "en": "Agent plugins maintained by the Flutter team that bundle skills, MCP configuration and rules for Dart and Flutter work: tests, mocks, static analysis, FFI, package conflicts and code review."
+    },
+    "bestFor": [
+      {
+        "zh": "Flutter 与 Dart 开发者。",
+        "en": "Flutter and Dart developers."
+      }
+    ],
+    "useCases": [
+      "mobile",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先在现有 package 上试用分析与测试类 Skill，它们最容易验证。",
+      "en": "Use the analysis and test skills on an existing package first; they are the easiest to verify."
+    },
+    "limitations": [
+      {
+        "zh": "Skill 默认已有可用的 Flutter/Dart 工具链。",
+        "en": "Skills assume a working Flutter/Dart toolchain."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-expo-skills",
+      "github-com-android-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-expo-skills": {
+        "en": "Compare Expo Skills (Official) — React Native and Expo development.",
+        "zh": "如果更需要「React Native 与 Expo 开发」，可以对比 Expo Skills(官方)。"
+      },
+      "github-com-android-skills": {
+        "en": "Compare Android Skills (Official) — Native Android development.",
+        "zh": "如果更需要「原生 Android 开发」，可以对比 Android Skills(官方)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-getsentry-skills": {
+    "resourceSlug": "getsentry-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Sentry 内部的工程工作流",
+      "en": "Engineering workflows used inside Sentry"
+    },
+    "summary": {
+      "zh": "为 Sentry 员工编写的 Agent Skill：代码审查、提交与分支、查找缺陷、Django 性能与权限审查、API 文档与写作指南。若要在项目中接入 Sentry，Sentry 指向另一个仓库。",
+      "en": "Agent skills written for Sentry employees: code review, commits and branches, bug finding, Django performance and access reviews, API documentation and writing guides. Sentry points users who want to set up Sentry itself to a separate repository."
+    },
+    "bestFor": [
+      {
+        "zh": "想借鉴成熟公司工程规范的团队。",
+        "en": "Teams who want to borrow a mature company's engineering conventions."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "security"
+    ],
+    "skillFluxNote": {
+      "zh": "这些 Skill 记录的是 Sentry 内部习惯，复用前先改成自己的命名和路径。",
+      "en": "These encode Sentry's internal habits; adapt names and paths before reusing them."
+    },
+    "limitations": [
+      {
+        "zh": "不是 Sentry SDK 接入指南。",
+        "en": "Not a Sentry SDK integration guide."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-coderabbitai-skills",
+      "github-com-better-auth-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-coderabbitai-skills": {
+        "en": "Compare CodeRabbit Skills — AI code review from the agent.",
+        "zh": "如果更需要「在 Agent 中调用 AI 代码审查」，可以对比 CodeRabbit Skills。"
+      },
+      "github-com-better-auth-skills": {
+        "en": "Compare Better Auth Skills — Authentication with Better Auth.",
+        "zh": "如果更需要「使用 Better Auth 实现认证」，可以对比 Better Auth Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-google-skills": {
+    "resourceSlug": "google-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Google Cloud 产品与 Agent 平台",
+      "en": "Google Cloud products and the agent platform"
+    },
+    "summary": {
+      "zh": "Google 面向自家产品的 Agent Skill 仓库，以 Google Cloud 为主：Agent 平台、AlloyDB、BigQuery、Cloud Run、安全等。通过 skills CLI 安装，也可以更新和清理。",
+      "en": "Google's repository of agent skills for Google products, mostly Google Cloud: the agent platform, AlloyDB, BigQuery, Cloud Run, security and more. Skills are installed with the skills CLI, which can also update and prune them."
+    },
+    "bestFor": [
+      {
+        "zh": "在 Google Cloud 上运行业务的团队。",
+        "en": "Teams running workloads on Google Cloud."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "ai",
+      "data"
+    ],
+    "skillFluxNote": {
+      "zh": "目录很大，按产品挑选，不要全部安装。",
+      "en": "The catalog is large; select by product rather than installing everything."
+    },
+    "limitations": [
+      {
+        "zh": "多数 Skill 需要 Google Cloud 项目和凭证。",
+        "en": "Most skills require a Google Cloud project and credentials."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-microsoft-skills",
+      "github-com-firebase-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      },
+      "github-com-firebase-skills": {
+        "en": "Compare Firebase Skills — Firebase setup, Firestore and security rules.",
+        "zh": "如果更需要「Firebase 配置、Firestore 与安全规则」，可以对比 Firebase Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-huggingface-skills": {
+    "resourceSlug": "huggingface-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Hub 上的数据集、训练与评测",
+      "en": "Datasets, training and evaluation on the Hub"
+    },
+    "summary": {
+      "zh": "Hugging Face 的 Skill 覆盖数据集创建、模型训练、评测和 Gradio 应用等机器学习任务。推荐先装 hf-cli Skill 来操作 Hub，其余按需添加。",
+      "en": "Hugging Face's skills define ML tasks such as dataset creation, model training, evaluation and Gradio apps. The hf-cli skill is the recommended starting point for working with the Hub; others are added on demand."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Hugging Face Hub 的机器学习工程师。",
+        "en": "ML engineers working with the Hugging Face Hub."
+      }
+    ],
+    "useCases": [
+      "ai",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "按 README 建议先装 hf-cli，再添加所需的训练或评测 Skill。",
+      "en": "Start with hf-cli as the README suggests, then add the training or evaluation skill you need."
+    },
+    "limitations": [
+      {
+        "zh": "训练类 Skill 可能启动付费算力任务。",
+        "en": "Training skills can start paid compute jobs."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-nvidia-skills",
+      "github-com-veniceai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-nvidia-skills": {
+        "en": "Compare NVIDIA Agent Skills — NVIDIA software, CUDA-X and AI blueprints.",
+        "zh": "如果更需要「NVIDIA 软件、CUDA-X 与 AI Blueprint」，可以对比 NVIDIA Agent Skills。"
+      },
+      "github-com-veniceai-skills": {
+        "en": "Compare Venice.ai Skills — The Venice API surface.",
+        "zh": "如果更需要「Venice API 各项能力」，可以对比 Venice.ai Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-makenotion-skills": {
+    "resourceSlug": "makenotion-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "在 Agent 中使用 Notion",
+      "en": "Working with Notion from an agent"
+    },
+    "summary": {
+      "zh": "Notion 提供的两个 Skill：一个用于 Notion CLI，一个用于构建 Notion 应用。README 推荐用 skills CLI 安装。",
+      "en": "Two skills from Notion: one for the Notion CLI and one for building Notion apps. The README recommends installing them with the skills CLI."
+    },
+    "bestFor": [
+      {
+        "zh": "在 Notion 中管理计划与文档的团队。",
+        "en": "Teams that keep plans and docs in Notion."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "规模小、范围明确，安装前可以完整读一遍。",
+      "en": "Small and focused; read both skills in full before installing."
+    },
+    "limitations": [
+      {
+        "zh": "需要 Agent 将要访问的工作区的 Notion 权限。",
+        "en": "Needs Notion access for the workspace the agent will touch."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-googleworkspace-cli",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-googleworkspace-cli": {
+        "en": "Compare Google Workspace CLI (gws) — Drive, Gmail, Calendar and Docs from the command line.",
+        "zh": "如果更需要「通过命令行操作 Drive、Gmail、日历与文档」，可以对比 Google Workspace CLI (gws)。"
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "en": "Compare OthmanAdi/planning-with-files — File-based task planning.",
+        "zh": "如果更需要「文件化任务规划」，可以对比 OthmanAdi/planning-with-files。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-microsoft-skills": {
+    "resourceSlug": "microsoft-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Azure SDK、AKS 与微软开发工具",
+      "en": "Azure SDKs, AKS and Microsoft developer tools"
+    },
+    "summary": {
+      "zh": "微软的大型 Skill 目录以 Azure 为主：多语言 SDK 用法、AI 服务、AKS 运维、Application Insights 和 Advisor。README 标注仍在建设中，CI 中运行测试和 Skill 评估。",
+      "en": "Microsoft's large skill catalog focuses on Azure: SDK usage across languages, AI services, AKS operations, Application Insights and Advisor. The README marks it as a work in progress with tests and skill evaluations running in CI."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Azure SDK 或运维 AKS 集群的开发者。",
+        "en": "Developers using Azure SDKs or operating AKS clusters."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "按语言和服务筛选，很多 Skill 是同一服务不同语言 SDK 的版本。",
+      "en": "Filter by language and service; many skills are near-duplicates for different SDK languages."
+    },
+    "limitations": [
+      {
+        "zh": "仍在建设，Skill 正在更新到新的 SDK 写法。",
+        "en": "Work in progress; skills are being updated to newer SDK patterns."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-hashicorp-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-hashicorp-agent-skills": {
+        "en": "Compare HashiCorp Agent Skills — Terraform providers, modules and Packer.",
+        "zh": "如果更需要「Terraform Provider、模块与 Packer」，可以对比 HashiCorp Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-openai-skills": {
+    "resourceSlug": "openai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Codex Skill 示例（已弃用）",
+      "en": "Codex skill examples (archived)"
+    },
+    "summary": {
+      "zh": "OpenAI 最初的 Codex Skill 目录，分为 system、curated 和 experimental 三层。README 现已说明该仓库弃用，当前示例改在 OpenAI Plugins 仓库。",
+      "en": "OpenAI's original catalog of skills for Codex, organized into system, curated and experimental tiers. The README now says the repository is deprecated and points to the OpenAI Plugins repository for current examples."
+    },
+    "bestFor": [
+      {
+        "zh": "了解 OpenAI 早期如何组织 Codex Skill。",
+        "en": "Reading how OpenAI structured early Codex skills."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "新项目请用 OpenAI Plugins，这个仓库只作历史参考。",
+      "en": "Use OpenAI Plugins for anything new; treat this repository as history."
+    },
+    "limitations": [
+      {
+        "zh": "维护方已弃用；仓库根目录未找到许可证文件。",
+        "en": "Deprecated by its maintainer; no root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-openai-plugins",
+      "github-com-jetbrains-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-openai-plugins": {
+        "en": "Compare OpenAI Plugins for Codex — Codex plugin examples and marketplace.",
+        "zh": "如果更需要「Codex 插件示例与市场」，可以对比 OpenAI Plugins for Codex。"
+      },
+      "github-com-jetbrains-skills": {
+        "en": "Compare JetBrains Verified Skills — A filtered snapshot of upstream skills.",
+        "zh": "如果更需要「经筛选的上游 Skill 快照」，可以对比 JetBrains Verified Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-openai-plugins": {
+    "resourceSlug": "openai-plugins",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Codex 插件示例与市场",
+      "en": "Codex plugin examples and marketplace"
+    },
+    "summary": {
+      "zh": "OpenAI 精选的 Codex 插件示例。每个插件有清单文件，可打包 Skill、应用、MCP 配置、Agent、命令和钩子；仓库还定义了 Codex 默认插件市场。",
+      "en": "OpenAI's curated collection of Codex plugin examples. Each plugin has a manifest and can bundle skills, apps, MCP configuration, agents, commands and hooks; the repository also defines the default Codex plugin marketplace."
+    },
+    "bestFor": [
+      {
+        "zh": "Codex 用户和开发 Codex 插件的团队。",
+        "en": "Codex users and teams building Codex plugins."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "很多插件封装第三方产品，要看每个插件的发布方，而不只是仓库所有者。",
+      "en": "Many plugins wrap third-party products; check the publisher of each plugin, not only the repository owner."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件，各插件条款不同。",
+        "en": "No root license file was found; plugin terms vary."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sanity-io-agent-toolkit",
+      "github-com-resend-resend-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-sanity-io-agent-toolkit": {
+        "en": "Compare Sanity Agent Toolkit — Sanity content modeling and Studio.",
+        "zh": "如果更需要「Sanity 内容建模与 Studio」，可以对比 Sanity Agent Toolkit。"
+      },
+      "github-com-resend-resend-skills": {
+        "en": "Compare Resend Skills — Transactional email and React Email.",
+        "zh": "如果更需要「事务邮件与 React Email」，可以对比 Resend Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-redis-agent-skills": {
+    "resourceSlug": "redis-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Redis 数据建模、搜索与运维",
+      "en": "Redis data modeling, search and operations"
+    },
+    "summary": {
+      "zh": "Redis 的 Skill 覆盖连接、核心数据结构、集群、搜索、语义缓存、安全与可观测性，同时打包为 Claude Code 和 Codex 插件。",
+      "en": "Redis's skills cover connections, core data structures, clustering, search, semantic caching, security and observability, and are also packaged as a Claude Code and Codex plugin."
+    },
+    "bestFor": [
+      {
+        "zh": "把 Redis 用作缓存、存储或向量索引的应用。",
+        "en": "Applications using Redis as a cache, store or vector index."
+      }
+    ],
+    "useCases": [
+      "data",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "任何会把 Redis 暴露到网络的改动，都配合安全 Skill 一起看。",
+      "en": "Pair the security skill with any change that exposes Redis on a network."
+    },
+    "limitations": [
+      {
+        "zh": "指导围绕 Redis 自家产品，包括 Redis Cloud。",
+        "en": "Guidance follows Redis's own products, including Redis Cloud."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-tinybirdco-tinybird-agent-skills",
+      "github-com-supabase-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-tinybirdco-tinybird-agent-skills": {
+        "en": "Compare Tinybird Agent Skills — Tinybird data projects and SDKs.",
+        "zh": "如果更需要「Tinybird 数据项目与 SDK」，可以对比 Tinybird Agent Skills。"
+      },
+      "github-com-supabase-agent-skills": {
+        "en": "Compare Supabase Agent Skills — Supabase and Postgres best practices.",
+        "zh": "如果更需要「Supabase 与 Postgres 最佳实践」，可以对比 Supabase Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-remotion-dev-skills": {
+    "resourceSlug": "remotion-dev-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "用 Remotion 编程生成视频",
+      "en": "Programmatic video with Remotion"
+    },
+    "summary": {
+      "zh": "Remotion 的最佳实践 Skill，用 React 制作视频：创建项目、字幕、地图、多媒体、渲染、交互、Studio 与升级。新建 Remotion 项目时可以直接添加。",
+      "en": "Remotion's best-practice skills for building videos in React: creating projects, captions, maps, multimedia, rendering, interactivity, the studio and upgrades. New Remotion projects can add them at creation."
+    },
+    "bestFor": [
+      {
+        "zh": "用代码生产视频的开发者。",
+        "en": "Developers producing videos from code."
+      }
+    ],
+    "useCases": [
+      "video",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "首个项目用 create Skill，之后按需添加渲染和字幕 Skill。",
+      "en": "Use the create skill for a first project, then add rendering and caption skills as needed."
+    },
+    "limitations": [
+      {
+        "zh": "Remotion 对公司有单独的许可条款，商用前先确认。",
+        "en": "Remotion has its own license terms for companies; check them before commercial use."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-transloadit-skills",
+      "github-com-video-db-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-transloadit-skills": {
+        "en": "Compare Transloadit Skills — File uploading and media transforms.",
+        "zh": "如果更需要「文件上传与媒体转换」，可以对比 Transloadit Skills。"
+      },
+      "github-com-video-db-skills": {
+        "en": "Compare VideoDB Skills — Clipping, editing, subtitling and searching video.",
+        "zh": "如果更需要「视频剪辑、编辑、字幕与搜索」，可以对比 VideoDB Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-replicate-skills": {
+    "resourceSlug": "replicate-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "查找、运行与发布模型",
+      "en": "Finding, running and publishing models"
+    },
+    "summary": {
+      "zh": "Replicate 的 Skill 引导 Agent 查找和比较模型、运行预测、用 Cog 打包与发布模型，以及为图像和视频模型写提示词。",
+      "en": "Replicate's skills walk agents through finding and comparing models, running predictions, packaging models with Cog, publishing them, and prompting image and video models."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Replicate 调用托管模型的应用。",
+        "en": "Apps that call hosted models through Replicate."
+      }
+    ],
+    "useCases": [
+      "ai",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "确定模型前先用 compare-models，成本差异很大。",
+      "en": "compare-models is useful before committing to one model; costs differ widely."
+    },
+    "limitations": [
+      {
+        "zh": "运行模型由 Replicate 计费。",
+        "en": "Running models is billed by Replicate."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-veniceai-skills",
+      "github-com-google-gemini-gemini-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-veniceai-skills": {
+        "en": "Compare Venice.ai Skills — The Venice API surface.",
+        "zh": "如果更需要「Venice API 各项能力」，可以对比 Venice.ai Skills。"
+      },
+      "github-com-google-gemini-gemini-skills": {
+        "en": "Compare Gemini API Skills — Building with the Gemini API.",
+        "zh": "如果更需要「使用 Gemini API 开发」，可以对比 Gemini API Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-resend-resend-skills": {
+    "resourceSlug": "resend-resend-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "事务邮件与 React Email",
+      "en": "Transactional email and React Email"
+    },
+    "summary": {
+      "zh": "Resend 的 Skill 覆盖其邮件 API 与 CLI、React Email 模板、邮件最佳实践和 Agent 收件箱。插件还会注册 Resend 托管的 MCP Server，使用 OAuth 登录。",
+      "en": "Resend's skills cover its email API and CLI, React Email templates, email best practices and an agent inbox. The plugin also registers Resend's hosted MCP server with OAuth sign-in."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Resend 发送邮件的产品。",
+        "en": "Products sending email through Resend."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "最佳实践 Skill 与服务商无关，不用 Resend 也值得一读。",
+      "en": "The best-practices skill is provider-neutral and worth reading even without Resend."
+    },
+    "limitations": [
+      {
+        "zh": "MCP Server 会让 Agent 访问你的 Resend 账号。",
+        "en": "The MCP server gives the agent access to your Resend account."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sanity-io-agent-toolkit",
+      "github-com-openai-plugins"
+    ],
+    "alternativeReasons": {
+      "github-com-sanity-io-agent-toolkit": {
+        "en": "Compare Sanity Agent Toolkit — Sanity content modeling and Studio.",
+        "zh": "如果更需要「Sanity 内容建模与 Studio」，可以对比 Sanity Agent Toolkit。"
+      },
+      "github-com-openai-plugins": {
+        "en": "Compare OpenAI Plugins for Codex — Codex plugin examples and marketplace.",
+        "zh": "如果更需要「Codex 插件示例与市场」，可以对比 OpenAI Plugins for Codex。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-trailofbits-skills": {
+    "resourceSlug": "trailofbits-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "安全审计、模糊测试与代码审查",
+      "en": "Security auditing, fuzzing and code review"
+    },
+    "summary": {
+      "zh": "Trail of Bits 发布的安全类 Skill 与插件：审计准备与上下文梳理、AFL++、Atheris、cargo-fuzz 等模糊测试、Sanitizer、智能合约漏洞扫描以及按语言的代码审查。",
+      "en": "Trail of Bits publishes skills and plugins for AI-assisted security work: audit preparation and context building, fuzzers such as AFL++, Atheris and cargo-fuzz, sanitizers, smart-contract vulnerability scanners and language-specific reviews."
+    },
+    "bestFor": [
+      {
+        "zh": "安全工程师和准备接受审计的团队。",
+        "en": "Security engineers and teams preparing for an audit."
+      }
+    ],
+    "useCases": [
+      "security",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "模糊测试与扫描类 Skill 会运行真实工具，请放在隔离环境中使用。",
+      "en": "Fuzzing and scanner skills run real tools; give them an isolated environment."
+    },
+    "limitations": [
+      {
+        "zh": "需要安全背景，输出仍需专家复核。",
+        "en": "Assumes security background; outputs still need expert review."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-behisecc-awesome-claude-skills",
+      "github-com-getsentry-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-behisecc-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (BehiSecc) — Security-oriented skill list.",
+        "zh": "如果更需要「安全视角 Skill 清单」，可以对比 awesome-claude-skills (BehiSecc)。"
+      },
+      "github-com-getsentry-skills": {
+        "en": "Compare Sentry Skills — Engineering workflows used inside Sentry.",
+        "zh": "如果更需要「Sentry 内部的工程工作流」，可以对比 Sentry Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-veniceai-skills": {
+    "resourceSlug": "veniceai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Venice API 各项能力",
+      "en": "The Venice API surface"
+    },
+    "summary": {
+      "zh": "Venice 的 Skill 对应其 API：对话、向量、图像、音频与音乐生成、转写、角色、计费与 API Key。仓库与 API 的 OpenAPI 规范保持同步。",
+      "en": "Venice's skills map its API: chat, embeddings, image, audio and music generation, transcription, characters, billing and API keys. The repository is kept in sync with the API's OpenAPI specification."
+    },
+    "bestFor": [
+      {
+        "zh": "接入 Venice API 的开发者。",
+        "en": "Developers integrating the Venice API."
+      }
+    ],
+    "useCases": [
+      "ai",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "安装 overview Skill，再加上实际调用的接口对应的 Skill。",
+      "en": "Install the overview skill plus only the endpoints you call."
+    },
+    "limitations": [
+      {
+        "zh": "需要 Venice 账号。",
+        "en": "Only useful with a Venice account."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-replicate-skills",
+      "github-com-google-gemini-gemini-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-replicate-skills": {
+        "en": "Compare Replicate Skills — Finding, running and publishing models.",
+        "zh": "如果更需要「查找、运行与发布模型」，可以对比 Replicate Skills。"
+      },
+      "github-com-google-gemini-gemini-skills": {
+        "en": "Compare Gemini API Skills — Building with the Gemini API.",
+        "zh": "如果更需要「使用 Gemini API 开发」，可以对比 Gemini API Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-vercel-labs-agent-skills": {
+    "resourceSlug": "vercel-labs-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "React 写法与 Vercel 部署",
+      "en": "React patterns and Vercel deployment"
+    },
+    "summary": {
+      "zh": "Vercel 面向 React 与 Next.js 的 Skill：React 与 React Native 最佳实践、组合模式、视图过渡、网页设计规范、写作规范、部署，以及 Vercel 项目的成本与性能审计。",
+      "en": "Vercel's skills for React and Next.js work: React and React Native best practices, composition patterns, view transitions, web design guidelines, writing guidelines, deployment and a cost and performance audit for Vercel projects."
+    },
+    "bestFor": [
+      {
+        "zh": "React 与 Next.js 团队，尤其是部署在 Vercel 上的。",
+        "en": "React and Next.js teams, especially on Vercel."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "cloud",
+      "design"
+    ],
+    "skillFluxNote": {
+      "zh": "即使不部署在 Vercel，React 最佳实践和设计规范 Skill 也有参考价值。",
+      "en": "The React best-practices and design-guideline skills are useful even if you host elsewhere."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "No root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-wordpress-agent-skills",
+      "github-com-minimax-ai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      },
+      "github-com-minimax-ai-skills": {
+        "en": "Compare MiniMax Skills — Frontend, mobile and multimodal development.",
+        "zh": "如果更需要「前端、移动端与多模态开发」，可以对比 MiniMax Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-vercel-labs-skills": {
+    "resourceSlug": "vercel-labs-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "把 Skill 安装到各类 Agent",
+      "en": "Installing skills into any agent"
+    },
+    "summary": {
+      "zh": "skills.sh 背后的 skills CLI（npx skills）源码。可把 Skill 安装到当前项目或全局，支持 OpenCode、Claude Code、Codex、Cursor 等众多 Agent，并附带 find-skills Skill。",
+      "en": "The source of the skills CLI (npx skills) behind skills.sh. It installs skills into the current project or globally for OpenCode, Claude Code, Codex, Cursor and many other agents, and includes a find-skills skill."
+    },
+    "bestFor": [
+      {
+        "zh": "需要在多个 Agent 之间安装 Skill 的用户。",
+        "en": "Anyone installing skills across several agents."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "用 CLI 安装前先读 Skill 内容；这个工具负责安装，不负责审查。",
+      "en": "Read what a skill contains before installing it with the CLI; the tool installs, it does not review."
+    },
+    "limitations": [
+      {
+        "zh": "需要较新的 Node.js 版本。",
+        "en": "Requires a recent Node.js version."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-claude-plugins-official",
+      "github-com-anthropics-claude-plugins-community"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      },
+      "github-com-anthropics-claude-plugins-community": {
+        "en": "Compare Claude Plugins Community — Community plugins for Claude Code and Cowork.",
+        "zh": "如果更需要「Claude Code 与 Cowork 社区插件」，可以对比 Claude Plugins Community。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-voltagent-skills": {
+    "resourceSlug": "voltagent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "用 VoltAgent 构建 Agent",
+      "en": "Building agents with VoltAgent"
+    },
+    "summary": {
+      "zh": "面向 VoltAgent TypeScript 框架的官方 Skill：项目初始化、Agent、工作流与记忆的最佳实践、核心 API 参考，以及与版本匹配的文档查询。",
+      "en": "Official skills for coding agents working with the VoltAgent TypeScript framework: project setup, best practices for agents, workflows and memory, a core API reference, and a version-matched docs lookup."
+    },
+    "bestFor": [
+      {
+        "zh": "基于 VoltAgent 构建 Agent 的开发者。",
+        "en": "Developers building agents on VoltAgent."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "docs-bundle Skill 读取已安装版本自带的文档，可避免过时指导。",
+      "en": "The docs-bundle skill reads docs shipped with your installed version, which avoids stale guidance."
+    },
+    "limitations": [
+      {
+        "zh": "仅适用于 VoltAgent 框架。",
+        "en": "Specific to the VoltAgent framework."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-stripe-ai",
+      "github-com-minimax-ai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-stripe-ai": {
+        "en": "Compare Stripe AI — Stripe payments, billing and agent SDKs.",
+        "zh": "如果更需要「Stripe 支付、计费与 Agent SDK」，可以对比 Stripe AI。"
+      },
+      "github-com-minimax-ai-skills": {
+        "en": "Compare MiniMax Skills — Frontend, mobile and multimodal development.",
+        "zh": "如果更需要「前端、移动端与多模态开发」，可以对比 MiniMax Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-stripe-ai": {
+    "resourceSlug": "stripe-ai",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Stripe 支付、计费与 Agent SDK",
+      "en": "Stripe payments, billing and agent SDKs"
+    },
+    "summary": {
+      "zh": "Stripe 用于在 Stripe 上构建 AI 产品的仓库。除了把 Stripe 计费接入 Agent 框架的 SDK，还包含 Stripe 最佳实践、文档查询、Connect、Stripe Apps 和升级集成等 Skill。",
+      "en": "Stripe's repository for building AI products on Stripe. Alongside SDKs that connect Stripe billing to agent frameworks, it holds skills for Stripe best practices, docs lookup, Connect, Stripe Apps and upgrading Stripe integrations."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Stripe 收款或按用量计费的产品。",
+        "en": "Products taking payments or usage-based billing through Stripe."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "先在测试模式下使用最佳实践与升级 Skill，再接触正式密钥。",
+      "en": "Use the best-practices and upgrade skills in test mode before touching live keys."
+    },
+    "limitations": [
+      {
+        "zh": "Skill 只是这个 SDK 仓库的一部分。",
+        "en": "Skills are one part of a larger SDK repository."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-skills",
+      "github-com-minimax-ai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-skills": {
+        "en": "Compare VoltAgent Skills — Building agents with VoltAgent.",
+        "zh": "如果更需要「用 VoltAgent 构建 Agent」，可以对比 VoltAgent Skills。"
+      },
+      "github-com-minimax-ai-skills": {
+        "en": "Compare MiniMax Skills — Frontend, mobile and multimodal development.",
+        "zh": "如果更需要「前端、移动端与多模态开发」，可以对比 MiniMax Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-supabase-agent-skills": {
+    "resourceSlug": "supabase-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Supabase 与 Postgres 最佳实践",
+      "en": "Supabase and Postgres best practices"
+    },
+    "summary": {
+      "zh": "Supabase 提供的两个 Skill：一个覆盖 Supabase 各产品的综合开发 Skill，一个是 Postgres 最佳实践。也可作为 Claude Code 插件安装。",
+      "en": "Two skills from Supabase: one broad Supabase development skill across its products, and one for Postgres best practices. They can also be installed as Claude Code plugins."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Supabase 或原生 Postgres 的项目。",
+        "en": "Projects using Supabase or plain Postgres."
+      }
+    ],
+    "useCases": [
+      "data",
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "Postgres Skill 适用于任何 Postgres 数据库，不限 Supabase。",
+      "en": "The Postgres skill is useful on any Postgres database, not only Supabase."
+    },
+    "limitations": [
+      {
+        "zh": "综合型 Skill 一次会加载较多上下文。",
+        "en": "Broad skills load a lot of context at once."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-tinybirdco-tinybird-agent-skills",
+      "github-com-redis-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-tinybirdco-tinybird-agent-skills": {
+        "en": "Compare Tinybird Agent Skills — Tinybird data projects and SDKs.",
+        "zh": "如果更需要「Tinybird 数据项目与 SDK」，可以对比 Tinybird Agent Skills。"
+      },
+      "github-com-redis-agent-skills": {
+        "en": "Compare Redis Agent Skills — Redis data modeling, search and operations.",
+        "zh": "如果更需要「Redis 数据建模、搜索与运维」，可以对比 Redis Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-wordpress-agent-skills": {
+    "resourceSlug": "wordpress-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "区块、主题与插件开发",
+      "en": "Blocks, themes and plugin development"
+    },
+    "summary": {
+      "zh": "WordPress 的 Skill，用于开发区块、区块主题、插件、Pattern、Playground 蓝图、PHPStan 与性能优化。README 说明这些 Skill 由 AI 模型根据官方文档生成，再经 WordPress 贡献者审阅。",
+      "en": "WordPress's skills for building blocks, block themes, plugins, patterns, Playground blueprints, PHPStan and performance. The README discloses that the skills were generated from official documentation with an AI model and then reviewed by WordPress contributors."
+    },
+    "bestFor": [
+      {
+        "zh": "WordPress 插件与主题开发者。",
+        "en": "WordPress plugin and theme developers."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "design"
+    ],
+    "skillFluxNote": {
+      "zh": "配合 wp-env 或 Playground Skill，让 Agent 在可丢弃的站点中测试改动。",
+      "en": "Use wp-env or Playground skills so the agent tests changes in a disposable site."
+    },
+    "limitations": [
+      {
+        "zh": "由 AI 生成后审阅，README 称这是第一版。",
+        "en": "Generated with AI and reviewed; the README calls it a first version."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-agent-skills",
+      "github-com-minimax-ai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-agent-skills": {
+        "en": "Compare Vercel Agent Skills — React patterns and Vercel deployment.",
+        "zh": "如果更需要「React 写法与 Vercel 部署」，可以对比 Vercel Agent Skills。"
+      },
+      "github-com-minimax-ai-skills": {
+        "en": "Compare MiniMax Skills — Frontend, mobile and multimodal development.",
+        "zh": "如果更需要「前端、移动端与多模态开发」，可以对比 MiniMax Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-hashicorp-agent-skills": {
+    "resourceSlug": "hashicorp-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Terraform Provider、模块与 Packer",
+      "en": "Terraform providers, modules and Packer"
+    },
+    "summary": {
+      "zh": "HashiCorp 面向 Terraform 与 Packer 的 Skill：用插件框架编写 Provider、重构模块、运行验收测试、发布到 Registry 以及构建镜像。目录文件列出每个 Skill 的生命周期状态。",
+      "en": "HashiCorp's skills for Terraform and Packer: writing providers with the plugin framework, refactoring modules, running acceptance tests, publishing to the registry and building images. A catalog file lists each skill's lifecycle status."
+    },
+    "bestFor": [
+      {
+        "zh": "编写 Terraform Provider 或可复用模块的团队。",
+        "en": "Teams writing Terraform providers or reusable modules."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "查看 SKILLS.md 中的生命周期状态，部分 Skill 标为实验性。",
+      "en": "Check the lifecycle status in SKILLS.md; some skills are marked experimental."
+    },
+    "limitations": [
+      {
+        "zh": "Provider 开发类 Skill 默认使用 Go 和 Terraform 插件框架。",
+        "en": "Provider-authoring skills assume Go and the Terraform plugin framework."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-microsoft-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-neondatabase-agent-skills": {
+    "resourceSlug": "neondatabase-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Serverless Postgres 与 Neon 平台功能",
+      "en": "Serverless Postgres and Neon platform features"
+    },
+    "summary": {
+      "zh": "Neon 的 Skill 覆盖其 Postgres 平台：分支、认证、函数、对象存储、实时、AI 网关和出口流量优化，并附带一个评估 Skill。",
+      "en": "Neon's skills cover its Postgres platform: branches, auth, functions, object storage, realtime, the AI gateway and egress optimization, plus an evaluation skill."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Neon Postgres 的项目。",
+        "en": "Projects on Neon Postgres."
+      }
+    ],
+    "useCases": [
+      "data",
+      "cloud"
+    ],
+    "skillFluxNote": {
+      "zh": "分支类 Skill 让 Agent 在副本上测试 Schema 改动，优先于直接改主分支。",
+      "en": "Branching skills let an agent test schema changes on a copy; prefer them over editing the main branch."
+    },
+    "limitations": [
+      {
+        "zh": "Postgres 之外的平台功能是 Neon 专有的。",
+        "en": "Platform features beyond Postgres are Neon-specific."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-supabase-agent-skills",
+      "github-com-tinybirdco-tinybird-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-supabase-agent-skills": {
+        "en": "Compare Supabase Agent Skills — Supabase and Postgres best practices.",
+        "zh": "如果更需要「Supabase 与 Postgres 最佳实践」，可以对比 Supabase Agent Skills。"
+      },
+      "github-com-tinybirdco-tinybird-agent-skills": {
+        "en": "Compare Tinybird Agent Skills — Tinybird data projects and SDKs.",
+        "zh": "如果更需要「Tinybird 数据项目与 SDK」，可以对比 Tinybird Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-mongodb-agent-skills": {
+    "resourceSlug": "mongodb-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "查询、Schema 设计与 Atlas 搜索",
+      "en": "Queries, schema design and Atlas search"
+    },
+    "summary": {
+      "zh": "MongoDB 官方 Skill，用于编写与优化查询、Schema 设计、Atlas Search 与向量搜索、流处理以及 MCP 配置。插件可连接托管的 Atlas MCP Server 或自建的 MCP Server。",
+      "en": "MongoDB's official skills for writing and optimizing queries, schema design, Atlas Search and Vector Search, stream processing and MCP setup. Plugins connect the agent to either the hosted Atlas MCP server or a self-run one."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 MongoDB Atlas 或自建 MongoDB 的应用。",
+        "en": "Applications on MongoDB Atlas or self-managed MongoDB."
+      }
+    ],
+    "useCases": [
+      "data",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "按部署方式选择插件，README 区分了 Atlas 与自建。",
+      "en": "Choose the plugin that matches your deployment; the README separates Atlas from self-managed."
+    },
+    "limitations": [
+      {
+        "zh": "MCP 插件会让 Agent 访问数据库。",
+        "en": "MCP plugins give the agent database access."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-tinybirdco-tinybird-agent-skills",
+      "github-com-supabase-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-tinybirdco-tinybird-agent-skills": {
+        "en": "Compare Tinybird Agent Skills — Tinybird data projects and SDKs.",
+        "zh": "如果更需要「Tinybird 数据项目与 SDK」，可以对比 Tinybird Agent Skills。"
+      },
+      "github-com-supabase-agent-skills": {
+        "en": "Compare Supabase Agent Skills — Supabase and Postgres best practices.",
+        "zh": "如果更需要「Supabase 与 Postgres 最佳实践」，可以对比 Supabase Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-sanity-io-agent-toolkit": {
+    "resourceSlug": "sanity-io-agent-toolkit",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Sanity 内容建模与 Studio",
+      "en": "Sanity content modeling and Studio"
+    },
+    "summary": {
+      "zh": "Sanity 面向 Agent 的工具包，把访问项目的 MCP Server 与 Skill 结合：Sanity 最佳实践、内容建模、Portable Text、迁移、Studio 升级和 SEO/AEO。",
+      "en": "Sanity's toolkit for agents combines an MCP server for project access with skills on Sanity best practices, content modeling, Portable Text, migrations, Studio upgrades and SEO/AEO."
+    },
+    "bestFor": [
+      {
+        "zh": "基于 Sanity 构建内容站点的团队。",
+        "en": "Teams building content sites on Sanity."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "writing",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "生成 Schema 前，先从内容建模 Skill 开始。",
+      "en": "The content-modeling skill is the place to start before generating schemas."
+    },
+    "limitations": [
+      {
+        "zh": "MCP 访问会触及你的 Sanity 数据集。",
+        "en": "MCP access reaches your Sanity datasets."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-resend-resend-skills",
+      "github-com-openai-plugins"
+    ],
+    "alternativeReasons": {
+      "github-com-resend-resend-skills": {
+        "en": "Compare Resend Skills — Transactional email and React Email.",
+        "zh": "如果更需要「事务邮件与 React Email」，可以对比 Resend Skills。"
+      },
+      "github-com-openai-plugins": {
+        "en": "Compare OpenAI Plugins for Codex — Codex plugin examples and marketplace.",
+        "zh": "如果更需要「Codex 插件示例与市场」，可以对比 OpenAI Plugins for Codex。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-netlify-context-and-tools": {
+    "resourceSlug": "netlify-context-and-tools",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Netlify 函数、Blobs、缓存与部署",
+      "en": "Netlify functions, blobs, caching and deploys"
+    },
+    "summary": {
+      "zh": "Netlify 的公开 Skill 为每个平台能力提供事实参考：函数、边缘函数、Blobs、缓存、表单、身份、图片 CDN、配置与部署，并附 Astro、Next.js、Vite、TanStack Start 的框架说明。",
+      "en": "Netlify's public skills give agents a factual reference for each platform primitive: functions, edge functions, blobs, caching, forms, identity, image CDN, configuration and deployment, with framework notes for Astro, Next.js, Vite and TanStack Start."
+    },
+    "bestFor": [
+      {
+        "zh": "部署在 Netlify 上的站点。",
+        "en": "Sites deployed on Netlify."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "按正在使用的平台能力安装，不必全装。",
+      "en": "Install the skill for the primitive you are using rather than the whole set."
+    },
+    "limitations": [
+      {
+        "zh": "仅适用于 Netlify 平台。",
+        "en": "Specific to Netlify's platform."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-microsoft-skills",
+      "github-com-hashicorp-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      },
+      "github-com-hashicorp-agent-skills": {
+        "en": "Compare HashiCorp Agent Skills — Terraform providers, modules and Packer.",
+        "zh": "如果更需要「Terraform Provider、模块与 Packer」，可以对比 HashiCorp Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-figma-mcp-server-guide": {
+    "resourceSlug": "figma-mcp-server-guide",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "用 Figma MCP Server 从设计到代码",
+      "en": "Design-to-code with the Figma MCP server"
+    },
+    "summary": {
+      "zh": "Figma 的 MCP Server 指南与 Skill：把设计实现为代码、Code Connect、生成设计、组件库与图表、动效以及 SwiftUI 输出。README 说明了不同套餐与席位的调用限制。",
+      "en": "Figma's guide and skills for its MCP server: implementing designs as code, Code Connect, generating designs, libraries and diagrams, motion and SwiftUI output. The README documents rate limits by plan and seat."
+    },
+    "bestFor": [
+      {
+        "zh": "把 Figma 设计落到代码的团队。",
+        "en": "Teams moving designs from Figma into code."
+      }
+    ],
+    "useCases": [
+      "design",
+      "mcp",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先确认所在套餐的调用限制，入门席位可用次数很少。",
+      "en": "Check your plan's rate limit first; starter seats have very few tool calls."
+    },
+    "limitations": [
+      {
+        "zh": "受 Figma 套餐限制；仓库根目录未找到许可证文件。",
+        "en": "Depends on Figma plan limits; no root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-mblode-agent-skills",
+      "github-com-wordpress-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-mblode-agent-skills": {
+        "en": "Compare Agent Skills (Matthew Blode) — UI audits, docs and release hygiene.",
+        "zh": "如果更需要「界面审查、文档与发布规范」，可以对比 Agent Skills (Matthew Blode)。"
+      },
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-google-gemini-gemini-skills": {
+    "resourceSlug": "google-gemini-gemini-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "使用 Gemini API 开发",
+      "en": "Building with the Gemini API"
+    },
+    "summary": {
+      "zh": "Google 面向 Gemini API、SDK 与 Live API 的 Skill。README 说明目的：补足模型训练时可能缺失的最新 API 与 SDK 知识。",
+      "en": "Google's skills for the Gemini API, SDK and Live API. The README explains the aim: give agents current API and SDK knowledge that models may lack from training."
+    },
+    "bestFor": [
+      {
+        "zh": "调用 Gemini 模型的开发者。",
+        "en": "Developers calling Gemini models."
+      }
+    ],
+    "useCases": [
+      "ai",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "价值在于 SDK 经常变化，请对比 Skill 更新时间与所用 SDK 版本。",
+      "en": "Useful precisely because SDKs change; check the skill's update date against the SDK release you use."
+    },
+    "limitations": [
+      {
+        "zh": "只覆盖 Gemini API。",
+        "en": "Only covers Gemini APIs."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-veniceai-skills",
+      "github-com-replicate-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-veniceai-skills": {
+        "en": "Compare Venice.ai Skills — The Venice API surface.",
+        "zh": "如果更需要「Venice API 各项能力」，可以对比 Venice.ai Skills。"
+      },
+      "github-com-replicate-skills": {
+        "en": "Compare Replicate Skills — Finding, running and publishing models.",
+        "zh": "如果更需要「查找、运行与发布模型」，可以对比 Replicate Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-dotnet-skills": {
+    "resourceSlug": "dotnet-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": ".NET 构建、调试与测试",
+      "en": "Building, debugging and testing .NET"
+    },
+    "summary": {
+      "zh": ".NET 团队精选的 Skill 与自定义 Agent：构建性能与 binlog 分析、崩溃符号化、性能分析、测试质量和 GitHub 工作流。README 链接了一个按模型比较 Skill 效果的看板。",
+      "en": ".NET team's curated skills and custom agents for .NET work: build performance and binlog analysis, crash symbolication, performance analysis, test quality and GitHub workflows. The README links a dashboard comparing skill value by model."
+    },
+    "bestFor": [
+      {
+        "zh": ".NET 开发者与构建工程师。",
+        "en": ".NET developers and build engineers."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "testing"
+    ],
+    "skillFluxNote": {
+      "zh": "该团队公开了自己的 Skill 效果测量，选择前可以参考。",
+      "en": "The team publishes its own skill-value measurements; read them before choosing."
+    },
+    "limitations": [
+      {
+        "zh": "自定义 Agent 遵循 GitHub Copilot 约定，并非适用于所有宿主。",
+        "en": "Custom agents follow GitHub Copilot conventions, not every host's."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-mailtrap-mailtrap-skills",
+      "github-com-garrytan-gstack"
+    ],
+    "alternativeReasons": {
+      "github-com-mailtrap-mailtrap-skills": {
+        "en": "Compare Mailtrap Skills — Sending and testing email with Mailtrap.",
+        "zh": "如果更需要「用 Mailtrap 发送与测试邮件」，可以对比 Mailtrap Skills。"
+      },
+      "github-com-garrytan-gstack": {
+        "en": "Compare gstack (Garry Tan) — A role-based engineering team in Claude Code.",
+        "zh": "如果更需要「Claude Code 中按角色分工的工程团队」，可以对比 gstack (Garry Tan)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-awslabs-agent-plugins": {
+    "resourceSlug": "awslabs-agent-plugins",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "AWS Serverless、Amplify 与架构",
+      "en": "AWS serverless, Amplify and architecture"
+    },
+    "summary": {
+      "zh": "AWS Labs 的插件与 Skill，覆盖 Lambda、Step Functions、API Gateway、Amplify、Serverless 部署、架构图与数据集处理。README 指出更新的 Agent Toolkit for AWS 是其后继。",
+      "en": "AWS Labs plugins and skills for Lambda, Step Functions, API Gateway, Amplify, serverless deployment, architecture diagrams and dataset work. The README points to the newer Agent Toolkit for AWS as the successor."
+    },
+    "bestFor": [
+      {
+        "zh": "在 AWS 上构建 Serverless 应用的团队。",
+        "en": "Teams building serverless applications on AWS."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "先看 Agent Toolkit for AWS，这个仓库正在被取代。",
+      "en": "Check the Agent Toolkit for AWS first; this repository is being succeeded."
+    },
+    "limitations": [
+      {
+        "zh": "AWS 提示应复核生成内容与费用。",
+        "en": "AWS notes that generated output and costs should be reviewed."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-microsoft-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-jetbrains-skills": {
+    "resourceSlug": "jetbrains-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "经筛选的上游 Skill 快照",
+      "en": "A filtered snapshot of upstream skills"
+    },
+    "summary": {
+      "zh": "JetBrains 从上游 GitHub 仓库收集并筛选 Skill，整理成扁平目录的已验证快照。每个 SKILL.md 保留指向原始路径的 metadata.source 链接。",
+      "en": "JetBrains collects a filtered, JetBrains-verified snapshot of skills from upstream GitHub repositories into a flat layout. Every SKILL.md keeps a metadata.source link to the original path."
+    },
+    "bestFor": [
+      {
+        "zh": "希望用经过筛选的起步集合、而不是庞大开放清单的团队。",
+        "en": "Teams that want a vetted starting set instead of a large open list."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "通过 metadata.source 回到上游 Skill，检查是否有更新版本。",
+      "en": "Follow metadata.source to the upstream skill to check for newer versions."
+    },
+    "limitations": [
+      {
+        "zh": "快照可能落后于上游；仓库根目录未找到许可证文件。",
+        "en": "A snapshot can lag upstream; no root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-openai-skills",
+      "github-com-openai-plugins"
+    ],
+    "alternativeReasons": {
+      "github-com-openai-skills": {
+        "en": "Compare OpenAI Skills (deprecated) — Codex skill examples (archived).",
+        "zh": "如果更需要「Codex Skill 示例（已弃用）」，可以对比 OpenAI Skills (deprecated)。"
+      },
+      "github-com-openai-plugins": {
+        "en": "Compare OpenAI Plugins for Codex — Codex plugin examples and marketplace.",
+        "zh": "如果更需要「Codex 插件示例与市场」，可以对比 OpenAI Plugins for Codex。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-anthropics-claude-plugins-official": {
+    "resourceSlug": "anthropics-claude-plugins-official",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Anthropic 精选的 Claude Code 插件目录",
+      "en": "Anthropic's curated Claude Code plugin directory"
+    },
+    "summary": {
+      "zh": "Anthropic 精选的 Claude Code 插件目录，自研插件在 /plugins，第三方插件在 /external_plugins。README 提醒 Anthropic 无法核实第三方插件的内容。",
+      "en": "Anthropic's curated directory of Claude Code plugins, with internal plugins under /plugins and third-party plugins under /external_plugins. The README warns that Anthropic cannot verify what third-party plugins include."
+    },
+    "bestFor": [
+      {
+        "zh": "寻找官方收录插件的 Claude Code 用户。",
+        "en": "Claude Code users looking for plugins with an official listing."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "目录虽是官方的，/external_plugins 中仍是第三方代码。",
+      "en": "Treat /external_plugins as third-party code even though the directory is official."
+    },
+    "limitations": [
+      {
+        "zh": "收录是精选，不是对第三方插件的验证。",
+        "en": "Listing is curation, not verification of third-party plugins."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-community"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-community": {
+        "en": "Compare Claude Plugins Community — Community plugins for Claude Code and Cowork.",
+        "zh": "如果更需要「Claude Code 与 Cowork 社区插件」，可以对比 Claude Plugins Community。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-anthropics-claude-plugins-community": {
+    "resourceSlug": "anthropics-claude-plugins-community",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 与 Cowork 社区插件",
+      "en": "Community plugins for Claude Code and Cowork"
+    },
+    "summary": {
+      "zh": "Anthropic 社区插件市场的只读镜像，每晚同步。README 说明每个插件都经 claude.ai 提交、通过自动安全扫描并获准分发。",
+      "en": "A read-only mirror of Anthropic's community plugin marketplace, synced nightly. The README says each listed plugin was submitted via claude.ai, passed automated security scanning and was approved for distribution."
+    },
+    "bestFor": [
+      {
+        "zh": "浏览通过 Anthropic 准入流程的社区插件的用户。",
+        "en": "Users browsing community plugins that passed Anthropic's intake."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "自动扫描能降低风险，但不等于完整审查，启用前仍要读插件文件。",
+      "en": "Automated scanning reduces risk but is not a full review; read plugin files before enabling."
+    },
+    "limitations": [
+      {
+        "zh": "只读镜像，需通过 claude.com/plugins 安装。",
+        "en": "Read-only mirror; install through claude.com/plugins."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-tinybirdco-tinybird-agent-skills": {
+    "resourceSlug": "tinybirdco-tinybird-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Tinybird 数据项目与 SDK",
+      "en": "Tinybird data projects and SDKs"
+    },
+    "summary": {
+      "zh": "Tinybird 的 Skill 收录其工程规范：数据源、Pipe、接口、SQL、部署与测试，以及 CLI、Python SDK、TypeScript SDK 的使用规范。",
+      "en": "Tinybird's skills hold its engineering guidelines for datasources, pipes, endpoints, SQL, deployments and testing, plus CLI, Python SDK and TypeScript SDK guidelines."
+    },
+    "bestFor": [
+      {
+        "zh": "在 Tinybird 上构建分析 API 的团队。",
+        "en": "Teams building analytics APIs on Tinybird."
+      }
+    ],
+    "useCases": [
+      "data",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "最佳实践 Skill 设计为常驻启用，SDK Skill 按语言添加。",
+      "en": "The best-practices skill is designed to stay enabled; add SDK skills per language."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "No root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-supabase-agent-skills",
+      "github-com-redis-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-supabase-agent-skills": {
+        "en": "Compare Supabase Agent Skills — Supabase and Postgres best practices.",
+        "zh": "如果更需要「Supabase 与 Postgres 最佳实践」，可以对比 Supabase Agent Skills。"
+      },
+      "github-com-redis-agent-skills": {
+        "en": "Compare Redis Agent Skills — Redis data modeling, search and operations.",
+        "zh": "如果更需要「Redis 数据建模、搜索与运维」，可以对比 Redis Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-googleworkspace-cli": {
+    "resourceSlug": "googleworkspace-cli",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "通过命令行操作 Drive、Gmail、日历与文档",
+      "en": "Drive, Gmail, Calendar and Docs from the command line"
+    },
+    "summary": {
+      "zh": "面向所有 Google Workspace API 的命令行工具，为人和 Agent 设计，附带数十个 Skill，覆盖日历、Chat、文档、Drive、Gmail 和管理任务。README 说明这不是 Google 官方支持的产品。",
+      "en": "A command-line tool for every Google Workspace API, built for people and agents, with dozens of agent skills for Calendar, Chat, Docs, Drive, Gmail and admin tasks. The README states it is not an officially supported Google product."
+    },
+    "bestFor": [
+      {
+        "zh": "希望 Agent 在 Google Workspace 中办事的用户。",
+        "en": "People who want an agent to work in their Google Workspace."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "授予最小的 OAuth 权限范围，这些 Skill 会操作真实邮件和文件。",
+      "en": "Grant the narrowest OAuth scopes; these skills act on real mail and files."
+    },
+    "limitations": [
+      {
+        "zh": "据 README，这不是 Google 官方支持的产品。",
+        "en": "Not an officially supported Google product, per its README."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-makenotion-skills",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-makenotion-skills": {
+        "en": "Compare Notion Skills — Working with Notion from an agent.",
+        "zh": "如果更需要「在 Agent 中使用 Notion」，可以对比 Notion Skills。"
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "en": "Compare OthmanAdi/planning-with-files — File-based task planning.",
+        "zh": "如果更需要「文件化任务规划」，可以对比 OthmanAdi/planning-with-files。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-qdrant-skills": {
+    "resourceSlug": "qdrant-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "向量搜索的设计决策",
+      "en": "Vector search design decisions"
+    },
+    "summary": {
+      "zh": "Qdrant 的 Skill 像一本解决方案架构师手册：何时、为何使用量化、分片、租户隔离、混合搜索和模型迁移，并为每个决策指向具体文档。",
+      "en": "Qdrant's skills act as a solutions architect's handbook: when and why to use quantization, sharding, tenant isolation, hybrid search and model migration, pointing to the exact documentation for each decision."
+    },
+    "bestFor": [
+      {
+        "zh": "在 Qdrant 上设计或调优向量搜索的团队。",
+        "en": "Teams designing or tuning vector search on Qdrant."
+      }
+    ],
+    "useCases": [
+      "data",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "这些 Skill 回答设计问题，需要配合自己数据上的基准测试。",
+      "en": "These answer design questions; pair them with a benchmark on your own data."
+    },
+    "limitations": [
+      {
+        "zh": "仅适用于 Qdrant。",
+        "en": "Specific to Qdrant."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-tinybirdco-tinybird-agent-skills",
+      "github-com-supabase-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-tinybirdco-tinybird-agent-skills": {
+        "en": "Compare Tinybird Agent Skills — Tinybird data projects and SDKs.",
+        "zh": "如果更需要「Tinybird 数据项目与 SDK」，可以对比 Tinybird Agent Skills。"
+      },
+      "github-com-supabase-agent-skills": {
+        "en": "Compare Supabase Agent Skills — Supabase and Postgres best practices.",
+        "zh": "如果更需要「Supabase 与 Postgres 最佳实践」，可以对比 Supabase Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-mailtrap-mailtrap-skills": {
+    "resourceSlug": "mailtrap-mailtrap-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "用 Mailtrap 发送与测试邮件",
+      "en": "Sending and testing email with Mailtrap"
+    },
+    "summary": {
+      "zh": "Mailtrap 的 Skill 概括其使用流程：API 授权、发送邮件、配置发信域名、模板、联系人和沙箱测试。README 说明它们不能替代官方文档。",
+      "en": "Mailtrap's skills summarize its flows: authorizing API requests, sending email, setting up sending domains, templates, contacts and sandbox testing. The README says they do not replace the official docs."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Mailtrap 测试或发送邮件的团队。",
+        "en": "Teams testing or sending email through Mailtrap."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "testing"
+    ],
+    "skillFluxNote": {
+      "zh": "沙箱 Skill 最适合首次使用，不会发到真实邮箱。",
+      "en": "The sandbox skill is the safest first use; it never reaches real inboxes."
+    },
+    "limitations": [
+      {
+        "zh": "只是摘要，细节以 docs.mailtrap.io 为准。",
+        "en": "Summaries; check docs.mailtrap.io for details."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-dotnet-skills",
+      "github-com-garrytan-gstack"
+    ],
+    "alternativeReasons": {
+      "github-com-dotnet-skills": {
+        "en": "Compare .NET Skills — Building, debugging and testing .NET.",
+        "zh": "如果更需要「.NET 构建、调试与测试」，可以对比 .NET Skills。"
+      },
+      "github-com-garrytan-gstack": {
+        "en": "Compare gstack (Garry Tan) — A role-based engineering team in Claude Code.",
+        "zh": "如果更需要「Claude Code 中按角色分工的工程团队」，可以对比 gstack (Garry Tan)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-metalbear-co-skills": {
+    "resourceSlug": "metalbear-co-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "在真实 Kubernetes 环境中测试",
+      "en": "Testing against real Kubernetes environments"
+    },
+    "summary": {
+      "zh": "MetalBear 的 mirrord Skill 让 Agent 在真实 Kubernetes 集群上下文中运行本地代码：真实环境变量、DNS、流量、数据库、Kafka 与 Temporal 队列、请求头透传和预览环境。",
+      "en": "MetalBear's skills for mirrord let an agent run local code against a real Kubernetes cluster: real environment variables, DNS, traffic, databases, Kafka and Temporal queues, header propagation and preview environments."
+    },
+    "bestFor": [
+      {
+        "zh": "开发运行在 Kubernetes 上的服务的团队。",
+        "en": "Teams developing services that run on Kubernetes."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "testing"
+    ],
+    "skillFluxNote": {
+      "zh": "先接入预发集群，它会处理真实流量与数据。",
+      "en": "Point it at a staging cluster first; it works with real traffic and data."
+    },
+    "limitations": [
+      {
+        "zh": "需要 mirrord 和集群访问权限。",
+        "en": "Requires mirrord and cluster access."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-microsoft-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-browser-act-skills": {
+    "resourceSlug": "browser-act-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "用 BrowserAct 提取网页数据",
+      "en": "Web data extraction with BrowserAct"
+    },
+    "summary": {
+      "zh": "BrowserAct 的 Skill 封装其浏览器自动化服务，用于数据提取，例如 Amazon、Airbnb 等网站的商品列表、评论、榜单与市场监控。",
+      "en": "BrowserAct's skills wrap its browser automation service for data extraction tasks such as product listings, reviews, bestsellers and marketplace monitoring on sites like Amazon and Airbnb."
+    },
+    "bestFor": [
+      {
+        "zh": "电商与市场调研团队。",
+        "en": "E-commerce and market research teams."
+      }
+    ],
+    "useCases": [
+      "research",
+      "marketing"
+    ],
+    "skillFluxNote": {
+      "zh": "自动提取前先确认目标网站的服务条款。",
+      "en": "Check each target site's terms before automating extraction."
+    },
+    "limitations": [
+      {
+        "zh": "依赖 BrowserAct 服务，抓取可能与网站条款冲突。",
+        "en": "Depends on the BrowserAct service; scraping may conflict with site terms."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-agricidaniel-claude-seo",
+      "github-com-nvidia-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-agricidaniel-claude-seo": {
+        "en": "Compare Claude SEO — SEO audits inside Claude Code.",
+        "zh": "如果更需要「在 Claude Code 中做 SEO 审计」，可以对比 Claude SEO。"
+      },
+      "github-com-nvidia-skills": {
+        "en": "Compare NVIDIA Agent Skills — NVIDIA software, CUDA-X and AI blueprints.",
+        "zh": "如果更需要「NVIDIA 软件、CUDA-X 与 AI Blueprint」，可以对比 NVIDIA Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-video-db-skills": {
+    "resourceSlug": "video-db-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "视频剪辑、编辑、字幕与搜索",
+      "en": "Clipping, editing, subtitling and searching video"
+    },
+    "summary": {
+      "zh": "VideoDB 的 Skill 让 Agent 用自然语言剪辑、编辑、加字幕、搜索和直播视频，处理由 VideoDB 服务器完成。",
+      "en": "VideoDB's skills let an agent edit, clip, subtitle, search and stream video by asking in plain language, while VideoDB does the processing on its servers."
+    },
+    "bestFor": [
+      {
+        "zh": "希望 Agent 无需本地工具就能处理视频的用户。",
+        "en": "People who want an agent to work on video without local tooling."
+      }
+    ],
+    "useCases": [
+      "video",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "视频会上传到 VideoDB，先确认素材可以上传。",
+      "en": "Videos are uploaded to VideoDB; check that this is acceptable for your footage."
+    },
+    "limitations": [
+      {
+        "zh": "需要 VideoDB 账号，处理在托管服务上完成。",
+        "en": "Requires a VideoDB account; processing is a hosted service."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-noizai-skills",
+      "github-com-transloadit-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-noizai-skills": {
+        "en": "Compare Noiz AI Skills — Voice, speech and audio generation.",
+        "zh": "如果更需要「语音、朗读与音频生成」，可以对比 Noiz AI Skills。"
+      },
+      "github-com-transloadit-skills": {
+        "en": "Compare Transloadit Skills — File uploading and media transforms.",
+        "zh": "如果更需要「文件上传与媒体转换」，可以对比 Transloadit Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-transloadit-skills": {
+    "resourceSlug": "transloadit-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "文件上传与媒体转换",
+      "en": "File uploading and media transforms"
+    },
+    "summary": {
+      "zh": "Transloadit 的 Skill 从一个路由 Skill 出发，分为文档、转换配方（视频编码、字幕、拼图、PDF 转换、OCR）和集成（如在 Next.js 中用 Uppy 上传）。",
+      "en": "Transloadit's skills start from a router skill and branch into docs, transform recipes (encoding video, captions, collages, PDF conversion, OCR) and integrations such as Uppy uploads in Next.js."
+    },
+    "bestFor": [
+      {
+        "zh": "通过 Transloadit 处理上传媒体的应用。",
+        "en": "Apps processing uploaded media through Transloadit."
+      }
+    ],
+    "useCases": [
+      "video",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "按 README 建议从路由 Skill 开始。",
+      "en": "Start with the router skill as the README advises."
+    },
+    "limitations": [
+      {
+        "zh": "转换在 Transloadit 付费服务上运行；仓库根目录未找到许可证文件。",
+        "en": "Transforms run on Transloadit's paid service; no root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-remotion-dev-skills",
+      "github-com-video-db-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-remotion-dev-skills": {
+        "en": "Compare Remotion Skills — Programmatic video with Remotion.",
+        "zh": "如果更需要「用 Remotion 编程生成视频」，可以对比 Remotion Skills。"
+      },
+      "github-com-video-db-skills": {
+        "en": "Compare VideoDB Skills — Clipping, editing, subtitling and searching video.",
+        "zh": "如果更需要「视频剪辑、编辑、字幕与搜索」，可以对比 VideoDB Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-noizai-skills": {
+    "resourceSlug": "noizai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "语音、朗读与音频生成",
+      "en": "Voice, speech and audio generation"
+    },
+    "summary": {
+      "zh": "Noiz AI 的语音类 Skill：带角色控制的文字转语音、语音转文字、音效、音乐、视频翻译，以及把语音消息发到飞书、Telegram 或 Discord。",
+      "en": "Noiz AI's skills for voice work: text to speech with character controls, speech to text, sound effects, music, video translation and sending voice messages to Feishu, Telegram or Discord."
+    },
+    "bestFor": [
+      {
+        "zh": "开发语音功能和陪伴类机器人的团队。",
+        "en": "Builders of voice features and companion-style bots."
+      }
+    ],
+    "useCases": [
+      "video",
+      "ai"
+    ],
+    "skillFluxNote": {
+      "zh": "区分本地优先的 Skill 和调用 Noiz 服务的 Skill。",
+      "en": "Separate local-first skills from those that call Noiz's service."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "No root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-video-db-skills",
+      "github-com-transloadit-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-video-db-skills": {
+        "en": "Compare VideoDB Skills — Clipping, editing, subtitling and searching video.",
+        "zh": "如果更需要「视频剪辑、编辑、字幕与搜索」，可以对比 VideoDB Skills。"
+      },
+      "github-com-transloadit-skills": {
+        "en": "Compare Transloadit Skills — File uploading and media transforms.",
+        "zh": "如果更需要「文件上传与媒体转换」，可以对比 Transloadit Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-coreyhaines31-marketingskills": {
+    "resourceSlug": "coreyhaines31-marketingskills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "转化、文案、SEO 与增长",
+      "en": "Conversion, copywriting, SEO and growth"
+    },
+    "summary": {
+      "zh": "Corey Haines 为技术型营销人和创始人整理的营销 Skill：A/B 测试、广告创意、SEO 与 AI 搜索、数据分析、归因、流失预防、冷邮件、内容策略和竞品研究。",
+      "en": "Corey Haines's collection of marketing skills for technical marketers and founders: A/B testing, ad creative, SEO and AI search, analytics, attribution, churn prevention, cold email, content strategy and competitor research."
+    },
+    "bestFor": [
+      {
+        "zh": "用编码 Agent 做增长工作的创始人和营销人。",
+        "en": "Founders and marketers who use coding agents for growth work."
+      }
+    ],
+    "useCases": [
+      "marketing",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "范围很广，挑选与当前活动相关的两三个 Skill 即可。",
+      "en": "Pick the two or three skills that match a current campaign; the set is broad."
+    },
+    "limitations": [
+      {
+        "zh": "营销建议反映的是一位从业者的方法。",
+        "en": "Marketing advice reflects one practitioner's approach."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sergebulaev-linkedin-skills",
+      "github-com-realkimbarrett-advertising-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-sergebulaev-linkedin-skills": {
+        "en": "Compare LinkedIn Skills (Serge Bulaev) — LinkedIn posts, comments and replies.",
+        "zh": "如果更需要「LinkedIn 帖子、评论与回复」，可以对比 LinkedIn Skills (Serge Bulaev)。"
+      },
+      "github-com-realkimbarrett-advertising-skills": {
+        "en": "Compare Advertising Skills (Kim Barrett) — Direct-response ads and copywriting.",
+        "zh": "如果更需要「直效广告与文案」，可以对比 Advertising Skills (Kim Barrett)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-deanpeters-product-manager-skills": {
+    "resourceSlug": "deanpeters-product-manager-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "产品战略与需求发现框架",
+      "en": "Product strategy and discovery frameworks"
+    },
+    "summary": {
+      "zh": "Dean Peters 的产品管理 Skill 把各类框架变成 Agent 工作流：竞品分析、获客渠道、市场规模、竞争卡片、业务健康诊断和 AI 就绪度评估。",
+      "en": "Dean Peters's product management skills turn frameworks into agent workflows: competitive analysis, acquisition channels, market sizing, battle cards, business health diagnostics and AI-readiness assessments."
+    },
+    "bestFor": [
+      {
+        "zh": "需要随时调用结构化框架的产品经理。",
+        "en": "Product managers who want structured frameworks on demand."
+      }
+    ],
+    "useCases": [
+      "product",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "用框架类 Skill 梳理思路，再用自己的数据核对输出。",
+      "en": "Use framework skills to structure thinking, then check their outputs against your own data."
+    },
+    "limitations": [
+      {
+        "zh": "框架输出的质量取决于输入。",
+        "en": "Framework outputs are only as good as the inputs you give."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-product-on-purpose-pm-skills",
+      "github-com-phuryn-pm-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-product-on-purpose-pm-skills": {
+        "en": "Compare PM Skills (Product on Purpose) — Product lifecycle templates and sample outputs.",
+        "zh": "如果更需要「产品全周期模板与示例输出」，可以对比 PM Skills (Product on Purpose)。"
+      },
+      "github-com-phuryn-pm-skills": {
+        "en": "Compare PM Skills (Paweł Huryn) — Product discovery to launch workflows.",
+        "zh": "如果更需要「从发现到发布的产品工作流」，可以对比 PM Skills (Paweł Huryn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-phuryn-pm-skills": {
+    "resourceSlug": "phuryn-pm-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "从发现到发布的产品工作流",
+      "en": "Product discovery to launch workflows"
+    },
+    "summary": {
+      "zh": "Paweł Huryn 的产品管理 Skill 与串联工作流，打包为 Claude Code 插件：需求发现、实验、OKR、商业模式、竞品分析、上市、增长以及交付 AI 构建的代码。",
+      "en": "Paweł Huryn's product management skills and chained workflows, packaged as Claude Code plugins: discovery, experiments, OKRs, business models, competitive analysis, go-to-market, growth and shipping AI-built code."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Claude Code 或 Cowork 的产品团队。",
+        "en": "Product teams using Claude Code or Cowork."
+      }
+    ],
+    "useCases": [
+      "product",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "按阶段安装插件（例如需求发现），不必全装。",
+      "en": "Install the plugin for one phase (for example discovery) rather than all of them."
+    },
+    "limitations": [
+      {
+        "zh": "主要为 Claude Code 和 Cowork 设计。",
+        "en": "Designed for Claude Code and Cowork first."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-product-on-purpose-pm-skills",
+      "github-com-deanpeters-product-manager-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-product-on-purpose-pm-skills": {
+        "en": "Compare PM Skills (Product on Purpose) — Product lifecycle templates and sample outputs.",
+        "zh": "如果更需要「产品全周期模板与示例输出」，可以对比 PM Skills (Product on Purpose)。"
+      },
+      "github-com-deanpeters-product-manager-skills": {
+        "en": "Compare Product Manager Skills (Dean Peters) — Product strategy and discovery frameworks.",
+        "zh": "如果更需要「产品战略与需求发现框架」，可以对比 Product Manager Skills (Dean Peters)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-realkimbarrett-advertising-skills": {
+    "resourceSlug": "realkimbarrett-advertising-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "直效广告与文案",
+      "en": "Direct-response ads and copywriting"
+    },
+    "summary": {
+      "zh": "Kim Barrett 的付费获客与直效文案 Skill：标题矩阵、广告角度、卖点提炼、异议处理、转化路径以及 Meta、TikTok、YouTube 广告的效果诊断。",
+      "en": "Kim Barrett's skills for paid acquisition and direct-response copy: headline matrices, ad angles, offer extraction, objection handling, funnel paths and performance diagnosis for Meta, TikTok and YouTube campaigns."
+    },
+    "bestFor": [
+      {
+        "zh": "投放付费广告的投手和文案。",
+        "en": "Media buyers and copywriters running paid campaigns."
+      }
+    ],
+    "useCases": [
+      "marketing",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "上线前用平台广告政策检查生成的文案。",
+      "en": "Run generated copy past your platform's ad policies before launching."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "No root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sergebulaev-linkedin-skills",
+      "github-com-coreyhaines31-marketingskills"
+    ],
+    "alternativeReasons": {
+      "github-com-sergebulaev-linkedin-skills": {
+        "en": "Compare LinkedIn Skills (Serge Bulaev) — LinkedIn posts, comments and replies.",
+        "zh": "如果更需要「LinkedIn 帖子、评论与回复」，可以对比 LinkedIn Skills (Serge Bulaev)。"
+      },
+      "github-com-coreyhaines31-marketingskills": {
+        "en": "Compare Marketing Skills (Corey Haines) — Conversion, copywriting, SEO and growth.",
+        "zh": "如果更需要「转化、文案、SEO 与增长」，可以对比 Marketing Skills (Corey Haines)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-alirezarezvani-claude-skills": {
+    "resourceSlug": "alirezarezvani-claude-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "跨领域的大型 Skill 库",
+      "en": "A large multi-domain skill library"
+    },
+    "summary": {
+      "zh": "Alireza Rezvani 的 Skill 与插件库，覆盖工程、DevOps、营销、安全、合规、高管顾问角色与效率，支持多种编码 Agent。",
+      "en": "Alireza Rezvani's library of skills and plugins across engineering, DevOps, marketing, security, compliance, executive advisory roles and productivity, with support for many coding agents."
+    },
+    "bestFor": [
+      {
+        "zh": "希望在一个大型库中检索的用户。",
+        "en": "Users who want one large library to search."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "marketing",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "如此规模的库质量不一，安装前逐个阅读。",
+      "en": "Quality varies across a library this size; read each skill before installing."
+    },
+    "limitations": [
+      {
+        "zh": "自述数量经常变化，以仓库为准。",
+        "en": "Self-described counts change often; check the repository."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "github-com-wshobson-agents"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      },
+      "github-com-wshobson-agents": {
+        "en": "Compare Agents (Seth Hobson) — Plugins, agents and skills across coding harnesses.",
+        "zh": "如果更需要「跨编码工具的插件、Agent 与 Skill」，可以对比 Agents (Seth Hobson)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-wshobson-agents": {
+    "resourceSlug": "wshobson-agents",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "跨编码工具的插件、Agent 与 Skill",
+      "en": "Plugins, agents and skills across coding harnesses"
+    },
+    "summary": {
+      "zh": "Seth Hobson 的目录用同一份 Markdown 源维护插件、Agent、Skill 和命令，适配 Claude Code、Codex CLI、Cursor、OpenCode、Antigravity、Copilot 和 Pi，覆盖编程语言、审查、测试、基础设施与安全。",
+      "en": "Seth Hobson's catalog shares one Markdown source of plugins, agents, skills and commands across Claude Code, Codex CLI, Cursor, OpenCode, Antigravity, Copilot and Pi, covering languages, review, testing, infrastructure and security."
+    },
+    "bestFor": [
+      {
+        "zh": "同时使用多个编码 Agent 的开发者。",
+        "en": "Developers who use more than one coding agent."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "按插件安装，控制加载的上下文规模。",
+      "en": "Install by plugin to keep the loaded context small."
+    },
+    "limitations": [
+      {
+        "zh": "组件按宿主适配，不同宿主表现可能不同。",
+        "en": "Components are adapted per harness; behaviour can differ between hosts."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "github-com-alirezarezvani-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      },
+      "github-com-alirezarezvani-claude-skills": {
+        "en": "Compare Claude Skills (Alireza Rezvani) — A large multi-domain skill library.",
+        "zh": "如果更需要「跨领域的大型 Skill 库」，可以对比 Claude Skills (Alireza Rezvani)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-affaan-m-everything-claude-code": {
+    "resourceSlug": "affaan-m-everything-claude-code",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "完整的 Claude Code 配置",
+      "en": "A complete Claude Code configuration"
+    },
+    "summary": {
+      "zh": "Affaan Mustafa 的 Everything Claude Code（ECC）把 Agent、Skill、命令、钩子和规则打包成一套配置，通过 GitHub、npm 和插件分发。README 提醒只从官方渠道安装。",
+      "en": "Affaan Mustafa's Everything Claude Code (ECC) bundles agents, skills, commands, hooks and rules into one configuration, distributed through GitHub, npm and a plugin. The README warns to install only from its official channels."
+    },
+    "bestFor": [
+      {
+        "zh": "想研究或直接采用成套配置的 Claude Code 用户。",
+        "en": "Claude Code users who want a ready-made setup to study or adopt."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "整套配置会同时改变很多行为，先在单独的配置环境中试用。",
+      "en": "Adopting a whole configuration changes many behaviours at once; try it in a separate profile."
+    },
+    "limitations": [
+      {
+        "zh": "README 提到有恶意的二次上传，只用官方渠道。",
+        "en": "The README reports malicious re-uploads; use only the official channels."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-skills",
+      "github-com-wshobson-agents"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      },
+      "github-com-wshobson-agents": {
+        "en": "Compare Agents (Seth Hobson) — Plugins, agents and skills across coding harnesses.",
+        "zh": "如果更需要「跨编码工具的插件、Agent 与 Skill」，可以对比 Agents (Seth Hobson)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-glebis-claude-skills": {
+    "resourceSlug": "glebis-claude-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "会议、调研、发布与个人事务",
+      "en": "Meetings, research, publishing and personal ops"
+    },
+    "summary": {
+      "zh": "Gleb Kalinin 的 Claude Code Skill 覆盖会议流程、调研、图像生成、TDD、发布、个人数据分析和 Claude Code 运维，并提供精选组合。",
+      "en": "Gleb Kalinin's skills for Claude Code cover meeting pipelines, research, image generation, TDD, publishing, personal analytics and Claude Code operations, with curated bundles."
+    },
+    "bestFor": [
+      {
+        "zh": "自动化个人工作流的独立开发者。",
+        "en": "Solo builders automating their own workflows."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "writing",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "每个 Skill 的配置（API Key、依赖）写在各自的 SKILL.md 中，先读再装。",
+      "en": "Per-skill setup (API keys, dependencies) is in each SKILL.md; read it first."
+    },
+    "limitations": [
+      {
+        "zh": "Skill 反映的是个人使用的工具与服务。",
+        "en": "Skills reflect one person's tools and services."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-brycewang-stanford-auto-empirical-research-skills",
+      "github-com-othmanadi-planning-with-files"
+    ],
+    "alternativeReasons": {
+      "github-com-brycewang-stanford-auto-empirical-research-skills": {
+        "en": "Compare Auto-Empirical Research Skills (AERS) — Connect empirical identification, analysis planning and replication delivery.",
+        "zh": "如果更需要「串联实证研究的识别、分析计划与复现交付」，可以对比 Auto-Empirical Research Skills (AERS)。"
+      },
+      "github-com-othmanadi-planning-with-files": {
+        "en": "Compare OthmanAdi/planning-with-files — File-based task planning.",
+        "zh": "如果更需要「文件化任务规划」，可以对比 OthmanAdi/planning-with-files。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-oaustegard-claude-skills": {
+    "resourceSlug": "oaustegard-claude-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "面向 Claude.ai Skill 环境的 Skill",
+      "en": "Skills for the Claude.ai skill environment"
+    },
+    "summary": {
+      "zh": "Oskar Austegard 的 Skill 以 Claude Code 插件市场和 Claude.ai ZIP 发布两种方式分发。README 说明它们为 Claude.ai 的 Skill 运行环境设计，在 Claude Code 中表现可能不同。",
+      "en": "Oskar Austegard's skills are distributed as a Claude Code plugin marketplace and as ZIP releases for Claude.ai. The README says they were designed for the Claude.ai skill compute environment, so behaviour in Claude Code may differ."
+    },
+    "bestFor": [
+      {
+        "zh": "在 Claude.ai 上传 Skill 的用户。",
+        "en": "Claude.ai users who upload skills."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "在 Claude.ai 上请按 README 使用 ZIP 发布包。",
+      "en": "Use the ZIP releases for Claude.ai, as the README instructs."
+    },
+    "limitations": [
+      {
+        "zh": "主要为 Claude.ai 设计，而非 Claude Code。",
+        "en": "Primarily designed for Claude.ai rather than Claude Code."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-muratcankoylan-agent-skills-for-context-engineering",
+      "github-com-firecrawl-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-muratcankoylan-agent-skills-for-context-engineering": {
+        "en": "Compare Agent Skills for Context Engineering — Context and harness engineering principles.",
+        "zh": "如果更需要「上下文与运行框架工程原则」，可以对比 Agent Skills for Context Engineering。"
+      },
+      "github-com-firecrawl-skills": {
+        "en": "Compare Firecrawl Skills — Web scraping, crawling and research.",
+        "zh": "如果更需要「网页抓取、爬取与调研」，可以对比 Firecrawl Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-obra-superpowers-lab": {
+    "resourceSlug": "obra-superpowers-lab",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Superpowers 的实验性技巧",
+      "en": "Experimental Superpowers techniques"
+    },
+    "summary": {
+      "zh": "Superpowers 作者的实验性 Skill，仍在打磨：查找语义重复的函数、通过 CLI 使用 MCP Server、用 tmux 驱动交互式命令以及在 Windows 虚拟机中工作。",
+      "en": "Experimental skills from the Superpowers author, still being refined: finding semantically duplicate functions, using MCP servers through a CLI, driving interactive commands with tmux and working in Windows VMs."
+    },
+    "bestFor": [
+      {
+        "zh": "想提前尝试新技巧的 Superpowers 用户。",
+        "en": "Superpowers users who want to try new techniques early."
+      }
+    ],
+    "useCases": [
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "按设计属于实验性质，版本间可能变化。",
+      "en": "Experimental by design; expect changes between versions."
+    },
+    "limitations": [
+      {
+        "zh": "不属于稳定版 Superpowers。",
+        "en": "Not part of the stable Superpowers set."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "en": "Compare Superpowers (obra) — Planning, debugging and testing workflows.",
+        "zh": "如果更需要「规划、调试与测试工作流」，可以对比 Superpowers (obra)。"
+      },
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-sickn33-antigravity-awesome-skills": {
+    "resourceSlug": "sickn33-antigravity-awesome-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "规模很大的可安装 Skill 库",
+      "en": "A very large installable skill library"
+    },
+    "summary": {
+      "zh": "面向 Claude Code、Codex、Cursor、Gemini CLI 等的可安装 SKILL.md 库，配套 AAS Core 用于检索本地目录、记录选用的 Skill，并在改动项目前预览计划。README 说明 Core 不做排序或推荐。",
+      "en": "A library of installable SKILL.md playbooks for Claude Code, Codex, Cursor, Gemini CLI and others, with AAS Core to search the local catalog, record chosen skills and preview a plan before changing a project. The README says Core does not rank or recommend skills."
+    },
+    "bestFor": [
+      {
+        "zh": "希望检索大型本地目录的用户。",
+        "en": "Users who want to search a large local catalog."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "规模很大，每个候选都需要自己读；这里没有排序。",
+      "en": "The size makes reading every candidate essential; nothing here is ranked."
+    },
+    "limitations": [
+      {
+        "zh": "重广度而非精选。",
+        "en": "Breadth over curation."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-xiaolai-claude-plugin-marketplace",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-xiaolai-claude-plugin-marketplace": {
+        "en": "Compare xiaolai Plugin Marketplace — Plugins for Claude Code and Codex CLI.",
+        "zh": "如果更需要「Claude Code 与 Codex CLI 插件」，可以对比 xiaolai Plugin Marketplace。"
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (travisvn) — Claude skill list and architecture reference.",
+        "zh": "如果更需要「Claude Skill 清单与架构参考」，可以对比 awesome-claude-skills (travisvn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-mouadja02-skills": {
+    "resourceSlug": "mouadja02-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "带检索站点的分类 Skill 合集",
+      "en": "A categorized skill collection with a search site"
+    },
+    "summary": {
+      "zh": "按分类文件夹组织的 Agent Skill 合集，附自动生成的 Markdown 索引和 GitHub Pages 检索站点。支持 SKILL.md 的客户端会递归发现其中的 Skill。",
+      "en": "A curated collection of agent skills organized into category folders, with a generated Markdown index and a searchable site on GitHub Pages. Skills are discovered recursively by clients that support SKILL.md."
+    },
+    "bestFor": [
+      {
+        "zh": "按分类浏览 Skill。",
+        "en": "Browsing skills by category."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "使用分类索引，不要整体安装。",
+      "en": "Use the category indexes rather than installing the whole tree."
+    },
+    "limitations": [
+      {
+        "zh": "很多条目改编自其他来源，请查看原始出处。",
+        "en": "Many entries are adapted from other sources; check the original."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-xiaolai-claude-plugin-marketplace",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-xiaolai-claude-plugin-marketplace": {
+        "en": "Compare xiaolai Plugin Marketplace — Plugins for Claude Code and Codex CLI.",
+        "zh": "如果更需要「Claude Code 与 Codex CLI 插件」，可以对比 xiaolai Plugin Marketplace。"
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (travisvn) — Claude skill list and architecture reference.",
+        "zh": "如果更需要「Claude Skill 清单与架构参考」，可以对比 awesome-claude-skills (travisvn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-yusukebe-skills": {
+    "resourceSlug": "yusukebe-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Hono 与 Cloudflare Workers 实践",
+      "en": "Hono and Cloudflare Workers recipes"
+    },
+    "summary": {
+      "zh": "Hono 作者的个人合集：聚焦 Hono、Hono 搭配 Inertia 与 React、代码审查以及 Cloudflare Workers 项目的 Markdown Skill。",
+      "en": "A personal collection from the creator of Hono: focused Markdown skills for building with Hono, Hono with Inertia and React, reviews, and Cloudflare Workers projects."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Hono 开发的开发者。",
+        "en": "Developers building on Hono."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "cloud"
+    ],
+    "skillFluxNote": {
+      "zh": "小巧易读，也是编写专注型 Skill 的好范例。",
+      "en": "Small and readable; a good model for writing focused skills."
+    },
+    "limitations": [
+      {
+        "zh": "仓库根目录未找到许可证文件。",
+        "en": "No root license file was found."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-jeffallan-claude-skills",
+      "github-com-vercel-labs-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-jeffallan-claude-skills": {
+        "en": "Compare Claude Skills (Jeff Allan) — Role-based engineering specialists.",
+        "zh": "如果更需要「按角色划分的工程专家」，可以对比 Claude Skills (Jeff Allan)。"
+      },
+      "github-com-vercel-labs-agent-skills": {
+        "en": "Compare Vercel Agent Skills — React patterns and Vercel deployment.",
+        "zh": "如果更需要「React 写法与 Vercel 部署」，可以对比 Vercel Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-garrytan-gstack": {
+    "resourceSlug": "garrytan-gstack",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 中按角色分工的工程团队",
+      "en": "A role-based engineering team in Claude Code"
+    },
+    "summary": {
+      "zh": "Garry Tan 的 gstack 把 Claude Code 变成按角色分工的虚拟团队：CEO、工程经理、设计师、审查者、QA 负责人、安全官和发布工程师，以斜杠命令形式提供，MIT 许可。",
+      "en": "Garry Tan's gstack turns Claude Code into a virtual team of roles, CEO, engineering manager, designer, reviewer, QA lead, security officer and release engineer, delivered as slash commands under MIT."
+    },
+    "bestFor": [
+      {
+        "zh": "想要一套有明确主张的端到端流程的开发者。",
+        "en": "Builders who want an opinionated end-to-end workflow."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "testing",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "先单独采用一个角色（如审查或 QA），再使用整套流程。",
+      "en": "Adopt one role at a time, for example review or QA, before using the whole flow."
+    },
+    "limitations": [
+      {
+        "zh": "主张明确，是否适合取决于你的流程。",
+        "en": "Opinionated workflow; fit depends on your process."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-xu-xiang-everything-claude-code-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "en": "Compare Superpowers (obra) — Planning, debugging and testing workflows.",
+        "zh": "如果更需要「规划、调试与测试工作流」，可以对比 Superpowers (obra)。"
+      },
+      "github-com-xu-xiang-everything-claude-code-zh": {
+        "en": "Compare everything-claude-code (Chinese Edition) — Chinese Claude Code configuration reference.",
+        "zh": "如果更需要「中文 Claude Code 配置参考」，可以对比 everything-claude-code 中文版。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-neolabhq-context-engineering-kit": {
+    "resourceSlug": "neolabhq-context-engineering-kit",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "编码 Agent 的上下文工程模式",
+      "en": "Context engineering patterns for coding agents"
+    },
+    "summary": {
+      "zh": "NeoLab 的上下文工程技巧市场，适用于 Claude Code、OpenCode、Cursor 和 Antigravity，来自其开发者日常使用的提示词和有基准的论文，以低 token 占用为设计目标。",
+      "en": "NeoLab's marketplace of context engineering techniques for Claude Code, OpenCode, Cursor and Antigravity, built from prompts its developers use daily and from benchmarked papers, with a small token footprint as a design goal."
+    },
+    "bestFor": [
+      {
+        "zh": "调优 Agent 可靠性的开发者。",
+        "en": "Developers tuning agent reliability."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "单独安装插件，在一个经常重复的任务上对比效果。",
+      "en": "Install individual plugins and compare results on a task you repeat often."
+    },
+    "limitations": [
+      {
+        "zh": "质量提升的说法来自维护者。",
+        "en": "Claims of improved quality are the maintainers'."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-xu-xiang-everything-claude-code-zh"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "en": "Compare Superpowers (obra) — Planning, debugging and testing workflows.",
+        "zh": "如果更需要「规划、调试与测试工作流」，可以对比 Superpowers (obra)。"
+      },
+      "github-com-xu-xiang-everything-claude-code-zh": {
+        "en": "Compare everything-claude-code (Chinese Edition) — Chinese Claude Code configuration reference.",
+        "zh": "如果更需要「中文 Claude Code 配置参考」，可以对比 everything-claude-code 中文版。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-muratcankoylan-agent-skills-for-context-engineering": {
+    "resourceSlug": "muratcankoylan-agent-skills-for-context-engineering",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "上下文与运行框架工程原则",
+      "en": "Context and harness engineering principles"
+    },
+    "summary": {
+      "zh": "Murat Can Koylan 的开放合集讲解上下文工程与运行框架工程：上下文基础、压缩、退化、记忆系统、评估和长程提示，面向生产级 Agent 系统。",
+      "en": "Murat Can Koylan's open collection teaches context engineering and harness engineering: context fundamentals, compression, degradation, memory systems, evaluation and long-horizon prompting for production agent systems."
+    },
+    "bestFor": [
+      {
+        "zh": "设计 Agent 系统（而不只是使用）的人。",
+        "en": "People designing agent systems rather than using one."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "更像课程而非工具集，可用来指导编写自己的 Skill。",
+      "en": "Reads more like a course than a toolset; use it to inform your own skills."
+    },
+    "limitations": [
+      {
+        "zh": "偏概念，执行具体任务的 Skill 较少。",
+        "en": "Conceptual; few skills perform a concrete task."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-oaustegard-claude-skills",
+      "github-com-firecrawl-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-oaustegard-claude-skills": {
+        "en": "Compare Claude Skills (Oskar Austegard) — Skills for the Claude.ai skill environment.",
+        "zh": "如果更需要「面向 Claude.ai Skill 环境的 Skill」，可以对比 Claude Skills (Oskar Austegard)。"
+      },
+      "github-com-firecrawl-skills": {
+        "en": "Compare Firecrawl Skills — Web scraping, crawling and research.",
+        "zh": "如果更需要「网页抓取、爬取与调研」，可以对比 Firecrawl Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-jeffallan-claude-skills": {
+    "resourceSlug": "jeffallan-claude-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "按角色划分的工程专家",
+      "en": "Role-based engineering specialists"
+    },
+    "summary": {
+      "zh": "Jeff Allan 的 Skill 让 Agent 扮演各领域专家：编程语言、前后端框架、基础设施、API、测试、DevOps、安全与数据，附组合决策树和 GitHub Pages 文档。",
+      "en": "Jeff Allan's skills cast the agent as specialists across languages, backend and frontend frameworks, infrastructure, APIs, testing, DevOps, security and data, with decision trees for combining them and documentation on GitHub Pages."
+    },
+    "bestFor": [
+      {
+        "zh": "喜欢针对技术栈使用角色提示的开发者。",
+        "en": "Developers who like role prompts for specific stacks."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "cloud"
+    ],
+    "skillFluxNote": {
+      "zh": "角色 Skill 有重叠，按当前技术栈选择。",
+      "en": "Role skills overlap; choose by the stack in front of you."
+    },
+    "limitations": [
+      {
+        "zh": "以角色式指导为主，而非工具集成。",
+        "en": "Persona-style guidance rather than tool integrations."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-yusukebe-skills",
+      "github-com-vercel-labs-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-yusukebe-skills": {
+        "en": "Compare Skills (Yusuke Wada) — Hono and Cloudflare Workers recipes.",
+        "zh": "如果更需要「Hono 与 Cloudflare Workers 实践」，可以对比 Skills (Yusuke Wada)。"
+      },
+      "github-com-vercel-labs-agent-skills": {
+        "en": "Compare Vercel Agent Skills — React patterns and Vercel deployment.",
+        "zh": "如果更需要「React 写法与 Vercel 部署」，可以对比 Vercel Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-sanjay3290-ai-skills": {
+    "resourceSlug": "sanjay3290-ai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Google Workspace 与效率工具",
+      "en": "Google Workspace and productivity tools"
+    },
+    "summary": {
+      "zh": "可移植的 Skill，定位为 Google Workspace MCP Server 的轻量替代，每个都有独立 OAuth 与钥匙串令牌存储，另有 Atlassian、Azure DevOps、ElevenLabs 与深度调研等 Skill。",
+      "en": "Portable skills presented as lightweight alternatives to the Google Workspace MCP server, each with its own OAuth and keyring token storage, plus skills for Atlassian, Azure DevOps, ElevenLabs and deep research."
+    },
+    "bestFor": [
+      {
+        "zh": "使用 Google Workspace 的企业用户。",
+        "en": "Google Workspace business users."
+      }
+    ],
+    "useCases": [
+      "planning",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "检查每个 Skill 申请的 OAuth 权限范围。",
+      "en": "Review the OAuth scopes each skill requests."
+    },
+    "limitations": [
+      {
+        "zh": "README 说明不支持个人 Gmail 账号。",
+        "en": "The README says personal Gmail accounts are not supported."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-othmanadi-planning-with-files",
+      "github-com-brycewang-stanford-auto-empirical-research-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-othmanadi-planning-with-files": {
+        "en": "Compare OthmanAdi/planning-with-files — File-based task planning.",
+        "zh": "如果更需要「文件化任务规划」，可以对比 OthmanAdi/planning-with-files。"
+      },
+      "github-com-brycewang-stanford-auto-empirical-research-skills": {
+        "en": "Compare Auto-Empirical Research Skills (AERS) — Connect empirical identification, analysis planning and replication delivery.",
+        "zh": "如果更需要「串联实证研究的识别、分析计划与复现交付」，可以对比 Auto-Empirical Research Skills (AERS)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-gooseworks-ai-goose-skills": {
+    "resourceSlug": "gooseworks-ai-goose-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "营销作战手册与视频广告",
+      "en": "Marketing playbooks and video ads"
+    },
+    "summary": {
+      "zh": "GooseWorks 的 Skill 为编码 Agent 提供营销手册：调研客户与竞品、分析效果、创建活动，以及其产品背后的视频广告 Skill。README 说明旧库已下线，并提供映射文件。",
+      "en": "GooseWorks's skills give coding agents marketing playbooks for researching customers and competitors, analyzing performance and creating campaigns, plus the video-ad skills behind its product. The README notes an older library was retired with a mapping file."
+    },
+    "bestFor": [
+      {
+        "zh": "运营付费与内容活动的增长团队。",
+        "en": "Growth teams running paid and content campaigns."
+      }
+    ],
+    "useCases": [
+      "marketing",
+      "video"
+    ],
+    "skillFluxNote": {
+      "zh": "若用过旧库，查看 retired-skills.json 找替代项。",
+      "en": "If you used the old library, check retired-skills.json for replacements."
+    },
+    "limitations": [
+      {
+        "zh": "近期重组，旧链接可能指向已下线的 Skill。",
+        "en": "Recently restructured; older links may point to retired skills."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sergebulaev-linkedin-skills",
+      "github-com-realkimbarrett-advertising-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-sergebulaev-linkedin-skills": {
+        "en": "Compare LinkedIn Skills (Serge Bulaev) — LinkedIn posts, comments and replies.",
+        "zh": "如果更需要「LinkedIn 帖子、评论与回复」，可以对比 LinkedIn Skills (Serge Bulaev)。"
+      },
+      "github-com-realkimbarrett-advertising-skills": {
+        "en": "Compare Advertising Skills (Kim Barrett) — Direct-response ads and copywriting.",
+        "zh": "如果更需要「直效广告与文案」，可以对比 Advertising Skills (Kim Barrett)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-mblode-agent-skills": {
+    "resourceSlug": "mblode-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "界面审查、文档与发布规范",
+      "en": "UI audits, docs and release hygiene"
+    },
+    "summary": {
+      "zh": "Matthew Blode 的 Skill 旨在避免低质量的 AI 产出：界面与无障碍审查、排版、代码架构、文档、PR 审查、CI 提速与发布，并提供 Next.js 与 TypeScript CLI 脚手架。",
+      "en": "Matthew Blode's skills aim to stop low-quality AI output: UI and accessibility audits, typography, codebase architecture, docs, PR review, CI speedups and releases, plus scaffolds for Next.js and TypeScript CLIs."
+    },
+    "bestFor": [
+      {
+        "zh": "注重细节质量的前端开发者。",
+        "en": "Frontend developers who care about polish."
+      }
+    ],
+    "useCases": [
+      "design",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "审查类 Skill 适用于任何项目，脚手架则体现作者的技术栈。",
+      "en": "The audit skills are useful on any project; the scaffolds encode the author's stack."
+    },
+    "limitations": [
+      {
+        "zh": "脚手架默认作者偏好的工具。",
+        "en": "Scaffolds assume the author's preferred tools."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-figma-mcp-server-guide",
+      "github-com-wordpress-agent-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-figma-mcp-server-guide": {
+        "en": "Compare Figma MCP Server Guide — Design-to-code with the Figma MCP server.",
+        "zh": "如果更需要「用 Figma MCP Server 从设计到代码」，可以对比 Figma MCP Server Guide。"
+      },
+      "github-com-wordpress-agent-skills": {
+        "en": "Compare WordPress Agent Skills — Blocks, themes and plugin development.",
+        "zh": "如果更需要「区块、主题与插件开发」，可以对比 WordPress Agent Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-mcollina-skills": {
+    "resourceSlug": "mcollina-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Node.js、Fastify 与 TypeScript 实践",
+      "en": "Node.js, Fastify and TypeScript practice"
+    },
+    "summary": {
+      "zh": "Node.js 核心贡献者、Fastify 联合作者 Matteo Collina 的 Skill：Node.js、Node 核心、Fastify、TypeScript、代码检查、OAuth 与文档，附跨模型基准测试流程和运行记录。",
+      "en": "Skills from Matteo Collina, a Node.js core contributor and Fastify co-creator: Node.js, Node core, Fastify, TypeScript, linting, OAuth and documentation, with a cross-model benchmarking workflow and run history."
+    },
+    "bestFor": [
+      {
+        "zh": "Node.js 与 Fastify 开发者。",
+        "en": "Node.js and Fastify developers."
+      }
+    ],
+    "useCases": [
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "仓库公开了自己的基准测试记录，可与 Skill 一起阅读。",
+      "en": "The repository publishes its own benchmark history; read it alongside the skills."
+    },
+    "limitations": [
+      {
+        "zh": "聚焦 Node.js 生态。",
+        "en": "Focused on the Node.js ecosystem."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "en": "Compare Superpowers (obra) — Planning, debugging and testing workflows.",
+        "zh": "如果更需要「规划、调试与测试工作流」，可以对比 Superpowers (obra)。"
+      },
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-wondelai-skills": {
+    "resourceSlug": "wondelai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "书籍框架与引导式元技能",
+      "en": "Book frameworks and guided metaskills"
+    },
+    "summary": {
+      "zh": "Wondel.ai 把知名商业与工程书籍中的框架做成 Agent Skill，并提供元技能，按阶段引导你构建业务、网站或应用，改进代码或优化转化。",
+      "en": "Wondel.ai's skills turn frameworks from well-known business and engineering books into agent skills, plus metaskills that guide you phase by phase through building a business, website or app, improving code or optimizing conversion."
+    },
+    "bestFor": [
+      {
+        "zh": "规划阶段需要结构化框架的创始人。",
+        "en": "Founders who want structured frameworks during planning."
+      }
+    ],
+    "useCases": [
+      "product",
+      "marketing",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "元技能会提出决策问题，用真实约束来回答。",
+      "en": "Metaskills ask decision questions; answer them with real constraints."
+    },
+    "limitations": [
+      {
+        "zh": "书籍摘要是解读，不是原书。",
+        "en": "Summaries of books are interpretations, not the books."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-product-on-purpose-pm-skills",
+      "github-com-phuryn-pm-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-product-on-purpose-pm-skills": {
+        "en": "Compare PM Skills (Product on Purpose) — Product lifecycle templates and sample outputs.",
+        "zh": "如果更需要「产品全周期模板与示例输出」，可以对比 PM Skills (Product on Purpose)。"
+      },
+      "github-com-phuryn-pm-skills": {
+        "en": "Compare PM Skills (Paweł Huryn) — Product discovery to launch workflows.",
+        "zh": "如果更需要「从发现到发布的产品工作流」，可以对比 PM Skills (Paweł Huryn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-product-on-purpose-pm-skills": {
+    "resourceSlug": "product-on-purpose-pm-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "产品全周期模板与示例输出",
+      "en": "Product lifecycle templates and sample outputs"
+    },
+    "summary": {
+      "zh": "覆盖发现、定义、开发、交付各阶段的产品管理 Skill 库，附模板、工作流、子 Agent 以及大量真实示例输出，用来设定质量标准。",
+      "en": "A library of product management skills across discover, define, develop and deliver phases, with templates, workflows, sub-agents and many real-world sample outputs that set the expected quality."
+    },
+    "bestFor": [
+      {
+        "zh": "喜欢从示例中学习的产品经理。",
+        "en": "Product managers who learn from examples."
+      }
+    ],
+    "useCases": [
+      "product",
+      "planning"
+    ],
+    "skillFluxNote": {
+      "zh": "把自己的输出与示例对比，这正是这个库的用处。",
+      "en": "Compare your output with the sample outputs; that is the point of the library."
+    },
+    "limitations": [
+      {
+        "zh": "模板体现的是一种方法论。",
+        "en": "Templates reflect one methodology."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-phuryn-pm-skills",
+      "github-com-deanpeters-product-manager-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-phuryn-pm-skills": {
+        "en": "Compare PM Skills (Paweł Huryn) — Product discovery to launch workflows.",
+        "zh": "如果更需要「从发现到发布的产品工作流」，可以对比 PM Skills (Paweł Huryn)。"
+      },
+      "github-com-deanpeters-product-manager-skills": {
+        "en": "Compare Product Manager Skills (Dean Peters) — Product strategy and discovery frameworks.",
+        "zh": "如果更需要「产品战略与需求发现框架」，可以对比 Product Manager Skills (Dean Peters)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-mhattingpete-claude-skills-marketplace": {
+    "resourceSlug": "mhattingpete-claude-skills-marketplace",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "软件工程工作流插件",
+      "en": "Software engineering workflow plugins"
+    },
+    "summary": {
+      "zh": "面向工程工作流的 Claude Code 插件市场：代码审计、重构、文档、功能规划、图表与看板、项目初始化和 git 操作。",
+      "en": "A Claude Code plugin marketplace for engineering workflows: code auditing, refactoring, documentation, feature planning, diagrams and dashboards, project bootstrapping and git operations."
+    },
+    "bestFor": [
+      {
+        "zh": "需要通用工程助手的 Claude Code 用户。",
+        "en": "Claude Code users who want general engineering helpers."
+      }
+    ],
+    "useCases": [
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "git-pushing Skill 会操作你的仓库，启用前先读。",
+      "en": "The git-pushing skill acts on your repository; read it before enabling."
+    },
+    "limitations": [
+      {
+        "zh": "通用型助手，可能与内置功能重叠。",
+        "en": "General-purpose helpers; overlap with built-in features is likely."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-obra-superpowers",
+      "github-com-anthropics-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-obra-superpowers": {
+        "en": "Compare Superpowers (obra) — Planning, debugging and testing workflows.",
+        "zh": "如果更需要「规划、调试与测试工作流」，可以对比 Superpowers (obra)。"
+      },
+      "github-com-anthropics-skills": {
+        "en": "Compare anthropics/skills — Official Anthropic skill examples.",
+        "zh": "如果更需要「Anthropic 官方 Skill 示例」，可以对比 anthropics/skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-eduardo-sl-go-agent-skills": {
+    "resourceSlug": "eduardo-sl-go-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "让编码 Agent 写地道的 Go",
+      "en": "Idiomatic Go for coding agents"
+    },
+    "summary": {
+      "zh": "精选的 Go Skill，纠正 Agent 写 Go 的常见问题：错误缺少上下文、接口放错位置、goroutine 泄漏和缺少类型。覆盖 API 设计、并发、CLI、CI、数据库与代码审查，并附评估说明。",
+      "en": "Curated Go skills that correct common agent mistakes in Go: errors without context, misplaced interfaces, leaked goroutines and untyped code. Covers API design, concurrency, CLI, CI, databases and code review, with an evaluations section."
+    },
+    "bestFor": [
+      {
+        "zh": "使用编码 Agent 的 Go 开发者。",
+        "en": "Go developers using coding agents."
+      }
+    ],
+    "useCases": [
+      "coding",
+      "testing"
+    ],
+    "skillFluxNote": {
+      "zh": "阅读评估部分，了解作者如何衡量效果。",
+      "en": "Read the evaluations section to see how the author measured effect."
+    },
+    "limitations": [
+      {
+        "zh": "仅适用于 Go。",
+        "en": "Specific to Go."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-garrytan-gstack",
+      "github-com-mailtrap-mailtrap-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-garrytan-gstack": {
+        "en": "Compare gstack (Garry Tan) — A role-based engineering team in Claude Code.",
+        "zh": "如果更需要「Claude Code 中按角色分工的工程团队」，可以对比 gstack (Garry Tan)。"
+      },
+      "github-com-mailtrap-mailtrap-skills": {
+        "en": "Compare Mailtrap Skills — Sending and testing email with Mailtrap.",
+        "zh": "如果更需要「用 Mailtrap 发送与测试邮件」，可以对比 Mailtrap Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-agricidaniel-claude-seo": {
+    "resourceSlug": "agricidaniel-claude-seo",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "在 Claude Code 中做 SEO 审计",
+      "en": "SEO audits inside Claude Code"
+    },
+    "summary": {
+      "zh": "在 Claude Code 中对网站做完整 SEO 审计的插件：技术 SEO、内容质量、外链、竞品页面与 AI 搜索可见度，并可集成 Ahrefs、DataForSEO、Firecrawl 等工具。",
+      "en": "A Claude Code plugin that runs a full SEO audit of a website: technical SEO, content quality, backlinks, competitor pages and AI search visibility, with integrations for tools such as Ahrefs, DataForSEO and Firecrawl."
+    },
+    "bestFor": [
+      {
+        "zh": "网站负责人与 SEO 从业者。",
+        "en": "Site owners and SEO practitioners."
+      }
+    ],
+    "useCases": [
+      "marketing",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "第三方集成需要各自的 API Key，并单独计费。",
+      "en": "Third-party integrations need their own API keys and are billed separately."
+    },
+    "limitations": [
+      {
+        "zh": "审计建议仍需结合自身目标判断。",
+        "en": "Audit advice still needs judgment against your goals."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-sergebulaev-linkedin-skills",
+      "github-com-realkimbarrett-advertising-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-sergebulaev-linkedin-skills": {
+        "en": "Compare LinkedIn Skills (Serge Bulaev) — LinkedIn posts, comments and replies.",
+        "zh": "如果更需要「LinkedIn 帖子、评论与回复」，可以对比 LinkedIn Skills (Serge Bulaev)。"
+      },
+      "github-com-realkimbarrett-advertising-skills": {
+        "en": "Compare Advertising Skills (Kim Barrett) — Direct-response ads and copywriting.",
+        "zh": "如果更需要「直效广告与文案」，可以对比 Advertising Skills (Kim Barrett)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-sergebulaev-linkedin-skills": {
+    "resourceSlug": "sergebulaev-linkedin-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "LinkedIn 帖子、评论与回复",
+      "en": "LinkedIn posts, comments and replies"
+    },
+    "summary": {
+      "zh": "Claude Code 与 Codex Skill，用你的口吻起草 LinkedIn 帖子、评论与回复，去除 AI 腔，并在发布前等待确认。",
+      "en": "Claude Code and Codex skills that draft LinkedIn posts, comments and replies in your voice, remove AI-sounding phrasing and wait for approval before anything is published."
+    },
+    "bestFor": [
+      {
+        "zh": "经常在 LinkedIn 发帖的职场人士。",
+        "en": "Professionals who post regularly on LinkedIn."
+      }
+    ],
+    "useCases": [
+      "marketing",
+      "writing"
+    ],
+    "skillFluxNote": {
+      "zh": "保持发布前确认步骤，这是主要的保护措施。",
+      "en": "Keep the approval step on; it is the main safeguard."
+    },
+    "limitations": [
+      {
+        "zh": "平台对自动化的规则会变化，请查看 LinkedIn 条款。",
+        "en": "Platform rules for automation change; check LinkedIn's terms."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-realkimbarrett-advertising-skills",
+      "github-com-coreyhaines31-marketingskills"
+    ],
+    "alternativeReasons": {
+      "github-com-realkimbarrett-advertising-skills": {
+        "en": "Compare Advertising Skills (Kim Barrett) — Direct-response ads and copywriting.",
+        "zh": "如果更需要「直效广告与文案」，可以对比 Advertising Skills (Kim Barrett)。"
+      },
+      "github-com-coreyhaines31-marketingskills": {
+        "en": "Compare Marketing Skills (Corey Haines) — Conversion, copywriting, SEO and growth.",
+        "zh": "如果更需要「转化、文案、SEO 与增长」，可以对比 Marketing Skills (Corey Haines)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-zxkane-aws-skills": {
+    "resourceSlug": "zxkane-aws-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "AWS CDK、Serverless 与成本运维",
+      "en": "AWS CDK, serverless and cost operations"
+    },
+    "summary": {
+      "zh": "面向 AWS 开发的社区 Claude Code 插件：CDK、Serverless 事件驱动架构、SST、成本运维与 Bedrock AgentCore，并提供各插件共用的 AWS 文档 MCP 配置。",
+      "en": "Community Claude Code plugins for AWS development: CDK, serverless event-driven architecture, SST, cost operations and Bedrock AgentCore, with an AWS documentation MCP setup shared by the others."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好社区插件的 AWS 开发者。",
+        "en": "AWS developers who prefer community plugins."
+      }
+    ],
+    "useCases": [
+      "cloud",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "选择前与 AWS Labs 官方插件对比。",
+      "en": "Compare with AWS Labs' own plugins before choosing."
+    },
+    "limitations": [
+      {
+        "zh": "由社区维护，并非 AWS 官方。",
+        "en": "Community-maintained, not by AWS."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-netlify-context-and-tools",
+      "github-com-microsoft-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-netlify-context-and-tools": {
+        "en": "Compare Netlify Skills — Netlify functions, blobs, caching and deploys.",
+        "zh": "如果更需要「Netlify 函数、Blobs、缓存与部署」，可以对比 Netlify Skills。"
+      },
+      "github-com-microsoft-skills": {
+        "en": "Compare Microsoft Skills — Azure SDKs, AKS and Microsoft developer tools.",
+        "zh": "如果更需要「Azure SDK、AKS 与微软开发工具」，可以对比 Microsoft Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source"
+    ]
+  },
+  "github-com-composiohq-awesome-codex-skills": {
+    "resourceSlug": "composiohq-awesome-codex-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "面向应用自动化的 Codex Skill",
+      "en": "Codex skills for app automation"
+    },
+    "summary": {
+      "zh": "Composio 整理的实用 Codex Skill 清单，多数是针对单个应用的自动化 Skill，通过 Composio 的 MCP 网关调用，并提供把 Skill 放入 Codex Skill 目录的安装器。",
+      "en": "Composio's list of practical Codex skills, most of them automation skills for individual apps that route through Composio's MCP gateway, with an installer that places skills in the Codex skills folder."
+    },
+    "bestFor": [
+      {
+        "zh": "用 Codex 自动化 SaaS 应用的用户。",
+        "en": "Codex users automating SaaS apps."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "多数条目依赖 Composio 网关，选择前先确认。",
+      "en": "Most entries need Composio's gateway; check that before choosing a skill."
+    },
+    "limitations": [
+      {
+        "zh": "很多条目按应用批量生成，结构相同。",
+        "en": "Many entries are generated per app and follow the same template."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-xiaolai-claude-plugin-marketplace",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-xiaolai-claude-plugin-marketplace": {
+        "en": "Compare xiaolai Plugin Marketplace — Plugins for Claude Code and Codex CLI.",
+        "zh": "如果更需要「Claude Code 与 Codex CLI 插件」，可以对比 xiaolai Plugin Marketplace。"
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (travisvn) — Claude skill list and architecture reference.",
+        "zh": "如果更需要「Claude Skill 清单与架构参考」，可以对比 awesome-claude-skills (travisvn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-heilcheng-awesome-agent-skills": {
+    "resourceSlug": "heilcheng-awesome-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "教程、指南与真实团队的 Skill",
+      "en": "Tutorials, guides and skills from real teams"
+    },
+    "summary": {
+      "zh": "Hailey Cheng 的社区精选清单，关注工程团队真实创建和使用的 Skill，而非批量生成的仓库，并为新手提供教程，配套在线目录 agent-skill.co，有多语言版本。",
+      "en": "Hailey Cheng's community-curated list focuses on skills created and used by engineering teams rather than bulk-generated repositories, with tutorials for newcomers and a live directory at agent-skill.co. Available in several languages."
+    },
+    "bestFor": [
+      {
+        "zh": "希望有讲解的起步清单的新手。",
+        "en": "Newcomers who want an explained starting list."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "先看教程，再沿链接到各个原始仓库。",
+      "en": "Use the tutorials, then follow links to each original repository."
+    },
+    "limitations": [
+      {
+        "zh": "这是清单，Skill 在其他仓库中。",
+        "en": "A list; skills live in other repositories."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-awesome-agent-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-awesome-agent-skills": {
+        "en": "Compare awesome-agent-skills (VoltAgent) — Cross-agent skill curation.",
+        "zh": "如果更需要「跨 Agent Skill 策展」，可以对比 awesome-agent-skills (VoltAgent)。"
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (Composio) — Thematic Claude skill curation.",
+        "zh": "如果更需要「Claude Skill 主题策展」，可以对比 awesome-claude-skills (Composio)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-skillmatic-ai-awesome-agent-skills": {
+    "resourceSlug": "skillmatic-ai-awesome-agent-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "关于 Agent Skill 机制的资料",
+      "en": "Resources on how agent skills work"
+    },
+    "summary": {
+      "zh": "Skillmatic 整理的构建与使用 Agent Skill 的资料：SKILL.md 与渐进式加载的入门、文章、工具与示例 Skill。",
+      "en": "Skillmatic's curated resources for building and using agent skills: primers on SKILL.md and progressive disclosure, articles, tools and example skills."
+    },
+    "bestFor": [
+      {
+        "zh": "学习编写 Skill 的人。",
+        "en": "People learning how to write skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "research"
+    ],
+    "skillFluxNote": {
+      "zh": "先读入门资料，再看示例链接。",
+      "en": "Start with the primers before the example links."
+    },
+    "limitations": [
+      {
+        "zh": "更新频率低于大型清单。",
+        "en": "Updated less often than larger lists."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-awesome-agent-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-awesome-agent-skills": {
+        "en": "Compare awesome-agent-skills (VoltAgent) — Cross-agent skill curation.",
+        "zh": "如果更需要「跨 Agent Skill 策展」，可以对比 awesome-agent-skills (VoltAgent)。"
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (Composio) — Thematic Claude skill curation.",
+        "zh": "如果更需要「Claude Skill 主题策展」，可以对比 awesome-claude-skills (Composio)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-karanb192-awesome-claude-skills": {
+    "resourceSlug": "karanb192-awesome-claude-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "可检索的 Claude Skill 目录",
+      "en": "A searchable directory of Claude skills"
+    },
+    "summary": {
+      "zh": "面向 Claude Code、Claude.ai 与 API 的社区目录：Skill 名称链接到来源，README 明确说明收录不等于安全审计，并把相关仓库归为合集。",
+      "en": "A community directory for Claude Code, Claude.ai and the API: skill names link to their sources, and the README states that inclusion is not a security audit. It also groups related repositories into collections."
+    },
+    "bestFor": [
+      {
+        "zh": "为具体任务找 Skill。",
+        "en": "Finding a skill for a specific task."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "按 README 建议，沿链接阅读各自的安装说明。",
+      "en": "Follow each link and read the install guide there, as the README advises."
+    },
+    "limitations": [
+      {
+        "zh": "据 README，收录不等于安全审计。",
+        "en": "Inclusion is not a security audit, per the README."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-awesome-agent-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-awesome-agent-skills": {
+        "en": "Compare awesome-agent-skills (VoltAgent) — Cross-agent skill curation.",
+        "zh": "如果更需要「跨 Agent Skill 策展」，可以对比 awesome-agent-skills (VoltAgent)。"
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (Composio) — Thematic Claude skill curation.",
+        "zh": "如果更需要「Claude Skill 主题策展」，可以对比 awesome-claude-skills (Composio)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-hesreallyhim-awesome-claude-code": {
+    "resourceSlug": "hesreallyhim-awesome-claude-code",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 的 Skill、Agent、钩子与工具",
+      "en": "Skills, agents, hooks and tooling for Claude Code"
+    },
+    "summary": {
+      "zh": "手工精选的 Claude Code 资源：Skill、Agent、状态栏、钩子、开发工具与插件，声明重视代码质量、安全与原创性。",
+      "en": "A hand-picked collection of Claude Code resources: skills, agents, status lines, hooks, developer tooling and plugins, with stated emphasis on code quality, security and originality."
+    },
+    "bestFor": [
+      {
+        "zh": "不只关注 Skill 的 Claude Code 用户。",
+        "en": "Claude Code users looking beyond skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "Skill 只是其中一部分，适合了解更广的 Claude Code 生态。",
+      "en": "Skills are one section; use it for the wider Claude Code ecosystem."
+    },
+    "limitations": [
+      {
+        "zh": "这是清单，条目在别处维护。",
+        "en": "A list; entries are maintained elsewhere."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-xiaolai-claude-plugin-marketplace",
+      "github-com-travisvn-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-xiaolai-claude-plugin-marketplace": {
+        "en": "Compare xiaolai Plugin Marketplace — Plugins for Claude Code and Codex CLI.",
+        "zh": "如果更需要「Claude Code 与 Codex CLI 插件」，可以对比 xiaolai Plugin Marketplace。"
+      },
+      "github-com-travisvn-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (travisvn) — Claude skill list and architecture reference.",
+        "zh": "如果更需要「Claude Skill 清单与架构参考」，可以对比 awesome-claude-skills (travisvn)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-xiaolai-claude-plugin-marketplace": {
+    "resourceSlug": "xiaolai-claude-plugin-marketplace",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 与 Codex CLI 插件",
+      "en": "Plugins for Claude Code and Codex CLI"
+    },
+    "summary": {
+      "zh": "xiaolai 的插件中心市场，同时提供 Claude Code 和 Codex CLI 的清单文件，让每个插件仓库可以同时发布两种格式。",
+      "en": "A central marketplace for xiaolai's plugins, with manifests for both Claude Code and Codex CLI so each plugin repository can ship both layouts."
+    },
+    "bestFor": [
+      {
+        "zh": "在任一宿主上使用 xiaolai 插件的用户。",
+        "en": "Users of xiaolai's plugins on either host."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "也是同时向 Claude Code 和 Codex 发布插件的好例子。",
+      "en": "A good example of shipping one plugin to both Claude Code and Codex."
+    },
+    "limitations": [
+      {
+        "zh": "只收录一位作者的插件。",
+        "en": "Lists one author's plugins."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-travisvn-awesome-claude-skills",
+      "github-com-sickn33-antigravity-awesome-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-travisvn-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (travisvn) — Claude skill list and architecture reference.",
+        "zh": "如果更需要「Claude Skill 清单与架构参考」，可以对比 awesome-claude-skills (travisvn)。"
+      },
+      "github-com-sickn33-antigravity-awesome-skills": {
+        "en": "Compare Agentic Awesome Skills — A very large installable skill library.",
+        "zh": "如果更需要「规模很大的可安装 Skill 库」，可以对比 Agentic Awesome Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "github-com-dmgrok-agent-skills-directory": {
+    "resourceSlug": "dmgrok-agent-skills-directory",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "官方与社区插件的网页目录",
+      "en": "Web discovery of official and community plugins"
+    },
+    "summary": {
+      "zh": "汇总官方与社区来源的 Agent 插件网页目录，每日重建，可组合所需插件并用一个脚本安装。站点发布在 GitHub Pages 上。",
+      "en": "A web-based directory of agent plugins from official and community providers, rebuilt daily, where you can assemble a stack and install it with one script. The site is published on GitHub Pages."
+    },
+    "bestFor": [
+      {
+        "zh": "跨来源比较插件。",
+        "en": "Comparing plugins across providers."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "运行前先读安装脚本，它会一次安装多个插件。",
+      "en": "Read the install script before running it; it installs several plugins at once."
+    },
+    "limitations": [
+      {
+        "zh": "聚合列表，质量取决于上游。",
+        "en": "Aggregated listings; quality depends on upstream."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-voltagent-awesome-agent-skills",
+      "github-com-composiohq-awesome-claude-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-voltagent-awesome-agent-skills": {
+        "en": "Compare awesome-agent-skills (VoltAgent) — Cross-agent skill curation.",
+        "zh": "如果更需要「跨 Agent Skill 策展」，可以对比 awesome-agent-skills (VoltAgent)。"
+      },
+      "github-com-composiohq-awesome-claude-skills": {
+        "en": "Compare awesome-claude-skills (Composio) — Thematic Claude skill curation.",
+        "zh": "如果更需要「Claude Skill 主题策展」，可以对比 awesome-claude-skills (Composio)。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "officialskills-sh": {
+    "resourceSlug": "officialskills-sh",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "厂商官方团队发布的 Skill",
+      "en": "Skills published by official vendor teams"
+    },
+    "summary": {
+      "zh": "汇集厂商官方开发团队所发布 Agent Skill 的目录，可按发布方和分类筛选。Skill 页面采用 /作者/仓库/skill 的路径，VoltAgent 的 awesome-agent-skills 清单也链接到这里。",
+      "en": "A browsable directory of agent skills published by official developer teams, filterable by publisher and category. Its skill pages follow an /owner/repo/skill pattern and it is linked from the VoltAgent awesome-agent-skills list."
+    },
+    "bestFor": [
+      {
+        "zh": "为已在使用的产品查找官方 Skill。",
+        "en": "Finding the official skill for a product you already use."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "其路径不一定与 GitHub 仓库名一致（例如 Stripe 的 Skill 在 stripe/ai），安装前先确认真实仓库。",
+      "en": "Its slugs do not always match the GitHub repository name (for example Stripe's skills live in stripe/ai); confirm the repository before installing."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "skillsmp-com"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "en": "Compare skills.sh — Developer-oriented skill discovery.",
+        "zh": "如果更需要「开发者向 Skill 发现」，可以对比 skills.sh。"
+      },
+      "skillsmp-com": {
+        "en": "Compare SkillsMP — Cross-source skill comparison.",
+        "zh": "如果更需要「跨来源 Skill 比较」，可以对比 SkillsMP。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "awesomeskill-ai": {
+    "resourceSlug": "awesomeskill-ai",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "浏览来自 GitHub 的 SKILL.md",
+      "en": "Browsing SKILL.md files from GitHub"
+    },
+    "summary": {
+      "zh": "一个市场型网站，自称可浏览从 GitHub 收集的 SKILL.md，面向 Claude、Codex 和 ChatGPT。",
+      "en": "A marketplace-style site that describes itself as a way to browse SKILL.md files collected from GitHub for Claude, Codex and ChatGPT."
+    },
+    "bestFor": [
+      {
+        "zh": "快速浏览 GitHub 上的 Skill。",
+        "en": "Quick browsing across GitHub-hosted skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "沿每个条目回到 GitHub 源码阅读；该站做的是聚合而非审查。",
+      "en": "Follow each listing to its GitHub source and read it there; the site aggregates rather than reviews."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "qoder-com-zh-marketplace",
+      "tessl-io-registry"
+    ],
+    "alternativeReasons": {
+      "qoder-com-zh-marketplace": {
+        "en": "Compare Qoder Marketplace — Qoder ecosystem marketplace.",
+        "zh": "如果更需要「Qoder 生态 Skill 市场」，可以对比 Qoder Marketplace。"
+      },
+      "tessl-io-registry": {
+        "en": "Compare Tessl Registry — Skill registry discovery.",
+        "zh": "如果更需要「Skill 注册表发现」，可以对比 Tessl Registry。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "claude4world-com-skills": {
+    "resourceSlug": "claude4world-com-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "精选的 Claude Code Skill 目录",
+      "en": "A curated Claude Code skill directory"
+    },
+    "summary": {
+      "zh": "精选的 Claude Code Skill 目录，安装方式为手动：把 SKILL.md 复制到自己的 Skill 文件夹。",
+      "en": "A curated directory of Claude Code skills where installation is manual: you copy a skill's SKILL.md into your skills folder."
+    },
+    "bestFor": [
+      {
+        "zh": "偏好手动复制 Skill 的用户。",
+        "en": "Users who prefer copying skills by hand."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "手动复制会失去更新追踪，请记录每个 Skill 的来源。",
+      "en": "Manual copying loses update tracking; note where each skill came from."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "skillsmp-com"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "en": "Compare skills.sh — Developer-oriented skill discovery.",
+        "zh": "如果更需要「开发者向 Skill 发现」，可以对比 skills.sh。"
+      },
+      "skillsmp-com": {
+        "en": "Compare SkillsMP — Cross-source skill comparison.",
+        "zh": "如果更需要「跨来源 Skill 比较」，可以对比 SkillsMP。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "claudemarketplace-net": {
+    "resourceSlug": "claudemarketplace-net",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 的 Skill、MCP Server 与插件",
+      "en": "Skills, MCP servers and plugins for Claude Code"
+    },
+    "summary": {
+      "zh": "第三方市场网站，列出 Claude Code 的 Skill、MCP Server 与插件，页头显示自报的数量。",
+      "en": "A third-party marketplace site listing skills, MCP servers and plugins for Claude Code, with self-reported counts shown in its header."
+    },
+    "bestFor": [
+      {
+        "zh": "在一个地方浏览 Skill 与 MCP Server。",
+        "en": "Browsing skills and MCP servers in one place."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "数量为自报，请逐条判断。",
+      "en": "Counts are self-reported; judge entries individually."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "smithery-ai-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "smithery-ai-skills": {
+        "en": "Compare Smithery Skills — Skills alongside Smithery's MCP registry.",
+        "zh": "如果更需要「与 Smithery MCP 注册表并列的 Skill」，可以对比 Smithery Skills。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "claudeskills-info": {
+    "resourceSlug": "claudeskills-info",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "可检索的 Agent 组件索引",
+      "en": "A searchable index of harness components"
+    },
+    "summary": {
+      "zh": "可检索的 AI 编码 Agent 组件目录（包括 Skill），并提供包含名称、描述、星标数和源码链接的 JSON 数据。",
+      "en": "A searchable directory of components for AI coding agents, skills among them, that also publishes a JSON feed of names, descriptions, stars and source links."
+    },
+    "bestFor": [
+      {
+        "zh": "需要机器可读 Skill 列表的用户或工具。",
+        "en": "Users or tools that want a machine-readable list of skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "JSON 数据便于脚本使用；星标数反映热度而非质量。",
+      "en": "The JSON feed is convenient for scripts; star counts are a popularity signal, not quality."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "skillsmp-com"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "en": "Compare skills.sh — Developer-oriented skill discovery.",
+        "zh": "如果更需要「开发者向 Skill 发现」，可以对比 skills.sh。"
+      },
+      "skillsmp-com": {
+        "en": "Compare SkillsMP — Cross-source skill comparison.",
+        "zh": "如果更需要「跨来源 Skill 比较」，可以对比 SkillsMP。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "gradually-ai-en-codex-skills": {
+    "resourceSlug": "gradually-ai-en-codex-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "来自 GitHub 的 Codex Skill",
+      "en": "Codex skills sourced from GitHub"
+    },
+    "summary": {
+      "zh": "列出来自 GitHub 的 Codex Skill 的目录页。观察时页面标注的同步日期在 2026 年较早时候，较新的 Skill 可能缺失。",
+      "en": "A directory page of Codex skills sourced from GitHub. When observed, the page stated a last sync date earlier in 2026, so newer skills may be missing."
+    },
+    "bestFor": [
+      {
+        "zh": "浏览精简列表的 Codex 用户。",
+        "en": "Codex users browsing a short list."
+      }
+    ],
+    "useCases": [
+      "discover-skills"
+    ],
+    "skillFluxNote": {
+      "zh": "注意页面标注的同步日期，列表可能过时。",
+      "en": "Check the stated sync date; the list may be stale."
+    },
+    "limitations": [
+      {
+        "zh": "并非持续更新。",
+        "en": "Not continuously updated."
+      }
+    ],
+    "alternativeSlugs": [
+      "skills-sh",
+      "skillsmp-com"
+    ],
+    "alternativeReasons": {
+      "skills-sh": {
+        "en": "Compare skills.sh — Developer-oriented skill discovery.",
+        "zh": "如果更需要「开发者向 Skill 发现」，可以对比 skills.sh。"
+      },
+      "skillsmp-com": {
+        "en": "Compare SkillsMP — Cross-source skill comparison.",
+        "zh": "如果更需要「跨来源 Skill 比较」，可以对比 SkillsMP。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "smithery-ai-skills": {
+    "resourceSlug": "smithery-ai-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "与 Smithery MCP 注册表并列的 Skill",
+      "en": "Skills alongside Smithery's MCP registry"
+    },
+    "summary": {
+      "zh": "以 MCP Server 注册表闻名的 Smithery 也提供公开的 Agent Skill 目录。所见条目多为社区发布，安装通过开放的 skills CLI 完成。",
+      "en": "Smithery, known for its MCP server registry, also hosts a public catalog of agent skills. Most listings found were community-published, and installation goes through the open skills CLI."
+    },
+    "bestFor": [
+      {
+        "zh": "已在 Smithery 上查找 MCP Server 的用户。",
+        "en": "Users who already find MCP servers on Smithery."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "把条目视为社区内容；平台负责托管，不做担保。",
+      "en": "Treat listings as community content; the platform hosts, it does not vouch."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "claudemarketplace-net",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "claudemarketplace-net": {
+        "en": "Compare Claude Code Marketplace (claudemarketplace.net) — Skills, MCP servers and plugins for Claude Code.",
+        "zh": "如果更需要「Claude Code 的 Skill、MCP Server 与插件」，可以对比 Claude Code Marketplace (claudemarketplace.net)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "skillselion-com": {
+    "resourceSlug": "skillselion-com",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "通过 MCP Server 加载的排序 Skill",
+      "en": "Ranked skills loaded through an MCP server"
+    },
+    "summary": {
+      "zh": "索引其他注册表中 Skill 的目录，并提供 MCP Server，可在任务中途把排序后的 Skill 加载给 Agent，无需安装。",
+      "en": "A skills directory that indexes skills from other registries and offers an MCP server for loading ranked skills into an agent mid-task without installing them."
+    },
+    "bestFor": [
+      {
+        "zh": "希望按需加载而非安装 Skill 的用户。",
+        "en": "Users who want skills loaded on demand rather than installed."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "任务中途加载 Skill 意味着指令来自远程服务，要考虑该服务能注入什么内容。",
+      "en": "Loading skills mid-task means instructions arrive from a remote service; consider what that service can inject."
+    },
+    "limitations": [
+      {
+        "zh": "SkillFlux 尚未能直接抽样该站点。",
+        "en": "SkillFlux could not sample this site directly."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-claude-plugins-official",
+      "claude-com-plugins"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      },
+      "claude-com-plugins": {
+        "en": "Compare Claude Plugins directory — Anthropic's plugin directory for Claude.",
+        "zh": "如果更需要「Anthropic 的 Claude 插件目录」，可以对比 Claude Plugins directory。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "agentskills-io": {
+    "resourceSlug": "agentskills-io",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "开放的 Agent Skill 格式",
+      "en": "The open Agent Skills format"
+    },
+    "summary": {
+      "zh": "Agent Skill 开放格式的官方站点：一个 Skill 是带 SKILL.md 的文件夹，包含名称、描述和指令，可附带脚本、参考资料和资源。规范在 agentskills GitHub 仓库中维护。",
+      "en": "The home of the Agent Skills open format: a skill is a folder with a SKILL.md file carrying a name, a description and instructions, plus optional scripts, references and assets. The specification is maintained in the agentskills GitHub repository."
+    },
+    "bestFor": [
+      {
+        "zh": "编写或校验 Skill 的任何人。",
+        "en": "Anyone writing or validating skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "SkillFlux 的静态体检依据这一格式，读规范有助于理解体检结果。",
+      "en": "SkillFlux's static health check follows this format; read the spec to interpret its results."
+    },
+    "limitations": [
+      {
+        "zh": "这是规范，不是 Skill 目录。",
+        "en": "A specification, not a skill catalog."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "code-claude-com-docs-en-skills": {
+    "resourceSlug": "code-claude-com-docs-en-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Claude Code 如何发现和使用 Skill",
+      "en": "How Claude Code finds and uses skills"
+    },
+    "summary": {
+      "zh": "Anthropic 关于 Claude Code Skill 的文档：用户级和项目级 Skill 文件夹的位置、Claude 如何决定加载 Skill，以及 Skill 与插件、市场的关系。",
+      "en": "Anthropic's documentation for skills in Claude Code: where skill folders live for a user or a project, how Claude decides to load a skill, and how skills relate to plugins and marketplaces."
+    },
+    "bestFor": [
+      {
+        "zh": "首次安装 Skill 的 Claude Code 用户。",
+        "en": "Claude Code users installing their first skill."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "参照第三方教程前，先在这里核对安装路径。",
+      "en": "Check here for install paths before following a third-party guide."
+    },
+    "limitations": [
+      {
+        "zh": "产品文档，不对 Skill 做评价。",
+        "en": "Product documentation; it does not rate skills."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "cursor-com-docs-skills": {
+    "resourceSlug": "cursor-com-docs-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Cursor 如何发现 Agent Skill",
+      "en": "How Cursor discovers agent skills"
+    },
+    "summary": {
+      "zh": "Cursor 关于 Agent Skill 的文档：Cursor 启动时从 Skill 目录中发现 Skill，由 Agent 判断何时使用；也可用斜杠命令调用。",
+      "en": "Cursor's documentation for agent skills: Cursor discovers skills from skill directories at startup and the agent decides when they are relevant; skills can also be invoked with a slash command."
+    },
+    "bestFor": [
+      {
+        "zh": "为项目添加 Skill 的 Cursor 用户。",
+        "en": "Cursor users adding skills to a project."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "Cursor 也会读取其他 Agent 使用的 Skill 文件夹，确认哪些目录生效以免重复。",
+      "en": "Cursor also reads skills from folders used by other agents; check which folders are active to avoid duplicates."
+    },
+    "limitations": [
+      {
+        "zh": "产品文档，不对 Skill 做评价。",
+        "en": "Product documentation; it does not rate skills."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "developers-openai-com-codex-skills": {
+    "resourceSlug": "developers-openai-com-codex-skills",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Codex 如何加载 Skill",
+      "en": "How Codex loads skills"
+    },
+    "summary": {
+      "zh": "OpenAI 关于 Codex Skill 的文档：仓库级与用户级 Skill 的位置，以及 Skill 的打包方式，包括用于分发的纯 Skill 插件。",
+      "en": "OpenAI's documentation for skills in Codex: where repository and user skills live and how skills are packaged, including skill-only plugins for distribution."
+    },
+    "bestFor": [
+      {
+        "zh": "Codex 用户和发布 Skill 的团队。",
+        "en": "Codex users and teams publishing skills."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "coding"
+    ],
+    "skillFluxNote": {
+      "zh": "旧的 openai/skills 仓库已弃用，请以本文档和 OpenAI Plugins 仓库为准。",
+      "en": "The older openai/skills repository is deprecated; follow these docs and the OpenAI Plugins repository."
+    },
+    "limitations": [
+      {
+        "zh": "产品文档，不对 Skill 做评价。",
+        "en": "Product documentation; it does not rate skills."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-vercel-labs-skills",
+      "github-com-anthropics-claude-plugins-official"
+    ],
+    "alternativeReasons": {
+      "github-com-vercel-labs-skills": {
+        "en": "Compare skills CLI (Vercel) — Installing skills into any agent.",
+        "zh": "如果更需要「把 Skill 安装到各类 Agent」，可以对比 skills CLI (Vercel)。"
+      },
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
+  },
+  "claude-com-plugins": {
+    "resourceSlug": "claude-com-plugins",
+    "updatedAt": "2026-10-31",
+    "primaryCapability": {
+      "zh": "Anthropic 的 Claude 插件目录",
+      "en": "Anthropic's plugin directory for Claude"
+    },
+    "summary": {
+      "zh": "Anthropic 用于安装 Claude 插件（包括社区插件）的目录。Anthropic 的社区镜像仓库说明，收录的社区插件经 claude.ai 提交、通过自动安全扫描并获准分发。",
+      "en": "Anthropic's directory for installing Claude plugins, including community plugins. Anthropic's community mirror repository says listed community plugins were submitted through claude.ai, passed automated security scanning and were approved for distribution."
+    },
+    "bestFor": [
+      {
+        "zh": "希望从官方目录获取插件的 Claude 用户。",
+        "en": "Claude users who want plugins from an official directory."
+      }
+    ],
+    "useCases": [
+      "discover-skills",
+      "mcp"
+    ],
+    "skillFluxNote": {
+      "zh": "自动扫描不等于完整审查，启用前先看插件会安装什么。",
+      "en": "Automated scanning is not a full review; read what a plugin installs before enabling it."
+    },
+    "limitations": [
+      {
+        "zh": "官方收录不代表每个插件都由 Anthropic 编写。",
+        "en": "Official listing does not mean Anthropic wrote every plugin."
+      }
+    ],
+    "alternativeSlugs": [
+      "github-com-anthropics-claude-plugins-official",
+      "smithery-ai-skills"
+    ],
+    "alternativeReasons": {
+      "github-com-anthropics-claude-plugins-official": {
+        "en": "Compare Claude Plugins Official — Anthropic's curated Claude Code plugin directory.",
+        "zh": "如果更需要「Anthropic 精选的 Claude Code 插件目录」，可以对比 Claude Plugins Official。"
+      },
+      "smithery-ai-skills": {
+        "en": "Compare Smithery Skills — Skills alongside Smithery's MCP registry.",
+        "zh": "如果更需要「与 Smithery MCP 注册表并列的 Skill」，可以对比 Smithery Skills。"
+      }
+    },
+    "relatedGuideSlugs": [
+      "choosing-a-skill-source",
+      "how-to-download-claude-skills"
+    ]
   }
 }

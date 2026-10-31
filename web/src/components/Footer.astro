@@ -5,27 +5,32 @@ type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const zh = lang === "zh";
 const groups = [
-  { title: zh ? "数据" : "Data", links: [
-    { href: "/skills/", label: zh ? "Skill 体检与实测" : "Skill health & benchmarks" },
-    { href: "/benchmarks/", label: zh ? "实测排行" : "Benchmark leaderboard" },
-    { href: "/methodology/", label: zh ? "方法论" : "Methodology" },
-    { href: "/data/", label: zh ? "开放数据集" : "Open dataset" },
-    { href: "/runs/", label: zh ? "测试批次" : "Benchmark runs" },
-    { href: "/for-ai/", label: "For AI" }
-  ] },
-  { title: zh ? "目录与阅读" : "Directory & reading", links: [
-    { href: "/directory/", label: zh ? "来源目录" : "Source directory" },
-    { href: "/insights/", label: zh ? "Skill 拆解" : "Skill deep-dives" },
-    { href: "/guides/", label: zh ? "使用指南" : "Guides" },
-    { href: "/scenarios/", label: zh ? "选型场景" : "Scenarios" },
+  { title: zh ? "查找" : "Find", links: [
+    { href: "/skills/", label: zh ? "按任务找 Skill" : "Skills by task" },
+    { href: "/directory/", label: zh ? "来源黄页" : "Source directory" },
+    { href: "/best/", label: zh ? "来源盘点" : "Source roundups" },
+    { href: "/compare/", label: zh ? "来源对比" : "Compare sources" },
     { href: "/agents/claude/", label: "Claude" },
     { href: "/agents/codex/", label: "Codex" },
     { href: "/agents/cursor/", label: "Cursor" }
   ] },
-  { title: zh ? "参与" : "Connect", links: [
-    { href: "/about/", label: zh ? "关于 SkillFlux" : "About SkillFlux" },
-    { href: "/submit/", label: zh ? "推荐与纠错" : "Suggest or correct" },
+  { title: zh ? "阅读" : "Read", links: [
+    { href: "/guides/", label: zh ? "使用指南" : "Guides" },
+    { href: "/scenarios/", label: zh ? "选型场景" : "Scenarios" },
+    { href: "/insights/", label: zh ? "Skill 拆解" : "Skill deep-dives" },
     { href: "/quality/", label: zh ? "收录标准" : "Listing policy" },
+    { href: "/about/", label: zh ? "关于 SkillFlux" : "About SkillFlux" }
+  ] },
+  { title: zh ? "数据与 AI" : "Data & AI", links: [
+    { href: "/data/", label: zh ? "开放数据集" : "Open dataset" },
+    { href: "/methodology/", label: zh ? "方法论" : "Methodology" },
+    { href: "/benchmarks/", label: zh ? "对照实测" : "Benchmarks" },
+    { href: "/for-ai/", label: zh ? "给 AI 的入口" : "For AI agents" },
+    { href: "/AGENTS.md", label: "AGENTS.md", raw: true },
+    { href: "/ai/tasks/index.json", label: zh ? "任务索引 JSON" : "Task index JSON", raw: true }
+  ] },
+  { title: zh ? "参与" : "Connect", links: [
+    { href: "/submit/", label: zh ? "推荐与纠错" : "Suggest or correct" },
     { href: SITE.repoUrl, label: "GitHub ↗", external: true },
     { href: "/contact/", label: zh ? "联系我们" : "Contact" },
     { href: zh ? "/zh/feed.xml" : "/feed.xml", label: zh ? "全部更新 RSS" : "All updates RSS", raw: true }
@@ -51,7 +56,7 @@ const groups = [
 <style>
   .sf-footer { margin-top: 0; background: var(--cream); border-top: 1px solid var(--line); color: var(--muted); }
   .sf-footer-inner { max-width: 1216px; margin: 0 auto; padding: 64px 32px 32px; }
-  .sf-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; padding-bottom: 52px; }
+  .sf-footer-grid { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 48px; padding-bottom: 52px; }
   .sf-footer-brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); line-height: 1; }
   .sf-footer-word { font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; }
   .sf-footer-brand svg { display: block; flex-shrink: 0; }
@@ -66,6 +71,6 @@ const groups = [
   .sf-footer-copyright, .sf-footer-legal { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
   .sf-footer-legal a { color: var(--muted); text-decoration: none; transition: color .15s ease; }
   .sf-footer-legal a:hover { color: var(--ink); text-decoration: underline; }
-  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px; } .sf-footer-inner { padding: 48px 24px 28px; } }
-  @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 20px; padding-bottom: 36px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 16px 0 12px; } .sf-footer-column h2 { margin-bottom: 16px; } .sf-footer-bottom { font-size: 11px; } }
+  @media (max-width: 900px) { .sf-footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-inner { padding: 48px 24px 28px; } }
+  @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 20px; padding-bottom: 36px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 16px 0 12px; } .sf-footer-column h2 { margin-bottom: 16px; } .sf-footer-bottom { font-size: 11px; } }
 </style>

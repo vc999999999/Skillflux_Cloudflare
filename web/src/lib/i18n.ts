@@ -506,7 +506,22 @@ const tagTranslations: Record<string, string> = {
   官方: "Official",
   移动开发: "Mobile Development",
   安全: "Security",
-  框架: "Framework"
+  框架: "Framework",
+  插件: "Plugins",
+  营销: "Marketing",
+  产品管理: "Product management",
+  数据库: "Databases",
+  云平台: "Cloud",
+  前端: "Frontend",
+  设计: "Design",
+  机器学习: "Machine learning",
+  浏览器自动化: "Browser automation",
+  邮件: "Email",
+  支付: "Payments",
+  上下文工程: "Context engineering",
+  "Claude Code": "Claude Code",
+  Codex: "Codex",
+  Cursor: "Cursor"
 };
 
 const categoryTranslations: Record<string, string> = {
@@ -536,6 +551,12 @@ const typeTranslations: Record<string, string> = {
   "skill 合集": "Skill collection",
   "单项 skill": "Single skill",
   "开源 skill 仓库": "Open-source skill repository",
+  "厂商官方 skill 仓库": "Official vendor skill repository",
+  "awesome 清单": "Curated awesome list",
+  "插件市场仓库": "Plugin marketplace repository",
+  "skill 市场": "Skill marketplace",
+  "官方文档": "Official documentation",
+  "Skill 规范": "Open specification",
   "开源可视化讲解 Skill": "Open-source explainer skill",
   "实证研究 Skill 来源合集": "Empirical research skill collection",
   "开源 Skill 与 MCP 项目": "Open-source skill and MCP project",
@@ -558,6 +579,12 @@ const siteNameTranslations: Record<string, string> = {
 
 const scaleTranslations: Record<string, string> = {
   推荐合集: "Recommended collection",
+  官方仓库: "Official repository",
+  社区仓库: "Community repository",
+  清单仓库: "List repository",
+  插件目录: "Plugin directory",
+  文档: "Documentation",
+  规范: "Specification",
   "单个 Skill 与渲染脚本": "Single skill with renderer script",
   "3 个主技能 + 3 个支持技能": "3 main + 3 support skills",
   "38 个 Skill": "38 skills",

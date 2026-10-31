@@ -1,4 +1,7 @@
 ---
+import { USE_CASES } from '../lib/use-cases';
+import SourceAuditPanel from './SourceAuditPanel.astro';
+import { alternativesFor, comparePairsFor } from '../lib/source-compare';
 import { skillsForSite } from "../lib/skills";
 import { getCollection } from 'astro:content';
 import { SITE } from "../config";
@@ -25,16 +28,9 @@ const updatedAt = site.updatedAt;
 const sourceCategory = getCategoryBySlug(site.category);
 const categoryLabel = translateCategory(site.category, sourceCategory?.label ?? site.category, lang);
 const related = getRelatedSites(site, 4);
-const useCaseLabels: Record<string, { zh: string; en: string }> = {
-  coding: { zh: '编程与开发', en: 'Coding & development' },
-  mobile: { zh: '移动应用开发', en: 'Mobile development' },
-  writing: { zh: '内容与写作', en: 'Content & writing' },
-  video: { zh: '视频与媒体', en: 'Video & media' },
-  planning: { zh: '长任务与规划', en: 'Planning & long tasks' },
-  security: { zh: '安全与审查', en: 'Security & review' },
-  'discover-skills': { zh: '发现合适的 Skill', en: 'Find the right skill' },
-  mcp: { zh: '连接工具与 MCP', en: 'Tools & MCP' }
-};
+const useCaseLabels = USE_CASES;
+const comparisons = comparePairsFor(site);
+const hasAlternativesPage = alternativesFor(site).length >= 3;
 const useCases = (editorial?.useCases ?? []).flatMap(slug => {
   const label = useCaseLabels[slug];
   return label ? [{ slug, label }] : [];
@@ -79,7 +75,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={!site.indexable}>
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={!site.indexable} markdownAlternate={site.indexable ? `/resource/${site.resourceSlug}.md` : undefined}>
   <main id="main-content" class="page-shell">
     <article>
       <section class="detail-hero">
@@ -115,6 +111,7 @@ const jsonLd = [
             <h2 id="overview-heading">{zh ? '资源介绍' : 'Overview'}</h2>
             <p>{summary}</p>
           </section>
+          <SourceAuditPanel site={site} lang={lang} />
           {editorial?.capabilityBreakdown?.length && <section class="prose-block" aria-labelledby="capabilities-heading">
             <h2 id="capabilities-heading">{zh ? 'Skill 能力拆解' : 'What the skills help you do'}</h2>
             <p class="analysis-note">{zh ? '根据已收录版本的原始说明，梳理输入、工作方法与产出。' : 'Inputs, methods and outputs described in the collected source version.'}</p>
@@ -171,6 +168,13 @@ const jsonLd = [
             <h2 id="related-insights-heading">{zh ? '深入了解这个 Skill' : 'Skill deep-dives'}</h2>
             {!zh && <p class="analysis-note">These articles are available in Chinese.</p>}
             <ul class="editorial-links">{relatedInsights.map(entry => <li><a href={insightPath(entry)} lang={HREFLANG[entry.data.lang]} hreflang={HREFLANG[entry.data.lang]}>{entry.data.title}</a></li>)}</ul>
+          </section>}
+          {(comparisons.length > 0 || hasAlternativesPage) && <section class="side-box" aria-labelledby="compare-heading">
+            <h2 id="compare-heading">{zh ? '比较' : 'Compare'}</h2>
+            <ul class="editorial-links">
+              {hasAlternativesPage && <li><a href={localizePath(`/alternatives/${site.resourceSlug}/`, lang)}>{zh ? `${siteCopy.name} 的替代来源` : `${siteCopy.name} alternatives`}</a></li>}
+              {comparisons.map(pair => { const other = pair.a.slug === site.slug ? pair.b : pair.a; return <li><a href={localizePath(`/compare/${pair.slug}/`, lang)}>{siteCopy.name} vs {getSiteCopy(other, lang).name}</a></li>; })}
+            </ul>
           </section>}
           {relatedGuides.length > 0 && <section class="side-box">
             <h2>{zh ? '相关指南' : 'Related guides'}</h2>

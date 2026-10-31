@@ -1,0 +1,76 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-qingyuna-answer-me-with-html",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/QingYunA/answer-me-with-html",
+    "commitSha": "aab9ea19f50f038054eeb60475bbb7ea26f149e3",
+    "candidates": 1
+  },
+  "sample": {
+    "seed": "github-com-qingyuna-answer-me-with-html@aab9ea19f50f",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/QingYunA/answer-me-with-html",
+      "linkedPath": "skills/answer-me-with-html",
+      "outcome": "checked",
+      "commitSha": "aab9ea19f50f038054eeb60475bbb7ea26f149e3",
+      "path": "skills/answer-me-with-html",
+      "name": "answer-me-with-html",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "warn",
+        "body.lines": "pass",
+        "refs.brokenLinks": "warn",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 1,
+      "bodyTokensApprox": 6138,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 1,
+    "checked": 1,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 1,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 0,
+    "missingTrigger": 0,
+    "overTokenBudget": 1,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

@@ -27,6 +27,8 @@ export const SITE = {
 
 export const ENDPOINTS = [
   { path: "/AGENTS.md", label: "Agent entry point", description: "How agents should read and cite SkillFlux: reading order, citation rules and routing." },
+  { path: "/ai/tasks/index.json", label: "Task index", description: "Start from a task: each task file lists checked skills and skill sources with evidence URLs." },
+  { path: "/data/claims.json", label: "Claims ledger", description: "Every statement SkillFlux publishes about a skill or source, with method, date, evidence URL and a verified flag." },
   { path: "/llms.txt", label: "LLM quick map", description: "What SkillFlux measures, every skill's headline result, citation rules, then the source directory." },
   { path: "/llms-full.txt", label: "Full text", description: "Every skill with summary, license, commit and results, plus the complete source directory." },
   { path: "/data/index.json", label: "Dataset manifest", description: "Every data file (JSON, CSV, JSON Schema) with size and sha256. CC BY 4.0." },

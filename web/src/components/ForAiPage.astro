@@ -10,6 +10,8 @@ const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
 const descriptions: Record<string, [string, string]> = {
   "/AGENTS.md": ["给 AI agent 的说明：阅读顺序、引用规则和问题路由。", "How agents should read and cite SkillFlux: reading order, citation rules and routing."],
+  "/ai/tasks/index.json": ["从任务出发：每个任务文件列出已检查的 Skill 和 Skill 来源，附证据链接。", "Start from a task: each task file lists checked skills and skill sources with evidence URLs."],
+  "/data/claims.json": ["SkillFlux 发布的每一条说法，附方法、日期、证据链接和是否已核实。", "Every statement SkillFlux publishes, with method, date, evidence URL and whether SkillFlux verified it."],
   "/llms.txt": ["先读这一份：测量了什么、每个 Skill 的主要结果、引用规则，然后是来源目录。", "Start here: what is measured, each skill's headline result, citation rules, then the source directory."],
   "/llms-full.txt": ["全部 Skill 的摘要、许可证、提交与结果，以及完整来源目录。", "Every skill with summary, license, commit and results, plus the full source directory."],
   "/data/index.json": ["数据集清单：每个 JSON、CSV 和 JSON Schema 文件的大小与 sha256，CC BY 4.0。", "Dataset manifest: every JSON, CSV and JSON Schema file with size and sha256, CC BY 4.0."],
@@ -20,8 +22,8 @@ const descriptions: Record<string, [string, string]> = {
   "/scenarios/index.json": ["按任务组织的来源选型指南。", "Task-based guides for choosing a skill source."]
 };
 const agentPrompt = t(
-  `请先读取 ${absoluteUrl("/llms.txt")}，再用 ${absoluteUrl("/data/skills.json")} 找出与我的任务相关的 Agent Skill。优先考虑做过实测且结论为提升的 Skill；引用结果时写明样本量、95% 置信区间、模型、日期和测试批次，只有体检结果的要说明尚未实测。附上 SkillFlux 报告页和原始仓库链接。`,
-  `Read ${absoluteUrl("/llms.txt")} first, then use ${absoluteUrl("/data/skills.json")} to find agent skills relevant to my task. Prefer skills that were benchmarked with a positive verdict. When you quote a result, include n, the 95% interval, the model, the date and the run id; for skills with only a health check, say they have not been benchmarked. Link the SkillFlux report and the original repository.`
+  `请先读取 ${absoluteUrl("/ai/tasks/index.json")}，选出与我的任务对应的任务文件，从中找出相关的 Agent Skill 和来源；需要细节时读取每个条目的 .md 版本。优先考虑做过实测且结论为提升的 Skill；引用结果时写明样本量、95% 置信区间、模型、日期和测试批次，只有体检结果的要说明尚未实测。附上 SkillFlux 报告页和原始仓库链接。`,
+  `Read ${absoluteUrl("/ai/tasks/index.json")} first, open the task file that matches my task, and use it to find relevant agent skills and skill sources; read each entry's .md version when you need detail. Prefer skills that were benchmarked with a positive verdict. When you quote a result, include n, the 95% interval, the model, the date and the run id; for skills with only a health check, say they have not been benchmarked. Link the SkillFlux report and the original repository.`
 );
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的黄页入口", "For AI agents")} description={t("SkillFlux 机器可读黄页：llms.txt、JSON、RSS 与结构化索引，让 AI 直接读懂全网 Agent 能力。", "Machine-readable capability directory for AI agents: llms.txt, JSON, RSS, and structured endpoints.")}>
@@ -39,7 +41,7 @@ const agentPrompt = t(
     </section>
     <section class="ai-endpoints" aria-labelledby="ai-endpoints-title">
       <div class="section-heading-row"><div><p class="eyebrow">02 / OPEN ENDPOINTS</p><h2 id="ai-endpoints-title">{t("选一个适合的格式", "Choose the right format")}</h2></div><span class="ai-open-label">{t("公开读取 · 无需登录", "Public access · No login")}</span></div>
-      <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span class:list={['format-tag', endpoint.path.endsWith('.json') && 'is-json', endpoint.path.endsWith('.xml') && 'is-xml']}>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path][zh ? 0 : 1]}</p></a>)}</div>
+      <div class="endpoint-grid">{ENDPOINTS.map(endpoint => <a class="endpoint-card" href={endpoint.path}><div class="endpoint-top"><span class:list={['format-tag', endpoint.path.endsWith('.json') && 'is-json', endpoint.path.endsWith('.xml') && 'is-xml']}>{endpoint.path.endsWith(".json") ? "JSON" : endpoint.path.endsWith(".xml") ? "RSS" : endpoint.path.endsWith(".md") ? "MD" : "TXT"}</span><span aria-hidden="true">↗</span></div><h3>{endpoint.path}</h3><p>{descriptions[endpoint.path]?.[zh ? 0 : 1] ?? endpoint.description}</p></a>)}</div>
     </section>
     <section class="ai-boundaries" aria-labelledby="ai-boundaries-title"><div><p class="eyebrow">03 / READ WITH CONTEXT</p><h2 id="ai-boundaries-title">{t("读对数据，也读懂边界。", "Understand the data and its limits.")}</h2></div><div class="ai-rules"><article><span>01</span><div><h3>{t("体检 ≠ 实测", "A health check is not a benchmark")}</h3><p>{t("体检只读取文件；只有实测能说明 Skill 是否在任务上带来帮助。来源目录的收录也不代表测试过。", "A health check reads files; only a benchmark shows whether a skill helps on a task. A directory listing is not a test either.")}</p></div></article><article><span>02</span><div><h3>{t("静态快照有更新时间", "Snapshots have a timestamp")}</h3><p>{t("页面和 JSON 在构建时生成。引用时保留来源链接与页面上的更新日期；外部仓库的实时状态以原站为准。", "Pages and JSON are generated at build time. Keep source links and the page's update date when citing; the original site is authoritative for live status.")}</p></div></article><article><span>03</span><div><h3>{t("编辑分析与作者自述分开", "Editorial analysis vs. author claims")}</h3><p>{t("Skill 拆解是基于原始资料的编辑分析；来源描述中的能力说法是作者自述，引用时请区分。", "Skill deep-dives are editorial analysis of original material. Capability claims in a source description are the author's own; distinguish them when citing.")}</p></div></article></div></section>
   </main>

@@ -1,0 +1,116 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-supabase-agent-skills",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/supabase/agent-skills",
+    "commitSha": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+    "candidates": 2
+  },
+  "sample": {
+    "seed": "github-com-supabase-agent-skills@c9be0e931b79",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/supabase/agent-skills",
+      "linkedPath": "skills/supabase-postgres-best-practices",
+      "outcome": "checked",
+      "commitSha": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "path": "skills/supabase-postgres-best-practices",
+      "name": "supabase-postgres-best-practices",
+      "counts": {
+        "pass": 15,
+        "warn": 0,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 442,
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/supabase/agent-skills",
+      "linkedPath": "skills/supabase",
+      "outcome": "checked",
+      "commitSha": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "path": "skills/supabase",
+      "name": "supabase",
+      "counts": {
+        "pass": 15,
+        "warn": 0,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 3349,
+      "licenseSpdx": null,
+      "detail": "15 pass, 0 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 2,
+    "checked": 2,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 0,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 0,
+    "missingTrigger": 0,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

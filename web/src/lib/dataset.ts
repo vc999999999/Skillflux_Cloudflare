@@ -3,12 +3,14 @@
 // with its size and sha256 so a downloader can verify what it received.
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
-import { HealthRecord, RunRecord, SkillRecord } from '@skillflux/bench/schema';
+import { HealthRecord, RunRecord, SkillRecord, SourceAudit } from '@skillflux/bench/schema';
 import { CHECKER_VERSION, CHECK_REGISTRY } from '@skillflux/bench/checks';
 import { SITE } from '../config';
 import { absoluteUrl } from './content';
 import { toCsv } from './csv';
 import { getRuns, getSkillViews } from './skills';
+import { getSourceAudits } from './source-audits';
+import { AGENT_RULES, claimsLedger } from './ai-layer';
 import type { SkillView } from './skill-data';
 
 export const DATASET = {
@@ -77,11 +79,15 @@ function render(): DatasetFile[] {
     { path: 'health.csv', contentType: 'text/csv', description: 'One row per skill and check: status, value and detail.', body: toCsv(['skill_id', 'commit_sha', 'checker_version', 'changed_at', 'check_id', 'status', 'value', 'detail'], views.flatMap(view => (view.health?.checks ?? []).map(check => [view.skill.id, view.health!.commitSha, view.health!.checkerVersion, view.health!.changedAt, check.id, check.status, check.value, check.detail]))) },
     { path: 'checks.json', contentType: 'application/json', description: 'Definitions of every health check id.', body: json({ schema: 'skillflux-dataset-checks/v1', checkerVersion: CHECKER_VERSION, items: CHECK_REGISTRY }) },
     { path: 'trials.csv', contentType: 'text/csv', description: 'Every benchmark trial across published runs, one row per run, skill, task, arm and repetition.', body: toCsv(['run_id', 'skill_id', 'task_id', 'arm', 'rep', 'status', 'passed', 'assertions_passed', 'assertions_total', 'triggered', 'skill_invocations', 'duration_ms', 'num_turns', 'cost_usd', 'input_tokens', 'output_tokens', 'cache_read_tokens', 'cache_write_tokens'], runs.flatMap(run => run.trials.map(trial => [run.runId, trial.skillId, trial.taskId, trial.arm, trial.rep, trial.status, trial.passed, trial.assertions.passed, trial.assertions.total, trial.triggered, trial.skillInvocations, trial.durationMs, trial.numTurns, trial.costUsd, trial.tokens.input, trial.tokens.output, trial.tokens.cacheRead, trial.tokens.cacheWrite]))) },
+    { path: 'claims.json', contentType: 'application/json', description: 'Every statement SkillFlux publishes about a skill or source, each with its method, date, evidence URL and whether SkillFlux verified it.', body: json({ schema: 'skillflux-claims/v1', rules: AGENT_RULES, items: claimsLedger() }) },
+    { path: 'source-audits.csv', contentType: 'text/csv', description: 'One row per audited directory source: pinned listing commit, sample size and each summary count.', body: toCsv(['site', 'audited_at', 'checker_version', 'method', 'listing_repo', 'listing_commit', 'candidates', 'sampled', 'checked', 'no_skill', 'unreachable', 'with_scripts', 'network_calls', 'destructive_commands', 'no_license', 'missing_trigger', 'over_token_budget', 'failing_any_check', 'stale'], getSourceAudits().map(audit => { const s = audit.summary; return [audit.siteSlug, audit.auditedAt, audit.checkerVersion, audit.method, audit.listing.repo, audit.listing.commitSha, audit.listing.candidates, s.sampled, s.checked, s.noSkill, s.unreachable, s.withScripts, s.networkCalls, s.destructiveCommands, s.noLicense, s.missingTrigger, s.overTokenBudget, s.failingAnyCheck, s.stale]; })) },
+    ...getSourceAudits().map(audit => ({ path: `source-audits/${audit.siteSlug}.json`, contentType: 'application/json', description: `Sampled health check of the directory source ${audit.siteSlug}.`, body: json(audit) })),
     ...runs.map(run => ({ path: `runs/${run.runId}.json`, contentType: 'application/json', description: `Benchmark run ${run.runId} (${run.status}).`, body: json(run) })),
     ...views.map(view => ({ path: `skills/${view.skill.id}.json`, contentType: 'application/json', description: `Everything SkillFlux publishes about ${view.skill.displayName.en}.`, body: json({ skill: view.skill, health: view.health, benchmark: view.result ? { runId: view.result.run.runId, result: view.result.skill } : null }) })),
     { path: 'schema/skill.schema.json', contentType: 'application/schema+json', description: 'JSON Schema of a skill record.', body: json(z.toJSONSchema(SkillRecord)) },
     { path: 'schema/health.schema.json', contentType: 'application/schema+json', description: 'JSON Schema of a health record.', body: json(z.toJSONSchema(HealthRecord)) },
     { path: 'schema/run.schema.json', contentType: 'application/schema+json', description: 'JSON Schema of a benchmark run.', body: json(z.toJSONSchema(RunRecord)) },
+    { path: 'schema/source-audit.schema.json', contentType: 'application/schema+json', description: 'JSON Schema of a sampled source audit.', body: json(z.toJSONSchema(SourceAudit)) },
   ];
   const manifest = {
     schema: 'skillflux-dataset-index/v1',
@@ -91,7 +97,7 @@ function render(): DatasetFile[] {
     publisher: SITE.name,
     homepage: absoluteUrl('/data/'),
     methodology: absoluteUrl('/methodology/v1/'),
-    counts: { skills: views.length, benchmarked: views.filter(view => view.result).length, runs: runs.length },
+    counts: { skills: views.length, benchmarked: views.filter(view => view.result).length, runs: runs.length, sourceAudits: getSourceAudits().length },
     files: files.map(file => ({
       path: `/data/${file.path}`,
       url: absoluteUrl(`/data/${file.path}`),

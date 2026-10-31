@@ -1,0 +1,39 @@
+---
+// Index of roundups (/best/) or side-by-side comparisons (/compare/).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import { absoluteUrl } from '../lib/content';
+import { getSiteCopy, localizePath, type Language } from '../lib/i18n';
+import { bestTopics, comparePairs } from '../lib/source-compare';
+const { lang, section } = Astro.props as { lang: Language; section: 'best' | 'compare' };
+const zh = lang === 'zh';
+const best = section === 'best';
+const items = best
+  ? bestTopics().map(topic => ({ href: `/best/${topic.slug}/`, label: topic.title[lang], note: zh ? `${topic.sites.length} 个来源` : `${topic.sites.length} sources` }))
+  : comparePairs().map(pair => ({ href: `/compare/${pair.slug}/`, label: `${getSiteCopy(pair.a, lang).name} vs ${getSiteCopy(pair.b, lang).name}`, note: getSiteCopy(pair.a, lang).tagline }));
+const title = best ? (zh ? 'Agent Skill 来源盘点' : 'Agent skill source roundups') : (zh ? 'Agent Skill 来源对比' : 'Compare agent skill sources');
+const description = best
+  ? (zh ? '按用途和来源类型整理的 Agent Skill 来源清单，附排序方法与 SkillFlux 抽样数据。' : 'Agent skill sources grouped by purpose and type, with the ordering method and SkillFlux sample data stated on each page.')
+  : (zh ? `${items.length} 组 Agent Skill 来源的并排对比：用途、类型、适合人群、局限与抽样数据。` : `${items.length} side-by-side comparisons of agent skill sources: purpose, type, who each fits, limitations and sample data.`);
+const canonicalPath = localizePath(best ? '/best/' : '/compare/', lang);
+const crumbs = [{ label: zh ? '首页' : 'Home', href: localizePath('/', lang) }, { label: title }];
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, inLanguage: zh ? 'zh-CN' : 'en' }];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell index-page">
+    <Breadcrumb items={crumbs} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    <ul class="index-list">{items.map(item => <li><a href={localizePath(item.href, lang)}>{item.label}</a><small>{item.note}</small></li>)}</ul>
+  </main>
+</BaseLayout>
+<style>
+  .index-page { padding-top: 32px; padding-bottom: 72px; }
+  .index-page h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); letter-spacing: -.035em; margin: 12px 0; }
+  .lede { color: var(--muted); max-width: 720px; line-height: 1.75; }
+  .index-list { list-style: none; padding: 0; margin-top: 24px; columns: 2 320px; column-gap: 32px; }
+  .index-list li { break-inside: avoid; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .index-list a { font-weight: 550; text-decoration: none; }
+  .index-list a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .index-list small { display: block; color: var(--faint); font-size: .78rem; margin-top: 2px; }
+</style>

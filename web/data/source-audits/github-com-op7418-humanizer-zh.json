@@ -1,0 +1,76 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-op7418-humanizer-zh",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/op7418/Humanizer-zh",
+    "commitSha": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+    "candidates": 1
+  },
+  "sample": {
+    "seed": "github-com-op7418-humanizer-zh@f4518a8eab97",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/op7418/Humanizer-zh",
+      "linkedPath": "",
+      "outcome": "checked",
+      "commitSha": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+      "path": "",
+      "name": "humanizer-zh",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "warn",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 1,
+      "bodyTokensApprox": 5952,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 1,
+    "checked": 1,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 1,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 0,
+    "missingTrigger": 0,
+    "overTokenBudget": 1,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

@@ -1640,5 +1640,3502 @@
     ],
     "addedAt": "2026-10-08",
     "updatedAt": "2026-10-09"
+  },
+  {
+    "id": "github-com-lambdatest-agent-skills",
+    "slug": "github-com-lambdatest-agent-skills",
+    "name": "TestMu AI Agent Skills",
+    "canonicalUrl": "https://github.com/LambdaTest/agent-skills",
+    "displayUrl": "github.com/LambdaTest/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "测试"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "跨框架测试自动化",
+    "summary": "TestMu AI（原 LambdaTest）发布的测试自动化 Skill，覆盖 API 设计与测试、无障碍检查、CI/CD 流水线，以及 Selenium、Appium、Playwright 等框架的专项指导。每个 Skill 是仓库根目录下的一个文件夹。",
+    "aiSummary": "先挑选与你现有测试框架对应的 Skill，并确认步骤是依赖 TestMu AI 云端设备网格，还是可以在本地运行。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/LambdaTest/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-minimax-ai-skills",
+    "slug": "github-com-minimax-ai-skills",
+    "name": "MiniMax Skills",
+    "canonicalUrl": "https://github.com/MiniMax-AI/skills",
+    "displayUrl": "github.com/MiniMax-AI/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "前端"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "前端、移动端与多模态开发",
+    "summary": "MiniMax 的 Skill 合集为编码 Agent 提供前端、全栈、Android、iOS 与着色器开发的结构化指导，并包含调用 MiniMax 多模态、音乐和文档能力的 Skill。README 标注项目处于 Beta 阶段。",
+    "aiSummary": "批量安装前，先区分通用开发类 Skill 与需要 MiniMax API Key 的 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/MiniMax-AI/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-nvidia-skills",
+    "slug": "github-com-nvidia-skills",
+    "name": "NVIDIA Agent Skills",
+    "canonicalUrl": "https://github.com/NVIDIA/skills",
+    "displayUrl": "github.com/NVIDIA/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "机器学习"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "NVIDIA 软件、CUDA-X 与 AI Blueprint",
+    "summary": "NVIDIA 官方验证的 Agent Skill 目录，教 Agent 使用 NVIDIA 软件：CUDA-X 库、机器人与仿真流程、BioNeMo、RAG Blueprint 与平台工具。该仓库是镜像，Skill 本身在各产品仓库维护。",
+    "aiSummary": "这是镜像仓库，权威版本和硬件要求请回到对应产品仓库查看。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/NVIDIA/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-angular-skills",
+    "slug": "github-com-angular-skills",
+    "name": "Angular Skills",
+    "canonicalUrl": "https://github.com/angular/skills",
+    "displayUrl": "github.com/angular/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "前端"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "现代 Angular 应用开发",
+    "summary": "Angular 团队的 Skill 帮助编码 Agent 按当前版本编写 Angular：一个生成组件、服务和基于 signals 的响应式代码，另一个按当前默认配置创建新项目。",
+    "aiSummary": "让 Skill 改写旧代码前，先对比它面向的 Angular 版本与项目版本。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/angular/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-apollographql-skills",
+    "slug": "github-com-apollographql-skills",
+    "name": "Apollo GraphQL Skills",
+    "canonicalUrl": "https://github.com/apollographql/skills",
+    "displayUrl": "github.com/apollographql/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "GraphQL 客户端、服务端与联邦",
+    "summary": "Apollo 为其 GraphQL 技术栈发布的 Skill：Apollo Client、Server、Router、Federation、Connectors、iOS 与 Kotlin 客户端、MCP Server 和 Rover CLI。README 推荐用 skills CLI 安装。",
+    "aiSummary": "只安装与你使用的 Apollo 产品对应的 Skill，仓库正是按产品拆分的。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/apollographql/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-better-auth-skills",
+    "slug": "github-com-better-auth-skills",
+    "name": "Better Auth Skills",
+    "canonicalUrl": "https://github.com/better-auth/skills",
+    "displayUrl": "github.com/better-auth/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "安全"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "使用 Better Auth 实现认证",
+    "summary": "Better Auth 团队的 Skill，用 Better Auth TypeScript 库实现认证：初始化、邮箱密码登录、组织、双因素认证、安全与最佳实践。",
+    "aiSummary": "对照实际安装的库版本复核生成的认证代码，认证出错代价很高。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/better-auth/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-browserbase-skills",
+    "slug": "github-com-browserbase-skills",
+    "name": "Browserbase Skills",
+    "canonicalUrl": "https://github.com/browserbase/skills",
+    "displayUrl": "github.com/browserbase/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "浏览器自动化",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "使用 Browserbase 做浏览器自动化",
+    "summary": "Browserbase 提供的 Claude Code 插件，让 Agent 通过 browse CLI 操作云端浏览器，包含抓取页面、会话追踪、把浏览器流程转成 API 以及调研类 Skill。",
+    "aiSummary": "安装整个插件前，先确认哪些 Skill 需要 Browserbase 账号。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/browserbase/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-cloudflare-skills",
+    "slug": "github-com-cloudflare-skills",
+    "name": "Cloudflare Skills",
+    "canonicalUrl": "https://github.com/cloudflare/skills",
+    "displayUrl": "github.com/cloudflare/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "在 Cloudflare Workers 与开发者平台上构建",
+    "summary": "Cloudflare 的 Skill 覆盖 Workers、Durable Objects、Agents SDK、Cloudflare One、邮件与沙箱产品。仓库同时提供插件，可连同 Cloudflare MCP Server 一起安装。",
+    "aiSummary": "先决定只装 Skill，还是装带 MCP Server 的插件；插件会让 Agent 访问你的账号。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/cloudflare/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-coderabbitai-skills",
+    "slug": "github-com-coderabbitai-skills",
+    "name": "CodeRabbit Skills",
+    "canonicalUrl": "https://github.com/coderabbitai/skills",
+    "displayUrl": "github.com/coderabbitai/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "在 Agent 中调用 AI 代码审查",
+    "summary": "CodeRabbit 的 Skill 通过 CodeRabbit CLI 把 AI 代码审查和自动修复接入编码 Agent，让 Agent 在合并前检查变更中的缺陷与安全问题。",
+    "aiSummary": "这些 Skill 会调用外部服务，先确认会发送哪些代码、使用哪个账号。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/coderabbitai/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-trycourier-courier-skills",
+    "slug": "github-com-trycourier-courier-skills",
+    "name": "Courier Skills",
+    "canonicalUrl": "https://github.com/trycourier/courier-skills",
+    "displayUrl": "github.com/trycourier/courier-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "邮件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "跨邮件、短信、推送与聊天的通知",
+    "summary": "Courier 的单个 Skill，教 Agent 使用其通知 API：选择合适的能力、SDK 写法，以及 OTP、隐私数据和营销订阅的规则，覆盖邮件、短信、推送、站内信、Slack、Teams 和 WhatsApp。",
+    "aiSummary": "即使只部分使用 Courier，规则部分也值得先读，再生成通知代码。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/trycourier/courier-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-cypress-io-ai-toolkit",
+    "slug": "github-com-cypress-io-ai-toolkit",
+    "name": "Cypress AI Toolkit",
+    "canonicalUrl": "https://github.com/cypress-io/ai-toolkit",
+    "displayUrl": "github.com/cypress-io/ai-toolkit",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "测试"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "编写与解释 Cypress 测试",
+    "summary": "Cypress 团队的开源 Skill，用于编写测试、解释失败原因、查询 Cypress 文档以及使用 Cypress Cloud CLI。",
+    "aiSummary": "先用 explain Skill 分析一个真实失败的测试，再让 author Skill 编写新测试。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/cypress-io/ai-toolkit"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-firebase-skills",
+    "slug": "github-com-firebase-skills",
+    "name": "Firebase Skills",
+    "canonicalUrl": "https://github.com/firebase/skills",
+    "displayUrl": "github.com/firebase/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Firebase 配置、Firestore 与安全规则",
+    "summary": "Firebase 团队的 Skill 覆盖项目基础、Authentication、Firestore、Data Connect、Hosting、App Hosting、Crashlytics、Remote Config、AI Logic 以及安全规则审计。",
+    "aiSummary": "让 Agent 编写新规则前，先用安全规则审计 Skill 检查现有规则。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/firebase/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-firecrawl-skills",
+    "slug": "github-com-firecrawl-skills",
+    "name": "Firecrawl Skills",
+    "canonicalUrl": "https://github.com/firecrawl/skills",
+    "displayUrl": "github.com/firecrawl/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "浏览器自动化"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "网页抓取、爬取与调研",
+    "summary": "Firecrawl 基于其 API 的抓取、爬取、搜索与调研 Skill 目录，打包为 Claude Code、Cursor 和 Codex 插件。该仓库是 CI 同步的分发镜像。",
+    "aiSummary": "修改要提交到源仓库；可以在这里阅读，问题请反馈到上游。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/firecrawl/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-flutter-skills",
+    "slug": "github-com-flutter-skills",
+    "name": "Flutter Agent Plugins",
+    "canonicalUrl": "https://github.com/flutter/skills",
+    "displayUrl": "github.com/flutter/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "移动开发",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Flutter 与 Dart 开发",
+    "summary": "Flutter 团队维护的 Agent 插件，把 Skill、MCP 配置和规则打包用于 Dart 与 Flutter 开发：测试、mock、静态分析、FFI、依赖冲突与代码审查。",
+    "aiSummary": "先在现有 package 上试用分析与测试类 Skill，它们最容易验证。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/flutter/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-getsentry-skills",
+    "slug": "github-com-getsentry-skills",
+    "name": "Sentry Skills",
+    "canonicalUrl": "https://github.com/getsentry/skills",
+    "displayUrl": "github.com/getsentry/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Sentry 内部的工程工作流",
+    "summary": "为 Sentry 员工编写的 Agent Skill：代码审查、提交与分支、查找缺陷、Django 性能与权限审查、API 文档与写作指南。若要在项目中接入 Sentry，Sentry 指向另一个仓库。",
+    "aiSummary": "这些 Skill 记录的是 Sentry 内部习惯，复用前先改成自己的命名和路径。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/getsentry/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-google-skills",
+    "slug": "github-com-google-skills",
+    "name": "Google Agent Skills",
+    "canonicalUrl": "https://github.com/google/skills",
+    "displayUrl": "github.com/google/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Google Cloud 产品与 Agent 平台",
+    "summary": "Google 面向自家产品的 Agent Skill 仓库，以 Google Cloud 为主：Agent 平台、AlloyDB、BigQuery、Cloud Run、安全等。通过 skills CLI 安装，也可以更新和清理。",
+    "aiSummary": "目录很大，按产品挑选，不要全部安装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/google/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-huggingface-skills",
+    "slug": "github-com-huggingface-skills",
+    "name": "Hugging Face Skills",
+    "canonicalUrl": "https://github.com/huggingface/skills",
+    "displayUrl": "github.com/huggingface/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "机器学习"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Hub 上的数据集、训练与评测",
+    "summary": "Hugging Face 的 Skill 覆盖数据集创建、模型训练、评测和 Gradio 应用等机器学习任务。推荐先装 hf-cli Skill 来操作 Hub，其余按需添加。",
+    "aiSummary": "按 README 建议先装 hf-cli，再添加所需的训练或评测 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/huggingface/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-makenotion-skills",
+    "slug": "github-com-makenotion-skills",
+    "name": "Notion Skills",
+    "canonicalUrl": "https://github.com/makenotion/skills",
+    "displayUrl": "github.com/makenotion/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "在 Agent 中使用 Notion",
+    "summary": "Notion 提供的两个 Skill：一个用于 Notion CLI，一个用于构建 Notion 应用。README 推荐用 skills CLI 安装。",
+    "aiSummary": "规模小、范围明确，安装前可以完整读一遍。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/makenotion/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-microsoft-skills",
+    "slug": "github-com-microsoft-skills",
+    "name": "Microsoft Skills",
+    "canonicalUrl": "https://github.com/microsoft/skills",
+    "displayUrl": "github.com/microsoft/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Azure SDK、AKS 与微软开发工具",
+    "summary": "微软的大型 Skill 目录以 Azure 为主：多语言 SDK 用法、AI 服务、AKS 运维、Application Insights 和 Advisor。README 标注仍在建设中，CI 中运行测试和 Skill 评估。",
+    "aiSummary": "按语言和服务筛选，很多 Skill 是同一服务不同语言 SDK 的版本。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/microsoft/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-openai-skills",
+    "slug": "github-com-openai-skills",
+    "name": "OpenAI Skills (deprecated)",
+    "canonicalUrl": "https://github.com/openai/skills",
+    "displayUrl": "github.com/openai/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "Codex"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Codex Skill 示例（已弃用）",
+    "summary": "OpenAI 最初的 Codex Skill 目录，分为 system、curated 和 experimental 三层。README 现已说明该仓库弃用，当前示例改在 OpenAI Plugins 仓库。",
+    "aiSummary": "新项目请用 OpenAI Plugins，这个仓库只作历史参考。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "watching",
+    "sourceUrls": [
+      "https://github.com/openai/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-openai-plugins",
+    "slug": "github-com-openai-plugins",
+    "name": "OpenAI Plugins for Codex",
+    "canonicalUrl": "https://github.com/openai/plugins",
+    "displayUrl": "github.com/openai/plugins",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "Codex",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "插件市场仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Codex 插件示例与市场",
+    "summary": "OpenAI 精选的 Codex 插件示例。每个插件有清单文件，可打包 Skill、应用、MCP 配置、Agent、命令和钩子；仓库还定义了 Codex 默认插件市场。",
+    "aiSummary": "很多插件封装第三方产品，要看每个插件的发布方，而不只是仓库所有者。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/openai/plugins"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-redis-agent-skills",
+    "slug": "github-com-redis-agent-skills",
+    "name": "Redis Agent Skills",
+    "canonicalUrl": "https://github.com/redis/agent-skills",
+    "displayUrl": "github.com/redis/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Redis 数据建模、搜索与运维",
+    "summary": "Redis 的 Skill 覆盖连接、核心数据结构、集群、搜索、语义缓存、安全与可观测性，同时打包为 Claude Code 和 Codex 插件。",
+    "aiSummary": "任何会把 Redis 暴露到网络的改动，都配合安全 Skill 一起看。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/redis/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-remotion-dev-skills",
+    "slug": "github-com-remotion-dev-skills",
+    "name": "Remotion Skills",
+    "canonicalUrl": "https://github.com/remotion-dev/skills",
+    "displayUrl": "github.com/remotion-dev/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "视频"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "用 Remotion 编程生成视频",
+    "summary": "Remotion 的最佳实践 Skill，用 React 制作视频：创建项目、字幕、地图、多媒体、渲染、交互、Studio 与升级。新建 Remotion 项目时可以直接添加。",
+    "aiSummary": "首个项目用 create Skill，之后按需添加渲染和字幕 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/remotion-dev/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-replicate-skills",
+    "slug": "github-com-replicate-skills",
+    "name": "Replicate Skills",
+    "canonicalUrl": "https://github.com/replicate/skills",
+    "displayUrl": "github.com/replicate/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "机器学习"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "查找、运行与发布模型",
+    "summary": "Replicate 的 Skill 引导 Agent 查找和比较模型、运行预测、用 Cog 打包与发布模型，以及为图像和视频模型写提示词。",
+    "aiSummary": "确定模型前先用 compare-models，成本差异很大。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/replicate/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-resend-resend-skills",
+    "slug": "github-com-resend-resend-skills",
+    "name": "Resend Skills",
+    "canonicalUrl": "https://github.com/resend/resend-skills",
+    "displayUrl": "github.com/resend/resend-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "邮件",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "事务邮件与 React Email",
+    "summary": "Resend 的 Skill 覆盖其邮件 API 与 CLI、React Email 模板、邮件最佳实践和 Agent 收件箱。插件还会注册 Resend 托管的 MCP Server，使用 OAuth 登录。",
+    "aiSummary": "最佳实践 Skill 与服务商无关，不用 Resend 也值得一读。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/resend/resend-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-trailofbits-skills",
+    "slug": "github-com-trailofbits-skills",
+    "name": "Trail of Bits Skills",
+    "canonicalUrl": "https://github.com/trailofbits/skills",
+    "displayUrl": "github.com/trailofbits/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "安全",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "安全审计、模糊测试与代码审查",
+    "summary": "Trail of Bits 发布的安全类 Skill 与插件：审计准备与上下文梳理、AFL++、Atheris、cargo-fuzz 等模糊测试、Sanitizer、智能合约漏洞扫描以及按语言的代码审查。",
+    "aiSummary": "模糊测试与扫描类 Skill 会运行真实工具，请放在隔离环境中使用。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/trailofbits/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-veniceai-skills",
+    "slug": "github-com-veniceai-skills",
+    "name": "Venice.ai Skills",
+    "canonicalUrl": "https://github.com/veniceai/skills",
+    "displayUrl": "github.com/veniceai/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Venice API 各项能力",
+    "summary": "Venice 的 Skill 对应其 API：对话、向量、图像、音频与音乐生成、转写、角色、计费与 API Key。仓库与 API 的 OpenAPI 规范保持同步。",
+    "aiSummary": "安装 overview Skill，再加上实际调用的接口对应的 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/veniceai/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-vercel-labs-agent-skills",
+    "slug": "github-com-vercel-labs-agent-skills",
+    "name": "Vercel Agent Skills",
+    "canonicalUrl": "https://github.com/vercel-labs/agent-skills",
+    "displayUrl": "github.com/vercel-labs/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "前端"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "React 写法与 Vercel 部署",
+    "summary": "Vercel 面向 React 与 Next.js 的 Skill：React 与 React Native 最佳实践、组合模式、视图过渡、网页设计规范、写作规范、部署，以及 Vercel 项目的成本与性能审计。",
+    "aiSummary": "即使不部署在 Vercel，React 最佳实践和设计规范 Skill 也有参考价值。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/vercel-labs/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-vercel-labs-skills",
+    "slug": "github-com-vercel-labs-skills",
+    "name": "skills CLI (Vercel)",
+    "canonicalUrl": "https://github.com/vercel-labs/skills",
+    "displayUrl": "github.com/vercel-labs/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "Codex",
+      "Cursor"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "把 Skill 安装到各类 Agent",
+    "summary": "skills.sh 背后的 skills CLI（npx skills）源码。可把 Skill 安装到当前项目或全局，支持 OpenCode、Claude Code、Codex、Cursor 等众多 Agent，并附带 find-skills Skill。",
+    "aiSummary": "用 CLI 安装前先读 Skill 内容；这个工具负责安装，不负责审查。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/vercel-labs/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-voltagent-skills",
+    "slug": "github-com-voltagent-skills",
+    "name": "VoltAgent Skills",
+    "canonicalUrl": "https://github.com/voltagent/skills",
+    "displayUrl": "github.com/voltagent/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "用 VoltAgent 构建 Agent",
+    "summary": "面向 VoltAgent TypeScript 框架的官方 Skill：项目初始化、Agent、工作流与记忆的最佳实践、核心 API 参考，以及与版本匹配的文档查询。",
+    "aiSummary": "docs-bundle Skill 读取已安装版本自带的文档，可避免过时指导。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/voltagent/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-stripe-ai",
+    "slug": "github-com-stripe-ai",
+    "name": "Stripe AI",
+    "canonicalUrl": "https://github.com/stripe/ai",
+    "displayUrl": "github.com/stripe/ai",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "支付"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Stripe 支付、计费与 Agent SDK",
+    "summary": "Stripe 用于在 Stripe 上构建 AI 产品的仓库。除了把 Stripe 计费接入 Agent 框架的 SDK，还包含 Stripe 最佳实践、文档查询、Connect、Stripe Apps 和升级集成等 Skill。",
+    "aiSummary": "先在测试模式下使用最佳实践与升级 Skill，再接触正式密钥。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/stripe/ai"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-supabase-agent-skills",
+    "slug": "github-com-supabase-agent-skills",
+    "name": "Supabase Agent Skills",
+    "canonicalUrl": "https://github.com/supabase/agent-skills",
+    "displayUrl": "github.com/supabase/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Supabase 与 Postgres 最佳实践",
+    "summary": "Supabase 提供的两个 Skill：一个覆盖 Supabase 各产品的综合开发 Skill，一个是 Postgres 最佳实践。也可作为 Claude Code 插件安装。",
+    "aiSummary": "Postgres Skill 适用于任何 Postgres 数据库，不限 Supabase。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/supabase/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-wordpress-agent-skills",
+    "slug": "github-com-wordpress-agent-skills",
+    "name": "WordPress Agent Skills",
+    "canonicalUrl": "https://github.com/WordPress/agent-skills",
+    "displayUrl": "github.com/WordPress/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "区块、主题与插件开发",
+    "summary": "WordPress 的 Skill，用于开发区块、区块主题、插件、Pattern、Playground 蓝图、PHPStan 与性能优化。README 说明这些 Skill 由 AI 模型根据官方文档生成，再经 WordPress 贡献者审阅。",
+    "aiSummary": "配合 wp-env 或 Playground Skill，让 Agent 在可丢弃的站点中测试改动。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/WordPress/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-hashicorp-agent-skills",
+    "slug": "github-com-hashicorp-agent-skills",
+    "name": "HashiCorp Agent Skills",
+    "canonicalUrl": "https://github.com/hashicorp/agent-skills",
+    "displayUrl": "github.com/hashicorp/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Terraform Provider、模块与 Packer",
+    "summary": "HashiCorp 面向 Terraform 与 Packer 的 Skill：用插件框架编写 Provider、重构模块、运行验收测试、发布到 Registry 以及构建镜像。目录文件列出每个 Skill 的生命周期状态。",
+    "aiSummary": "查看 SKILLS.md 中的生命周期状态，部分 Skill 标为实验性。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/hashicorp/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-neondatabase-agent-skills",
+    "slug": "github-com-neondatabase-agent-skills",
+    "name": "Neon Agent Skills",
+    "canonicalUrl": "https://github.com/neondatabase/agent-skills",
+    "displayUrl": "github.com/neondatabase/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Serverless Postgres 与 Neon 平台功能",
+    "summary": "Neon 的 Skill 覆盖其 Postgres 平台：分支、认证、函数、对象存储、实时、AI 网关和出口流量优化，并附带一个评估 Skill。",
+    "aiSummary": "分支类 Skill 让 Agent 在副本上测试 Schema 改动，优先于直接改主分支。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/neondatabase/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mongodb-agent-skills",
+    "slug": "github-com-mongodb-agent-skills",
+    "name": "MongoDB Agent Skills",
+    "canonicalUrl": "https://github.com/mongodb/agent-skills",
+    "displayUrl": "github.com/mongodb/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "查询、Schema 设计与 Atlas 搜索",
+    "summary": "MongoDB 官方 Skill，用于编写与优化查询、Schema 设计、Atlas Search 与向量搜索、流处理以及 MCP 配置。插件可连接托管的 Atlas MCP Server 或自建的 MCP Server。",
+    "aiSummary": "按部署方式选择插件，README 区分了 Atlas 与自建。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mongodb/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-sanity-io-agent-toolkit",
+    "slug": "github-com-sanity-io-agent-toolkit",
+    "name": "Sanity Agent Toolkit",
+    "canonicalUrl": "https://github.com/sanity-io/agent-toolkit",
+    "displayUrl": "github.com/sanity-io/agent-toolkit",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Sanity 内容建模与 Studio",
+    "summary": "Sanity 面向 Agent 的工具包，把访问项目的 MCP Server 与 Skill 结合：Sanity 最佳实践、内容建模、Portable Text、迁移、Studio 升级和 SEO/AEO。",
+    "aiSummary": "生成 Schema 前，先从内容建模 Skill 开始。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/sanity-io/agent-toolkit"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-netlify-context-and-tools",
+    "slug": "github-com-netlify-context-and-tools",
+    "name": "Netlify Skills",
+    "canonicalUrl": "https://github.com/netlify/context-and-tools",
+    "displayUrl": "github.com/netlify/context-and-tools",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Netlify 函数、Blobs、缓存与部署",
+    "summary": "Netlify 的公开 Skill 为每个平台能力提供事实参考：函数、边缘函数、Blobs、缓存、表单、身份、图片 CDN、配置与部署，并附 Astro、Next.js、Vite、TanStack Start 的框架说明。",
+    "aiSummary": "按正在使用的平台能力安装，不必全装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/netlify/context-and-tools"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-figma-mcp-server-guide",
+    "slug": "github-com-figma-mcp-server-guide",
+    "name": "Figma MCP Server Guide",
+    "canonicalUrl": "https://github.com/figma/mcp-server-guide",
+    "displayUrl": "github.com/figma/mcp-server-guide",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "设计"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "用 Figma MCP Server 从设计到代码",
+    "summary": "Figma 的 MCP Server 指南与 Skill：把设计实现为代码、Code Connect、生成设计、组件库与图表、动效以及 SwiftUI 输出。README 说明了不同套餐与席位的调用限制。",
+    "aiSummary": "先确认所在套餐的调用限制，入门席位可用次数很少。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/figma/mcp-server-guide"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-google-gemini-gemini-skills",
+    "slug": "github-com-google-gemini-gemini-skills",
+    "name": "Gemini API Skills",
+    "canonicalUrl": "https://github.com/google-gemini/gemini-skills",
+    "displayUrl": "github.com/google-gemini/gemini-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "使用 Gemini API 开发",
+    "summary": "Google 面向 Gemini API、SDK 与 Live API 的 Skill。README 说明目的：补足模型训练时可能缺失的最新 API 与 SDK 知识。",
+    "aiSummary": "价值在于 SDK 经常变化，请对比 Skill 更新时间与所用 SDK 版本。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/google-gemini/gemini-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-dotnet-skills",
+    "slug": "github-com-dotnet-skills",
+    "name": ".NET Skills",
+    "canonicalUrl": "https://github.com/dotnet/skills",
+    "displayUrl": "github.com/dotnet/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": ".NET 构建、调试与测试",
+    "summary": ".NET 团队精选的 Skill 与自定义 Agent：构建性能与 binlog 分析、崩溃符号化、性能分析、测试质量和 GitHub 工作流。README 链接了一个按模型比较 Skill 效果的看板。",
+    "aiSummary": "该团队公开了自己的 Skill 效果测量，选择前可以参考。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/dotnet/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-awslabs-agent-plugins",
+    "slug": "github-com-awslabs-agent-plugins",
+    "name": "AWS Labs Agent Plugins",
+    "canonicalUrl": "https://github.com/awslabs/agent-plugins",
+    "displayUrl": "github.com/awslabs/agent-plugins",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "AWS Serverless、Amplify 与架构",
+    "summary": "AWS Labs 的插件与 Skill，覆盖 Lambda、Step Functions、API Gateway、Amplify、Serverless 部署、架构图与数据集处理。README 指出更新的 Agent Toolkit for AWS 是其后继。",
+    "aiSummary": "先看 Agent Toolkit for AWS，这个仓库正在被取代。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/awslabs/agent-plugins"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-jetbrains-skills",
+    "slug": "github-com-jetbrains-skills",
+    "name": "JetBrains Verified Skills",
+    "canonicalUrl": "https://github.com/JetBrains/skills",
+    "displayUrl": "github.com/JetBrains/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "合集"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "经筛选的上游 Skill 快照",
+    "summary": "JetBrains 从上游 GitHub 仓库收集并筛选 Skill，整理成扁平目录的已验证快照。每个 SKILL.md 保留指向原始路径的 metadata.source 链接。",
+    "aiSummary": "通过 metadata.source 回到上游 Skill，检查是否有更新版本。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/JetBrains/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-anthropics-claude-plugins-official",
+    "slug": "github-com-anthropics-claude-plugins-official",
+    "name": "Claude Plugins Official",
+    "canonicalUrl": "https://github.com/anthropics/claude-plugins-official",
+    "displayUrl": "github.com/anthropics/claude-plugins-official",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "插件市场仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Anthropic 精选的 Claude Code 插件目录",
+    "summary": "Anthropic 精选的 Claude Code 插件目录，自研插件在 /plugins，第三方插件在 /external_plugins。README 提醒 Anthropic 无法核实第三方插件的内容。",
+    "aiSummary": "目录虽是官方的，/external_plugins 中仍是第三方代码。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/anthropics/claude-plugins-official"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-anthropics-claude-plugins-community",
+    "slug": "github-com-anthropics-claude-plugins-community",
+    "name": "Claude Plugins Community",
+    "canonicalUrl": "https://github.com/anthropics/claude-plugins-community",
+    "displayUrl": "github.com/anthropics/claude-plugins-community",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "插件市场仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Claude Code 与 Cowork 社区插件",
+    "summary": "Anthropic 社区插件市场的只读镜像，每晚同步。README 说明每个插件都经 claude.ai 提交、通过自动安全扫描并获准分发。",
+    "aiSummary": "自动扫描能降低风险，但不等于完整审查，启用前仍要读插件文件。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/anthropics/claude-plugins-community"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-tinybirdco-tinybird-agent-skills",
+    "slug": "github-com-tinybirdco-tinybird-agent-skills",
+    "name": "Tinybird Agent Skills",
+    "canonicalUrl": "https://github.com/tinybirdco/tinybird-agent-skills",
+    "displayUrl": "github.com/tinybirdco/tinybird-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "Tinybird 数据项目与 SDK",
+    "summary": "Tinybird 的 Skill 收录其工程规范：数据源、Pipe、接口、SQL、部署与测试，以及 CLI、Python SDK、TypeScript SDK 的使用规范。",
+    "aiSummary": "最佳实践 Skill 设计为常驻启用，SDK Skill 按语言添加。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/tinybirdco/tinybird-agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-googleworkspace-cli",
+    "slug": "github-com-googleworkspace-cli",
+    "name": "Google Workspace CLI (gws)",
+    "canonicalUrl": "https://github.com/googleworkspace/cli",
+    "displayUrl": "github.com/googleworkspace/cli",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "通过命令行操作 Drive、Gmail、日历与文档",
+    "summary": "面向所有 Google Workspace API 的命令行工具，为人和 Agent 设计，附带数十个 Skill，覆盖日历、Chat、文档、Drive、Gmail 和管理任务。README 说明这不是 Google 官方支持的产品。",
+    "aiSummary": "授予最小的 OAuth 权限范围，这些 Skill 会操作真实邮件和文件。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/googleworkspace/cli"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-qdrant-skills",
+    "slug": "github-com-qdrant-skills",
+    "name": "Qdrant Skills",
+    "canonicalUrl": "https://github.com/qdrant/skills",
+    "displayUrl": "github.com/qdrant/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "数据库"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "向量搜索的设计决策",
+    "summary": "Qdrant 的 Skill 像一本解决方案架构师手册：何时、为何使用量化、分片、租户隔离、混合搜索和模型迁移，并为每个决策指向具体文档。",
+    "aiSummary": "这些 Skill 回答设计问题，需要配合自己数据上的基准测试。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/qdrant/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mailtrap-mailtrap-skills",
+    "slug": "github-com-mailtrap-mailtrap-skills",
+    "name": "Mailtrap Skills",
+    "canonicalUrl": "https://github.com/mailtrap/mailtrap-skills",
+    "displayUrl": "github.com/mailtrap/mailtrap-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "邮件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "用 Mailtrap 发送与测试邮件",
+    "summary": "Mailtrap 的 Skill 概括其使用流程：API 授权、发送邮件、配置发信域名、模板、联系人和沙箱测试。README 说明它们不能替代官方文档。",
+    "aiSummary": "沙箱 Skill 最适合首次使用，不会发到真实邮箱。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mailtrap/mailtrap-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-metalbear-co-skills",
+    "slug": "github-com-metalbear-co-skills",
+    "name": "mirrord Skills (MetalBear)",
+    "canonicalUrl": "https://github.com/metalbear-co/skills",
+    "displayUrl": "github.com/metalbear-co/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "云平台"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "在真实 Kubernetes 环境中测试",
+    "summary": "MetalBear 的 mirrord Skill 让 Agent 在真实 Kubernetes 集群上下文中运行本地代码：真实环境变量、DNS、流量、数据库、Kafka 与 Temporal 队列、请求头透传和预览环境。",
+    "aiSummary": "先接入预发集群，它会处理真实流量与数据。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/metalbear-co/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-browser-act-skills",
+    "slug": "github-com-browser-act-skills",
+    "name": "BrowserAct Skills",
+    "canonicalUrl": "https://github.com/browser-act/skills",
+    "displayUrl": "github.com/browser-act/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "浏览器自动化"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "用 BrowserAct 提取网页数据",
+    "summary": "BrowserAct 的 Skill 封装其浏览器自动化服务，用于数据提取，例如 Amazon、Airbnb 等网站的商品列表、评论、榜单与市场监控。",
+    "aiSummary": "自动提取前先确认目标网站的服务条款。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/browser-act/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-video-db-skills",
+    "slug": "github-com-video-db-skills",
+    "name": "VideoDB Skills",
+    "canonicalUrl": "https://github.com/video-db/skills",
+    "displayUrl": "github.com/video-db/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "视频"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "视频剪辑、编辑、字幕与搜索",
+    "summary": "VideoDB 的 Skill 让 Agent 用自然语言剪辑、编辑、加字幕、搜索和直播视频，处理由 VideoDB 服务器完成。",
+    "aiSummary": "视频会上传到 VideoDB，先确认素材可以上传。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/video-db/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-transloadit-skills",
+    "slug": "github-com-transloadit-skills",
+    "name": "Transloadit Skills",
+    "canonicalUrl": "https://github.com/transloadit/skills",
+    "displayUrl": "github.com/transloadit/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "视频"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "文件上传与媒体转换",
+    "summary": "Transloadit 的 Skill 从一个路由 Skill 出发，分为文档、转换配方（视频编码、字幕、拼图、PDF 转换、OCR）和集成（如在 Next.js 中用 Uppy 上传）。",
+    "aiSummary": "按 README 建议从路由 Skill 开始。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/transloadit/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-noizai-skills",
+    "slug": "github-com-noizai-skills",
+    "name": "Noiz AI Skills",
+    "canonicalUrl": "https://github.com/NoizAI/skills",
+    "displayUrl": "github.com/NoizAI/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "官方",
+      "音乐"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "厂商官方 skill 仓库",
+    "scale": "官方仓库",
+    "pricing": "free",
+    "tagline": "语音、朗读与音频生成",
+    "summary": "Noiz AI 的语音类 Skill：带角色控制的文字转语音、语音转文字、音效、音乐、视频翻译，以及把语音消息发到飞书、Telegram 或 Discord。",
+    "aiSummary": "区分本地优先的 Skill 和调用 Noiz 服务的 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/NoizAI/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-coreyhaines31-marketingskills",
+    "slug": "github-com-coreyhaines31-marketingskills",
+    "name": "Marketing Skills (Corey Haines)",
+    "canonicalUrl": "https://github.com/coreyhaines31/marketingskills",
+    "displayUrl": "github.com/coreyhaines31/marketingskills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "营销"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "转化、文案、SEO 与增长",
+    "summary": "Corey Haines 为技术型营销人和创始人整理的营销 Skill：A/B 测试、广告创意、SEO 与 AI 搜索、数据分析、归因、流失预防、冷邮件、内容策略和竞品研究。",
+    "aiSummary": "范围很广，挑选与当前活动相关的两三个 Skill 即可。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/coreyhaines31/marketingskills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-deanpeters-product-manager-skills",
+    "slug": "github-com-deanpeters-product-manager-skills",
+    "name": "Product Manager Skills (Dean Peters)",
+    "canonicalUrl": "https://github.com/deanpeters/Product-Manager-Skills",
+    "displayUrl": "github.com/deanpeters/Product-Manager-Skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "产品管理"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "产品战略与需求发现框架",
+    "summary": "Dean Peters 的产品管理 Skill 把各类框架变成 Agent 工作流：竞品分析、获客渠道、市场规模、竞争卡片、业务健康诊断和 AI 就绪度评估。",
+    "aiSummary": "用框架类 Skill 梳理思路，再用自己的数据核对输出。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/deanpeters/Product-Manager-Skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-phuryn-pm-skills",
+    "slug": "github-com-phuryn-pm-skills",
+    "name": "PM Skills (Paweł Huryn)",
+    "canonicalUrl": "https://github.com/phuryn/pm-skills",
+    "displayUrl": "github.com/phuryn/pm-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "产品管理",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "从发现到发布的产品工作流",
+    "summary": "Paweł Huryn 的产品管理 Skill 与串联工作流，打包为 Claude Code 插件：需求发现、实验、OKR、商业模式、竞品分析、上市、增长以及交付 AI 构建的代码。",
+    "aiSummary": "按阶段安装插件（例如需求发现），不必全装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/phuryn/pm-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-realkimbarrett-advertising-skills",
+    "slug": "github-com-realkimbarrett-advertising-skills",
+    "name": "Advertising Skills (Kim Barrett)",
+    "canonicalUrl": "https://github.com/realkimbarrett/advertising-skills",
+    "displayUrl": "github.com/realkimbarrett/advertising-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "营销"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "直效广告与文案",
+    "summary": "Kim Barrett 的付费获客与直效文案 Skill：标题矩阵、广告角度、卖点提炼、异议处理、转化路径以及 Meta、TikTok、YouTube 广告的效果诊断。",
+    "aiSummary": "上线前用平台广告政策检查生成的文案。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/realkimbarrett/advertising-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-alirezarezvani-claude-skills",
+    "slug": "github-com-alirezarezvani-claude-skills",
+    "name": "Claude Skills (Alireza Rezvani)",
+    "canonicalUrl": "https://github.com/alirezarezvani/claude-skills",
+    "displayUrl": "github.com/alirezarezvani/claude-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "跨领域的大型 Skill 库",
+    "summary": "Alireza Rezvani 的 Skill 与插件库，覆盖工程、DevOps、营销、安全、合规、高管顾问角色与效率，支持多种编码 Agent。",
+    "aiSummary": "如此规模的库质量不一，安装前逐个阅读。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/alirezarezvani/claude-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-wshobson-agents",
+    "slug": "github-com-wshobson-agents",
+    "name": "Agents (Seth Hobson)",
+    "canonicalUrl": "https://github.com/wshobson/agents",
+    "displayUrl": "github.com/wshobson/agents",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "跨编码工具的插件、Agent 与 Skill",
+    "summary": "Seth Hobson 的目录用同一份 Markdown 源维护插件、Agent、Skill 和命令，适配 Claude Code、Codex CLI、Cursor、OpenCode、Antigravity、Copilot 和 Pi，覆盖编程语言、审查、测试、基础设施与安全。",
+    "aiSummary": "按插件安装，控制加载的上下文规模。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/wshobson/agents"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-affaan-m-everything-claude-code",
+    "slug": "github-com-affaan-m-everything-claude-code",
+    "name": "Everything Claude Code",
+    "canonicalUrl": "https://github.com/affaan-m/everything-claude-code",
+    "displayUrl": "github.com/affaan-m/everything-claude-code",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "完整的 Claude Code 配置",
+    "summary": "Affaan Mustafa 的 Everything Claude Code（ECC）把 Agent、Skill、命令、钩子和规则打包成一套配置，通过 GitHub、npm 和插件分发。README 提醒只从官方渠道安装。",
+    "aiSummary": "整套配置会同时改变很多行为，先在单独的配置环境中试用。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/affaan-m/everything-claude-code"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-glebis-claude-skills",
+    "slug": "github-com-glebis-claude-skills",
+    "name": "Claude Skills (Gleb Kalinin)",
+    "canonicalUrl": "https://github.com/glebis/claude-skills",
+    "displayUrl": "github.com/glebis/claude-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "会议、调研、发布与个人事务",
+    "summary": "Gleb Kalinin 的 Claude Code Skill 覆盖会议流程、调研、图像生成、TDD、发布、个人数据分析和 Claude Code 运维，并提供精选组合。",
+    "aiSummary": "每个 Skill 的配置（API Key、依赖）写在各自的 SKILL.md 中，先读再装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/glebis/claude-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-oaustegard-claude-skills",
+    "slug": "github-com-oaustegard-claude-skills",
+    "name": "Claude Skills (Oskar Austegard)",
+    "canonicalUrl": "https://github.com/oaustegard/claude-skills",
+    "displayUrl": "github.com/oaustegard/claude-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "面向 Claude.ai Skill 环境的 Skill",
+    "summary": "Oskar Austegard 的 Skill 以 Claude Code 插件市场和 Claude.ai ZIP 发布两种方式分发。README 说明它们为 Claude.ai 的 Skill 运行环境设计，在 Claude Code 中表现可能不同。",
+    "aiSummary": "在 Claude.ai 上请按 README 使用 ZIP 发布包。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/oaustegard/claude-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-obra-superpowers-lab",
+    "slug": "github-com-obra-superpowers-lab",
+    "name": "Superpowers Lab",
+    "canonicalUrl": "https://github.com/obra/superpowers-lab",
+    "displayUrl": "github.com/obra/superpowers-lab",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "Superpowers 的实验性技巧",
+    "summary": "Superpowers 作者的实验性 Skill，仍在打磨：查找语义重复的函数、通过 CLI 使用 MCP Server、用 tmux 驱动交互式命令以及在 Windows 虚拟机中工作。",
+    "aiSummary": "按设计属于实验性质，版本间可能变化。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/obra/superpowers-lab"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-sickn33-antigravity-awesome-skills",
+    "slug": "github-com-sickn33-antigravity-awesome-skills",
+    "name": "Agentic Awesome Skills",
+    "canonicalUrl": "https://github.com/sickn33/antigravity-awesome-skills",
+    "displayUrl": "github.com/sickn33/antigravity-awesome-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "规模很大的可安装 Skill 库",
+    "summary": "面向 Claude Code、Codex、Cursor、Gemini CLI 等的可安装 SKILL.md 库，配套 AAS Core 用于检索本地目录、记录选用的 Skill，并在改动项目前预览计划。README 说明 Core 不做排序或推荐。",
+    "aiSummary": "规模很大，每个候选都需要自己读；这里没有排序。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/sickn33/antigravity-awesome-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mouadja02-skills",
+    "slug": "github-com-mouadja02-skills",
+    "name": "Skills (mouadja02)",
+    "canonicalUrl": "https://github.com/mouadja02/skills",
+    "displayUrl": "github.com/mouadja02/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "带检索站点的分类 Skill 合集",
+    "summary": "按分类文件夹组织的 Agent Skill 合集，附自动生成的 Markdown 索引和 GitHub Pages 检索站点。支持 SKILL.md 的客户端会递归发现其中的 Skill。",
+    "aiSummary": "使用分类索引，不要整体安装。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mouadja02/skills",
+      "https://mouadja02.github.io/skills/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-yusukebe-skills",
+    "slug": "github-com-yusukebe-skills",
+    "name": "Skills (Yusuke Wada)",
+    "canonicalUrl": "https://github.com/yusukebe/skills",
+    "displayUrl": "github.com/yusukebe/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "Hono 与 Cloudflare Workers 实践",
+    "summary": "Hono 作者的个人合集：聚焦 Hono、Hono 搭配 Inertia 与 React、代码审查以及 Cloudflare Workers 项目的 Markdown Skill。",
+    "aiSummary": "小巧易读，也是编写专注型 Skill 的好范例。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/yusukebe/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-garrytan-gstack",
+    "slug": "github-com-garrytan-gstack",
+    "name": "gstack (Garry Tan)",
+    "canonicalUrl": "https://github.com/garrytan/gstack",
+    "displayUrl": "github.com/garrytan/gstack",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "Claude Code 中按角色分工的工程团队",
+    "summary": "Garry Tan 的 gstack 把 Claude Code 变成按角色分工的虚拟团队：CEO、工程经理、设计师、审查者、QA 负责人、安全官和发布工程师，以斜杠命令形式提供，MIT 许可。",
+    "aiSummary": "先单独采用一个角色（如审查或 QA），再使用整套流程。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/garrytan/gstack"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-neolabhq-context-engineering-kit",
+    "slug": "github-com-neolabhq-context-engineering-kit",
+    "name": "Context Engineering Kit",
+    "canonicalUrl": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "displayUrl": "github.com/NeoLabHQ/context-engineering-kit",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "上下文工程",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "编码 Agent 的上下文工程模式",
+    "summary": "NeoLab 的上下文工程技巧市场，适用于 Claude Code、OpenCode、Cursor 和 Antigravity，来自其开发者日常使用的提示词和有基准的论文，以低 token 占用为设计目标。",
+    "aiSummary": "单独安装插件，在一个经常重复的任务上对比效果。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/NeoLabHQ/context-engineering-kit"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-muratcankoylan-agent-skills-for-context-engineering",
+    "slug": "github-com-muratcankoylan-agent-skills-for-context-engineering",
+    "name": "Agent Skills for Context Engineering",
+    "canonicalUrl": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+    "displayUrl": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "上下文工程"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "上下文与运行框架工程原则",
+    "summary": "Murat Can Koylan 的开放合集讲解上下文工程与运行框架工程：上下文基础、压缩、退化、记忆系统、评估和长程提示，面向生产级 Agent 系统。",
+    "aiSummary": "更像课程而非工具集，可用来指导编写自己的 Skill。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-jeffallan-claude-skills",
+    "slug": "github-com-jeffallan-claude-skills",
+    "name": "Claude Skills (Jeff Allan)",
+    "canonicalUrl": "https://github.com/jeffallan/claude-skills",
+    "displayUrl": "github.com/jeffallan/claude-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "按角色划分的工程专家",
+    "summary": "Jeff Allan 的 Skill 让 Agent 扮演各领域专家：编程语言、前后端框架、基础设施、API、测试、DevOps、安全与数据，附组合决策树和 GitHub Pages 文档。",
+    "aiSummary": "角色 Skill 有重叠，按当前技术栈选择。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/jeffallan/claude-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-sanjay3290-ai-skills",
+    "slug": "github-com-sanjay3290-ai-skills",
+    "name": "AI Skills (sanjay3290)",
+    "canonicalUrl": "https://github.com/sanjay3290/ai-skills",
+    "displayUrl": "github.com/sanjay3290/ai-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "Google Workspace 与效率工具",
+    "summary": "可移植的 Skill，定位为 Google Workspace MCP Server 的轻量替代，每个都有独立 OAuth 与钥匙串令牌存储，另有 Atlassian、Azure DevOps、ElevenLabs 与深度调研等 Skill。",
+    "aiSummary": "检查每个 Skill 申请的 OAuth 权限范围。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/sanjay3290/ai-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-gooseworks-ai-goose-skills",
+    "slug": "github-com-gooseworks-ai-goose-skills",
+    "name": "Goose Skills (GooseWorks)",
+    "canonicalUrl": "https://github.com/gooseworks-ai/goose-skills",
+    "displayUrl": "github.com/gooseworks-ai/goose-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "营销"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "营销作战手册与视频广告",
+    "summary": "GooseWorks 的 Skill 为编码 Agent 提供营销手册：调研客户与竞品、分析效果、创建活动，以及其产品背后的视频广告 Skill。README 说明旧库已下线，并提供映射文件。",
+    "aiSummary": "若用过旧库，查看 retired-skills.json 找替代项。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/gooseworks-ai/goose-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mblode-agent-skills",
+    "slug": "github-com-mblode-agent-skills",
+    "name": "Agent Skills (Matthew Blode)",
+    "canonicalUrl": "https://github.com/mblode/agent-skills",
+    "displayUrl": "github.com/mblode/agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "前端"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "界面审查、文档与发布规范",
+    "summary": "Matthew Blode 的 Skill 旨在避免低质量的 AI 产出：界面与无障碍审查、排版、代码架构、文档、PR 审查、CI 提速与发布，并提供 Next.js 与 TypeScript CLI 脚手架。",
+    "aiSummary": "审查类 Skill 适用于任何项目，脚手架则体现作者的技术栈。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mblode/agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mcollina-skills",
+    "slug": "github-com-mcollina-skills",
+    "name": "Skills (Matteo Collina)",
+    "canonicalUrl": "https://github.com/mcollina/skills",
+    "displayUrl": "github.com/mcollina/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "Node.js、Fastify 与 TypeScript 实践",
+    "summary": "Node.js 核心贡献者、Fastify 联合作者 Matteo Collina 的 Skill：Node.js、Node 核心、Fastify、TypeScript、代码检查、OAuth 与文档，附跨模型基准测试流程和运行记录。",
+    "aiSummary": "仓库公开了自己的基准测试记录，可与 Skill 一起阅读。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mcollina/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-wondelai-skills",
+    "slug": "github-com-wondelai-skills",
+    "name": "Skills (Wondel.ai)",
+    "canonicalUrl": "https://github.com/wondelai/skills",
+    "displayUrl": "github.com/wondelai/skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "产品管理"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "书籍框架与引导式元技能",
+    "summary": "Wondel.ai 把知名商业与工程书籍中的框架做成 Agent Skill，并提供元技能，按阶段引导你构建业务、网站或应用，改进代码或优化转化。",
+    "aiSummary": "元技能会提出决策问题，用真实约束来回答。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/wondelai/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-product-on-purpose-pm-skills",
+    "slug": "github-com-product-on-purpose-pm-skills",
+    "name": "PM Skills (Product on Purpose)",
+    "canonicalUrl": "https://github.com/product-on-purpose/pm-skills",
+    "displayUrl": "github.com/product-on-purpose/pm-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "产品管理"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "产品全周期模板与示例输出",
+    "summary": "覆盖发现、定义、开发、交付各阶段的产品管理 Skill 库，附模板、工作流、子 Agent 以及大量真实示例输出，用来设定质量标准。",
+    "aiSummary": "把自己的输出与示例对比，这正是这个库的用处。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/product-on-purpose/pm-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-mhattingpete-claude-skills-marketplace",
+    "slug": "github-com-mhattingpete-claude-skills-marketplace",
+    "name": "Claude Skills Marketplace (mhattingpete)",
+    "canonicalUrl": "https://github.com/mhattingpete/claude-skills-marketplace",
+    "displayUrl": "github.com/mhattingpete/claude-skills-marketplace",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "软件工程工作流插件",
+    "summary": "面向工程工作流的 Claude Code 插件市场：代码审计、重构、文档、功能规划、图表与看板、项目初始化和 git 操作。",
+    "aiSummary": "git-pushing Skill 会操作你的仓库，启用前先读。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/mhattingpete/claude-skills-marketplace"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-eduardo-sl-go-agent-skills",
+    "slug": "github-com-eduardo-sl-go-agent-skills",
+    "name": "Go Agent Skills",
+    "canonicalUrl": "https://github.com/eduardo-sl/go-agent-skills",
+    "displayUrl": "github.com/eduardo-sl/go-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "让编码 Agent 写地道的 Go",
+    "summary": "精选的 Go Skill，纠正 Agent 写 Go 的常见问题：错误缺少上下文、接口放错位置、goroutine 泄漏和缺少类型。覆盖 API 设计、并发、CLI、CI、数据库与代码审查，并附评估说明。",
+    "aiSummary": "阅读评估部分，了解作者如何衡量效果。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/eduardo-sl/go-agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-agricidaniel-claude-seo",
+    "slug": "github-com-agricidaniel-claude-seo",
+    "name": "Claude SEO",
+    "canonicalUrl": "https://github.com/AgriciDaniel/claude-seo",
+    "displayUrl": "github.com/AgriciDaniel/claude-seo",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "营销",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "在 Claude Code 中做 SEO 审计",
+    "summary": "在 Claude Code 中对网站做完整 SEO 审计的插件：技术 SEO、内容质量、外链、竞品页面与 AI 搜索可见度，并可集成 Ahrefs、DataForSEO、Firecrawl 等工具。",
+    "aiSummary": "第三方集成需要各自的 API Key，并单独计费。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/AgriciDaniel/claude-seo"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-sergebulaev-linkedin-skills",
+    "slug": "github-com-sergebulaev-linkedin-skills",
+    "name": "LinkedIn Skills (Serge Bulaev)",
+    "canonicalUrl": "https://github.com/sergebulaev/linkedin-skills",
+    "displayUrl": "github.com/sergebulaev/linkedin-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "营销",
+      "写作"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "LinkedIn 帖子、评论与回复",
+    "summary": "Claude Code 与 Codex Skill，用你的口吻起草 LinkedIn 帖子、评论与回复，去除 AI 腔，并在发布前等待确认。",
+    "aiSummary": "保持发布前确认步骤，这是主要的保护措施。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/sergebulaev/linkedin-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-zxkane-aws-skills",
+    "slug": "github-com-zxkane-aws-skills",
+    "name": "AWS Skills (zxkane)",
+    "canonicalUrl": "https://github.com/zxkane/aws-skills",
+    "displayUrl": "github.com/zxkane/aws-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "云平台",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "开源 skill 仓库",
+    "scale": "社区仓库",
+    "pricing": "free",
+    "tagline": "AWS CDK、Serverless 与成本运维",
+    "summary": "面向 AWS 开发的社区 Claude Code 插件：CDK、Serverless 事件驱动架构、SST、成本运维与 Bedrock AgentCore，并提供各插件共用的 AWS 文档 MCP 配置。",
+    "aiSummary": "选择前与 AWS Labs 官方插件对比。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/zxkane/aws-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-composiohq-awesome-codex-skills",
+    "slug": "github-com-composiohq-awesome-codex-skills",
+    "name": "Awesome Codex Skills (Composio)",
+    "canonicalUrl": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "displayUrl": "github.com/ComposioHQ/awesome-codex-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集",
+      "Codex"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "面向应用自动化的 Codex Skill",
+    "summary": "Composio 整理的实用 Codex Skill 清单，多数是针对单个应用的自动化 Skill，通过 Composio 的 MCP 网关调用，并提供把 Skill 放入 Codex Skill 目录的安装器。",
+    "aiSummary": "多数条目依赖 Composio 网关，选择前先确认。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/ComposioHQ/awesome-codex-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-heilcheng-awesome-agent-skills",
+    "slug": "github-com-heilcheng-awesome-agent-skills",
+    "name": "Awesome Agent Skills (heilcheng)",
+    "canonicalUrl": "https://github.com/heilcheng/awesome-agent-skills",
+    "displayUrl": "github.com/heilcheng/awesome-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "教程、指南与真实团队的 Skill",
+    "summary": "Hailey Cheng 的社区精选清单，关注工程团队真实创建和使用的 Skill，而非批量生成的仓库，并为新手提供教程，配套在线目录 agent-skill.co，有多语言版本。",
+    "aiSummary": "先看教程，再沿链接到各个原始仓库。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/heilcheng/awesome-agent-skills",
+      "https://agent-skill.co/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-skillmatic-ai-awesome-agent-skills",
+    "slug": "github-com-skillmatic-ai-awesome-agent-skills",
+    "name": "Awesome Agent Skills (Skillmatic)",
+    "canonicalUrl": "https://github.com/skillmatic-ai/awesome-agent-skills",
+    "displayUrl": "github.com/skillmatic-ai/awesome-agent-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "关于 Agent Skill 机制的资料",
+    "summary": "Skillmatic 整理的构建与使用 Agent Skill 的资料：SKILL.md 与渐进式加载的入门、文章、工具与示例 Skill。",
+    "aiSummary": "先读入门资料，再看示例链接。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/skillmatic-ai/awesome-agent-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-karanb192-awesome-claude-skills",
+    "slug": "github-com-karanb192-awesome-claude-skills",
+    "name": "Awesome Claude Skills (karanb192)",
+    "canonicalUrl": "https://github.com/karanb192/awesome-claude-skills",
+    "displayUrl": "github.com/karanb192/awesome-claude-skills",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "可检索的 Claude Skill 目录",
+    "summary": "面向 Claude Code、Claude.ai 与 API 的社区目录：Skill 名称链接到来源，README 明确说明收录不等于安全审计，并把相关仓库归为合集。",
+    "aiSummary": "按 README 建议，沿链接阅读各自的安装说明。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/karanb192/awesome-claude-skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-hesreallyhim-awesome-claude-code",
+    "slug": "github-com-hesreallyhim-awesome-claude-code",
+    "name": "Awesome Claude Code",
+    "canonicalUrl": "https://github.com/hesreallyhim/awesome-claude-code",
+    "displayUrl": "github.com/hesreallyhim/awesome-claude-code",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "Claude Code 的 Skill、Agent、钩子与工具",
+    "summary": "手工精选的 Claude Code 资源：Skill、Agent、状态栏、钩子、开发工具与插件，声明重视代码质量、安全与原创性。",
+    "aiSummary": "Skill 只是其中一部分，适合了解更广的 Claude Code 生态。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/hesreallyhim/awesome-claude-code"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-xiaolai-claude-plugin-marketplace",
+    "slug": "github-com-xiaolai-claude-plugin-marketplace",
+    "name": "xiaolai Plugin Marketplace",
+    "canonicalUrl": "https://github.com/xiaolai/claude-plugin-marketplace",
+    "displayUrl": "github.com/xiaolai/claude-plugin-marketplace",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "插件市场仓库",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "Claude Code 与 Codex CLI 插件",
+    "summary": "xiaolai 的插件中心市场，同时提供 Claude Code 和 Codex CLI 的清单文件，让每个插件仓库可以同时发布两种格式。",
+    "aiSummary": "也是同时向 Claude Code 和 Codex 发布插件的好例子。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/xiaolai/claude-plugin-marketplace"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "github-com-dmgrok-agent-skills-directory",
+    "slug": "github-com-dmgrok-agent-skills-directory",
+    "name": "Agent Plugins Directory (dmgrok)",
+    "canonicalUrl": "https://github.com/dmgrok/agent_skills_directory",
+    "displayUrl": "github.com/dmgrok/agent_skills_directory",
+    "tags": [
+      "Agent Skills",
+      "GitHub",
+      "开源",
+      "合集",
+      "插件"
+    ],
+    "category": "repo",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "awesome 清单",
+    "scale": "清单仓库",
+    "pricing": "free",
+    "tagline": "官方与社区插件的网页目录",
+    "summary": "汇总官方与社区来源的 Agent 插件网页目录，每日重建，可组合所需插件并用一个脚本安装。站点发布在 GitHub Pages 上。",
+    "aiSummary": "运行前先读安装脚本，它会一次安装多个插件。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://github.com/dmgrok/agent_skills_directory",
+      "https://dmgrok.github.io/agent-plugins/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "officialskills-sh",
+    "slug": "officialskills-sh",
+    "name": "Official Skills (officialskills.sh)",
+    "canonicalUrl": "https://officialskills.sh/",
+    "displayUrl": "officialskills.sh",
+    "tags": [
+      "Agent Skills",
+      "合集",
+      "官方"
+    ],
+    "category": "directory",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 合集",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "厂商官方团队发布的 Skill",
+    "summary": "汇集厂商官方开发团队所发布 Agent Skill 的目录，可按发布方和分类筛选。Skill 页面采用 /作者/仓库/skill 的路径，VoltAgent 的 awesome-agent-skills 清单也链接到这里。",
+    "aiSummary": "其路径不一定与 GitHub 仓库名一致（例如 Stripe 的 Skill 在 stripe/ai），安装前先确认真实仓库。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://officialskills.sh/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "A third-party listing describes it as a frontend for the awesome-agent-skills repository covering official developer teams.",
+        "zh": "第三方介绍称它是 awesome-agent-skills 仓库的前端，覆盖各厂商官方团队。",
+        "sourceUrl": "https://www.everydev.ai/tools/official-agent-skills",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "awesomeskill-ai",
+    "slug": "awesomeskill-ai",
+    "name": "Awesome Skills (awesomeskill.ai)",
+    "canonicalUrl": "https://awesomeskill.ai/",
+    "displayUrl": "awesomeskill.ai",
+    "tags": [
+      "Agent Skills",
+      "合集"
+    ],
+    "category": "marketplace",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 市场",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "浏览来自 GitHub 的 SKILL.md",
+    "summary": "一个市场型网站，自称可浏览从 GitHub 收集的 SKILL.md，面向 Claude、Codex 和 ChatGPT。",
+    "aiSummary": "沿每个条目回到 GitHub 源码阅读；该站做的是聚合而非审查。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://awesomeskill.ai/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Describes itself as an agent skills marketplace for Claude, Codex and ChatGPT.",
+        "zh": "自称是面向 Claude、Codex 和 ChatGPT 的 Agent Skill 市场。",
+        "sourceUrl": "https://awesomeskill.ai/",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "claude4world-com-skills",
+    "slug": "claude4world-com-skills",
+    "name": "Claude4World Skills",
+    "canonicalUrl": "https://claude4world.com/skills/",
+    "displayUrl": "claude4world.com/skills",
+    "tags": [
+      "Agent Skills",
+      "合集"
+    ],
+    "category": "directory",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 合集",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "精选的 Claude Code Skill 目录",
+    "summary": "精选的 Claude Code Skill 目录，安装方式为手动：把 SKILL.md 复制到自己的 Skill 文件夹。",
+    "aiSummary": "手动复制会失去更新追踪，请记录每个 Skill 的来源。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://claude4world.com/skills/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Describes itself as a directory of about 1,200 Claude Code skills.",
+        "zh": "自称收录约 1200 个 Claude Code Skill。",
+        "sourceUrl": "https://claude4world.com/skills/",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "claudemarketplace-net",
+    "slug": "claudemarketplace-net",
+    "name": "Claude Code Marketplace (claudemarketplace.net)",
+    "canonicalUrl": "https://www.claudemarketplace.net/",
+    "displayUrl": "claudemarketplace.net",
+    "tags": [
+      "Agent Skills",
+      "合集",
+      "MCP"
+    ],
+    "category": "marketplace",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 市场",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "Claude Code 的 Skill、MCP Server 与插件",
+    "summary": "第三方市场网站，列出 Claude Code 的 Skill、MCP Server 与插件，页头显示自报的数量。",
+    "aiSummary": "数量为自报，请逐条判断。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://www.claudemarketplace.net/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Advertises 4,000+ skills and 770+ MCP servers (self-reported, observed October 2026).",
+        "zh": "宣称收录 4000+ Skill 与 770+ MCP Server（自报，2026 年 10 月观察）。",
+        "sourceUrl": "https://www.claudemarketplace.net/",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "claudeskills-info",
+    "slug": "claudeskills-info",
+    "name": "Claude Skills Info",
+    "canonicalUrl": "https://claudeskills.info/",
+    "displayUrl": "claudeskills.info",
+    "tags": [
+      "Agent Skills",
+      "合集"
+    ],
+    "category": "directory",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 合集",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "可检索的 Agent 组件索引",
+    "summary": "可检索的 AI 编码 Agent 组件目录（包括 Skill），并提供包含名称、描述、星标数和源码链接的 JSON 数据。",
+    "aiSummary": "JSON 数据便于脚本使用；星标数反映热度而非质量。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://claudeskills.info/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Describes itself as a searchable directory of harness components with a JSON feed.",
+        "zh": "自称是带 JSON 数据的可检索组件目录。",
+        "sourceUrl": "https://claudeskills.info/blog/how-to-use-claude-skills/",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "gradually-ai-en-codex-skills",
+    "slug": "gradually-ai-en-codex-skills",
+    "name": "Codex Skills Directory (gradually.ai)",
+    "canonicalUrl": "https://www.gradually.ai/en/codex-skills/",
+    "displayUrl": "gradually.ai/en/codex-skills",
+    "tags": [
+      "Agent Skills",
+      "合集",
+      "Codex"
+    ],
+    "category": "directory",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 合集",
+    "scale": "集合入口",
+    "pricing": "free",
+    "tagline": "来自 GitHub 的 Codex Skill",
+    "summary": "列出来自 GitHub 的 Codex Skill 的目录页。观察时页面标注的同步日期在 2026 年较早时候，较新的 Skill 可能缺失。",
+    "aiSummary": "注意页面标注的同步日期，列表可能过时。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://www.gradually.ai/en/codex-skills/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "The page stated it last synced on Feb 7, 2026.",
+        "zh": "页面标注最后同步于 2026 年 2 月 7 日。",
+        "sourceUrl": "https://www.gradually.ai/en/codex-skills/",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "smithery-ai-skills",
+    "slug": "smithery-ai-skills",
+    "name": "Smithery Skills",
+    "canonicalUrl": "https://smithery.ai/skills",
+    "displayUrl": "smithery.ai/skills",
+    "tags": [
+      "Agent Skills",
+      "合集",
+      "MCP"
+    ],
+    "category": "marketplace",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 市场",
+    "scale": "集合入口",
+    "pricing": "mixed",
+    "tagline": "与 Smithery MCP 注册表并列的 Skill",
+    "summary": "以 MCP Server 注册表闻名的 Smithery 也提供公开的 Agent Skill 目录。所见条目多为社区发布，安装通过开放的 skills CLI 完成。",
+    "aiSummary": "把条目视为社区内容；平台负责托管，不做担保。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "medium",
+    "status": "active",
+    "sourceUrls": [
+      "https://smithery.ai/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Hosts a public catalog of agent skills at smithery.ai/skills alongside MCP servers.",
+        "zh": "在 smithery.ai/skills 提供与 MCP Server 并列的公开 Skill 目录。",
+        "sourceUrl": "https://smithery.ai/skills/otrebu/skill-creator",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "skillselion-com",
+    "slug": "skillselion-com",
+    "name": "Skillselion",
+    "canonicalUrl": "https://skillselion.com/",
+    "displayUrl": "skillselion.com",
+    "tags": [
+      "Agent Skills",
+      "合集",
+      "MCP"
+    ],
+    "category": "directory",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 合集",
+    "scale": "集合入口",
+    "pricing": "mixed",
+    "tagline": "通过 MCP Server 加载的排序 Skill",
+    "summary": "索引其他注册表中 Skill 的目录，并提供 MCP Server，可在任务中途把排序后的 Skill 加载给 Agent，无需安装。",
+    "aiSummary": "任务中途加载 Skill 意味着指令来自远程服务，要考虑该服务能注入什么内容。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "emerging",
+    "status": "active",
+    "sourceUrls": [
+      "https://skillselion.com/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Advertises an MCP that loads ranked skills into an agent mid-task.",
+        "zh": "宣称其 MCP 能在任务中途把排序后的 Skill 加载给 Agent。",
+        "sourceUrl": "https://skillselion.com/skills/smithery.ai/find-skills",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "agentskills-io",
+    "slug": "agentskills-io",
+    "name": "Agent Skills specification (agentskills.io)",
+    "canonicalUrl": "https://agentskills.io/",
+    "displayUrl": "agentskills.io",
+    "tags": [
+      "Agent Skills",
+      "官方"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "Skill 规范",
+    "scale": "规范",
+    "pricing": "free",
+    "tagline": "开放的 Agent Skill 格式",
+    "summary": "Agent Skill 开放格式的官方站点：一个 Skill 是带 SKILL.md 的文件夹，包含名称、描述和指令，可附带脚本、参考资料和资源。规范在 agentskills GitHub 仓库中维护。",
+    "aiSummary": "SkillFlux 的静态体检依据这一格式，读规范有助于理解体检结果。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://agentskills.io/"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Specification source is the agentskills/agentskills repository on GitHub.",
+        "zh": "规范源码位于 GitHub 的 agentskills/agentskills 仓库。",
+        "sourceUrl": "https://github.com/agentskills/agentskills",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
+  },
+  {
+    "id": "code-claude-com-docs-en-skills",
+    "slug": "code-claude-com-docs-en-skills",
+    "name": "Claude Code Skills documentation",
+    "canonicalUrl": "https://code.claude.com/docs/en/skills",
+    "displayUrl": "code.claude.com/docs/en/skills",
+    "tags": [
+      "Agent Skills",
+      "官方",
+      "文档",
+      "Claude Code"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "官方文档",
+    "scale": "文档",
+    "pricing": "free",
+    "tagline": "Claude Code 如何发现和使用 Skill",
+    "summary": "Anthropic 关于 Claude Code Skill 的文档：用户级和项目级 Skill 文件夹的位置、Claude 如何决定加载 Skill，以及 Skill 与插件、市场的关系。",
+    "aiSummary": "参照第三方教程前，先在这里核对安装路径。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://code.claude.com/docs/en/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "cursor-com-docs-skills",
+    "slug": "cursor-com-docs-skills",
+    "name": "Cursor Agent Skills documentation",
+    "canonicalUrl": "https://cursor.com/docs/skills",
+    "displayUrl": "cursor.com/docs/skills",
+    "tags": [
+      "Agent Skills",
+      "官方",
+      "文档",
+      "Cursor"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "官方文档",
+    "scale": "文档",
+    "pricing": "free",
+    "tagline": "Cursor 如何发现 Agent Skill",
+    "summary": "Cursor 关于 Agent Skill 的文档：Cursor 启动时从 Skill 目录中发现 Skill，由 Agent 判断何时使用；也可用斜杠命令调用。",
+    "aiSummary": "Cursor 也会读取其他 Agent 使用的 Skill 文件夹，确认哪些目录生效以免重复。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://cursor.com/docs/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "developers-openai-com-codex-skills",
+    "slug": "developers-openai-com-codex-skills",
+    "name": "Codex Skills documentation",
+    "canonicalUrl": "https://developers.openai.com/codex/skills",
+    "displayUrl": "developers.openai.com/codex/skills",
+    "tags": [
+      "Agent Skills",
+      "官方",
+      "文档",
+      "Codex"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "官方文档",
+    "scale": "文档",
+    "pricing": "free",
+    "tagline": "Codex 如何加载 Skill",
+    "summary": "OpenAI 关于 Codex Skill 的文档：仓库级与用户级 Skill 的位置，以及 Skill 的打包方式，包括用于分发的纯 Skill 插件。",
+    "aiSummary": "旧的 openai/skills 仓库已弃用，请以本文档和 OpenAI Plugins 仓库为准。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://developers.openai.com/codex/skills"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31"
+  },
+  {
+    "id": "claude-com-plugins",
+    "slug": "claude-com-plugins",
+    "name": "Claude Plugins directory",
+    "canonicalUrl": "https://claude.com/plugins",
+    "displayUrl": "claude.com/plugins",
+    "tags": [
+      "Agent Skills",
+      "官方",
+      "插件"
+    ],
+    "category": "official",
+    "language": [
+      "en"
+    ],
+    "region": "global",
+    "type": "skill 市场",
+    "scale": "插件目录",
+    "pricing": "free",
+    "tagline": "Anthropic 的 Claude 插件目录",
+    "summary": "Anthropic 用于安装 Claude 插件（包括社区插件）的目录。Anthropic 的社区镜像仓库说明，收录的社区插件经 claude.ai 提交、通过自动安全扫描并获准分发。",
+    "aiSummary": "自动扫描不等于完整审查，启用前先看插件会安装什么。",
+    "featured": false,
+    "recommended": false,
+    "trustLevel": "high",
+    "status": "active",
+    "sourceUrls": [
+      "https://claude.com/plugins"
+    ],
+    "addedAt": "2026-10-31",
+    "updatedAt": "2026-10-31",
+    "claims": [
+      {
+        "en": "Community plugins are submitted via claude.ai, scanned automatically and approved before listing.",
+        "zh": "社区插件经 claude.ai 提交、自动扫描并审批后上架。",
+        "sourceUrl": "https://github.com/anthropics/claude-plugins-community",
+        "observedAt": "2026-10-31",
+        "method": "web-search"
+      }
+    ]
   }
 ]

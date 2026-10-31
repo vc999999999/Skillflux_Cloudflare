@@ -18,6 +18,14 @@ const usage = `Usage: bench <command> [options]
       --offline             Use cached snapshots and last recorded repository facts
       --force               Rewrite records even when the result is unchanged
 
+  audit [<github-url>]  Sampled health check of a directory source (writes web/data/source-audits/<site>.json)
+      --all                 Audit every target in web/data/source-audit-targets.json
+      --missing             With --all: only targets that have no audit yet
+      --site <slug>         Directory source slug in web/data/sites.json (required)
+      --method <repo|list>  repo: the repository holds skills; list: it links to other repositories (required)
+      --sample <n>          Sample size (default 20)
+      --sha <commit>        Pin this commit of the source (default: current head)
+
   lint-tasks            Validate task specs and prove each grader can tell pass from fail
       --only <skillId>      Only this skill's tasks (repeatable)
 
@@ -48,6 +56,7 @@ async function main() {
       skills: { type: 'string' }, model: { type: 'string' }, repeats: { type: 'string' }, concurrency: { type: 'string' },
       'budget-usd': { type: 'string' }, seed: { type: 'string' }, 'claude-bin': { type: 'string' },
       'allow-host': { type: 'boolean' }, 'dry-run': { type: 'boolean' }, supersedes: { type: 'string' },
+      method: { type: 'string' }, sample: { type: 'string' }, all: { type: 'boolean' }, missing: { type: 'boolean' },
     },
   });
   switch (command) {
@@ -62,6 +71,20 @@ async function main() {
     case 'health': {
       const { runHealth } = await import('./health/run-health.js');
       await runHealth({ only: values.only, offline: values.offline, force: values.force });
+      return;
+    }
+    case 'audit': {
+      if (values.all) {
+        const { auditTargets } = await import('./audit/targets.js');
+        await auditTargets({ missingOnly: Boolean(values.missing), only: values.only, sampleSize: values.sample ? Number(values.sample) : undefined });
+        return;
+      }
+      const repo = positionals[0];
+      if (!repo || !values.site || (values.method !== 'repo' && values.method !== 'list')) throw new Error('audit needs <github-url>, --site and --method repo|list');
+      const { auditSource } = await import('./audit/run-audit.js');
+      const audit = await auditSource({ siteSlug: values.site, repo, method: values.method, sampleSize: values.sample ? Number(values.sample) : undefined, sha: values.sha });
+      const s = audit.summary;
+      console.log(`${values.site}: ${s.checked}/${s.sampled} checked (${audit.listing.candidates} candidates) · ${s.noSkill} no skill · ${s.unreachable} unreachable · ${s.withScripts} with scripts · ${s.noLicense} no license · ${s.missingTrigger} missing trigger · ${s.failingAnyCheck} failing`);
       return;
     }
     case 'lint-tasks': {

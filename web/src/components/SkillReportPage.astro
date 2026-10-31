@@ -70,7 +70,7 @@ const jsonLd = [
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) },
 ];
 ---
-<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable}>
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable} markdownAlternate={view.indexable ? `/skills/${view.skill.id}.md` : undefined}>
   <main id="main-content" class="page-shell report-page">
     <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]} />
     <header class="detail-hero">

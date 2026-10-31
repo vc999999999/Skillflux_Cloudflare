@@ -8,11 +8,11 @@ const zh = lang === "zh";
 const path = stripLanguagePrefix(currentPath);
 const showLanguageSwitcher = showLanguage;
 const links = [
-  { href: "/skills/", label: zh ? "Skill 数据" : "Skills", active: /^\/(skills)(\/|$)/.test(path) },
-  { href: "/benchmarks/", label: zh ? "实测" : "Benchmarks", active: /^\/(benchmarks|runs)(\/|$)/.test(path) },
-  { href: "/directory/", label: zh ? "来源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
-  { href: "/insights/", label: zh ? "Skill 拆解" : "Insights", active: /^\/(insights|guides|scenarios)(\/|$)/.test(path) },
-  { href: "/data/", label: zh ? "数据" : "Data", active: /^\/(data|methodology|for-ai)(\/|$)/.test(path) }
+  { href: "/skills/", label: zh ? "Skill" : "Skills", active: /^\/(skills)(\/|$)/.test(path) },
+  { href: "/directory/", label: zh ? "来源黄页" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
+  { href: "/best/", label: zh ? "对比盘点" : "Compare", active: /^\/(best|compare|alternatives)(\/|$)/.test(path) },
+  { href: "/guides/", label: zh ? "指南" : "Guides", active: /^\/(insights|guides|scenarios)(\/|$)/.test(path) },
+  { href: "/data/", label: zh ? "数据" : "Data", active: /^\/(data|methodology|for-ai|benchmarks|runs)(\/|$)/.test(path) }
 ];
 ---
 <header class="sf-header">
