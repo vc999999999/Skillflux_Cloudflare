@@ -20,28 +20,9 @@
     "type": "skill 合集",
     "scale": "推荐合集",
     "pricing": "free",
-    "tagline": "国内大厂 skill 合集首选",
-    "summary": "国内最全的大厂 skill 集合网站。",
-    "longSummary": "魔搭 ModelScope Skills 是由阿里达摩院旗下 ModelScope 社区维护的 Agent Skills 合集，也是国内起步较早、覆盖面较广的大厂 skill 入口之一。它把面向 Claude、Cursor、Codex 等 agent 的可复用能力集中在一个页面，按用途归类，方便中文用户快速检索、对比并取用。\n\n在 SkillFlux 的收录中，它被标记为「推荐」入口：来源可信度高、内容持续更新、且完全免费。如果你刚开始接触 agent skill，不确定从哪里找起，魔搭是一个信息密度高、上手门槛低的起点——先在这里建立对「有哪些 skill、分别解决什么问题」的整体认知，再按需深入到市场、仓库或单项 skill。",
-    "aiSummary": "最全商业 skills 合集中心",
-    "faqs": [
-      {
-        "q": "魔搭 ModelScope Skills 是什么？",
-        "a": "它是 ModelScope 社区维护的 Agent Skills 合集，把面向 Claude、Cursor、Codex 等 agent 的可复用能力集中在一处，按用途归类，面向中文用户。"
-      },
-      {
-        "q": "魔搭 ModelScope Skills 收费吗？",
-        "a": "免费。浏览与获取 skill 均不收费。"
-      },
-      {
-        "q": "它适合谁使用？",
-        "a": "适合刚接触 agent skill、需要一个信息密度高且上手门槛低的中文起点的用户，用来建立对 skill 生态的整体认知。"
-      },
-      {
-        "q": "为什么 SkillFlux 把它列为推荐？",
-        "a": "来源可信度高、内容持续更新、完全免费，且是国内覆盖面较广的大厂 skill 入口之一。"
-      }
-    ],
+    "tagline": "中文 Agent Skills 发现",
+    "summary": "魔搭 ModelScope Skills 把 ModelScope 社区的 Agent Skills 汇集到按用途浏览的中文入口。它适合先了解可复用能力的分布，再进入具体条目阅读来源说明；页面涵盖不同 agent 相关资源，实际使用条件仍需逐项确认。",
+    "aiSummary": "建议先用一个真实任务筛出两三个条目，记录原始仓库与依赖，再与 Anthropic 的原始示例对照。魔搭解决的是查找入口问题，选中条目后仍要阅读其安装和权限要求。",
     "featured": true,
     "recommended": true,
     "trustLevel": "high",
@@ -72,24 +53,9 @@
     "type": "skill 合集",
     "scale": "合集(阿里云)",
     "pricing": "mixed",
-    "tagline": "skill 合集入口",
-    "summary": "阿里云 Skills 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "阿里云 Skills 是阿里云官方推出的 Agent Skills 合集入口，支持按安装量排序，帮助你快速看到当前被采用最多的能力。作为大厂官方来源，它在稳定性和可信度上有先天优势，适合在生产环境中挑选相对成熟、维护有保障的 skill。\n\n它的定价为「部分付费」：基础浏览和多数 skill 免费，部分能力可能与阿里云的商业服务绑定。在 SkillFlux 的收录中，它与魔搭、腾讯云 SkillHub 同属「官方厂商」类目——如果你已经在使用阿里云生态，或希望优先选择有厂商背书的 skill，这里是顺理成章的第一站。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 阿里云”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "阿里云 Skills 是什么？",
-        "a": "阿里云官方的 Agent Skills 合集入口，支持按安装量排序，便于快速定位当前采用最多的能力。"
-      },
-      {
-        "q": "阿里云 Skills 收费吗？",
-        "a": "部分付费。基础浏览与多数 skill 免费，部分能力可能与阿里云商业服务绑定。"
-      },
-      {
-        "q": "它和魔搭 ModelScope Skills 有什么区别？",
-        "a": "两者都是大厂官方合集；阿里云 Skills 更贴近阿里云商业生态并支持按安装量排序，魔搭覆盖面更广、被 SkillFlux 标为推荐起点。"
-      }
-    ],
+    "tagline": "阿里云 Skill 合集",
+    "summary": "阿里云 Skills 是阿里云的 Agent Skills 合集入口，收录链接使用按安装量排序的视图。它适合从云厂商生态出发寻找能力，同时将条目的用途、依赖和服务关联放在一起比较。",
+    "aiSummary": "把排序当作候选发现线索，再检查前几个结果是否解决同一个问题。若条目连接云服务，应将服务开通、权限范围和费用一起纳入选择，而不是仅凭排名采用。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -119,24 +85,9 @@
     "type": "skill 合集",
     "scale": "合集(腾讯云)",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "腾讯云 SkillHub 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "腾讯云 SkillHub 是腾讯云面向 agent 场景推出的 Agent Skills 合集，以面板（dashboard）形式组织可复用能力，界面清晰、以中文为主。作为大厂官方来源，它在合规与稳定性上有保障，适合已经在腾讯云生态中工作、希望就近取用 skill 的团队。\n\n它当前完全免费。在 SkillFlux 的收录里，它与魔搭、阿里云 Skills 并列于「官方厂商」类目，可信度标记为中等——内容仍在扩充中。如果你在做多家大厂横向对比，建议把它和魔搭、阿里云 Skills 放在一起看，按你实际使用的云厂商和 skill 覆盖面来决定主用哪一个。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "腾讯云 SkillHub 是什么？",
-        "a": "腾讯云面向 agent 场景推出的 Agent Skills 合集，以面板形式组织可复用能力，以中文为主。"
-      },
-      {
-        "q": "腾讯云 SkillHub 收费吗？",
-        "a": "免费。"
-      },
-      {
-        "q": "它适合谁使用？",
-        "a": "适合已在腾讯云生态中工作、希望就近取用 skill 的团队，或正在做多家大厂横向对比的用户。"
-      }
-    ],
+    "tagline": "腾讯云 Skill 发现",
+    "summary": "腾讯云 SkillHub 以 dashboard 形式呈现 Agent Skills，面向偏好中文界面的用户。它是从腾讯云生态查找可复用能力的入口，也可与其他厂商合集并列，比较具体任务是否有对应资源。",
+    "aiSummary": "先确认 dashboard 中的条目指向哪一个原始项目，再看它依赖的服务是否与你现有工作环境一致。厂商入口有助于定位来源，但不应据此推定每项内容都已适配你的项目。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -165,20 +116,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "agent-skills.md 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "agent-skills.md 是一个面向全球用户的英文 Agent Skills 综合目录,用简洁的 Markdown 风格把可复用的 agent 能力集中列出,便于快速浏览和查阅。\n\n作为综合目录类来源,它的价值在于“一处看全”而非独家内容,适合在挑选具体 skill 前先建立整体印象。在 SkillFlux 的收录里,它与其他英文目录站并列,可信度为中等,免费使用。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "agent-skills.md 是什么?",
-        "a": "一个英文的 Agent Skills 综合目录,以 Markdown 风格集中列出可复用的 agent 能力,便于浏览查阅。"
-      },
-      {
-        "q": "agent-skills.md 收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "Markdown 风格 Skill 目录",
+    "summary": "agent-skills.md 是面向英文读者的 Agent Skills 综合目录，用 Markdown 风格组织可复用能力。它适合快速扫读候选条目，建立名称与用途的初步对应，再沿链接深入查看单项资源。",
+    "aiSummary": "用它做第一轮清单整理：保留与你任务相关的条目名称与源链接，再到原始仓库核对内容。简洁列表能降低浏览成本，实际取舍仍取决于条目的指令、依赖和许可证。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -207,20 +147,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "AgentSkill.sh 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "AgentSkill.sh 是一个面向全球开发者的英文 Agent Skills 目录站,把散落各处的 agent 能力聚合到统一入口,方便按需检索。\n\n它属于综合目录类来源,定位是发现和对比而非托管。免费使用,可信度中等。如果你在做多站横向筛选,可以把它和其他英文目录放在一起参考。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "AgentSkill.sh 是什么?",
-        "a": "一个英文的 Agent Skills 目录站,把各处的 agent 能力聚合到统一入口,便于按需检索。"
-      },
-      {
-        "q": "它适合谁使用?",
-        "a": "适合需要跨站发现和对比 agent skill 的英文用户。"
-      }
-    ],
+    "tagline": "英文 Skill 聚合发现",
+    "summary": "AgentSkill.sh 是面向全球开发者的英文 Agent Skills 目录，把散落在不同来源的能力集中到同一个发现入口。它侧重查找与对照，适合与其他目录一起缩小候选范围。",
+    "aiSummary": "比较不同目录时，优先看它们最终指向的仓库是否相同。同一个 Skill 被多个目录收录，不等于多个独立实现；记录原始地址可以避免重复评估。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -249,20 +178,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "AITmpl 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "AITmpl 是一个英文 Agent Skills 集合入口,把可复用的 agent 能力(模板/技能)整理成便于取用的列表。\n\n作为综合目录类来源,它适合快速发现与检索。免费使用,可信度中等。在 SkillFlux 的分类中,它归入综合目录,可与官方厂商合集互补:先在目录看广度,再回到可信来源做取舍。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "AITmpl 是什么?",
-        "a": "一个英文的 Agent Skills 集合入口,把可复用的 agent 能力整理成便于取用的列表。"
-      },
-      {
-        "q": "AITmpl 收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "Agent 模板与 Skill 发现",
+    "summary": "AITmpl 是英文 Agent Skills 集合入口，将模板和技能组织为便于浏览的列表。它适合从现成能力的组织方式入手寻找候选，再将具体条目与官方示例或原始仓库对照。",
+    "aiSummary": "先区分条目是可直接引用的指令、项目模板，还是依赖脚本的能力。这些内容可能有不同的引入成本；选中后记录需要复制的文件与执行步骤，避免仅根据名称判断用途。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -292,24 +210,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "开源 skill 仓库入口",
-    "summary": "anthropics/skills 是目标清单中的 开源 skill 仓库，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "anthropics/skills 是 Anthropic 官方在 GitHub 上维护的开源 skill 仓库,是 Claude Skills 最权威的源头之一。内容开源、透明、可审计,可以直接看到每个 skill 的实现。\n\n在 SkillFlux 的收录中,它被标为高可信度——对于会在 agent 环境中执行的能力,官方源头意味着更低的风险。适合希望以第一手、可信来源为基准的开发者,也适合作为理解 skill 规范的参考。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "anthropics/skills 是什么?",
-        "a": "Anthropic 官方在 GitHub 维护的开源 skill 仓库,是 Claude Skills 权威源头之一。"
-      },
-      {
-        "q": "它可信吗?",
-        "a": "可信度高。作为官方开源仓库,内容透明可审计,适合作为第一手基准来源。"
-      },
-      {
-        "q": "使用需要付费吗?",
-        "a": "免费,开源。"
-      }
-    ],
+    "tagline": "Anthropic 官方 Skill 示例",
+    "summary": "anthropics/skills 是 Anthropic 在 GitHub 发布的 Skill 仓库，可以直接阅读各项能力的文件与实现。它适合作为理解 Skill 如何组织的第一手参考，也适合在引入社区内容前建立比较基准。",
+    "aiSummary": "从与你任务相关的一个目录开始，先读主指令，再看关联脚本和参考文件。将触发条件、输入输出与依赖记录下来，比一次复制整个仓库更容易判断一个示例是否适合自己的工作流。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -340,20 +243,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "让 AI 看完视频",
-    "summary": "帮助 AI 理解和处理视频内容的 Claude 相关项目。",
-    "longSummary": "bradautomates/claude-video 是一个专注视频场景的开源 skill 项目,面向需要让 agent 处理视频相关任务的用户。作为单一主题的开源仓库,它的代码公开、可审计、可自行改造。\n\n在 SkillFlux 中它归入开源仓库类,可信度较高。适合已经明确要做视频相关能力、并愿意基于开源项目定制的开发者。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "claude-video 是做什么的?",
-        "a": "一个专注视频场景的开源 skill 项目,面向需要让 agent 处理视频相关任务的用户。"
-      },
-      {
-        "q": "它是开源的吗?",
-        "a": "是。代码公开,可审计、可自行改造,免费使用。"
-      }
-    ],
+    "tagline": "视频理解与处理项目",
+    "summary": "bradautomates/claude-video 是围绕视频理解和处理的 Claude 相关开源项目。作为单一主题的仓库，它让开发者直接查看实现与依赖，适合在明确视频任务后评估可复用的部分。",
+    "aiSummary": "先用一段短视频验证你的目标：需要的是内容理解还是后续媒体处理。将来源文档支持的输入格式、所需工具和实际输出逐项对照，再决定是否接入更长的素材流程。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -382,20 +274,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Claude Marketplaces 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Claude Marketplaces 是一个面向 Claude 生态的英文 skill 市场入口,把可用的能力集中呈现,便于按需挑选。\n\n作为市场类来源,它通常提供比单一仓库更广的覆盖面。免费使用,可信度中等。适合在多个市场之间横向比较、寻找合适能力的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Claude Marketplaces 是什么?",
-        "a": "一个面向 Claude 生态的英文 skill 市场入口,集中呈现可用能力,便于按需挑选。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费浏览。"
-      }
-    ],
+    "tagline": "Claude 生态市场发现",
+    "summary": "Claude Marketplaces 是面向 Claude 生态的英文能力市场入口，将可选 Skill 集中呈现。它适合在多个市场之间比较候选能力，并追溯具体条目的提供者与使用说明。",
+    "aiSummary": "用具体任务词筛选条目，并记录提供者和最终来源，避免把市场名称当成能力维护者。若多个市场列出同一项目，比较安装说明和版本指向比重复收集链接更有用。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -424,20 +305,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Claude Plugins 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Claude Plugins 是一个英文的 Claude 能力/插件集合入口,把面向 Claude 的可复用能力聚合展示。\n\n它属于市场类来源,定位是发现与取用。免费使用,可信度中等。如果你在围绕 Claude 搭建工作流,可以把它作为寻找现成能力的一个入口。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Claude Plugins 是什么?",
-        "a": "一个英文的 Claude 能力/插件集合入口,聚合面向 Claude 的可复用能力。"
-      },
-      {
-        "q": "适合谁使用?",
-        "a": "适合围绕 Claude 搭建工作流、需要寻找现成能力的用户。"
-      }
-    ],
+    "tagline": "Claude 插件与能力发现",
+    "summary": "Claude Plugins 是英文的 Claude 插件与可复用能力集合入口。它将相关内容集中展示，适合围绕 Claude 工作流寻找现成候选，再根据各项目说明判断其包含哪些文件、指令或工具。",
+    "aiSummary": "比较插件时先列出包内实际包含的内容，再看是否只需要其中一个 Skill。一个名称下可能组织多个组件，采用前应把安装方式与宿主要求一起阅读。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -466,20 +336,9 @@
     "type": "skill 合集",
     "scale": "合集(企业)",
     "pricing": "mixed",
-    "tagline": "skill 合集入口",
-    "summary": "Claude Skills Market 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Claude Skills Market 是一个面向企业场景的英文 skill 市场,既有免费能力也有付费/企业级内容,定位偏商业采购。\n\n它的定价为部分付费,可信度中等。适合有预算、希望获得商业支持或企业级 skill 的团队;个人用户也可以从中的免费部分入手。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Claude Skills Market 是什么?",
-        "a": "一个面向企业场景的英文 skill 市场,含免费与付费/企业级内容。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "部分付费。有免费能力,也有付费或企业级内容。"
-      }
-    ],
+    "tagline": "商业 Skill 选型",
+    "summary": "Claude Skills Market 是偏企业场景的英文 Skill 市场，目录资料将其内容标记为免费与付费并存。它适合有商业采购需求的团队先建立候选清单，再逐项核对授权、交付内容和服务条件。",
+    "aiSummary": "采购前把需求写成可验收的任务，并对候选内容索取明确的交付和授权说明。商业定位本身不能说明支持范围，免费条目也应按同样的输入输出标准比较。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -508,20 +367,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "ClawHub 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "ClawHub 是一个新兴的英文 Agent Skills 集合入口,把 agent 能力聚合到一处方便检索。作为较新的站点,内容和生态仍在成长中。\n\n在 SkillFlux 中它的可信度标记为“新兴”——适合关注新来源、愿意尝鲜的用户,但用于生产前建议先核对 skill 的维护状态。免费使用。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "ClawHub 是什么?",
-        "a": "一个新兴的英文 Agent Skills 集合入口,聚合 agent 能力便于检索。"
-      },
-      {
-        "q": "它成熟吗?",
-        "a": "属于新兴来源,生态仍在成长中,用于生产前建议核对 skill 维护状态。"
-      }
-    ],
+    "tagline": "Agent Skill 集合发现",
+    "summary": "ClawHub 是 SkillFlux 收录的英文 Agent Skills 集合入口，将 agent 能力聚合起来供用户查找。本站将其作为需要继续核查的新来源，适合在已有明确需求时补充候选。",
+    "aiSummary": "在条目页面先确认作者、原始仓库与安装说明能否相互对应，再选择一个范围小的任务试用。把核查结果留在自己的选型记录里，比依据站点的新旧或展示热度作判断更可靠。",
     "featured": true,
     "recommended": false,
     "trustLevel": "emerging",
@@ -550,20 +398,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "2026-10-01 核查：Discover AI Skills 来源站点显示 Deployment Paused，暂不可访问，可先看 Qoder Community 或 VoltAgent 合集等替代来源。保留原网址供后续复查。",
-    "longSummary": "Discover AI Skills 是一个偏社区发现导向的英文 skill 站点,帮助用户发现新的 agent 能力、了解当下有哪些选择。\n\n作为社区类来源,它更适合探索和了解趋势,而非作为权威基准。免费使用,可信度中等。适合想扩展视野、发现新 skill 的用户。",
-    "aiSummary": "2026-10-01 核查：来源站点显示 Deployment Paused，暂不可访问。请先参考 Qoder Community 或 VoltAgent 合集；这不代表该站已永久关闭。",
-    "faqs": [
-      {
-        "q": "Discover AI Skills 是什么?",
-        "a": "一个偏社区发现导向的英文 skill 站点,帮助发现新的 agent 能力。"
-      },
-      {
-        "q": "适合谁使用?",
-        "a": "适合想探索趋势、发现新 skill 的用户。"
-      }
-    ],
+    "tagline": "社区 Skill 探索 · 来源暂不可访问",
+    "summary": "2026-10-01 核查：Discover AI Skills 来源站点显示 Deployment Paused，暂不可访问。它原为偏社区发现的英文 Skill 站点；目前可先看 Qoder Community 或 VoltAgent 合集等替代来源。保留原网址供后续复查。",
+    "aiSummary": "本站于 2026-10-01 访问来源时看到 Deployment Paused，当前不建议将其作为获取资源的入口。可先浏览下方 Qoder Community 与 VoltAgent 替代来源，再按具体任务核对项目原始说明；待来源恢复后复查。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -593,20 +430,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Hermes Agent Skills 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Hermes Agent Skills 是 Nous Research 的 Hermes Agent 官方文档中的 skill 部分,提供简体中文文档,面向使用 Hermes 生态的中文用户。\n\n作为官方文档来源,它的内容与 Hermes Agent 直接对应,权威性较好。免费使用,可信度中等。适合正在使用或评估 Hermes Agent、需要中文资料的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Hermes Agent Skills 是什么?",
-        "a": "Nous Research 的 Hermes Agent 官方文档中的 skill 部分,提供简体中文文档。"
-      },
-      {
-        "q": "它是中文的吗?",
-        "a": "是,提供简体中文文档。"
-      }
-    ],
+    "tagline": "Hermes Agent Skill 文档",
+    "summary": "Hermes Agent Skills 是 Nous Research 的 Hermes Agent 官方文档中的 Skill 部分，收录入口提供简体中文内容。它适合正在使用或评估 Hermes 的用户，围绕该宿主了解技能的组织和使用方式。",
+    "aiSummary": "先确认阅读的文档与当前 Hermes 环境对应，再按文档中的一个示例完成最小验证。它的价值在于宿主上下文清楚；跨宿主复用时，应重新检查文件组织与调用方式。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -635,20 +461,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "LLM Skills 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "LLM Skills 是一个英文的 Agent Skills 集合入口,以 LLM 能力为主题把可复用的 skill 汇总展示。\n\n它属于综合目录类来源,定位是发现与检索。免费使用,可信度中等。适合按主题浏览、寻找面向大模型 agent 的现成能力的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "LLM Skills 是什么?",
-        "a": "一个英文的 Agent Skills 集合入口,以 LLM 能力为主题汇总可复用 skill。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "LLM 能力主题目录",
+    "summary": "LLM Skills 是英文 Agent Skills 集合入口，以大模型 agent 的可复用能力为主题汇总条目。它适合按能力方向浏览，为具体任务找到进一步阅读的项目与资料。",
+    "aiSummary": "先明确自己缺的是操作步骤、领域知识还是外部工具连接，再阅读条目具体包含什么。LLM 主题覆盖很宽，使用清晰的输入输出约束可以让目录浏览更有针对性。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -680,20 +495,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "MCPMarket Skills Leaderboard 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "MCPMarket Skills Leaderboard 是 MCPMarket 旗下的 skill 排行榜,以中文呈现,按热度/采用度对 agent skill 排序,兼具 MCP 与 skill 两个视角。\n\n作为社区榜单类来源,它反映真实热度,适合快速看到“大家都在用什么”。免费使用,可信度中等。适合想通过热度信号发现优质 skill 的中文用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / MCPMarket”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "MCPMarket Skills Leaderboard 是什么?",
-        "a": "MCPMarket 旗下的中文 skill 排行榜,按热度/采用度对 agent skill 排序。"
-      },
-      {
-        "q": "它适合做什么?",
-        "a": "适合通过热度信号快速发现大家都在用的 skill。"
-      }
-    ],
+    "tagline": "中文 Skill 榜单发现",
+    "summary": "MCPMarket Skills Leaderboard 是 MCPMarket 的中文 Skill 排行榜入口，将能力按榜单信号组织。它为同时关注 Skill 与 MCP 生态的用户提供发现线索，适合进一步追溯具体条目的来源和作用。",
+    "aiSummary": "先阅读榜单指标的定义，再把候选分成 Skill 与 MCP 服务器两类。排名只能帮助安排查看顺序；真正采用时，要对照任务、宿主要求与原始项目说明。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -724,20 +528,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "AI 写作去痕工具（中文版）",
-    "summary": "中文 AI 写作去痕工具，让生成文本更自然、更像人工书写。",
-    "longSummary": "op7418/Humanizer-zh 是一个专注写作/文本“人性化”的开源 skill 项目,面向中文写作场景,帮助让 AI 生成的文本更自然。作为开源仓库,代码公开、可审计、可自行改造。\n\n在 SkillFlux 中它归入开源仓库类,可信度较高,带“写作”标签。适合做中文内容创作、需要提升文本自然度的用户。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Humanizer-zh 是做什么的?",
-        "a": "一个专注中文写作/文本人性化的开源 skill,帮助让 AI 生成文本更自然。"
-      },
-      {
-        "q": "它是开源的吗?",
-        "a": "是,代码公开可审计,免费使用。"
-      }
-    ],
+    "tagline": "中文表达润色",
+    "summary": "op7418/Humanizer-zh 是面向中文写作的开源 Skill，聚焦调整 AI 生成文本中的生硬表达，使行文更自然。仓库内容可以直接阅读，适合先了解编辑规则，再用自己的原稿评估修改效果。",
+    "aiSummary": "先标出不可改动的事实、数字和引用，再选择一两段试改。评估重点应是读者能否更容易理解以及语气是否符合作者，而非笼统追求某种检测结果。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -767,20 +560,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "治 AI 失忆",
-    "summary": "通过文件化计划缓解 AI 上下文遗忘，适合长任务协作。",
-    "longSummary": "OthmanAdi/planning-with-files 是一个开源 skill 项目,主题是“用文件做规划”——让 agent 借助文件来组织和推进任务规划。代码公开,可审计、可改造。\n\n在 SkillFlux 中它归入开源仓库类,可信度较高。适合关注 agent 规划工作流、想参考或复用相关做法的开发者。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "planning-with-files 是做什么的?",
-        "a": "一个开源 skill,主题是让 agent 借助文件来组织和推进任务规划。"
-      },
-      {
-        "q": "它是开源的吗?",
-        "a": "是,代码公开,免费使用。"
-      }
-    ],
+    "tagline": "文件化任务规划",
+    "summary": "OthmanAdi/planning-with-files 是用文件组织 agent 任务规划的开源 Skill 项目。它围绕长任务中目标、进度和上下文的保存提供可参考的做法，适合希望让多步骤工作更容易检查和接续的开发者。",
+    "aiSummary": "试用时给一个真实任务写下目标、验收条件和当前状态，再在恢复任务时检查这些记录是否足以指导下一步。文件只有在随实际结果更新时才有价值，不能把已写计划当成已完成工作。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -811,20 +593,9 @@
     "type": "skill 合集",
     "scale": "合集(qoder)",
     "pricing": "mixed",
-    "tagline": "skill 合集入口",
-    "summary": "Qoder Marketplace 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Qoder Marketplace 是 Qoder 的官方市场(中文),提供面向其生态的 agent skill,既有免费也有付费内容。作为厂商自营市场,内容与 Qoder 平台直接对应。\n\n它的定价为部分付费,可信度较高。适合已经在使用 Qoder、希望就近获取配套 skill 的中文用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / Qoder”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Qoder Marketplace 是什么?",
-        "a": "Qoder 的官方中文市场,提供面向其生态的 agent skill,含免费与付费内容。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "部分付费。"
-      }
-    ],
+    "tagline": "Qoder 生态 Skill 市场",
+    "summary": "Qoder Marketplace 是 Qoder 的中文官方市场入口，收录面向其生态的 Agent Skills。本站资料将其标记为免费和付费内容并存，适合 Qoder 使用者沿着宿主自己的入口检查配套能力。",
+    "aiSummary": "先从你的 Qoder 工作流确定需要扩展的步骤，再检查条目的接入方法和使用条件。与社区聚合入口比较时，注意区分平台市场中的条目和从外部来源收集的链接。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -853,20 +624,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "SkillHub Club 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "SkillHub Club 是一个英文的 Agent Skills 集合入口,把 agent 能力汇总到一处,便于浏览和检索。\n\n它属于综合目录类来源,免费使用,可信度中等。适合需要跨来源发现 skill 的英文用户,可与官方合集互补使用。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "SkillHub Club 是什么?",
-        "a": "一个英文的 Agent Skills 集合入口,汇总 agent 能力便于浏览检索。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "英文跨来源 Skill 发现",
+    "summary": "SkillHub Club 是英文 Agent Skills 综合目录，将不同来源的能力汇集到便于浏览的入口。它适合先做候选发现，再与厂商合集或原始仓库对照；它与腾讯云 SkillHub 是不同的收录对象。",
+    "aiSummary": "名称相近的站点容易混淆，记录候选时保留 skillhub.club 的域名和具体原始链接。再按同一任务比较条目，避免把目录站与厂商提供的能力混为一谈。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -895,20 +655,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Skills Directory 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Skills Directory 是一个英文 Agent Skills 目录站,以目录形式集中列出可用的 agent 能力,方便按需查找。\n\n作为综合目录类来源,它的价值在于覆盖面和检索效率。免费使用,可信度中等。适合先看广度、再深入具体 skill 的英文用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Skills Directory 是什么?",
-        "a": "一个英文 Agent Skills 目录站,以目录形式集中列出可用能力,便于查找。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "英文 Agent Skills 目录",
+    "summary": "Skills Directory 以英文目录形式集中列出 Agent Skills，适合在尚未选定具体项目时浏览能力范围。选中条目后，可以沿其来源继续检查功能边界、文件内容与使用方法。",
+    "aiSummary": "把目录浏览限制在一个任务上，为每个候选记下“解决哪一步”和原始项目地址。这样更容易识别重复收录，也能看清哪些资源只是名称相近而用途不同。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -938,20 +687,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Skills Homes 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Skills Homes 是一个提供简体中文界面的 Agent Skills 目录,按分类组织 agent 能力,方便中文用户按类目浏览。\n\n作为综合目录类来源,它适合快速定位某一类 skill。免费使用,可信度中等。适合偏好中文界面、习惯按分类查找的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Skills Homes 是什么?",
-        "a": "一个中文界面的 Agent Skills 目录,按分类组织 agent 能力便于浏览。"
-      },
-      {
-        "q": "它是中文的吗?",
-        "a": "是,提供简体中文界面并按类目组织。"
-      }
-    ],
+    "tagline": "中文分类 Skill 目录",
+    "summary": "Skills Homes 提供简体中文的 Agent Skills 分类入口，将能力按类目组织。它适合知道大致任务类别、但尚未确定项目名称的用户，通过中文分类逐步缩小范围。",
+    "aiSummary": "先选与你实际工作对应的类目，再检查候选条目的原始说明是否支持所需输入输出。分类名称适合导航，遇到跨类别任务时，也应在相邻类目中寻找不同实现方式。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -981,20 +719,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Skills.pub 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Skills.pub 是一个提供中文页面的 Agent Skills 合集站,把可复用的 agent 能力集中呈现,面向中文用户。\n\n它属于综合目录类来源,免费使用,可信度中等。适合想用中文浏览、快速发现 skill 的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Skills.pub 是什么?",
-        "a": "一个提供中文页面的 Agent Skills 合集站,集中呈现可复用的 agent 能力。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "中文 Skill 合集浏览",
+    "summary": "Skills.pub 提供中文 Agent Skills 合集页面，将可复用能力集中呈现。它适合用中文快速浏览候选，并与其他目录或原始仓库对比，逐步明确适合自己任务的能力。",
+    "aiSummary": "发现感兴趣的条目后，记录它的原始名称与链接，便于在英文仓库中继续查找。中文介绍可以帮助理解方向，但安装文件、参数与依赖应以源项目为准。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -1024,20 +751,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "skills.sh 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "skills.sh 是一个英文 Agent Skills 合集入口,把 agent 能力聚合到统一域名下,风格简洁、便于开发者快速取用。\n\n在 SkillFlux 中它的可信度标为较高,免费使用。适合偏好命令行/开发者视角、希望快速发现和使用 skill 的英文用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / skills.sh”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "skills.sh 是什么?",
-        "a": "一个英文 Agent Skills 合集入口,风格简洁,便于开发者快速取用。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "开发者向 Skill 发现",
+    "summary": "skills.sh 是面向英文读者的 Agent Skills 集合入口，将 agent 能力集中展示，偏向开发者的查找和取用场景。它可以作为快速发现候选的起点，再按原始项目要求决定如何引入。",
+    "aiSummary": "从一个具体任务选择条目，先检查它的来源和安装说明，再决定是否需要整组能力。若使用命令行获取内容，保留来源和版本记录，方便后续复查与回滚。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1066,20 +782,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "SkillsLLM 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "SkillsLLM 是一个英文 Agent Skills 集合入口,聚焦大模型 agent 的可复用能力,汇总展示便于检索。\n\n作为综合目录类来源,免费使用,可信度中等。适合按大模型 agent 场景寻找现成能力的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "SkillsLLM 是什么?",
-        "a": "一个英文 Agent Skills 集合入口,聚焦大模型 agent 的可复用能力。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "大模型 Agent Skill 汇总",
+    "summary": "SkillsLLM 是围绕大模型 agent 可复用能力的英文集合入口。它将相关 Skill 汇总展示，适合按任务查找候选，并在找到项目后进一步阅读其工作方式与依赖。",
+    "aiSummary": "检索时使用可验证的任务描述，例如需要整理什么输入、产出什么结果。不要仅凭 LLM 或 AI 标签选工具；打开源项目后检查它是如何实现这一任务的。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -1108,20 +813,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "SkillsMP 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "SkillsMP 是一个英文 Agent Skills 合集站,把 agent 能力集中列出,便于发现与对比。\n\n它属于综合目录类来源,免费使用,可信度中等。适合跨来源浏览、寻找合适 skill 的英文用户。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "SkillsMP 是什么?",
-        "a": "一个英文 Agent Skills 合集站,集中列出 agent 能力便于发现对比。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "跨来源 Skill 比较",
+    "summary": "SkillsMP 是英文 Agent Skills 集合站，把能力条目集中列出，便于发现与比较。它适合在多个来源之间建立候选清单，再检查每个项目如何满足自己的任务要求。",
+    "aiSummary": "比较候选时使用同一组标准：原始来源、任务覆盖、依赖和采用成本。不要把同一项目在不同目录的重复出现视为独立推荐证据，保留最终仓库地址可以帮助去重。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -1151,20 +845,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Skywork SkillHub 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Skywork SkillHub 是 Skywork 官方推出的 skill 中心(中文),把面向其生态的 agent 能力集中提供。作为厂商官方来源,内容与 Skywork 平台对应。\n\n免费使用,可信度中等。适合正在使用或评估 Skywork、需要中文 skill 资料的用户。",
-    "aiSummary": "适合按“Agent Skills / 合集 / 中文”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Skywork SkillHub 是什么?",
-        "a": "Skywork 官方的中文 skill 中心,集中提供面向其生态的 agent 能力。"
-      },
-      {
-        "q": "它是中文的吗?",
-        "a": "是,提供中文内容。"
-      }
-    ],
+    "tagline": "Skywork 生态 Skill 中心",
+    "summary": "Skywork SkillHub 是 Skywork 提供的中文 Skill 中心，汇集面向其生态的 agent 能力。它适合正在使用或评估 Skywork 的用户，先在平台上下文中了解可选能力和对应资料。",
+    "aiSummary": "先从 Skywork 中想完成的任务出发，核对 Skill 的使用步骤是否依赖平台功能。若计划把内容带到其他宿主，应把这种迁移单独验证，而不是沿用平台内的使用假设。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -1193,20 +876,9 @@
     "type": "skill 合集",
     "scale": "合集(tessl)",
     "pricing": "free",
-    "tagline": "skill 合集入口",
-    "summary": "Tessl Registry 是目标清单中的 skill 合集，适合用于发现、比较或安装 agent skill 相关资源。",
-    "longSummary": "Tessl Registry 是 Tessl 提供的 skill registry(注册表),以市场形式集中托管和分发 agent 能力,面向全球英文用户。\n\n免费使用,可信度中等。适合希望通过统一 registry 发现和获取 skill 的用户,尤其是关注 Tessl 生态的开发者。",
-    "aiSummary": "适合按“Agent Skills / 合集”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "Tessl Registry 是什么?",
-        "a": "Tessl 提供的 skill registry,以市场形式集中托管和分发 agent 能力。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "Skill 注册表发现",
+    "summary": "Tessl Registry 是 Tessl 提供的英文 Skill 注册表，以市场形式集中呈现和分发 agent 能力。它适合希望从统一 registry 查找候选、或正在了解 Tessl 生态的开发者。",
+    "aiSummary": "先检查条目的发布者、版本说明和获取方法，再判断它与项目现有的依赖管理方式是否匹配。注册表带来的集中入口有助于查找，仍需逐项理解内容究竟包含哪些指令或文件。",
     "featured": true,
     "recommended": false,
     "trustLevel": "medium",
@@ -1236,20 +908,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "21个商业诊断 skill",
-    "summary": "围绕商业诊断与简历调整场景的 skill 项目集合。",
-    "longSummary": "varunr89/resume-tailoring-skill 是一个开源 skill 项目,主题是简历定制——帮助 agent 针对不同岗位调整和优化简历。代码公开,可审计、可自行改造。\n\n在 SkillFlux 中它归入开源仓库类,可信度较高,免费使用。适合做求职工具、或想复用简历定制能力的开发者。",
-    "aiSummary": "适合按“Agent Skills / 开源 / GitHub”标识快速判断是否需要深入查看。",
-    "faqs": [
-      {
-        "q": "resume-tailoring-skill 是做什么的?",
-        "a": "一个开源 skill,帮助 agent 针对不同岗位调整和优化简历。"
-      },
-      {
-        "q": "它是开源的吗?",
-        "a": "是,代码公开,免费使用。"
-      }
-    ],
+    "tagline": "按岗位调整简历",
+    "summary": "varunr89/resume-tailoring-skill 是围绕岗位需求调整简历的开源 Skill 项目。它让开发者检查相关指令与实现，适合求职工具的能力评估，或在已有真实履历的基础上研究表达和结构调整。",
+    "aiSummary": "用岗位说明与真实履历做对照，把成果、职责和技能的事实边界写清楚。评估修改是否突出了已有证据，而不是新增经历；保留前后版本，方便核对每项表述。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1280,20 +941,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "约 23.8 万 star 的 agentic skills 框架",
-    "summary": "面向 Claude Code 的 agentic skills 框架与开发方法论，内置 TDD、调试、brainstorm/plan/execute 等成套技能，是社区最热门的 skills 项目之一（GitHub 约 23.8 万 star）。",
-    "longSummary": "Superpowers(obra)是一个开源 skill 框架项目,带“框架”标签,提供组织和扩展 agent 能力的结构,而不只是单个 skill。代码公开,可审计、可扩展。\n\n在 SkillFlux 中它归入开源仓库类,可信度较高,免费使用。适合想系统化管理多个 skill、或在框架层面做定制的开发者。",
-    "aiSummary": "想一次拿到成套高质量工程化 skill，从这个超高 star 框架仓库入手。",
-    "faqs": [
-      {
-        "q": "Superpowers 是什么?",
-        "a": "一个开源的 skill 框架项目,提供组织和扩展 agent 能力的结构。"
-      },
-      {
-        "q": "它和单个 skill 有什么不同?",
-        "a": "它是框架层面的项目,面向系统化管理和扩展多个能力,而非单一功能。"
-      }
-    ],
+    "tagline": "规划、调试与测试工作流",
+    "summary": "Superpowers 是 obra 的开源 agentic skills 框架与开发方法论，围绕规划、执行、调试和测试组织能力。它适合希望把多个开发步骤串成可检查流程的团队，也可以用于研究 Skill 的组合方式。",
+    "aiSummary": "先选一个有现成测试的改动，观察规划到验证的每一步是否产生了可复查的结果。框架流程应服务于项目验收，遇到不适用的步骤应明确调整理由，不能用流程完成代替功能正确。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1324,20 +974,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "1000+ Claude Skills 精选清单",
-    "summary": "覆盖 Claude.ai、Claude Code、Codex、Cursor 等的 1000+ 生产可用 skill 与插件精选清单（GitHub 约 6.6 万 star）。",
-    "longSummary": "awesome-claude-skills(Composio 维护)是一个开源的 Claude Skills 策展合集(awesome 列表),把值得关注的 skill 分类整理到一个 GitHub 仓库里。\n\n作为合集型开源仓库,它可信度较高、更新由社区推动,免费使用。适合系统性了解 Claude Skills 生态、按主题发现优质资源的用户。",
-    "aiSummary": "按用途海选 skill 时的高质量清单入口。",
-    "faqs": [
-      {
-        "q": "这个 awesome-claude-skills 是什么?",
-        "a": "Composio 维护的开源 Claude Skills 策展合集(awesome 列表),按主题整理值得关注的 skill。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费,开源。"
-      }
-    ],
+    "tagline": "Claude Skill 主题策展",
+    "summary": "Composio 维护的 awesome-claude-skills 是 GitHub 上的 Claude Skills 策展清单，将候选资源按主题组织。它适合系统浏览不同能力方向，再从清单中的链接进入真正提供实现的项目。",
+    "aiSummary": "把 awesome 清单作为索引来读，区分维护清单的人和维护具体 Skill 的人。选中条目后检查源项目文档，避免把清单的整体介绍当成每个链接都具备的能力或支持承诺。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1368,20 +1007,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "1000+ 多平台 agent skills 合集",
-    "summary": "聚合 Anthropic、Google、Vercel、Stripe 等官方团队与社区的 1000+ agent skills，兼容 Claude Code、Codex、Cursor、Gemini CLI（GitHub 约 2.6 万 star）。",
-    "longSummary": "awesome-agent-skills(VoltAgent 维护)是一个开源的 agent skills 策展合集,把面向各类 agent 的可复用能力汇总到一个 awesome 列表中。\n\n可信度较高,由社区维护更新,免费使用。适合不局限于单一平台、想广泛了解 agent skill 生态的用户。",
-    "aiSummary": "想找各大厂官方出品的 agent skill，先看这个聚合清单。",
-    "faqs": [
-      {
-        "q": "awesome-agent-skills 是什么?",
-        "a": "VoltAgent 维护的开源 agent skills 策展合集,汇总面向各类 agent 的可复用能力。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费,开源。"
-      }
-    ],
+    "tagline": "跨 Agent Skill 策展",
+    "summary": "VoltAgent 的 awesome-agent-skills 将厂商团队与社区的 Skill 来源汇集到 GitHub 策展清单。它的视角不局限于一个 agent，适合比较来源类型，再回到具体项目核对宿主、安装方式和能力范围。",
+    "aiSummary": "按任务挑选几条来源，记录各自声明的宿主要求，避免从合集的广泛覆盖推断每个 Skill 都能跨宿主使用。涉及移动开发时，优先回到 Android 或 Expo 等源仓库阅读技术栈要求。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1412,20 +1040,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "Claude Code 向 skill 精选清单",
-    "summary": "聚焦 Claude Code 的 awesome skill 清单，含 skill 架构与渐进式加载说明（GitHub 约 1.4 万 star）。",
-    "longSummary": "awesome-claude-skills(travisvn 维护)是一个开源的 Claude Skills 策展列表,由维护者收集整理值得关注的 skill 资源。\n\n作为合集型开源仓库,免费使用,可信度中等。适合作为发现 Claude Skills 的又一份社区参考,可与其他 awesome 列表对照着看。",
-    "aiSummary": "偏 Claude Code 工作流的 skill 清单。",
-    "faqs": [
-      {
-        "q": "这个列表是什么?",
-        "a": "travisvn 维护的开源 Claude Skills 策展列表,收集整理值得关注的 skill。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费,开源。"
-      }
-    ],
+    "tagline": "Claude Skill 清单与架构参考",
+    "summary": "travisvn 的 awesome-claude-skills 是面向 Claude 的开源策展清单，现有资料还记录了 Skill 架构与渐进式加载的说明。它适合同时了解候选资源和组织原理，再决定要深入阅读哪一个项目。",
+    "aiSummary": "先阅读清单中的架构介绍，再选一个源项目对照其文件组织。概念说明有助于建立阅读方法，但具体版本的格式和加载行为仍应以宿主及项目文档为准。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1457,20 +1074,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "安全向 Claude skills 精选清单",
-    "summary": "偏安全方向的 Claude Skills 精选清单（GitHub 约 9.6k star）。",
-    "longSummary": "awesome-claude-skills(BehiSecc 维护)是一个带安全视角的开源 Claude Skills 策展合集,除了汇总 skill 资源,还带有“安全”标签,可能更关注安全相关的能力与实践。\n\n免费使用,可信度中等。适合关注 skill 安全性、或在安全场景下寻找相关能力的用户。",
-    "aiSummary": "做安全相关任务时优先翻这个清单。",
-    "faqs": [
-      {
-        "q": "这个列表有什么特点?",
-        "a": "BehiSecc 维护的开源 Claude Skills 合集,带安全视角,关注安全相关能力与实践。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费,开源。"
-      }
-    ],
+    "tagline": "安全视角 Skill 清单",
+    "summary": "BehiSecc 的 awesome-claude-skills 是带安全视角的开源 Claude Skills 策展清单。它提供安全相关能力的发现路径，适合从项目链接进一步检查指令、脚本和权限要求。",
+    "aiSummary": "先明确审查对象与授权范围，再检查链接项目实际执行哪些操作。把清单中的候选当作待验证工具，评估其输出能否复现，以及是否给出了足够证据定位问题。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1502,20 +1108,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "安卓官方 agent skills",
-    "summary": "Android 开发者团队官方维护的 agent skills，面向原生安卓开发（GitHub 约 5.9k star）。",
-    "longSummary": "Android Skills 是 Android 官方(Google)在 GitHub 上维护的开源 skill 仓库,面向移动开发场景,带“官方”与”移动开发“标签。作为官方来源,权威性和可信度都很高。\n\n代码开源、可审计,免费使用。适合做 Android/移动开发、希望使用官方背书 skill 的开发者。",
-    "aiSummary": "做原生安卓时用官方背书的 skills。",
-    "faqs": [
-      {
-        "q": "Android Skills 是什么?",
-        "a": "Android 官方(Google)维护的开源 skill 仓库,面向移动开发场景。"
-      },
-      {
-        "q": "它可信吗?",
-        "a": "可信度高,是官方来源。开源、免费。"
-      }
-    ],
+    "tagline": "原生 Android 开发",
+    "summary": "Android Skills 是 Android 开发者团队在 GitHub 发布的 Skill 仓库，聚焦原生 Android 开发场景。开发者可以直接阅读文件与说明，结合项目的 Android 技术栈判断适合参考或引入的内容。",
+    "aiSummary": "先对照项目使用的语言、构建工具和框架版本选择相关 Skill，再在模拟器或真机上验证结果。源团队的上下文有助于理解意图，最终判断仍应来自你的项目构建和实际交互。",
     "featured": true,
     "recommended": false,
     "trustLevel": "high",
@@ -1547,20 +1142,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "Expo 官方 agent skills",
-    "summary": "Expo 官方维护的 agent skills，面向 React Native / Expo 开发（GitHub 约 2.1k star）。",
-    "longSummary": "Expo Skills 是 Expo 官方在 GitHub 上维护的开源 skill 仓库,面向移动开发(React Native / Expo 生态),带“官方”与”移动开发“标签。作为官方来源,可信度高。\n\n代码开源、可审计,免费使用。适合使用 Expo/React Native、希望获得官方 skill 支持的开发者。",
-    "aiSummary": "做 RN/Expo 时用官方 skills。",
-    "faqs": [
-      {
-        "q": "Expo Skills 是什么?",
-        "a": "Expo 官方维护的开源 skill 仓库,面向 React Native / Expo 移动开发生态。"
-      },
-      {
-        "q": "它可信吗?",
-        "a": "可信度高,是官方来源。开源、免费。"
-      }
-    ],
+    "tagline": "React Native 与 Expo 开发",
+    "summary": "Expo Skills 是 Expo 团队在 GitHub 发布的 Skill 仓库，面向 React Native / Expo 移动开发生态。它适合使用这一技术栈的开发者阅读原始指令，再对照现有项目选择和验证相关能力。",
+    "aiSummary": "先核对项目的 Expo 与 React Native 环境，再挑选与当前改动相关的 Skill。界面或交互变更除了代码检查，还应在目标设备环境验证，尤其是平台差异和已有项目约定。",
     "featured": false,
     "recommended": false,
     "trustLevel": "high",
@@ -1592,20 +1176,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "完整 Claude Code 配置中文翻译",
-    "summary": "Anthropic 黑客松获胜配置的中文翻译项目，含 agents/skills/hooks/commands/rules/MCP 全套 80+ 文件（GitHub 约 1.4k star）。",
-    "longSummary": "everything-claude-code 中文版(xu-xiang 维护)是一个面向 Claude Code 的中文开源合集仓库,把与 Claude Code 相关的 skill、用法和资源整理成中文资料。\n\n作为合集型开源仓库,免费使用,可信度中等。适合中文用户系统学习和使用 Claude Code、寻找配套 skill 的场景。",
-    "aiSummary": "中文工程师快速上手整套 Claude Code 配置的入口。",
-    "faqs": [
-      {
-        "q": "everything-claude-code 中文版是什么?",
-        "a": "面向 Claude Code 的中文开源合集,整理相关 skill、用法和资源。"
-      },
-      {
-        "q": "它是中文的吗?",
-        "a": "是,中文资料,开源免费。"
-      }
-    ],
+    "tagline": "中文 Claude Code 配置参考",
+    "summary": "everything-claude-code 中文版由 xu-xiang 维护，整理 Claude Code 相关的中文资料与配置，覆盖 agents、skills、hooks、commands、rules 和 MCP 等内容。它适合从整体配置角度学习，再按项目需要选择其中的部分。",
+    "aiSummary": "先盘点项目已有的规则、hook 和工具连接，再选择一个配置文件比较变化。将翻译内容与上游来源对照，保留自己的项目约定，避免一次覆盖整套配置后难以追踪行为变化。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1636,20 +1209,9 @@
     "type": "开源 skill 仓库",
     "scale": "开源项目",
     "pricing": "free",
-    "tagline": "实用 Claude/Codex skills 合集",
-    "summary": "作者自用沉淀的实用 skills 合集（视频下载发布、变声、发票识别等，GitHub 约 576 star）。",
-    "longSummary": "wlzh/skills 是一个中文开源 skill 仓库,由个人维护,收录可复用的 agent 能力。代码公开、可审计、可自行改造。\n\n在 SkillFlux 中它归入开源仓库类,免费使用,可信度中等。适合中文开发者参考、复用或改造具体 skill。",
-    "aiSummary": "找接地气的中文实用 skill 时翻一翻。",
-    "faqs": [
-      {
-        "q": "wlzh/skills 是什么?",
-        "a": "一个中文开源 skill 仓库,收录可复用的 agent 能力,代码公开。"
-      },
-      {
-        "q": "它是开源的吗?",
-        "a": "是,开源免费,可审计可改造。"
-      }
-    ],
+    "tagline": "中文实用 Skill 集合",
+    "summary": "wlzh/skills 是个人维护的中文实用 Skill 仓库，现有资料列举了视频下载发布、变声、发票识别等方向。它适合围绕具体任务阅读对应文件和脚本，评估能否复用或按需要修改。",
+    "aiSummary": "每次只选择一个与你任务相符的条目，读清输入格式、外部服务和文件输出位置。媒体与票据任务的依赖可能差异很大，应分别用短素材或脱敏样本验证。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1681,20 +1243,9 @@
     "type": "开源 skill 仓库",
     "scale": "合集仓库",
     "pricing": "free",
-    "tagline": "精选 100+ / 18 个原创可装中文 skill",
-    "summary": "中文社区精选 100+ Claude Code skills，含 18 个原创可安装技能，按场景分类（GitHub 约 449 star）。",
-    "longSummary": "claude-code-skills-zh(laolaoshiren 维护)是一个面向 Claude Code 的中文开源 skill 合集,把相关 skill 汇总并配以中文说明,降低中文用户的上手门槛。\n\n作为合集型开源仓库,免费使用,可信度中等。适合想用中文学习 Claude Code skill、并直接取用的用户。",
-    "aiSummary": "中文原创、复制即装的 skill 合集。",
-    "faqs": [
-      {
-        "q": "claude-code-skills-zh 是什么?",
-        "a": "面向 Claude Code 的中文开源 skill 合集,汇总相关 skill 并配中文说明。"
-      },
-      {
-        "q": "它是中文的吗?",
-        "a": "是,中文说明,开源免费。"
-      }
-    ],
+    "tagline": "中文 Claude Code Skill 合集",
+    "summary": "laolaoshiren 维护的 claude-code-skills-zh 将 Claude Code Skill 按场景汇总，并提供中文说明与原创内容。它适合中文用户先理解条目用途，再打开具体文件阅读使用步骤。",
+    "aiSummary": "先区分合集中的外部链接与仓库内的原创文件，然后只选择与你任务相符的一项。这样可以清楚记录实际安装来源，也能分别阅读外部项目与原创内容的依赖和许可。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1723,20 +1274,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "社区驱动的 skill 市场",
-    "summary": "skill0 是一个社区驱动的英文 skill 市场,收录大量用于扩展 Claude 能力的 agent skill。",
-    "longSummary": "skill0 是一个社区驱动的英文 skill 市场,把社区贡献的 agent skill 集中呈现,主题覆盖 AI 产品增长、文档、设计、安全等多个方向,并为 Claude Code 用户提供接入说明。\n\n作为市场类来源,它的价值在于覆盖面和社区活跃度,免费使用。在 SkillFlux 中它归入市场类,可信度中等,适合想在社区生态里发现和取用 Claude skill 的英文用户。",
-    "aiSummary": "适合浏览社区贡献的 Claude skill 市场,按主题发现能力。",
-    "faqs": [
-      {
-        "q": "skill0 是什么?",
-        "a": "一个社区驱动的英文 skill 市场,集中呈现扩展 Claude 能力的 agent skill,并提供接入说明。"
-      },
-      {
-        "q": "skill0 收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "社区 Claude Skill 市场",
+    "summary": "skill0 是社区贡献的英文 Skill 市场，按 AI 产品增长、文档、设计、安全等主题呈现能力，并提供 Claude Code 的接入说明。它适合从工作主题出发寻找候选，再核查各条目的提供者和依赖。",
+    "aiSummary": "主题浏览之后，把候选落到一个可验证的小任务，并阅读条目自己的接入步骤。社区贡献的内容可能采用不同工具，先确认实际需要的组件与权限，再决定是否纳入日常流程。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1768,20 +1308,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "Qoder 社区 skill 合集",
-    "summary": "Qoder 社区维护的 skill 合集,聚合 skills.sh、MCP Marketplace、Anthropic 官方等多来源,按分类和职业角色组织。",
-    "longSummary": "Qoder Community Skills 是 Qoder 社区维护的 skill 合集,把来自 skills.sh、MCP Marketplace、Anthropic 官方等多个来源的能力汇总在一起,按分类和职业角色组织,并鼓励社区贡献。提供中文界面,也可切换英文。\n\n它与已收录的 Qoder 官方市场是不同入口:后者偏厂商自营,这里更偏社区聚合。免费使用,可信度中等,适合想以中文视角、按角色发现 skill 的用户。",
-    "aiSummary": "适合按分类/职业角色发现多来源聚合的中文 skill 合集。",
-    "faqs": [
-      {
-        "q": "Qoder Community Skills 是什么?",
-        "a": "Qoder 社区维护的 skill 合集,聚合 skills.sh、MCP Marketplace、Anthropic 官方等多来源,按分类和角色组织。"
-      },
-      {
-        "q": "它和 Qoder 官方市场有什么区别?",
-        "a": "官方市场偏厂商自营,Qoder Community 更偏社区聚合,汇总多来源并鼓励社区贡献。"
-      }
-    ],
+    "tagline": "按角色发现社区 Skill",
+    "summary": "Qoder Community Skills 汇总 skills.sh、MCP Marketplace、Anthropic 官方等多个来源的能力，按分类和职业角色组织，并提供中文与英文界面。它是社区聚合入口，与 Qoder 官方市场是两个不同来源。",
+    "aiSummary": "角色分类适合帮助表达需求，选中条目后仍要回到原始项目确定适用任务。特别注意官方市场与社区聚合的区别：同属 Qoder 主题，并不意味着安装路径与维护者相同。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1810,20 +1339,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "mixed",
-    "tagline": "面向开发者的 skill 市场",
-    "summary": "Cyrus 是一个英文 skill 市场,聚合面向 AI 编码 agent 的可复用能力,覆盖开发、DevOps、安全、设计等分类。",
-    "longSummary": "Cyrus(atcyrus.com)是一个面向开发者的英文 skill 市场,把用于增强 AI 编码 agent 的可复用能力(skill)集中托管,按开发、DevOps、安全、设计、文档、沟通、营销等分类组织。\n\n它的定价为部分付费:提供免费试用,也有付费方案。在 SkillFlux 中归入市场类,可信度为新兴——适合关注新来源、以开发工作流为主的用户,用于生产前建议核对具体 skill。",
-    "aiSummary": "适合按开发/DevOps/安全等分类挑选面向编码 agent 的 skill。",
-    "faqs": [
-      {
-        "q": "Cyrus Skills 是什么?",
-        "a": "一个英文 skill 市场,聚合面向 AI 编码 agent 的可复用能力,按开发、安全、设计等分类组织。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "部分付费。提供免费试用,也有付费方案。"
-      }
-    ],
+    "tagline": "开发者 Skill 市场",
+    "summary": "Cyrus Skills 是面向 AI 编码 agent 的英文 Skill 市场，按开发、DevOps、安全、设计、文档等方向组织可复用能力。它适合围绕开发工作流查找候选；具体使用条件与方案应在对应来源核对。",
+    "aiSummary": "先定位现有开发流程中最明确的缺口，例如调试或审查，再对比候选的输入输出与工具依赖。若使用涉及试用或付费方案的能力，应把方案限制与实际任务范围一并确认。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -1854,20 +1372,9 @@
     "type": "skill 合集",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "LobeHub 的 skill 市场",
-    "summary": "LobeHub Skills 是开源 AI 应用生态 LobeHub(LobeChat 背后团队)推出的 skill 市场,面向国际化的中英文用户。",
-    "longSummary": "LobeHub Skills 是 LobeHub 推出的 skill 市场。LobeHub 是开源 AI 助手 LobeChat 背后的团队,长期维护面向 AI 应用的开放生态,界面同时支持中英文。\n\n作为市场类来源,它把可复用的 agent 能力集中呈现,免费使用,可信度中等。适合已经在使用 LobeHub / LobeChat 生态、或偏好开源、国际化产品的用户。",
-    "aiSummary": "适合 LobeHub / LobeChat 生态用户发现开源风格的 skill。",
-    "faqs": [
-      {
-        "q": "LobeHub Skills 是什么?",
-        "a": "开源 AI 应用生态 LobeHub(LobeChat 背后团队)推出的 skill 市场,支持中英文。"
-      },
-      {
-        "q": "它收费吗?",
-        "a": "免费。"
-      }
-    ],
+    "tagline": "LobeHub 生态 Skill 发现",
+    "summary": "LobeHub Skills 是 LobeHub 团队提供的 Skill 市场，面向中英文用户集中呈现 agent 的可复用能力。它适合已了解 LobeHub / LobeChat 生态的用户从熟悉的入口浏览，再按具体条目检查使用方式。",
+    "aiSummary": "从熟悉的生态入口发现候选后，仍需确认具体条目如何接入当前宿主。LobeHub 的开源背景与市场中每项内容的许可证、执行方式是不同问题，应分别查看。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1896,20 +1403,9 @@
     "type": "MCP 服务器目录",
     "scale": "集合入口",
     "pricing": "free",
-    "tagline": "MCP 服务器目录",
-    "summary": "mcpservers.org 是一个精选的 MCP(Model Context Protocol)服务器目录,帮助发现兼容 Claude、Cursor、ChatGPT 的官方与社区服务器。",
-    "longSummary": "mcpservers.org 是一个精选的 MCP(Model Context Protocol)服务器目录,收录官方与社区构建的 MCP 服务器,按网页抓取、开发、生产力、金融等分类组织,便于开发者查找并集成扩展 AI 能力的工具。\n\n它兼容 Claude、Cursor、ChatGPT 等 agent,免费使用(含部分赞助/精选位)。在 SkillFlux 中它归入综合目录类,是 skill 之外补齐 MCP 生态的一个入口,可信度中等。",
-    "aiSummary": "适合发现兼容主流 agent 的 MCP 服务器,补齐 MCP 生态。",
-    "faqs": [
-      {
-        "q": "mcpservers.org 是什么?",
-        "a": "一个精选的 MCP 服务器目录,收录官方与社区的 MCP 服务器,兼容 Claude、Cursor、ChatGPT 等。"
-      },
-      {
-        "q": "它和 skill 有什么关系?",
-        "a": "它聚焦 MCP 服务器而非 skill,是 SkillFlux 覆盖的 skill/MCP 生态中补齐 MCP 一侧的入口。"
-      }
-    ],
+    "tagline": "MCP 服务器发现",
+    "summary": "MCP Servers 是收录官方与社区 MCP 服务器的英文目录，按网页抓取、开发、生产力、金融等方向组织条目。它适合在需要把外部工具接入 agent 时发现候选，并进入各服务器文档核对配置和认证。",
+    "aiSummary": "先确定服务和操作范围，再检查候选服务器使用的连接方式、凭证和权限。目录帮助找到服务器，真正能否接入由当前宿主与服务器的协议和配置要求共同决定。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -1940,20 +1436,9 @@
     "type": "skill 合集",
     "scale": "合集",
     "pricing": "free",
-    "tagline": "可命令行安装的 skill 市场",
-    "summary": "接口 AI(cc.jiekou.ai)是一个中英双语、可通过命令行安装的开源 skill 市场,带有社区安装量排行榜。",
-    "longSummary": "接口 AI(cc.jiekou.ai)是一个面向 Claude agent 的中英双语 skill 市场,收录大量社区贡献的可复用能力,支持通过命令行(如 npx)直接安装,并提供按安装量排序的排行榜。\n\n它免费、偏开源风格,可信度为新兴。适合偏好命令行安装、并想通过热度信号发现优质 skill 的中文用户;用于生产前建议核对具体 skill 的维护状态。",
-    "aiSummary": "适合命令行安装、按安装量排行发现 skill 的中文用户。",
-    "faqs": [
-      {
-        "q": "接口 AI Skills 是什么?",
-        "a": "一个中英双语、可命令行安装的开源 skill 市场,带社区安装量排行榜。"
-      },
-      {
-        "q": "怎么安装它的 skill?",
-        "a": "支持通过命令行(如 npx)直接安装,并可参考安装量排行选择。"
-      }
-    ],
+    "tagline": "双语 Skill 市场与安装发现",
+    "summary": "接口 AI Skills 是面向 Claude agent 的中英双语 Skill 市场，提供社区能力浏览、命令行安装说明和按安装量排序的榜单。它适合偏好中文阅读与命令行获取内容的用户，先找到候选再检查具体来源。",
+    "aiSummary": "阅读安装命令前先确认它对应的项目和来源，然后检查命令会写入哪些目录。榜单可以安排查看顺序，但实际采用仍应以任务效果、依赖与维护信息为依据。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -1982,12 +1467,11 @@
     ],
     "region": "global",
     "type": "开源 skill 仓库",
-    "scale": "固定提交全部 38 个 Skill",
+    "scale": "38 个 Skill",
     "pricing": "free",
-    "tagline": "需求澄清、测试与代码审查工作流",
-    "summary": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。",
-    "longSummary": "Matt Pocock 的工程与生产力 Skill 合集，覆盖需求澄清、规格编写、测试、调试、审查与交接。SkillFlux 已按固定提交完整收录全部 38 个 Skill，保留各目录中的正文、引用、脚本、配置和许可证。\n\n完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
-    "aiSummary": "完整清单与逐文件核验记录见下方收录清单链接，范围包括 engineering、productivity、misc 和 in-progress。完整收集不新增 MCP 安装资格：新增快照仍待审核，已有版本的安装资格以各自审核记录为准。",
+    "tagline": "把需求访谈转为规格、任务依赖和代码审查",
+    "summary": "Matt Pocock 的 Skill 合集把开发协作拆成可组合的环节：先追问未定决策，再整理规格、划分可验证的任务，最后分别检查代码规范与需求符合度。这里依据固定提交中的 38 个 Skill 正文拆解其中的工程工作流，帮助选择当前项目需要的环节。",
+    "aiSummary": "本页依据固定提交中 38 个 Skill 的正文、引用与脚本做文件分析，范围覆盖 engineering、productivity、misc 和 in-progress，不代表这些工作流已经运行验收。其中已收录的 Skill 各有体检报告，安装请按原仓库说明进行。",
     "featured": false,
     "recommended": false,
     "trustLevel": "medium",
@@ -2021,12 +1505,11 @@
     ],
     "region": "global",
     "type": "开源 Skill 与 MCP 项目",
-    "scale": "完整 Skill 包与独立分析工具",
+    "scale": "Skill 包与独立分析工具",
     "pricing": "free",
-    "tagline": "二进制、应用与运行行为的逆向分析",
-    "summary": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。",
-    "longSummary": "REA 通过 MCP 与 CLI 为 Agent 提供二进制、应用包和运行行为分析。SkillFlux 已完整保存 reverse-engineer-anything Skill 的入口、五份本地引用和 MIT 许可证，适合需要追溯软件行为证据的开发者。\n\n完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
-    "aiSummary": "完整技能包及逐文件核验记录见下方收录链接。该包目前保存在 intake，尚未通过 MCP 安装审核；REA MCP、CLI 和对应分析引擎属于独立运行依赖，需按目标平台准备。",
+    "tagline": "从应用制品与运行证据解释软件行为",
+    "summary": "REA 的 reverse-engineer-anything Skill 先根据目标选择分析路径：二进制、应用包、Electron/JavaScript、Android 或已有运行捕获，再把发现整理成带证据编号的结论。它适合解释已交付软件的行为、对比版本或支持重建；普通完整源码仓库的架构阅读应使用常规仓库工具。",
+    "aiSummary": "这里依据固定快照中的 Skill 入口、五份本地引用和 MIT 许可证，分析目标路由与证据工作流，未声称执行过这些目标。REA 的 MCP、CLI 和分析引擎属于独立运行依赖，需按目标平台另外准备。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2061,12 +1544,11 @@
     ],
     "region": "global",
     "type": "开源可视化讲解 Skill",
-    "scale": "完整 Skill 与捆绑渲染器",
+    "scale": "单个 Skill 与渲染脚本",
     "pricing": "free",
-    "tagline": "将解释、流程与对比生成交互 HTML 页面",
-    "summary": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。",
-    "longSummary": "Answer me with HTML 将 Markdown 草稿生成本地 HTML 讲解页，适合流程、架构和方案对比，也支持明确要求的讲解视频。SkillFlux 已完整保存 Skill 正文、设置与视频引用、捆绑 Node.js 渲染脚本和许可证。\n\n完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
-    "aiSummary": "完整包包含 scripts/am.mjs，其中已捆绑页面模板、CSS 和 JavaScript，并补齐第三方许可证。收录清单见下方链接；当前仍为 intake，MCP 安装审核尚未完成。",
+    "tagline": "用 Markdown 草稿生成可修订的 HTML 讲解页",
+    "summary": "Answer me with HTML 让模型负责内容草稿，由捆绑的 Node.js CLI 完成页面布局与图示。流程、时序、目录、时间线和方案比较可用专用语法表达，生成后还能按面板局部修订。适合把复杂回答整理成可浏览的单页，而不是手写整套 HTML 与 CSS。",
+    "aiSummary": "以下依据固定版本的 Skill 正文、设置、视频引用和 scripts/am.mjs（内含模板、CSS、JavaScript）做文件分析，未宣称本次已渲染页面或视频。该 Skill 的体检结果见其报告页。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2100,12 +1582,11 @@
     ],
     "region": "global",
     "type": "科研 Agent Skill 仓库",
-    "scale": "精选 2 个主技能 + 1 个支持技能",
+    "scale": "2 个主技能 + 1 个支持技能",
     "pricing": "free",
-    "tagline": "科学计算、数据库检索与研究写作工作流",
-    "summary": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。",
-    "longSummary": "K-Dense 的科研 Skill 合集覆盖科学软件、数据库和研究流程。SkillFlux 本次精选 scientific-critical-thinking 与 scientific-brainstorming，并完整收录直接引用的 scientific-schematics 支持技能，连同各自引用、脚本及许可证保存。\n\n本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
-    "aiSummary": "本次范围为上述 2 个主技能和 1 个支持技能，完整文件清单见下方收录链接。各包保留原始目录关系，目前均在 intake，尚未通过 MCP 安装审核；Python 软件包和外部 API 等运行依赖需另行准备。",
+    "tagline": "评估科研证据，并筛选可追溯的研究方向",
+    "summary": "本次从 K-Dense 合集中精选两项研究方法 Skill：scientific-critical-thinking 用于检查主张、设计和证据边界，scientific-brainstorming 用于独立生成想法、明确评价标准并记录决策。另完整保存 scientific-schematics 作为可选图示支持；本页分析这组已选能力，不将整个科研工具库视为已收录。",
+    "aiSummary": "分析范围为两个主技能及 scientific-schematics 支持技能，依据固定快照中的正文、引用、脚本和 MIT 许可证，未做行为测试。本页不能作为科研结论或运行验收；Python 软件包和外部 API 等运行依赖需另行准备。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",
@@ -2140,12 +1621,11 @@
     ],
     "region": "global",
     "type": "实证研究 Skill 来源合集",
-    "scale": "精选 3 个主技能 + 3 个支持技能",
+    "scale": "3 个主技能 + 3 个支持技能",
     "pricing": "free",
-    "tagline": "社会科学实证研究与论文工作流发现",
-    "summary": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。",
-    "longSummary": "AERS 汇集多来源实证研究工作流。SkillFlux 从其中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能，并保存三个直接支持技能、所需模板、公共脚本、引用与相关示例。\n\n主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
-    "aiSummary": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。收录范围与完整文件清单见下方链接，仅涵盖这组技能及所需公共资源。目前均为 intake，尚未通过 MCP 安装审核。",
+    "tagline": "串联实证研究的识别、分析计划与复现交付",
+    "summary": "SkillFlux 从 AERS 中采用 MIT 许可的 AER-skills 子合集精选预注册、识别策略和复现三个主技能。它们把研究问题连接到估计目标、分析计划、诊断检查与复现包；同时收录稳健性、StatsPAI 和图表三个支持技能，以及所需模板、公共脚本、引用与示例。",
+    "aiSummary": "主选 aer-preregistration、aer-identification、aer-replication；支持项为 aer-robustness、aer-statspai、aer-tables-figures。本页依据固定版本正文拆解，不表示已验证估计结果或完成研究注册。",
     "featured": false,
     "recommended": false,
     "trustLevel": "emerging",

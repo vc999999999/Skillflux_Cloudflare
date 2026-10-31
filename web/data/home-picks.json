@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "github-com-anthropics-skills",
+    "badge": { "zh": "参考实现", "en": "Reference" },
+    "reason": { "zh": "从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。", "en": "Read the skill structure and implementations directly in Anthropic’s open-source repository." },
+    "best": { "zh": "了解 Skill 格式，建立自己的技能库", "en": "Learning the format and building a skill library" }
+  },
+  {
+    "slug": "modelscope-cn-skills",
+    "badge": { "zh": "编辑推荐", "en": "Recommended" },
+    "reason": { "zh": "中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。", "en": "A starting point for discovering Chinese-language skills and comparing their original sources." },
+    "best": { "zh": "中文资源发现与场景选型", "en": "Finding Chinese-language skill resources" }
+  },
+  {
+    "slug": "github-com-op7418-humanizer-zh",
+    "badge": { "zh": "用途明确", "en": "Focused" },
+    "reason": { "zh": "围绕中文写作提供可阅读的规则，方便检查是否符合自己的编辑习惯。", "en": "Readable rules for Chinese writing, so you can judge whether the editorial approach fits your work." },
+    "best": { "zh": "中文文稿编辑与语言润色", "en": "Editing and refining Chinese writing" }
+  }
+]

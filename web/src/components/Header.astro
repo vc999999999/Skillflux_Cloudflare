@@ -32,7 +32,7 @@ const links = [
       {showLanguageSwitcher && <div class="sf-language" aria-label={zh ? "切换语言" : "Language"}>
         <a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a>
       </div>}
-      <a class="sf-header-cta" href={localizePath("/data/", lang)}>{zh ? "获取数据" : "Get the data"}<span aria-hidden="true">↗</span></a>
+      <a class="sf-header-cta" href={localizePath("/directory/", lang)}>{zh ? "浏览黄页" : "Browse directory"}<span aria-hidden="true">→</span></a>
       <button class="sf-menu-toggle" type="button" aria-controls="sf-mobile-nav" aria-expanded="false" aria-label={zh ? "打开导航菜单" : "Open navigation"} data-open-label={zh ? "打开导航菜单" : "Open navigation"} data-close-label={zh ? "关闭导航菜单" : "Close navigation"}>
         <svg class="sf-menu-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="sf-menu-close" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>

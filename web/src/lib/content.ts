@@ -1,7 +1,7 @@
 import sitesData from "../../data/sites.json";
 import categoriesData from "../../data/categories.json";
 import { ENDPOINTS, SITE } from "../config";
-import { getSiteCopy, translateTag } from "./i18n";
+import { getSiteCopy, translateCategory, translateTag } from "./i18n";
 import { getGuides } from "./guides";
 import { getResourceEditorial, isResourceIndexable, type ResourceEditorial } from "./resource-editorial";
 import { getTagEditorial } from "./taxonomy";
@@ -510,10 +510,10 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
     ...featured.map((site) => { const copy = getSiteCopy(site, "en"); return `- ${site.recommended ? "[Editor's pick] " : ""}${copy.name}: ${copy.tagline} ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`; }),
     "",
     "## Browse by source type",
-    ...categories.map((category) => `- ${category.label} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
+    ...categories.map((category) => `- ${translateCategory(category.slug, category.label, "en")} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
     "",
     "## Browse by tag",
-    ...tagIndex.map((entry) => `- ${entry.tag} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
+    ...tagIndex.map((entry) => `- ${translateTag(entry.tag, "en")} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
     "",
     "## Guides",
     ...getGuides().map((guide) => `- ${guide.title.en}: ${guide.description.en} ${absoluteUrl(`/guides/${guide.slug}/`)}`),
@@ -545,23 +545,21 @@ export function renderLlmsFullText(generatedAt = new Date().toISOString()): stri
   ];
 
   for (const site of getIndexableSites()) {
+    const copy = getSiteCopy(site, "en");
     lines.push(
-      `### ${site.recommended ? "[Editor's pick] " : ""}${getSiteCopy(site, "en").name}`,
-      ...(getSiteCopy(site, "en").name !== site.name ? [`Original name: ${site.name}`] : []),
+      `### ${site.recommended ? "[Editor's pick] " : ""}${copy.name}`,
+      ...(copy.name !== site.name ? [`Original name: ${site.name}`] : []),
       `URL: ${site.canonicalUrl}`,
       `SkillFlux: ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`,
       `Chinese page: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
-      `Type: ${site.type}`,
+      `Type: ${copy.type}`,
       `Kinds: ${site.kinds.join(", ")}`,
-      `Scale: ${site.scale}`,
+      `Scale: ${copy.scale}`,
       `Language: ${site.language.join(", ")}`,
-      `Tags: ${site.tags.map((tag) => translateTag(tag, "en")).join(", ")}`,
-      `Tagline: ${site.tagline}`,
-      `Summary: ${site.summary}`,
-      ...(site.longSummary ? [`Details: ${site.longSummary.replace(/\n+/g, " ")}`] : []),
-      `AI Summary: ${site.aiSummary}`,
+      `Tags: ${copy.tags.join(", ")}`,
+      `Capability: ${copy.tagline}`,
+      `Summary: ${copy.summary}`,
       ...(site.editorial ? [
-        `English summary: ${site.editorial.summary.en}`,
         `Best for: ${site.editorial.bestFor.map(item => item.en).join("; ")}`,
         `Use cases: ${site.editorial.useCases.join(", ")}`,
         `SkillFlux note: ${site.editorial.skillFluxNote.en}`,

@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContentUpdates from './ContentUpdates.astro';
 import Icon from './Icon.astro';
-import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getSiteBySlug, getTagIndex } from '../lib/content';
+import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getTagIndex } from '../lib/content';
+import { getHomePicks } from '../lib/home-picks';
 import { getSiteCopy, localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
@@ -36,11 +37,7 @@ const title = zh ? 'Agent Skill 黄页与实测数据' : 'Agent skill directory 
 const description = zh
   ? `按任务找 Agent Skill，按来源找它们出自哪里。收录 ${stats.resourceCount} 个 Skill 来源；${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，数据以 CC BY 4.0 公开。`
   : `Find agent skills by task, and the sources they come from. ${stats.resourceCount} skill sources listed; ${skillViews.length} public skills health-checked at pinned commits, with all data open under CC BY 4.0.`;
-const picks = [
-  { slug: 'github-com-anthropics-skills', name: 'Anthropic Skills', badge: zh ? '参考实现' : 'Reference', reason: zh ? '从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。' : 'Read the skill structure and implementations directly in Anthropic’s open-source repository.', best: zh ? '了解 Skill 格式，建立自己的技能库' : 'Learning the format and building a skill library' },
-  { slug: 'modelscope-cn-skills', name: 'ModelScope Skills', badge: zh ? '编辑推荐' : 'Recommended', reason: zh ? '中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。' : 'A starting point for discovering Chinese-language skills and comparing their original sources.', best: zh ? '中文资源发现与场景选型' : 'Finding Chinese-language skill resources' },
-  { slug: 'github-com-op7418-humanizer-zh', name: 'Humanizer-zh', badge: zh ? '用途明确' : 'Focused', reason: zh ? '围绕中文写作提供可阅读的规则，方便检查是否符合自己的编辑习惯。' : 'Readable rules for Chinese writing, so you can judge whether the editorial approach fits your work.', best: zh ? '中文文稿编辑与语言润色' : 'Editing and refining Chinese writing' },
-].flatMap(pick => { const site = getSiteBySlug(pick.slug); return site ? [{ ...pick, site }] : []; });
+const picks = getHomePicks();
 const reading = [
   ...getGuides().map(guide => ({ title: guide.title[lang], summary: guide.description[lang], path: `/guides/${guide.slug}/`, type: zh ? '选型指南' : 'GUIDE' })),
   ...scenarios.slice(1).map(scenario => ({ title: scenario.title[lang], summary: scenario.summary[lang], path: `/scenarios/${scenario.slug}/`, type: zh ? '实践指南' : 'WORKFLOW' })),
@@ -88,7 +85,7 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
       </section>
       <section class="home-section" aria-labelledby="picks-title">
         <div class="section-top"><div><p class="eyebrow">{zh ? '编辑推荐' : 'EDITOR’S PICKS'}</p><h2 id="picks-title">{zh ? '从这里开始' : 'Good places to start'}</h2><p>{zh ? '用途明确、资料可追溯的来源，附推荐理由和适用场景。' : 'Sources with a clear purpose and traceable material, with the reason we picked each.'}</p></div><a href={`${href('/directory/')}?recommended=yes`}>{zh ? '更多推荐' : 'More picks'} <Icon size={16} /></a></div>
-        <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE PICKED IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{getSiteCopy(pick.site, lang).tagline}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
+        <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge[lang]}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{getSiteCopy(pick.site, lang).name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE PICKED IT'}</h4><p>{pick.reason[lang]}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best[lang]}</p></div><div class="pick-bottom"><span>{getSiteCopy(pick.site, lang).tagline}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
       </section>
       <ContentUpdates sites={updatedSites} insights={latestInsights} lang={lang} />
       <section class="home-section" aria-labelledby="findings-title">
