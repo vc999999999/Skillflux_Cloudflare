@@ -16,6 +16,8 @@
 | 任务 | 频率 | 方式 |
 | --- | --- | --- |
 | L1 体检 | 每周一 | `.github/workflows/health.yml`：只有结果变化时才开 PR，人工评审后合并 |
+| 来源抽样体检 | 每月 2 日 | `.github/workflows/source-audits.yml`：重新钉定并抽样所有 GitHub 来源，开 PR 人工评审 |
+| 新增来源 | 按需 | 在 `sites.json` 和 `resource-editorial.json` 各加一条；GitHub 来源再加到 `source-audit-targets.json` 并运行 `npm run bench -- audit --all --missing` |
 | 新收录 Skill | 按需 | `bench import` → 写摘要 → `status: listed` → `npm run validate` |
 | L2 实测 | 按批次 | 在容器中执行 `bench run` → 复核 → `bench publish` → 转录作为 GitHub Release 附件 |
 | 结果更正 | 有 dispute 时 | 体检记录修正后重跑；实测发新批次并 `--supersedes` 旧批次，旧批次不删除 |

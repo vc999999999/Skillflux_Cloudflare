@@ -19,8 +19,10 @@ describe('resource and URL indexing policy', () => {
     // Old unprefixed URLs served Chinese; old /en/ URLs served English, which is now the root.
     expect(redirects['/site/github-com-anthropics-skills/']).toBe('/zh/resource/anthropic-skills/');
     for (const site of getSites()) {
-      expect(getRedirectTarget(`/en/site/${site.slug}`, redirects)).toBe(`/resource/${site.resourceSlug}/`);
-      expect(getRedirectTarget(`/site/${site.slug}`, redirects)).toBe(`/zh/resource/${site.resourceSlug}/`);
+      // Only sources listed before the language flip ever had /site/ URLs.
+      const legacy = site.addedAt < '2026-10-29';
+      expect(getRedirectTarget(`/en/site/${site.slug}`, redirects)).toBe(legacy ? `/resource/${site.resourceSlug}/` : undefined);
+      expect(getRedirectTarget(`/site/${site.slug}`, redirects)).toBe(legacy ? `/zh/resource/${site.resourceSlug}/` : undefined);
     }
     expect(getRedirectTarget('/site/nonexistent/', redirects)).toBeUndefined();
     for (const [from, to] of Object.entries(redirects)) {

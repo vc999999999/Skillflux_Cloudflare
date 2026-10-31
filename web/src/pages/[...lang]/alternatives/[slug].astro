@@ -1,0 +1,14 @@
+---
+import AlternativesPage from "../../../components/AlternativesPage.astro";
+import { getIndexableSites } from "../../../lib/content";
+import { langStaticPaths } from "../../../lib/i18n";
+import { alternativesFor } from "../../../lib/source-compare";
+
+export function getStaticPaths() {
+  const sites = getIndexableSites().filter(site => alternativesFor(site).length >= 3);
+  return langStaticPaths().flatMap(({ params, props }) => sites.map(site => ({ params: { ...params, slug: site.resourceSlug }, props: { ...props, site } })));
+}
+
+const { site, lang } = Astro.props;
+---
+<AlternativesPage site={site} lang={lang} />

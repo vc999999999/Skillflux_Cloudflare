@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import SourceCard from './SourceCard.astro';
+import { absoluteUrl } from '../lib/content';
+import { getSiteCopy, localizePath, type Language } from '../lib/i18n';
+import { getSourceAudit } from '../lib/source-audits';
+import type { BestTopic } from '../lib/source-compare';
+const { topic, lang } = Astro.props as { topic: BestTopic; lang: Language };
+const zh = lang === 'zh';
+const canonicalPath = localizePath(`/best/${topic.slug}/`, lang);
+const audited = topic.sites.filter(site => getSourceAudit(site.slug)).length;
+const title = topic.title[lang];
+const description = zh
+  ? `${topic.intro.zh}共 ${topic.sites.length} 个来源，其中 ${audited} 个有 SkillFlux 抽样体检数据，按抽样结果排序。`
+  : `${topic.intro.en} ${topic.sites.length} sources, ${audited} with SkillFlux sample-check data, ordered by that data.`;
+const updatedAt = topic.sites.map(site => site.updatedAt).sort().at(-1)!;
+const crumbs = [{ label: zh ? '首页' : 'Home', href: localizePath('/', lang) }, { label: zh ? '来源盘点' : 'Roundups', href: localizePath('/best/', lang) }, { label: title }];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: absoluteUrl(canonicalPath), description, dateModified: updatedAt, inLanguage: zh ? 'zh-CN' : 'en',
+    mainEntity: { '@type': 'ItemList', itemListOrder: 'https://schema.org/ItemListOrderDescending', numberOfItems: topic.sites.length, itemListElement: topic.sites.map((site, index) => ({ '@type': 'ListItem', position: index + 1, name: getSiteCopy(site, lang).name, url: absoluteUrl(localizePath(`/resource/${site.resourceSlug}/`, lang)) })) } },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.label, item: absoluteUrl(crumb.href ?? canonicalPath) })) },
+];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell compare-page">
+    <Breadcrumb items={crumbs} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
+    <header class="compare-head">
+      <p class="eyebrow">{zh ? '来源盘点' : 'ROUNDUP'}</p>
+      <h1>{title}</h1>
+      <p>{topic.intro[lang]}</p>
+      <p class="method-note" data-seo-field="ranking-method">{zh
+        ? `排序方法：先列出有 SkillFlux 抽样数据的 ${audited} 个来源，按抽样中「无失败项、说明何时使用且带许可证」的比例从高到低；其余来源没有抽样数据，按名称排列。这是文件层面的检查，不代表 Skill 是否好用。`
+        : `How this list is ordered: the ${audited} sources with SkillFlux sample data come first, by the share of sampled entries with no failing check, a "when to use" description and a license. The rest have no sample data and are listed by name. This is a file-level check, not a measure of whether skills work.`} <a href={localizePath('/methodology/v1/', lang)}>{zh ? '方法' : 'Method'}</a></p>
+    </header>
+    <ol class="card-list">{topic.sites.map((site, index) => <li><SourceCard site={site} lang={lang} rank={index + 1} /></li>)}</ol>
+  </main>
+</BaseLayout>
+<style>
+  .compare-page { padding-top: 32px; padding-bottom: 72px; }
+  .compare-head h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); letter-spacing: -.035em; margin: 8px 0 14px; }
+  .compare-head p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.75; }
+  .method-note { font-size: .84rem; }
+  .card-list { list-style: none; padding: 0; display: grid; gap: 14px; margin-top: 28px; }
+</style>

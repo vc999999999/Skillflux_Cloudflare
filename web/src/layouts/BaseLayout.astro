@@ -16,6 +16,8 @@ type Props = {
   noindex?: boolean;
   alternateLanguages?: Language[];
   articleDates?: { published: string; modified: string };
+  // A compact Markdown version of the page for agents (rel="alternate").
+  markdownAlternate?: string;
 };
 
 const {
@@ -27,6 +29,7 @@ const {
   pageClass = "",
   noindex = false,
   articleDates,
+  markdownAlternate,
   alternateLanguages = ["en", "zh"]
 } = Astro.props;
 const copy = getPageCopy(lang);
@@ -105,6 +108,7 @@ const organizationJsonLd = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
+    {markdownAlternate && <link rel="alternate" type="text/markdown" href={markdownAlternate} />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c')} />
     {jsonLdItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item).replace(/</g, '\\u003c')} />)}
   </head>

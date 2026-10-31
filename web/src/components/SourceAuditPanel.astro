@@ -1,0 +1,59 @@
+---
+// The sampled health check of one directory source, or why it has none.
+import type { Site } from '../lib/content';
+import { localizePath, type Language } from '../lib/i18n';
+import { getSourceAudit } from '../lib/source-audits';
+import { scorecard } from '../lib/source-audit-data';
+import { pct, sampleScore } from '../lib/source-compare';
+const { site, lang } = Astro.props as { site: Site; lang: Language };
+const zh = lang === 'zh';
+const audit = getSourceAudit(site.slug);
+const lines = audit ? scorecard(audit) : [];
+const score = sampleScore(audit);
+const github = /^https:\/\/github\.com\//.test(site.canonicalUrl);
+const short = (sha: string) => sha.slice(0, 7);
+const outcome: Record<string, [string, string]> = { checked: ['Checked', '已检查'], 'no-skill': ['No SKILL.md', '无 SKILL.md'], unreachable: ['Unreachable', '无法访问'] };
+---
+<section class="prose-block audit-block" data-seo-section="audit" aria-labelledby="audit-heading">
+  <h2 id="audit-heading">{zh ? 'SkillFlux 抽样体检' : 'SkillFlux sample check'}</h2>
+  {audit ? <>
+    <p data-seo-field="audit-summary">{zh
+      ? `${audit.auditedAt}，SkillFlux 把该来源钉定到提交 ${short(audit.listing.commitSha)}，在其${audit.method === 'repo' ? '包含的' : '链接到的'} ${audit.listing.candidates} 个条目中按固定种子抽取 ${audit.summary.sampled} 个，用静态体检 ${audit.checkerVersion} 逐个检查。`
+      : `On ${audit.auditedAt}, SkillFlux pinned this source at commit ${short(audit.listing.commitSha)}, drew a seeded sample of ${audit.summary.sampled} from the ${audit.listing.candidates} entries it ${audit.method === 'repo' ? 'contains' : 'links to'}, and ran static health check ${audit.checkerVersion} on each.`}
+      {score !== null && (zh ? ` 其中 ${pct(score)} 没有失败项、说明了何时使用并带有许可证。` : ` ${pct(score)} had no failing check, said when to use the skill and carried a license.`)}</p>
+    <ul class="scorecard">{lines.map(line => <li><strong>{line.count}<small>/{line.of}</small></strong><span>{line[lang]}</span></li>)}</ul>
+    <details>
+      <summary>{zh ? `查看 ${audit.items.length} 个抽样条目` : `See the ${audit.items.length} sampled entries`}</summary>
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th scope="col">{zh ? '条目' : 'Entry'}</th><th scope="col">{zh ? '结果' : 'Result'}</th><th scope="col">{zh ? '标记' : 'Flags'}</th></tr></thead>
+        <tbody>{audit.items.map(item => <tr>
+          <th scope="row">{item.commitSha && item.path !== null
+            ? <a href={`${item.repo}/tree/${item.commitSha}${item.path ? `/${item.path}` : ''}`} rel="noopener noreferrer">{item.repo.replace('https://github.com/', '')}{item.path ? `/${item.path}` : ''}</a>
+            : <span>{item.repo.replace('https://github.com/', '')}{item.linkedPath ? ` → ${item.linkedPath}` : ''}</span>}</th>
+          <td>{item.outcome === 'checked' ? item.detail : outcome[item.outcome]![zh ? 1 : 0]}</td>
+          <td>{item.flags.join(', ') || '—'}</td>
+        </tr>)}</tbody>
+      </table></div>
+    </details>
+    <p class="analysis-note">{zh ? '抽样只读取文件，不运行 Skill，也不代表来源中的其他条目。标记描述 Skill 包含什么，不是结论。' : 'The sample reads files only; it does not run any skill and does not describe entries outside the sample. Flags describe what a skill contains; they are not verdicts.'} <a href={`/data/source-audits/${site.slug}.json`}>{zh ? '原始数据' : 'Raw data'}</a> · <a href={localizePath('/methodology/v1/', lang)}>{zh ? '检查方法' : 'Method'}</a></p>
+  </> : <p data-seo-field="audit-summary">{github
+    ? (zh ? 'SkillFlux 尚未对这个仓库做抽样体检。' : 'SkillFlux has not sampled this repository yet.')
+    : (zh ? '这是网站而非 Git 仓库。SkillFlux 目前只对能钉定到提交的 GitHub 来源做抽样体检，所以本页没有抽样数据；下方关于该站的说法均标注了出处。' : 'This is a website, not a Git repository. SkillFlux samples only sources it can pin to a commit, so there is no sample data here; statements about the site below are attributed to where they were observed.')}</p>}
+  {site.claims?.length ? <div class="claims">
+    <h3>{zh ? '该来源的自述与第三方说法（未经 SkillFlux 核实）' : 'What the source or others say (not verified by SkillFlux)'}</h3>
+    <ul>{site.claims.map(claim => <li>{claim[lang]} <small><a href={claim.sourceUrl} rel="noopener noreferrer">{new URL(claim.sourceUrl).hostname}</a> · {zh ? '观察于' : 'observed'} {claim.observedAt}</small></li>)}</ul>
+  </div> : null}
+</section>
+<style>
+  .scorecard { list-style: none; padding: 0 !important; margin: 18px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .scorecard li { margin: 0 !important; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); line-height: 1.5 !important; }
+  .scorecard strong { display: block; font: 600 1.35rem var(--font-mono); color: var(--ink); letter-spacing: -.03em; }
+  .scorecard strong small { font-size: .78rem; color: var(--faint); margin-left: 2px; }
+  .scorecard span { font-size: .8rem; color: var(--muted); }
+  .audit-block details { margin: 8px 0 14px; }
+  .audit-block summary { cursor: pointer; font-size: .86rem; font-weight: 550; }
+  .audit-block .data-table { font-size: .78rem; margin-top: 10px; }
+  .audit-block .data-table th a, .audit-block .data-table th span { overflow-wrap: anywhere; font-weight: 450; }
+  .claims h3 { font-size: .92rem; margin: 18px 0 8px; }
+  .claims small { display: block; color: var(--faint); }
+</style>

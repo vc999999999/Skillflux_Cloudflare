@@ -5,6 +5,8 @@ import ContentUpdates from './ContentUpdates.astro';
 import Icon from './Icon.astro';
 import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getTagIndex } from '../lib/content';
 import { getHomePicks } from '../lib/home-picks';
+import { getSourceAudits } from '../lib/source-audits';
+import { bestTopics, comparePairs } from '../lib/source-compare';
 import { getSiteCopy, localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
@@ -38,6 +40,14 @@ const description = zh
   ? `按任务找 Agent Skill，按来源找它们出自哪里。收录 ${stats.resourceCount} 个 Skill 来源；${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，数据以 CC BY 4.0 公开。`
   : `Find agent skills by task, and the sources they come from. ${stats.resourceCount} skill sources listed; ${skillViews.length} public skills health-checked at pinned commits, with all data open under CC BY 4.0.`;
 const picks = getHomePicks();
+const audits = getSourceAudits();
+const sampledEntries = audits.reduce((sum, audit) => sum + audit.summary.sampled, 0);
+const topics = bestTopics();
+const audited = new Set(audits.map(audit => audit.siteSlug));
+// Pairs where both sides have sample data, vendor-to-vendor first, so the comparison has numbers on both columns.
+const featuredPairs = comparePairs().filter(pair => audited.has(pair.a.slug) && audited.has(pair.b.slug))
+  .sort((x, y) => Number(y.a.category === 'official' && y.b.category === 'official') - Number(x.a.category === 'official' && x.b.category === 'official') || x.slug.localeCompare(y.slug))
+  .slice(0, 6);
 const reading = [
   ...getGuides().map(guide => ({ title: guide.title[lang], summary: guide.description[lang], path: `/guides/${guide.slug}/`, type: zh ? '选型指南' : 'GUIDE' })),
   ...scenarios.slice(1).map(scenario => ({ title: scenario.title[lang], summary: scenario.summary[lang], path: `/scenarios/${scenario.slug}/`, type: zh ? '实践指南' : 'WORKFLOW' })),
@@ -68,6 +78,7 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
         <p class="hero-examples"><span>{zh ? '试试' : 'Try'}</span>{searchExamples.map(term => <a href={`${href('/directory/')}?q=${encodeURIComponent(term)}`}>{term}</a>)}</p>
         <dl class="home-stats data-stats">
           <div><dt>{zh ? '个来源已收录' : 'sources listed'}</dt><dd>{stats.resourceCount}</dd><small>{zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos'}</small></div>
+          <div><dt>{zh ? '个来源已抽样体检' : 'sources sample-checked'}</dt><dd>{audits.length}</dd><small>{zh ? `共抽查 ${sampledEntries} 个条目` : `${sampledEntries} entries sampled`}</small></div>
           <div><dt>{zh ? '个 Skill 已体检' : 'skills health-checked'}</dt><dd>{skillViews.length}</dd><small>{zh ? `钉定提交 · 每个 ${CHECK_REGISTRY.length} 项检查` : `Pinned commits · ${CHECK_REGISTRY.length} checks each`}</small></div>
           <div><dt>{zh ? '对照实测' : 'benchmarks'}</dt>{benchmarkedCount > 0 ? <dd>{benchmarkedCount}</dd> : <dd class="pending">{zh ? '筹备中' : 'In progress'}</dd>}<small>{benchmarkedCount > 0 ? (zh ? `${runCount} 个已发布批次` : `${runCount} published runs`) : (zh ? '首批结果发布前不显示数字' : 'No numbers until the first run is published')}</small></div>
         </dl>
@@ -82,6 +93,12 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
         <div class="section-top"><div><p class="eyebrow">{zh ? '按来源找' : 'SOURCES BY TYPE'}</p><h2 id="sources-title">{zh ? 'Skill 都发布在哪里' : 'Where skills are published'}</h2><p>{zh ? '收录说明来源存在且可访问，不代表其中每个 Skill 都经过测试。' : 'A listing means the source exists and is reachable, not that every skill in it was tested.'}</p></div><a href={href('/directory/')}>{zh ? `全部 ${stats.resourceCount} 个来源` : `All ${stats.resourceCount} sources`} <Icon size={16} /></a></div>
         <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon size={13} /></small></a>)}</div>
         <div class="topic-row"><span>{zh ? '主题' : 'TOPICS'}</span>{tags.map(tag => <a href={href(`/tag/${tag.slug}/`)}># {translateTag(tag.tag, lang)}</a>)}</div>
+      </section>
+      <section class="home-section" aria-labelledby="compare-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? '用数据对比' : 'COMPARE WITH DATA'}</p><h2 id="compare-title">{zh ? '哪个来源更靠谱？' : 'Which source holds up?'}</h2><p>{zh ? `SkillFlux 从 ${audits.length} 个 GitHub 来源中按固定种子抽样，用同一套静态体检逐个检查；盘点页和对比页都写明了排序方法。` : `SkillFlux draws a seeded sample from ${audits.length} GitHub sources and runs the same static check on each entry. Roundups and comparisons state how they are ordered.`}</p></div><a href={href('/best/')}>{zh ? '全部盘点' : 'All roundups'} <Icon size={16} /></a></div>
+        <div class="topic-row topic-row-wide">{topics.map(topic => <a href={href(`/best/${topic.slug}/`)}>{topic.title[lang].replace(/^Agent skill sources: |^Agent Skill 来源：/, '')}</a>)}</div>
+        <ul class="pair-list">{featuredPairs.map(pair => <li><a href={href(`/compare/${pair.slug}/`)}>{getSiteCopy(pair.a, lang).name} <span>vs</span> {getSiteCopy(pair.b, lang).name}</a></li>)}</ul>
+        <p class="data-note"><a href={href('/compare/')}>{zh ? '查看全部对比' : 'See every comparison'}</a></p>
       </section>
       <section class="home-section" aria-labelledby="picks-title">
         <div class="section-top"><div><p class="eyebrow">{zh ? '编辑推荐' : 'EDITOR’S PICKS'}</p><h2 id="picks-title">{zh ? '从这里开始' : 'Good places to start'}</h2><p>{zh ? '用途明确、资料可追溯的来源，附推荐理由和适用场景。' : 'Sources with a clear purpose and traceable material, with the reason we picked each.'}</p></div><a href={`${href('/directory/')}?recommended=yes`}>{zh ? '更多推荐' : 'More picks'} <Icon size={16} /></a></div>
@@ -174,7 +191,7 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
   @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
   @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .hero-actions { gap: 10px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.8rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
   @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .7rem; } }
-  .data-stats { margin-top: 40px; grid-template-columns: repeat(3, 1fr); }
+  .data-stats { margin-top: 40px; grid-template-columns: repeat(4, 1fr); }
   .findings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
   .findings-grid li { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
   .findings-grid strong { display: block; font: 600 2rem var(--font-mono); letter-spacing: -.04em; }
@@ -206,6 +223,11 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
   .task-grid li a { text-decoration: none; font-weight: 520; }
   .task-grid li a:hover { color: var(--accent); text-decoration: underline; }
   .task-grid li small { color: var(--faint); font-size: .75rem; white-space: nowrap; }
+  .topic-row-wide { margin-top: 0; }
+  .pair-list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+  .pair-list a { display: block; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); text-decoration: none; font-size: .88rem; font-weight: 540; }
+  .pair-list a:hover { border-color: var(--line-strong); }
+  .pair-list span { color: var(--faint); font-weight: 400; margin: 0 4px; }
   .data-note { margin: 18px 0 0; font-size: .82rem; color: var(--muted); line-height: 1.75; }
   .data-note a { color: var(--ink); }
   .pick-bottom > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import { absoluteUrl, type Site } from '../lib/content';
+import { getSiteCopy, localizePath, translateCategory, translatePricing, type Language } from '../lib/i18n';
+import { getSourceAudit } from '../lib/source-audits';
+import { scorecard } from '../lib/source-audit-data';
+import { pct, sampleScore, type ComparePair } from '../lib/source-compare';
+import { USE_CASES } from '../lib/use-cases';
+const { pair, lang } = Astro.props as { pair: ComparePair; lang: Language };
+const zh = lang === 'zh';
+const sides = [pair.a, pair.b].map(site => ({ site, copy: getSiteCopy(site, lang), audit: getSourceAudit(site.slug) }));
+const [a, b] = sides as [typeof sides[0], typeof sides[0]];
+const canonicalPath = localizePath(`/compare/${pair.slug}/`, lang);
+const title = `${a.copy.name} vs ${b.copy.name}`;
+const description = zh
+  ? `${a.copy.name} 与 ${b.copy.name} 对比：用途、类型、适合人群、局限，以及 SkillFlux 抽样体检数据。`
+  : `${a.copy.name} vs ${b.copy.name}: purpose, source type, who each fits, limitations and SkillFlux sample-check data side by side.`;
+const updatedAt = [pair.a.updatedAt, pair.b.updatedAt, a.audit?.auditedAt, b.audit?.auditedAt].filter(Boolean).sort().at(-1)!;
+const languageLabel = (site: Site) => site.language.map(value => value === 'zh' ? (zh ? '中文' : 'Chinese') : value === 'en' ? (zh ? '英文' : 'English') : value).join(' / ');
+function sample(side: typeof a): string {
+  if (!side.audit) return zh ? '未抽样' : 'Not sampled';
+  const score = sampleScore(side.audit);
+  const lines = scorecard(side.audit).slice(1, 4).map(line => `${line.count}/${line.of} ${line[lang]}`);
+  return [score !== null ? `${pct(score)} ${zh ? '达标' : 'clean'}` : '', ...lines].filter(Boolean).join(' · ');
+}
+const rows: Array<[string, (side: typeof a) => string]> = [
+  [zh ? '主要用途' : 'Main purpose', side => side.copy.tagline],
+  [zh ? '来源类型' : 'Source type', side => `${translateCategory(side.site.category, side.site.category, lang)} · ${side.copy.type}`],
+  [zh ? '使用场景' : 'Use cases', side => (side.site.editorial?.useCases ?? []).map(item => USE_CASES[item]?.[lang] ?? item).join(', ')],
+  [zh ? '语言' : 'Language', side => languageLabel(side.site)],
+  [zh ? '价格' : 'Pricing', side => translatePricing(side.site.pricing, lang)],
+  [zh ? '适合' : 'Best for', side => side.site.editorial?.bestFor.map(item => item[lang]).join(' ') ?? ''],
+  [zh ? '局限' : 'Limitations', side => side.site.editorial?.limitations.map(item => item[lang]).join(' ') ?? ''],
+  [zh ? 'SkillFlux 抽样' : 'SkillFlux sample', sample],
+];
+const crumbs = [{ label: zh ? '首页' : 'Home', href: localizePath('/', lang) }, { label: zh ? '来源对比' : 'Compare', href: localizePath('/compare/', lang) }, { label: title }];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: absoluteUrl(canonicalPath), description, dateModified: updatedAt, inLanguage: zh ? 'zh-CN' : 'en',
+    about: sides.map(side => ({ '@type': 'Thing', name: side.copy.name, url: side.site.canonicalUrl })) },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.label, item: absoluteUrl(crumb.href ?? canonicalPath) })) },
+];
+---
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
+  <main id="main-content" class="page-shell compare-page">
+    <Breadcrumb items={crumbs} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
+    <header class="compare-head">
+      <p class="eyebrow">{zh ? '来源对比' : 'COMPARE'}</p>
+      <h1>{title}</h1>
+      <p data-seo-field="verdict">{zh
+        ? `需要「${a.copy.tagline}」时看 ${a.copy.name}；需要「${b.copy.tagline}」时看 ${b.copy.name}。${a.site.editorial?.bestFor[0]?.zh ?? ''} ${b.site.editorial?.bestFor[0]?.zh ?? ''}`
+        : `${a.copy.name} is for: ${a.copy.tagline}. ${b.copy.name} is for: ${b.copy.tagline}. ${a.site.editorial?.bestFor[0]?.en ?? ''} ${b.site.editorial?.bestFor[0]?.en ?? ''}`}</p>
+    </header>
+    <div class="table-scroll"><table class="data-table compare-table">
+      <thead><tr><th scope="col"><span class="sr-only">{zh ? '项目' : 'Aspect'}</span></th>{sides.map(side => <th scope="col"><a href={localizePath(`/resource/${side.site.resourceSlug}/`, lang)}>{side.copy.name}</a></th>)}</tr></thead>
+      <tbody>{rows.map(([label, value]) => <tr><th scope="row">{label}</th>{sides.map(side => <td>{value(side)}</td>)}</tr>)}</tbody>
+    </table></div>
+    <section class="notes">
+      {sides.map(side => <article>
+        <h2>{zh ? `${side.copy.name}：SkillFlux 建议` : `${side.copy.name}: SkillFlux note`}</h2>
+        <p>{side.site.editorial?.skillFluxNote[lang]}</p>
+        {side.site.claims?.length ? <p class="claim">{zh ? '未核实的说法：' : 'Unverified claim: '}{side.site.claims[0]![lang]} <a href={side.site.claims[0]!.sourceUrl} rel="noopener noreferrer">{new URL(side.site.claims[0]!.sourceUrl).hostname}</a></p> : null}
+        <p><a href={side.site.canonicalUrl} rel="noopener noreferrer">{zh ? `访问 ${side.copy.name}` : `Visit ${side.copy.name}`} ↗</a></p>
+      </article>)}
+    </section>
+    <p class="method-note">{zh ? '「达标」指抽样条目中无失败项、说明何时使用且带许可证的比例。抽样只读取文件，不代表 Skill 是否有效。' : '"Clean" is the share of sampled entries with no failing check, a "when to use" description and a license. Sampling reads files only and does not show whether a skill works.'} <a href={localizePath('/methodology/v1/', lang)}>{zh ? '方法' : 'Method'}</a></p>
+  </main>
+</BaseLayout>
+<style>
+  .compare-page { padding-top: 32px; padding-bottom: 72px; }
+  .compare-head h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); letter-spacing: -.035em; margin: 8px 0 14px; }
+  .compare-head p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.75; }
+  .compare-table { margin-top: 24px; font-size: .86rem; }
+  .compare-table th { text-align: left; vertical-align: top; }
+  .compare-table th[scope="row"] { width: 140px; white-space: nowrap; }
+  .compare-table td { vertical-align: top; line-height: 1.65; width: 43%; }
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .notes h2 { font-size: 1rem; margin: 0 0 8px; }
+  .notes p { color: var(--muted); font-size: .88rem; line-height: 1.75; }
+  .claim { font-size: .8rem !important; }
+  .method-note { margin-top: 28px; font-size: .82rem; color: var(--muted); }
+  @media (max-width: 760px) { .notes { grid-template-columns: 1fr; } .compare-table th[scope="row"] { white-space: normal; width: auto; } }
+</style>

@@ -12,7 +12,8 @@ import type { GoneRules } from './route-rules';
 export function getLegacyRedirects(): Record<string, string> {
   const redirects: Record<string, string> = {};
   for (const [legacyPrefix, prefix] of [['', '/zh'], ['/en', '']] as const) {
-    for (const site of sites) {
+    // Only sources that existed before the language flip had /site/ URLs.
+    for (const site of sites.filter(item => item.addedAt < '2026-10-29')) {
       const slug = getResourceEditorial(site.slug)?.resourceSlug ?? site.slug;
       redirects[`${legacyPrefix}/site/${site.slug}/`] = `${prefix}/resource/${slug}/`;
     }

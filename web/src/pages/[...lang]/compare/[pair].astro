@@ -1,0 +1,13 @@
+---
+import ComparePage from "../../../components/ComparePage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+import { comparePairs } from "../../../lib/source-compare";
+
+export function getStaticPaths() {
+  const pairs = comparePairs();
+  return langStaticPaths().flatMap(({ params, props }) => pairs.map(pair => ({ params: { ...params, pair: pair.slug }, props: { ...props, pair } })));
+}
+
+const { pair, lang } = Astro.props;
+---
+<ComparePage pair={pair} lang={lang} />
