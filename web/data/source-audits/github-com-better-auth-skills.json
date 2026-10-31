@@ -1,0 +1,296 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-better-auth-skills",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/better-auth/skills",
+    "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+    "candidates": 6
+  },
+  "sample": {
+    "seed": "github-com-better-auth-skills@20c9e88a5c00",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "security",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "security",
+      "name": "better-auth-security-best-practices",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 2555,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "better-auth/emailAndPassword",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "better-auth/emailAndPassword",
+      "name": "email-and-password-best-practices",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1420,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "better-auth/twoFactor",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "better-auth/twoFactor",
+      "name": "two-factor-authentication-best-practices",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1815,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "better-auth/create-auth",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "better-auth/create-auth",
+      "name": "create-auth",
+      "counts": {
+        "pass": 14,
+        "warn": 1,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 3485,
+      "licenseSpdx": null,
+      "detail": "14 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "better-auth/organization",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "better-auth/organization",
+      "name": "organization-best-practices",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 2676,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/better-auth/skills",
+      "linkedPath": "better-auth/best-practices",
+      "outcome": "checked",
+      "commitSha": "20c9e88a5c007461a703f1c213572b073196113e",
+      "path": "better-auth/best-practices",
+      "name": "better-auth-best-practices",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1970,
+      "licenseSpdx": null,
+      "detail": "13 pass, 2 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 6,
+    "checked": 6,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 0,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 6,
+    "missingTrigger": 0,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

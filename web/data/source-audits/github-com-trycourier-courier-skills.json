@@ -1,0 +1,74 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-trycourier-courier-skills",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/trycourier/courier-skills",
+    "commitSha": "18c7bcbeee6d5deb58a0d9dfec9ded4f960b2132",
+    "candidates": 1
+  },
+  "sample": {
+    "seed": "github-com-trycourier-courier-skills@18c7bcbeee6d",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/trycourier/courier-skills",
+      "linkedPath": "skills/courier",
+      "outcome": "checked",
+      "commitSha": "18c7bcbeee6d5deb58a0d9dfec9ded4f960b2132",
+      "path": "skills/courier",
+      "name": "courier",
+      "counts": {
+        "pass": 15,
+        "warn": 0,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 4682,
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 0 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 1,
+    "checked": 1,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 0,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 0,
+    "missingTrigger": 0,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

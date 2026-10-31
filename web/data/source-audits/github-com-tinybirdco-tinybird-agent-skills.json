@@ -1,0 +1,208 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-tinybirdco-tinybird-agent-skills",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+    "commitSha": "19a3ec18b2270fb82cc3489eabf122da0706e6a0",
+    "candidates": 4
+  },
+  "sample": {
+    "seed": "github-com-tinybirdco-tinybird-agent-skills@19a3ec18b227",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+      "linkedPath": "skills/tinybird-typescript-sdk-guidelines",
+      "outcome": "checked",
+      "commitSha": "19a3ec18b2270fb82cc3489eabf122da0706e6a0",
+      "path": "skills/tinybird-typescript-sdk-guidelines",
+      "name": "tinybird-typescript-sdk-guidelines",
+      "counts": {
+        "pass": 14,
+        "warn": 1,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 319,
+      "licenseSpdx": null,
+      "detail": "14 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+      "linkedPath": "skills/tinybird-best-practices",
+      "outcome": "checked",
+      "commitSha": "19a3ec18b2270fb82cc3489eabf122da0706e6a0",
+      "path": "skills/tinybird-best-practices",
+      "name": "tinybird",
+      "counts": {
+        "pass": 12,
+        "warn": 3,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "warn",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "warn",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 375,
+      "licenseSpdx": null,
+      "detail": "12 pass, 3 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+      "linkedPath": "skills/tinybird-cli-guidelines",
+      "outcome": "checked",
+      "commitSha": "19a3ec18b2270fb82cc3489eabf122da0706e6a0",
+      "path": "skills/tinybird-cli-guidelines",
+      "name": "tinybird-cli-guidelines",
+      "counts": {
+        "pass": 14,
+        "warn": 1,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 338,
+      "licenseSpdx": null,
+      "detail": "14 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+      "linkedPath": "skills/tinybird-python-sdk-guidelines",
+      "outcome": "checked",
+      "commitSha": "19a3ec18b2270fb82cc3489eabf122da0706e6a0",
+      "path": "skills/tinybird-python-sdk-guidelines",
+      "name": "tinybird-python-sdk-guidelines",
+      "counts": {
+        "pass": 14,
+        "warn": 1,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "no-license"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "warn",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 326,
+      "licenseSpdx": null,
+      "detail": "14 pass, 1 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 4,
+    "checked": 4,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 0,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 4,
+    "missingTrigger": 1,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}
