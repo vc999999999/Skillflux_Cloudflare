@@ -4,12 +4,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContentUpdates from './ContentUpdates.astro';
 import Icon from './Icon.astro';
 import { absoluteUrl, getCategories, getDirectoryStats, getIndexableSites, getSiteBySlug, getTagIndex } from '../lib/content';
-import { localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
+import { getSiteCopy, localizePath, translateCategory, translateTag, type Language } from '../lib/i18n';
 import { getGuides } from '../lib/guides';
 import { scenarios } from '../lib/scenarios';
 import { CHECK_REGISTRY } from '@skillflux/bench/checks';
-import { aggregateFindings, keyFinding, pct } from '../lib/skill-data';
-import { getIndexableSkillViews, getRuns } from '../lib/skills';
+import { aggregateFindings } from '../lib/skill-data';
+import { getIndexableSkillViews, getRuns, getSkillCategories } from '../lib/skills';
 import { datasetModified } from '../lib/dataset';
 const { lang = 'en' } = Astro.props as { lang?: Language };
 const zh = lang === 'zh';
@@ -26,12 +26,16 @@ const skillViews = getIndexableSkillViews();
 const benchmarkedCount = skillViews.filter(view => view.result).length;
 const findings = aggregateFindings(skillViews);
 const dataDate = datasetModified();
-const featuredReports = [...skillViews].sort((a, b) => Number(Boolean(b.result)) - Number(Boolean(a.result)) || b.dateModified.localeCompare(a.dateModified) || a.skill.id.localeCompare(b.skill.id)).slice(0, 6);
 const runCount = getRuns().filter(run => run.status === 'published').length;
-const title = zh ? 'Agent Skill 实测数据与来源目录' : 'Agent skill test data and source directory';
+// Skill categories as a yellow-pages index: count plus a few example skills each.
+const skillGroups = getSkillCategories().map(category => {
+  const members = skillViews.filter(view => view.skill.category === category.slug).sort((a, b) => Number(Boolean(b.result)) - Number(Boolean(a.result)) || a.skill.displayName[lang].localeCompare(b.skill.displayName[lang]));
+  return { category, count: members.length, examples: members.slice(0, 3) };
+}).filter(group => group.count > 0).sort((a, b) => b.count - a.count);
+const title = zh ? 'Agent Skill 黄页与实测数据' : 'Agent skill directory and test data';
 const description = zh
-  ? `哪些 Agent Skill 真的有用？SkillFlux 把 ${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，并在 Claude Code 中与不装 Skill 的基线对照实测，以 CC BY 4.0 公开全部数据。`
-  : `Which agent skills actually help? SkillFlux pins ${skillViews.length} public skills to exact commits, runs a static health check, benchmarks them in Claude Code against a no-skill baseline, and publishes all the data under CC BY 4.0.`;
+  ? `按任务找 Agent Skill，按来源找它们出自哪里。收录 ${stats.resourceCount} 个 Skill 来源；${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，数据以 CC BY 4.0 公开。`
+  : `Find agent skills by task, and the sources they come from. ${stats.resourceCount} skill sources listed; ${skillViews.length} public skills health-checked at pinned commits, with all data open under CC BY 4.0.`;
 const picks = [
   { slug: 'github-com-anthropics-skills', name: 'Anthropic Skills', badge: zh ? '参考实现' : 'Reference', reason: zh ? '从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。' : 'Read the skill structure and implementations directly in Anthropic’s open-source repository.', best: zh ? '了解 Skill 格式，建立自己的技能库' : 'Learning the format and building a skill library' },
   { slug: 'modelscope-cn-skills', name: 'ModelScope Skills', badge: zh ? '编辑推荐' : 'Recommended', reason: zh ? '中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。' : 'A starting point for discovering Chinese-language skills and comparing their original sources.', best: zh ? '中文资源发现与场景选型' : 'Finding Chinese-language skill resources' },
@@ -48,60 +52,55 @@ const categoryNotes: Record<string, [string, string]> = {
   community: ['社区整理的榜单与推荐。', 'Community lists and discovery signals.'],
   directory: ['跨来源聚合的导航入口。', 'Directories spanning multiple sources.'],
 };
+const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] : ['PDF', 'testing', 'Android', 'design', 'MCP'];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={href('/')} pageClass="sf-home" jsonLd={[
-  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'SkillFlux', url: absoluteUrl(href('/')), description, potentialAction: { '@type': 'SearchAction', target: `${absoluteUrl(href('/directory/'))}?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
   { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: absoluteUrl(href('/')), description, dateModified: homeUpdatedAt }
 ]}>
   <main id="main-content">
     <section class="home-hero">
       <div class="home-container">
-        <p class="hero-label"><span></span> {zh ? 'AGENT SKILL 开放数据' : 'OPEN DATA ON AGENT SKILLS'}</p>
-        <h1>{zh ? <>哪些 Agent Skill <span class="keep-together">真的有用？</span></> : 'Which agent skills actually help?'}<br /><span class="hero-secondary">{zh ? '我们逐个测试，并公开数据。' : 'We test them and publish the data.'}</span></h1>
-        <p class="hero-description">{description}</p>
-        <div class="hero-actions">
-          <a class="button primary" href={href('/skills/')}>{zh ? '查看 Skill 报告' : 'Browse skill reports'} <Icon size={16} /></a>
-          <a class="button secondary" href={href('/data/')}>{zh ? '下载数据集' : 'Download the dataset'}</a>
-        </div>
+        <p class="hero-label"><span></span> {zh ? 'AGENT SKILL 黄页' : 'THE AGENT SKILL YELLOW PAGES'}</p>
+        <h1>{zh ? <>找 Agent Skill，<span class="keep-together">看清它从哪来。</span></> : 'Find agent skills, and where they come from.'}</h1>
+        <p class="hero-description">{zh ? '按任务浏览 Skill，按来源浏览市场、官方合集与开源仓库。每个条目都链接原始出处；每个数字都能在开放数据里复核。' : 'Browse skills by task and sources by type: marketplaces, vendor collections and open-source repos. Every entry links to the original; every number can be checked in the open data.'}</p>
+        <form class="hero-search" action={href('/directory/')} method="get" role="search">
+          <label><Icon name="search" size={18} /><span class="sr-only">{zh ? '搜索来源黄页' : 'Search the directory'}</span><input type="search" name="q" placeholder={zh ? '搜索 Skill、来源或标签，例如 PDF、Android…' : 'Search skills, sources or tags, e.g. PDF, Android…'} maxlength="200" autocomplete="off" /></label>
+          <button class="button primary" type="submit">{zh ? '搜索' : 'Search'}</button>
+        </form>
+        <p class="hero-examples"><span>{zh ? '试试' : 'Try'}</span>{searchExamples.map(term => <a href={`${href('/directory/')}?q=${encodeURIComponent(term)}`}>{term}</a>)}</p>
         <dl class="home-stats data-stats">
-          {[[skillViews.length, zh ? '个 Skill 已体检' : 'skills health-checked', zh ? `每个 ${CHECK_REGISTRY.length} 项检查` : `${CHECK_REGISTRY.length} checks each`], [benchmarkedCount, zh ? '个 Skill 已实测' : 'skills benchmarked', zh ? `${runCount} 个已发布批次` : `${runCount} published runs`], [stats.resourceCount, zh ? '个来源已收录' : 'sources in the directory', zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos']].map(([value, label, note]) => <div><dt>{label}</dt><dd>{value}</dd><small>{note}</small></div>)}
+          <div><dt>{zh ? '个来源已收录' : 'sources listed'}</dt><dd>{stats.resourceCount}</dd><small>{zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos'}</small></div>
+          <div><dt>{zh ? '个 Skill 已体检' : 'skills health-checked'}</dt><dd>{skillViews.length}</dd><small>{zh ? `钉定提交 · 每个 ${CHECK_REGISTRY.length} 项检查` : `Pinned commits · ${CHECK_REGISTRY.length} checks each`}</small></div>
+          <div><dt>{zh ? '对照实测' : 'benchmarks'}</dt>{benchmarkedCount > 0 ? <dd>{benchmarkedCount}</dd> : <dd class="pending">{zh ? '筹备中' : 'In progress'}</dd>}<small>{benchmarkedCount > 0 ? (zh ? `${runCount} 个已发布批次` : `${runCount} published runs`) : (zh ? '首批结果发布前不显示数字' : 'No numbers until the first run is published')}</small></div>
         </dl>
       </div>
     </section>
     <div class="home-container">
-      <section class="home-section" aria-labelledby="findings-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? `体检发现 · 截至 ${dataDate}` : `FINDINGS · AS OF ${dataDate}`}</p><h2 id="findings-title">{zh ? `${skillViews.length} 个公开 Skill 的静态体检` : `What the health check found in ${skillViews.length} public skills`}</h2><p>{zh ? '每项都是可复核的计数，原始记录见 /data/health.csv。标记描述 Skill 包含什么，不是结论。' : 'Each line is a count you can verify in /data/health.csv. Flags describe what a skill contains; they are not verdicts.'}</p></div><a href={href('/methodology/v1/')}>{zh ? '检查方法' : 'How we check'} <Icon size={16} /></a></div>
-        <ul class="findings-grid">{findings.map(item => <li><strong>{item.count}<small>/{item.total}</small></strong><span>{zh ? `个 Skill ${item.zh}` : `skills ${item.en}`}</span></li>)}</ul>
+      <section class="home-section" aria-labelledby="tasks-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? '按任务找 Skill' : 'SKILLS BY TASK'}</p><h2 id="tasks-title">{zh ? '你想让 Agent 做什么？' : 'What do you want your agent to do?'}</h2><p>{zh ? '每个 Skill 都有一页报告：它是什么、出自哪个提交、体检结果和许可证。' : 'Each skill has a report: what it is, which commit we checked, the health check result and its license.'}</p></div><a href={href('/skills/')}>{zh ? `全部 ${skillViews.length} 个 Skill` : `All ${skillViews.length} skills`} <Icon size={16} /></a></div>
+        <div class="task-grid">{skillGroups.map(group => <article><a class="task-head" href={`${href('/skills/')}?category=${group.category.slug}`}><h3>{group.category.label[lang]}</h3><span>{group.count}</span></a><p>{group.category.description[lang]}</p><ul>{group.examples.map(view => <li><a href={href(`/skills/${view.skill.id}/`)}>{view.skill.displayName[lang]}</a><small>{view.skill.author.name}</small></li>)}</ul></article>)}</div>
       </section>
-      <section class="home-section" aria-labelledby="method-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? '方法' : 'METHOD'}</p><h2 id="method-title">{zh ? '两层测试，分开报告' : 'Two kinds of evidence, reported separately'}</h2></div><a href={href('/methodology/v1/')}>{zh ? '方法论 v1' : 'Methodology v1'} <Icon size={16} /></a></div>
-        <div class="value-steps">
-          <article><div><span>L1</span></div><h2>{zh ? '静态体检' : 'Static health check'}</h2><p>{zh ? `把 Skill 钉定到一个 Git 提交，检查 frontmatter、体积、断链、附带脚本、网络调用、破坏性命令、疑似密钥、许可证和维护状态，共 ${CHECK_REGISTRY.length} 项。不调用模型。` : `Each skill is pinned to a Git commit and checked for frontmatter, size, broken links, bundled scripts, network calls, destructive commands, secrets, license and maintenance — ${CHECK_REGISTRY.length} checks, no model calls.`}</p></article>
-          <article><div><span>L2</span><small>{zh ? '核心' : 'core'}</small></div><h2>{zh ? '有/无 Skill 对照实测' : 'With vs without benchmark'}</h2><p>{zh ? '同样的任务在 Claude Code 中各跑多次：一组装 Skill，一组不装。确定性脚本评分，报告通过率、95% 置信区间、调用率与成本。' : 'The same tasks run several times in Claude Code, once with the skill installed and once without. Scripts grade the output; reports give pass rates with 95% intervals, invocation rate and cost.'}</p></article>
-          <article><div><span>CC BY</span></div><h2>{zh ? '开放可引用' : 'Open and citable'}</h2><p>{zh ? '每个数字都能下载、校验 sha256，并从原始试验重新计算。每份报告都给出引用格式和不可变的批次 id。' : 'Every number can be downloaded, checked against a sha256 and recomputed from raw trials. Each report gives a citation and an immutable run id.'}</p></article>
-        </div>
-      </section>
-      <section class="home-section" aria-labelledby="reports-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? 'Skill 报告' : 'SKILL REPORTS'}</p><h2 id="reports-title">{zh ? '最新报告' : 'Latest reports'}</h2></div><a href={href('/skills/')}>{zh ? `全部 ${skillViews.length} 个` : `All ${skillViews.length}`} <Icon size={16} /></a></div>
-        <div class="reading-grid">{featuredReports.map(view => <a href={href(`/skills/${view.skill.id}/`)}><small>{view.result ? (zh ? `实测 · ${pct(view.result.skill.pooled.with.passRate)} vs ${pct(view.result.skill.pooled.without.passRate)}` : `BENCHMARK · ${pct(view.result.skill.pooled.with.passRate)} vs ${pct(view.result.skill.pooled.without.passRate)}`) : (zh ? `体检 · ${view.counts.pass} 通过 · ${view.counts.warn} 警告 · ${view.counts.fail} 失败` : `HEALTH · ${view.counts.pass} pass · ${view.counts.warn} warn · ${view.counts.fail} fail`)}</small><h3>{view.skill.displayName[lang]}</h3><p>{keyFinding(view, lang)}</p><span>{zh ? '查看报告' : 'Read report'} <Icon size={14} /></span></a>)}</div>
-      </section>
-      <ContentUpdates sites={updatedSites} insights={latestInsights} lang={lang} />
-      <section class="home-section" aria-labelledby="picks-title">
-        <div class="section-top"><div><p class="eyebrow">{zh ? '来源目录 · 编辑推荐' : 'DIRECTORY · EDITOR’S PICKS'}</p><h2 id="picks-title">{zh ? '从哪里找 Skill' : 'Where to find skills'}</h2><p>{zh ? '从用途明确、资料可追溯的能力来源开始。查看推荐理由和适用场景，再决定是否采用。' : 'High-signal starting points with transparent rationale and practical use cases.'}</p></div><a href={href('/directory/')}>{zh ? '浏览黄页' : 'Browse yellow pages'} <Icon size={16} /></a></div>
-        <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE RECOMMEND IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{zh ? '来源推荐' : 'Source recommendation'}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
-      </section>
-    </div>
-    <div class="home-container">
-      <section class="home-section sources-section" aria-labelledby="sources-title">
-        <div class="section-top"><div><p class="eyebrow">NAVIGATE THE ECOSYSTEM</p><h2 id="sources-title">{zh ? '来源类别与主题' : 'Source categories & topics'}</h2><p>{zh ? '了解能力从哪里来，再决定从哪里开始。' : 'Understand where capabilities come from, then decide where to start.'}</p></div><a href={href('/directory/')}>{zh ? '全部黄页来源' : 'All sources'} <Icon size={16} /></a></div>
-        <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon name="external" size={13} /></small></a>)}</div>
+      <section class="home-section" aria-labelledby="sources-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? '按来源找' : 'SOURCES BY TYPE'}</p><h2 id="sources-title">{zh ? 'Skill 都发布在哪里' : 'Where skills are published'}</h2><p>{zh ? '收录说明来源存在且可访问，不代表其中每个 Skill 都经过测试。' : 'A listing means the source exists and is reachable, not that every skill in it was tested.'}</p></div><a href={href('/directory/')}>{zh ? `全部 ${stats.resourceCount} 个来源` : `All ${stats.resourceCount} sources`} <Icon size={16} /></a></div>
+        <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon size={13} /></small></a>)}</div>
         <div class="topic-row"><span>{zh ? '主题' : 'TOPICS'}</span>{tags.map(tag => <a href={href(`/tag/${tag.slug}/`)}># {translateTag(tag.tag, lang)}</a>)}</div>
       </section>
+      <section class="home-section" aria-labelledby="picks-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? '编辑推荐' : 'EDITOR’S PICKS'}</p><h2 id="picks-title">{zh ? '从这里开始' : 'Good places to start'}</h2><p>{zh ? '用途明确、资料可追溯的来源，附推荐理由和适用场景。' : 'Sources with a clear purpose and traceable material, with the reason we picked each.'}</p></div><a href={`${href('/directory/')}?recommended=yes`}>{zh ? '更多推荐' : 'More picks'} <Icon size={16} /></a></div>
+        <div class="picks-grid">{picks.map(pick => <article class="pick-card"><div class="pick-label"><span>{pick.badge}</span><small>{translateCategory(pick.site.category, pick.site.category, lang)}</small></div><h3><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{pick.name}</a></h3><div><h4>{zh ? '为什么推荐' : 'WHY WE PICKED IT'}</h4><p>{pick.reason}</p></div><div><h4>{zh ? '适合' : 'BEST FOR'}</h4><p>{pick.best}</p></div><div class="pick-bottom"><span>{getSiteCopy(pick.site, lang).tagline}</span><a href={href(`/resource/${pick.site.resourceSlug}/`)}>{zh ? '详情' : 'Details'} <Icon size={14} /></a></div></article>)}</div>
+      </section>
+      <ContentUpdates sites={updatedSites} insights={latestInsights} lang={lang} />
+      <section class="home-section" aria-labelledby="findings-title">
+        <div class="section-top"><div><p class="eyebrow">{zh ? `开放数据 · 截至 ${dataDate}` : `OPEN DATA · AS OF ${dataDate}`}</p><h2 id="findings-title">{zh ? `${skillViews.length} 个 Skill 的体检发现` : `What the health check found in ${skillViews.length} skills`}</h2><p>{zh ? `每个 Skill 钉定到一个 Git 提交，按 ${CHECK_REGISTRY.length} 项规则只读检查，不调用模型。每项都是可复核的计数；标记描述 Skill 包含什么，不是结论。` : `Each skill is pinned to a Git commit and read against ${CHECK_REGISTRY.length} rules, with no model calls. Each line is a count you can verify; flags describe what a skill contains, not a verdict.`}</p></div><a href={href('/methodology/v1/')}>{zh ? '检查方法' : 'How we check'} <Icon size={16} /></a></div>
+        <ul class="findings-grid">{findings.map(item => <li><strong>{item.count}<small>/{item.total}</small></strong><span>{zh ? `个 Skill ${item.zh}` : `skills ${item.en}`}</span></li>)}</ul>
+        <p class="data-note">{zh ? <>原始记录：<a href="/data/health.csv">/data/health.csv</a> · 数据集清单与 sha256：<a href="/data/index.json">/data/index.json</a> · <a href={href('/benchmarks/')}>有/无 Skill 对照实测</a>{benchmarkedCount > 0 ? '' : '（首批结果发布中）'}</> : <>Raw records: <a href="/data/health.csv">/data/health.csv</a> · Manifest with sha256: <a href="/data/index.json">/data/index.json</a> · <a href={href('/benchmarks/')}>With/without benchmarks</a>{benchmarkedCount > 0 ? '' : ' are being prepared'}</>}</p>
+      </section>
       <section class="home-section" aria-labelledby="guides-title">
-        <div class="section-top"><div><p class="eyebrow">GUIDES</p><h2 id="guides-title">{zh ? 'Agent 能力选型与实战指南' : 'Learn the agent ecosystem'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
+        <div class="section-top"><div><p class="eyebrow">{zh ? '指南' : 'GUIDES'}</p><h2 id="guides-title">{zh ? '选型与实战指南' : 'Choosing and using skills'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
         <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
       </section>
-      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '体检与实测数据、来源目录都有机器可读入口，并附明确的引用规则。' : 'Health checks, benchmarks and the directory are all machine-readable, with explicit citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '测量内容、各 Skill 结果与引用规则' : 'What is measured, each result, citation rules'], ['/data/index.json', zh ? '数据集清单与 sha256' : 'Dataset manifest with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources'], ['/feed.xml', zh ? '资源与文章更新订阅' : 'Resource and article updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
+      <section class="machine-section"><div><p class="eyebrow">{zh ? '给 AI 读' : 'FOR AI'}</p><h2>{zh ? '给 Agent 的是证据，不是宣传。' : 'Agents get evidence, not marketing.'}</h2><p>{zh ? '机器入口只给可复核的东西：钉定的提交、逐项检查结果、原始试验、sha256 清单和引用规则。' : 'The machine layer carries only what can be checked: pinned commits, per-check results, raw trials, a sha256 manifest and citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '查看机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/AGENTS.md', zh ? '阅读顺序、引用规则与问题路由' : 'Reading order, citation rules, routing'], ['/llms.txt', zh ? '测量内容与每个 Skill 的结果' : 'What is measured and each result'], ['/data/index.json', zh ? '数据文件清单与 sha256' : 'Data files with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
     </div>
   </main>
 </BaseLayout>
@@ -116,35 +115,11 @@ const categoryNotes: Record<string, [string, string]> = {
   :global(html[lang="zh-CN"]) h1 { line-height: 1.25; letter-spacing: -.04em; }
   .hero-description { max-width: 760px; margin: 24px 0 32px; color: var(--muted); font-size: 1.12rem; line-height: 1.75; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-  .command-bar { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); background: var(--ink); color: var(--paper-strong); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: var(--shadow-card); }
-  .command-bar > span { color: var(--dark-muted); }
-  .command-bar code { font-size: .8rem; letter-spacing: .01em; }
-  .command-bar button { display: inline-flex; align-items: center; justify-content: center; padding: 6px; background: none; border: 0; color: #beb9aa; transition: color .15s ease, transform .15s ease; border-radius: 4px; }
-  .command-bar button:hover { color: #fdfcf8; transform: scale(1.05); }
-  .command-bar button:active { transform: scale(0.95); }
-  .works-with { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-top: 26px; color: var(--muted); font-size: .85rem; }
-  .works-with > span { display: inline-flex; gap: 7px; align-items: center; }
-  .works-with > span:first-child { font: 500 .75rem var(--font-mono); color: var(--faint); letter-spacing: .04em; }
-  .works-with a { color: var(--faint); text-decoration: none; font-size: .8rem; transition: color .15s; }
-  .works-with a:hover { color: var(--ink); }
-  .decision-signals { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 32px; font-size: .78rem; color: var(--muted); }
-  .decision-signals > span:first-child { margin-right: 6px; font: 500 .75rem var(--font-mono); letter-spacing: .06em; color: var(--faint); }
-  .signal { border: 1px solid var(--line); padding: 5px 11px; border-radius: 20px; background: var(--paper-strong); font-size: .78rem; color: var(--muted); box-shadow: var(--shadow-sm); }
-  .decision-signals a { margin-left: 6px; text-decoration: none; font-size: .78rem; color: var(--muted); }
-  .decision-signals a:hover { color: var(--ink); }
-  .value-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); margin-top: 48px; box-shadow: var(--shadow-card); }
-  .value-steps article { padding: 24px; }
-  .value-steps article + article { border-left: 1px solid var(--line); }
-  .value-steps article > div { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: 500 .75rem var(--font-mono); letter-spacing: .04em; }
-  .value-steps small { padding: 3px 8px; border-radius: var(--radius-sm); background: var(--green-subtle); color: var(--green); font-size: .75rem; font-weight: 600; }
-  .value-steps h2 { font-size: 1.08rem; margin: 12px 0 6px; font-weight: 620; letter-spacing: -.02em; }
-  .value-steps p { font-size: .85rem; line-height: 1.65; color: var(--muted); margin: 0; }
   .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 36px 0; margin: 0; border-bottom: 1px solid var(--line); }
   .home-stats div { padding: 4px 28px; border-left: 1px solid var(--line); }
   .home-stats div:first-child { border: 0; padding-left: 0; }
   .home-stats dd { margin: 0 0 8px; font: 500 2.2rem var(--font-mono); letter-spacing: -.06em; color: var(--ink); }
   .home-stats dt { font-size: .88rem; font-weight: 600; color: var(--ink); }
-  .home-stats p { font-size: .8rem; margin: 6px 0 0; color: var(--muted); line-height: 1.5; }
   .home-section { padding: 64px 0 0; }
   .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
   .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
@@ -167,30 +142,6 @@ const categoryNotes: Record<string, [string, string]> = {
   .pick-bottom > span { font-size: .76rem; color: var(--faint); }
   .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .82rem; text-decoration: none; font-weight: 550; color: var(--ink); }
   .pick-bottom a:hover { color: var(--accent); }
-  .quiet-note { margin: 20px 0 0; font-size: .82rem; color: var(--muted); line-height: 1.75; }
-  .quiet-note a { text-decoration: none; color: var(--ink); font-weight: 600; }
-  .quiet-note a:hover { text-decoration: underline; }
-  .install-section { background: var(--paper-strong); border-block: 1px solid var(--line); margin-top: 72px; padding: 72px 0 48px; }
-  .install-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: center; }
-  .install-intro h2 { font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 650; margin: 0 0 20px; }
-  .install-intro > p:not(.eyebrow) { font-size: .95rem; line-height: 1.8; color: var(--muted); margin: 0 0 24px; }
-  .install-intro p.source-note { font-size: .78rem; margin-top: 14px; color: var(--faint); }
-  .install-flow { display: flex; align-items: center; gap: 14px; font-size: .8rem; color: var(--muted); font-weight: 500; }
-  .terminal-demo { border-radius: var(--radius-lg); border: 1px solid #322f27; background: #191712; color: #edebe1; overflow: hidden; box-shadow: 0 12px 36px rgba(23, 21, 15, 0.16); min-width: 0; }
-  .terminal-title { display: flex; justify-content: space-between; align-items: center; padding: 13px 18px; background: #221f18; border-bottom: 1px solid #2e2b23; color: #a49f92; font: 500 .75rem var(--font-mono); }
-  .terminal-title > span:first-child { display: flex; gap: 6px; }
-  .terminal-title i { width: 8px; height: 8px; border-radius: 50%; background: #605b4f; }
-  .terminal-body { padding: 22px; font: .76rem/1.9 var(--font-mono); }
-  .terminal-body p { margin: 10px 0; overflow-wrap: anywhere; }
-  .terminal-body p > span { color: #8e887a; margin-right: 8px; font-weight: bold; }
-  .terminal-body .terminal-comment { margin: 16px 0 4px; color: #9c9789; font-size: .72rem; }
-  .terminal-body .terminal-comment:first-child { margin-top: 0; }
-  .terminal-foot { display: flex; align-items: center; gap: 8px; color: #b8b3a4; padding-top: 18px; margin-top: 20px; border-top: 1px solid #2d2a23; font-size: .72rem; }
-  .terminal-foot .tiny-dot { background: #5ba382; }
-  .install-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 48px; border-top: 1px solid var(--line); padding-top: 32px; }
-  .install-benefits > div > :global(svg) { color: var(--muted); }
-  .install-benefits h3 { font-weight: 600; font-size: .9rem; margin: 12px 0 6px; color: var(--ink); }
-  .install-benefits p { font-size: .8rem; line-height: 1.65; color: var(--muted); margin: 0; }
   .source-type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
   .source-type-grid > a { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 18px; text-decoration: none; display: flex; flex-direction: column; background: var(--paper-strong); box-shadow: var(--shadow-sm); transition: all .16s ease; }
   .source-type-grid > a:hover { border-color: rgba(23, 21, 15, 0.28); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
@@ -223,9 +174,9 @@ const categoryNotes: Record<string, [string, string]> = {
   .endpoint-list code { font-size: .82rem; font-weight: 550; }
   .endpoint-list small { font-size: .78rem; color: var(--muted); margin-left: auto; }
   .endpoint-list :global(svg) { color: var(--faint); }
-  @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .install-grid { gap: 32px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
-  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .hero-actions { gap: 10px; } .command-bar { flex-basis: 100%; justify-content: flex-start; margin-top: 4px; } .command-bar button { margin-left: auto; } .works-with { gap: 14px; font-size: .8rem; } .decision-signals { margin-top: 24px; } .value-steps { margin-top: 32px; grid-template-columns: 1fr; } .value-steps article + article { border-left: 0; border-top: 1px solid var(--line); } .value-steps article { padding: 20px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.8rem; } .home-stats p { font-size: .75rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid, .install-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .install-section { padding-block: 48px 36px; margin-top: 48px; } .install-grid { gap: 28px; } .install-benefits { grid-template-columns: 1fr 1fr; gap: 24px 20px; margin-top: 32px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
-  @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .7rem; } .command-bar code { font-size: .74rem; } }
+  @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
+  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .hero-actions { gap: 10px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.8rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
+  @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .7rem; } }
   .data-stats { margin-top: 40px; grid-template-columns: repeat(3, 1fr); }
   .findings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
   .findings-grid li { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
@@ -234,4 +185,32 @@ const categoryNotes: Record<string, [string, string]> = {
   .findings-grid span { display: block; margin-top: 6px; color: var(--muted); font-size: .9rem; line-height: 1.6; }
   @media (max-width: 800px) { .findings-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 480px) { .findings-grid { grid-template-columns: 1fr; } }
+
+  .hero-search { display: flex; gap: 10px; max-width: 720px; }
+  .hero-search label { flex: 1; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: var(--paper-strong); box-shadow: var(--shadow-sm); color: var(--muted); }
+  .hero-search label:focus-within { border-color: var(--ink); }
+  .hero-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 1rem; color: var(--ink); }
+  .hero-search .button { min-height: 52px; padding-inline: 24px; }
+  .hero-examples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 0; font-size: .8rem; }
+  .hero-examples > span { font: 500 .75rem var(--font-mono); color: var(--faint); letter-spacing: .04em; margin-right: 4px; }
+  .hero-examples a { padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-strong); color: var(--muted); text-decoration: none; }
+  .hero-examples a:hover { color: var(--ink); border-color: var(--line-strong); }
+  .home-stats small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.5; }
+  .home-stats dd.pending { font: 600 1.3rem var(--font-sans, inherit); letter-spacing: -.02em; color: var(--muted); padding-top: 10px; }
+  .task-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .task-grid article { display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); box-shadow: var(--shadow-sm); }
+  .task-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; text-decoration: none; }
+  .task-head h3 { margin: 0; font-size: 1rem; font-weight: 620; letter-spacing: -.015em; }
+  .task-head:hover h3 { color: var(--accent); }
+  .task-head span { font: 500 .72rem var(--font-mono); color: var(--muted); background: var(--cream); padding: 3px 6px; border-radius: 3px; }
+  .task-grid p { margin: 8px 0 14px; font-size: .82rem; line-height: 1.65; color: var(--muted); }
+  .task-grid ul { list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+  .task-grid li { display: flex; justify-content: space-between; gap: 10px; font-size: .84rem; }
+  .task-grid li a { text-decoration: none; font-weight: 520; }
+  .task-grid li a:hover { color: var(--accent); text-decoration: underline; }
+  .task-grid li small { color: var(--faint); font-size: .75rem; white-space: nowrap; }
+  .data-note { margin: 18px 0 0; font-size: .82rem; color: var(--muted); line-height: 1.75; }
+  .data-note a { color: var(--ink); }
+  .pick-bottom > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @media (max-width: 700px) { .hero-search { flex-direction: column; } .hero-search .button { width: 100%; justify-content: center; } .data-stats { grid-template-columns: 1fr; row-gap: 18px; } .data-stats div { border: 0; padding: 0; } }
 </style>

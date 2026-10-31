@@ -96,7 +96,7 @@ type IndexPayload = {
     recommended: number;
   };
   endpoints: typeof ENDPOINTS;
-  labels: CatalogLabel[];
+  labels: (CatalogLabel & { label: string })[];
   sites: Site[];
 };
 
@@ -468,7 +468,8 @@ export function buildIndexPayload(generatedAt = new Date().toISOString()): Index
       recommended: sites.filter((site) => site.recommended).length
     },
     endpoints: ENDPOINTS,
-    labels,
+    // `tag` is the stored (often Chinese) value; `label` is its English display name.
+    labels: labels.map((label) => ({ ...label, label: translateTag(label.tag, "en") })),
     sites
   };
 }
@@ -502,8 +503,8 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
     `Labels: ${stats.labelCount}`,
     `Updated: ${stats.updatedAt}`,
     "",
-    "## Main Labels",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Main labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
     "## Featured Entrypoints",
     ...featured.map((site) => { const copy = getSiteCopy(site, "en"); return `- ${site.recommended ? "[Editor's pick] " : ""}${copy.name}: ${copy.tagline} ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`; }),
@@ -531,29 +532,30 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
 export function renderLlmsFullText(generatedAt = new Date().toISOString()): string {
   const labels = getPopularTags();
   const lines = [
-    "## Complete directory of skill sources / 完整来源目录",
+    "## Complete directory of skill sources",
     "",
     `Generated: ${generatedAt}`,
     `Schema Version: ${SITE.schemaVersion}`,
     "",
-    "## 标签",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
-    "## 完整资源",
+    "## All sources",
     ""
   ];
 
   for (const site of getIndexableSites()) {
     lines.push(
-      `### ${site.recommended ? "[推荐] " : ""}${site.name}`,
+      `### ${site.recommended ? "[Editor's pick] " : ""}${getSiteCopy(site, "en").name}`,
+      ...(getSiteCopy(site, "en").name !== site.name ? [`Original name: ${site.name}`] : []),
       `URL: ${site.canonicalUrl}`,
       `SkillFlux: ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`,
-      `中文: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
+      `Chinese page: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
       `Type: ${site.type}`,
       `Kinds: ${site.kinds.join(", ")}`,
       `Scale: ${site.scale}`,
       `Language: ${site.language.join(", ")}`,
-      `Tags: ${site.tags.join(", ")}`,
+      `Tags: ${site.tags.map((tag) => translateTag(tag, "en")).join(", ")}`,
       `Tagline: ${site.tagline}`,
       `Summary: ${site.summary}`,
       ...(site.longSummary ? [`Details: ${site.longSummary.replace(/\n+/g, " ")}`] : []),
