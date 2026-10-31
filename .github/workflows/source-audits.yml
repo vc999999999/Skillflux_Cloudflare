@@ -1,0 +1,36 @@
+name: Monthly source audits
+on:
+  schedule:
+    - cron: "43 7 2 * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Re-pins every target in web/data/source-audit-targets.json to its current head and draws a new seeded sample.
+      - run: npm run bench -- audit --all
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run validate
+      - name: Open a pull request with the new audits
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- web/data && [ -z "$(git ls-files --others --exclude-standard web/data)" ]; then echo "No audit changes."; exit 0; fi
+          branch="audits/$(date -u +%Y-%m-%d)"
+          git config user.name "skillflux-bot"
+          git config user.email "bot@skillflux.app"
+          git checkout -b "$branch"
+          git add web/data
+          git commit -m "data: monthly source audits $(date -u +%Y-%m-%d)"
+          git push origin "$branch"
+          gh pr create --title "Monthly source audits $(date -u +%Y-%m-%d)" --body "Sampled health checks of every GitHub-hosted directory source. Review before merging."

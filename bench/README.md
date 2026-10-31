@@ -20,6 +20,17 @@ GITHUB_TOKEN=$(gh auth token) npm run health
 
 A skill becomes public when its record has a real bilingual summary and `status: "listed"`. `npm run validate` (and the site build) checks every record. Health records change only when a result changes, so the weekly workflow produces a pull request only when something did.
 
+## Source audits
+
+```bash
+npm run bench -- audit --all            # every target in web/data/source-audit-targets.json
+npm run bench -- audit --all --missing  # only targets without an audit yet
+```
+
+Each GitHub source is pinned to its current head; a seeded sample (seed `<site>@<commit prefix>`) of up to 20 skills it contains (`repo`) or links to (`list`) gets the L1 check and is written to `web/data/source-audits/<site>.json`. The build recomputes every summary from its items.
+
+Where the GitHub REST API is unavailable, snapshots, heads and commit history fall back to git over HTTPS; facts only the API has (stars, archived) are recorded as unknown rather than guessed.
+
 ## L2: benchmark
 
 Tasks live in `bench/tasks/<skillId>/<taskId>/` (`task.json`, `fixtures/`, `reference/`, `grade.mjs`). Rebuild binary fixtures with `python3 bench/tasks/_build/build_fixtures.py`. Before a task is used:
