@@ -1,0 +1,13 @@
+---
+import BestPage from "../../../components/BestPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+import { bestTopics } from "../../../lib/source-compare";
+
+export function getStaticPaths() {
+  const topics = bestTopics();
+  return langStaticPaths().flatMap(({ params, props }) => topics.map(topic => ({ params: { ...params, topic: topic.slug }, props: { ...props, topic } })));
+}
+
+const { topic, lang } = Astro.props;
+---
+<BestPage topic={topic} lang={lang} />

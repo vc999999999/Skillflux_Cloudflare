@@ -19,12 +19,23 @@ export async function fetchSnapshot(ref: RepoRef, sha: string): Promise<string> 
   const staging = `${target}.partial`;
   await rm(staging, { recursive: true, force: true });
   await mkdir(staging, { recursive: true });
-  const archive = await curl(`https://codeload.github.com/${ref.owner}/${ref.repo}/tar.gz/${sha}`);
-  const tarball = `${staging}.tar.gz`;
-  await writeFile(tarball, archive);
-  // GitHub archives wrap everything in one <repo>-<sha>/ directory.
-  await run('tar', ['-xzf', tarball, '-C', staging, '--strip-components', '1']);
-  await rm(tarball, { force: true });
+  try {
+    const archive = await curl(`https://codeload.github.com/${ref.owner}/${ref.repo}/tar.gz/${sha}`);
+    const tarball = `${staging}.tar.gz`;
+    await writeFile(tarball, archive);
+    // GitHub archives wrap everything in one <repo>-<sha>/ directory.
+    await run('tar', ['-xzf', tarball, '-C', staging, '--strip-components', '1']);
+    await rm(tarball, { force: true });
+  } catch {
+    // Some networks block codeload; a shallow git fetch of the exact commit works there.
+    await rm(staging, { recursive: true, force: true });
+    await mkdir(staging, { recursive: true });
+    const git = (...args: string[]) => run('git', ['-C', staging, ...args], { maxBuffer: 64 * 1024 * 1024 });
+    await git('init', '-q');
+    await git('fetch', '-q', '--depth', '1', `https://github.com/${ref.owner}/${ref.repo}.git`, sha);
+    await git('-c', 'advice.detachedHead=false', 'checkout', '-q', 'FETCH_HEAD');
+    await rm(join(staging, '.git'), { recursive: true, force: true });
+  }
   await writeFile(join(staging, '.complete'), `${sha}\n`);
   await rm(target, { recursive: true, force: true });
   await rename(staging, target);

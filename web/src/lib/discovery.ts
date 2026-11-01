@@ -13,8 +13,8 @@ export function renderDiscoveryText(_full = false): string {
   const index = discoveryIndex();
   const lines = ['', '## Reading boundaries', index.qualificationNote, index.freshness,
     'This static site offers discoverable HTML and machine-readable indexes. It does not guarantee search/AI inclusion, training use, ranking or model recommendations.',
-    '', '## Scenarios & selection / 场景与选型',
-    ...index.scenarios.map(scenario => `- ${scenario.title.en} / ${scenario.title.zh}: ${scenario.description.en} ${scenario.url}`),
+    '', '## Scenarios & selection',
+    ...index.scenarios.map(scenario => `- ${scenario.title.en}: ${scenario.description.en} ${scenario.url}`),
     '', `Listing policy: ${absoluteUrl('/quality/')}`, ''];
   return lines.join('\n');
 }

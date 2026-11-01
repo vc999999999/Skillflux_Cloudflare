@@ -217,3 +217,86 @@ export const RunRecord = z.object({
   artifacts: z.object({ transcriptsUrl: z.string().url().nullable(), sha256: z.string().nullable(), note: z.string().optional() }),
 });
 export type RunRecord = z.infer<typeof RunRecord>;
+
+export const AUDIT_OUTCOMES = ['checked', 'no-skill', 'unreachable'] as const;
+
+/** One sampled entry of a source audit. */
+export const SourceAuditItem = z.object({
+  repo: z.string().url().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+$/),
+  // Directory the source points at; null when it links a whole repository.
+  linkedPath: z.string().nullable(),
+  outcome: z.enum(AUDIT_OUTCOMES),
+  commitSha: sha.nullable(),
+  // Directory of the SKILL.md that was checked.
+  path: z.string().nullable(),
+  name: z.string().nullable(),
+  counts: z.object({ pass: z.number().int(), warn: z.number().int(), fail: z.number().int(), info: z.number().int() }).nullable(),
+  flags: z.array(z.enum(HEALTH_FLAGS)),
+  // Check id → status, so every summary number can be recomputed.
+  statuses: z.record(z.string(), z.enum(CHECK_STATUSES)),
+  scriptCount: z.number().int().nonnegative().nullable(),
+  bodyTokensApprox: z.number().int().nonnegative().nullable(),
+  licenseSpdx: z.string().nullable(),
+  detail: z.string(),
+});
+export type SourceAuditItem = z.infer<typeof SourceAuditItem>;
+
+export const SourceAuditSummary = z.object({
+  sampled: z.number().int().nonnegative(),
+  checked: z.number().int().nonnegative(),
+  noSkill: z.number().int().nonnegative(),
+  unreachable: z.number().int().nonnegative(),
+  withScripts: z.number().int().nonnegative(),
+  networkCalls: z.number().int().nonnegative(),
+  destructiveCommands: z.number().int().nonnegative(),
+  noLicense: z.number().int().nonnegative(),
+  missingTrigger: z.number().int().nonnegative(),
+  overTokenBudget: z.number().int().nonnegative(),
+  failingAnyCheck: z.number().int().nonnegative(),
+  stale: z.number().int().nonnegative(),
+});
+export type SourceAuditSummary = z.infer<typeof SourceAuditSummary>;
+
+/**
+ * A sampled static health check of one directory source. The source is
+ * pinned to a commit, a seeded sample of the skills it lists is checked with
+ * the L1 checker, and the summary is recomputed from the items at build time.
+ */
+export const SourceAudit = z.object({
+  schema: z.literal('skillflux-source-audit/v1'),
+  siteSlug: z.string().min(1),
+  auditedAt: isoDate,
+  checkerVersion: z.string().regex(/^\d+\.\d+\.\d+$/),
+  // repo: the source is a repository of skills; list: a curated list linking to other repositories.
+  method: z.enum(['repo', 'list']),
+  listing: z.object({
+    repo: z.string().url().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+$/),
+    commitSha: sha,
+    // Skill directories (repo) or linked GitHub entries (list) found at that commit.
+    candidates: z.number().int().nonnegative(),
+  }),
+  sample: z.object({ seed: z.string().min(1), requested: z.number().int().positive() }),
+  items: z.array(SourceAuditItem),
+  summary: SourceAuditSummary,
+});
+export type SourceAudit = z.infer<typeof SourceAudit>;
+
+/** Recomputes an audit summary from its items; the build rejects a mismatch. */
+export function summarizeAudit(items: SourceAuditItem[]): SourceAuditSummary {
+  const checked = items.filter(item => item.outcome === 'checked');
+  const count = (test: (item: SourceAuditItem) => boolean) => checked.filter(test).length;
+  return {
+    sampled: items.length,
+    checked: checked.length,
+    noSkill: items.filter(item => item.outcome === 'no-skill').length,
+    unreachable: items.filter(item => item.outcome === 'unreachable').length,
+    withScripts: count(item => item.flags.includes('executes-code')),
+    networkCalls: count(item => item.flags.includes('network-calls')),
+    destructiveCommands: count(item => item.flags.includes('destructive-commands')),
+    noLicense: count(item => item.flags.includes('no-license')),
+    missingTrigger: count(item => item.statuses['frontmatter.descriptionTrigger'] === 'warn' || item.statuses['frontmatter.descriptionTrigger'] === 'fail'),
+    overTokenBudget: count(item => item.statuses['body.tokensApprox'] === 'warn'),
+    failingAnyCheck: count(item => (item.counts?.fail ?? 0) > 0),
+    stale: count(item => item.flags.includes('stale') || item.flags.includes('archived-repo')),
+  };
+}

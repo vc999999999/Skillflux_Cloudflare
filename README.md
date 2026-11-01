@@ -8,6 +8,34 @@ SkillFlux 是一个 Agent Skill 的**实测数据站 + 来源黄页**。
 
 网站以英文为主（`/`），中文在 `/zh/`。
 
+## 两类读者
+
+| 读者 | 入口 | 内容原则 |
+| --- | --- | --- |
+| 人 | 首页、`/directory/`、`/skills/`、来源详情页 | 黄页式浏览：按任务找 Skill、按类型找来源、编辑推荐；首页搜索同时命中来源和 Skill 报告 |
+| AI | `/AGENTS.md`、`/llms.txt`、`/data/index.json`、`/data/skills/<id>.json` | 只放可复核的东西：钉定提交与源码永久链接、逐项检查结果、检查器版本、原始 trial、sha256 清单、引用规则；机器文件统一英文 |
+
+实测还没有发布批次时，页面不显示「0」，而显示「筹备中」；机器文件照实写 0。
+
+### 给搜索引擎的页面
+
+| 页面 | 地址 | 数据来源 |
+| --- | --- | --- |
+| 来源测评 | `/resource/<slug>/` | 编辑说明 + 来源抽样体检（成绩单与抽样明细） |
+| 替代来源 | `/alternatives/<slug>/` | 用途相同的来源，按编辑推荐、主要用途、类型排序 |
+| 两两对比 | `/compare/<a>-vs-<b>/` | 编辑推荐的替代对，并排列出用途、适合人群、局限与抽样数据 |
+| 盘点 | `/best/<topic>/` | 按用途或来源类型分组；有抽样数据的按「达标率」排序，排序方法写在页面上 |
+
+### 给 AI 的入口
+
+- `/ai/tasks/index.json` → `/ai/tasks/<task>.json`：按任务列出已体检的 Skill 与来源，每条附证据链接。
+- `/data/claims.json`：SkillFlux 发布的每条说法，带方法、日期、证据链接和 `verified`；来源自述标为未核实。
+- `/skills/<id>.md`、`/resource/<slug>.md`：页面的精简 Markdown 版本，HTML 页面用 `rel="alternate"` 指向它。
+
+### 来源抽样体检
+
+对每个 GitHub 来源：钉定到当前提交，在它包含（`repo`）或链接到（`list`）的条目中，用 `站点 slug@提交前 12 位` 作为种子抽取最多 20 个，逐个跑 L1 体检。测试、示例、模板目录不计入。抽样只读文件，不运行 Skill。网站类来源（多数市场）无法钉定提交，不做抽样；其自述数量记录在 `sites.json` 的 `claims` 中，标明出处与日期。
+
 SkillFlux 不分发、不安装 Skill。原来的 npm/MCP 分发工具已在 tag `v1.3.0-tool-final` 存档并从主线移除。
 
 ```text
@@ -36,6 +64,7 @@ npm run typecheck
 | Skill 记录 | `web/data/skills/<id>.json` | `bench import` 生成草稿，人工写摘要、分类和状态 |
 | 体检结果 | `web/data/health/<id>.json` | `npm run health` 生成，每周 CI 重跑 |
 | 实测批次 | `web/data/benchmarks/runs/<runId>.json` | `bench publish` 生成，发布后不可修改 |
+| 来源抽样体检 | `web/data/source-audits/<site>.json` | `npm run bench -- audit --all`，目标清单在 `source-audit-targets.json`；每月 CI 重跑 |
 
 构建时会校验全部数据：schema、交叉引用、草稿不得公开；每个实测汇总都要能从原始 trial 重新算出。任何一项不通过，构建就会失败。
 

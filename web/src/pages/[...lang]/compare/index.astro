@@ -1,0 +1,7 @@
+---
+import ComparisonIndexPage from "../../../components/ComparisonIndexPage.astro";
+import { langStaticPaths } from "../../../lib/i18n";
+export function getStaticPaths() { return langStaticPaths(); }
+const { lang } = Astro.props;
+---
+<ComparisonIndexPage lang={lang} section="compare" />

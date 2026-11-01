@@ -9,11 +9,11 @@ const zh = lang === "zh";
 const path = stripLanguagePrefix(currentPath);
 const showLanguageSwitcher = showLanguage;
 const links = [
-  { href: "/skills/", label: zh ? "Skill 数据" : "Skills", active: /^\/(skills)(\/|$)/.test(path) },
-  { href: "/benchmarks/", label: zh ? "实测" : "Benchmarks", active: /^\/(benchmarks|runs)(\/|$)/.test(path) },
-  { href: "/directory/", label: zh ? "来源目录" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
-  { href: "/insights/", label: zh ? "Skill 拆解" : "Insights", active: /^\/(insights|guides|scenarios)(\/|$)/.test(path) },
-  { href: "/data/", label: zh ? "数据" : "Data", active: /^\/(data|methodology|for-ai)(\/|$)/.test(path) }
+  { href: "/skills/", label: zh ? "Skill" : "Skills", active: /^\/(skills)(\/|$)/.test(path) },
+  { href: "/directory/", label: zh ? "来源黄页" : "Directory", active: /^\/(directory|resource|source-type|agents|tag)(\/|$)/.test(path) },
+  { href: "/best/", label: zh ? "对比盘点" : "Compare", active: /^\/(best|compare|alternatives)(\/|$)/.test(path) },
+  { href: "/guides/", label: zh ? "指南" : "Guides", active: /^\/(insights|guides|scenarios)(\/|$)/.test(path) },
+  { href: "/data/", label: zh ? "数据" : "Data", active: /^\/(data|methodology|for-ai|benchmarks|runs)(\/|$)/.test(path) }
 ];
 ---
 <header class="sf-header">
@@ -33,7 +33,7 @@ const links = [
       {showLanguageSwitcher && <div class="sf-language" aria-label={zh ? "切换语言" : "Language"}>
         <a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a>
       </div>}
-      <a class="sf-header-cta" href={localizePath("/data/", lang)}>{zh ? "获取数据" : "Get the data"}<span aria-hidden="true">→</span></a>
+      <a class="sf-header-cta" href={localizePath("/directory/", lang)}>{zh ? "浏览黄页" : "Browse directory"}<span aria-hidden="true">→</span></a>
       <button class="sf-menu-toggle" type="button" aria-controls="sf-mobile-nav" aria-expanded="false" aria-label={zh ? "打开导航菜单" : "Open navigation"} data-open-label={zh ? "打开导航菜单" : "Open navigation"} data-close-label={zh ? "关闭导航菜单" : "Close navigation"}>
         <svg class="sf-menu-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="sf-menu-close" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
@@ -74,7 +74,7 @@ const links = [
   .sf-mobile-nav a span { color: var(--faint); }
   .sf-header a:focus-visible, .sf-header button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   @media (max-width: 1150px) { .sf-header-inner { gap: 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } .sf-github-link { display: none; } }
-  /* "Get the data" duplicates the Data nav link, so it goes first when space runs out. */
+  /* The CTA duplicates the Directory nav link, so it goes first when space runs out. */
   @media (max-width: 960px) { .sf-header-cta { display: none; } }
   @media (max-width: 760px) { .sf-desktop-nav { display: none; } .sf-menu-toggle { display: block; } }
   @media (min-width: 761px) { .sf-mobile-nav { display: none; } }

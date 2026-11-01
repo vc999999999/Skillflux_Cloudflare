@@ -19,7 +19,7 @@ export type BuiltPage = {
   issues: string[];
 };
 
-export const SITEMAP_GROUPS = ['skills', 'data', 'resources', 'guides', 'agents', 'static', 'tags'] as const;
+export const SITEMAP_GROUPS = ['skills', 'data', 'resources', 'comparisons', 'guides', 'agents', 'static', 'tags'] as const;
 type SitemapGroup = typeof SITEMAP_GROUPS[number];
 type SitemapFiles = Record<string, string>;
 const RESOURCE_SECTIONS = ['best-for', 'use-cases', 'notes', 'limitations', 'alternatives'];
@@ -102,7 +102,7 @@ export function inspectHtml(file: string, html: string): BuiltPage {
     if (!language) issues.push('HTML language required');
     if (invalidDate) issues.push('invalid JSON-LD dateModified');
     if (/^\/(?:zh\/)?404(?:\.html|\/|$)/.test(path)) issues.push('error page must be noindex');
-    const detail = /^\/(?:zh\/)?(?:resource|guides|skills)\/[^/]+\/$/.test(path);
+    const detail = /^\/(?:zh\/)?(?:resource|guides|skills|compare|alternatives|best)\/[^/]+\/$/.test(path);
     if (detail && !schemas.some(value => schemaHasType(value, 'BreadcrumbList'))) issues.push('detail page requires BreadcrumbList JSON-LD');
     if (/^\/(?:zh\/)?guides\/[^/]+\/$/.test(path) && !schemas.some(value => schemaHasType(value, 'Article'))) issues.push('guide requires Article JSON-LD');
     if (/^\/(?:zh\/)?resource\/[^/]+\/$/.test(path)) {
@@ -192,6 +192,7 @@ function groupFor(path: string): SitemapGroup {
   if (base.startsWith('/skills/')) return 'skills';
   if (/^\/(data|methodology|benchmarks|runs)\//.test(base)) return 'data';
   if (base.startsWith('/resource/')) return 'resources';
+  if (/^\/(compare|alternatives|best)\//.test(base)) return 'comparisons';
   if (/^\/(guides|insights)\/[^/]+\/$/.test(base)) return 'guides';
   if (base.startsWith('/agents/')) return 'agents';
   if (base.startsWith('/tag/')) return 'tags';

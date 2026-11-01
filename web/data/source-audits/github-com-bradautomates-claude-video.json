@@ -1,0 +1,77 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-bradautomates-claude-video",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/bradautomates/claude-video",
+    "commitSha": "03ceb42f7fa2c4439aca01752118044baabffb8f",
+    "candidates": 1
+  },
+  "sample": {
+    "seed": "github-com-bradautomates-claude-video@03ceb42f7fa2",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/bradautomates/claude-video",
+      "linkedPath": "skills/watch",
+      "outcome": "checked",
+      "commitSha": "03ceb42f7fa2c4439aca01752118044baabffb8f",
+      "path": "skills/watch",
+      "name": "watch",
+      "counts": {
+        "pass": 13,
+        "warn": 2,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [
+        "destructive-commands",
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "warn",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "warn",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 11,
+      "bodyTokensApprox": 4165,
+      "licenseSpdx": "MIT",
+      "detail": "13 pass, 2 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 1,
+    "checked": 1,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 1,
+    "networkCalls": 0,
+    "destructiveCommands": 1,
+    "noLicense": 0,
+    "missingTrigger": 1,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}

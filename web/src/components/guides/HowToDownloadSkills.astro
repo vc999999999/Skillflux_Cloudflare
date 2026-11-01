@@ -25,7 +25,7 @@ const href = {
 <GuideLayout lang={lang} guide={guide}>
   {lang === "zh" ? (
     <Fragment>
-      <p>Claude Skills 可以从发布方页面、Skill 市场、开源仓库和具体项目的下载包获取。应选择哪条路径，取决于你要使用的 Skill 及宿主要求。先找到原始项目，再按对应文档安装；一个网站被 SkillFlux 收录，并不表示其中所有内容都已进入 SkillFlux 的可安装 Registry。</p>
+      <p>Claude Skills 可以从发布方页面、Skill 市场、开源仓库和具体项目的下载包获取。应选择哪条路径，取决于你要使用的 Skill 及宿主要求。先找到原始项目，再按对应文档安装；SkillFlux 不分发、不安装 Skill；一个网站被收录，只说明它存在且可访问，不代表其中的内容都经过测试。</p>
       <h2>四种获取路径</h2>
       <h3>1. 发布方与官方合集</h3>
       <p>发布方材料有助于确认出处和项目定位。可以从 <a href={href.official}>官方厂商来源</a> 浏览，例如 <a href={href.modelscope}>ModelScope Skills</a>，再进入具体 Skill 的说明。平台面向多个 agent 时，不要默认每个条目都能直接用于 Claude；需要核对所选项目的宿主、版本和依赖。</p>
@@ -50,7 +50,7 @@ const href = {
     </Fragment>
   ) : (
     <Fragment>
-      <p>Claude Skills can be acquired through publisher pages, skill marketplaces, open-source repositories and project download packages. The right route depends on the selected skill and its host requirements. Find the original project, then follow its documentation. A website appearing in the SkillFlux catalog does not mean all of its content is available through the SkillFlux installable Registry.</p>
+      <p>Claude Skills can be acquired through publisher pages, skill marketplaces, open-source repositories and project download packages. The right route depends on the selected skill and its host requirements. Find the original project, then follow its documentation. SkillFlux does not distribute or install skills; a website appearing in the directory means it exists and is reachable, not that its content was tested.</p>
       <h2>Four acquisition routes</h2>
       <h3>1. Publishers and official collections</h3>
       <p>Publisher material helps identify the origin and purpose of a project. Browse <a href={href.official}>official vendor sources</a>, such as <a href={href.modelscope}>ModelScope Skills</a>, then continue to an individual skill’s instructions. If a platform addresses several agents, do not assume every entry works directly with Claude. Check the selected project’s host, version and dependency requirements.</p>

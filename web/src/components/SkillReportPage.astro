@@ -25,6 +25,7 @@ const checkText = new Map(CHECK_REGISTRY.map(item => [item.id, zh ? item.zh : it
 const title = result ? t(`${name} benchmark: results with Claude Code`, `${name} 实测：Claude Code 下的对照结果`) : t(`${name}: skill health check`, `${name}：Skill 体检报告`);
 const description = finding.length > 300 ? `${finding.slice(0, 297)}…` : finding;
 const statusLabel: Record<string, [string, string]> = { pass: ["Pass", "通过"], warn: ["Warning", "警告"], fail: ["Fail", "失败"], info: ["Info", "提示"] };
+const statusOrder = ["fail", "warn", "info", "pass"];
 const verdictLabel = (verdict: string | null) => verdict === "improves" ? t("Improves", "提升") : verdict === "hurts" ? t("Hurts", "变差") : t("No detectable difference", "无可检测差异");
 const cite = { text: citationText(view, lang), bibtex: citationBibtex(view) };
 const faqs = [
@@ -58,7 +59,7 @@ const jsonLd = [
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) },
 ];
 ---
-<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable}>
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable} markdownAlternate={view.indexable ? `/skills/${view.skill.id}.md` : undefined}>
   <main id="main-content" class="page-shell">
     <PageHeader title={title} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]}>
       <Fragment slot="eyebrow">{result ? t("BENCHMARK REPORT", "实测报告") : t("HEALTH CHECK", "体检报告")} · {category.label[lang]}</Fragment>
@@ -118,7 +119,7 @@ const jsonLd = [
               {health.flags.length > 0 && <ul class="flag-list">{health.flags.map(flag => <li>{flagLabel(flag, lang)}</li>)}</ul>}
               <div class="table-scroll"><table class="data-table checks-table">
                 <thead><tr><th scope="col">{t("Check", "检查项")}</th><th scope="col">{t("Result", "结果")}</th><th scope="col">{t("Detail", "详情")}</th></tr></thead>
-                <tbody>{health.checks.map(item => <tr><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class={`status-pill tone-${item.status}`}>{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
+                <tbody>{[...health.checks].sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)).map(item => <tr><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class={`status-pill tone-${item.status}`}>{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
               </table></div>
             </>
           ) : <p>{t("Not checked yet.", "尚未体检。")}</p>}

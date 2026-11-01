@@ -7,7 +7,7 @@ import { readFrontmatter } from './health/frontmatter.js';
 import { SkillRecord } from './schema.js';
 import { SKILLS_DIR, today, writeJson } from './paths.js';
 import { fetchSnapshot, findSkillDirs, listFiles } from './source/fetch.js';
-import { parseRepoUrl, repoMeta, resolveHead } from './source/github.js';
+import { headSha, parseRepoUrl, repoMeta } from './source/github.js';
 
 export interface ImportOptions {
   repo: string;
@@ -30,7 +30,7 @@ export function skillId(owner: string, repo: string, name: string): string {
 
 export async function importRepo(options: ImportOptions): Promise<string[]> {
   const ref = parseRepoUrl(options.repo);
-  const sha = options.sha ?? await resolveHead(ref);
+  const sha = options.sha ?? await headSha(ref);
   const root = await fetchSnapshot(ref, sha);
   const meta = await repoMeta(ref).catch(() => null);
   let dirs = await findSkillDirs(root);

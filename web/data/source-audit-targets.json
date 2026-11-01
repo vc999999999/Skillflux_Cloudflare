@@ -1,0 +1,547 @@
+[
+  {
+    "site": "github-com-anthropics-skills",
+    "repo": "https://github.com/anthropics/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-bradautomates-claude-video",
+    "repo": "https://github.com/bradautomates/claude-video",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-op7418-humanizer-zh",
+    "repo": "https://github.com/op7418/Humanizer-zh",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-othmanadi-planning-with-files",
+    "repo": "https://github.com/OthmanAdi/planning-with-files",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-varunr89-resume-tailoring-skill",
+    "repo": "https://github.com/varunr89/resume-tailoring-skill",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-obra-superpowers",
+    "repo": "https://github.com/obra/superpowers",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-composiohq-awesome-claude-skills",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-voltagent-awesome-agent-skills",
+    "repo": "https://github.com/VoltAgent/awesome-agent-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-travisvn-awesome-claude-skills",
+    "repo": "https://github.com/travisvn/awesome-claude-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-behisecc-awesome-claude-skills",
+    "repo": "https://github.com/BehiSecc/awesome-claude-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-android-skills",
+    "repo": "https://github.com/android/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-expo-skills",
+    "repo": "https://github.com/expo/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-xu-xiang-everything-claude-code-zh",
+    "repo": "https://github.com/xu-xiang/everything-claude-code-zh",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-wlzh-skills",
+    "repo": "https://github.com/wlzh/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-laolaoshiren-claude-code-skills-zh",
+    "repo": "https://github.com/laolaoshiren/claude-code-skills-zh",
+    "method": "list"
+  },
+  {
+    "site": "github-com-mattpocock-skills",
+    "repo": "https://github.com/mattpocock/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-morluto-rea",
+    "repo": "https://github.com/morluto/rea",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-qingyuna-answer-me-with-html",
+    "repo": "https://github.com/QingYunA/answer-me-with-html",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-k-dense-ai-scientific-agent-skills",
+    "repo": "https://github.com/K-Dense-AI/scientific-agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-brycewang-stanford-auto-empirical-research-skills",
+    "repo": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-lambdatest-agent-skills",
+    "repo": "https://github.com/LambdaTest/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-minimax-ai-skills",
+    "repo": "https://github.com/MiniMax-AI/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-nvidia-skills",
+    "repo": "https://github.com/NVIDIA/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-angular-skills",
+    "repo": "https://github.com/angular/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-apollographql-skills",
+    "repo": "https://github.com/apollographql/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-better-auth-skills",
+    "repo": "https://github.com/better-auth/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-browserbase-skills",
+    "repo": "https://github.com/browserbase/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-cloudflare-skills",
+    "repo": "https://github.com/cloudflare/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-coderabbitai-skills",
+    "repo": "https://github.com/coderabbitai/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-trycourier-courier-skills",
+    "repo": "https://github.com/trycourier/courier-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-cypress-io-ai-toolkit",
+    "repo": "https://github.com/cypress-io/ai-toolkit",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-firebase-skills",
+    "repo": "https://github.com/firebase/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-firecrawl-skills",
+    "repo": "https://github.com/firecrawl/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-flutter-skills",
+    "repo": "https://github.com/flutter/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-getsentry-skills",
+    "repo": "https://github.com/getsentry/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-google-skills",
+    "repo": "https://github.com/google/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-huggingface-skills",
+    "repo": "https://github.com/huggingface/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-makenotion-skills",
+    "repo": "https://github.com/makenotion/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-microsoft-skills",
+    "repo": "https://github.com/microsoft/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-openai-skills",
+    "repo": "https://github.com/openai/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-openai-plugins",
+    "repo": "https://github.com/openai/plugins",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-redis-agent-skills",
+    "repo": "https://github.com/redis/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-remotion-dev-skills",
+    "repo": "https://github.com/remotion-dev/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-replicate-skills",
+    "repo": "https://github.com/replicate/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-resend-resend-skills",
+    "repo": "https://github.com/resend/resend-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-trailofbits-skills",
+    "repo": "https://github.com/trailofbits/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-veniceai-skills",
+    "repo": "https://github.com/veniceai/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-vercel-labs-agent-skills",
+    "repo": "https://github.com/vercel-labs/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-vercel-labs-skills",
+    "repo": "https://github.com/vercel-labs/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-voltagent-skills",
+    "repo": "https://github.com/voltagent/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-stripe-ai",
+    "repo": "https://github.com/stripe/ai",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-supabase-agent-skills",
+    "repo": "https://github.com/supabase/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-wordpress-agent-skills",
+    "repo": "https://github.com/WordPress/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-hashicorp-agent-skills",
+    "repo": "https://github.com/hashicorp/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-neondatabase-agent-skills",
+    "repo": "https://github.com/neondatabase/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mongodb-agent-skills",
+    "repo": "https://github.com/mongodb/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-sanity-io-agent-toolkit",
+    "repo": "https://github.com/sanity-io/agent-toolkit",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-netlify-context-and-tools",
+    "repo": "https://github.com/netlify/context-and-tools",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-figma-mcp-server-guide",
+    "repo": "https://github.com/figma/mcp-server-guide",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-google-gemini-gemini-skills",
+    "repo": "https://github.com/google-gemini/gemini-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-dotnet-skills",
+    "repo": "https://github.com/dotnet/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-awslabs-agent-plugins",
+    "repo": "https://github.com/awslabs/agent-plugins",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-jetbrains-skills",
+    "repo": "https://github.com/JetBrains/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-anthropics-claude-plugins-official",
+    "repo": "https://github.com/anthropics/claude-plugins-official",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-anthropics-claude-plugins-community",
+    "repo": "https://github.com/anthropics/claude-plugins-community",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-tinybirdco-tinybird-agent-skills",
+    "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-googleworkspace-cli",
+    "repo": "https://github.com/googleworkspace/cli",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-qdrant-skills",
+    "repo": "https://github.com/qdrant/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mailtrap-mailtrap-skills",
+    "repo": "https://github.com/mailtrap/mailtrap-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-metalbear-co-skills",
+    "repo": "https://github.com/metalbear-co/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-browser-act-skills",
+    "repo": "https://github.com/browser-act/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-video-db-skills",
+    "repo": "https://github.com/video-db/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-transloadit-skills",
+    "repo": "https://github.com/transloadit/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-noizai-skills",
+    "repo": "https://github.com/NoizAI/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-coreyhaines31-marketingskills",
+    "repo": "https://github.com/coreyhaines31/marketingskills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-deanpeters-product-manager-skills",
+    "repo": "https://github.com/deanpeters/Product-Manager-Skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-phuryn-pm-skills",
+    "repo": "https://github.com/phuryn/pm-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-realkimbarrett-advertising-skills",
+    "repo": "https://github.com/realkimbarrett/advertising-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-alirezarezvani-claude-skills",
+    "repo": "https://github.com/alirezarezvani/claude-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-wshobson-agents",
+    "repo": "https://github.com/wshobson/agents",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-affaan-m-everything-claude-code",
+    "repo": "https://github.com/affaan-m/everything-claude-code",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-glebis-claude-skills",
+    "repo": "https://github.com/glebis/claude-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-oaustegard-claude-skills",
+    "repo": "https://github.com/oaustegard/claude-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-obra-superpowers-lab",
+    "repo": "https://github.com/obra/superpowers-lab",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-sickn33-antigravity-awesome-skills",
+    "repo": "https://github.com/sickn33/antigravity-awesome-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mouadja02-skills",
+    "repo": "https://github.com/mouadja02/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-yusukebe-skills",
+    "repo": "https://github.com/yusukebe/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-garrytan-gstack",
+    "repo": "https://github.com/garrytan/gstack",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-neolabhq-context-engineering-kit",
+    "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-muratcankoylan-agent-skills-for-context-engineering",
+    "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-jeffallan-claude-skills",
+    "repo": "https://github.com/jeffallan/claude-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-sanjay3290-ai-skills",
+    "repo": "https://github.com/sanjay3290/ai-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-gooseworks-ai-goose-skills",
+    "repo": "https://github.com/gooseworks-ai/goose-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mblode-agent-skills",
+    "repo": "https://github.com/mblode/agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mcollina-skills",
+    "repo": "https://github.com/mcollina/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-wondelai-skills",
+    "repo": "https://github.com/wondelai/skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-product-on-purpose-pm-skills",
+    "repo": "https://github.com/product-on-purpose/pm-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-mhattingpete-claude-skills-marketplace",
+    "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-eduardo-sl-go-agent-skills",
+    "repo": "https://github.com/eduardo-sl/go-agent-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-agricidaniel-claude-seo",
+    "repo": "https://github.com/AgriciDaniel/claude-seo",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-sergebulaev-linkedin-skills",
+    "repo": "https://github.com/sergebulaev/linkedin-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-zxkane-aws-skills",
+    "repo": "https://github.com/zxkane/aws-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-composiohq-awesome-codex-skills",
+    "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
+    "method": "repo"
+  },
+  {
+    "site": "github-com-heilcheng-awesome-agent-skills",
+    "repo": "https://github.com/heilcheng/awesome-agent-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-skillmatic-ai-awesome-agent-skills",
+    "repo": "https://github.com/skillmatic-ai/awesome-agent-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-karanb192-awesome-claude-skills",
+    "repo": "https://github.com/karanb192/awesome-claude-skills",
+    "method": "list"
+  },
+  {
+    "site": "github-com-hesreallyhim-awesome-claude-code",
+    "repo": "https://github.com/hesreallyhim/awesome-claude-code",
+    "method": "list"
+  },
+  {
+    "site": "github-com-xiaolai-claude-plugin-marketplace",
+    "repo": "https://github.com/xiaolai/claude-plugin-marketplace",
+    "method": "list"
+  },
+  {
+    "site": "github-com-dmgrok-agent-skills-directory",
+    "repo": "https://github.com/dmgrok/agent_skills_directory",
+    "method": "list"
+  }
+]

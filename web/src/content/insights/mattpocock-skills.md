@@ -2,7 +2,7 @@
 title: "Matt Pocock Skills 拆解：从需求追问、任务拆分到行为测试"
 description: "基于已收录的 Matt Pocock Skills 固定快照，拆解 grill-me、grilling、to-spec、to-tickets 与 tdd 的分工，用导出功能示例说明需求澄清、纵向任务和行为测试如何衔接，以及使用前需要确认的边界。"
 datePublished: "2026-10-10"
-dateModified: "2026-10-10"
+dateModified: "2026-10-31"
 industry: "软件工程 / AI 协作开发"
 skillName: "mattpocock/skills"
 source:
@@ -43,7 +43,7 @@ limitations:
   - "需要人参与关键取舍；需求访谈的结束条件是形成共同理解，不能把沉默当作确认。"
   - "to-spec、to-tickets 等流程依赖项目的事项跟踪配置、领域术语和现有代码上下文，空项目需先补齐这些信息。"
   - "跨全库的机械重构有专门的分批迁移例外，不能强行套用普通功能的纵向切片。"
-  - "本文解释已收录快照的设计，未执行这套工程链；完整收录的 38 个 Skill 不代表全部已获 SkillFlux MCP 安装资格。"
+  - "本文解释固定快照的设计，未执行这套工程链；分析覆盖 38 个 Skill 的正文，不代表它们都经过 SkillFlux 测试。"
 draft: false
 ---
 
@@ -73,6 +73,6 @@ draft: false
 
 ## 阅读版本与使用边界
 
-本文依据 SkillFlux 已完整收录的提交 `b0618bc436ad893b3c5e84e55fba86586d34a404`，是源码分析与示例设计，没有运行上述订单案例。完整收录保留了引用文件、脚本和许可证；MCP 安装资格仍按具体包版本审核。已有的 `grill-me`、`grilling` 1.0.0 与这里的后续快照需要分别看待。
+本文依据提交 `b0618bc436ad893b3c5e84e55fba86586d34a404`，是源码分析与示例设计，没有运行上述订单案例。分析覆盖引用文件、脚本和许可证；单个 Skill 的体检结果以各自报告页钉定的提交为准。
 
 核对原文可从 [grilling](https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/productivity/grilling/SKILL.md)、[to-spec](https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/to-spec/SKILL.md)、[to-tickets](https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/to-tickets/SKILL.md) 和 [tdd](https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/tdd/SKILL.md) 开始；[资源详情](/resource/mattpocock-skills/)列出了完整收录范围。

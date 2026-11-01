@@ -1,7 +1,7 @@
 import sitesData from "../../data/sites.json";
 import categoriesData from "../../data/categories.json";
 import { ENDPOINTS, SITE } from "../config";
-import { getSiteCopy, translateTag } from "./i18n";
+import { getSiteCopy, translateCategory, translateTag } from "./i18n";
 import { getGuides } from "./guides";
 import { getResourceEditorial, isResourceIndexable, type ResourceEditorial } from "./resource-editorial";
 import { getTagEditorial } from "./taxonomy";
@@ -52,6 +52,8 @@ export type Site = {
   aiSummary: string;
   // Optional hand-written FAQ. Falls back to auto-generated questions when absent.
   faqs?: Faq[];
+  // Statements about the source that SkillFlux could not verify itself, with where and when they were observed.
+  claims?: SourceClaim[];
   featured: boolean;
   recommended: boolean;
   trustLevel: TrustLevel;
@@ -60,6 +62,8 @@ export type Site = {
   addedAt: string;
   updatedAt: string;
 };
+
+export type SourceClaim = { en: string; zh: string; sourceUrl: string; observedAt: string; method: "web-search" | "readme" };
 
 export type CatalogLabel = {
   tag: string;
@@ -96,7 +100,7 @@ type IndexPayload = {
     recommended: number;
   };
   endpoints: typeof ENDPOINTS;
-  labels: CatalogLabel[];
+  labels: (CatalogLabel & { label: string })[];
   sites: Site[];
 };
 
@@ -192,6 +196,25 @@ function optionalFaqs(record: Record<string, unknown>, context: string): Faq[] |
   });
 }
 
+function optionalClaims(record: Record<string, unknown>, context: string): SourceClaim[] | undefined {
+  const value = record.claims;
+  if (value === undefined || value === null) return undefined;
+  assert(Array.isArray(value), `${context}.claims must be an array`);
+  return value.map((item, index) => {
+    const itemContext = `${context}.claims[${index}]`;
+    assert(isRecord(item), `${itemContext} must be an object`);
+    const method = requireString(item, "method", itemContext);
+    assert(method === "web-search" || method === "readme", `${itemContext}.method has unsupported value`);
+    return {
+      en: requireString(item, "en", itemContext),
+      zh: requireString(item, "zh", itemContext),
+      sourceUrl: requireUrl(requireString(item, "sourceUrl", itemContext), `${itemContext}.sourceUrl`),
+      observedAt: requireDate(requireString(item, "observedAt", itemContext), `${itemContext}.observedAt`),
+      method
+    } satisfies SourceClaim;
+  });
+}
+
 function requireUrl(value: string, context: string): string {
   try {
     const url = new URL(value);
@@ -227,6 +250,7 @@ function normalizeSite(raw: unknown, index: number): Site {
   const type = requireString(raw, "type", context);
   const longSummary = optionalString(raw, "longSummary", context);
   const faqs = optionalFaqs(raw, context);
+  const claims = optionalClaims(raw, context);
 
   const slug = requireString(raw, "slug", context);
   const editorial = getResourceEditorial(slug);
@@ -254,6 +278,7 @@ function normalizeSite(raw: unknown, index: number): Site {
     ...(editorial ? { longSummary: editorial.summary.zh } : longSummary ? { longSummary } : {}),
     aiSummary: editorial?.skillFluxNote.zh ?? requireString(raw, "aiSummary", context),
     ...(!editorial && faqs ? { faqs } : {}),
+    ...(claims ? { claims } : {}),
     featured: requireBoolean(raw, "featured", context),
     recommended: requireBoolean(raw, "recommended", context),
     trustLevel,
@@ -468,7 +493,8 @@ export function buildIndexPayload(generatedAt = new Date().toISOString()): Index
       recommended: sites.filter((site) => site.recommended).length
     },
     endpoints: ENDPOINTS,
-    labels,
+    // `tag` is the stored (often Chinese) value; `label` is its English display name.
+    labels: labels.map((label) => ({ ...label, label: translateTag(label.tag, "en") })),
     sites
   };
 }
@@ -502,17 +528,17 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
     `Labels: ${stats.labelCount}`,
     `Updated: ${stats.updatedAt}`,
     "",
-    "## Main Labels",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Main labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
     "## Featured Entrypoints",
     ...featured.map((site) => { const copy = getSiteCopy(site, "en"); return `- ${site.recommended ? "[Editor's pick] " : ""}${copy.name}: ${copy.tagline} ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`; }),
     "",
     "## Browse by source type",
-    ...categories.map((category) => `- ${category.label} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
+    ...categories.map((category) => `- ${translateCategory(category.slug, category.label, "en")} (${category.count}): ${absoluteUrl(`/source-type/${category.slug}/`)}`),
     "",
     "## Browse by tag",
-    ...tagIndex.map((entry) => `- ${entry.tag} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
+    ...tagIndex.map((entry) => `- ${translateTag(entry.tag, "en")} (${entry.count}): ${absoluteUrl(`/tag/${entry.slug}/`)}`),
     "",
     "## Guides",
     ...getGuides().map((guide) => `- ${guide.title.en}: ${guide.description.en} ${absoluteUrl(`/guides/${guide.slug}/`)}`),
@@ -531,35 +557,34 @@ export function renderLlmsText(generatedAt = new Date().toISOString(), insights:
 export function renderLlmsFullText(generatedAt = new Date().toISOString()): string {
   const labels = getPopularTags();
   const lines = [
-    "## Complete directory of skill sources / 完整来源目录",
+    "## Complete directory of skill sources",
     "",
     `Generated: ${generatedAt}`,
     `Schema Version: ${SITE.schemaVersion}`,
     "",
-    "## 标签",
-    ...labels.map((label) => `- ${label.tag}: ${label.count}`),
+    "## Labels",
+    ...labels.map((label) => `- ${translateTag(label.tag, "en")}: ${label.count}`),
     "",
-    "## 完整资源",
+    "## All sources",
     ""
   ];
 
   for (const site of getIndexableSites()) {
+    const copy = getSiteCopy(site, "en");
     lines.push(
-      `### ${site.recommended ? "[推荐] " : ""}${site.name}`,
+      `### ${site.recommended ? "[Editor's pick] " : ""}${copy.name}`,
+      ...(copy.name !== site.name ? [`Original name: ${site.name}`] : []),
       `URL: ${site.canonicalUrl}`,
       `SkillFlux: ${absoluteUrl(`/resource/${site.resourceSlug}/`)}`,
-      `中文: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
-      `Type: ${site.type}`,
+      `Chinese page: ${absoluteUrl(`/zh/resource/${site.resourceSlug}/`)}`,
+      `Type: ${copy.type}`,
       `Kinds: ${site.kinds.join(", ")}`,
-      `Scale: ${site.scale}`,
+      `Scale: ${copy.scale}`,
       `Language: ${site.language.join(", ")}`,
-      `Tags: ${site.tags.join(", ")}`,
-      `Tagline: ${site.tagline}`,
-      `Summary: ${site.summary}`,
-      ...(site.longSummary ? [`Details: ${site.longSummary.replace(/\n+/g, " ")}`] : []),
-      `AI Summary: ${site.aiSummary}`,
+      `Tags: ${copy.tags.join(", ")}`,
+      `Capability: ${copy.tagline}`,
+      `Summary: ${copy.summary}`,
       ...(site.editorial ? [
-        `English summary: ${site.editorial.summary.en}`,
         `Best for: ${site.editorial.bestFor.map(item => item.en).join("; ")}`,
         `Use cases: ${site.editorial.useCases.join(", ")}`,
         `SkillFlux note: ${site.editorial.skillFluxNote.en}`,

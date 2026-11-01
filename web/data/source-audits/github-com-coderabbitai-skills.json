@@ -1,0 +1,116 @@
+{
+  "schema": "skillflux-source-audit/v1",
+  "siteSlug": "github-com-coderabbitai-skills",
+  "auditedAt": "2026-10-31",
+  "checkerVersion": "1.0.0",
+  "method": "repo",
+  "listing": {
+    "repo": "https://github.com/coderabbitai/skills",
+    "commitSha": "8eef1037a977f2bc54368affb3b0d650f368e42a",
+    "candidates": 2
+  },
+  "sample": {
+    "seed": "github-com-coderabbitai-skills@8eef1037a977",
+    "requested": 20
+  },
+  "items": [
+    {
+      "repo": "https://github.com/coderabbitai/skills",
+      "linkedPath": "skills/code-review",
+      "outcome": "checked",
+      "commitSha": "8eef1037a977f2bc54368affb3b0d650f368e42a",
+      "path": "skills/code-review",
+      "name": "code-review",
+      "counts": {
+        "pass": 15,
+        "warn": 0,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1835,
+      "licenseSpdx": null,
+      "detail": "15 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/coderabbitai/skills",
+      "linkedPath": "skills/autofix",
+      "outcome": "checked",
+      "commitSha": "8eef1037a977f2bc54368affb3b0d650f368e42a",
+      "path": "skills/autofix",
+      "name": "autofix",
+      "counts": {
+        "pass": 14,
+        "warn": 1,
+        "fail": 0,
+        "info": 6
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "warn",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "info",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 2877,
+      "licenseSpdx": null,
+      "detail": "14 pass, 1 warn, 0 fail"
+    }
+  ],
+  "summary": {
+    "sampled": 2,
+    "checked": 2,
+    "noSkill": 0,
+    "unreachable": 0,
+    "withScripts": 0,
+    "networkCalls": 0,
+    "destructiveCommands": 0,
+    "noLicense": 0,
+    "missingTrigger": 1,
+    "overTokenBudget": 0,
+    "failingAnyCheck": 0,
+    "stale": 0
+  }
+}
