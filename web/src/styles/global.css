@@ -356,10 +356,11 @@ a.card:hover { transform: translateY(-2px); border-color: var(--line-hover); box
 .plain-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9rem; line-height: 1.8; }
 .plain-list li + li { margin-top: 6px; }
 .code-block { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.6; padding: 12px 14px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-sm); }
-.tone-pass { color: var(--green); background: var(--green-subtle); }
-.tone-warn { color: var(--warn); background: var(--warn-subtle); }
-.tone-fail { color: var(--fail); background: var(--fail-subtle); }
-.tone-info { color: var(--muted); background: var(--cream); }
+/* A hairline in the tone colour keeps each chip readable on the paper background, where the subtle fills alone barely differ from it. */
+.tone-pass { color: var(--green); background: var(--green-subtle); border: 1px solid rgba(34, 91, 69, 0.35); }
+.tone-warn { color: var(--warn); background: var(--warn-subtle); border: 1px solid rgba(122, 75, 0, 0.35); }
+.tone-fail { color: var(--fail); background: var(--fail-subtle); border: 1px solid rgba(155, 36, 18, 0.35); }
+.tone-info { color: var(--muted); background: var(--cream); border: 1px solid rgba(23, 21, 15, 0.18); }
 
 @media (max-width: 900px) {
   .detail-grid { grid-template-columns: 1fr; gap: 32px; }

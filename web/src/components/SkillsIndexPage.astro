@@ -5,7 +5,7 @@ import { CHECK_REGISTRY } from "@skillflux/bench/checks";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
 import HealthBadges from "./HealthBadges.astro";
-import { flagLabel, pct, signedPoints } from "../lib/skill-data";
+import { flagShort, flagLabel, pct, signedPoints } from "../lib/skill-data";
 import { getIndexableSkillViews, getSkillCategories } from "../lib/skills";
 import { datasetModified } from "../lib/dataset";
 
@@ -70,7 +70,7 @@ const jsonLd = [
           {views.map(view => (
             <tr data-skill-row data-category={view.skill.category}>
               <th scope="row"><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a><small>{view.skill.author.name} · {view.category.label[lang]}</small></th>
-              <td data-label={t("Health check", "体检")}><HealthBadges counts={view.counts} lang={lang} />{(view.health?.flags.length ?? 0) > 0 && (() => { const flags = view.health!.flags.map(flag => flagLabel(flag, lang)).join(zh ? "、" : ", "); return <small class="flag-line" title={flags}>{flags}</small>; })()}</td>
+              <td data-label={t("Health check", "体检")}><HealthBadges counts={view.counts} lang={lang} />{(view.health?.flags.length ?? 0) > 0 && (() => { const full = view.health!.flags.map(flag => flagLabel(flag, lang)).join(zh ? "；" : "; "); const short = view.health!.flags.map(flag => flagShort(flag, lang)).join(zh ? "、" : ", "); return <small class="flag-line" title={full}>{short}</small>; })()}</td>
               {showBenchmark && <td data-label={t("Benchmark", "实测")}>{view.result ? <span>{pct(view.result.skill.pooled.with.passRate)} vs {pct(view.result.skill.pooled.without.passRate)} <small>{signedPoints(view.result.skill.pooled.comparison.passRateDelta)} · n={view.result.skill.pooled.with.n}</small></span> : <span class="muted">{t("Not yet", "暂未")}</span>}</td>}
               <td data-label={t("License", "许可证")}>{view.skill.license.spdx ?? (view.skill.license.file ? t("License file in repo", "仓库内附许可证") : <span class="muted">{t("Not found", "未找到")}</span>)}</td>
             </tr>
@@ -112,7 +112,8 @@ const jsonLd = [
   .category-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
   .category-filter a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; font-size: .84rem; background: var(--paper-strong); }
   .category-filter a[aria-current="true"] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); }
-  .category-filter small { color: inherit; opacity: .7; margin-left: 6px; }
+  .category-filter small { color: var(--muted); opacity: 1; margin-left: 6px; font-weight: 500; }
+  .category-filter a[aria-current="true"] small { color: var(--paper-strong); opacity: .85; }
   .data-table tbody th a { font-weight: 600; }
   .muted { color: var(--faint); }
   /* Phones: each row becomes a card, with column names from data-label. */

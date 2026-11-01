@@ -124,6 +124,19 @@ const FLAG_LABELS: Record<string, [string, string]> = {
   "upstream-changed": ["Upstream changed after the tested commit", "测试版本之后上游有改动"],
 };
 export const flagLabel = (flag: string, lang: 'en' | 'zh') => FLAG_LABELS[flag]?.[lang === 'zh' ? 1 : 0] ?? flag;
+/** Compact flag names for dense tables: same meaning, short enough that a row's flags all stay visible. */
+const FLAG_SHORT: Record<string, [string, string]> = {
+  "executes-code": ["bundled scripts", "附带脚本"],
+  "network-calls": ["network calls", "网络调用"],
+  "destructive-commands": ["destructive commands", "危险命令"],
+  "risky-instructions": ["risky instructions", "风险指令"],
+  "possible-secret": ["possible secret", "疑似凭证"],
+  "no-license": ["no license", "无许可证"],
+  "stale": ["stale", "长期未更新"],
+  "archived-repo": ["archived", "已归档"],
+  "upstream-changed": ["upstream changed", "上游有改动"],
+};
+export const flagShort = (flag: string, lang: 'en' | 'zh') => FLAG_SHORT[flag]?.[lang === 'zh' ? 1 : 0] ?? flagLabel(flag, lang);
 /** Flag code with its plain-English meaning, for text the machine layer serves to agents. */
 export const flagWithMeaning = (flag: string) => FLAG_LABELS[flag] ? `${flag} (${FLAG_LABELS[flag][0]})` : flag;
 export const FLAG_CODES = Object.keys(FLAG_LABELS);

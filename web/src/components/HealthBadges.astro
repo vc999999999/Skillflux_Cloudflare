@@ -16,11 +16,13 @@ const parts: Array<{ tone: string; value: number; label: string }> = [
 const summary = parts.map(part => zh ? `${part.value} 项${part.label}` : `${part.value} ${part.label}`).join(zh ? "，" : ", ");
 ---
 <span class:list={["health-badges", `is-${size}`]} role="img" aria-label={summary} title={summary}>
-  {parts.map(part => <span class={`health-badge tone-${part.tone}`}>{part.value}{size === "lg" && <small>{part.label}</small>}</span>)}
+  {parts.map(part => <span class:list={["health-badge", `tone-${part.tone}`, { "is-zero": part.value === 0 }]}>{part.value}{size === "lg" && <small>{part.label}</small>}</span>)}
 </span>
 <style>
   .health-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; }
   .health-badge { display: inline-flex; align-items: baseline; justify-content: center; gap: 5px; min-width: 26px; padding: 1px 6px; border-radius: 8px; font: .76rem var(--font-mono); }
+  /* A zero count is absence, not a signal: neutral ghost, so the non-zero chips carry the colour. */
+  .health-badge.is-zero { color: var(--faint); background: transparent; border-color: var(--line); }
   .is-lg { gap: 8px; }
   .is-lg .health-badge { min-width: 0; padding: 5px 12px; border-radius: var(--radius-md); font: 600 1.05rem var(--font-mono); }
   .is-lg small { font: 500 .78rem var(--font-body); }
