@@ -32,6 +32,17 @@ const title = zh ? 'Agent Skill 实测数据与来源目录' : 'Agent skill test
 const description = zh
   ? `哪些 Agent Skill 真的有用？SkillFlux 把 ${skillViews.length} 个公开 Skill 钉定到具体提交做静态体检，并在 Claude Code 中与不装 Skill 的基线对照实测，以 CC BY 4.0 公开全部数据。`
   : `Which agent skills actually help? SkillFlux pins ${skillViews.length} public skills to exact commits, runs a static health check, benchmarks them in Claude Code against a no-skill baseline, and publishes all the data under CC BY 4.0.`;
+// The H1 already asks the question, so the visible lede starts after it.
+const heroText = description.replace(/^[^?？]*[?？]\s*/, '');
+// Until the first run is published, a large "0" reads as a result; show a dash and say why.
+const benchmarkStat = benchmarkedCount > 0
+  ? { value: String(benchmarkedCount), note: zh ? `${runCount} 个已发布批次` : `${runCount} published runs`, empty: false }
+  : { value: '—', note: zh ? '首个实测批次尚未发布' : 'First run not yet published', empty: true };
+const heroStats = [
+  { value: String(skillViews.length), label: zh ? '个 Skill 已体检' : 'skills health-checked', note: zh ? `每个 ${CHECK_REGISTRY.length} 项检查` : `${CHECK_REGISTRY.length} checks each`, empty: false },
+  { ...benchmarkStat, label: zh ? '个 Skill 已实测' : 'skills benchmarked' },
+  { value: String(stats.resourceCount), label: zh ? '个来源已收录' : 'sources in the directory', note: zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos', empty: false },
+];
 const picks = [
   { slug: 'github-com-anthropics-skills', name: 'Anthropic Skills', badge: zh ? '参考实现' : 'Reference', reason: zh ? '从 Anthropic 的开源仓库入手，直接阅读 Skill 的结构与实现。' : 'Read the skill structure and implementations directly in Anthropic’s open-source repository.', best: zh ? '了解 Skill 格式，建立自己的技能库' : 'Learning the format and building a skill library' },
   { slug: 'modelscope-cn-skills', name: 'ModelScope Skills', badge: zh ? '编辑推荐' : 'Recommended', reason: zh ? '中文 Skill 的集中发现入口，适合先浏览场景，再回到原始资料比较。' : 'A starting point for discovering Chinese-language skills and comparing their original sources.', best: zh ? '中文资源发现与场景选型' : 'Finding Chinese-language skill resources' },
@@ -58,13 +69,13 @@ const categoryNotes: Record<string, [string, string]> = {
       <div class="home-container">
         <p class="hero-label"><span></span> {zh ? 'AGENT SKILL 开放数据' : 'OPEN DATA ON AGENT SKILLS'}</p>
         <h1>{zh ? <>哪些 Agent Skill <span class="keep-together">真的有用？</span></> : 'Which agent skills actually help?'}<br /><span class="hero-secondary">{zh ? '我们逐个测试，并公开数据。' : 'We test them and publish the data.'}</span></h1>
-        <p class="hero-description">{description}</p>
+        <p class="hero-description">{heroText}</p>
         <div class="hero-actions">
           <a class="button primary" href={href('/skills/')}>{zh ? '查看 Skill 报告' : 'Browse skill reports'} <Icon size={16} /></a>
           <a class="button secondary" href={href('/data/')}>{zh ? '下载数据集' : 'Download the dataset'}</a>
         </div>
         <dl class="home-stats">
-          {[[skillViews.length, zh ? '个 Skill 已体检' : 'skills health-checked', zh ? `每个 ${CHECK_REGISTRY.length} 项检查` : `${CHECK_REGISTRY.length} checks each`], [benchmarkedCount, zh ? '个 Skill 已实测' : 'skills benchmarked', zh ? `${runCount} 个已发布批次` : `${runCount} published runs`], [stats.resourceCount, zh ? '个来源已收录' : 'sources in the directory', zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos']].map(([value, label, note]) => <div><dt>{label}</dt><dd class="stat-value">{value}</dd><dd class="stat-note">{note}</dd></div>)}
+          {heroStats.map(stat => <div class:list={[stat.empty && 'is-empty']}><dt>{stat.label}</dt><dd class="stat-value">{stat.value}</dd><dd class="stat-note">{stat.note}</dd></div>)}
         </dl>
       </div>
     </section>
@@ -94,14 +105,14 @@ const categoryNotes: Record<string, [string, string]> = {
     <div class="home-container">
       <section class="home-section sources-section" aria-labelledby="sources-title">
         <div class="section-top"><div><p class="eyebrow">NAVIGATE THE ECOSYSTEM</p><h2 id="sources-title">{zh ? '来源类别与主题' : 'Source categories & topics'}</h2><p>{zh ? '了解能力从哪里来，再决定从哪里开始。' : 'Understand where capabilities come from, then decide where to start.'}</p></div><a href={href('/directory/')}>{zh ? '全部黄页来源' : 'All sources'} <Icon size={16} /></a></div>
-        <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon name="external" size={13} /></small></a>)}</div>
+        <div class="source-type-grid">{categories.map(category => <a href={href(`/source-type/${category.slug}/`)}><div><h3>{translateCategory(category.slug, category.label, lang)}</h3><span>{category.count}</span></div><p>{categoryNotes[category.slug]?.[zh ? 0 : 1]}</p><small>{category.shortLabel.toUpperCase()} <Icon size={13} /></small></a>)}</div>
         <div class="topic-row"><span>{zh ? '主题' : 'TOPICS'}</span>{tags.map(tag => <a href={href(`/tag/${tag.slug}/`)}># {translateTag(tag.tag, lang)}</a>)}</div>
       </section>
       <section class="home-section" aria-labelledby="guides-title">
         <div class="section-top"><div><p class="eyebrow">GUIDES</p><h2 id="guides-title">{zh ? 'Agent 能力选型与实战指南' : 'Learn the agent ecosystem'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
         <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
       </section>
-      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '体检与实测数据、来源目录都有机器可读入口，并附明确的引用规则。' : 'Health checks, benchmarks and the directory are all machine-readable, with explicit citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '测量内容、各 Skill 结果与引用规则' : 'What is measured, each result, citation rules'], ['/data/index.json', zh ? '数据集清单与 sha256' : 'Dataset manifest with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources'], ['/feed.xml', zh ? '资源与文章更新订阅' : 'Resource and article updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
+      <section class="machine-section"><div><p class="eyebrow">FOR AI</p><h2>{zh ? '为人，也为 Agent。' : 'Built for humans and agents.'}</h2><p>{zh ? '体检与实测数据、来源目录都有机器可读入口，并附明确的引用规则。' : 'Health checks, benchmarks and the directory are all machine-readable, with explicit citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '探索机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/llms.txt', zh ? '测量内容、各 Skill 结果与引用规则' : 'What is measured, each result, citation rules'], ['/data/index.json', zh ? '数据集清单与 sha256' : 'Dataset manifest with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources'], ['/feed.xml', zh ? '资源与文章更新订阅' : 'Resource and article updates via RSS']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon size={14} /></a>)}</div></section>
     </div>
   </main>
 </BaseLayout>
@@ -130,6 +141,7 @@ const categoryNotes: Record<string, [string, string]> = {
   .home-stats dd { margin: 0; }
   .home-stats .stat-value { order: -1; margin-bottom: 8px; font: 500 2.2rem var(--font-mono); letter-spacing: -.06em; color: var(--ink); }
   .home-stats .stat-note { font-size: .8rem; margin-top: 6px; color: var(--muted); line-height: 1.5; }
+  .home-stats .is-empty .stat-value { color: var(--faint); }
   .home-section { padding: 64px 0 0; }
   .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
   .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 600; line-height: 1.2; letter-spacing: -.035em; margin: 0; }

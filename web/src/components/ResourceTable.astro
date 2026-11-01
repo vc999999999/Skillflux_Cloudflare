@@ -44,7 +44,7 @@ const facets = [
           return <article class="resource-row" role="listitem" data-site-row data-category={site.category} data-region={site.region} data-trust={site.trustLevel} data-kind={site.kinds.join(' ')} data-usecase={usecaseSlugs.join(' ')} data-recommended={site.recommended ? 'yes' : 'no'} data-search={searchable} data-name={item.name} data-updated={site.updatedAt} data-position={index}>
             <span class="resource-icon"><Icon name={kindIcon} size={23} /></span>
             <div class="resource-main"><div class="resource-title"><h3><a href={localizePath(`/resource/${site.resourceSlug}/`, lang)}>{item.name}</a></h3>{site.recommended && <span class="editor-badge">{zh ? '编辑推荐' : 'Editor pick'}</span>}</div><p>{item.summary}</p><div class="resource-labels"><span class="type-tag">{site.kinds.map(kind => kindLabels[kind]).join(' + ')}</span><span>{categoryNames.get(site.category)}</span>{item.tags.filter(tag => !['Agent Skills', '推荐', 'Recommended', '合集', 'Collection', translateRegion(site.region, lang)].includes(tag)).slice(0, 2).map(tag => <span>{tag}</span>)}<span class="resource-region">{translateRegion(site.region, lang)}</span></div></div>
-            <a class="row-link" href={localizePath(`/resource/${site.resourceSlug}/`, lang)} aria-label={`${zh ? '查看' : 'View'} ${item.name}`}><span>{zh ? '查看' : 'View'}</span><span aria-hidden="true">↗</span></a>
+            <a class="row-link" href={localizePath(`/resource/${site.resourceSlug}/`, lang)} aria-label={`${zh ? '查看' : 'View'} ${item.name}`}><span>{zh ? '查看' : 'View'}</span><span aria-hidden="true">→</span></a>
           </article>;
         })}
       </div>
