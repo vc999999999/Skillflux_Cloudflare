@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { aiTaskIndex, aiTasks, claimsLedger, sourceMarkdown } from "../src/lib/ai-layer";
+import { aiTaskIndex, aiTasks, claimsLedger, skillMarkdown, sourceMarkdown } from "../src/lib/ai-layer";
+import { renderDataText } from "../src/lib/data-discovery";
+import { FLAG_CODES, flagWithMeaning } from "../src/lib/skill-data";
+import { getIndexableSkillViews } from "../src/lib/skills";
 import { getIndexableSites } from "../src/lib/content";
 import { getSourceAudits } from "../src/lib/source-audits";
 import { alternativesFor, bestTopics, comparePairs, rankSites, sampleScore } from "../src/lib/source-compare";
@@ -46,5 +49,14 @@ describe("agent layer", () => {
   it("states in a website's Markdown that it was not sampled", () => {
     const website = getIndexableSites().find(site => !site.canonicalUrl.startsWith("https://github.com/"))!;
     expect(sourceMarkdown(website)).toContain("Not sampled: this is a website");
+  });
+
+  it("explains every flag code in plain English wherever agents read flags as text", () => {
+    const text = renderDataText();
+    expect(text).toContain("## Flags");
+    for (const code of FLAG_CODES) expect(text).toContain(`- ${flagWithMeaning(code)}`);
+    expect(flagWithMeaning("executes-code")).toBe("executes-code (Bundles scripts the agent may run)");
+    const flagged = getIndexableSkillViews().find(view => view.health?.flags.includes("executes-code"))!;
+    expect(skillMarkdown(flagged)).toContain(flagWithMeaning("executes-code"));
   });
 });

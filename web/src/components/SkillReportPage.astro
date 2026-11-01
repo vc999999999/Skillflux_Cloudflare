@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "./PageHeader.astro";
+import HealthBadges from "./HealthBadges.astro";
 import { CHECK_REGISTRY } from "@skillflux/bench/checks";
 import { SITE } from "../config";
 import { absoluteUrl, getSiteBySlug } from "../lib/content";
@@ -26,6 +27,8 @@ const title = result ? t(`${name} benchmark: results with Claude Code`, `${name}
 const description = finding.length > 300 ? `${finding.slice(0, 297)}…` : finding;
 const statusLabel: Record<string, [string, string]> = { pass: ["Pass", "通过"], warn: ["Warning", "警告"], fail: ["Fail", "失败"], info: ["Info", "提示"] };
 const statusOrder = ["fail", "warn", "info", "pass"];
+// Details such as scripts.present are comma-separated paths; three or more collapse behind a count.
+const fileList = (detail: string) => { const items = detail.split(", "); return items.length > 2 && items.every(item => /^[\w.@\-/]+$/.test(item)) ? items : null; };
 const verdictLabel = (verdict: string | null) => verdict === "improves" ? t("Improves", "提升") : verdict === "hurts" ? t("Hurts", "变差") : t("No detectable difference", "无可检测差异");
 const cite = { text: citationText(view, lang), bibtex: citationBibtex(view) };
 const faqs = [
@@ -63,7 +66,9 @@ const jsonLd = [
   <main id="main-content" class="page-shell">
     <PageHeader title={title} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]}>
       <Fragment slot="eyebrow">{result ? t("BENCHMARK REPORT", "实测报告") : t("HEALTH CHECK", "体检报告")} · {category.label[lang]}</Fragment>
+      {health && <div class="report-summary"><HealthBadges counts={counts} lang={lang} info size="lg" /><a href="#health">{t(`${health.checks.length} checks`, `共 ${health.checks.length} 项检查`)}</a></div>}
       <p class="page-lede key-finding" data-seo-field="key-finding">{finding}</p>
+      {!result && <p class="callout not-benchmarked"><strong>{t("Not benchmarked yet.", "尚未实测。")}</strong> {t("Only the static health check has been run, so this page does not show whether the skill helps on a task.", "目前只做了静态体检，本页不能说明这个 Skill 在任务上是否有帮助。")} <a href={localizePath("/benchmarks/", lang)}>{t("About the benchmarks", "了解实测")}</a></p>}
       <p class="page-meta">{t("Updated", "更新于")} <time datetime={view.dateModified}>{view.dateModified}</time> · <a href={methodologyPath} data-seo-field="methodology-link">{t(`Methodology v${methodologyVersion}`, `方法论 v${methodologyVersion}`)}</a> · <a href="#how-to-cite">{t("How to cite", "如何引用")}</a> · <a href={`/data/skills/${skill.id}.json`}>JSON</a></p>
       {view.healthStale && <p class="content-disclosure">{t("The pinned commit changed after the last health check; results below describe the earlier commit.", "钉定提交在上次体检后发生变化，下方结果对应的是之前的提交。")}</p>}
     </PageHeader>
@@ -119,7 +124,9 @@ const jsonLd = [
               {health.flags.length > 0 && <ul class="flag-list">{health.flags.map(flag => <li>{flagLabel(flag, lang)}</li>)}</ul>}
               <div class="table-scroll"><table class="data-table checks-table">
                 <thead><tr><th scope="col">{t("Check", "检查项")}</th><th scope="col">{t("Result", "结果")}</th><th scope="col">{t("Detail", "详情")}</th></tr></thead>
-                <tbody>{[...health.checks].sort((a, b) => statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)).map(item => <tr><th scope="row"><code>{item.id}</code><small>{checkText.get(item.id)}</small></th><td><span class={`status-pill tone-${item.status}`}>{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{item.detail}</td></tr>)}</tbody>
+                {statusOrder.map(status => health.checks.filter(item => item.status === status)).filter(group => group.length > 0).map(group => <tbody class="check-group">{group.map(item => { const files = fileList(item.detail); return (
+                  <tr><th scope="row"><code title={checkText.get(item.id)}>{item.id}</code><span class="sr-only">{checkText.get(item.id)}</span></th><td><span class={`status-pill tone-${item.status}`}>{statusLabel[item.status]![zh ? 1 : 0]}</span></td><td>{files ? <details class="file-list"><summary>{t(`${files.length} files`, `${files.length} 个文件`)}</summary><ul>{files.map(file => <li><code>{file}</code></li>)}</ul></details> : item.detail}</td></tr>
+                ); })}</tbody>)}
               </table></div>
             </>
           ) : <p>{t("Not checked yet.", "尚未体检。")}</p>}
@@ -181,6 +188,14 @@ const jsonLd = [
   .upstream-quote blockquote p { color: var(--ink); font-size: .92rem; }
   .upstream-quote figcaption { margin-top: 10px; color: var(--faint); font-size: .78rem; }
   .status-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: .74rem; font-weight: 600; }
+  .report-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 20px 0 4px; }
+  .report-summary > a { color: var(--muted); font-size: .84rem; }
+  .not-benchmarked { max-width: 72ch; margin: 18px 0 0; border-left: 3px solid var(--warn); background: var(--warn-subtle); color: var(--ink); font-size: .9rem; line-height: 1.7; }
+  .check-group + .check-group { border-top: 2px solid var(--line); }
+  .checks-table code { font-size: .82rem; }
+  .file-list summary { cursor: pointer; color: var(--muted); }
+  .file-list ul { margin: 8px 0 0; padding-left: 18px; }
+  .file-list li { margin: 2px 0; overflow-wrap: anywhere; }
   .flag-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 14px 0; list-style: none; }
   .flag-list li { padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; font-size: .78rem; background: var(--paper-strong); }
   .task-card { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px 16px; margin: 10px 0; background: var(--paper-strong); }

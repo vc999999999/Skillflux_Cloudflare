@@ -133,7 +133,9 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
   .home-stats dt { font-size: .88rem; font-weight: 600; color: var(--ink); }
   .home-stats dd { margin: 0; }
   .home-stats .stat-value { order: -1; margin-bottom: 8px; font: 500 2.2rem var(--font-mono); letter-spacing: -.06em; color: var(--ink); }
-  .home-stats .stat-value.is-pending { padding-top: 10px; font: 600 1.3rem var(--font-body); letter-spacing: -.02em; color: var(--muted); }
+  /* No published run yet: a status pill sitting on the number baseline, so it doesn't read as a missing figure. */
+  .home-stats .stat-value.is-pending { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; margin: 6px 0 12px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper-strong); font: 500 .84rem var(--font-body); letter-spacing: 0; color: var(--muted); }
+  .home-stats .stat-value.is-pending::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--warn-subtle); box-shadow: inset 0 0 0 2px var(--warn); }
   .home-stats .stat-note { margin-top: 6px; font-size: .78rem; color: var(--muted); line-height: 1.5; }
   .home-section { padding: 64px 0 0; }
   .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
