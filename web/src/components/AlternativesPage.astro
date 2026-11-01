@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from './Breadcrumb.astro';
+import PageHeader from './PageHeader.astro';
 import SourceCard from './SourceCard.astro';
 import { absoluteUrl, type Site } from '../lib/content';
 import { getSiteCopy, localizePath, type Language } from '../lib/i18n';
@@ -24,14 +24,11 @@ const jsonLd = [
 ];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={alternatives.length < 3}>
-  <main id="main-content" class="page-shell compare-page">
-    <Breadcrumb items={crumbs} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
-    <header class="compare-head">
-      <p class="eyebrow">{zh ? '替代来源' : 'ALTERNATIVES'}</p>
-      <h1>{title}</h1>
-      <p>{zh ? `${name}：${site.editorial?.primaryCapability.zh}。以下来源至少有一个相同的用途；排在前面的是编辑推荐的替代项、主要用途相同或同类型的来源。` : `${name}: ${site.editorial?.primaryCapability.en}. Each source below shares at least one purpose with it. Editorial alternatives come first, then sources with the same main purpose or of the same type.`}</p>
-      <p class="method-note">{zh ? '百分比是 SkillFlux 抽样中「无失败项、说明何时使用且有许可证」的条目占比，只反映文件层面的检查，不代表 Skill 是否有效。' : 'The percentage is the share of SkillFlux-sampled entries with no failing check, a "when to use" description and a license. It reflects a file-level check only, not whether a skill works.'} <a href={localizePath('/methodology/v1/', lang)}>{zh ? '方法' : 'Method'}</a></p>
-    </header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} eyebrow={zh ? '替代来源' : 'ALTERNATIVES'} breadcrumb={crumbs} breadcrumbLabel={zh ? '面包屑导航' : 'Breadcrumb'}>
+      <p class="page-lede">{zh ? `${name}：${site.editorial?.primaryCapability.zh}。以下来源至少有一个相同的用途；排在前面的是编辑推荐的替代项、主要用途相同或同类型的来源。` : `${name}: ${site.editorial?.primaryCapability.en}. Each source below shares at least one purpose with it. Editorial alternatives come first, then sources with the same main purpose or of the same type.`}</p>
+      <p class="page-meta">{zh ? '百分比是 SkillFlux 抽样中「无失败项、说明何时使用且有许可证」的条目占比，只反映文件层面的检查，不代表 Skill 是否有效。' : 'The percentage is the share of SkillFlux-sampled entries with no failing check, a "when to use" description and a license. It reflects a file-level check only, not whether a skill works.'} <a href={localizePath('/methodology/v1/', lang)}>{zh ? '方法' : 'Method'}</a></p>
+    </PageHeader>
     <div class="card-list">
       {alternatives.map(item => <div>
         <SourceCard site={item} lang={lang} note={site.editorial?.alternativeReasons[item.slug]?.[lang]} />
@@ -42,11 +39,7 @@ const jsonLd = [
   </main>
 </BaseLayout>
 <style>
-  .compare-page { padding-top: 32px; padding-bottom: 72px; }
-  .compare-head h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); letter-spacing: -.035em; margin: 8px 0 14px; }
-  .compare-head p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.75; }
-  .method-note { font-size: .84rem; }
-  .card-list { display: grid; gap: 14px; margin-top: 28px; }
+  .card-list { display: grid; gap: 14px; }
   .compare-link { display: inline-block; margin: 8px 0 0 4px; font-size: .82rem; }
   .back { margin-top: 32px; }
 </style>

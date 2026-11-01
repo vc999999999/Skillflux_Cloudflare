@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language; kind: "quality" | "privacy" | "terms" | "contact" };
 const { lang = "en", kind } = Astro.props;
@@ -53,9 +54,10 @@ const document = documents[kind];
 const updatedAt = "2026-10-29";
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/" + kind + "/", lang)} title={document.label} description={document.intro} pageClass="policy-page">
-  <main id="main-content" class="policy-shell">
-    <a href={localizePath("/",lang)} class="policy-back">← {t("返回首页", "Home")}</a>
-    <header><p class="eyebrow"><span></span>{document.label}</p><h1>{document.title}</h1><p class="policy-intro">{document.intro}</p><small>{t("更新于 ", "Updated ")}{updatedAt}</small></header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={document.title} eyebrow={document.label} lede={document.intro} breadcrumb={[{ label: t("首页", "Home"), href: localizePath("/", lang) }, { label: document.label }]}>
+      <p class="page-meta">{t("更新于 ", "Updated ")}<time datetime={updatedAt}>{updatedAt}</time></p>
+    </PageHeader>
     <div class="policy-body">
       <nav aria-label={t("相关说明", "Related information")}>
         {[["quality",t("收录标准","Listing policy")],["privacy",t("隐私说明","Privacy")],["terms",t("服务条款","Terms")],["contact",t("联系与反馈","Contact")]].map(([path,label])=><a href={localizePath("/"+path+"/",lang)} aria-current={path===kind?"page":undefined}>{label}</a>)}
@@ -66,21 +68,15 @@ const updatedAt = "2026-10-29";
   </main>
 </BaseLayout>
 <style>
-  .policy-shell { width:min(1180px,calc(100% - 48px)); margin:0 auto; padding:40px 0 100px; }
-  .policy-back { font-size:.8rem; }
-  .policy-shell > header { padding:55px 0 44px; border-bottom:2px solid var(--ink); }
-  h1 { font:800 clamp(2.5rem,5vw,3.8rem)/1.08 var(--font-body); letter-spacing:-.045em; max-width:17ch; margin:0 0 30px; text-wrap:balance; }
-  .policy-intro { max-width:65ch; line-height:1.8; color:var(--muted); }
-  header small { font: .7rem var(--font-mono); color:var(--accent); }
-  .policy-body { display:grid;grid-template-columns:minmax(150px,.3fr) minmax(0,1fr);gap:80px;padding-top:45px; }
-  nav { display:flex; flex-direction:column; gap:0; align-self:start; position:sticky; top:100px; }
-  nav a { text-decoration:none; border-bottom:1px solid var(--line); padding:15px 0; font-size:.85rem; }
-  nav a[aria-current="page"] { color:var(--accent); font-weight:700; }
-  article > section { display:grid;grid-template-columns:36px minmax(0,1fr);gap:20px;border-bottom:1px solid var(--ink);padding:0 0 30px;margin-bottom:30px; }
-  .policy-number { font: .75rem var(--font-mono); color:var(--accent); margin:5px 0; }
-  h2 { margin:0 0 18px;font:700 1.65rem/1.25 var(--font-body); }
-  section div > p { margin:0;line-height:1.85;max-width:70ch;color:var(--muted);font-size:.94rem; }
-  .policy-actions { display:flex;gap:20px;flex-wrap:wrap;padding-top:16px;font-size:.85rem; }
-  a:focus-visible { outline:3px solid var(--accent);outline-offset:5px; }
-  @media(max-width:700px) { .policy-shell {width:calc(100% - 30px);} .policy-body {grid-template-columns:1fr;gap:32px;} nav {position:static;flex-direction:row;flex-wrap:wrap;gap:18px;} nav a {padding:10px 0;} }
+  .policy-body { display: grid; grid-template-columns: minmax(150px, .3fr) minmax(0, 1fr); gap: 64px; }
+  nav { display: flex; flex-direction: column; align-self: start; position: sticky; top: 92px; }
+  nav a { padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .86rem; text-decoration: none; transition: color .15s ease; }
+  nav a:hover { color: var(--ink); }
+  nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+  article > section { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 20px; padding: 0 0 28px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
+  article > section:last-child { border-bottom: 0; }
+  .policy-number { margin: 6px 0; color: var(--faint); font: 500 .75rem var(--font-mono); }
+  h2 { margin: 0 0 12px; font-size: 1.35rem; font-weight: 600; line-height: 1.35; letter-spacing: -.02em; }
+  section div > p { margin: 0; max-width: 70ch; color: var(--muted); font-size: .94rem; line-height: 1.85; }
+  @media (max-width: 700px) { .policy-body { grid-template-columns: 1fr; gap: 28px; } nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 18px; } nav a { padding: 8px 0; } }
 </style>

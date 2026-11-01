@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
 import { armLine, pct, signedPoints, usd } from "../lib/skill-data";
@@ -26,14 +26,11 @@ const jsonLd = [
 ];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={views.length === 0}>
-  <main id="main-content" class="page-shell bench-page">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Benchmarks", "实测排行") }]} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{t("BENCHMARKS", "实测")}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p class="report-meta"><a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a> · <a href={localizePath("/runs/", lang)}>{t("All runs", "全部批次")}</a> · <a href="/data/trials.csv">trials.csv</a></p>
-    </header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} lede={description} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Benchmarks", "实测排行") }]}>
+      <Fragment slot="eyebrow">{t("BENCHMARKS", "实测")}</Fragment>
+      <p class="page-meta"><a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a> · <a href={localizePath("/runs/", lang)}>{t("All runs", "全部批次")}</a> · <a href="/data/trials.csv">trials.csv</a></p>
+    </PageHeader>
     {views.length ? (
       <div class="table-scroll"><table class="data-table">
         <thead><tr><th scope="col">#</th><th scope="col">{t("Skill", "Skill")}</th><th scope="col">{t("With skill", "装 Skill")}</th><th scope="col">{t("Without", "不装")}</th><th scope="col">{t("Change (95% CI)", "变化（95% CI）")}</th><th scope="col">{t("Invoked", "调用率")}</th><th scope="col">{t("Median cost", "成本中位数")}</th><th scope="col">{t("Run", "批次")}</th></tr></thead>
@@ -59,12 +56,5 @@ const jsonLd = [
   </main>
 </BaseLayout>
 <style>
-  .bench-page { padding-block: 24px 80px; }
-  .report-meta { font-size: .85rem !important; }
-  .table-scroll { overflow-x: auto; margin: 28px 0; }
-  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-  .data-table thead th { font-size: .74rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-  .data-table small { display: block; color: var(--faint); margin-top: 4px; font-size: .76rem; }
-  .empty-state { margin-top: 32px; max-width: 760px; }
+  .empty-state { max-width: 760px; }
 </style>

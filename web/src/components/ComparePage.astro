@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from './Breadcrumb.astro';
+import PageHeader from './PageHeader.astro';
 import { absoluteUrl, type Site } from '../lib/content';
 import { getSiteCopy, localizePath, translateCategory, translatePricing, type Language } from '../lib/i18n';
 import { getSourceAudit } from '../lib/source-audits';
@@ -42,15 +42,12 @@ const jsonLd = [
 ];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd}>
-  <main id="main-content" class="page-shell compare-page">
-    <Breadcrumb items={crumbs} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
-    <header class="compare-head">
-      <p class="eyebrow">{zh ? '来源对比' : 'COMPARE'}</p>
-      <h1>{title}</h1>
-      <p data-seo-field="verdict">{zh
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} eyebrow={zh ? '来源对比' : 'COMPARE'} breadcrumb={crumbs} breadcrumbLabel={zh ? '面包屑导航' : 'Breadcrumb'}>
+      <p class="page-lede" data-seo-field="verdict">{zh
         ? `需要「${a.copy.tagline}」时看 ${a.copy.name}；需要「${b.copy.tagline}」时看 ${b.copy.name}。${a.site.editorial?.bestFor[0]?.zh ?? ''} ${b.site.editorial?.bestFor[0]?.zh ?? ''}`
         : `${a.copy.name} is for: ${a.copy.tagline}. ${b.copy.name} is for: ${b.copy.tagline}. ${a.site.editorial?.bestFor[0]?.en ?? ''} ${b.site.editorial?.bestFor[0]?.en ?? ''}`}</p>
-    </header>
+    </PageHeader>
     <div class="table-scroll"><table class="data-table compare-table">
       <thead><tr><th scope="col"><span class="sr-only">{zh ? '项目' : 'Aspect'}</span></th>{sides.map(side => <th scope="col"><a href={localizePath(`/resource/${side.site.resourceSlug}/`, lang)}>{side.copy.name}</a></th>)}</tr></thead>
       <tbody>{rows.map(([label, value]) => <tr><th scope="row">{label}</th>{sides.map(side => <td>{value(side)}</td>)}</tr>)}</tbody>
@@ -67,17 +64,12 @@ const jsonLd = [
   </main>
 </BaseLayout>
 <style>
-  .compare-page { padding-top: 32px; padding-bottom: 72px; }
-  .compare-head h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); letter-spacing: -.035em; margin: 8px 0 14px; }
-  .compare-head p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.75; }
-  .compare-table { margin-top: 24px; font-size: .86rem; }
-  .compare-table th { text-align: left; vertical-align: top; }
   .compare-table th[scope="row"] { width: 140px; white-space: nowrap; }
   .compare-table td { vertical-align: top; line-height: 1.65; width: 43%; }
   .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
-  .notes h2 { font-size: 1rem; margin: 0 0 8px; }
+  .notes h2 { font-size: 1rem; font-weight: 600; margin: 0 0 8px; }
   .notes p { color: var(--muted); font-size: .88rem; line-height: 1.75; }
-  .claim { font-size: .8rem !important; }
+  .notes .claim { font-size: .8rem; }
   .method-note { margin-top: 28px; font-size: .82rem; color: var(--muted); }
   @media (max-width: 760px) { .notes { grid-template-columns: 1fr; } .compare-table th[scope="row"] { white-space: normal; width: auto; } }
 </style>

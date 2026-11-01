@@ -11,7 +11,7 @@ import { getGuideBySlug } from "../lib/guides";
 import { getResourceEditorial } from "../lib/resource-editorial";
 import { HREFLANG, insightPath, DEFAULT_LANGUAGE, getPageCopy, getSiteCopy, localizePath, translateCategory, translatePricing, translateTrust, type Language } from "../lib/i18n";
 import ResourceTable from "./ResourceTable.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 
 type Props = { site: Site; lang?: Language };
 const { site, lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -78,31 +78,23 @@ const jsonLd = [
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={!site.indexable} markdownAlternate={site.indexable ? `/resource/${site.resourceSlug}.md` : undefined}>
   <main id="main-content" class="page-shell">
     <article>
-      <section class="detail-hero">
-        <Breadcrumb items={breadcrumbItems} ariaLabel={zh ? '面包屑导航' : 'Breadcrumb'} />
-        <div class="detail-hero-grid">
-          <div>
-            <p class="eyebrow"><span></span> {categoryLabel}</p>
-            <h1>{siteCopy.name}</h1>
-            <p>{capability}</p>
-            <div class="detail-badges">
-              {site.recommended && <span>{copy.resource.recommended}</span>}
-              <span data-seo-field="resource-type">{siteCopy.type}</span>
-              <span>{siteCopy.scale}</span>
-              <span>{site.language.map(value => value === 'zh' ? (zh ? '中文' : 'Chinese') : value === 'en' ? (zh ? '英文' : 'English') : value).join(" / ")}</span>
-              <span>{translateTrust(site.trustLevel, lang)}</span>
-            </div>
-          </div>
-          <aside class="detail-panel">
-            <dl>
-              <div><dt>{zh ? '来源类型' : 'Source type'}</dt><dd data-seo-field="source-type"><a href={localizePath(`/source-type/${site.category}/`, lang)}>{categoryLabel}</a></dd></div>
-              <div><dt>{copy.detail.pricing}</dt><dd>{translatePricing(site.pricing, lang)}</dd></div>
-              <div><dt>{zh ? '内容更新' : 'Content updated'}</dt><dd><time datetime={updatedAt}>{updatedAt}</time></dd></div>
-            </dl>
-            <a class="button primary" data-seo-field="source-url" href={site.canonicalUrl} rel="noopener noreferrer">{copy.detail.visit}</a>
-          </aside>
+      <PageHeader title={siteCopy.name} eyebrow={categoryLabel} lede={capability} breadcrumb={breadcrumbItems} breadcrumbLabel={zh ? '面包屑导航' : 'Breadcrumb'}>
+        <div class="detail-badges">
+          {site.recommended && <span>{copy.resource.recommended}</span>}
+          <span data-seo-field="resource-type">{siteCopy.type}</span>
+          <span>{siteCopy.scale}</span>
+          <span>{site.language.map(value => value === 'zh' ? (zh ? '中文' : 'Chinese') : value === 'en' ? (zh ? '英文' : 'English') : value).join(" / ")}</span>
+          <span>{translateTrust(site.trustLevel, lang)}</span>
         </div>
-      </section>
+        <aside slot="aside" class="detail-panel resource-panel">
+          <dl>
+            <div><dt>{zh ? '来源类型' : 'Source type'}</dt><dd data-seo-field="source-type"><a href={localizePath(`/source-type/${site.category}/`, lang)}>{categoryLabel}</a></dd></div>
+            <div><dt>{copy.detail.pricing}</dt><dd>{translatePricing(site.pricing, lang)}</dd></div>
+            <div><dt>{zh ? '内容更新' : 'Content updated'}</dt><dd><time datetime={updatedAt}>{updatedAt}</time></dd></div>
+          </dl>
+          <a class="button primary" data-seo-field="source-url" href={site.canonicalUrl} rel="noopener noreferrer">{copy.detail.visit}</a>
+        </aside>
+      </PageHeader>
 
       <p class="content-disclosure">{zh ? '本页是来源收录与编辑说明；推荐和来源信任标签不代表其中每个 Skill 都经过测试。单个 Skill 的体检与实测结果见 Skill 数据页。' : 'This page provides source information and editorial guidance. Recommendations and trust labels do not mean every skill here was tested. Results for individual skills are on the skill data pages.'} <a href={localizePath('/skills/', lang)}>{zh ? '查看 Skill 数据' : 'See skill data'}</a> · <a href={localizePath('/quality/', lang)}>{zh ? '收录标准' : 'Listing policy'}</a></p>
       <section class="detail-grid">
@@ -197,11 +189,14 @@ const jsonLd = [
   </main>
 </BaseLayout>
 <style>
+  .resource-panel { width: 320px; max-width: 100%; }
+  .resource-panel .button { width: 100%; }
+  @media (max-width: 900px) { .resource-panel { width: auto; } }
   .resource-editorial { min-width: 0; }
   .resource-editorial .prose-block + .prose-block { padding-top: 26px; margin-top: 26px; border-top: 1px solid var(--line); }
-  .resource-editorial ul { padding-left: 21px; }
+  .resource-editorial ul:not(.editorial-links) { padding-left: 21px; }
   .resource-editorial li { line-height: 1.85; margin-bottom: 12px; color: var(--muted); font-size: .88rem; }
-  .editorial-links { list-style: none; padding: 0 !important; margin: 0; }
+  .editorial-links { list-style: none; padding: 0; margin: 0; }
   .editorial-links li + li { margin-top: 18px; }
   .editorial-links a { text-underline-offset: 4px; line-height: 1.7; }
   .editorial-links p { margin: 5px 0 0; }

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
@@ -55,14 +55,11 @@ const jsonLd = [
 const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KB`;
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
-  <main id="main-content" class="page-shell dataset-page">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Data", "数据") }]} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{t("OPEN DATA · CC BY 4.0", "开放数据 · CC BY 4.0")}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p class="report-meta">{t("Updated", "更新于")} <time datetime={modified}>{modified}</time> · {views.length} {t("skills", "个 Skill")} · {runs.length} {t("benchmark runs", "个测试批次")} · <a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a></p>
-    </header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} lede={description} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Data", "数据") }]}>
+      <Fragment slot="eyebrow">{t("OPEN DATA · CC BY 4.0", "开放数据 · CC BY 4.0")}</Fragment>
+      <p class="page-meta">{t("Updated", "更新于")} <time datetime={modified}>{modified}</time> · {views.length} {t("skills", "个 Skill")} · {runs.length} {t("benchmark runs", "个测试批次")} · <a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a></p>
+    </PageHeader>
     <div class="detail-grid">
       <article>
         <section class="prose-block">
@@ -86,7 +83,7 @@ const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).to
         </section>
         <section class="prose-block" id="how-to-cite">
           <h2>{t("How to cite", "如何引用")}</h2>
-          <pre class="cite-text">{`SkillFlux (${modified}). ${DATASET.name}, version ${DATASET.version}. ${absoluteUrl("/data/")}. CC BY 4.0.`}</pre>
+          <pre class="code-block">{`SkillFlux (${modified}). ${DATASET.name}, version ${DATASET.version}. ${absoluteUrl("/data/")}. CC BY 4.0.`}</pre>
           <p>{t("For a single result, cite the skill's report page or the run id it names. A machine-readable citation is in CITATION.cff in the repository.", "引用单个结果时，请引用对应 Skill 的报告页或其中给出的批次 id。仓库中的 CITATION.cff 提供机器可读的引用信息。")}</p>
         </section>
       </article>
@@ -104,12 +101,4 @@ const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).to
   </main>
 </BaseLayout>
 <style>
-  .dataset-page { padding-block: 24px 80px; }
-  .report-meta { font-size: .85rem !important; }
-  .table-scroll { overflow-x: auto; margin: 18px 0; }
-  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-  .data-table small { display: block; color: var(--faint); margin-top: 4px; }
-  .cite-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.6; padding: 12px 14px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-sm); }
 </style>

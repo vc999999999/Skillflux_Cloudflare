@@ -76,11 +76,11 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
           <button class="button primary" type="submit">{zh ? '搜索' : 'Search'}</button>
         </form>
         <p class="hero-examples"><span>{zh ? '试试' : 'Try'}</span>{searchExamples.map(term => <a href={`${href('/directory/')}?q=${encodeURIComponent(term)}`}>{term}</a>)}</p>
-        <dl class="home-stats data-stats">
-          <div><dt>{zh ? '个来源已收录' : 'sources listed'}</dt><dd>{stats.resourceCount}</dd><small>{zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos'}</small></div>
-          <div><dt>{zh ? '个来源已抽样体检' : 'sources sample-checked'}</dt><dd>{audits.length}</dd><small>{zh ? `共抽查 ${sampledEntries} 个条目` : `${sampledEntries} entries sampled`}</small></div>
-          <div><dt>{zh ? '个 Skill 已体检' : 'skills health-checked'}</dt><dd>{skillViews.length}</dd><small>{zh ? `钉定提交 · 每个 ${CHECK_REGISTRY.length} 项检查` : `Pinned commits · ${CHECK_REGISTRY.length} checks each`}</small></div>
-          <div><dt>{zh ? '对照实测' : 'benchmarks'}</dt>{benchmarkedCount > 0 ? <dd>{benchmarkedCount}</dd> : <dd class="pending">{zh ? '筹备中' : 'In progress'}</dd>}<small>{benchmarkedCount > 0 ? (zh ? `${runCount} 个已发布批次` : `${runCount} published runs`) : (zh ? '首批结果发布前不显示数字' : 'No numbers until the first run is published')}</small></div>
+        <dl class="home-stats">
+          <div><dt>{zh ? '个来源已收录' : 'sources listed'}</dt><dd class="stat-value">{stats.resourceCount}</dd><dd class="stat-note">{zh ? '市场、官方合集与仓库' : 'Marketplaces, vendors, repos'}</dd></div>
+          <div><dt>{zh ? '个来源已抽样体检' : 'sources sample-checked'}</dt><dd class="stat-value">{audits.length}</dd><dd class="stat-note">{zh ? `共抽查 ${sampledEntries} 个条目` : `${sampledEntries} entries sampled`}</dd></div>
+          <div><dt>{zh ? '个 Skill 已体检' : 'skills health-checked'}</dt><dd class="stat-value">{skillViews.length}</dd><dd class="stat-note">{zh ? `钉定提交 · 每个 ${CHECK_REGISTRY.length} 项检查` : `Pinned commits · ${CHECK_REGISTRY.length} checks each`}</dd></div>
+          <div><dt>{zh ? '对照实测' : 'benchmarks'}</dt>{benchmarkedCount > 0 ? <dd class="stat-value">{benchmarkedCount}</dd> : <dd class="stat-value is-pending">{zh ? '筹备中' : 'In progress'}</dd>}<dd class="stat-note">{benchmarkedCount > 0 ? (zh ? `${runCount} 个已发布批次` : `${runCount} published runs`) : (zh ? '首批结果发布前不显示数字' : 'No numbers until the first run is published')}</dd></div>
         </dl>
       </div>
     </section>
@@ -114,51 +114,52 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
         <div class="section-top"><div><p class="eyebrow">{zh ? '指南' : 'GUIDES'}</p><h2 id="guides-title">{zh ? '选型与实战指南' : 'Choosing and using skills'}</h2></div><a href={href('/guides/')}>{zh ? '全部指南' : 'All guides'} <Icon size={16} /></a></div>
         <div class="reading-grid">{reading.map(item => <a href={href(item.path)}><small>{item.type}</small><h3>{item.title}</h3><p>{item.summary}</p><span>{zh ? '阅读指南' : 'Read guide'} <Icon size={14} /></span></a>)}</div>
       </section>
-      <section class="machine-section"><div><p class="eyebrow">{zh ? '给 AI 读' : 'FOR AI'}</p><h2>{zh ? '给 Agent 的是证据，不是宣传。' : 'Agents get evidence, not marketing.'}</h2><p>{zh ? '机器入口只给可复核的东西：钉定的提交、逐项检查结果、原始试验、sha256 清单和引用规则。' : 'The machine layer carries only what can be checked: pinned commits, per-check results, raw trials, a sha256 manifest and citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '查看机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/AGENTS.md', zh ? '阅读顺序、引用规则与问题路由' : 'Reading order, citation rules, routing'], ['/llms.txt', zh ? '测量内容与每个 Skill 的结果' : 'What is measured and each result'], ['/data/index.json', zh ? '数据文件清单与 sha256' : 'Data files with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon name="external" size={14} /></a>)}</div></section>
+      <section class="machine-section"><div><p class="eyebrow">{zh ? '给 AI 读' : 'FOR AI'}</p><h2>{zh ? '给 Agent 的是证据，不是宣传。' : 'Agents get evidence, not marketing.'}</h2><p>{zh ? '机器入口只给可复核的东西：钉定的提交、逐项检查结果、原始试验、sha256 清单和引用规则。' : 'The machine layer carries only what can be checked: pinned commits, per-check results, raw trials, a sha256 manifest and citation rules.'}</p><a href={href('/for-ai/')}>{zh ? '查看机器可读入口' : 'Open the machine layer'} <Icon size={16} /></a></div><div class="endpoint-list">{[['/AGENTS.md', zh ? '阅读顺序、引用规则与问题路由' : 'Reading order, citation rules, routing'], ['/llms.txt', zh ? '测量内容与每个 Skill 的结果' : 'What is measured and each result'], ['/data/index.json', zh ? '数据文件清单与 sha256' : 'Data files with sha256'], ['/index.json', zh ? '结构化的 Skill 结果与来源' : 'Structured results and sources']].map(([path, note]) => <a href={path}><span>GET</span><code>{path}</code><small>{note}</small><Icon size={14} /></a>)}</div></section>
     </div>
   </main>
 </BaseLayout>
 <style>
-  .home-container { width: min(1088px, calc(100% - 48px)); margin: 0 auto; }
+  .home-container { width: min(var(--container), calc(100% - var(--gutter) * 2)); margin: 0 auto; }
   .home-hero { padding: 80px 0 52px; border-bottom: 1px solid var(--line); }
   .hero-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-strong); font: 500 .75rem var(--font-mono); color: var(--muted); letter-spacing: .06em; box-shadow: var(--shadow-sm); }
-  .hero-label > span, .tiny-dot { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
-  h1 { font-size: clamp(2.3rem, 4.4vw, 3.8rem); margin: 0; line-height: 1.12; letter-spacing: -.04em; font-weight: 650; }
-  h1 .hero-secondary { color: var(--faint); font-weight: 550; }
+  .hero-label > span { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
+  h1 { font-size: clamp(2.3rem, 4.4vw, 3.8rem); margin: 0; line-height: 1.12; letter-spacing: -.04em; font-weight: 700; }
   .keep-together { white-space: nowrap; }
   :global(html[lang="zh-CN"]) h1 { line-height: 1.25; letter-spacing: -.04em; }
   .hero-description { max-width: 760px; margin: 24px 0 32px; color: var(--muted); font-size: 1.12rem; line-height: 1.75; }
-  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-  .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 36px 0; margin: 0; border-bottom: 1px solid var(--line); }
-  .home-stats div { padding: 4px 28px; border-left: 1px solid var(--line); }
+  .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 40px 0 0; padding: 36px 0; border-bottom: 1px solid var(--line); }
+  .home-stats div { display: flex; flex-direction: column; padding: 4px 28px; border-left: 1px solid var(--line); }
   .home-stats div:first-child { border: 0; padding-left: 0; }
-  .home-stats dd { margin: 0 0 8px; font: 500 2.2rem var(--font-mono); letter-spacing: -.06em; color: var(--ink); }
   .home-stats dt { font-size: .88rem; font-weight: 600; color: var(--ink); }
+  .home-stats dd { margin: 0; }
+  .home-stats .stat-value { order: -1; margin-bottom: 8px; font: 500 2.2rem var(--font-mono); letter-spacing: -.06em; color: var(--ink); }
+  .home-stats .stat-value.is-pending { padding-top: 10px; font: 600 1.3rem var(--font-body); letter-spacing: -.02em; color: var(--muted); }
+  .home-stats .stat-note { margin-top: 6px; font-size: .78rem; color: var(--muted); line-height: 1.5; }
   .home-section { padding: 64px 0 0; }
   .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
-  .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
+  .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 600; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
   .section-top .eyebrow { margin-bottom: 12px; font-size: .75rem; }
   .section-top p:not(.eyebrow) { font-size: .92rem; line-height: 1.7; color: var(--muted); max-width: 720px; margin: 12px 0 0; }
   .section-top > a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: .84rem; text-decoration: none; padding-bottom: 2px; color: var(--ink); font-weight: 500; }
   .section-top > a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .picks-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
   .pick-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; background: var(--paper-strong); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-  .pick-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: rgba(23, 21, 15, 0.25); }
+  .pick-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--line-hover); }
   .pick-label { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
-  .pick-label > span { font-size: .75rem; padding: 4px 8px; border: 1px solid var(--line); background: var(--cream); border-radius: var(--radius-sm); color: var(--green); font-weight: 550; }
+  .pick-label > span { font-size: .75rem; padding: 4px 8px; border: 1px solid var(--line); background: var(--cream); border-radius: var(--radius-sm); color: var(--green); font-weight: 500; }
   .pick-label small { color: var(--faint); font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
-  .pick-card h3 { font-size: 1.2rem; font-weight: 650; margin: 20px 0 20px; letter-spacing: -.025em; }
+  .pick-card h3 { font-size: 1.2rem; font-weight: 600; margin: 20px 0 20px; letter-spacing: -.025em; }
   .pick-card h3 a { text-decoration: none; }
   .pick-card h3 a:hover { color: var(--accent); }
   .pick-card h4 { font: 500 .75rem var(--font-mono); letter-spacing: .05em; color: var(--faint); margin: 0 0 8px; text-transform: uppercase; }
   .pick-card p { font-size: .86rem; line-height: 1.75; margin: 0 0 20px; color: var(--muted); }
   .pick-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; margin-top: auto; gap: 8px; }
   .pick-bottom > span { font-size: .76rem; color: var(--faint); }
-  .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .82rem; text-decoration: none; font-weight: 550; color: var(--ink); }
+  .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .82rem; text-decoration: none; font-weight: 500; color: var(--ink); }
   .pick-bottom a:hover { color: var(--accent); }
   .source-type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
   .source-type-grid > a { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 18px; text-decoration: none; display: flex; flex-direction: column; background: var(--paper-strong); box-shadow: var(--shadow-sm); transition: all .16s ease; }
-  .source-type-grid > a:hover { border-color: rgba(23, 21, 15, 0.28); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .source-type-grid > a:hover { border-color: var(--line-hover); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
   .source-type-grid a > div { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
   .source-type-grid h3 { font-size: .88rem; margin: 0; font-weight: 600; line-height: 1.5; color: var(--ink); }
   .source-type-grid a > div > span { font: 500 .72rem var(--font-mono); color: var(--muted); background: var(--cream); padding: 3px 6px; border-radius: 3px; }
@@ -173,25 +174,24 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
   .reading-grid small { font: 500 .72rem var(--font-mono); color: var(--faint); letter-spacing: .05em; text-transform: uppercase; }
   .reading-grid h3 { margin: 12px 0 8px; font-size: .98rem; line-height: 1.6; font-weight: 600; color: var(--ink); }
   .reading-grid p { font-size: .82rem; line-height: 1.75; color: var(--muted); margin: 0 0 18px; }
-  .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .78rem; color: var(--muted); font-weight: 550; }
+  .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .78rem; color: var(--muted); font-weight: 500; }
   .reading-grid a:hover h3 { color: var(--accent); }
   .machine-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 36px; margin: 64px 0; background: var(--paper-strong); box-shadow: var(--shadow-card); }
   .machine-section .eyebrow { font-size: .75rem; margin-bottom: 12px; }
-  .machine-section h2 { font-size: 1.75rem; font-weight: 650; }
+  .machine-section h2 { font-size: 1.75rem; font-weight: 600; }
   .machine-section p:not(.eyebrow) { font-size: .9rem; color: var(--muted); line-height: 1.8; margin: 16px 0 22px; }
-  .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .85rem; font-weight: 550; text-decoration: none; }
+  .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .85rem; font-weight: 500; text-decoration: none; }
   .machine-section > div > a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .endpoint-list { display: grid; gap: 10px; align-content: center; min-width: 0; }
   .endpoint-list a { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 13px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); text-decoration: none; transition: all .16s ease; }
-  .endpoint-list a:hover { border-color: rgba(23, 21, 15, 0.28); background: var(--cream); transform: translateX(2px); }
+  .endpoint-list a:hover { border-color: var(--line-hover); background: var(--cream); transform: translateX(2px); }
   .endpoint-list a > span { font: 600 .75rem var(--font-mono); color: var(--green); background: var(--green-subtle); padding: 2px 6px; border-radius: 3px; }
-  .endpoint-list code { font-size: .82rem; font-weight: 550; }
+  .endpoint-list code { font-size: .82rem; font-weight: 500; }
   .endpoint-list small { font-size: .78rem; color: var(--muted); margin-left: auto; }
   .endpoint-list :global(svg) { color: var(--faint); }
   @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }
-  @media (max-width: 700px) { .home-container { width: calc(100% - 32px); } .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .hero-actions { gap: 10px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(3) { padding-left: 0; border: 0; } .home-stats dd { font-size: 1.8rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
+  @media (max-width: 700px) { .home-hero { padding: 48px 0 28px; } h1 { font-size: 2.3rem; line-height: 1.1; } .hero-description { font-size: 1rem; line-height: 1.65; margin-block: 20px 24px; } .home-stats { grid-template-columns: 1fr 1fr; padding-block: 24px; row-gap: 24px; } .home-stats div { padding: 0 16px; } .home-stats div:nth-child(odd) { padding-left: 0; border: 0; } .home-stats .stat-value { font-size: 1.8rem; } .home-section { padding-top: 48px; } .section-top { flex-wrap: wrap; gap: 15px; margin-bottom: 20px; } .section-top p:not(.eyebrow) { font-size: .85rem; } .section-top h2 { font-size: 1.6rem; } .picks-grid { grid-template-columns: 1fr; } .pick-card { padding: 22px; } .source-type-grid { grid-template-columns: 1fr 1fr; } .reading-grid { grid-template-columns: 1fr 1fr; gap: 22px; } .machine-section { grid-template-columns: 1fr; padding: 24px 20px; margin: 44px 0; gap: 24px; } }
   @media (max-width: 370px) { h1 { font-size: 2.05rem; } .hero-label { font-size: .7rem; } }
-  .data-stats { margin-top: 40px; grid-template-columns: repeat(4, 1fr); }
   .findings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 0; padding: 0; list-style: none; }
   .findings-grid li { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
   .findings-grid strong { display: block; font: 600 2rem var(--font-mono); letter-spacing: -.04em; }
@@ -209,27 +209,25 @@ const searchExamples = zh ? ['PDF', '测试', 'Android', '中文写作', 'MCP'] 
   .hero-examples > span { font: 500 .75rem var(--font-mono); color: var(--faint); letter-spacing: .04em; margin-right: 4px; }
   .hero-examples a { padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-strong); color: var(--muted); text-decoration: none; }
   .hero-examples a:hover { color: var(--ink); border-color: var(--line-strong); }
-  .home-stats small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.5; }
-  .home-stats dd.pending { font: 600 1.3rem var(--font-sans, inherit); letter-spacing: -.02em; color: var(--muted); padding-top: 10px; }
   .task-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
   .task-grid article { display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); box-shadow: var(--shadow-sm); }
   .task-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; text-decoration: none; }
-  .task-head h3 { margin: 0; font-size: 1rem; font-weight: 620; letter-spacing: -.015em; }
+  .task-head h3 { margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: -.015em; }
   .task-head:hover h3 { color: var(--accent); }
   .task-head span { font: 500 .72rem var(--font-mono); color: var(--muted); background: var(--cream); padding: 3px 6px; border-radius: 3px; }
   .task-grid p { margin: 8px 0 14px; font-size: .82rem; line-height: 1.65; color: var(--muted); }
   .task-grid ul { list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; }
   .task-grid li { display: flex; justify-content: space-between; gap: 10px; font-size: .84rem; }
-  .task-grid li a { text-decoration: none; font-weight: 520; }
+  .task-grid li a { text-decoration: none; font-weight: 500; }
   .task-grid li a:hover { color: var(--accent); text-decoration: underline; }
   .task-grid li small { color: var(--faint); font-size: .75rem; white-space: nowrap; }
   .topic-row-wide { margin-top: 0; }
   .pair-list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
-  .pair-list a { display: block; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); text-decoration: none; font-size: .88rem; font-weight: 540; }
+  .pair-list a { display: block; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); text-decoration: none; font-size: .88rem; font-weight: 500; }
   .pair-list a:hover { border-color: var(--line-strong); }
   .pair-list span { color: var(--faint); font-weight: 400; margin: 0 4px; }
   .data-note { margin: 18px 0 0; font-size: .82rem; color: var(--muted); line-height: 1.75; }
   .data-note a { color: var(--ink); }
   .pick-bottom > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  @media (max-width: 700px) { .hero-search { flex-direction: column; } .hero-search .button { width: 100%; justify-content: center; } .data-stats { grid-template-columns: 1fr; row-gap: 18px; } .data-stats div { border: 0; padding: 0; } }
+  @media (max-width: 700px) { .hero-search { flex-direction: column; } .hero-search .button { width: 100%; justify-content: center; } }
 </style>

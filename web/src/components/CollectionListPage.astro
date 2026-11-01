@@ -1,9 +1,9 @@
 ---
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { absoluteUrl, type Site } from "../lib/content";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
-import Breadcrumb from "./Breadcrumb.astro";
 import ResourceTable from "./ResourceTable.astro";
 
 type Crumb = { label: string; href?: string };
@@ -81,18 +81,12 @@ const jsonLd = [
 
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} noindex={noindex}>
   <main id="main-content" class="page-shell">
-    <section class="page-hero">
-      <div>
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.home} />
-        <p class="eyebrow"><span></span> {eyebrow}</p>
-        <h1 class="page-title">{heading}</h1>
-        <p class="page-lede">{lede}</p>
-      </div>
-      <aside class="page-meta-panel">
+    <PageHeader title={heading} eyebrow={eyebrow} lede={lede} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.home}>
+      <aside slot="aside" class="page-meta-panel">
         <strong>{sites.length}</strong>
         <span>{metaText}</span>
       </aside>
-    </section>
+    </PageHeader>
 
     <ResourceTable sites={sites} heading={heading} lang={lang} />
 

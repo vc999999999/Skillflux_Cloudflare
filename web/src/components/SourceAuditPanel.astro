@@ -5,6 +5,7 @@ import { localizePath, type Language } from '../lib/i18n';
 import { getSourceAudit } from '../lib/source-audits';
 import { scorecard } from '../lib/source-audit-data';
 import { pct, sampleScore } from '../lib/source-compare';
+import { flagLabel } from '../lib/skill-data';
 const { site, lang } = Astro.props as { site: Site; lang: Language };
 const zh = lang === 'zh';
 const audit = getSourceAudit(site.slug);
@@ -31,7 +32,7 @@ const outcome: Record<string, [string, string]> = { checked: ['Checked', '已检
             ? <a href={`${item.repo}/tree/${item.commitSha}${item.path ? `/${item.path}` : ''}`} rel="noopener noreferrer">{item.repo.replace('https://github.com/', '')}{item.path ? `/${item.path}` : ''}</a>
             : <span>{item.repo.replace('https://github.com/', '')}{item.linkedPath ? ` → ${item.linkedPath}` : ''}</span>}</th>
           <td>{item.outcome === 'checked' ? item.detail : outcome[item.outcome]![zh ? 1 : 0]}</td>
-          <td>{item.flags.join(', ') || '—'}</td>
+          <td>{item.flags.map(flag => flagLabel(flag, lang)).join(zh ? '、' : ', ') || '—'}</td>
         </tr>)}</tbody>
       </table></div>
     </details>
@@ -45,15 +46,15 @@ const outcome: Record<string, [string, string]> = { checked: ['Checked', '已检
   </div> : null}
 </section>
 <style>
-  .scorecard { list-style: none; padding: 0 !important; margin: 18px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
-  .scorecard li { margin: 0 !important; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); line-height: 1.5 !important; }
+  .scorecard { list-style: none; padding: 0; margin: 18px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .scorecard li { margin: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); line-height: 1.5; }
   .scorecard strong { display: block; font: 600 1.35rem var(--font-mono); color: var(--ink); letter-spacing: -.03em; }
   .scorecard strong small { font-size: .78rem; color: var(--faint); margin-left: 2px; }
   .scorecard span { font-size: .8rem; color: var(--muted); }
   .audit-block details { margin: 8px 0 14px; }
-  .audit-block summary { cursor: pointer; font-size: .86rem; font-weight: 550; }
+  .audit-block summary { cursor: pointer; font-size: .86rem; font-weight: 500; }
   .audit-block .data-table { font-size: .78rem; margin-top: 10px; }
-  .audit-block .data-table th a, .audit-block .data-table th span { overflow-wrap: anywhere; font-weight: 450; }
+  .audit-block .data-table th a, .audit-block .data-table th span { overflow-wrap: anywhere; font-weight: 400; }
   .claims h3 { font-size: .92rem; margin: 18px 0 8px; }
   .claims small { display: block; color: var(--faint); }
 </style>

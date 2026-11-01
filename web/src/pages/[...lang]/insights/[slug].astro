@@ -2,9 +2,9 @@
 import { getCollection, render } from "astro:content";
 import { SITE } from "../../../config";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Breadcrumb from "../../../components/Breadcrumb.astro";
+import PageHeader from "../../../components/PageHeader.astro";
 import { absoluteUrl, getSiteBySlug } from "../../../lib/content";
-import { LANGUAGE_PREFIX, getPageCopy, localizePath } from "../../../lib/i18n";
+import { LANGUAGE_PREFIX, getPageCopy, getSiteCopy, localizePath } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   const entries = await getCollection("insights", (entry) => !entry.data.draft);
@@ -68,19 +68,13 @@ const jsonLd = [
 <BaseLayout lang={lang} alternateLanguages={[lang]} title={data.title} description={data.description} canonicalPath={canonicalPath} jsonLd={jsonLd} articleDates={{ published: data.datePublished, modified: data.dateModified }}>
   <main id="main-content" class="page-shell">
     <article class="insight">
-      <header class="insight-head">
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.insights} />
-        <p class="eyebrow"><span></span> {t.eyebrow}</p>
-        <h1 class="page-title">{data.title}</h1>
-        <p class="page-lede">{data.description}</p>
+      <PageHeader title={data.title} eyebrow={t.eyebrow} lede={data.description} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.insights}>
         <p class="content-disclosure">本文是基于原始资料的编辑分析，不是 SkillFlux 的实测报告。文中对 Skill 能力的描述来自其原始文档与源码，效果请在自己的任务中验证。</p>
-        <p class="insight-meta">
-          {t.industryLabel}: {data.industry} · {t.updatedPrefix} <time datetime={data.dateModified}>{data.dateModified}</time> · {t.sourceAuthor}: {data.source.author}
-        </p>
-      </header>
+        <p class="page-meta">{t.industryLabel}: {data.industry} · {t.updatedPrefix} <time datetime={data.dateModified}>{data.dateModified}</time> · {t.sourceAuthor}: {data.source.author}</p>
+      </PageHeader>
 
-      <div class="insight-body">
-        <aside class="insight-tldr" aria-label={t.tldrLabel}>
+      <div class="insight-body prose">
+        <aside class="callout callout-accent insight-tldr" aria-label={t.tldrLabel}>
           <p class="insight-block-kicker">{t.tldrLabel}</p>
           <p class="insight-tldr-text">{data.tldr}</p>
         </aside>
@@ -94,7 +88,7 @@ const jsonLd = [
 
         <section>
           <h2>{t.painPointsTitle}</h2>
-          <table class="insight-table">
+          <div class="table-scroll"><table class="data-table insight-table">
             <thead>
               <tr>
                 <th>{t.painHeader}</th>
@@ -109,7 +103,7 @@ const jsonLd = [
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </section>
 
         <section>
@@ -145,7 +139,7 @@ const jsonLd = [
           </ul>
         </section>
 
-        <section class="insight-source">
+        <section class="card insight-source">
           <h2>{t.sourceTitle}</h2>
           <dl>
             <div>
@@ -173,12 +167,15 @@ const jsonLd = [
           <section>
             <h2>{t.relatedTitle}</h2>
             <div class="insight-related">
-              {relatedSites.map((site) => (
-                <a class="insight-related-card" href={`/resource/${site.resourceSlug}/`}>
-                  <strong>{site.name}</strong>
-                  <span>{site.tagline}</span>
-                </a>
-              ))}
+              {relatedSites.map((site) => {
+                const siteCopy = getSiteCopy(site, lang);
+                return (
+                  <a class="card insight-related-card" href={localizePath(`/resource/${site.resourceSlug}/`, lang)}>
+                    <strong>{siteCopy.name}</strong>
+                    <span>{siteCopy.tagline}</span>
+                  </a>
+                );
+              })}
             </div>
           </section>
         )}
@@ -190,193 +187,25 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .insight-head {
-    padding: 24px 0 28px;
-    border-bottom: 1px solid var(--line-strong);
-    margin-bottom: 32px;
-  }
-
-  .insight-meta {
-    margin: 12px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-
-  .insight-body {
-    max-width: 760px;
-  }
-
-  .insight-body h2 {
-    margin: 40px 0 16px;
-    font-size: 1.5rem;
-  }
-
-  .insight-body ul,
-  .insight-body ol {
-    margin: 0 0 18px;
-    padding-left: 22px;
-    line-height: 1.75;
-  }
-
-  .insight-body li {
-    margin-bottom: 8px;
-  }
-
-  .insight-tldr {
-    padding: 18px 20px;
-    border: 1px solid var(--line-strong);
-    border-left: 3px solid var(--green);
-    background: var(--paper-strong);
-  }
-
-  .insight-block-kicker {
-    margin: 0 0 8px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .insight-tldr-text {
-    margin: 0;
-    line-height: 1.7;
-  }
-
-  .insight-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 0 18px;
-  }
-
-  .insight-table th,
-  .insight-table td {
-    padding: 10px 14px;
-    border: 1px solid var(--line-strong);
-    text-align: left;
-    vertical-align: top;
-    line-height: 1.6;
-  }
-
-  .insight-table th {
-    background: var(--paper-strong);
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-  }
-
-  .insight-workflow li {
-    margin-bottom: 14px;
-  }
-
-  .insight-workflow li p {
-    margin: 4px 0 0;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .insight-prose :global(h2),
-  .insight-prose :global(h3) {
-    margin: 26px 0 10px;
-    font-size: 1.15rem;
-  }
-
-  .insight-prose :global(p) {
-    margin: 0 0 16px;
-    line-height: 1.75;
-    color: var(--ink);
-  }
-
-  .insight-prose :global(ul),
-  .insight-prose :global(ol) {
-    margin: 0 0 18px;
-    padding-left: 22px;
-    line-height: 1.75;
-  }
-
-  .insight-prose :global(a) {
-    color: var(--green);
-    text-decoration: underline;
-  }
-
-  .insight-prose :global(:not(pre) > code) {
-    overflow-wrap: anywhere;
-  }
-
-  .insight-prose :global(blockquote) {
-    margin: 0 0 16px;
-    padding: 12px 18px;
-    border-left: 3px solid var(--line-strong);
-    color: var(--muted);
-  }
-
-  .insight-source {
-    padding: 20px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-  }
-
-  .insight-source h2 {
-    margin-top: 0;
-  }
-
-  .insight-source dl {
-    margin: 0 0 14px;
-    display: grid;
-    gap: 10px;
-  }
-
-  .insight-source dt {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  .insight-source dd {
-    margin: 2px 0 0;
-    word-break: break-all;
-  }
-
-  .insight-source a {
-    color: var(--green);
-  }
-
-  .insight-source-note {
-    margin: 0 0 12px;
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .insight-source-visit {
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .insight-related {
-    display: grid;
-    gap: 12px;
-  }
-
-  .insight-related-card {
-    display: grid;
-    gap: 4px;
-    padding: 14px 16px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-    text-decoration: none;
-    color: var(--ink);
-  }
-
-  .insight-related-card span {
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-
-  .insight-machine-note {
-    margin: 36px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
+  .insight-body > section > h2 { margin-top: 40px; }
+  .insight-block-kicker { margin: 0 0 8px; color: var(--muted); font: 500 .75rem var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+  .insight-tldr-text { line-height: 1.7; }
+  .insight-table { font-size: .9rem; }
+  .insight-table td { line-height: 1.65; }
+  .insight-workflow li { margin-bottom: 14px; }
+  .insight-workflow li p { margin: 4px 0 0; color: var(--muted); line-height: 1.7; }
+  .insight-prose :global(h2), .insight-prose :global(h3) { margin: 26px 0 10px; font-size: 1.15rem; }
+  .insight-source { margin-top: 40px; }
+  .insight-body > .insight-source > h2 { margin-top: 0; }
+  .insight-source dl { display: grid; gap: 10px; margin: 0 0 14px; }
+  .insight-source dt { color: var(--muted); font: 500 .75rem var(--font-mono); }
+  .insight-source dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+  .insight-source-note { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+  .insight-source-visit { font-weight: 500; text-decoration: none; }
+  .insight-related { display: grid; gap: 12px; }
+  .insight-related-card { display: grid; gap: 4px; padding: 16px 18px; }
+  .insight-related-card strong { font-weight: 600; transition: color .15s ease; }
+  .insight-related-card:hover strong { color: var(--accent); }
+  .insight-related-card span { color: var(--muted); font-size: .9rem; }
+  .insight-machine-note { margin: 36px 0 0; color: var(--muted); font: .82rem/1.7 var(--font-mono); }
 </style>

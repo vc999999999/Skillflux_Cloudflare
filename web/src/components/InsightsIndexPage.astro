@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { absoluteUrl } from "../lib/content";
 import { HREFLANG, insightPath, DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
-import Breadcrumb from "./Breadcrumb.astro";
 
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -62,22 +62,16 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <main id="main-content" class="page-shell">
-    <section class="page-hero">
-      <div>
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.insights} />
-        <p class="eyebrow"><span></span> {copy.insightsPage.eyebrow}</p>
-        <h1 class="page-title">{copy.insightsPage.indexTitle}</h1>
-        <p class="page-lede">{copy.insightsPage.indexLede}</p>
-        <p class="insights-feed-link">
-          RSS: <a href="/insights/feed.xml">/insights/feed.xml</a>
-          {lang === "en" && <span> · {copy.insightsPage.zhOnlyNote}</span>}
-        </p>
-      </div>
-    </section>
+    <PageHeader title={copy.insightsPage.indexTitle} eyebrow={copy.insightsPage.eyebrow} lede={copy.insightsPage.indexLede} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.insights}>
+      <p class="page-meta">
+        RSS: <a href="/insights/feed.xml">/insights/feed.xml</a>
+        {lang === "en" && <span> · {copy.insightsPage.zhOnlyNote}</span>}
+      </p>
+    </PageHeader>
 
     <section class="insight-list">
       {entries.map((entry) => (
-        <a class="insight-card" href={insightPath(entry)}>
+        <a class="card insight-card" href={insightPath(entry)}>
           <p class="insight-card-meta">
             <span class="insight-card-industry">{entry.data.industry}</span>
             <span>{copy.insightsPage.updatedPrefix} <time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></span>
@@ -93,63 +87,11 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .insights-feed-link {
-    margin: 14px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-
-  .insights-feed-link a {
-    color: var(--green);
-  }
-
-  .insight-list {
-    display: grid;
-    gap: 18px;
-    margin-top: 8px;
-  }
-
-  .insight-card {
-    display: block;
-    padding: 26px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-    text-decoration: none;
-    color: var(--ink);
-    transition: transform 0.15s ease;
-  }
-
-  .insight-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .insight-card-meta {
-    display: flex;
-    gap: 14px;
-    margin: 0 0 10px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  .insight-card-industry {
-    color: var(--green);
-  }
-
-  .insight-card h2 {
-    margin: 0 0 10px;
-    font-size: 1.4rem;
-  }
-
-  .insight-card-desc {
-    margin: 0 0 14px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  .insight-card-more {
-    font-weight: 600;
-    color: var(--green);
-  }
+  .insight-list { display: grid; gap: 16px; }
+  .insight-card-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 10px; color: var(--faint); font: 500 .75rem var(--font-mono); letter-spacing: .04em; }
+  .insight-card-industry { color: var(--green); }
+  .insight-card h2 { margin: 0 0 10px; font-size: 1.3rem; font-weight: 600; line-height: 1.4; letter-spacing: -.02em; transition: color .15s ease; }
+  .insight-card:hover h2 { color: var(--accent); }
+  .insight-card-desc { max-width: 78ch; margin: 0 0 16px; color: var(--muted); font-size: .92rem; line-height: 1.75; }
+  .insight-card-more { font-size: .84rem; font-weight: 500; }
 </style>

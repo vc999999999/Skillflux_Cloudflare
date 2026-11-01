@@ -112,6 +112,19 @@ export function buildSkillViews(data: SkillData): SkillView[] {
   }).sort((a, b) => a.skill.id.localeCompare(b.skill.id));
 }
 
+const FLAG_LABELS: Record<string, [string, string]> = {
+  "executes-code": ["Bundles scripts the agent may run", "附带 Agent 可能执行的脚本"],
+  "network-calls": ["Scripts call the network", "脚本会访问网络"],
+  "destructive-commands": ["Scripts contain rm -rf, sudo or similar", "脚本含 rm -rf、sudo 等命令"],
+  "risky-instructions": ["Instructions match a risk pattern", "指令命中风险规则"],
+  "possible-secret": ["Possible credential in files", "文件中疑似包含凭证"],
+  "no-license": ["No license found", "未找到许可证"],
+  "stale": ["Unchanged for over a year", "超过一年未更新"],
+  "archived-repo": ["Repository archived", "仓库已归档"],
+  "upstream-changed": ["Upstream changed after the tested commit", "测试版本之后上游有改动"],
+};
+export const flagLabel = (flag: string, lang: 'en' | 'zh') => FLAG_LABELS[flag]?.[lang === 'zh' ? 1 : 0] ?? flag;
+
 export const pct = (value: number | null | undefined) => value === null || value === undefined ? '—' : `${Math.round(value * 100)}%`;
 export const ci = (interval: [number, number] | null | undefined) => interval ? `${Math.round(interval[0] * 100)}–${Math.round(interval[1] * 100)}%` : '—';
 export const signedPoints = (value: number | null | undefined) => value === null || value === undefined ? '—' : `${value > 0 ? '+' : ''}${Math.round(value * 100)} pts`;

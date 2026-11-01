@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language };
@@ -10,7 +11,7 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过 GitHub 提交供编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then submit through GitHub for editorial review.")}>
   <main id="main-content" class="page-shell submit-shell">
-    <header class="page-hero"><div><p class="eyebrow">CONTRIBUTE TO THE DIRECTORY</p><h1 class="page-title">{t("好资源，值得被更多人发现。", "Good resources deserve to be found.")}</h1><p class="page-lede">{t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")}</p></div></header>
+    <PageHeader title={t("好资源，值得被更多人发现。", "Good resources deserve to be found.")} eyebrow={t("参与共建", "CONTRIBUTE TO THE DIRECTORY")} lede={t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")} breadcrumb={[{ label: t("首页", "Home"), href: localizePath("/", lang) }, { label: t("推荐与纠错", "Suggest or correct") }]} />
     <nav class="submit-paths" aria-label={t("其他反馈方式", "Other ways to contribute")}>
       <a href={`${issueUrl}?template=test-request.yml`} rel="noopener noreferrer"><strong>{t("申请实测某个 Skill", "Request a benchmark")}</strong><span>{t("告诉我们哪个 Skill 值得测、在什么任务上测。", "Tell us which skill to test, and on what kind of task.")}</span></a>
       <a href={`${issueUrl}?template=dispute.yml`} rel="noopener noreferrer"><strong>{t("对结果提出异议", "Dispute a result")}</strong><span>{t("体检或实测结果有误？注明页面、数字和原因，我们会公开处理。", "Think a health check or benchmark is wrong? Name the page, the number and why; we handle it in public.")}</span></a>
@@ -74,11 +75,11 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
   .form-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 24px; }
   .form-heading h2 { margin: 0; font-size: 1.16rem; letter-spacing: -.02em; }
   .form-heading > span { color: var(--muted); font-size: .7rem; white-space: nowrap; }
-  form > label { display: block; margin: 0 0 21px; font-size: .81rem; font-weight: 550; }
+  form > label { display: block; margin: 0 0 21px; font-size: .81rem; font-weight: 500; }
   label > span { color: var(--muted); }
   input, select, textarea { display: block; width: 100%; min-width: 0; margin-top: 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); padding: 11px 12px; font-size: .81rem; line-height: 1.55; }
   textarea { resize: vertical; min-height: 90px; }
-  input::placeholder, textarea::placeholder { color: #a09b8e; font-weight: 400; }
+  input::placeholder, textarea::placeholder { color: var(--faint); font-weight: 400; }
   label small { display: block; margin-top: 7px; font-size: .7rem; font-weight: 400; color: var(--muted); line-height: 1.6; }
   .submission-footnote { display: flex; gap: 10px; padding: 14px; margin: 5px 0 20px; background: var(--cream); border-radius: 5px; }
   .submission-footnote > span { padding-top: 3px; color: var(--muted); }
@@ -95,7 +96,7 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
   .submission-sidebar ul { padding: 0; margin: 0; list-style: none; display: grid; gap: 22px; }
   .submission-sidebar ul li { display: flex; gap: 12px; }
   .submission-sidebar li > span { font: .83rem/1.7 var(--font-mono); }
-  .submission-sidebar li strong { font-size: .83rem; font-weight: 550; }
+  .submission-sidebar li strong { font-size: .83rem; font-weight: 500; }
   .submission-sidebar li p { margin: 6px 0 0; font-size: .78rem; color: var(--muted); line-height: 1.8; }
   .review-flow ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: .8rem; line-height: 1.85; }
   .review-flow li + li { margin-top: 14px; }

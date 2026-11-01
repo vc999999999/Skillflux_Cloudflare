@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import type { RunRecord } from "@skillflux/bench/schema";
 import { SITE } from "../config";
 import { absoluteUrl } from "../lib/content";
@@ -34,14 +34,11 @@ const jsonLd = run ? [{
 }] : [{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, description, url: absoluteUrl(path) }];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!run && runs.length === 0}>
-  <main id="main-content" class="page-shell run-page">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, ...(run ? [{ label: t("Runs", "批次"), href: localizePath("/runs/", lang) }, { label: run.runId }] : [{ label: t("Runs", "批次") }])]} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{run ? `${t("RUN", "批次")} · ${statusText(run.status)}` : t("RUNS", "批次")}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} lede={description} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, ...(run ? [{ label: t("Runs", "批次"), href: localizePath("/runs/", lang) }, { label: run.runId }] : [{ label: t("Runs", "批次") }])]}>
+      <Fragment slot="eyebrow">{run ? `${t("RUN", "批次")} · ${statusText(run.status)}` : t("RUNS", "批次")}</Fragment>
       {run?.supersededBy && <p class="content-disclosure">{t("Superseded by", "已被以下批次取代：")} <a href={localizePath(`/runs/${run.supersededBy}/`, lang)}>{run.supersededBy}</a></p>}
-    </header>
+    </PageHeader>
     {run ? (
       <div class="detail-grid">
         <article>
@@ -82,10 +79,5 @@ const jsonLd = run ? [{
   </main>
 </BaseLayout>
 <style>
-  .run-page { padding-block: 24px 80px; }
-  .table-scroll { overflow-x: auto; margin: 18px 0; }
-  .data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-  .data-table thead th { font-size: .74rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-  .plain-list { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: .88rem; line-height: 1.8; }
+  .detail-panel .plain-list { margin-top: 12px; font-size: .88rem; }
 </style>

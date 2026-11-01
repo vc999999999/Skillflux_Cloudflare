@@ -10,7 +10,7 @@ const copy = getSiteCopy(site, lang);
 const audit = getSourceAudit(site.slug);
 const score = sampleScore(audit);
 ---
-<article class="source-card">
+<article class="card source-card">
   <header>
     {rank !== undefined && <span class="rank">{rank}</span>}
     <div>
@@ -24,10 +24,10 @@ const score = sampleScore(audit);
   <p class="audit">{audit ? auditLine(audit, lang) : (/^https:\/\/github\.com\//.test(site.canonicalUrl) ? (zh ? '尚未抽样' : 'Not sampled yet') : (zh ? '网站，未抽样' : 'Website; not sampled'))}</p>
 </article>
 <style>
-  .source-card { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-strong); }
+  .source-card { padding: 18px 20px; }
   .source-card header { display: flex; gap: 12px; align-items: start; }
   .source-card header > div { flex: 1; min-width: 0; }
-  .source-card h3 { margin: 0; font-size: 1.02rem; font-weight: 620; }
+  .source-card h3 { margin: 0; font-size: 1.02rem; font-weight: 600; }
   .source-card h3 a { text-decoration: none; }
   .source-card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .rank { font: 600 .8rem var(--font-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 50%; width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; }
