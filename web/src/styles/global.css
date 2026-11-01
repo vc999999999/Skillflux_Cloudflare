@@ -7,13 +7,21 @@
   --line: rgba(23, 21, 15, 0.12);
   --line-strong: #17150f;
   --line-subtle: rgba(23, 21, 15, 0.06);
+  --line-hover: rgba(23, 21, 15, 0.28);
   --accent: #e0381f;
   --blue: #16425b;
   --green: #225b45;
   --green-subtle: #edf3ee;
+  --warn: #7a4b00;
+  --warn-subtle: #fbefd5;
+  --fail: #9b2412;
+  --fail-subtle: #fbe1dc;
+  --accent-subtle: #fbeee9;
   --cream: #ece8db;
   --cream-hover: #e2ded0;
+  --ink-hover: #2b281f;
   --dark: #17150f;
+  --dark-surface: #191712;
   --dark-muted: #a5a093;
   --shadow-sm: 0 1px 3px rgba(23, 21, 15, 0.04);
   --shadow-card: 0 2px 12px rgba(23, 21, 15, 0.04);
@@ -145,12 +153,12 @@ main[id] { scroll-margin-top: 76px; }
   box-shadow: var(--shadow-sm);
 }
 .button.primary:hover {
-  background: #2b281f;
+  background: var(--ink-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-card);
 }
 .button.secondary:hover {
-  border-color: rgba(23, 21, 15, 0.28);
+  border-color: var(--line-hover);
   background: var(--cream);
   transform: translateY(-1px);
   box-shadow: var(--shadow-card);
@@ -235,7 +243,9 @@ main[id] { scroll-margin-top: 76px; }
 .detail-hero { padding: 16px 0 36px; border-bottom: 1px solid var(--line); }
 .detail-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .38fr); gap: 48px; align-items: end; }
 .detail-hero h1 { margin: 0; font-size: clamp(2.3rem, 4.6vw, 3.6rem); letter-spacing: -.04em; line-height: 1.1; font-weight: 650; }
-.detail-hero p { max-width: 65ch; margin: 18px 0 0; color: var(--muted); font-size: 1.02rem; line-height: 1.75; }
+/* :where keeps this at class specificity so .eyebrow, .content-disclosure and page-level classes win without !important. */
+.detail-hero :where(p:not(.eyebrow, .content-disclosure)) { max-width: 65ch; margin: 18px 0 0; color: var(--muted); font-size: 1.02rem; line-height: 1.75; }
+.detail-hero .report-meta { font-size: .85rem; }
 .detail-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .detail-badges span {
   border: 1px solid var(--line);
@@ -310,6 +320,20 @@ main[id] { scroll-margin-top: 76px; }
 .pack-cta-body { max-width: 60ch; }
 .pack-cta-body h2 { margin: 10px 0 12px; font-size: 1.55rem; letter-spacing: -.03em; line-height: 1.3; font-weight: 650; }
 .pack-cta-body p { color: var(--muted); font-size: .9rem; line-height: 1.8; }
+
+/* Data pages: tables, lists, code blocks and status tones */
+.table-scroll { overflow-x: auto; margin: 18px 0; }
+.data-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+.data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.data-table thead th { font-size: .75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.data-table small { display: block; margin-top: 4px; color: var(--faint); font-weight: 400; font-size: .76rem; line-height: 1.5; }
+.plain-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9rem; line-height: 1.8; }
+.plain-list li + li { margin-top: 6px; }
+.code-block { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; line-height: 1.6; padding: 12px 14px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.tone-pass { color: var(--green); background: var(--green-subtle); }
+.tone-warn { color: var(--warn); background: var(--warn-subtle); }
+.tone-fail { color: var(--fail); background: var(--fail-subtle); }
+.tone-info { color: var(--muted); background: var(--cream); }
 
 @media (max-width: 900px) {
   .detail-hero-grid, .detail-grid { grid-template-columns: 1fr; gap: 32px; }

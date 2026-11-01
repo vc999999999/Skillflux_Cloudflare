@@ -4,7 +4,7 @@ import Breadcrumb from "./Breadcrumb.astro";
 import { CHECK_REGISTRY } from "@skillflux/bench/checks";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
-import { pct, signedPoints } from "../lib/skill-data";
+import { flagLabel, pct, signedPoints } from "../lib/skill-data";
 import { getIndexableSkillViews, getSkillCategories } from "../lib/skills";
 import { datasetModified } from "../lib/dataset";
 
@@ -64,7 +64,7 @@ const jsonLd = [
           {views.map(view => (
             <tr data-skill-row data-category={view.skill.category}>
               <th scope="row"><a href={localizePath(`/skills/${view.skill.id}/`, lang)}>{view.skill.displayName[lang]}</a><small>{view.skill.author.name} · {view.category.label[lang]}</small></th>
-              <td><span class="mini pass">{view.counts.pass}</span> <span class="mini warn">{view.counts.warn}</span> <span class="mini fail">{view.counts.fail}</span>{(view.health?.flags.length ?? 0) > 0 && <small>{view.health!.flags.join(", ")}</small>}</td>
+              <td><span class="mini tone-pass">{view.counts.pass}</span> <span class="mini tone-warn">{view.counts.warn}</span> <span class="mini tone-fail">{view.counts.fail}</span>{(view.health?.flags.length ?? 0) > 0 && <small>{view.health!.flags.map(flag => flagLabel(flag, lang)).join(zh ? "、" : ", ")}</small>}</td>
               <td>{view.result ? <span>{pct(view.result.skill.pooled.with.passRate)} vs {pct(view.result.skill.pooled.without.passRate)} <small>{signedPoints(view.result.skill.pooled.comparison.passRateDelta)} · n={view.result.skill.pooled.with.n}</small></span> : <span class="muted">{t("Not yet", "暂未")}</span>}</td>
               <td>{view.skill.license.spdx ?? (view.skill.license.file ? t("Own file", "单独文件") : "—")}</td>
             </tr>
@@ -97,15 +97,7 @@ const jsonLd = [
   .category-filter a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; font-size: .84rem; background: var(--paper-strong); }
   .category-filter a[aria-current="true"] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); }
   .category-filter small { color: inherit; opacity: .6; margin-left: 4px; }
-  .table-scroll { overflow-x: auto; margin: 18px 0; }
-  .data-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
-  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 12px; border-bottom: 1px solid var(--line); }
-  .data-table thead th { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-  .data-table small { display: block; margin-top: 4px; color: var(--faint); font-weight: 400; font-size: .76rem; }
   .data-table tbody th a { font-weight: 600; }
   .mini { display: inline-block; min-width: 26px; text-align: center; padding: 1px 6px; border-radius: 8px; font: .76rem var(--font-mono); }
-  .mini.pass { background: var(--green-subtle); color: var(--green); }
-  .mini.warn { background: #fbefd5; color: #7a4b00; }
-  .mini.fail { background: #fbe1dc; color: #9b2412; }
   .muted { color: var(--faint); }
 </style>

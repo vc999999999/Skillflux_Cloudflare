@@ -11,7 +11,7 @@ const zh = lang === 'zh';
 <dialog class="sf-search-dialog" id="sf-search-dialog" aria-label={zh ? '站内搜索' : 'Search SkillFlux'} data-lang={lang}>
   <div class="sf-search-top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-    <label class="sf-search-sr" for="sf-search-input">{zh ? '搜索资源和指南' : 'Search resources and guides'}</label>
+    <label class="sr-only" for="sf-search-input">{zh ? '搜索资源和指南' : 'Search resources and guides'}</label>
     <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索资源、指南…' : 'Search resources, guides…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
     <button class="sf-search-close" type="button" data-sf-search-close aria-label={zh ? '关闭搜索' : 'Close search'}>ESC</button>
   </div>
@@ -25,10 +25,10 @@ const zh = lang === 'zh';
 
 <style>
   .sf-search-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; color: var(--muted); background: var(--paper-strong); border: 1px solid var(--line); border-radius: var(--radius-md); font: inherit; font-size: 12px; line-height: 1.4; cursor: pointer; white-space: nowrap; transition: all .15s ease; }
-  .sf-search-trigger:hover { color: var(--ink); border-color: rgba(23, 21, 15, 0.3); background: var(--paper); }
+  .sf-search-trigger:hover { color: var(--ink); border-color: var(--line-hover); background: var(--paper); }
   .sf-search-trigger kbd { margin-left: 8px; color: var(--faint); font: 500 10px var(--font-mono); background: var(--cream); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; }
   .sf-search-dialog { box-sizing: border-box; position: fixed; inset: 12vh auto auto 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px)); max-height: min(620px, 78dvh); padding: 0; margin: 0; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--paper-strong); box-shadow: 0 20px 60px rgba(23, 21, 15, 0.12); overflow: hidden; }
-  .sf-search-dialog::backdrop { background: rgba(23, 21, 15, 0.28); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .sf-search-dialog::backdrop { background: var(--line-hover); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
   .sf-search-dialog[open] { display: flex; flex-direction: column; }
   .sf-search-top { display: flex; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--line); flex-shrink: 0; }
   .sf-search-top > svg { flex-shrink: 0; color: var(--muted); }
@@ -53,7 +53,6 @@ const zh = lang === 'zh';
   .sf-search-retry { margin: 4px 10px 20px; border: 1px solid var(--line); border-radius: var(--radius-md); padding: 8px 14px; background: var(--paper-strong); color: var(--ink); cursor: pointer; font: inherit; font-size: 12px; }
   .sf-search-retry[hidden] { display: none; }
   .sf-search-trigger:focus-visible, .sf-search-dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  .sf-search-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   @media (max-width: 1150px) { .sf-search-trigger { padding: 6px; background: transparent; border-color: transparent; } .sf-search-trigger span, .sf-search-trigger kbd { display: none; } .sf-search-trigger svg { width: 18px; height: 18px; } }
   @media (max-width: 600px) { .sf-search-dialog { top: 8vh; max-height: 82dvh; border-radius: 10px; } .sf-search-top { padding: 16px 14px; gap: 10px; } .sf-search-input { font-size: 16px; } .sf-search-bottom { padding: 10px 14px; font-size: 10px; } }
 </style>

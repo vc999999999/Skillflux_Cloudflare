@@ -4,7 +4,7 @@ import { SITE } from "../../../config";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Breadcrumb from "../../../components/Breadcrumb.astro";
 import { absoluteUrl, getSiteBySlug } from "../../../lib/content";
-import { LANGUAGE_PREFIX, getPageCopy, localizePath } from "../../../lib/i18n";
+import { LANGUAGE_PREFIX, getPageCopy, getSiteCopy, localizePath } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   const entries = await getCollection("insights", (entry) => !entry.data.draft);
@@ -94,7 +94,7 @@ const jsonLd = [
 
         <section>
           <h2>{t.painPointsTitle}</h2>
-          <table class="insight-table">
+          <div class="table-scroll"><table class="insight-table">
             <thead>
               <tr>
                 <th>{t.painHeader}</th>
@@ -109,7 +109,7 @@ const jsonLd = [
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </section>
 
         <section>
@@ -173,12 +173,15 @@ const jsonLd = [
           <section>
             <h2>{t.relatedTitle}</h2>
             <div class="insight-related">
-              {relatedSites.map((site) => (
-                <a class="insight-related-card" href={`/resource/${site.resourceSlug}/`}>
-                  <strong>{site.name}</strong>
-                  <span>{site.tagline}</span>
-                </a>
-              ))}
+              {relatedSites.map((site) => {
+                const siteCopy = getSiteCopy(site, lang);
+                return (
+                  <a class="insight-related-card" href={localizePath(`/resource/${site.resourceSlug}/`, lang)}>
+                    <strong>{siteCopy.name}</strong>
+                    <span>{siteCopy.tagline}</span>
+                  </a>
+                );
+              })}
             </div>
           </section>
         )}
@@ -247,7 +250,6 @@ const jsonLd = [
   .insight-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0 0 18px;
   }
 
   .insight-table th,
