@@ -60,59 +60,9 @@ const jsonLd = [
       <PageHeader title={title} eyebrow={copy.guidesPage.eyebrow} lede={description} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.guides}>
         <p class="page-meta">{copy.guidesPage.updatedPrefix} <time datetime={guide.dateModified}>{guide.dateModified}</time></p>
       </PageHeader>
-      <div class="guide-body">
+      <div class="guide-body prose">
         <slot />
       </div>
     </article>
   </main>
 </BaseLayout>
-
-<style>
-  .guide-body {
-    max-width: 760px;
-  }
-
-  .guide-body :global(h2) {
-    margin: 36px 0 14px;
-    font-size: 1.5rem;
-  }
-
-  .guide-body :global(h3) {
-    margin: 26px 0 10px;
-    font-size: 1.15rem;
-  }
-
-  .guide-body :global(p) {
-    margin: 0 0 16px;
-    line-height: 1.75;
-    color: var(--ink);
-  }
-
-  .guide-body :global(ul),
-  .guide-body :global(ol) {
-    margin: 0 0 18px;
-    padding-left: 22px;
-    line-height: 1.75;
-  }
-
-  .guide-body :global(li) {
-    margin-bottom: 8px;
-  }
-
-  .guide-body :global(a) {
-    color: var(--green);
-    text-decoration: underline;
-  }
-
-  .guide-body :global(.guide-callout) {
-    margin: 24px 0;
-    padding: 18px 20px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-  }
-
-  .guide-body :global(.guide-callout p) {
-    margin: 0;
-    color: var(--muted);
-  }
-</style>

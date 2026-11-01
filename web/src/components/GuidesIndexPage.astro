@@ -62,7 +62,7 @@ const jsonLd = [
 
     <section class="guide-list">
       {guides.map((guide) => (
-        <a class="guide-card" href={localizePath(`/guides/${guide.slug}/`, lang)}>
+        <a class="card guide-card" href={localizePath(`/guides/${guide.slug}/`, lang)}>
           <p class="guide-card-date">{copy.guidesPage.updatedPrefix} {guide.dateModified}</p>
           <h2>{guide.title[lang]}</h2>
           <p class="guide-card-desc">{guide.description[lang]}</p>
@@ -75,45 +75,10 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .guide-list {
-    display: grid;
-    gap: 18px;
-  }
-
-  .guide-card {
-    display: block;
-    padding: 26px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-    text-decoration: none;
-    color: var(--ink);
-    transition: transform 0.15s ease;
-  }
-
-  .guide-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .guide-card-date {
-    margin: 0 0 10px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  .guide-card h2 {
-    margin: 0 0 10px;
-    font-size: 1.4rem;
-  }
-
-  .guide-card-desc {
-    margin: 0 0 14px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  .guide-card-more {
-    font-weight: 600;
-    color: var(--green);
-  }
+  .guide-list { display: grid; gap: 16px; }
+  .guide-card-date { margin: 0 0 10px; color: var(--faint); font: 500 .75rem var(--font-mono); letter-spacing: .04em; }
+  .guide-card h2 { margin: 0 0 10px; font-size: 1.3rem; font-weight: 600; line-height: 1.4; letter-spacing: -.02em; transition: color .15s ease; }
+  .guide-card:hover h2 { color: var(--accent); }
+  .guide-card-desc { max-width: 78ch; margin: 0 0 16px; color: var(--muted); font-size: .92rem; line-height: 1.75; }
+  .guide-card-more { font-size: .84rem; font-weight: 500; }
 </style>

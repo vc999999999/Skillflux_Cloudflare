@@ -110,8 +110,8 @@ const categoryNotes: Record<string, [string, string]> = {
   .home-hero { padding: 80px 0 52px; border-bottom: 1px solid var(--line); }
   .hero-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-strong); font: 500 .75rem var(--font-mono); color: var(--muted); letter-spacing: .06em; box-shadow: var(--shadow-sm); }
   .hero-label > span { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
-  h1 { font-size: clamp(2.3rem, 4.4vw, 3.8rem); margin: 0; line-height: 1.12; letter-spacing: -.04em; font-weight: 650; }
-  h1 .hero-secondary { color: var(--faint); font-weight: 550; }
+  h1 { font-size: clamp(2.3rem, 4.4vw, 3.8rem); margin: 0; line-height: 1.12; letter-spacing: -.04em; font-weight: 700; }
+  h1 .hero-secondary { color: var(--faint); font-weight: 600; }
   .keep-together { white-space: nowrap; }
   :global(html[lang="zh-CN"]) h1 { line-height: 1.25; letter-spacing: -.04em; }
   .hero-description { max-width: 760px; margin: 24px 0 32px; color: var(--muted); font-size: 1.12rem; line-height: 1.75; }
@@ -121,7 +121,7 @@ const categoryNotes: Record<string, [string, string]> = {
   .value-steps article + article { border-left: 1px solid var(--line); }
   .value-steps article > div { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: 500 .75rem var(--font-mono); letter-spacing: .04em; }
   .value-steps small { padding: 3px 8px; border-radius: var(--radius-sm); background: var(--green-subtle); color: var(--green); font-size: .75rem; font-weight: 600; }
-  .value-steps h2 { font-size: 1.08rem; margin: 12px 0 6px; font-weight: 620; letter-spacing: -.02em; }
+  .value-steps h2 { font-size: 1.08rem; margin: 12px 0 6px; font-weight: 600; letter-spacing: -.02em; }
   .value-steps p { font-size: .85rem; line-height: 1.65; color: var(--muted); margin: 0; }
   .home-stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 40px 0 0; padding: 36px 0; border-bottom: 1px solid var(--line); }
   .home-stats div { display: flex; flex-direction: column; padding: 4px 28px; border-left: 1px solid var(--line); }
@@ -132,7 +132,7 @@ const categoryNotes: Record<string, [string, string]> = {
   .home-stats .stat-note { font-size: .8rem; margin-top: 6px; color: var(--muted); line-height: 1.5; }
   .home-section { padding: 64px 0 0; }
   .section-top { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
-  .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
+  .section-top h2, .machine-section h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 600; line-height: 1.2; letter-spacing: -.035em; margin: 0; }
   .section-top .eyebrow { margin-bottom: 12px; font-size: .75rem; }
   .section-top p:not(.eyebrow) { font-size: .92rem; line-height: 1.7; color: var(--muted); max-width: 720px; margin: 12px 0 0; }
   .section-top > a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: .84rem; text-decoration: none; padding-bottom: 2px; color: var(--ink); font-weight: 500; }
@@ -141,16 +141,16 @@ const categoryNotes: Record<string, [string, string]> = {
   .pick-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; background: var(--paper-strong); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
   .pick-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--line-hover); }
   .pick-label { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
-  .pick-label > span { font-size: .75rem; padding: 4px 8px; border: 1px solid var(--line); background: var(--cream); border-radius: var(--radius-sm); color: var(--green); font-weight: 550; }
+  .pick-label > span { font-size: .75rem; padding: 4px 8px; border: 1px solid var(--line); background: var(--cream); border-radius: var(--radius-sm); color: var(--green); font-weight: 500; }
   .pick-label small { color: var(--faint); font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
-  .pick-card h3 { font-size: 1.2rem; font-weight: 650; margin: 20px 0 20px; letter-spacing: -.025em; }
+  .pick-card h3 { font-size: 1.2rem; font-weight: 600; margin: 20px 0 20px; letter-spacing: -.025em; }
   .pick-card h3 a { text-decoration: none; }
   .pick-card h3 a:hover { color: var(--accent); }
   .pick-card h4 { font: 500 .75rem var(--font-mono); letter-spacing: .05em; color: var(--faint); margin: 0 0 8px; text-transform: uppercase; }
   .pick-card p { font-size: .86rem; line-height: 1.75; margin: 0 0 20px; color: var(--muted); }
   .pick-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; margin-top: auto; gap: 8px; }
   .pick-bottom > span { font-size: .76rem; color: var(--faint); }
-  .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .82rem; text-decoration: none; font-weight: 550; color: var(--ink); }
+  .pick-bottom a { display: flex; align-items: center; gap: 6px; font-size: .82rem; text-decoration: none; font-weight: 500; color: var(--ink); }
   .pick-bottom a:hover { color: var(--accent); }
   .source-type-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
   .source-type-grid > a { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 18px; text-decoration: none; display: flex; flex-direction: column; background: var(--paper-strong); box-shadow: var(--shadow-sm); transition: all .16s ease; }
@@ -169,19 +169,19 @@ const categoryNotes: Record<string, [string, string]> = {
   .reading-grid small { font: 500 .72rem var(--font-mono); color: var(--faint); letter-spacing: .05em; text-transform: uppercase; }
   .reading-grid h3 { margin: 12px 0 8px; font-size: .98rem; line-height: 1.6; font-weight: 600; color: var(--ink); }
   .reading-grid p { font-size: .82rem; line-height: 1.75; color: var(--muted); margin: 0 0 18px; }
-  .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .78rem; color: var(--muted); font-weight: 550; }
+  .reading-grid a > span { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: .78rem; color: var(--muted); font-weight: 500; }
   .reading-grid a:hover h3 { color: var(--accent); }
   .machine-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 36px; margin: 64px 0; background: var(--paper-strong); box-shadow: var(--shadow-card); }
   .machine-section .eyebrow { font-size: .75rem; margin-bottom: 12px; }
-  .machine-section h2 { font-size: 1.75rem; font-weight: 650; }
+  .machine-section h2 { font-size: 1.75rem; font-weight: 600; }
   .machine-section p:not(.eyebrow) { font-size: .9rem; color: var(--muted); line-height: 1.8; margin: 16px 0 22px; }
-  .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .85rem; font-weight: 550; text-decoration: none; }
+  .machine-section > div > a { display: inline-flex; gap: 8px; align-items: center; font-size: .85rem; font-weight: 500; text-decoration: none; }
   .machine-section > div > a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .endpoint-list { display: grid; gap: 10px; align-content: center; min-width: 0; }
   .endpoint-list a { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 13px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); text-decoration: none; transition: all .16s ease; }
   .endpoint-list a:hover { border-color: var(--line-hover); background: var(--cream); transform: translateX(2px); }
   .endpoint-list a > span { font: 600 .75rem var(--font-mono); color: var(--green); background: var(--green-subtle); padding: 2px 6px; border-radius: 3px; }
-  .endpoint-list code { font-size: .82rem; font-weight: 550; }
+  .endpoint-list code { font-size: .82rem; font-weight: 500; }
   .endpoint-list small { font-size: .78rem; color: var(--muted); margin-left: auto; }
   .endpoint-list :global(svg) { color: var(--faint); }
   @media (max-width: 1000px) { .home-hero { padding-top: 64px; } .source-type-grid { grid-template-columns: repeat(3, 1fr); } .machine-section { gap: 28px; padding: 28px; } .endpoint-list small { display: none; } .endpoint-list :global(svg) { margin-left: auto; } }

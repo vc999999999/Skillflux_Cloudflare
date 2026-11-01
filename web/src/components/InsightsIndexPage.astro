@@ -71,7 +71,7 @@ const jsonLd = [
 
     <section class="insight-list">
       {entries.map((entry) => (
-        <a class="insight-card" href={insightPath(entry)}>
+        <a class="card insight-card" href={insightPath(entry)}>
           <p class="insight-card-meta">
             <span class="insight-card-industry">{entry.data.industry}</span>
             <span>{copy.insightsPage.updatedPrefix} <time datetime={entry.data.dateModified}>{entry.data.dateModified}</time></span>
@@ -87,51 +87,11 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .insight-list {
-    display: grid;
-    gap: 18px;
-  }
-
-  .insight-card {
-    display: block;
-    padding: 26px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper-strong);
-    text-decoration: none;
-    color: var(--ink);
-    transition: transform 0.15s ease;
-  }
-
-  .insight-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .insight-card-meta {
-    display: flex;
-    gap: 14px;
-    margin: 0 0 10px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  .insight-card-industry {
-    color: var(--green);
-  }
-
-  .insight-card h2 {
-    margin: 0 0 10px;
-    font-size: 1.4rem;
-  }
-
-  .insight-card-desc {
-    margin: 0 0 14px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  .insight-card-more {
-    font-weight: 600;
-    color: var(--green);
-  }
+  .insight-list { display: grid; gap: 16px; }
+  .insight-card-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 10px; color: var(--faint); font: 500 .75rem var(--font-mono); letter-spacing: .04em; }
+  .insight-card-industry { color: var(--green); }
+  .insight-card h2 { margin: 0 0 10px; font-size: 1.3rem; font-weight: 600; line-height: 1.4; letter-spacing: -.02em; transition: color .15s ease; }
+  .insight-card:hover h2 { color: var(--accent); }
+  .insight-card-desc { max-width: 78ch; margin: 0 0 16px; color: var(--muted); font-size: .92rem; line-height: 1.75; }
+  .insight-card-more { font-size: .84rem; font-weight: 500; }
 </style>

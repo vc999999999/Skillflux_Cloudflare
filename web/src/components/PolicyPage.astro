@@ -68,14 +68,15 @@ const updatedAt = "2026-10-29";
   </main>
 </BaseLayout>
 <style>
-  .policy-body { display:grid;grid-template-columns:minmax(150px,.3fr) minmax(0,1fr);gap:80px; }
-  nav { display:flex; flex-direction:column; gap:0; align-self:start; position:sticky; top:100px; }
-  nav a { text-decoration:none; border-bottom:1px solid var(--line); padding:15px 0; font-size:.85rem; }
-  nav a[aria-current="page"] { color:var(--accent); font-weight:700; }
-  article > section { display:grid;grid-template-columns:36px minmax(0,1fr);gap:20px;border-bottom:1px solid var(--ink);padding:0 0 30px;margin-bottom:30px; }
-  .policy-number { font: .75rem var(--font-mono); color:var(--accent); margin:5px 0; }
-  h2 { margin:0 0 18px;font:700 1.65rem/1.25 var(--font-body); }
-  section div > p { margin:0;line-height:1.85;max-width:70ch;color:var(--muted);font-size:.94rem; }
-  a:focus-visible { outline:3px solid var(--accent);outline-offset:5px; }
-  @media(max-width:700px) { .policy-body {grid-template-columns:1fr;gap:32px;} nav {position:static;flex-direction:row;flex-wrap:wrap;gap:18px;} nav a {padding:10px 0;} }
+  .policy-body { display: grid; grid-template-columns: minmax(150px, .3fr) minmax(0, 1fr); gap: 64px; }
+  nav { display: flex; flex-direction: column; align-self: start; position: sticky; top: 92px; }
+  nav a { padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .86rem; text-decoration: none; transition: color .15s ease; }
+  nav a:hover { color: var(--ink); }
+  nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+  article > section { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 20px; padding: 0 0 28px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
+  article > section:last-child { border-bottom: 0; }
+  .policy-number { margin: 6px 0; color: var(--faint); font: 500 .75rem var(--font-mono); }
+  h2 { margin: 0 0 12px; font-size: 1.35rem; font-weight: 600; line-height: 1.35; letter-spacing: -.02em; }
+  section div > p { margin: 0; max-width: 70ch; color: var(--muted); font-size: .94rem; line-height: 1.85; }
+  @media (max-width: 700px) { .policy-body { grid-template-columns: 1fr; gap: 28px; } nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 18px; } nav a { padding: 8px 0; } }
 </style>
