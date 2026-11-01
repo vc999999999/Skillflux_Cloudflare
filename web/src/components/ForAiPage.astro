@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { ENDPOINTS } from "../config";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
@@ -26,13 +27,12 @@ const agentPrompt = t(
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/for-ai/", lang)} title={t("给 AI 的黄页入口", "For AI agents")} description={t("SkillFlux 机器可读黄页：llms.txt、JSON、RSS 与结构化索引，让 AI 直接读懂全网 Agent 能力。", "Machine-readable capability directory for AI agents: llms.txt, JSON, RSS, and structured endpoints.")}>
   <main id="main-content" class="page-shell ai-shell">
-    <header class="page-hero">
-      <div><p class="eyebrow">{t("面向智能体设计", "BUILT FOR AGENTS")}</p><h1 class="page-title">{t("人类看得懂，Agent 直接读。", "Readable by humans. Native to agents.")}</h1><p class="page-lede">{t("把结构清晰的能力黄页交给 AI。纯文本、JSON 索引与订阅流，均与网站使用同一批构建数据。", "Deliver a structured capability directory directly to your agent. Plain text, JSON indexes and feeds use the same build snapshot as the website.")}</p></div>
-    <div class="ai-symbol" aria-hidden="true">
-      <span class="ai-symbol-status"></span>
-      <code>/index.json</code>
-    </div>
-    </header>
+    <PageHeader title={t("人类看得懂，Agent 直接读。", "Readable by humans. Native to agents.")} eyebrow={t("面向智能体设计", "BUILT FOR AGENTS")} lede={t("把结构清晰的能力黄页交给 AI。纯文本、JSON 索引与订阅流，均与网站使用同一批构建数据。", "Deliver a structured capability directory directly to your agent. Plain text, JSON indexes and feeds use the same build snapshot as the website.")} breadcrumb={[{ label: t("首页", "Home"), href: localizePath("/", lang) }, { label: "For AI" }]}>
+      <div slot="aside" class="ai-symbol" aria-hidden="true">
+        <span class="ai-symbol-status"></span>
+        <code>/index.json</code>
+      </div>
+    </PageHeader>
     <section class="ai-start" aria-labelledby="ai-start-title">
       <div><span class="ai-kicker">01 / START HERE</span><h2 id="ai-start-title">{t("让 AI 帮你选配能力", "Ask your AI to explore")}</h2><p>{t("复制这段提示词，粘贴到支持网络或文件读取的 AI 工具中，输入你的具体任务。", "Copy this prompt into any AI agent with web or context reading capabilities, then describe your task.")}</p><button class="button primary" type="button" data-copy-text={agentPrompt}>{t("复制给 AI 的指令", "Copy agent prompt")} <span aria-hidden="true">↗</span></button></div>
       <div class="ai-prompt"><div><span>AGENT PROMPT</span><span aria-hidden="true">↗</span></div><p>{agentPrompt}</p></div>
@@ -48,7 +48,7 @@ const agentPrompt = t(
   .ai-symbol { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--line); border-radius: 24px; background: var(--paper-strong); box-shadow: var(--shadow-sm); }
   .ai-symbol-status { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 0 2px var(--green-subtle); }
   .ai-symbol code { font-size: .8rem; font-weight: 600; color: var(--muted); }
-  .ai-start { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: center; padding: 56px 0; border-bottom: 1px solid var(--line); }
+  .ai-start { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: center; padding: 0 0 56px; border-bottom: 1px solid var(--line); }
   .ai-kicker { font: 500 .75rem var(--font-mono); color: var(--faint); letter-spacing: .08em; }
   .ai-start h2, .ai-boundaries h2 { margin: 14px 0 16px; font-size: 1.75rem; letter-spacing: -.03em; font-weight: 650; }
   .ai-start > div:not(.ai-prompt) > p { color: var(--muted); font-size: .95rem; line-height: 1.8; margin-bottom: 26px; }

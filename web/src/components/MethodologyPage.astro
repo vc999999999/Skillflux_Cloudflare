@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { CHECKER_VERSION, CHECK_REGISTRY, LIMITS } from "@skillflux/bench/checks";
 import { SITE } from "../config";
 import { absoluteUrl } from "../lib/content";
@@ -34,14 +34,11 @@ const crumbs = isIndex
   : [{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Methodology", "方法论"), href: localizePath("/methodology/", lang) }, { label: `v${current.version}` }];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
-  <main id="main-content" class="page-shell method-page">
-    <Breadcrumb items={crumbs} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{t("METHODOLOGY", "方法论")} · v{current.version} · {current.status === "current" ? t("current", "现行") : t("superseded", "已被取代")}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p class="report-meta">{t("Published", "发布于")} <time datetime={current.publishedAt}>{current.publishedAt}</time> · {t("Health checker", "体检检查器")} {CHECKER_VERSION}</p>
-    </header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} lede={description} breadcrumb={crumbs}>
+      <Fragment slot="eyebrow">{t("METHODOLOGY", "方法论")} · v{current.version} · {current.status === "current" ? t("current", "现行") : t("superseded", "已被取代")}</Fragment>
+      <p class="page-meta">{t("Published", "发布于")} <time datetime={current.publishedAt}>{current.publishedAt}</time> · {t("Health checker", "体检检查器")} {CHECKER_VERSION}</p>
+    </PageHeader>
 
     {isIndex && (
       <section class="prose-block versions">
@@ -115,10 +112,8 @@ const crumbs = isIndex
   </main>
 </BaseLayout>
 <style>
-  .method-page { padding-block: 24px 80px; }
-  .method-body { max-width: 860px; padding-top: 36px; }
+  .method-body { max-width: 860px; }
   .plain-list { font-size: .95rem; line-height: 1.85; }
   .plain-list li + li { margin-top: 8px; }
-  .versions { margin-top: 32px; }
   .data-table td { color: var(--muted); }
 </style>

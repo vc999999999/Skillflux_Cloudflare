@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from './Breadcrumb.astro';
+import PageHeader from './PageHeader.astro';
 import ResourceTable from './ResourceTable.astro';
 import { absoluteUrl, getIndexableSites } from '../lib/content';
 import { agents, type AgentEntry } from '../lib/agents';
@@ -17,12 +17,11 @@ const jsonLd = [
 ];
 ---
 <BaseLayout lang={lang} title={title} description={entry.summary[lang]} canonicalPath={path} jsonLd={jsonLd} noindex={sites.length === 0}>
-  <main id="main-content" class="page-shell agent-page">
-    <Breadcrumb items={crumbs} />
-    <h1>{title}</h1><p class="intro">{entry.summary[lang]}</p>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} eyebrow={zh ? '按 Agent 选型' : 'BY AGENT'} lede={entry.summary[lang]} breadcrumb={crumbs} />
     <section><h2>{zh ? '如何选择' : 'How to choose'}</h2>{entry.guidance.map(text => <p>{text[lang]}</p>)}</section>
     <ResourceTable sites={sites} lang={lang} heading={zh ? '值得研究的来源' : 'Sources to investigate'} />
     <nav aria-label={zh ? '其他 Agent' : 'Other agents'}>{agents.filter(agent => agent.slug !== entry.slug).map(agent => <a href={localizePath(`/agents/${agent.slug}/`, lang)}>{agent.name}</a>)}</nav>
   </main>
 </BaseLayout>
-<style>.agent-page{padding-block:36px 70px}.agent-page h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.04em}.intro{font-size:1.1rem}section>p,.intro{max-width:80ch;line-height:1.9;color:var(--muted)}section h2{font-size:1.35rem}li{margin-block:12px}nav{display:flex;gap:24px;margin-top:32px}</style>
+<style>section>p{max-width:80ch;line-height:1.9;color:var(--muted)}section h2:first-child{margin-top:0}section h2{font-size:1.35rem}li{margin-block:12px}nav{display:flex;gap:24px;margin-top:32px}</style>

@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 import { SITE } from "../../../config";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Breadcrumb from "../../../components/Breadcrumb.astro";
+import PageHeader from "../../../components/PageHeader.astro";
 import { absoluteUrl, getSiteBySlug } from "../../../lib/content";
 import { LANGUAGE_PREFIX, getPageCopy, getSiteCopy, localizePath } from "../../../lib/i18n";
 
@@ -68,16 +68,10 @@ const jsonLd = [
 <BaseLayout lang={lang} alternateLanguages={[lang]} title={data.title} description={data.description} canonicalPath={canonicalPath} jsonLd={jsonLd} articleDates={{ published: data.datePublished, modified: data.dateModified }}>
   <main id="main-content" class="page-shell">
     <article class="insight">
-      <header class="insight-head">
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.insights} />
-        <p class="eyebrow"><span></span> {t.eyebrow}</p>
-        <h1 class="page-title">{data.title}</h1>
-        <p class="page-lede">{data.description}</p>
+      <PageHeader title={data.title} eyebrow={t.eyebrow} lede={data.description} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.insights}>
         <p class="content-disclosure">本文是基于原始资料的编辑分析，不是 SkillFlux 的实测报告。文中对 Skill 能力的描述来自其原始文档与源码，效果请在自己的任务中验证。</p>
-        <p class="insight-meta">
-          {t.industryLabel}: {data.industry} · {t.updatedPrefix} <time datetime={data.dateModified}>{data.dateModified}</time> · {t.sourceAuthor}: {data.source.author}
-        </p>
-      </header>
+        <p class="page-meta">{t.industryLabel}: {data.industry} · {t.updatedPrefix} <time datetime={data.dateModified}>{data.dateModified}</time> · {t.sourceAuthor}: {data.source.author}</p>
+      </PageHeader>
 
       <div class="insight-body">
         <aside class="insight-tldr" aria-label={t.tldrLabel}>
@@ -193,19 +187,6 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .insight-head {
-    padding: 24px 0 28px;
-    border-bottom: 1px solid var(--line-strong);
-    margin-bottom: 32px;
-  }
-
-  .insight-meta {
-    margin: 12px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-
   .insight-body {
     max-width: 760px;
   }

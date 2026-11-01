@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
@@ -55,14 +55,11 @@ const jsonLd = [
 const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KB`;
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
-  <main id="main-content" class="page-shell dataset-page">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Data", "数据") }]} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{t("OPEN DATA · CC BY 4.0", "开放数据 · CC BY 4.0")}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p class="report-meta">{t("Updated", "更新于")} <time datetime={modified}>{modified}</time> · {views.length} {t("skills", "个 Skill")} · {runs.length} {t("benchmark runs", "个测试批次")} · <a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a></p>
-    </header>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} lede={description} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Data", "数据") }]}>
+      <Fragment slot="eyebrow">{t("OPEN DATA · CC BY 4.0", "开放数据 · CC BY 4.0")}</Fragment>
+      <p class="page-meta">{t("Updated", "更新于")} <time datetime={modified}>{modified}</time> · {views.length} {t("skills", "个 Skill")} · {runs.length} {t("benchmark runs", "个测试批次")} · <a href={localizePath("/methodology/v1/", lang)}>{t("Methodology v1", "方法论 v1")}</a></p>
+    </PageHeader>
     <div class="detail-grid">
       <article>
         <section class="prose-block">
@@ -104,5 +101,4 @@ const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).to
   </main>
 </BaseLayout>
 <style>
-  .dataset-page { padding-block: 24px 80px; }
 </style>

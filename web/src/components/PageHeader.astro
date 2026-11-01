@@ -1,0 +1,34 @@
+---
+// Shared header for every page except the home hero: breadcrumb, eyebrow, H1, lede,
+// free-form extras (default slot) and an optional side panel (slot "aside").
+import Breadcrumb from "./Breadcrumb.astro";
+
+type Crumb = { label: string; href?: string };
+type Props = {
+  title: string;
+  eyebrow?: string;
+  lede?: string;
+  badge?: string | number;
+  breadcrumb?: Crumb[];
+  breadcrumbLabel?: string;
+};
+
+const { title, eyebrow, lede, badge, breadcrumb, breadcrumbLabel } = Astro.props;
+const hasEyebrow = Boolean(eyebrow) || Astro.slots.has("eyebrow");
+const hasAside = Astro.slots.has("aside");
+---
+<header class:list={["page-header", hasAside && "has-aside"]}>
+  {breadcrumb && <Breadcrumb items={breadcrumb} ariaLabel={breadcrumbLabel} />}
+  <div class="page-header-grid">
+    <div class="page-header-main">
+      {hasEyebrow && <p class="eyebrow"><span></span>{eyebrow}<slot name="eyebrow" /></p>}
+      <div class="page-header-title">
+        <h1 class="page-title">{title}</h1>
+        {badge !== undefined && <span class="page-header-badge">{badge}</span>}
+      </div>
+      {lede && <p class="page-lede">{lede}</p>}
+      <slot />
+    </div>
+    {hasAside && <div class="page-header-aside"><slot name="aside" /></div>}
+  </div>
+</header>

@@ -50,7 +50,7 @@ const groups = [
 </footer>
 <style>
   .sf-footer { margin-top: 0; background: var(--cream); border-top: 1px solid var(--line); color: var(--muted); }
-  .sf-footer-inner { max-width: 1216px; margin: 0 auto; padding: 64px 32px 32px; }
+  .sf-footer-inner { width: min(var(--container), calc(100% - var(--gutter) * 2)); margin: 0 auto; padding: 64px 0 32px; }
   .sf-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; padding-bottom: 52px; }
   .sf-footer-brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); line-height: 1; }
   .sf-footer-word { font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; }
@@ -66,6 +66,6 @@ const groups = [
   .sf-footer-copyright, .sf-footer-legal { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
   .sf-footer-legal a { color: var(--muted); text-decoration: none; transition: color .15s ease; }
   .sf-footer-legal a:hover { color: var(--ink); text-decoration: underline; }
-  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px; } .sf-footer-inner { padding: 48px 24px 28px; } }
+  @media (max-width: 800px) { .sf-footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px; } .sf-footer-inner { padding: 48px 0 28px; } }
   @media (max-width: 600px) { .sf-footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 20px; padding-bottom: 36px; } .sf-footer-intro { grid-column: 1 / -1; } .sf-footer-intro p { margin: 16px 0 12px; } .sf-footer-column h2 { margin-bottom: 16px; } .sf-footer-bottom { font-size: 11px; } }
 </style>

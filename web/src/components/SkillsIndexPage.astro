@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { CHECK_REGISTRY } from "@skillflux/bench/checks";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
@@ -34,20 +34,16 @@ const jsonLd = [
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd}>
   <main id="main-content" class="page-shell skills-index">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据") }]} />
-    <header class="page-hero">
-      <div>
-        <p class="eyebrow"><span></span>{t("OPEN DATA · UPDATED ", "公开数据 · 更新于 ")}<time datetime={modified}>{modified}</time></p>
-        <h1 class="page-title">{title}</h1>
-        <p class="page-lede">{description} {t("Every skill page links to its pinned source and to the raw data.", "每个 Skill 页面都链接到钉定的源码和原始数据。")}</p>
-        <p class="page-lede"><a href={localizePath("/methodology/v1/", lang)}>{t("How we test", "测试方法")}</a> · <a href={localizePath("/data/", lang)}>{t("Download the dataset", "下载数据集")}</a></p>
-      </div>
-      <dl class="page-meta-panel stats-panel">
+    <PageHeader title={title} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据") }]}>
+      <Fragment slot="eyebrow">{t("OPEN DATA · UPDATED ", "公开数据 · 更新于 ")}<time datetime={modified}>{modified}</time></Fragment>
+      <p class="page-lede">{description} {t("Every skill page links to its pinned source and to the raw data.", "每个 Skill 页面都链接到钉定的源码和原始数据。")}</p>
+      <p class="page-meta"><a href={localizePath("/methodology/v1/", lang)}>{t("How we test", "测试方法")}</a> · <a href={localizePath("/data/", lang)}>{t("Download the dataset", "下载数据集")}</a></p>
+      <dl slot="aside" class="page-meta-panel stats-panel">
         <div><strong>{views.length}</strong><span>{t("skills checked", "个 Skill 已体检")}</span></div>
         <div><strong>{benchmarked}</strong><span>{t("benchmarked", "个已实测")}</span></div>
         <div><strong>{flagged}</strong><span>{t("with at least one flag", "个至少有一项标记")}</span></div>
       </dl>
-    </header>
+    </PageHeader>
     <nav class="category-filter" aria-label={t("Filter by category", "按分类筛选")}>
       <a href={path} data-category-link="all" aria-current="true">{t("All", "全部")} <small>{views.length}</small></a>
       {categories.map(category => <a href={`${path}?category=${category.slug}`} data-category-link={category.slug}>{category.label[lang]} <small>{category.count}</small></a>)}
@@ -90,10 +86,10 @@ const jsonLd = [
   apply();
 </script>
 <style>
-  .skills-index { padding-block: 24px 80px; }
   .stats-panel { display: grid; gap: 14px; margin: 0; }
   .stats-panel div { margin: 0; }
-  .category-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 8px; }
+  @media (max-width: 900px) { .stats-panel { grid-template-columns: repeat(3, minmax(0, 1fr)); } .stats-panel span { margin: 4px 0 0; } }
+  .category-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
   .category-filter a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; font-size: .84rem; background: var(--paper-strong); }
   .category-filter a[aria-current="true"] { background: var(--ink); color: var(--paper-strong); border-color: var(--ink); }
   .category-filter small { color: inherit; opacity: .6; margin-left: 4px; }

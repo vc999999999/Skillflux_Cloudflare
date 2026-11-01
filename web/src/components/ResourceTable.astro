@@ -55,7 +55,7 @@ const facets = [
 </section>
 
 <style>
-  .resource-table-shell { min-width: 0; margin-block: 28px 64px; }
+  .resource-table-shell { min-width: 0; margin-block: 0 64px; }
   .directory-topbar { display: flex; gap: 20px; align-items: center; margin-bottom: 32px; }
   .directory-search { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); min-height: 48px; padding: 0 16px; flex: 1; background: var(--paper-strong); color: var(--muted); box-shadow: var(--shadow-sm); transition: border-color .18s ease, box-shadow .18s ease; }
   .directory-search:focus-within { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(23, 21, 15, 0.08); outline: none; }
@@ -110,7 +110,7 @@ const facets = [
   .directory-empty button { margin-top: 14px; border: 1px solid var(--ink); padding: 9px 18px; border-radius: var(--radius-md); color: var(--paper-strong); background: var(--ink); cursor: pointer; font: inherit; font-size: .84rem; font-weight: 500; }
   @media (max-width: 960px) { .has-controls .directory-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 24px; }.directory-sidebar { padding-right: 20px; }.resource-row { padding: 20px; gap: 14px; }.row-link span:first-child { display: none; } }
   @media (max-width: 760px) {
-    .resource-table-shell { margin-top: 24px; }.directory-topbar { flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }.directory-search { flex-basis: 100%; }
+    .directory-topbar { flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }.directory-search { flex-basis: 100%; }
     .has-controls .directory-layout { display: block; }.directory-sidebar { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0; margin-bottom: 24px; background: var(--paper-strong); }.directory-sidebar summary { display: flex; align-items: center; gap: 9px; cursor: pointer; padding: 14px 18px; font-size: .86rem; font-weight: 600; }.directory-sidebar summary span:last-child { margin-left: auto; }.sidebar-inner { padding: 10px 18px 18px; }.sidebar-top { margin-top: 5px; }.sidebar-top h2 { visibility: hidden; }.filter-group { padding-block: 15px; }.filter-group button { font-size: .84rem; padding-block: 8px; }
     .results-toolbar h2 { font-size: .88rem; gap: 8px; }.directory-sort > span { display: none; }.directory-sort select { max-width: 130px; }.resource-row { padding: 18px 16px; gap: 14px; }.resource-icon { width: 40px; height: 40px; flex-basis: 40px; border-radius: var(--radius-md); }.resource-title h3 { font-size: .96rem; }.resource-main p { font-size: .8rem; -webkit-line-clamp: 3; }.row-link { padding: 4px 8px; }.resource-labels { gap: 5px; }.resource-labels span { font-size: .7rem; }.resource-title { gap: 6px; }
   }

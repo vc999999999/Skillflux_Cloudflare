@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language };
@@ -10,7 +11,7 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
 ---
 <BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过 GitHub 提交供编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then submit through GitHub for editorial review.")}>
   <main id="main-content" class="page-shell submit-shell">
-    <header class="page-hero"><div><p class="eyebrow">CONTRIBUTE TO THE DIRECTORY</p><h1 class="page-title">{t("好资源，值得被更多人发现。", "Good resources deserve to be found.")}</h1><p class="page-lede">{t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")}</p></div></header>
+    <PageHeader title={t("好资源，值得被更多人发现。", "Good resources deserve to be found.")} eyebrow={t("参与共建", "CONTRIBUTE TO THE DIRECTORY")} lede={t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")} breadcrumb={[{ label: t("首页", "Home"), href: localizePath("/", lang) }, { label: t("推荐与纠错", "Suggest or correct") }]} />
     <nav class="submit-paths" aria-label={t("其他反馈方式", "Other ways to contribute")}>
       <a href={`${issueUrl}?template=test-request.yml`} rel="noopener noreferrer"><strong>{t("申请实测某个 Skill", "Request a benchmark")}</strong><span>{t("告诉我们哪个 Skill 值得测、在什么任务上测。", "Tell us which skill to test, and on what kind of task.")}</span></a>
       <a href={`${issueUrl}?template=dispute.yml`} rel="noopener noreferrer"><strong>{t("对结果提出异议", "Dispute a result")}</strong><span>{t("体检或实测结果有误？注明页面、数字和原因，我们会公开处理。", "Think a health check or benchmark is wrong? Name the page, the number and why; we handle it in public.")}</span></a>

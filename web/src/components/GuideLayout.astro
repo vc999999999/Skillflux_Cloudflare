@@ -1,10 +1,10 @@
 ---
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { absoluteUrl } from "../lib/content";
 import type { Guide } from "../lib/guides";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
-import Breadcrumb from "./Breadcrumb.astro";
 
 type Props = {
   lang?: Language;
@@ -57,13 +57,9 @@ const jsonLd = [
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} articleDates={{ published: guide.datePublished, modified: guide.dateModified }}>
   <main id="main-content" class="page-shell">
     <article class="guide">
-      <header class="guide-head">
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.guides} />
-        <p class="eyebrow"><span></span> {copy.guidesPage.eyebrow}</p>
-        <h1 class="page-title">{title}</h1>
-        <p class="page-lede">{description}</p>
-        <p class="guide-meta">{copy.guidesPage.updatedPrefix} {guide.dateModified}</p>
-      </header>
+      <PageHeader title={title} eyebrow={copy.guidesPage.eyebrow} lede={description} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.guides}>
+        <p class="page-meta">{copy.guidesPage.updatedPrefix} <time datetime={guide.dateModified}>{guide.dateModified}</time></p>
+      </PageHeader>
       <div class="guide-body">
         <slot />
       </div>
@@ -72,19 +68,6 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  .guide-head {
-    padding: 24px 0 28px;
-    border-bottom: 1px solid var(--line-strong);
-    margin-bottom: 32px;
-  }
-
-  .guide-meta {
-    margin: 12px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-
   .guide-body {
     max-width: 760px;
   }

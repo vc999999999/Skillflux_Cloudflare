@@ -45,7 +45,7 @@ const links = [
 </header>
 <style>
   .sf-header { position: sticky; top: 0; z-index: 40; width: 100%; border-bottom: 1px solid var(--line); background: rgba(244, 243, 236, 0.92); color: var(--ink); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-  .sf-header-inner { width: 100%; min-height: 60px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 36px; }
+  .sf-header-inner { width: min(var(--container), calc(100% - var(--gutter) * 2)); min-height: 60px; margin: 0 auto; display: flex; align-items: center; gap: 36px; }
   .sf-brand { flex-shrink: 0; display: inline-flex; align-items: center; gap: 9px; color: var(--ink); line-height: 1; text-decoration: none; }
   .sf-brand-word { font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; }
   .sf-brand-mark { display: block; flex-shrink: 0; }
@@ -67,16 +67,16 @@ const links = [
   .sf-menu-close { display: none; }
   .sf-menu-toggle[aria-expanded="true"] .sf-menu-icon { display: none; }
   .sf-menu-toggle[aria-expanded="true"] .sf-menu-close { display: block; }
-  .sf-mobile-nav { border-top: 1px solid var(--line); background: var(--paper-strong); padding: 14px 24px 22px; }
+  .sf-mobile-nav { border-top: 1px solid var(--line); background: var(--paper-strong); padding: 14px max(var(--gutter), calc((100% - var(--container)) / 2)) 22px; }
   .sf-mobile-nav[hidden] { display: none; }
   .sf-mobile-nav a { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; color: var(--muted); font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--line-subtle); }
   .sf-mobile-nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
   .sf-mobile-nav a span { color: var(--faint); }
   .sf-header a:focus-visible, .sf-header button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  @media (max-width: 1150px) { .sf-header-inner { gap: 24px; padding: 0 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } .sf-github-link { display: none; } }
+  @media (max-width: 1150px) { .sf-header-inner { gap: 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } .sf-github-link { display: none; } }
   @media (max-width: 1050px) { .sf-desktop-nav { display: none; } .sf-menu-toggle { display: block; } }
   @media (min-width: 1051px) { .sf-mobile-nav { display: none; } }
-  @media (max-width: 550px) { .sf-header-inner { padding: 0 20px; gap: 12px; } .sf-header-cta { display: none; } .sf-header-actions { gap: 10px; } }
+  @media (max-width: 550px) { .sf-header-inner { gap: 12px; } .sf-header-cta { display: none; } .sf-header-actions { gap: 10px; } }
 </style>
 <script>
   const syncLanguageLinks = () => document.querySelectorAll<HTMLAnchorElement>('[data-language-link]').forEach(link => {

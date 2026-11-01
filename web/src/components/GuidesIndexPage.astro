@@ -1,10 +1,10 @@
 ---
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "./PageHeader.astro";
 import { absoluteUrl } from "../lib/content";
 import { getGuides } from "../lib/guides";
 import { DEFAULT_LANGUAGE, getPageCopy, localizePath, type Language } from "../lib/i18n";
-import Breadcrumb from "./Breadcrumb.astro";
 
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -58,14 +58,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <main id="main-content" class="page-shell">
-    <section class="page-hero">
-      <div>
-        <Breadcrumb items={breadcrumbItems} ariaLabel={copy.breadcrumb.guides} />
-        <p class="eyebrow"><span></span> {copy.guidesPage.eyebrow}</p>
-        <h1 class="page-title">{copy.guidesPage.indexTitle}</h1>
-        <p class="page-lede">{copy.guidesPage.indexLede}</p>
-      </div>
-    </section>
+    <PageHeader title={copy.guidesPage.indexTitle} eyebrow={copy.guidesPage.eyebrow} lede={copy.guidesPage.indexLede} breadcrumb={breadcrumbItems} breadcrumbLabel={copy.breadcrumb.guides} />
 
     <section class="guide-list">
       {guides.map((guide) => (
@@ -85,7 +78,6 @@ const jsonLd = [
   .guide-list {
     display: grid;
     gap: 18px;
-    margin-top: 8px;
   }
 
   .guide-card {

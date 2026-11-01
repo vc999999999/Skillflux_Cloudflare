@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "./Breadcrumb.astro";
+import PageHeader from "./PageHeader.astro";
 import { CHECK_REGISTRY } from "@skillflux/bench/checks";
 import { SITE } from "../config";
 import { absoluteUrl, getSiteBySlug } from "../lib/content";
@@ -59,15 +59,13 @@ const jsonLd = [
 ];
 ---
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={path} jsonLd={jsonLd} noindex={!view.indexable}>
-  <main id="main-content" class="page-shell report-page">
-    <Breadcrumb items={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]} />
-    <header class="detail-hero">
-      <p class="eyebrow"><span></span>{result ? t("BENCHMARK REPORT", "实测报告") : t("HEALTH CHECK", "体检报告")} · {category.label[lang]}</p>
-      <h1>{title}</h1>
-      <p class="key-finding" data-seo-field="key-finding">{finding}</p>
-      <p class="report-meta">{t("Updated", "更新于")} <time datetime={view.dateModified}>{view.dateModified}</time> · <a href={methodologyPath} data-seo-field="methodology-link">{t(`Methodology v${methodologyVersion}`, `方法论 v${methodologyVersion}`)}</a> · <a href="#how-to-cite">{t("How to cite", "如何引用")}</a> · <a href={`/data/skills/${skill.id}.json`}>JSON</a></p>
+  <main id="main-content" class="page-shell">
+    <PageHeader title={title} breadcrumb={[{ label: t("Home", "首页"), href: localizePath("/", lang) }, { label: t("Skills", "Skill 数据"), href: localizePath("/skills/", lang) }, { label: name }]}>
+      <Fragment slot="eyebrow">{result ? t("BENCHMARK REPORT", "实测报告") : t("HEALTH CHECK", "体检报告")} · {category.label[lang]}</Fragment>
+      <p class="page-lede key-finding" data-seo-field="key-finding">{finding}</p>
+      <p class="page-meta">{t("Updated", "更新于")} <time datetime={view.dateModified}>{view.dateModified}</time> · <a href={methodologyPath} data-seo-field="methodology-link">{t(`Methodology v${methodologyVersion}`, `方法论 v${methodologyVersion}`)}</a> · <a href="#how-to-cite">{t("How to cite", "如何引用")}</a> · <a href={`/data/skills/${skill.id}.json`}>JSON</a></p>
       {view.healthStale && <p class="content-disclosure">{t("The pinned commit changed after the last health check; results below describe the earlier commit.", "钉定提交在上次体检后发生变化，下方结果对应的是之前的提交。")}</p>}
-    </header>
+    </PageHeader>
 
     <div class="detail-grid">
       <article>
@@ -176,7 +174,6 @@ const jsonLd = [
   </main>
 </BaseLayout>
 <style>
-  .report-page { padding-block: 24px 80px; }
   .key-finding { font-size: 1.12rem; color: var(--ink); max-width: 72ch; }
   .upstream-quote { margin: 22px 0 0; padding: 16px 20px; border-left: 3px solid var(--line-strong); background: var(--paper-strong); }
   .upstream-quote blockquote { margin: 0; }
