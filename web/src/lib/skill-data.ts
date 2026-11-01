@@ -124,6 +124,9 @@ const FLAG_LABELS: Record<string, [string, string]> = {
   "upstream-changed": ["Upstream changed after the tested commit", "测试版本之后上游有改动"],
 };
 export const flagLabel = (flag: string, lang: 'en' | 'zh') => FLAG_LABELS[flag]?.[lang === 'zh' ? 1 : 0] ?? flag;
+/** Flag code with its plain-English meaning, for text the machine layer serves to agents. */
+export const flagWithMeaning = (flag: string) => FLAG_LABELS[flag] ? `${flag} (${FLAG_LABELS[flag][0]})` : flag;
+export const FLAG_CODES = Object.keys(FLAG_LABELS);
 
 export const pct = (value: number | null | undefined) => value === null || value === undefined ? '—' : `${Math.round(value * 100)}%`;
 export const ci = (interval: [number, number] | null | undefined) => interval ? `${Math.round(interval[0] * 100)}–${Math.round(interval[1] * 100)}%` : '—';

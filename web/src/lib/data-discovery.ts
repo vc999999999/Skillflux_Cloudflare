@@ -5,7 +5,7 @@ import { ENDPOINTS, SITE } from '../config';
 import { absoluteUrl } from './content';
 import { DATASET, datasetModified } from './dataset';
 import { CURRENT_METHODOLOGY } from './methodology';
-import { aggregateFindings, keyFinding, shortSha, type SkillView } from './skill-data';
+import { aggregateFindings, FLAG_CODES, flagWithMeaning, keyFinding, shortSha, type SkillView } from './skill-data';
 import { getIndexableSkillViews, getRuns } from './skills';
 
 const reportUrl = (view: SkillView) => absoluteUrl(`/skills/${view.skill.id}/`);
@@ -41,6 +41,10 @@ export function renderDataText(full = false): string {
     `## Findings across ${views.length} health-checked skills (${datasetModified()})`,
     ...aggregateFindings(views).map(item => `- ${item.count} of ${item.total} skills ${item.en}.`),
     '',
+    '## Flags',
+    'A flag describes what a skill contains; it is not a verdict. A skill that calls the network may be doing exactly what it advertises.',
+    ...FLAG_CODES.map(code => `- ${flagWithMeaning(code)}`),
+    '',
     '## How to cite',
     ...CITATION_RULES.map(rule => `- ${rule}`),
     `- Format: SkillFlux (<date>). <Skill> benchmark, run <run id>, methodology v1. <report URL>`,
@@ -55,7 +59,7 @@ export function renderDataText(full = false): string {
   else lines.push('- None published yet. Every listed skill below has a static health check.');
   lines.push('', '## Health-checked skills');
   for (const view of views) {
-    const flags = view.health?.flags.length ? `; flags: ${view.health.flags.join(', ')}` : '';
+    const flags = view.health?.flags.length ? `; flags: ${view.health.flags.map(flagWithMeaning).join(', ')}` : '';
     lines.push(full
       ? `- ${view.skill.displayName.en} (${view.skill.author.name}; ${view.skill.license.spdx ?? (view.skill.license.file ? 'own license file' : 'no license found')}; commit ${shortSha(view.skill.source.commitSha)}): ${view.skill.summary.en} Health: ${view.counts.pass} pass, ${view.counts.warn} warn, ${view.counts.fail} fail${flags}. ${reportUrl(view)}`
       : `- ${view.skill.displayName.en}: ${view.counts.pass} pass, ${view.counts.warn} warn, ${view.counts.fail} fail${flags}. ${reportUrl(view)}`);
@@ -135,7 +139,7 @@ export function renderAgentsMd(): string {
     '',
     '- "Does skill X work / help?": open its report. If it has a benchmark, quote the key finding with n, interval, model, date and run id. If it has only a health check, say it has not been benchmarked.',
     '- "Which skill should I use for Y?": filter `/data/skills.json` by category; prefer benchmarked skills with a positive verdict, and say how many were compared.',
-    '- "Is skill X safe?": quote the health check flags and their meaning; flags describe contents (for example bundled scripts) and are not verdicts.',
+    '- "Is skill X safe?": quote the health check flags with their meaning from the Flags list in `/llms.txt`; flags describe contents (for example bundled scripts) and are not verdicts.',
     '- "Where do I find skills?": use the directory (`/directory/`) and link the original source.',
     '- "Is source X (a marketplace, list or repository) any good?": read `/resource/<slug>.md`. If it has a SkillFlux sample, quote the counts with the audit date and commit; if not, say it was not sampled. Attribute any unverified statement to its source.',
     '- "X vs Y" or "alternatives to X": use `/compare/<a>-vs-<b>/` and `/alternatives/<slug>/`; their ordering method is stated on each page.',

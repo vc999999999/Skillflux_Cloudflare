@@ -6,7 +6,7 @@
 import { CHECKER_VERSION } from '@skillflux/bench/checks';
 import { absoluteUrl, getIndexableSites, type Site } from './content';
 import { getSiteCopy, translateCategory } from './i18n';
-import { keyFinding, shortSha, type SkillView } from './skill-data';
+import { flagWithMeaning, keyFinding, shortSha, type SkillView } from './skill-data';
 import { getIndexableSkillViews } from './skills';
 import { getSourceAudit, getSourceAudits } from './source-audits';
 import { scorecard } from './source-audit-data';
@@ -178,7 +178,7 @@ export function skillMarkdown(view: SkillView): string {
     entry.finding,
     '',
     `- Health check (checker ${entry.health.checker ?? '—'}, result changed ${entry.health.changedAt ?? '—'}): ${entry.health.pass} pass, ${entry.health.warn} warn, ${entry.health.fail} fail`,
-    `- Flags (descriptive, not verdicts): ${entry.health.flags.join(', ') || 'none'}`,
+    `- Flags (descriptive, not verdicts): ${entry.health.flags.map(flagWithMeaning).join(', ') || 'none'}`,
     `- Benchmark: ${entry.benchmark ? `run ${entry.benchmark.runId}, ${entry.benchmark.verdict}` : 'not benchmarked'}`,
     ...(failing.length ? ['', '## Checks that did not pass', '', ...bullet(failing.map(check => `${check.id} (${check.status}): ${check.detail}`))] : []),
     '',

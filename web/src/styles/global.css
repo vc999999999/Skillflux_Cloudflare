@@ -3,7 +3,7 @@
   --paper-strong: #fcfbf8;
   --ink: #17150f;
   --muted: #565145;
-  --faint: #888273;
+  --faint: #6b6557;
   --line: rgba(23, 21, 15, 0.12);
   --line-strong: #17150f;
   --line-subtle: rgba(23, 21, 15, 0.06);
@@ -304,6 +304,8 @@ main[id] { scroll-margin-top: 76px; }
 .faq-item dd { margin: 0; color: var(--muted); line-height: 1.8; font-size: .92rem; }
 
 .detail-side { display: grid; align-content: start; gap: 20px; }
+/* Keep the metadata (tested commit, license, source) in view on long reports, where the screen is tall enough. */
+@media (min-width: 901px) and (min-height: 760px) { .detail-side { position: sticky; top: 84px; align-self: start; } }
 .side-box h2 { margin: 0 0 14px; font-size: 1.05rem; font-weight: 600; }
 .side-box p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.75; }
 
@@ -372,6 +374,11 @@ a.card:hover { transform: translateY(-2px); border-color: var(--line-hover); box
   .section-heading-row { flex-wrap: wrap; gap: 14px; }
   .pack-cta { padding: 24px; }
 }
+/* Chinese typography: no Latin letter-spacing on CJK labels, looser body leading, punctuation trimming where supported. */
+:lang(zh) body { text-spacing-trim: trim-start; text-autospace: normal; }
+:lang(zh) .eyebrow, :lang(zh) .data-table thead th { letter-spacing: 0; }
+:lang(zh) .prose p, :lang(zh) .page-lede { line-height: 1.85; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
