@@ -4,15 +4,15 @@ type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
 const zh = lang === 'zh';
 ---
-<button class="sf-search-trigger" type="button" data-sf-search-trigger aria-label={zh ? '搜索资源、场景与指南' : 'Search resources, use cases and guides'} aria-haspopup="dialog" aria-controls="sf-search-dialog">
+<button class="sf-search-trigger" type="button" data-sf-search-trigger aria-label={zh ? '搜索 Skill、来源、对比与文章' : 'Search skills, sources, comparisons and articles'} aria-haspopup="dialog" aria-controls="sf-search-dialog">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
   <span>{zh ? '搜索' : 'Search'}</span><kbd data-sf-shortcut>⌘ K</kbd>
 </button>
 <dialog class="sf-search-dialog" id="sf-search-dialog" aria-label={zh ? '站内搜索' : 'Search SkillFlux'} data-lang={lang}>
   <div class="sf-search-top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-    <label class="sr-only" for="sf-search-input">{zh ? '搜索资源和指南' : 'Search resources and guides'}</label>
-    <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索资源、指南…' : 'Search resources, guides…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
+    <label class="sr-only" for="sf-search-input">{zh ? '搜索 Skill、来源、对比与文章' : 'Search skills, sources, comparisons and articles'}</label>
+    <input id="sf-search-input" class="sf-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="sf-search-results" aria-describedby="sf-search-status" placeholder={zh ? '搜索 Skill、来源、对比…' : 'Search skills, sources, comparisons…'} maxlength="200" autocomplete="off" spellcheck="false" autofocus />
     <button class="sf-search-close" type="button" data-sf-search-close aria-label={zh ? '关闭搜索' : 'Close search'}>ESC</button>
   </div>
   <div class="sf-search-content">
@@ -68,7 +68,9 @@ const zh = lang === 'zh';
     const retry = dialog.querySelector<HTMLButtonElement>('.sf-search-retry')!;
     const lang = dialog.dataset.lang === 'en' ? 'en' : 'zh';
     const zh = lang === 'zh';
-    const kinds: Record<SearchKind, string> = zh ? { source: '资源', guide: '指南', skill: 'Skill 报告', page: '页面' } : { source: 'Resource', guide: 'Guide', skill: 'Skill report', page: 'Page' };
+    const kinds: Record<SearchKind, string> = zh
+      ? { source: '来源', guide: '指南', skill: 'Skill 报告', insight: '拆解', compare: '对比', roundup: '盘点', page: '页面' }
+      : { source: 'Source', guide: 'Guide', skill: 'Skill report', insight: 'Deep-dive', compare: 'Compare', roundup: 'Roundup', page: 'Page' };
     let entries: GlobalSearchEntry[] | undefined;
     let pending: Promise<void> | undefined;
     let results: GlobalSearchEntry[] = [];
@@ -108,7 +110,7 @@ const zh = lang === 'zh';
       status.textContent = zh ? '正在加载搜索索引…' : 'Loading search index…';
       pending = (async () => {
         try {
-          const response = await fetch('/search-index.json', { signal: AbortSignal.timeout(12000) });
+          const response = await fetch(`/search-index.${lang}.json`, { signal: AbortSignal.timeout(12000) });
           if (!response.ok) throw new Error('Search index unavailable');
           const payload: unknown = await response.json();
           if (!payload || typeof payload !== 'object' || !('entries' in payload) || !Array.isArray(payload.entries) || !payload.entries.every(isGlobalSearchEntry)) throw new Error('Invalid search index');

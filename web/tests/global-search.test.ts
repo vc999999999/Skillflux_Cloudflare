@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { isGlobalSearchEntry, searchGlobalIndex, type GlobalSearchEntry } from '../src/lib/global-search';
-import { GET } from '../src/pages/search-index.json';
+import { buildSearchEntries } from '../src/lib/search-index';
 import { getSites } from '../src/lib/content';
 import { localizePath } from '../src/lib/i18n';
+import { bestTopics, comparePairs } from '../src/lib/source-compare';
 
 const entry = (id: string, changes: Partial<GlobalSearchEntry> = {}): GlobalSearchEntry => ({ id, lang: 'zh', kind: 'source', title: id, description: 'Agent tools', keywords: '', href: `/resource/${id}/`, ...changes });
 
@@ -25,13 +26,17 @@ describe('global search', () => {
     expect(isGlobalSearchEntry({ ...entry('bad'), title: 4 })).toBe(false);
     expect(isGlobalSearchEntry({ ...entry('bad'), kind: 'unknown' })).toBe(false);
   });
-  it('builds a bilingual index with canonical source and editorial routes', async () => {
-    const payload = await GET().json() as { entries: GlobalSearchEntry[] };
-    expect(payload.entries.every(isGlobalSearchEntry)).toBe(true);
-    expect(new Set(payload.entries.map(item => item.id)).size).toBe(payload.entries.length);
+  it('builds one index per language with canonical source, comparison and roundup routes', () => {
     for (const lang of ['zh', 'en'] as const) {
-      const entries = payload.entries.filter(item => item.lang === lang);
+      const insight = { id: 'example', href: localizePath('/insights/example/', lang), title: 'Example', description: 'An example deep-dive', keywords: '' };
+      const entries = buildSearchEntries(lang, [insight]);
+      expect(entries.every(isGlobalSearchEntry)).toBe(true);
+      expect(entries.every(item => item.lang === lang)).toBe(true);
+      expect(new Set(entries.map(item => item.id)).size).toBe(entries.length);
       expect(entries.filter(item => item.kind === 'source').map(item => item.href)).toEqual(getSites().map(site => localizePath(`/resource/${site.resourceSlug}/`, lang)));
+      expect(entries.filter(item => item.kind === 'compare')).toHaveLength(comparePairs().length);
+      expect(entries.filter(item => item.kind === 'roundup')).toHaveLength(bestTopics().length);
+      expect(entries.filter(item => item.kind === 'insight').map(item => item.href)).toEqual([insight.href]);
     }
   });
 });

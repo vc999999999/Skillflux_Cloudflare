@@ -2,40 +2,42 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
+import { contactMailto } from "../lib/contact";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language };
 const { lang = "en" } = Astro.props;
 const zh = lang === "zh";
 const t = (cn: string, en: string) => zh ? cn : en;
-const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
+const benchmarkRequest = contactMailto(t("[实测申请] ", "[Benchmark request] "), t("Skill 页面或仓库地址：\n希望测试的任务：\n为什么值得测：\n", "Skill page or repository URL:\nTask you would like tested:\nWhy it is worth testing:\n"));
+const dispute = contactMailto(t("[结果异议] ", "[Dispute] "), t("页面地址：\n有误的数字或说法：\n为什么认为有误（附证据链接）：\n", "Page URL:\nThe number or statement you dispute:\nWhy it is wrong (with evidence links):\n"));
 ---
-<BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过 GitHub 提交供编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then submit through GitHub for editorial review.")}>
+<BaseLayout lang={lang} canonicalPath={localizePath("/submit/", lang)} title={t("提交资源", "Submit a resource")} description={t("向 SkillFlux 推荐值得收录的 Skill、MCP 或资源合集。提供原始来源与使用说明，通过邮件发送给编辑审核。", "Recommend a skill, MCP or resource collection to SkillFlux. Include the original source and usage notes, then email it to the editors for review.")}>
   <main id="main-content" class="page-shell submit-shell">
     <PageHeader title={t("好资源，值得被更多人发现。", "Good resources deserve to be found.")} eyebrow={t("参与共建", "CONTRIBUTE TO THE DIRECTORY")} lede={t("发现了有用的 Skill、MCP 或资源合集？把它推荐给我们，一起把这份目录做得更好。", "Found a useful skill, MCP or resource collection? Recommend it and help make this directory better.")} breadcrumb={[{ label: t("首页", "Home"), href: localizePath("/", lang) }, { label: t("推荐与纠错", "Suggest or correct") }]} />
     <nav class="submit-paths" aria-label={t("其他反馈方式", "Other ways to contribute")}>
-      <a href={`${issueUrl}?template=test-request.yml`} rel="noopener noreferrer"><strong>{t("申请实测某个 Skill", "Request a benchmark")}</strong><span>{t("告诉我们哪个 Skill 值得测、在什么任务上测。", "Tell us which skill to test, and on what kind of task.")}</span></a>
-      <a href={`${issueUrl}?template=dispute.yml`} rel="noopener noreferrer"><strong>{t("对结果提出异议", "Dispute a result")}</strong><span>{t("体检或实测结果有误？注明页面、数字和原因，我们会公开处理。", "Think a health check or benchmark is wrong? Name the page, the number and why; we handle it in public.")}</span></a>
+      <a href={benchmarkRequest}><strong>{t("申请实测某个 Skill", "Request a benchmark")}</strong><span>{t("发邮件告诉我们哪个 Skill 值得测、在什么任务上测。", "Email us which skill to test, and on what kind of task.")}</span></a>
+      <a href={dispute}><strong>{t("对结果提出异议", "Dispute a result")}</strong><span>{t("体检或实测结果有误？发邮件注明页面、数字和原因；更正会在对应页面上公开标注。", "Think a health check or benchmark is wrong? Email the page, the number and why; corrections are noted publicly on the page concerned.")}</span></a>
       <a href={localizePath("/methodology/v1/", lang)}><strong>{t("先读方法论", "Read the method first")}</strong><span>{t("了解我们测什么、怎么测、结果意味着什么。", "What we measure, how, and what the results mean.")}</span></a>
     </nav>
     <div class="submit-layout">
       <section class="submission-panel" aria-labelledby="submission-title">
         <div class="form-heading"><h2 id="submission-title">{t("介绍一下这个资源", "Tell us about the resource")}</h2><span>{t("* 为必填", "* Required")}</span></div>
-        <form data-resource-form data-issue-base={issueUrl}>
+        <form data-resource-form data-mailto={`mailto:${SITE.contactEmail}`}>
           <label>{t("资源名称", "Resource name")} <span aria-hidden="true">*</span><input name="name" required maxlength="100" placeholder={t("例如：一个好用的文档整理 Skill", "e.g. A helpful documentation skill")} autocomplete="off" /></label>
           <label>{t("原始链接", "Original URL")} <span aria-hidden="true">*</span><input name="url" type="url" required maxlength="500" placeholder="https://github.com/…" autocomplete="url" /><small>{t("请提供官网、公开仓库或作者发布页面。", "Use the website, public repository or author's release page.")}</small></label>
           <label>{t("资源类型", "Resource type")} <span aria-hidden="true">*</span><select name="type" required><option value="">{t("选择最接近的类型", "Select the closest type")}</option><option value="Skill">Skill</option><option value="MCP">MCP</option><option value="Collection">{t("资源合集 / 目录", "Collection / directory")}</option><option value="Tool">{t("工具 / 教程", "Tool / guide")}</option></select></label>
           <label>{t("推荐理由", "Why recommend it?")} <span aria-hidden="true">*</span><textarea name="description" required minlength="20" maxlength="1200" rows="5" placeholder={t("它解决什么问题？适合谁？你实际使用后的体验，或值得关注的限制是什么？（至少 20 字）", "What does it solve, who is it for, and what experience or limitations should we know about? (At least 20 characters)")}></textarea></label>
           <label>{t("补充说明", "Additional context")}<textarea name="notes" maxlength="600" rows="3" placeholder={t("可选：适用工具、授权协议、安装文档、你与项目的关系等。", "Optional: compatible tools, license, setup docs or your relationship to the project.")}></textarea></label>
-          <div class="submission-footnote"><span aria-hidden="true">↗</span><p>{t("本页会生成 GitHub Issue 草稿。资料不会在此保存；你将在 GitHub 查看并确认提交，内容会公开。", "This page creates a GitHub issue draft. Nothing is saved here. Review and submit it on GitHub, where the content will be public.")}</p></div>
-          <button class="button primary" type="submit" data-generate-draft disabled>{t("生成提交草稿", "Create submission draft")} <span aria-hidden="true">→</span></button>
+          <div class="submission-footnote"><span aria-hidden="true">✉</span><p>{t(`本页会在你的邮件应用中生成一封发往 ${SITE.contactEmail} 的草稿。资料不会在此保存，发送前你可以修改内容；邮件只有编辑能看到，不会公开。`, `This page opens a draft email to ${SITE.contactEmail} in your mail app. Nothing is saved here, and you can edit it before sending. Only the editors see it; it is not published.`)}</p></div>
+          <button class="button primary" type="submit" data-generate-draft disabled>{t("生成邮件草稿", "Create email draft")} <span aria-hidden="true">→</span></button>
           <p class="draft-status" data-draft-status role="status" aria-live="polite"></p>
-          <div class="draft-result" data-draft-result hidden><strong>{t("草稿已准备好", "Your draft is ready")}</strong><p>{t("点击下方链接，在 GitHub 中检查内容并确认发布。当前尚未提交。", "Open the link below, review the details and publish on GitHub. It has not been submitted yet.")}</p><a class="button secondary" data-issue-link href={issueUrl} target="_blank" rel="noopener noreferrer">{t("前往 GitHub 确认提交", "Review and submit on GitHub")} <span aria-hidden="true">↗</span></a></div>
-          <noscript><p>{t("启用 JavaScript 可生成草稿，或直接前往 GitHub，附上资源名称、原始链接、类型和推荐理由。", "Enable JavaScript to create a draft, or open GitHub and include the resource name, original URL, type and your recommendation.")} <a href={issueUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a></p></noscript>
+          <div class="draft-result" data-draft-result hidden><strong>{t("草稿已准备好", "Your draft is ready")}</strong><p>{t(`如果邮件应用没有自动打开，点击下方按钮；也可以直接写信到 ${SITE.contactEmail}。当前尚未发送。`, `If your mail app did not open, use the button below, or write to ${SITE.contactEmail} directly. Nothing has been sent yet.`)}</p><a class="button secondary" data-mail-link href={`mailto:${SITE.contactEmail}`}>{t("打开邮件草稿", "Open the email draft")} <span aria-hidden="true">→</span></a></div>
+          <noscript><p>{t(`启用 JavaScript 可生成草稿；也可以直接写信到 ${SITE.contactEmail}，附上资源名称、原始链接、类型和推荐理由。`, `Enable JavaScript to create a draft, or write to ${SITE.contactEmail} with the resource name, original URL, type and your recommendation.`)} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p></noscript>
         </form>
       </section>
       <aside class="submission-sidebar">
         <section><p class="eyebrow">WHAT WE LOOK FOR</p><h2>{t("我们想收录这样的资源", "What makes a useful entry")}</h2><ul><li><span aria-hidden="true">✓</span><div><strong>{t("用途清楚", "Clear purpose")}</strong><p>{t("能说清解决什么问题，适合什么任务。", "Explain the problem it solves and the tasks it suits.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("来源可查", "Traceable source")}</strong><p>{t("有可访问的官网、仓库或作者页面。", "Link to an accessible website, repository or author page.")}</p></div></li><li><span aria-hidden="true">✓</span><div><strong>{t("说明完整", "Useful documentation")}</strong><p>{t("包含使用方法、适用工具与已知限制。", "Include usage instructions, compatible tools and known limitations.")}</p></div></li></ul></section>
-        <section class="review-flow"><p class="eyebrow">AFTER YOU SUBMIT</p><h2>{t("接下来会发生什么", "What happens next")}</h2><ol><li>{t("在 GitHub 发布推荐信息", "Publish your recommendation on GitHub")}</li><li>{t("编辑核对来源与收录信息", "Editors check the source and entry details")}</li><li>{t("通过后更新目录，并在 Issue 跟进", "Approved entries appear in the directory, with follow-up in the issue")}</li></ol><p class="review-note">{t("目录收录与可安装包审核是两个流程。提交推荐不代表自动发布、通过评测或可安装。", "Directory inclusion and install-package review are separate processes. A recommendation does not automatically publish or qualify a package.")}</p></section>
+        <section class="review-flow"><p class="eyebrow">AFTER YOU SUBMIT</p><h2>{t("接下来会发生什么", "What happens next")}</h2><ol><li>{t("把推荐邮件发给编辑", "Email your recommendation to the editors")}</li><li>{t("编辑核对来源与收录信息", "Editors check the source and entry details")}</li><li>{t("通过后更新目录，需要时回信跟进", "Approved entries appear in the directory; we reply by email if we need more")}</li></ol><p class="review-note">{t("目录收录与可安装包审核是两个流程。提交推荐不代表自动发布、通过评测或可安装。", "Directory inclusion and install-package review are separate processes. A recommendation does not automatically publish or qualify a package.")}</p></section>
         <a class="submission-help" href={localizePath("/quality/", lang)}>{t("查看收录标准", "Read the listing policy")} <span aria-hidden="true">→</span></a>
       </aside>
     </div>
@@ -46,7 +48,7 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
   if (form) {
     const status = form.querySelector<HTMLElement>("[data-draft-status]")!;
     const result = form.querySelector<HTMLElement>("[data-draft-result]")!;
-    const link = form.querySelector<HTMLAnchorElement>("[data-issue-link]")!;
+    const link = form.querySelector<HTMLAnchorElement>("[data-mail-link]")!;
     const zh = document.documentElement.lang.startsWith("zh");
     form.querySelector<HTMLButtonElement>("[data-generate-draft]")!.disabled = false;
     form.addEventListener("input", () => { result.hidden = true; status.textContent = ""; });
@@ -58,13 +60,15 @@ const issueUrl = `${SITE.repoUrl.replace(/\/$/, "")}/issues/new`;
       try { source = new URL(get("url")); } catch { status.textContent = zh ? "请填写完整的资源链接。" : "Enter a complete resource URL."; return; }
       if (!["http:", "https:"].includes(source.protocol)) { status.textContent = zh ? "资源链接需要以 https:// 或 http:// 开头。" : "The source URL must use https:// or http://."; return; }
       if (!get("name") || get("description").length < 20) { status.textContent = zh ? "请填写名称，并用至少 20 字介绍推荐理由。" : "Add a name and at least 20 characters explaining your recommendation."; return; }
-      const issue = new URL(form.dataset.issueBase!);
-      issue.searchParams.set("title", `[Resource] ${get("name")}`);
-      issue.searchParams.set("body", `## Resource\n\n- Name: ${get("name")}\n- URL: ${source.href}\n- Type: ${get("type")}\n\n## Why recommend it?\n\n${get("description")}\n\n## Additional context\n\n${get("notes") || "—"}\n\nSubmitted via the SkillFlux resource directory. Directory inclusion does not imply package qualification.`);
-      if (issue.href.length > 7500) { status.textContent = zh ? "草稿链接较长，请缩短推荐理由或补充说明后重试。" : "This draft link is too long. Shorten the recommendation or additional context and try again."; return; }
-      link.href = issue.href;
+      const subject = `[Resource] ${get("name")}`;
+      const body = `Name: ${get("name")}\nURL: ${source.href}\nType: ${get("type")}\n\nWhy recommend it?\n${get("description")}\n\nAdditional context:\n${get("notes") || "—"}\n\nSent from the SkillFlux submit page.`;
+      const href = `${form.dataset.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // Some mail clients truncate or reject very long mailto links.
+      if (href.length > 8000) { status.textContent = zh ? "草稿较长，请缩短推荐理由或补充说明后重试。" : "This draft is too long. Shorten the recommendation or additional context and try again."; return; }
+      link.href = href;
       result.hidden = false;
-      status.textContent = zh ? "已生成草稿。请前往 GitHub 确认提交。" : "Draft created. Review and submit it on GitHub.";
+      status.textContent = zh ? "已生成邮件草稿，正在打开邮件应用。" : "Email draft created; opening your mail app.";
+      window.location.href = href;
       link.focus();
     });
   }

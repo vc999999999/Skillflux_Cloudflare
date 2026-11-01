@@ -104,7 +104,7 @@ const crumbs = isIndex
         <ul class="plain-list">
           <li>{t("Results hold for the tested commit, host, model and tasks. Other models, hosts, versions or tasks may differ.", "结果只对测试所用的提交、宿主、模型和任务成立，换成其他模型、宿主、版本或任务可能不同。")}</li>
           <li>{t("Tasks are chosen because a script can grade them. Skills whose value is judgment, tone or taste are under-represented in level 2.", "任务的选取前提是能用脚本评分，因此价值在于判断、语气或审美的 Skill 在第 2 层中代表性不足。")}</li>
-          <li>{t("Skill authors are not consulted before publication. Disputes and corrections are handled in public on GitHub.", "发布前不征求 Skill 作者意见，异议和更正在 GitHub 上公开处理。")}</li>
+          <li>{t(`Skill authors are not consulted before publication. Disputes come in by email to ${SITE.contactEmail}; corrections are published as a new run or noted on the page concerned.`, `发布前不征求 Skill 作者意见。异议请发邮件到 ${SITE.contactEmail}；更正以新批次发布，或在对应页面上标注。`)}</li>
           <li>{t("SkillFlux takes no payment for listing, ordering or testing.", "SkillFlux 不因收录、排序或测试收取任何费用。")}</li>
         </ul>
       </section>

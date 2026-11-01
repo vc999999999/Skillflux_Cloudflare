@@ -5,7 +5,8 @@ export const SITE = {
   url: process.env.SITE_URL || "https://skillflux.app",
   locale: "en",
   author: "SkillFlux",
-  repoUrl: "https://github.com/vc999999999/Skillflux_Cloudflare",
+  // The source repository is private; every public feedback path goes to this mailbox.
+  contactEmail: "hello@skillflux.app",
   schemaVersion: "2026-06-24",
   // Cloudflare Web Analytics beacon token. Not a secret — it ships in the HTML.
   // CF_BEACON_TOKEN env var overrides this default if set at build time.

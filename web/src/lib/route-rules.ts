@@ -44,7 +44,7 @@ export function renderGonePage(): string {
     '<meta name="robots" content="noindex, follow"><title>Gone · SkillFlux</title></head>',
     '<body style="font:16px/1.6 system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem">',
     '<h1>This page has been retired.</h1>',
-    '<p>SkillFlux no longer distributes or installs skills, so the installer, release and package pages were removed. The last version of that tool is archived in the repository under the tag <code>v1.3.0-tool-final</code>.</p>',
+    '<p>SkillFlux no longer distributes or installs skills, so the installer, release and package pages were removed.</p>',
     '<p><a href="/directory/">Browse the directory</a> · <a href="/">Home</a></p>',
     '</body></html>'
   ].join('');

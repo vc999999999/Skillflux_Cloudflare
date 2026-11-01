@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "./PageHeader.astro";
 import { SITE } from "../config";
+import { contactMailto } from "../lib/contact";
 import { absoluteUrl } from "../lib/content";
 import { localizePath, type Language } from "../lib/i18n";
 import { DATASET, datasetModified, getDatasetFiles } from "../lib/dataset";
@@ -84,7 +85,7 @@ const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).to
         <section class="prose-block" id="how-to-cite">
           <h2>{t("How to cite", "如何引用")}</h2>
           <pre class="code-block">{`SkillFlux (${modified}). ${DATASET.name}, version ${DATASET.version}. ${absoluteUrl("/data/")}. CC BY 4.0.`}</pre>
-          <p>{t("For a single result, cite the skill's report page or the run id it names. A machine-readable citation is in CITATION.cff in the repository.", "引用单个结果时，请引用对应 Skill 的报告页或其中给出的批次 id。仓库中的 CITATION.cff 提供机器可读的引用信息。")}</p>
+          <p>{t("For a single result, cite the skill's report page or the run id it names.", "引用单个结果时，请引用对应 Skill 的报告页或其中给出的批次 id。")}</p>
         </section>
       </article>
       <aside class="detail-side">
@@ -94,7 +95,7 @@ const kb = (bytes: number) => bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).to
         </div>
         <div class="side-box">
           <h2>{t("Corrections", "更正")}</h2>
-          <p>{t("Found an error? Open an issue with the file, row and what is wrong.", "发现错误？请在 Issue 中注明文件、行和具体问题。")} <a href={`${SITE.repoUrl}/issues/new?template=dispute.yml`} rel="noopener noreferrer">GitHub ↗</a></p>
+          <p>{t("Found an error? Email us the file, row and what is wrong.", "发现错误？请发邮件注明文件、行和具体问题。")} <a href={contactMailto(t("[Data correction] ", "[数据更正] "))}>{SITE.contactEmail}</a></p>
         </div>
       </aside>
     </div>
