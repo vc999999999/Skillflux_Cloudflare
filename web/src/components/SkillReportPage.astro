@@ -32,7 +32,7 @@ const faqs = [
   { q: t(`What does SkillFlux's data say about ${name}?`, `SkillFlux 的数据如何评价 ${name}？`), a: finding },
   { q: t(`Has ${name} been benchmarked?`, `${name} 做过实测吗？`), a: result
     ? t(`Yes. Run ${result.run.runId}, published ${result.run.publishedAt}, compared ${result.skill.pooled.with.n} runs with the skill against ${result.skill.pooled.without.n} without it on ${result.skill.tasks.filter(task => task.kind === "positive").length} tasks.`, `做过。${result.run.publishedAt} 发布的测试批次 ${result.run.runId} 在 ${result.skill.tasks.filter(task => task.kind === "positive").length} 个任务上，比较了装 Skill 的 ${result.skill.pooled.with.n} 次运行与不装的 ${result.skill.pooled.without.n} 次运行。`)
-    : t(`Not yet. Only the static health check has been run. You can request a benchmark on GitHub.`, `还没有，目前只做了静态体检。可以在 GitHub 上申请实测。`) },
+    : t(`Not yet. Only the static health check has been run. You can request a benchmark by email from the submit page.`, `还没有，目前只做了静态体检。可以在提交页通过邮件申请实测。`) },
   { q: t(`What license is ${name} under?`, `${name} 使用什么许可证？`), a: skill.license.spdx
     ? t(`${skill.license.spdx}, as detected at commit ${shortSha(skill.source.commitSha)}. Check the repository for the authoritative terms.`, `在提交 ${shortSha(skill.source.commitSha)} 中检测到的许可证是 ${skill.license.spdx}，以仓库中的原文为准。`)
     : skill.license.file ? t(`The skill ships its own license file (${skill.license.file}); read it before reuse.`, `该 Skill 附带单独的许可证文件（${skill.license.file}），复用前请阅读原文。`) : t("No license was found, so reuse terms are unclear.", "未找到许可证，复用条款不明确。") },

@@ -132,7 +132,7 @@ describe('production edge routing', () => {
       const response = await worker.fetch(new Request(`https://skillflux.app${path}`), env);
       expect(response.status, path).toBe(410);
       expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
-      expect(await response.text()).toContain('v1.3.0-tool-final');
+      expect(await response.text()).toContain('This page has been retired.');
       expect(fetch).not.toHaveBeenCalled();
     }
     const { env } = assets();

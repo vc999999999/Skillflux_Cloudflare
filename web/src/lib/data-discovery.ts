@@ -148,7 +148,7 @@ export function renderAgentsMd(): string {
     '',
     '- Results hold for the tested commit, host (Claude Code), model and tasks.',
     '- Pages and data are build-time snapshots; dates on each record bound freshness.',
-    '- Corrections and disputes go through GitHub issues; published runs are never edited, only superseded.',
+    `- Corrections and disputes go to ${SITE.contactEmail}; published runs are never edited, only superseded.`,
     '',
   ].join('\n');
 }

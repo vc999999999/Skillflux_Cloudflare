@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "./PageHeader.astro";
+import { SITE } from "../config";
 import { localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language; kind: "quality" | "privacy" | "terms" | "contact" };
 const { lang = "en", kind } = Astro.props;
@@ -14,7 +15,7 @@ const documents = {
     sections: [
       [t("收录条件", "What qualifies"), t("来源需要公开可访问，能说明提供什么类型的 Skill、面向哪些宿主，并能找到作者或维护方。只做转载、没有原始来源的页面不收录。", "A source must be publicly reachable, say what kind of skills it offers and for which hosts, and identify an author or maintainer. Pages that only repost content without an original source are not listed.")],
       [t("我们写什么", "What we write"), t("每个来源页包含编辑整理的用途、适用场景、局限和替代选择，并链接原始网站。这些是编辑判断；来源中的能力说法属于作者自述。", "Each source page has an editorial summary of purpose, fit, limitations and alternatives, and links to the original. These are editorial judgments; capability claims made by the source belong to its author.")],
-      [t("复核与下架", "Review and delisting"), t("来源页标注最后复核日期。失效、长期无人维护或内容与描述明显不符的来源会被标为观察中或归档。发现错误可以通过提交页或 GitHub Issue 反馈。", "Source pages show their last review date. Sources that go offline, stop being maintained or clearly differ from their description are marked as watching or archived. Report errors through the submit page or a GitHub issue.")],
+      [t("复核与下架", "Review and delisting"), t(`来源页标注最后复核日期。失效、长期无人维护或内容与描述明显不符的来源会被标为观察中或归档。发现错误可以通过提交页或邮件 ${SITE.contactEmail} 反馈。`, `Source pages show their last review date. Sources that go offline, stop being maintained or clearly differ from their description are marked as watching or archived. Report errors through the submit page or by email to ${SITE.contactEmail}.`)],
       [t("没有付费收录", "No paid placement"), t("收录、排序和推荐不接受付费。编辑推荐只表示值得优先阅读，不是官方背书。", "Listing, ordering and recommendations are not paid for. An editorial pick means a source is worth reading first; it is not an official endorsement.")],
       [t("标准的边界", "Limits of this policy"), t("收录标准帮助你更快找到可追溯的来源，不保证某个 Skill 在你的模型、宿主和任务上有效。使用前请在不含生产密钥的测试项目中验证。", "This policy helps you find traceable sources faster. It does not guarantee that a skill works with your model, host or task. Verify in a test project without production secrets before relying on one.")]
     ]
@@ -26,7 +27,7 @@ const documents = {
     sections: [
       [t("基础访问日志", "Operational logs"), t("Cloudflare 可能收到 IP、时间、请求路径、浏览器信息和错误日志，用于提供服务和排障。我们不在页面中嵌入广告或第三方追踪脚本。", "Cloudflare may receive IP addresses, timestamps, request paths, browser details and error logs to serve the site and troubleshoot. Pages embed no ads or third-party tracking scripts.")],
       [t("站内搜索", "On-site search"), t("站内搜索在浏览器中对静态索引进行，检索词不会发送到服务器。", "On-site search runs in your browser over a static index; queries are not sent to a server.")],
-      [t("反馈与更正", "Feedback and corrections"), t("通过 GitHub 提交反馈时，你的 GitHub 账号与内容由 GitHub 按其政策处理。请不要在反馈中提交密钥或私人对话。", "Feedback submitted through GitHub is handled by GitHub under its own policy, including your account details. Do not include secrets or private conversations in feedback.")]
+      [t("反馈与更正", "Feedback and corrections"), t(`发往 ${SITE.contactEmail} 的反馈只用于处理你的请求，不会公开。请不要在邮件中附上密钥或私人对话。`, `Feedback sent to ${SITE.contactEmail} is used only to handle your request and is not published. Do not include secrets or private conversations in your email.`)]
     ]
   },
   terms: {
@@ -44,8 +45,8 @@ const documents = {
     label: t("联系与反馈", "Contact and feedback"),
     intro: t("浏览和搜索无需登录。以下入口分别接收合作需求、内容更正与收录推荐。", "Browsing and search require no login. The paths below cover cooperation inquiries, corrections and listing suggestions."),
     sections: [
-      [t("产品与合作", "Product and cooperation inquiries"), t("通过仓库 Issue 或页面底部联系方式留下需求与背景。说明产品、期望的协作方式和至少一种联系渠道。", "Open a repository issue or use a contact link in the page footer. Describe the product, the kind of cooperation you want and at least one way to reach you.")],
-      [t("内容更正", "Corrections"), t("发现来源信息过期或描述有误，请在 GitHub Issue 中注明页面地址和具体问题，最好附上原始来源链接。", "If a source page is outdated or wrong, open a GitHub issue with the page URL, the specific problem and ideally a link to the original source.")],
+      [t("产品与合作", "Product and cooperation inquiries"), t(`写信到 ${SITE.contactEmail}，说明产品、期望的协作方式和背景。`, `Write to ${SITE.contactEmail} with the product, the kind of cooperation you want and some background.`)],
+      [t("内容更正", "Corrections"), t(`发现来源信息过期或描述有误，请写信到 ${SITE.contactEmail}，注明页面地址和具体问题，最好附上原始来源链接。`, `If a source page is outdated or wrong, email ${SITE.contactEmail} with the page URL, the specific problem and ideally a link to the original source.`)],
       [t("推荐收录", "Suggest a source"), t("通过提交页推荐值得收录的来源，说明它提供什么、面向哪些宿主以及作者是谁。", "Use the submit page to suggest a source, with what it offers, which hosts it targets and who maintains it.")]
     ]
   }

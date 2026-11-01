@@ -1,6 +1,7 @@
 ---
 import BrandMark from "./BrandMark.astro";
 import { SITE } from "../config";
+import { contactMailto } from "../lib/contact";
 import { DEFAULT_LANGUAGE, localizePath, type Language } from "../lib/i18n";
 type Props = { lang?: Language };
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
@@ -32,7 +33,7 @@ const groups = [
   ] },
   { title: zh ? "参与" : "Connect", links: [
     { href: "/submit/", label: zh ? "推荐与纠错" : "Suggest or correct" },
-    { href: SITE.repoUrl, label: "GitHub ↗", external: true },
+    { href: contactMailto(), label: SITE.contactEmail, raw: true },
     { href: "/contact/", label: zh ? "联系我们" : "Contact" },
     { href: zh ? "/zh/feed.xml" : "/feed.xml", label: zh ? "全部更新 RSS" : "All updates RSS", raw: true }
   ] }

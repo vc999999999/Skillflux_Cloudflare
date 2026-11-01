@@ -1,7 +1,6 @@
 ---
 import BrandMark from "./BrandMark.astro";
 import GlobalSearch from "./GlobalSearch.astro";
-import { SITE } from "../config";
 import { DEFAULT_LANGUAGE, getAlternateLanguagePath, localizePath, stripLanguagePrefix, type Language } from "../lib/i18n";
 type Props = { lang?: Language; currentPath?: string; showLanguage?: boolean };
 const { lang = DEFAULT_LANGUAGE, currentPath = "/", showLanguage = true } = Astro.props;
@@ -27,9 +26,6 @@ const links = [
     </nav>
     <div class="sf-header-actions">
       <GlobalSearch lang={lang} />
-      <a class="sf-github-link" href={SITE.repoUrl} aria-label="GitHub" rel="noopener noreferrer">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.58 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-      </a>
       {showLanguageSwitcher && <div class="sf-language" aria-label={zh ? "切换语言" : "Language"}>
         <a data-language-link href={getAlternateLanguagePath(currentPath, "en")} aria-current={!zh ? "true" : undefined} lang="en">EN</a><span aria-hidden="true">/</span><a data-language-link href={getAlternateLanguagePath(currentPath, "zh")} aria-current={zh ? "true" : undefined} lang="zh-CN">中</a>
       </div>}
@@ -41,7 +37,6 @@ const links = [
   </div>
   <nav class="sf-mobile-nav" id="sf-mobile-nav" aria-label={zh ? "移动端导航" : "Mobile navigation"} hidden>
     {links.map(link => <a href={localizePath(link.href, lang)} aria-current={link.active ? "page" : undefined}>{link.label}<span aria-hidden="true">→</span></a>)}
-    <a href={SITE.repoUrl} rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a>
   </nav>
 </header>
 <style>
@@ -54,8 +49,6 @@ const links = [
   .sf-desktop-nav a:hover, .sf-desktop-nav a[aria-current="page"] { color: var(--ink); }
   .sf-desktop-nav a[aria-current="page"] { font-weight: 600; }
   .sf-header-actions { margin-left: auto; display: flex; gap: 16px; align-items: center; }
-  .sf-github-link { display: inline-flex; color: var(--muted); padding: 4px; transition: color .15s ease; }
-  .sf-github-link:hover { color: var(--ink); }
   .sf-language { display: flex; align-items: center; gap: 2px; padding: 2px 4px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--paper-strong); font-size: 12px; white-space: nowrap; }
   .sf-language span { color: var(--faint); opacity: 0.6; font-size: 11px; }
   .sf-language a { color: var(--muted); text-decoration: none; padding: 3px 6px; border-radius: 3px; font-weight: 500; transition: all .15s ease; }
@@ -73,7 +66,7 @@ const links = [
   .sf-mobile-nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
   .sf-mobile-nav a span { color: var(--faint); }
   .sf-header a:focus-visible, .sf-header button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  @media (max-width: 1150px) { .sf-header-inner { gap: 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } .sf-github-link { display: none; } }
+  @media (max-width: 1150px) { .sf-header-inner { gap: 24px; } .sf-desktop-nav { gap: 20px; } .sf-header-actions { gap: 14px; } }
   /* The CTA duplicates the Directory nav link, so it goes first when space runs out. */
   @media (max-width: 960px) { .sf-header-cta { display: none; } }
   @media (max-width: 760px) { .sf-desktop-nav { display: none; } .sf-menu-toggle { display: block; } }
