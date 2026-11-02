@@ -3,8 +3,8 @@
   "skillId": "android-skills-adaptive",
   "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "a2dfc4150e5eca3df675e8a9017f4481e9e1fc0d2425fe7b42eff7eeaa653f93",
+  "changedAt": "2026-11-02",
+  "resultHash": "66b87ef566e14eebb449def3598b54f8f2980df5b125ab1d11a2237c4a0cfd87",
   "checks": [
     {
       "id": "skillmd.present",
@@ -117,20 +117,20 @@
     {
       "id": "license.detected",
       "status": "pass",
-      "value": "Complete terms in LICENSE.txt",
+      "value": "Apache-2.0",
       "detail": "declared in frontmatter"
     },
     {
       "id": "repo.activity",
-      "status": "info",
-      "value": null,
-      "detail": "last change unknown"
+      "status": "pass",
+      "value": 6,
+      "detail": "last changed 6 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": null,
-      "detail": "unknown"
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
     }
   ],
   "metrics": {
@@ -140,13 +140,13 @@
     "fileCount": 17,
     "totalBytes": 129206,
     "scriptCount": 0,
-    "lastCommitAt": null,
-    "commitsSincePin": null
+    "lastCommitAt": "2026-10-26T20:26:41Z",
+    "commitsSincePin": 0
   },
   "repo": {
-    "stars": 10016,
+    "stars": 10281,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
   "flags": []
 }

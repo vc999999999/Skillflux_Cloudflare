@@ -3,8 +3,8 @@
   "skillId": "expo-skills-expo-migrate-module",
   "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "11b2f55fc06f79cfcb7110a8cef9d0d2e650439b5fc39aed2475e36a48778a33",
+  "changedAt": "2026-11-02",
+  "resultHash": "8b8e149b0cf02f773320f49474baff18b93383abf6e1eed88fab6e0ba9f43547",
   "checks": [
     {
       "id": "skillmd.present",
@@ -123,14 +123,14 @@
     {
       "id": "repo.activity",
       "status": "pass",
-      "value": 0,
-      "detail": "last changed 0 days before the check"
+      "value": 4,
+      "detail": "last changed 4 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": 0,
-      "detail": "unchanged since the pinned commit"
+      "value": 1,
+      "detail": "1 upstream commit(s) since the pinned commit touch this repository and the skill path"
     }
   ],
   "metrics": {
@@ -141,12 +141,14 @@
     "totalBytes": 50506,
     "scriptCount": 0,
     "lastCommitAt": "2026-10-28T20:07:35Z",
-    "commitsSincePin": 0
+    "commitsSincePin": 1
   },
   "repo": {
-    "stars": 3744,
+    "stars": 4023,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
-  "flags": []
+  "flags": [
+    "upstream-changed"
+  ]
 }

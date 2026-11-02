@@ -3,8 +3,8 @@
   "skillId": "qingyuna-answer-me-with-html",
   "commitSha": "0f2e0f18280b29c875b56a5f41253ee49c4b7956",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "d3678b16eac74cb860e496b5fbcc9193599ada7b5ce7e3a8b663d97167df86fa",
+  "changedAt": "2026-11-02",
+  "resultHash": "f02a31cc058a4696e23a79f2861cd419313ce92af8f492ec2b4b7cdba1bd2f37",
   "checks": [
     {
       "id": "skillmd.present",
@@ -123,14 +123,14 @@
     {
       "id": "repo.activity",
       "status": "pass",
-      "value": -1,
-      "detail": "last changed -1 days before the check"
+      "value": 3,
+      "detail": "last changed 3 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": 0,
-      "detail": "unchanged since the pinned commit"
+      "value": 9,
+      "detail": "9 upstream commit(s) since the pinned commit touch this repository and the skill path"
     }
   ],
   "metrics": {
@@ -141,14 +141,15 @@
     "totalBytes": 1018719,
     "scriptCount": 1,
     "lastCommitAt": "2026-10-29T13:41:02Z",
-    "commitsSincePin": 0
+    "commitsSincePin": 9
   },
   "repo": {
-    "stars": 4645,
+    "stars": 5079,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
   "flags": [
-    "executes-code"
+    "executes-code",
+    "upstream-changed"
   ]
 }

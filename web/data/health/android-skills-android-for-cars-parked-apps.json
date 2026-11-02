@@ -3,8 +3,8 @@
   "skillId": "android-skills-android-for-cars-parked-apps",
   "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "969dc233bf0747c0c662b1e0c5f1028bbb4eefc9f5625259858d8bde865f63ef",
+  "changedAt": "2026-11-02",
+  "resultHash": "beafae9c8229fc5f6e74502c360b87fa0df1618397fe4b1ae15c9b9769f37faa",
   "checks": [
     {
       "id": "skillmd.present",
@@ -117,20 +117,20 @@
     {
       "id": "license.detected",
       "status": "pass",
-      "value": "Complete terms in LICENSE.txt",
+      "value": "Apache-2.0",
       "detail": "declared in frontmatter"
     },
     {
       "id": "repo.activity",
-      "status": "info",
-      "value": null,
-      "detail": "last change unknown"
+      "status": "pass",
+      "value": 18,
+      "detail": "last changed 18 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": null,
-      "detail": "unknown"
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
     }
   ],
   "metrics": {
@@ -140,13 +140,13 @@
     "fileCount": 2,
     "totalBytes": 73283,
     "scriptCount": 0,
-    "lastCommitAt": null,
-    "commitsSincePin": null
+    "lastCommitAt": "2026-10-14T11:22:56Z",
+    "commitsSincePin": 0
   },
   "repo": {
-    "stars": 10016,
+    "stars": 10281,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
   "flags": []
 }

@@ -3,8 +3,8 @@
   "skillId": "android-skills-agp-9-upgrade",
   "commitSha": "6daa53ef27fa2aa87827d183a85c06cedceca833",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "746a5691f4dadd7f7284fd5ce82fcc853c58ea541871c587be7198fdc5d0500c",
+  "changedAt": "2026-11-02",
+  "resultHash": "3e02bab6c74b3551dcc63ca1d072d9facbc489acf9cc1d33ae1c2b52f20739f8",
   "checks": [
     {
       "id": "skillmd.present",
@@ -123,14 +123,14 @@
     {
       "id": "repo.activity",
       "status": "pass",
-      "value": 33,
-      "detail": "last changed 33 days before the check"
+      "value": 37,
+      "detail": "last changed 37 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": null,
-      "detail": "unknown"
+      "value": 0,
+      "detail": "unchanged since the pinned commit"
     }
   ],
   "metrics": {
@@ -141,12 +141,12 @@
     "totalBytes": 76208,
     "scriptCount": 0,
     "lastCommitAt": "2026-09-25T14:03:04Z",
-    "commitsSincePin": null
+    "commitsSincePin": 0
   },
   "repo": {
-    "stars": 10017,
+    "stars": 10281,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
   "flags": []
 }

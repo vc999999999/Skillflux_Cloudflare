@@ -3,8 +3,8 @@
   "skillId": "mattpocock-skills-chief-of-staff",
   "commitSha": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "ddee925ead33c1c6b79ce79092ef2d44b1dff09cad008e2a9b711dbb00f4d293",
+  "changedAt": "2026-11-02",
+  "resultHash": "40f4dd5a1976b4f7fd3df1e7d197094311bf0637b0b0b2a336dfe83ca9c437e9",
   "checks": [
     {
       "id": "skillmd.present",
@@ -123,14 +123,14 @@
     {
       "id": "repo.activity",
       "status": "pass",
-      "value": -1,
-      "detail": "last changed -1 days before the check"
+      "value": 3,
+      "detail": "last changed 3 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": 0,
-      "detail": "unchanged since the pinned commit"
+      "value": 2,
+      "detail": "2 upstream commit(s) since the pinned commit touch this repository and the skill path"
     }
   ],
   "metrics": {
@@ -141,12 +141,14 @@
     "totalBytes": 4050,
     "scriptCount": 0,
     "lastCommitAt": "2026-10-29T10:24:04Z",
-    "commitsSincePin": 0
+    "commitsSincePin": 2
   },
   "repo": {
-    "stars": 306295,
+    "stars": 309913,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
-  "flags": []
+  "flags": [
+    "upstream-changed"
+  ]
 }

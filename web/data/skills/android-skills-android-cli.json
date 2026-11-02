@@ -22,7 +22,7 @@
     "url": "https://github.com/android"
   },
   "license": {
-    "spdx": null,
+    "spdx": "Apache-2.0",
     "raw": "Complete terms in LICENSE.txt",
     "file": "LICENSE.txt"
   },
@@ -31,5 +31,5 @@
   "tags": [],
   "status": "draft",
   "addedAt": "2026-10-29",
-  "updatedAt": "2026-10-29"
+  "updatedAt": "2026-11-02"
 }

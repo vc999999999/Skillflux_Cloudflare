@@ -3,8 +3,8 @@
   "skillId": "othmanadi-planning-with-files",
   "commitSha": "5d29800bf8b919ca9a88ee7885b90050b5cb64ed",
   "checkerVersion": "1.0.0",
-  "changedAt": "2026-10-29",
-  "resultHash": "b482dc45813e5179e490d96f0ed6e55a17a30025525cd20ff930a6aca2d50734",
+  "changedAt": "2026-11-02",
+  "resultHash": "827bc494c96f22e8f8f47b9032c7ad66a799ffc7740b01d3f02ab8c448d398b9",
   "checks": [
     {
       "id": "skillmd.present",
@@ -123,14 +123,14 @@
     {
       "id": "repo.activity",
       "status": "pass",
-      "value": 0,
-      "detail": "last changed 0 days before the check"
+      "value": 4,
+      "detail": "last changed 4 days before the check"
     },
     {
       "id": "pinned.drift",
       "status": "info",
-      "value": 0,
-      "detail": "unchanged since the pinned commit"
+      "value": 5,
+      "detail": "5 upstream commit(s) since the pinned commit touch this repository and the skill path"
     }
   ],
   "metrics": {
@@ -141,15 +141,16 @@
     "totalBytes": 470223,
     "scriptCount": 22,
     "lastCommitAt": "2026-10-28T17:19:23Z",
-    "commitsSincePin": 0
+    "commitsSincePin": 5
   },
   "repo": {
-    "stars": 27750,
+    "stars": 27829,
     "archived": false,
-    "checkedAt": "2026-10-29"
+    "checkedAt": "2026-11-02"
   },
   "flags": [
     "destructive-commands",
-    "executes-code"
+    "executes-code",
+    "upstream-changed"
   ]
 }
