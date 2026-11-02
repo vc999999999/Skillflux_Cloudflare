@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-composiohq-awesome-claude-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "list",
   "listing": {
@@ -18,14 +18,14 @@
       "repo": "https://github.com/sanjay3290/ai-skills",
       "linkedPath": "skills/outline",
       "outcome": "checked",
-      "commitSha": "281d88df199357e3091a3be5c743a0fca9a9ae1b",
+      "commitSha": "10cba52d57682430fe8430d70c86448270155b9a",
       "path": "skills/outline",
       "name": "outline",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1035,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -66,10 +66,10 @@
       "path": "skills/mcp-builder",
       "name": "mcp-builder",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 2684,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/jthack/ffuf_claude_skill",
@@ -111,13 +111,14 @@
       "name": "ffuf-web-fuzzing",
       "counts": {
         "pass": 12,
-        "warn": 3,
+        "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
-        "no-license"
+        "no-license",
+        "stale"
       ],
       "statuses": {
         "skillmd.present": "pass",
@@ -139,13 +140,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4294,
       "licenseSpdx": null,
-      "detail": "12 pass, 3 warn, 0 fail"
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -155,10 +156,10 @@
       "path": "skills/pdf",
       "name": "pdf",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -183,13 +184,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 8,
       "bodyTokensApprox": 1879,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
@@ -199,10 +200,10 @@
       "path": "plugins/kaizen/skills/kaizen",
       "name": "kaizen",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -225,13 +226,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4402,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "GPL-3.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/yusufkaraaslan/Skill_Seekers",
@@ -241,10 +242,10 @@
       "path": "distribution/claude-plugin/skills/skill-builder",
       "name": "skill-builder",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -267,13 +268,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1046,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -283,10 +284,10 @@
       "path": "skills/xlsx",
       "name": "xlsx",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -311,13 +312,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 12,
       "bodyTokensApprox": 1876,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/langchain-ai/langsmith-fetch",
@@ -342,10 +343,10 @@
       "path": "skills/building-blog",
       "name": "building-blog",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -368,13 +369,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1345,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/michalparkola/tapestry-skills-for-claude-code",
@@ -385,11 +386,13 @@
       "name": "youtube-transcript",
       "counts": {
         "pass": 15,
-        "warn": 0,
+        "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
-      "flags": [],
+      "flags": [
+        "stale"
+      ],
       "statuses": {
         "skillmd.present": "pass",
         "frontmatter.parse": "pass",
@@ -410,13 +413,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3352,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
@@ -427,13 +430,14 @@
       "name": "csv-data-summarizer",
       "counts": {
         "pass": 11,
-        "warn": 4,
+        "warn": 5,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
-        "no-license"
+        "no-license",
+        "stale"
       ],
       "statuses": {
         "skillmd.present": "pass",
@@ -455,13 +459,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1354,
       "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "detail": "11 pass, 5 warn, 0 fail"
     },
     {
       "repo": "https://github.com/obra/superpowers",
@@ -471,10 +475,10 @@
       "path": "skills/brainstorming",
       "name": "brainstorming",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -500,13 +504,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 3337,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/rampstackco/claude-skills",
@@ -516,10 +520,10 @@
       "path": "dist/pi/.agents/skills/creative-brief-selector",
       "name": "creative-brief-selector",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -542,13 +546,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2288,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
@@ -573,10 +577,10 @@
       "path": "skills/pptx",
       "name": "pptx",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -601,13 +605,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 15,
       "bodyTokensApprox": 4956,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/conorluddy/ios-simulator-skill",
@@ -617,10 +621,10 @@
       "path": "ios-simulator-skill/skills/ios-simulator-skill",
       "name": "ios-simulator-skill",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -646,13 +650,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 44,
       "bodyTokensApprox": 7061,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/obra/superpowers",
@@ -662,10 +666,10 @@
       "path": "skills/finishing-a-development-branch",
       "name": "finishing-a-development-branch",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -688,13 +692,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1893,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/uxKero/anydesign",
@@ -704,10 +708,10 @@
       "path": "",
       "name": "anydesign",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -732,13 +736,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 9,
       "bodyTokensApprox": 1407,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/omkamal/pypict-claude-skill",
@@ -748,10 +752,10 @@
       "path": "",
       "name": "pict-test-designer",
       "counts": {
-        "pass": 12,
+        "pass": 13,
         "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -776,13 +780,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 2639,
       "licenseSpdx": null,
-      "detail": "12 pass, 3 warn, 0 fail"
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NeoLabHQ/context-engineering-kit",
@@ -792,10 +796,10 @@
       "path": "plugins/sadd/skills/subagent-driven-development",
       "name": "subagent-driven-development",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -818,13 +822,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2672,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "GPL-3.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {
@@ -839,6 +843,6 @@
     "missingTrigger": 3,
     "overTokenBudget": 1,
     "failingAnyCheck": 0,
-    "stale": 0
+    "stale": 3
   }
 }

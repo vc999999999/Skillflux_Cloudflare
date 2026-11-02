@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-android-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "navigation/navigation-3",
       "name": "navigation-3",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1461,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -64,10 +64,10 @@
       "path": "device-ai/ml-kit-genai-prompt-api",
       "name": "ml-kit-genai-prompt-api",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,13 +90,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 917,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -106,10 +106,10 @@
       "path": "wear/wear-compose-m3",
       "name": "wear-compose-m3",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -132,13 +132,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 9594,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -148,10 +148,10 @@
       "path": "build-system/agp/agp-9-upgrade",
       "name": "agp-9-upgrade",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -174,13 +174,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 774,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -190,10 +190,10 @@
       "path": "xr/display-glasses-with-jetpack-compose-glimmer",
       "name": "display-glasses-with-jetpack-compose-glimmer",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -216,13 +216,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 6356,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -232,10 +232,10 @@
       "path": "jetpack-compose/adaptive",
       "name": "adaptive",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -258,13 +258,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5238,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -274,10 +274,10 @@
       "path": "device-ai/mlkit-agent-api",
       "name": "mlkit-agent-api",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -300,13 +300,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3253,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -316,10 +316,10 @@
       "path": "wear/wear-widgets",
       "name": "wear-widgets",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -342,13 +342,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2968,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -358,10 +358,10 @@
       "path": "security/android-permissions-security",
       "name": "android-permissions-security",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -384,13 +384,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 7105,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -400,10 +400,10 @@
       "path": "identity/restore-credentials",
       "name": "restore-credentials",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -426,13 +426,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 6158,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -442,10 +442,10 @@
       "path": "xr/projected-hardware",
       "name": "projected-hardware",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -468,13 +468,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 331,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -484,10 +484,10 @@
       "path": "device-ai/litert/litert-runtime",
       "name": "litert-runtime",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -510,13 +510,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 6676,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -526,10 +526,10 @@
       "path": "device-ai/litert/litert-lm",
       "name": "litert-lm",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -552,13 +552,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4326,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -568,10 +568,10 @@
       "path": "navigation/navigation-event",
       "name": "navigation-event",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -594,13 +594,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3117,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -610,10 +610,10 @@
       "path": "security/android-intent-security",
       "name": "android-intent-security",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -636,13 +636,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5944,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -652,10 +652,10 @@
       "path": "jetpack-compose/jetpack-compose-performance",
       "name": "jetpack-compose-performance",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -678,13 +678,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5058,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -694,10 +694,10 @@
       "path": "profilers/android-profiler",
       "name": "android-profiler",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -720,13 +720,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 303,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -736,10 +736,10 @@
       "path": "cars/android-for-cars-parked-apps",
       "name": "android-for-cars-parked-apps",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -762,13 +762,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4191,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -778,10 +778,10 @@
       "path": "performance/anr-audit-and-fix",
       "name": "anr-audit-and-fix",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -804,13 +804,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 304,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/android/skills",
@@ -820,10 +820,10 @@
       "path": "system/edge-to-edge",
       "name": "edge-to-edge",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -846,13 +846,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3471,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

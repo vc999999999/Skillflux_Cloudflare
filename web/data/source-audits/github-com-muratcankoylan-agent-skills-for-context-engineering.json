@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-muratcankoylan-agent-skills-for-context-engineering",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/context-fundamentals",
       "name": "context-fundamentals",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4059,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -66,10 +66,10 @@
       "path": "skills/context-degradation",
       "name": "context-degradation",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4707,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -110,10 +110,10 @@
       "path": "skills/multi-agent-patterns",
       "name": "multi-agent-patterns",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -138,13 +138,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4581,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -154,10 +154,10 @@
       "path": "skills/harness-engineering",
       "name": "harness-engineering",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -180,13 +180,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2783,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -196,10 +196,10 @@
       "path": "skills/filesystem-context",
       "name": "filesystem-context",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -224,13 +224,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 3961,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -240,10 +240,10 @@
       "path": "skills/latent-briefing",
       "name": "latent-briefing",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -266,13 +266,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3153,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -282,10 +282,10 @@
       "path": "skills/hosted-agents",
       "name": "hosted-agents",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -310,13 +310,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4359,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -326,10 +326,10 @@
       "path": "skills/memory-systems",
       "name": "memory-systems",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -354,13 +354,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4024,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -370,10 +370,10 @@
       "path": "",
       "name": "context-engineering-collection",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 3,
         "fail": 1,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -402,13 +402,13 @@
         "secrets.scan": "fail",
         "instructions.risk": "warn",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 109,
       "bodyTokensApprox": 2715,
       "licenseSpdx": null,
-      "detail": "11 pass, 3 warn, 1 fail"
+      "detail": "12 pass, 3 warn, 1 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -418,10 +418,10 @@
       "path": "skills/long-horizon-prompting",
       "name": "long-horizon-prompting",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -444,13 +444,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 8147,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -460,10 +460,10 @@
       "path": "skills/evaluation",
       "name": "evaluation",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -488,13 +488,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4138,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -504,10 +504,10 @@
       "path": "skills/self-managed-context",
       "name": "self-managed-context",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -530,13 +530,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5831,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -546,10 +546,10 @@
       "path": "skills/advanced-evaluation",
       "name": "advanced-evaluation",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -574,13 +574,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4179,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -590,10 +590,10 @@
       "path": "skills/context-optimization",
       "name": "context-optimization",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -618,13 +618,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 3925,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -634,10 +634,10 @@
       "path": "skills/bdi-mental-states",
       "name": "bdi-mental-states",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -660,13 +660,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4362,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -676,10 +676,10 @@
       "path": "skills/self-improvement-loops",
       "name": "self-improvement-loops",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -702,13 +702,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5426,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -718,10 +718,10 @@
       "path": "skills/context-compression",
       "name": "context-compression",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -746,13 +746,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 4550,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -762,10 +762,10 @@
       "path": "skills/tool-design",
       "name": "tool-design",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -790,13 +790,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4870,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -806,10 +806,10 @@
       "path": "skills/project-development",
       "name": "project-development",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -834,13 +834,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4583,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

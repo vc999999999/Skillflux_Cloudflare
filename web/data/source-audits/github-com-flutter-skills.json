@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-flutter-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/flutter-use-http-package",
       "name": "flutter-use-http-package",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1545,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -64,10 +64,10 @@
       "path": "skills/dart-fix-runtime-errors",
       "name": "dart-fix-runtime-errors",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,13 +90,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1493,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -106,10 +106,10 @@
       "path": "skills/dart-use-doc-examples",
       "name": "dart-use-doc-examples",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -132,13 +132,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1285,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -148,10 +148,10 @@
       "path": ".agents/agents/reidbaker-agent/skills/code-review",
       "name": "code-review",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -176,13 +176,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1297,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -192,10 +192,10 @@
       "path": "skills/dart-use-path-package",
       "name": "dart-use-path-package",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -218,13 +218,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2661,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -234,10 +234,10 @@
       "path": "skills/dart-collect-coverage",
       "name": "dart-collect-coverage",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -260,13 +260,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1170,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -276,10 +276,10 @@
       "path": ".agents/agents/reidbaker-agent/skills/grill-with-docs",
       "name": "grill-with-docs",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -302,13 +302,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 773,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -318,10 +318,10 @@
       "path": ".agents/agents/reidbaker-agent/skills/api-review",
       "name": "api-review",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -344,13 +344,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 454,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -360,10 +360,10 @@
       "path": "skills/flutter-setup-declarative-routing",
       "name": "flutter-setup-declarative-routing",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -386,13 +386,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1958,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -402,10 +402,10 @@
       "path": "skills/dart-migrate-to-checks-package",
       "name": "dart-migrate-to-checks-package",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -428,13 +428,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4764,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -444,10 +444,10 @@
       "path": "skills/dart-resolve-package-conflicts",
       "name": "dart-resolve-package-conflicts",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -470,13 +470,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1250,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -486,10 +486,10 @@
       "path": "skills/dart-setup-ffi-assets",
       "name": "dart-setup-ffi-assets",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -512,13 +512,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4526,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -528,10 +528,10 @@
       "path": "skills/dart-use-pattern-matching",
       "name": "dart-use-pattern-matching",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -554,13 +554,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3262,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -570,10 +570,10 @@
       "path": "skills/flutter-add-widget-preview",
       "name": "flutter-add-widget-preview",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -596,13 +596,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1910,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -612,10 +612,10 @@
       "path": "skills/flutter-implement-json-serialization",
       "name": "flutter-implement-json-serialization",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -638,13 +638,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1332,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -654,10 +654,10 @@
       "path": "skills/flutter-add-widget-test",
       "name": "flutter-add-widget-test",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -680,13 +680,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1500,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -696,10 +696,10 @@
       "path": "skills/dart-use-primary-constructors",
       "name": "dart-use-primary-constructors",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -722,13 +722,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2743,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -738,10 +738,10 @@
       "path": "skills/flutter-fix-layout-issues",
       "name": "flutter-fix-layout-issues",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -764,13 +764,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1241,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -780,10 +780,10 @@
       "path": "skills/dart-build-cli-app",
       "name": "dart-build-cli-app",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -806,13 +806,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3323,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/flutter/skills",
@@ -822,10 +822,10 @@
       "path": "skills/flutter-setup-localization",
       "name": "flutter-setup-localization",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -848,13 +848,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1390,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "BSD-3-Clause",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

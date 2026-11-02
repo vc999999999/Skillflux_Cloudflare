@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-nvidia-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/bionemo-diffdock-nim",
       "name": "diffdock-nim",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 960,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -64,10 +64,10 @@
       "path": "skills/bionemo-msa-structure-prediction-pipeline",
       "name": "msa-structure-prediction-pipeline",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,13 +90,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1353,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -106,10 +106,10 @@
       "path": "skills/deepstream-run-mv3dt",
       "name": "deepstream-run-mv3dt",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -132,13 +132,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2940,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -148,10 +148,10 @@
       "path": "skills/jetson-customize-usb",
       "name": "jetson-customize-usb",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -174,13 +174,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2000,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -190,10 +190,10 @@
       "path": "skills/tao-finetune-kumo-forecast",
       "name": "tao-finetune-kumo-forecast",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -216,13 +216,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3200,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -232,10 +232,10 @@
       "path": "skills/bionemo-nvmolkit-usage",
       "name": "nvmolkit-usage",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -258,13 +258,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4732,
       "licenseSpdx": "Apache-2.0",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -274,10 +274,10 @@
       "path": "skills/tao-mine-od-images",
       "name": "tao-mine-od-images",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -302,13 +302,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1979,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -318,10 +318,10 @@
       "path": "skills/tilegym-converting-cutile-to-julia",
       "name": "tilegym-converting-cutile-to-julia",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -346,13 +346,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 1826,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -362,10 +362,10 @@
       "path": "skills/bionemo-openfold2-nim",
       "name": "openfold2-nim",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -388,13 +388,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1685,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -404,10 +404,10 @@
       "path": "skills/deepstream-import-vision-model",
       "name": "deepstream-import-vision-model",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -433,13 +433,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 33,
       "bodyTokensApprox": 3414,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -449,10 +449,10 @@
       "path": "skills/jetson-customize-uphy",
       "name": "jetson-customize-uphy",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -475,13 +475,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2274,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -491,10 +491,10 @@
       "path": "skills/nemotron-voice-agent-builder",
       "name": "nemotron-voice-agent-builder",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -517,13 +517,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 684,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -533,10 +533,10 @@
       "path": "skills/bionemo-msa-search-nim",
       "name": "msa-search-nim",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -562,13 +562,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 4339,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -578,10 +578,10 @@
       "path": "skills/hsb-test",
       "name": "hsb-test",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -604,13 +604,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3964,
       "licenseSpdx": "Apache-2.0",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -620,10 +620,10 @@
       "path": "skills/cdf-orchestration-setup",
       "name": "cdf-orchestration-setup",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -646,13 +646,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4188,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -662,10 +662,10 @@
       "path": "skills/hsb-ip-def",
       "name": "hsb-ip-def",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -690,13 +690,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 8,
       "bodyTokensApprox": 2621,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -706,10 +706,10 @@
       "path": "skills/nemo-retriever-mcp",
       "name": "nemo-retriever-mcp",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -732,13 +732,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 346,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -748,10 +748,10 @@
       "path": "skills/mcore-run-on-slurm",
       "name": "mcore-run-on-slurm",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -774,13 +774,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1633,
       "licenseSpdx": "Apache-2.0",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -790,10 +790,10 @@
       "path": "skills/tao-run-deft-cr-its-mining",
       "name": "tao-run-deft-cr-its-mining",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -819,13 +819,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 28,
       "bodyTokensApprox": 4784,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NVIDIA/skills",
@@ -835,10 +835,10 @@
       "path": "skills/physical-ai-neural-reconstruction",
       "name": "physical-ai-neural-reconstruction",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -861,13 +861,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3964,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

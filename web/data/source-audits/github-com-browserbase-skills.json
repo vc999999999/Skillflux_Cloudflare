@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-browserbase-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/browser-to-api",
       "name": "browser-to-api",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 11,
       "bodyTokensApprox": 2237,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -66,10 +66,10 @@
       "path": "skills/competitor-analysis",
       "name": "competitor-analysis",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 7,
       "bodyTokensApprox": 7611,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -110,10 +110,10 @@
       "path": "skills/browser-trace",
       "name": "browser-trace",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -138,13 +138,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 8,
       "bodyTokensApprox": 3543,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -154,10 +154,10 @@
       "path": "skills/add-webmcp",
       "name": "add-webmcp",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -182,13 +182,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 6,
       "bodyTokensApprox": 2863,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -198,10 +198,10 @@
       "path": "skills/safe-browser",
       "name": "safe-browser",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -226,13 +226,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 824,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -242,10 +242,10 @@
       "path": "skills/cookie-sync",
       "name": "cookie-sync",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -270,13 +270,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1136,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -286,10 +286,10 @@
       "path": "skills/event-prospecting",
       "name": "event-prospecting",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -314,13 +314,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 5203,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -330,10 +330,10 @@
       "path": "skills/functions",
       "name": "functions",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -356,13 +356,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 602,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -372,10 +372,10 @@
       "path": "skills/browser",
       "name": "browser",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -398,13 +398,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2196,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -414,10 +414,10 @@
       "path": "skills/browser-use-to-stagehand",
       "name": "browser-use-to-stagehand",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -440,13 +440,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2605,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -456,10 +456,10 @@
       "path": "skills/webmcp-gen",
       "name": "webmcp-gen",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -484,13 +484,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 964,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -500,10 +500,10 @@
       "path": "skills/autobrowse",
       "name": "autobrowse",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -528,13 +528,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 6,
       "bodyTokensApprox": 4885,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -544,10 +544,10 @@
       "path": "skills/ui-test",
       "name": "ui-test",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -570,13 +570,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 7005,
       "licenseSpdx": "MIT",
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -586,10 +586,10 @@
       "path": "skills/optimize-agent-prompt",
       "name": "optimize-agent-prompt",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -614,13 +614,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1258,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -630,10 +630,10 @@
       "path": "skills/fetch",
       "name": "fetch",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -656,13 +656,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1105,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -672,10 +672,10 @@
       "path": "skills/company-research",
       "name": "company-research",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -700,13 +700,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 3,
       "bodyTokensApprox": 2758,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -716,10 +716,10 @@
       "path": "skills/agent-experience",
       "name": "agent-experience",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -742,13 +742,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 8664,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/browserbase/skills",
@@ -758,10 +758,10 @@
       "path": "skills/search",
       "name": "search",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -784,13 +784,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 840,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-wlzh-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "voice-changer",
       "name": "voice-changer",
       "counts": {
-        "pass": 12,
+        "pass": 13,
         "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -51,13 +51,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 9,
       "bodyTokensApprox": 1874,
-      "licenseSpdx": null,
-      "detail": "12 pass, 3 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -67,10 +67,10 @@
       "path": "video-downloader",
       "name": "youtube-downloader",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -95,13 +95,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 635,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -111,10 +111,10 @@
       "path": "image-generator",
       "name": "image-generator",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -140,13 +140,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 3,
       "bodyTokensApprox": 2328,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -156,10 +156,10 @@
       "path": "text-to-speech",
       "name": "text-to-speech",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -185,13 +185,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 2704,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -201,10 +201,10 @@
       "path": "x-fetcher-skill",
       "name": "x-fetcher",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -230,13 +230,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 1679,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -246,10 +246,10 @@
       "path": "audiocut-keyword",
       "name": "audiocut-keyword",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -274,13 +274,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 5,
       "bodyTokensApprox": 2150,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -290,10 +290,10 @@
       "path": "wlzh-invoice-scanner",
       "name": "wlzh-invoice-scanner",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -316,13 +316,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 7925,
-      "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -332,10 +332,10 @@
       "path": "youtube-publisher",
       "name": "youtube-publisher",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -360,13 +360,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 17,
       "bodyTokensApprox": 2624,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -376,10 +376,10 @@
       "path": "video-voice-changer",
       "name": "video-voice-changer",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -405,13 +405,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 472,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -421,10 +421,10 @@
       "path": "wlzh-youtube-tracker",
       "name": "wlzh-youtube-tracker",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -449,13 +449,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 1274,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -465,10 +465,10 @@
       "path": "youtube-to-blog-post",
       "name": "youtube-to-blog-post",
       "counts": {
-        "pass": 12,
+        "pass": 13,
         "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -493,13 +493,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 3,
       "bodyTokensApprox": 6902,
-      "licenseSpdx": null,
-      "detail": "12 pass, 3 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -509,10 +509,10 @@
       "path": "quark-mswnlz-publisher",
       "name": "quark-mswnlz-publisher",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -539,13 +539,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 17,
       "bodyTokensApprox": 8083,
-      "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -555,10 +555,10 @@
       "path": "wespy-fetcher",
       "name": "wespy-fetcher",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -583,13 +583,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 458,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -599,10 +599,10 @@
       "path": "code-roaster",
       "name": "code-roaster",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -625,13 +625,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3239,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/wlzh/skills",
@@ -641,10 +641,10 @@
       "path": "vps-security-hardening",
       "name": "vps-security-hardening",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -670,13 +670,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 2913,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     }
   ],
   "summary": {

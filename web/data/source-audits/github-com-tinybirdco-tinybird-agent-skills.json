@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-tinybirdco-tinybird-agent-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/tinybird-typescript-sdk-guidelines",
       "name": "tinybird-typescript-sdk-guidelines",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 319,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
@@ -66,10 +66,10 @@
       "path": "skills/tinybird-best-practices",
       "name": "tinybird",
       "counts": {
-        "pass": 12,
+        "pass": 13,
         "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 375,
       "licenseSpdx": null,
-      "detail": "12 pass, 3 warn, 0 fail"
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
@@ -110,10 +110,10 @@
       "path": "skills/tinybird-cli-guidelines",
       "name": "tinybird-cli-guidelines",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -138,13 +138,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 338,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/tinybirdco/tinybird-agent-skills",
@@ -154,10 +154,10 @@
       "path": "skills/tinybird-python-sdk-guidelines",
       "name": "tinybird-python-sdk-guidelines",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -182,13 +182,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 326,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     }
   ],
   "summary": {

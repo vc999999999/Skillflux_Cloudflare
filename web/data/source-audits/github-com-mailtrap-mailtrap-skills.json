@@ -1,31 +1,31 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-mailtrap-mailtrap-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
     "repo": "https://github.com/mailtrap/mailtrap-skills",
-    "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
+    "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
     "candidates": 7
   },
   "sample": {
-    "seed": "github-com-mailtrap-mailtrap-skills@4493c543c779",
+    "seed": "github-com-mailtrap-mailtrap-skills@ca365789c440",
     "requested": 20
   },
   "items": [
     {
       "repo": "https://github.com/mailtrap/mailtrap-skills",
-      "linkedPath": "skills/managing-contacts",
+      "linkedPath": "skills/testing-with-sandbox",
       "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
-      "path": "skills/managing-contacts",
-      "name": "managing-contacts",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
+      "path": "skills/testing-with-sandbox",
+      "name": "testing-with-sandbox",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,26 +48,110 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 1783,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 1885,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/mailtrap/mailtrap-skills",
+      "linkedPath": "skills/sending-emails",
+      "outcome": "checked",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
+      "path": "skills/sending-emails",
+      "name": "sending-emails",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 2695,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/mailtrap/mailtrap-skills",
+      "linkedPath": "skills/setting-up-sending-domain",
+      "outcome": "checked",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
+      "path": "skills/setting-up-sending-domain",
+      "name": "setting-up-sending-domain",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1176,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mailtrap/mailtrap-skills",
       "linkedPath": "skills/using-email-templates",
       "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
       "path": "skills/using-email-templates",
       "name": "using-email-templates",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,26 +174,68 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1311,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/mailtrap/mailtrap-skills",
+      "linkedPath": "skills/managing-contacts",
+      "outcome": "checked",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
+      "path": "skills/managing-contacts",
+      "name": "managing-contacts",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1783,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mailtrap/mailtrap-skills",
       "linkedPath": "skills/converting-email-templates",
       "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
       "path": "skills/converting-email-templates",
       "name": "converting-email-templates",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -134,152 +260,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1694,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/mailtrap/mailtrap-skills",
-      "linkedPath": "skills/setting-up-sending-domain",
-      "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
-      "path": "skills/setting-up-sending-domain",
-      "name": "setting-up-sending-domain",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1176,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/mailtrap/mailtrap-skills",
-      "linkedPath": "skills/testing-with-sandbox",
-      "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
-      "path": "skills/testing-with-sandbox",
-      "name": "testing-with-sandbox",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1885,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/mailtrap/mailtrap-skills",
-      "linkedPath": "skills/sending-emails",
-      "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
-      "path": "skills/sending-emails",
-      "name": "sending-emails",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 2695,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mailtrap/mailtrap-skills",
       "linkedPath": "skills/authorizing-api-requests",
       "outcome": "checked",
-      "commitSha": "4493c543c7798e1d65824d260d0bdc98daec2253",
+      "commitSha": "ca365789c44012e7ac36623e63d0d223f5bdd35d",
       "path": "skills/authorizing-api-requests",
       "name": "authorizing-api-requests",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -302,13 +302,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2050,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

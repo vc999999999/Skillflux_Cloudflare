@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-minimax-ai-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/react-native-dev",
       "name": "react-native-dev",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1584,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -64,10 +64,10 @@
       "path": "skills/minimax-music-gen",
       "name": "minimax-music-gen",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,13 +90,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3354,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -106,10 +106,10 @@
       "path": "skills/minimax-docx",
       "name": "minimax-docx",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -136,13 +136,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 5,
       "bodyTokensApprox": 3635,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -152,10 +152,10 @@
       "path": "skills/minimax-pdf",
       "name": "minimax-pdf",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -181,13 +181,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 9,
       "bodyTokensApprox": 1890,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -197,10 +197,10 @@
       "path": "skills/vision-analysis",
       "name": "vision-analysis",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -223,13 +223,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1065,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -239,10 +239,10 @@
       "path": "plugins/pptx-plugin/skills/ppt-editing-skill",
       "name": "ppt-editing-skill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -265,13 +265,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1620,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -281,10 +281,10 @@
       "path": "skills/shader-dev",
       "name": "shader-dev",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -307,13 +307,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4091,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -323,10 +323,10 @@
       "path": "plugins/pptx-plugin/skills/ppt-orchestra-skill",
       "name": "ppt-orchestra-skill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -349,13 +349,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1401,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -365,10 +365,10 @@
       "path": "skills/minimax-xlsx",
       "name": "minimax-xlsx",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -394,13 +394,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 10,
       "bodyTokensApprox": 1875,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -410,10 +410,10 @@
       "path": "skills/flutter-dev",
       "name": "flutter-dev",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -436,13 +436,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1104,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -452,10 +452,10 @@
       "path": "plugins/pptx-plugin/skills/design-style-skill",
       "name": "design-style-skill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -478,13 +478,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1613,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -494,10 +494,10 @@
       "path": ".claude/skills/pr-review",
       "name": "pr-review",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -522,13 +522,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 509,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -538,10 +538,10 @@
       "path": "plugins/pptx-plugin/skills/slide-making-skill",
       "name": "slide-making-skill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -564,13 +564,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1741,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -580,10 +580,10 @@
       "path": "plugins/pptx-plugin/skills/color-font-skill",
       "name": "color-font-skill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -606,13 +606,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2110,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -622,10 +622,10 @@
       "path": "skills/gif-sticker-maker",
       "name": "gif-sticker-maker",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -651,13 +651,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 3,
       "bodyTokensApprox": 1097,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -667,10 +667,10 @@
       "path": "skills/minimax-music-playlist",
       "name": "minimax-music-playlist",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -693,13 +693,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3074,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -709,10 +709,10 @@
       "path": "skills/frontend-dev",
       "name": "frontend-dev",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -738,13 +738,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 5,
       "bodyTokensApprox": 4791,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -754,10 +754,10 @@
       "path": "skills/minimax-multimodal-toolkit",
       "name": "mmx-cli",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -780,13 +780,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2669,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -796,10 +796,10 @@
       "path": "skills/buddy-sings",
       "name": "buddy-sings",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -822,13 +822,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3973,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/MiniMax-AI/skills",
@@ -838,10 +838,10 @@
       "path": "skills/android-native-dev",
       "name": "android-native-dev",
       "counts": {
-        "pass": 12,
+        "pass": 13,
         "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -864,13 +864,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 6957,
       "licenseSpdx": "MIT",
-      "detail": "12 pass, 3 warn, 0 fail"
+      "detail": "13 pass, 3 warn, 0 fail"
     }
   ],
   "summary": {

@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-eduardo-sl-go-agent-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/(safety)/go-concurrency-review",
       "name": "go-concurrency-review",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1990,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -64,10 +64,10 @@
       "path": "skills/(architecture)/go-cli",
       "name": "go-cli",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -90,13 +90,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1536,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -106,10 +106,10 @@
       "path": "skills/(workflow)/go-semantic-tools",
       "name": "go-semantic-tools",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -132,13 +132,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1462,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -148,10 +148,10 @@
       "path": "skills/(architecture)/go-design-patterns",
       "name": "go-design-patterns",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -174,13 +174,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1771,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -190,10 +190,10 @@
       "path": "skills/(workflow)/go-skills-router",
       "name": "go-skills-router",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -216,13 +216,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2376,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -232,10 +232,10 @@
       "path": "skills/(code-quality)/go-coding-standards",
       "name": "go-coding-standards",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -258,13 +258,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1572,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -274,10 +274,10 @@
       "path": "skills/(safety)/go-troubleshooting",
       "name": "go-troubleshooting",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -300,13 +300,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2250,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -316,10 +316,10 @@
       "path": "skills/(architecture)/go-interface-design",
       "name": "go-interface-design",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -342,13 +342,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1880,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -358,10 +358,10 @@
       "path": "skills/(code-quality)/go-code-review",
       "name": null,
       "counts": {
-        "pass": 9,
+        "pass": 10,
         "warn": 0,
         "fail": 3,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -381,13 +381,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1630,
-      "licenseSpdx": null,
-      "detail": "9 pass, 0 warn, 3 fail"
+      "licenseSpdx": "MIT",
+      "detail": "10 pass, 0 warn, 3 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -397,10 +397,10 @@
       "path": "skills/(workflow)/go-dependency-audit",
       "name": null,
       "counts": {
-        "pass": 9,
+        "pass": 10,
         "warn": 0,
         "fail": 3,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -420,13 +420,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1588,
-      "licenseSpdx": null,
-      "detail": "9 pass, 0 warn, 3 fail"
+      "licenseSpdx": "MIT",
+      "detail": "10 pass, 0 warn, 3 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -436,10 +436,10 @@
       "path": "skills/(code-quality)/go-naming",
       "name": "go-naming",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -462,13 +462,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1823,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -478,10 +478,10 @@
       "path": "skills/(workflow)/go-ci",
       "name": "go-ci",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -504,13 +504,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1727,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -520,10 +520,10 @@
       "path": "skills/(testing)/go-test-table-driven",
       "name": "go-test-table-driven",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -546,13 +546,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1393,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -562,10 +562,10 @@
       "path": "skills/(safety)/go-security-audit",
       "name": null,
       "counts": {
-        "pass": 9,
+        "pass": 10,
         "warn": 0,
         "fail": 3,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -585,13 +585,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2311,
-      "licenseSpdx": null,
-      "detail": "9 pass, 0 warn, 3 fail"
+      "licenseSpdx": "MIT",
+      "detail": "10 pass, 0 warn, 3 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -601,10 +601,10 @@
       "path": "skills/(architecture)/go-project-layout",
       "name": "go-project-layout",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -627,13 +627,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1619,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -643,10 +643,10 @@
       "path": "skills/(testing)/go-test-quality",
       "name": "go-test-quality",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -669,13 +669,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2353,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -685,10 +685,10 @@
       "path": "skills/(architecture)/go-api-design",
       "name": "go-api-design",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -711,13 +711,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1644,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -727,10 +727,10 @@
       "path": "skills/(code-quality)/go-data-structures",
       "name": "go-data-structures",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -753,13 +753,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1805,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -769,10 +769,10 @@
       "path": "skills/(safety)/go-defensive-coding",
       "name": "go-defensive-coding",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -795,13 +795,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2069,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/eduardo-sl/go-agent-skills",
@@ -811,10 +811,10 @@
       "path": "skills/(architecture)/go-openapi",
       "name": "go-openapi",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -837,13 +837,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1761,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {

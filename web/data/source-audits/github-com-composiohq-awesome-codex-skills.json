@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-composiohq-awesome-codex-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "composio-skills/nocrm-io-automation",
       "name": "nocrm-io-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 692,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -66,10 +66,10 @@
       "path": "composio-skills/better-proposals-automation",
       "name": "better-proposals-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 718,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -110,10 +110,10 @@
       "path": "composio-skills/deel-automation",
       "name": "deel-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -138,13 +138,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 679,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -154,10 +154,10 @@
       "path": "composio-skills/adyntel-automation",
       "name": "adyntel-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -182,13 +182,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 689,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -198,10 +198,10 @@
       "path": "composio-skills/signaturely-automation",
       "name": "signaturely-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -226,13 +226,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 702,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -242,10 +242,10 @@
       "path": "composio-skills/retailed-automation",
       "name": "retailed-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -270,13 +270,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 692,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -286,10 +286,10 @@
       "path": "composio-skills/googletasks-automation",
       "name": "googletasks-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -314,13 +314,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1478,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -330,10 +330,10 @@
       "path": "sentry-triage",
       "name": "sentry-triage",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -358,13 +358,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1022,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -374,10 +374,10 @@
       "path": "composio-skills/talenthr-automation",
       "name": "talenthr-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -402,13 +402,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 692,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -418,10 +418,10 @@
       "path": "composio-skills/adobe-automation",
       "name": "adobe-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -446,13 +446,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 682,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -462,10 +462,10 @@
       "path": "composio-skills/chatfai-automation",
       "name": "chatfai-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -490,13 +490,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 689,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -506,10 +506,10 @@
       "path": "deploy-pipeline",
       "name": "deploy-pipeline",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -534,13 +534,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1370,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -550,10 +550,10 @@
       "path": "composio-skills/googledrive-automation",
       "name": "googledrive-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -578,13 +578,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 703,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -594,10 +594,10 @@
       "path": "composio-skills/dadata-ru-automation",
       "name": "dadata-ru-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -622,13 +622,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 695,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -638,10 +638,10 @@
       "path": "composio-skills/api-labz-automation",
       "name": "api-labz-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -666,13 +666,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 692,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -682,10 +682,10 @@
       "path": "composio-skills/builtwith-automation",
       "name": "builtwith-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -710,13 +710,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 695,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -726,10 +726,10 @@
       "path": "composio-skills/heygen-automation",
       "name": "HeyGen Automation",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -754,13 +754,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1082,
       "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -770,10 +770,10 @@
       "path": "composio-skills/radar-automation",
       "name": "radar-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -798,13 +798,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 682,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -814,10 +814,10 @@
       "path": "composio-skills/webex-automation",
       "name": "Webex Automation",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -842,13 +842,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1674,
       "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ComposioHQ/awesome-codex-skills",
@@ -858,10 +858,10 @@
       "path": "composio-skills/anchor-browser-automation",
       "name": "anchor-browser-automation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -886,13 +886,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 711,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     }
   ],
   "summary": {

@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-noizai-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/sound-fx",
       "name": "sound-fx",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -52,13 +52,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1175,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -68,10 +68,10 @@
       "path": "skills/chat-with-anyone",
       "name": "chat-with-anyone",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -98,13 +98,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 2095,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -114,10 +114,10 @@
       "path": "skills/template-skill",
       "name": "template-skill",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -142,13 +142,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 195,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -158,10 +158,10 @@
       "path": "skills/speech-to-text",
       "name": "speech-to-text",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -188,13 +188,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 767,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -204,10 +204,10 @@
       "path": "skills/text-to-music",
       "name": "text-to-music",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -234,13 +234,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1965,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -250,10 +250,10 @@
       "path": "skills/video-translation",
       "name": "video-translation",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -279,13 +279,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 1223,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -295,10 +295,10 @@
       "path": "skills/daily-news-caster",
       "name": "daily-news-caster",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -323,13 +323,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1536,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -339,10 +339,10 @@
       "path": "skills/music-video",
       "name": "music-video",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -368,13 +368,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1444,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -384,10 +384,10 @@
       "path": "skills/tts",
       "name": "tts",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -414,13 +414,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 5,
       "bodyTokensApprox": 1766,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/NoizAI/skills",
@@ -430,10 +430,10 @@
       "path": "skills/characteristic-voice",
       "name": "characteristic-voice",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -459,13 +459,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1554,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     }
   ],
   "summary": {

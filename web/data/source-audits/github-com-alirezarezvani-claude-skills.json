@@ -1,31 +1,73 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-alirezarezvani-claude-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
     "repo": "https://github.com/alirezarezvani/claude-skills",
-    "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-    "candidates": 470
+    "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+    "candidates": 476
   },
   "sample": {
-    "seed": "github-com-alirezarezvani-claude-skills@82d55e14b561",
+    "seed": "github-com-alirezarezvani-claude-skills@9ef0c3c21393",
     "requested": 20
   },
   "items": [
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "productivity/fable-goal/skills/fable-goal",
+      "linkedPath": "c-level-agents/skills/cfo-review",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "productivity/fable-goal/skills/fable-goal",
-      "name": "fable-goal",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "c-level-agents/skills/cfo-review",
+      "name": "cfo-review",
       "counts": {
         "pass": 15,
+        "warn": 1,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "warn",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 775,
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "ra-qm-team/skills/capa-officer",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "ra-qm-team/skills/capa-officer",
+      "name": "capa-officer",
+      "counts": {
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -50,26 +92,244 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 2,
+      "bodyTokensApprox": 3826,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "c-level-advisor/executive-mentor/skills/stress-test",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "c-level-advisor/executive-mentor/skills/stress-test",
+      "name": "stress-test",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1898,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "engineering/skills/agent-workflow-designer",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/skills/agent-workflow-designer",
+      "name": "agent-workflow-designer",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
-      "bodyTokensApprox": 2228,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 575,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "marketing-skill/skills/marketing-strategy-pmm",
+      "linkedPath": "marketing-skill/skills/campaign-analytics",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "marketing-skill/skills/marketing-strategy-pmm",
-      "name": "marketing-strategy-pmm",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "marketing-skill/skills/campaign-analytics",
+      "name": "campaign-analytics",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 3,
+      "bodyTokensApprox": 1939,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "engineering/skills/mcp-server-builder",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/skills/mcp-server-builder",
+      "name": "mcp-server-builder",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 2,
+      "bodyTokensApprox": 885,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "research-ops/skills/clinical-research",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "research-ops/skills/clinical-research",
+      "name": "clinical-research",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 6,
+      "bodyTokensApprox": 2490,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "engineering/agenthub/skills/hub-status",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/agenthub/skills/hub-status",
+      "name": "hub-status",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -92,28 +352,30 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 2888,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 567,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering-team/playwright-pro/skills/testrail",
+      "linkedPath": "engineering/autoresearch-agent/skills/autoresearch-agent",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering-team/playwright-pro/skills/testrail",
-      "name": "testrail",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/autoresearch-agent/skills/autoresearch-agent",
+      "name": "autoresearch-agent",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
-      "flags": [],
+      "flags": [
+        "executes-code"
+      ],
       "statuses": {
         "skillmd.present": "pass",
         "frontmatter.parse": "pass",
@@ -134,26 +396,70 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 0,
-      "bodyTokensApprox": 909,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "scriptCount": 3,
+      "bodyTokensApprox": 2937,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "markdown-html/skills/design-system",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "markdown-html/skills/design-system",
+      "name": "design-system",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 3,
+      "bodyTokensApprox": 2590,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
       "linkedPath": "engineering/skills/api-test-suite-builder",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
       "path": "engineering/skills/api-test-suite-builder",
       "name": "api-test-suite-builder",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -176,70 +482,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1521,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "c-level-advisor/chief-customer-officer-advisor/skills/chief-customer-officer-advisor",
-      "name": "chief-customer-officer-advisor",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 3,
-      "bodyTokensApprox": 2734,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering/skills/chaos-engineering",
+      "linkedPath": "engineering/agenthub/skills/agenthub",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering/skills/chaos-engineering",
-      "name": "chaos-engineering",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/agenthub/skills/agenthub",
+      "name": "agenthub",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -264,68 +526,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 3,
-      "bodyTokensApprox": 2409,
+      "scriptCount": 6,
+      "bodyTokensApprox": 1922,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering/agenthub/skills/hub-run",
+      "linkedPath": "marketing-skill/skills/copywriting",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering/agenthub/skills/hub-run",
-      "name": "hub-run",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "marketing-skill/skills/copywriting",
+      "name": "copywriting",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 887,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering/claude-coach/skills/claude-coach",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering/claude-coach/skills/claude-coach",
-      "name": "claude-coach",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -350,114 +570,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 3,
-      "bodyTokensApprox": 1924,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering-team/skills/red-team",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering-team/skills/red-team",
-      "name": "red-team",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
-      "bodyTokensApprox": 3868,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 2427,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering/skills/skill-tester/assets/sample-skill",
+      "linkedPath": "engineering/karpathy-coder/skills/karpathy-coder",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering/skills/skill-tester/assets/sample-skill",
-      "name": "sample-text-processor",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/karpathy-coder/skills/karpathy-coder",
+      "name": "karpathy-coder",
       "counts": {
-        "pass": 14,
-        "warn": 1,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "warn",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 1,
-      "bodyTokensApprox": 1381,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "productivity/weekly-review/skills/weekly-review",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "productivity/weekly-review/skills/weekly-review",
-      "name": "weekly-review",
-      "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -482,242 +614,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 3,
-      "bodyTokensApprox": 1212,
+      "scriptCount": 4,
+      "bodyTokensApprox": 1261,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "agent-launcher/skills/stage-launch",
+      "linkedPath": ".gemini/skills/cs-growth-strategist",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "agent-launcher/skills/stage-launch",
-      "name": "stage-launch",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 3,
-      "bodyTokensApprox": 709,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "marketing-skill/skills/youtube-full",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "marketing-skill/skills/youtube-full",
-      "name": "youtube-full",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1633,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "c-level-advisor/skills/culture-architect",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "c-level-advisor/skills/culture-architect",
-      "name": "culture-architect",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1962,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "agent-launcher/skills/interview",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "agent-launcher/skills/interview",
-      "name": "interview",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 3,
-      "bodyTokensApprox": 837,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "ra-qm-team/skills/gdpr-dsgvo-expert",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "ra-qm-team/skills/gdpr-dsgvo-expert",
-      "name": "gdpr-dsgvo-expert",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 3,
-      "bodyTokensApprox": 1978,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": ".gemini/skills/devops-engineer",
-      "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": ".gemini/skills/devops-engineer",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": ".gemini/skills/cs-growth-strategist",
       "name": null,
       "counts": {
-        "pass": 8,
+        "pass": 9,
         "warn": 0,
         "fail": 4,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -737,26 +653,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 0,
-      "licenseSpdx": null,
-      "detail": "8 pass, 0 warn, 4 fail"
+      "licenseSpdx": "MIT",
+      "detail": "9 pass, 0 warn, 4 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "ra-qm-team/skills/qms-audit-expert",
+      "linkedPath": "engineering/skills/full-page-screenshot",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "ra-qm-team/skills/qms-audit-expert",
-      "name": "qms-audit-expert",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "engineering/skills/full-page-screenshot",
+      "name": "full-page-screenshot",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -781,28 +697,72 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
-      "bodyTokensApprox": 2269,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 1297,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering/security-guidance/skills/security-guidance",
+      "linkedPath": "c-level-agents/skills/cro-review",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering/security-guidance/skills/security-guidance",
-      "name": "security-guidance",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "c-level-agents/skills/cro-review",
+      "name": "cro-review",
       "counts": {
         "pass": 15,
-        "warn": 0,
+        "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "warn",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 740,
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "marketing-skill/skills/marketing-demand-acquisition",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "marketing-skill/skills/marketing-demand-acquisition",
+      "name": "marketing-demand-acquisition",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
       "statuses": {
         "skillmd.present": "pass",
         "frontmatter.parse": "pass",
@@ -823,28 +783,30 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1734,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "scriptCount": 1,
+      "bodyTokensApprox": 2192,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alirezarezvani/claude-skills",
-      "linkedPath": "engineering-team/playwright-pro/skills/generate",
+      "linkedPath": "markdown-html/skills/markdown-html-orchestrator",
       "outcome": "checked",
-      "commitSha": "82d55e14b561b846abc22dc84bc532d2a2877daa",
-      "path": "engineering-team/playwright-pro/skills/generate",
-      "name": "generate",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "markdown-html/skills/markdown-html-orchestrator",
+      "name": "markdown-html-orchestrator",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
-      "flags": [],
+      "flags": [
+        "executes-code"
+      ],
       "statuses": {
         "skillmd.present": "pass",
         "frontmatter.parse": "pass",
@@ -865,13 +827,57 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1071,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "scriptCount": 3,
+      "bodyTokensApprox": 2529,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/alirezarezvani/claude-skills",
+      "linkedPath": "marketing-skill/skills/social-media-analyzer",
+      "outcome": "checked",
+      "commitSha": "9ef0c3c213932e645cc5cbeeb3c35c3a762a2437",
+      "path": "marketing-skill/skills/social-media-analyzer",
+      "name": "social-media-analyzer",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 2,
+      "bodyTokensApprox": 1969,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {
@@ -879,7 +885,7 @@
     "checked": 20,
     "noSkill": 0,
     "unreachable": 0,
-    "withScripts": 11,
+    "withScripts": 14,
     "networkCalls": 0,
     "destructiveCommands": 0,
     "noLicense": 0,

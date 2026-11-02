@@ -1,16 +1,16 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-dmgrok-agent-skills-directory",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "list",
   "listing": {
     "repo": "https://github.com/dmgrok/agent_skills_directory",
-    "commitSha": "8c73593700ef43d4d77ee69b4145cffdf7d356d0",
+    "commitSha": "eb10036a1333792af23478e4b090c642d455655d",
     "candidates": 18
   },
   "sample": {
-    "seed": "github-com-dmgrok-agent-skills-directory@8c73593700ef",
+    "seed": "github-com-dmgrok-agent-skills-directory@eb10036a1333",
     "requested": 20
   },
   "items": [
@@ -23,11 +23,12 @@
       "name": "notebooklm",
       "counts": {
         "pass": 14,
-        "warn": 1,
+        "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
+        "archived-repo",
         "executes-code"
       ],
       "statuses": {
@@ -50,26 +51,211 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 10,
       "bodyTokensApprox": 2276,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
-      "repo": "https://github.com/sanjay3290/ai-skills",
+      "repo": "https://github.com/skillcreatorai/Ai-Agent-Skills",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "281d88df199357e3091a3be5c743a0fca9a9ae1b",
-      "path": "skills/whatsapp",
-      "name": "whatsapp",
+      "commitSha": "6d95c788aa22ce39a4807b9a4c31c758a2036dc6",
+      "path": "skills/update-installed-skills",
+      "name": "update-installed-skills",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 333,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+      "linkedPath": null,
+      "outcome": "checked",
+      "commitSha": "b5b34bcf4c920bb72cee1c391b54a33cb5353c12",
+      "path": "engineering-workflow-plugin/skills/review-implementing",
+      "name": "review-implementing",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 855,
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/obra/superpowers",
+      "linkedPath": null,
+      "outcome": "checked",
+      "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "path": "skills/using-git-worktrees",
+      "name": "using-git-worktrees",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1640,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/dmgrok/LGTM_agent_skills",
+      "linkedPath": null,
+      "outcome": "no-skill",
+      "commitSha": "558df134fcb62e7b58597e65aa875596cc61c722",
+      "path": null,
+      "name": null,
+      "counts": null,
+      "flags": [],
+      "statuses": {},
+      "scriptCount": null,
+      "bodyTokensApprox": null,
+      "licenseSpdx": null,
+      "detail": "no SKILL.md in the repository"
+    },
+    {
+      "repo": "https://github.com/openai/skills",
+      "linkedPath": null,
+      "outcome": "checked",
+      "commitSha": "49f948faa9258a0c61caceaf225e179651397431",
+      "path": "skills/.curated/figma-create-design-system-rules",
+      "name": "figma-create-design-system-rules",
+      "counts": {
+        "pass": 15,
+        "warn": 1,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [
+        "executes-code"
+      ],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "warn",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 1,
+      "bodyTokensApprox": 4460,
+      "licenseSpdx": null,
+      "detail": "15 pass, 1 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/lackeyjb/playwright-skill",
+      "linkedPath": null,
+      "outcome": "checked",
+      "commitSha": "dd47a6a023e249eb1b36e9e943eab89d0900865d",
+      "path": "skills/playwright-skill",
+      "name": "playwright-skill",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -94,13 +280,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
-      "bodyTokensApprox": 914,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 1779,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/owner/skill-repo",
@@ -118,59 +304,32 @@
       "detail": "Command failed: git ls-remote https://github.com/owner/skill-repo.git HEAD"
     },
     {
-      "repo": "https://github.com/obra/superpowers",
+      "repo": "https://github.com/VoltAgent/awesome-agent-skills",
       "linkedPath": null,
-      "outcome": "checked",
-      "commitSha": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-      "path": "skills/finishing-a-development-branch",
-      "name": "finishing-a-development-branch",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
+      "outcome": "no-skill",
+      "commitSha": "459d2421bdfe2f8111d291fff161926815939288",
+      "path": null,
+      "name": null,
+      "counts": null,
       "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1893,
+      "statuses": {},
+      "scriptCount": null,
+      "bodyTokensApprox": null,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "no SKILL.md in the repository"
     },
     {
-      "repo": "https://github.com/mhattingpete/claude-skills-marketplace",
+      "repo": "https://github.com/anthropics/skills",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "b5b34bcf4c920bb72cee1c391b54a33cb5353c12",
-      "path": "code-operations-plugin/skills/code-execution",
-      "name": "code-execution",
+      "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
+      "path": "skills/slack-gif-creator",
+      "name": "slack-gif-creator",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -195,85 +354,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 3,
-      "bodyTokensApprox": 724,
+      "scriptCount": 4,
+      "bodyTokensApprox": 1883,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/VoltAgent/awesome-agent-skills",
-      "linkedPath": null,
-      "outcome": "no-skill",
-      "commitSha": "464dd87e30278a6f4ad0da21f0bd2ee1c2122f5d",
-      "path": null,
-      "name": null,
-      "counts": null,
-      "flags": [],
-      "statuses": {},
-      "scriptCount": null,
-      "bodyTokensApprox": null,
-      "licenseSpdx": null,
-      "detail": "no SKILL.md in the repository"
-    },
-    {
-      "repo": "https://github.com/anthropics/skills",
-      "linkedPath": null,
-      "outcome": "checked",
-      "commitSha": "ca45fc496a3436251f191354091d557da31c15b5",
-      "path": "skills/frontend-design",
-      "name": "frontend-design",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 2269,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/dmgrok/mcp_mother_skills",
-      "linkedPath": null,
-      "outcome": "no-skill",
-      "commitSha": "affe52328ca6e8a111de9c9c40618d865fb83994",
-      "path": null,
-      "name": null,
-      "counts": null,
-      "flags": [],
-      "statuses": {},
-      "scriptCount": null,
-      "bodyTokensApprox": null,
-      "licenseSpdx": null,
-      "detail": "no SKILL.md in the repository"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/org/repo",
@@ -291,34 +378,21 @@
       "detail": "Command failed: git ls-remote https://github.com/org/repo.git HEAD"
     },
     {
-      "repo": "https://github.com/heilcheng/awesome-agent-skills",
-      "linkedPath": null,
-      "outcome": "no-skill",
-      "commitSha": "d6660b8e0f9d83885a77469fd8f9968d8461cba6",
-      "path": null,
-      "name": null,
-      "counts": null,
-      "flags": [],
-      "statuses": {},
-      "scriptCount": null,
-      "bodyTokensApprox": null,
-      "licenseSpdx": null,
-      "detail": "no SKILL.md in the repository"
-    },
-    {
       "repo": "https://github.com/huggingface/skills",
       "linkedPath": null,
       "outcome": "checked",
       "commitSha": "25910b3d0ba31a2ba102f901cdc9e008c278a69c",
-      "path": "skills/trl-training",
-      "name": "trl-training",
+      "path": "skills/huggingface-community-evals",
+      "name": "huggingface-community-evals",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
-      "flags": [],
+      "flags": [
+        "executes-code"
+      ],
       "statuses": {
         "skillmd.present": "pass",
         "frontmatter.parse": "pass",
@@ -339,29 +413,28 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 0,
-      "bodyTokensApprox": 994,
+      "scriptCount": 3,
+      "bodyTokensApprox": 1550,
       "licenseSpdx": "Apache-2.0",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/vercel-labs/agent-skills",
       "linkedPath": null,
       "outcome": "checked",
       "commitSha": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
-      "path": "skills/vercel-optimize",
-      "name": "vercel-optimize",
+      "path": "skills/deploy-to-vercel",
+      "name": "deploy-to-vercel",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
-        "executes-code",
         "no-license"
       ],
       "statuses": {
@@ -384,103 +457,19 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 90,
-      "bodyTokensApprox": 4168,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/skillcreatorai/Ai-Agent-Skills",
-      "linkedPath": null,
-      "outcome": "checked",
-      "commitSha": "6d95c788aa22ce39a4807b9a4c31c758a2036dc6",
-      "path": "skills/install-from-remote-library",
-      "name": "install-from-remote-library",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 466,
+      "bodyTokensApprox": 2351,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/github/awesome-copilot",
-      "linkedPath": null,
-      "outcome": "checked",
-      "commitSha": "5269f7ea2d6c3a9bfda5ed878b6726cf509121fd",
-      "path": "skills/power-bi-dax-optimization",
-      "name": "power-bi-dax-optimization",
-      "counts": {
-        "pass": 14,
-        "warn": 1,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "warn",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 1342,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/dmgrok/agent-plugins",
       "linkedPath": null,
       "outcome": "no-skill",
-      "commitSha": "8c73593700ef43d4d77ee69b4145cffdf7d356d0",
+      "commitSha": "eb10036a1333792af23478e4b090c642d455655d",
       "path": null,
       "name": null,
       "counts": null,
@@ -492,54 +481,10 @@
       "detail": "no SKILL.md in the repository"
     },
     {
-      "repo": "https://github.com/lackeyjb/playwright-skill",
-      "linkedPath": null,
-      "outcome": "checked",
-      "commitSha": "dd47a6a023e249eb1b36e9e943eab89d0900865d",
-      "path": "skills/playwright-skill",
-      "name": "playwright-skill",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [
-        "executes-code"
-      ],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 2,
-      "bodyTokensApprox": 1779,
-      "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/dmgrok/LGTM_agent_skills",
+      "repo": "https://github.com/dmgrok/mcp_mother_skills",
       "linkedPath": null,
       "outcome": "no-skill",
-      "commitSha": "558df134fcb62e7b58597e65aa875596cc61c722",
+      "commitSha": "affe52328ca6e8a111de9c9c40618d865fb83994",
       "path": null,
       "name": null,
       "counts": null,
@@ -551,17 +496,17 @@
       "detail": "no SKILL.md in the repository"
     },
     {
-      "repo": "https://github.com/openai/skills",
+      "repo": "https://github.com/github/awesome-copilot",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "49f948faa9258a0c61caceaf225e179651397431",
-      "path": "skills/.curated/cli-creator",
-      "name": "cli-creator",
+      "commitSha": "61fa1fa8fcc63d6dbd2f07a75aeb8e214df5acfb",
+      "path": "skills/dotnet-upgrade",
+      "name": "dotnet-upgrade",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -584,13 +529,70 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 2532,
+      "bodyTokensApprox": 1736,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/heilcheng/awesome-agent-skills",
+      "linkedPath": null,
+      "outcome": "no-skill",
+      "commitSha": "a92b1f3a9cdf00b056a8cc3247f214a139a95ae3",
+      "path": null,
+      "name": null,
+      "counts": null,
+      "flags": [],
+      "statuses": {},
+      "scriptCount": null,
+      "bodyTokensApprox": null,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "no SKILL.md in the repository"
+    },
+    {
+      "repo": "https://github.com/sanjay3290/ai-skills",
+      "linkedPath": null,
+      "outcome": "checked",
+      "commitSha": "10cba52d57682430fe8430d70c86448270155b9a",
+      "path": "skills/jules",
+      "name": "jules",
+      "counts": {
+        "pass": 15,
+        "warn": 1,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "warn",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 1995,
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     }
   ],
   "summary": {
@@ -602,9 +604,9 @@
     "networkCalls": 0,
     "destructiveCommands": 0,
     "noLicense": 1,
-    "missingTrigger": 1,
+    "missingTrigger": 0,
     "overTokenBudget": 0,
     "failingAnyCheck": 0,
-    "stale": 0
+    "stale": 1
   }
 }

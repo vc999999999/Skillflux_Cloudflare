@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-transloadit-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "skills/docs-transloadit-robots",
       "name": "docs-transloadit-robots",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -50,13 +50,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 182,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -66,10 +66,10 @@
       "path": "skills/transform-build-mosaic-collage-with-transloadit",
       "name": "transform-build-mosaic-collage-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -94,13 +94,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 571,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -110,10 +110,10 @@
       "path": "skills/integrate-asset-delivery-with-transloadit-smartcdn-in-nextjs",
       "name": "integrate-asset-delivery-with-transloadit-smartcdn-in-nextjs",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -138,13 +138,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 939,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -154,10 +154,10 @@
       "path": "skills/transform-capture-webpage-with-transloadit",
       "name": "transform-capture-webpage-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -182,13 +182,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 445,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -198,10 +198,10 @@
       "path": "skills/transform-caption-video-with-transloadit",
       "name": "transform-caption-video-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -226,13 +226,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 444,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -242,10 +242,10 @@
       "path": "skills/transform-convert-markdown-to-pdf-with-transloadit",
       "name": "transform-convert-markdown-to-pdf-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -270,13 +270,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 431,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -286,10 +286,10 @@
       "path": "skills/integrate-uppy-transloadit-s3-uploading-to-nextjs",
       "name": "integrate-uppy-transloadit-s3-uploading-to-nextjs",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -314,13 +314,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1596,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -330,10 +330,10 @@
       "path": "skills/transform-encode-video-with-transloadit",
       "name": "transform-encode-video-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -358,13 +358,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 436,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -374,10 +374,10 @@
       "path": "skills/transform-extract-text-with-transloadit",
       "name": "transform-extract-text-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -402,13 +402,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 473,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -418,10 +418,10 @@
       "path": "skills/transform-prepare-image-with-transloadit",
       "name": "transform-prepare-image-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -446,13 +446,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 404,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -462,10 +462,10 @@
       "path": "skills/transform-remove-background-with-transloadit",
       "name": "transform-remove-background-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -490,13 +490,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 351,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -506,10 +506,10 @@
       "path": "skills/admin-merge",
       "name": "admin-merge",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -534,13 +534,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1354,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -550,10 +550,10 @@
       "path": "skills/transloadit",
       "name": "transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -578,13 +578,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1465,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -594,10 +594,10 @@
       "path": "skills/transform-encode-hls-video-with-transloadit",
       "name": "transform-encode-hls-video-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -622,13 +622,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 106,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -638,10 +638,10 @@
       "path": "skills/transform-upscale-image-with-transloadit",
       "name": "transform-upscale-image-with-transloadit",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -666,13 +666,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 490,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -682,10 +682,10 @@
       "path": "skills/transform-generate-image-with-transloadit",
       "name": "transform-generate-image-with-transloadit",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -710,13 +710,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 545,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -726,10 +726,10 @@
       "path": "skills/transform-make-video-covers-with-transloadit",
       "name": "transform-make-video-covers-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -754,13 +754,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 456,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -770,10 +770,10 @@
       "path": "skills/transform-transcribe-audio-with-transloadit",
       "name": "transform-transcribe-audio-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -798,13 +798,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 487,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -814,10 +814,10 @@
       "path": "skills/transform-build-polaroid-collage-with-transloadit",
       "name": "transform-build-polaroid-collage-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -842,13 +842,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 504,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/transloadit/skills",
@@ -858,10 +858,10 @@
       "path": "skills/transform-describe-image-with-transloadit",
       "name": "transform-describe-image-with-transloadit",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "no-license"
@@ -886,13 +886,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 507,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     }
   ],
   "summary": {

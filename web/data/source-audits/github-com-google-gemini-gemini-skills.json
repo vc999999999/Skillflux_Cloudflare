@@ -1,73 +1,31 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-google-gemini-gemini-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "repo",
   "listing": {
     "repo": "https://github.com/google-gemini/gemini-skills",
-    "commitSha": "39d81f4c7de5e56631d07e4ea766d3fe9752ce5d",
-    "candidates": 3
+    "commitSha": "a7210496c32d8b8afd67c2220819f9301e96d1e3",
+    "candidates": 4
   },
   "sample": {
-    "seed": "github-com-google-gemini-gemini-skills@39d81f4c7de5",
+    "seed": "github-com-google-gemini-gemini-skills@a7210496c32d",
     "requested": 20
   },
   "items": [
     {
       "repo": "https://github.com/google-gemini/gemini-skills",
-      "linkedPath": "skills/gemini-live-api-dev",
-      "outcome": "checked",
-      "commitSha": "39d81f4c7de5e56631d07e4ea766d3fe9752ce5d",
-      "path": "skills/gemini-live-api-dev",
-      "name": "gemini-live-api-dev",
-      "counts": {
-        "pass": 15,
-        "warn": 0,
-        "fail": 0,
-        "info": 6
-      },
-      "flags": [],
-      "statuses": {
-        "skillmd.present": "pass",
-        "frontmatter.parse": "pass",
-        "frontmatter.name": "pass",
-        "frontmatter.nameMatchesDir": "pass",
-        "frontmatter.description": "pass",
-        "frontmatter.descriptionTrigger": "pass",
-        "frontmatter.descriptionVoice": "pass",
-        "frontmatter.unknownKeys": "info",
-        "body.tokensApprox": "pass",
-        "body.lines": "pass",
-        "refs.brokenLinks": "pass",
-        "files.inventory": "info",
-        "files.binary": "pass",
-        "scripts.present": "info",
-        "scripts.network": "info",
-        "scripts.destructive": "pass",
-        "secrets.scan": "pass",
-        "instructions.risk": "pass",
-        "license.detected": "pass",
-        "repo.activity": "info",
-        "pinned.drift": "info"
-      },
-      "scriptCount": 0,
-      "bodyTokensApprox": 4499,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
-    },
-    {
-      "repo": "https://github.com/google-gemini/gemini-skills",
       "linkedPath": "skills/gemini-omni-flash-api",
       "outcome": "checked",
-      "commitSha": "39d81f4c7de5e56631d07e4ea766d3fe9752ce5d",
+      "commitSha": "a7210496c32d8b8afd67c2220819f9301e96d1e3",
       "path": "skills/gemini-omni-flash-api",
       "name": "gemini-omni-flash-api",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -92,26 +50,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 6315,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/google-gemini/gemini-skills",
-      "linkedPath": "skills/gemini-api-dev",
+      "linkedPath": "skills/gemini-live-api-dev",
       "outcome": "checked",
-      "commitSha": "39d81f4c7de5e56631d07e4ea766d3fe9752ce5d",
-      "path": "skills/gemini-api-dev",
-      "name": "gemini-api-dev",
+      "commitSha": "a7210496c32d8b8afd67c2220819f9301e96d1e3",
+      "path": "skills/gemini-live-api-dev",
+      "name": "gemini-live-api-dev",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -134,18 +92,102 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 4499,
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/google-gemini/gemini-skills",
+      "linkedPath": "skills/gemini-api-dev",
+      "outcome": "checked",
+      "commitSha": "a7210496c32d8b8afd67c2220819f9301e96d1e3",
+      "path": "skills/gemini-api-dev",
+      "name": "gemini-api-dev",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4954,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
+    },
+    {
+      "repo": "https://github.com/google-gemini/gemini-skills",
+      "linkedPath": "skills/gemini-api-cli",
+      "outcome": "checked",
+      "commitSha": "a7210496c32d8b8afd67c2220819f9301e96d1e3",
+      "path": "skills/gemini-api-cli",
+      "name": "gemini-api-cli",
+      "counts": {
+        "pass": 16,
+        "warn": 0,
+        "fail": 0,
+        "info": 5
+      },
+      "flags": [],
+      "statuses": {
+        "skillmd.present": "pass",
+        "frontmatter.parse": "pass",
+        "frontmatter.name": "pass",
+        "frontmatter.nameMatchesDir": "pass",
+        "frontmatter.description": "pass",
+        "frontmatter.descriptionTrigger": "pass",
+        "frontmatter.descriptionVoice": "pass",
+        "frontmatter.unknownKeys": "info",
+        "body.tokensApprox": "pass",
+        "body.lines": "pass",
+        "refs.brokenLinks": "pass",
+        "files.inventory": "info",
+        "files.binary": "pass",
+        "scripts.present": "info",
+        "scripts.network": "info",
+        "scripts.destructive": "pass",
+        "secrets.scan": "pass",
+        "instructions.risk": "pass",
+        "license.detected": "pass",
+        "repo.activity": "pass",
+        "pinned.drift": "info"
+      },
+      "scriptCount": 0,
+      "bodyTokensApprox": 2641,
+      "licenseSpdx": "Apache-2.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {
-    "sampled": 3,
-    "checked": 3,
+    "sampled": 4,
+    "checked": 4,
     "noSkill": 0,
     "unreachable": 0,
     "withScripts": 1,

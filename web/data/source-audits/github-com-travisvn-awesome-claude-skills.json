@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-travisvn-awesome-claude-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "list",
   "listing": {
@@ -22,10 +22,10 @@
       "path": "plugins/frontend-slides/skills/frontend-slides",
       "name": "frontend-slides",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -51,13 +51,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 6926,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/chrisvoncsefalvay/claude-d3js-skill",
@@ -68,12 +68,13 @@
       "name": "d3-viz",
       "counts": {
         "pass": 11,
-        "warn": 4,
+        "warn": 5,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
-        "no-license"
+        "no-license",
+        "stale"
       ],
       "statuses": {
         "skillmd.present": "pass",
@@ -95,13 +96,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "warn",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5322,
       "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "detail": "11 pass, 5 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -111,10 +112,10 @@
       "path": "skills/mcp-builder",
       "name": "mcp-builder",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -139,26 +140,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 2684,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/asklokesh/claudeskill-loki-mode",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "55c51e7c6a7854dc9b8d8bc3fb88d1f12aea6960",
+      "commitSha": "8cb62e8f358e33f1a6cf66fb68f2b2564e9e1d56",
       "path": "packages/loki-seal/skills/loki-seal",
       "name": "loki-seal",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -181,13 +182,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 541,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/yusufkaraaslan/Skill_Seekers",
@@ -197,10 +198,10 @@
       "path": "skills/skill-seekers",
       "name": "skill-builder",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -223,13 +224,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 703,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -239,10 +240,10 @@
       "path": "skills/skill-creator",
       "name": "skill-creator",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -267,13 +268,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 10,
       "bodyTokensApprox": 8157,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/obra/superpowers-skills",
@@ -284,12 +285,14 @@
       "name": "Root Cause Tracing",
       "counts": {
         "pass": 13,
-        "warn": 2,
+        "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
-        "executes-code"
+        "archived-repo",
+        "executes-code",
+        "stale"
       ],
       "statuses": {
         "skillmd.present": "pass",
@@ -311,26 +314,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 1326,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/expo/skills",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+      "commitSha": "a9e5bd3fa00b4e61f632e43f85da73aee1942582",
       "path": "plugins/expo/skills/eas-hosting",
       "name": "eas-hosting",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -353,13 +356,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 2723,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -369,10 +372,10 @@
       "path": "skills/brand-guidelines",
       "name": "brand-guidelines",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -395,13 +398,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 479,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/alonw0/web-asset-generator",
@@ -412,12 +415,13 @@
       "name": "web-asset-generator",
       "counts": {
         "pass": 13,
-        "warn": 2,
+        "warn": 3,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
-        "executes-code"
+        "executes-code",
+        "stale"
       ],
       "statuses": {
         "skillmd.present": "pass",
@@ -439,13 +443,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "warn",
         "pinned.drift": "info"
       },
       "scriptCount": 6,
       "bodyTokensApprox": 6500,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "13 pass, 3 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -455,10 +459,10 @@
       "path": "skills/skill-creator",
       "name": "skill-creator",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -483,13 +487,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 10,
       "bodyTokensApprox": 8157,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -499,10 +503,10 @@
       "path": "skills/xlsx",
       "name": "xlsx",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -527,13 +531,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 12,
       "bodyTokensApprox": 1876,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -543,10 +547,10 @@
       "path": "skills/web-artifacts-builder",
       "name": "web-artifacts-builder",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -572,13 +576,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 674,
       "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -588,10 +592,10 @@
       "path": "skills/internal-comms",
       "name": "internal-comms",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -614,26 +618,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 275,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/trailofbits/skills",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "2be6433b39e009cd2b6fd3be1895f6b1faa5af9a",
+      "commitSha": "d016e08cc7408ecb1853a299d06d4a56e363ad5e",
       "path": "plugins/trailmark/skills/trailmark-finding-triage",
       "name": "trailmark-finding-triage",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -658,13 +662,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 2,
       "bodyTokensApprox": 1805,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "CC-BY-SA-4.0",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -674,10 +678,10 @@
       "path": "skills/algorithmic-art",
       "name": "algorithmic-art",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -702,13 +706,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 4832,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/conorluddy/ios-simulator-skill",
@@ -718,10 +722,10 @@
       "path": "ios-simulator-skill/skills/ios-simulator-skill",
       "name": "ios-simulator-skill",
       "counts": {
-        "pass": 13,
+        "pass": 14,
         "warn": 2,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "destructive-commands",
@@ -747,13 +751,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 44,
       "bodyTokensApprox": 7061,
-      "licenseSpdx": null,
-      "detail": "13 pass, 2 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "14 pass, 2 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -763,10 +767,10 @@
       "path": "skills/pdf",
       "name": "pdf",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -791,13 +795,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 8,
       "bodyTokensApprox": 1879,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -807,10 +811,10 @@
       "path": "skills/slack-gif-creator",
       "name": "slack-gif-creator",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -835,13 +839,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 4,
       "bodyTokensApprox": 1883,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/anthropics/skills",
@@ -851,10 +855,10 @@
       "path": "skills/docx",
       "name": "docx",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -879,13 +883,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 15,
       "bodyTokensApprox": 1487,
       "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     }
   ],
   "summary": {
@@ -900,6 +904,6 @@
     "missingTrigger": 0,
     "overTokenBudget": 6,
     "failingAnyCheck": 0,
-    "stale": 0
+    "stale": 3
   }
 }

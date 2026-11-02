@@ -1,7 +1,7 @@
 {
   "schema": "skillflux-source-audit/v1",
   "siteSlug": "github-com-karanb192-awesome-claude-skills",
-  "auditedAt": "2026-10-31",
+  "auditedAt": "2026-11-02",
   "checkerVersion": "1.0.0",
   "method": "list",
   "listing": {
@@ -18,14 +18,14 @@
       "repo": "https://github.com/agentkitco/agentkit-dev-skills",
       "linkedPath": "skills/prove-it-ran",
       "outcome": "checked",
-      "commitSha": "a870f95e101ccbae024139ca298e6709ee290863",
+      "commitSha": "9e4308213f21a915755fb380d6396fcea1062070",
       "path": "skills/prove-it-ran",
       "name": "prove-it-ran",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -48,13 +48,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 596,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/karanb192/itr-wala",
@@ -64,10 +64,10 @@
       "path": "skills/itr-wala",
       "name": "itr-wala",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -92,13 +92,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 18,
       "bodyTokensApprox": 4822,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/edtrackai/ship-ready-skills",
@@ -108,10 +108,10 @@
       "path": "skills/unthrottled-route-check",
       "name": "unthrottled-route-check",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code",
@@ -137,13 +137,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 29,
       "bodyTokensApprox": 964,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/swarmclawai/andrej-karpathy-skills",
@@ -153,10 +153,10 @@
       "path": "skills/karpathy-guidelines",
       "name": "karpathy-guidelines",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -179,13 +179,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 557,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/darajoukar/reveal-rtl",
@@ -195,10 +195,10 @@
       "path": "plugins/reveal-rtl/skills/rtl-slides",
       "name": "rtl-slides",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -221,13 +221,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 947,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/smorky850612/Aurakit",
@@ -237,10 +237,10 @@
       "path": "skills/aura",
       "name": "aura",
       "counts": {
-        "pass": 11,
+        "pass": 12,
         "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -263,13 +263,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 8055,
-      "licenseSpdx": null,
-      "detail": "11 pass, 4 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/airdropfi/autoshort-skills",
@@ -279,10 +279,10 @@
       "path": "skills/make-faceless-video",
       "name": "make-faceless-video",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -305,13 +305,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 3039,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/roman-s8o/workflow-pack-free",
@@ -321,10 +321,10 @@
       "path": ".claude/skills/fresh-review",
       "name": "fresh-review",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -347,26 +347,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 582,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/karuha-m/publishport-skill",
       "linkedPath": "skills/publishport",
       "outcome": "checked",
-      "commitSha": "e3281dcce0dd046690ab7cc76d8c8a43f3dfdb97",
+      "commitSha": "5ac09112b05e38f2751bc90c02803ea3a594ced3",
       "path": "skills/publishport",
       "name": "publishport",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -389,13 +389,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 2233,
+      "bodyTokensApprox": 2260,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/DurdeuVlad/persona-write",
@@ -405,10 +405,10 @@
       "path": ".claude/skills/persona-review",
       "name": "persona-review",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -431,13 +431,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1320,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/TadTheFisherman/feynman-it",
@@ -447,10 +447,10 @@
       "path": "",
       "name": "feynman-pdf",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
         "executes-code"
@@ -475,13 +475,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 1,
       "bodyTokensApprox": 3752,
       "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/ggrigo/align",
@@ -491,10 +491,10 @@
       "path": "skills/align",
       "name": "align",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -517,13 +517,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 4423,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/tahodev/baodao-skill",
@@ -533,10 +533,10 @@
       "path": "taiwan-produce",
       "name": "taiwan-produce",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -559,13 +559,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 959,
       "licenseSpdx": "MIT",
-      "detail": "14 pass, 1 warn, 0 fail"
+      "detail": "15 pass, 1 warn, 0 fail"
     },
     {
       "repo": "https://github.com/luchasarie/feedback-loop",
@@ -575,10 +575,10 @@
       "path": "skills/feedback",
       "name": "feedback",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -601,26 +601,26 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1949,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mtangoz/grill",
       "linkedPath": "skills/grill",
       "outcome": "checked",
-      "commitSha": "be382d1ee3a773fa3cb1390f7beb0196a23879dc",
+      "commitSha": "3ded107a2e9e6465288ed49526c6f6497731e2ea",
       "path": "skills/grill",
       "name": "grill",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -643,13 +643,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
-      "bodyTokensApprox": 4668,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "bodyTokensApprox": 4756,
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/obra/superpowers",
@@ -659,10 +659,10 @@
       "path": "skills/using-git-worktrees",
       "name": "using-git-worktrees",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -685,13 +685,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1640,
-      "licenseSpdx": null,
-      "detail": "15 pass, 0 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/johnisanerd/claude-skill-linkedin-posts-scraper",
@@ -701,10 +701,10 @@
       "path": "apify-linkedin-posts-scraper",
       "name": "apify-linkedin-posts-scraper",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -727,28 +727,29 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1158,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/rebelytics/one-skill-to-rule-them-all",
       "linkedPath": null,
       "outcome": "checked",
-      "commitSha": "ba696b2c2673be959dcd4a1dbdbc92085df8b41a",
+      "commitSha": "f86755764373f96a50401762f31f22077127b999",
       "path": "",
       "name": "task-observer",
       "counts": {
         "pass": 12,
-        "warn": 3,
+        "warn": 4,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [
+        "destructive-commands",
         "executes-code"
       ],
       "statuses": {
@@ -767,17 +768,17 @@
         "files.binary": "pass",
         "scripts.present": "info",
         "scripts.network": "info",
-        "scripts.destructive": "pass",
+        "scripts.destructive": "warn",
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
-      "scriptCount": 5,
-      "bodyTokensApprox": 10890,
+      "scriptCount": 10,
+      "bodyTokensApprox": 12153,
       "licenseSpdx": "CC-BY-4.0",
-      "detail": "12 pass, 3 warn, 0 fail"
+      "detail": "12 pass, 4 warn, 0 fail"
     },
     {
       "repo": "https://github.com/jeffallan/claude-skills",
@@ -787,10 +788,10 @@
       "path": "skills/playwright-expert",
       "name": "playwright-expert",
       "counts": {
-        "pass": 15,
+        "pass": 16,
         "warn": 0,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -813,13 +814,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 1225,
       "licenseSpdx": "MIT",
-      "detail": "15 pass, 0 warn, 0 fail"
+      "detail": "16 pass, 0 warn, 0 fail"
     },
     {
       "repo": "https://github.com/mwstech/wp-security-audit-skill",
@@ -829,10 +830,10 @@
       "path": "skills/wp-security-audit",
       "name": "wp-security-audit",
       "counts": {
-        "pass": 14,
+        "pass": 15,
         "warn": 1,
         "fail": 0,
-        "info": 6
+        "info": 5
       },
       "flags": [],
       "statuses": {
@@ -855,13 +856,13 @@
         "secrets.scan": "pass",
         "instructions.risk": "pass",
         "license.detected": "pass",
-        "repo.activity": "info",
+        "repo.activity": "pass",
         "pinned.drift": "info"
       },
       "scriptCount": 0,
       "bodyTokensApprox": 5213,
-      "licenseSpdx": null,
-      "detail": "14 pass, 1 warn, 0 fail"
+      "licenseSpdx": "MIT",
+      "detail": "15 pass, 1 warn, 0 fail"
     }
   ],
   "summary": {
@@ -871,7 +872,7 @@
     "unreachable": 0,
     "withScripts": 4,
     "networkCalls": 1,
-    "destructiveCommands": 0,
+    "destructiveCommands": 1,
     "noLicense": 0,
     "missingTrigger": 4,
     "overTokenBudget": 3,
